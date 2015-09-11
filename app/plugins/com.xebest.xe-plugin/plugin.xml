@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.xebest.xe-plugin" version="0.2.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>xebest</name>
+    <js-module name="xebest" src="www/xe-plugin.js">
+        <clobbers target="xe"/>
+    </js-module>
+    <platform name="ios">
+        <header-file src="src/ios/XEPlugin.h"/>
+        <source-file src="src/ios/XEPlugin.m"/>
+        <header-file src="src/ios/XEViewController.h"/>
+        <source-file src="src/ios/XEViewController.m"/>
+        <config-file parent="/*" target="config.xml">
+            <feature name="XEPlugin">
+                <param name="ios-package" value="XEPlugin"/>
+            </feature>
+        </config-file>
+    </platform>
+    <platform name="android">
+        <config-file parent="/*" target="config.xml">
+            <feature name="XEPlugin">
+                <param name="android-package" value="com.xebest.plugin.Xebest" />
+            </feature>
+        </config-file>
+        <source-file src="src/android/Xebest.java"
+                target-dir="src/com/xebest/plugin" />
+        <source-file src="src/android/XECommand.java"
+                target-dir="src/com/xebest/plugin" />
+        <source-file src="src/android/XELoading.java"
+                target-dir="src/com/xebest/plugin" />
+        <source-file src="src/android/XEToast.java"
+                target-dir="src/com/xebest/plugin" />
+        <source-file src="src/android/XEWebView.java"
+                target-dir="src/com/xebest/plugin" />
+        <source-file src="src/android/XEFragment.java"
+                target-dir="src/com/xebest/plugin" />
+        <source-file src="src/android/DummyActivity.java"
+                target-dir="src/com/xebest/app" />
+    </platform>
+    
+</plugin>

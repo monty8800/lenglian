@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "name": "com.xebest.xe-plugin",
+  "cordova_name": "xebest",
+  "platforms": [
+    "ios",
+    "android"
+  ],
+  "engines": [],
+  "cordova": {
+    "id": "com.xebest.xe-plugin",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaliyingwy/xe-plugin.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "author": "ywen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yaliyingwy/xe-plugin/issues"
+  },
+  "homepage": "https://github.com/yaliyingwy/xe-plugin#readme",
+  "description": ""
+}

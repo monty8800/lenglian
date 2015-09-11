@@ -1,0 +1,9 @@
+{
+  "name": "app",
+  "version": "1.0",
+  "dependencies": {
+    "zepto": "latest",
+    "swiper": "latest",
+    "xe-common": "latest"
+  }
+}

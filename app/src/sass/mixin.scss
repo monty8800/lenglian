@@ -1,0 +1,83 @@
+// mixin
+$ppr : 640 / 16 / 1 rem;
+$main-color: #00a2f2;
+$text-orange : #ff8500;
+$text-gray : #999;
+$text-green:#1db000;
+
+//glob color------
+$main-color : #28b3ec;//main-color
+$com-color : #fe8c2b; //second-color
+$bg-color : #f2f5f5; // background-color
+$link-color : #5d7aae; //link-color
+$bg-disabled-color : #dfe0db; //btn invalid color
+
+//------
+$table-border-color : #f2f5f5; 
+$bot-border-color : #ccc; 
+
+//
+$text-color-333 : #333; 
+$text-color-666 : #666; 
+$text-color-aca : #acabab; 
+$text-color-fd8 : #fd8c2a; 
+
+
+@mixin box-sizing ($sizing) {
+    -webkit-box-sizing:$sizing;     
+       -moz-box-sizing:$sizing;
+            box-sizing:$sizing;
+}
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;  
+  -moz-box-ordinal-group: $val;     
+  -ms-flex-order: $val;     
+  -webkit-order: $val;  
+  order: $val;
+}
+
+@mixin blur($size){
+	-webkit-filter: blur($size); /* Chrome, Opera */
+	-moz-filter: blur($size);
+	-ms-filter: blur($size);   
+	filter: blur($size); 
+}
+
+@mixin transition($target,$time,$style){
+  -webkit-transition: $target $time $style;
+  -moz-transition: $target $time $style;
+  transition: $target $time $style;
+}
+
+@mixin animation{
+	  -webkit-animation-duration: 1s;
+	  animation-duration: 1s;
+	  -webkit-animation-fill-mode: both;
+	  animation-fill-mode: both;
+}
+
+@mixin preserve3d {
+	-webkit-transform-origin: 50% 50%;
+	-moz-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}

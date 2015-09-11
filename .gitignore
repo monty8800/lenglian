@@ -1,0 +1,82 @@
+#tmp files
+*.swp
+.tmp
+.sass-cache
+*.swo
+*.log
+build
+
+app/www/js
+app/www/css
+TODO.md
+app/www/css
+app/www
+app/coverage
+
+xe_tmp_*
+Pods
+
+#npm  bower
+node_modules
+bower_components
+
+# ANDROID / ECLIPSE
+app/platforms/android/CordovaLib/build/
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files - android project subfolder
+app/platforms/android/assets/www
+app/platforms/android/bin/
+app/platforms/android/gen/
+app/platforms/android/res/xml/config.xml
+app/platforms/android/CordovaLib/build/
+.idea/
+.gradle/
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# IOS / Xcode
+app/platforms/ios/build/
+app/platforms/ios/CordovaLib/build/
+app/platforms/ios/www
+app/platforms/ios/MyPace/config.xml
+app/platforms/ios/.staging
+
+build/*
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+*.xcworkspace
+!default.xcworkspace
+xcuserdata
+profile
+*.moved-aside
+
+# OSX
+.DS_Store
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes

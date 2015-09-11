@@ -1,0 +1,52 @@
+PODS:
+  - CocoaLumberjack (2.0.0):
+    - CocoaLumberjack/Default (= 2.0.0)
+    - CocoaLumberjack/Extensions (= 2.0.0)
+  - CocoaLumberjack/Core (2.0.0)
+  - CocoaLumberjack/Default (2.0.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.0.0):
+    - CocoaLumberjack/Default
+  - MKNetworkKit (HEAD based on 0.87):
+    - Reachability (~> 3.1.0)
+  - NSData+Base64 (1.0.0)
+  - Reachability (3.1.1)
+  - TAKUUID (1.0.2)
+  - UMengAnalytics-NO-IDFA (3.5.9)
+  - YwenCrypto (0.0.4):
+    - NSData+Base64
+  - YwenKit (0.3.3)
+
+DEPENDENCIES:
+  - CocoaLumberjack (= 2.0.0)
+  - MKNetworkKit (HEAD)
+  - TAKUUID
+  - UMengAnalytics-NO-IDFA
+  - YwenCrypto (from `https://github.com/yaliyingwy/YwenCrypto.git`)
+  - YwenKit (from `https://github.com/yaliyingwy/YwenKit.git`)
+
+EXTERNAL SOURCES:
+  YwenCrypto:
+    :git: https://github.com/yaliyingwy/YwenCrypto.git
+  YwenKit:
+    :git: https://github.com/yaliyingwy/YwenKit.git
+
+CHECKOUT OPTIONS:
+  YwenCrypto:
+    :commit: 00ee423f817b0e05b83942daa99618e22171705c
+    :git: https://github.com/yaliyingwy/YwenCrypto.git
+  YwenKit:
+    :commit: 2afc61abbbab5e0593b63511120751cb9b4a1cfc
+    :git: https://github.com/yaliyingwy/YwenKit.git
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
+  MKNetworkKit: 60ad3c83b62183e40ba75ce772c9427c25b520de
+  NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
+  Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
+  TAKUUID: f852c1386a2b6bca0b678b69f9d0860f2c8ac4b0
+  UMengAnalytics-NO-IDFA: c5302a2246061c356641bb3056e89dfbdeb37424
+  YwenCrypto: badefa9ee0175af857752fa13b44b415837b96e7
+  YwenKit: 1e2943f69b3a301185218132bfd99c50b8b61deb
+
+COCOAPODS: 0.37.2
