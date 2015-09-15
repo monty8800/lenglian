@@ -3,9 +3,9 @@
 
   request = require('superagent');
 
-  config = requre('./config.js');
+  config = require('./config.js');
 
-  should = requre('should');
+  should = require('should');
 
   post = function(api, params, cb) {
     var plainText;
@@ -23,7 +23,7 @@
     if (config.use_crypto === true) {
       console.log('加密前的参数：', params);
     }
-    return request.post(url).type('form').send(config.paylod).end(function(err, res) {
+    return request.post(api).type('form').send(config.paylod).end(function(err, res) {
       var e, j, result;
       should.ifError(err);
       result = null;
@@ -41,7 +41,7 @@
       console.log('返回值：', JSON.stringify(result));
       result.should.not.empty('返回值不能为空');
       result.code.should.equal('0000', '错误码:', result.code, ',错误信息:', result.msg);
-      return cb(err, res);
+      return cb(result);
     });
   };
 

@@ -1,0 +1,19 @@
+xePlugin = null
+if xe
+	xePlugin = xe
+else
+	push = (args)->
+		window.location.href = "/webpack-dev-server/#{args[0]}.html"
+	pop = ->
+		window.history.back()
+	popTo = (index)->
+		window.history.go(-index-1)
+	xePlugin = {
+		nav: {
+			push: push
+			pop: pop
+			popTo: popTo
+		}
+	}
+
+module.exports = xePlugin

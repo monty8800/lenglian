@@ -6,8 +6,6 @@ var webpack = require('webpack'),
     srcPath = path.join(__dirname, 'src'),
     coffeePath = path.join(srcPath, 'coffee');
 
-var WebpackOnBuildPlugin = require('on-build-webpack');
-var process = require('child_process');
 var fs = require('fs');
 
 var busy = false;
@@ -33,28 +31,16 @@ for (var i = 0; i < folders.length; i++) {
 
 console.log('out pages', pages);
 
-//TODO
-process.exec('grep -r "TODO" src -n > TODO.md');
-
-function prepare() {
-    if (busy === true) {
-        return;
-    }
-    busy = true;
-    console.log('cordova prepare!');
-    process.exec('cordova prepare');
-}
 
 var config = {
     target: 'web',
     cache: true,
     entry: {
-        util: ['mobile-util']
     },
     resolve: {
         root: __dirname,
-        extensions: ['', '.coffee', '.js', '.cjsx', '.css', 'woff', '.json', '.png'],
-        modulesDirectories: ['src/coffee', 'build/css', 'node_modules'],
+        extensions: ['', '.coffee', '.js', '.cjsx', '.css', '.woff', '.svg', '.ttf', '.eot', '.json', '.png', '.jpg'],
+        modulesDirectories: ['src/coffee', 'build/css', 'build/images', 'node_modules'],
         alias: {
             "zepto": "bower_components/zepto/zepto.min", // var $ = require('zepto')
             "swiper": "bower_components/swiper/dist/js/swiper.min",
@@ -64,12 +50,13 @@ var config = {
             "xe": "bower_components/xe-common/js/xe",
             "majia-style": "build/css/majia.css",
             "index-style": "build/css/index.css",
+            "user-center-style": "build/css/userCenter.css",
             "crypto": "node_modules/crypto-browserify"
         }
     },
     output: {
         path: path.join(__dirname, 'www'),
-        publicPath: '',
+        publicPath: '/',
         filename: '[name].js',
         library: ['Example', '[name]'],
         pathInfo: true
@@ -105,9 +92,9 @@ var config = {
         },{
             test: /\.json$/,
             loader: 'json'
-        },{
-            test: /\.png$/,
-            loader: 'url-loader?mimetype=image/png'
+        },{ 
+            test: /\.(jpe?g|png|gif|svg)$/i,
+            loader: 'url?limit=10000!img?progressive=true'
         }]
     },
     plugins: [
@@ -132,8 +119,9 @@ var config = {
     devServer: {
         contentBase: './www',
         historyApiFallback: true,
+        hot: true,
         proxy: {
-            "!(http)*!(html|js)": "http://localhost:3000" //把请求通过app.js代理一下，解决跨域
+            "*shml": "http://localhost:3000" //把请求通过app.js代理一下，解决跨域
         }
     }
 };

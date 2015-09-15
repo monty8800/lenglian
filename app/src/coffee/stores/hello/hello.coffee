@@ -5,10 +5,9 @@ Http = require 'util/http'
 assign = require 'object-assign'
 Dispatcher = require 'dispatcher/dispatcher'
 Constants = require 'constants/constants'
-Hello = require 'model/hello'
 
 _helloText = 'hello，点击我请求百度'
-_hello = new Hello()
+_hello = {}
 
 requestBaidu = ()->
 	Http.get Constants.api.hello,  (data)->

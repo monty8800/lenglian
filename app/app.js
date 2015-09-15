@@ -4,7 +4,6 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var request = require('superagent');
-var process = require('child_process');
 var bodyParser = require('body-parser');
 
 
@@ -43,14 +42,4 @@ app.all('/*shtml', function(req, res) {
 
 var server = app.listen(3000, function() {
   console.log('Listening on  port %d', server.address().port);
-});
-
-//启动webpack server
-process.spawn('webpack-dev-server', ['--content-base', './www'], {
-  stdio: 'inherit'
-});
-
-//启动gulp
-process.spawn('gulp', [], {
-  stdio: 'inherit'
 });

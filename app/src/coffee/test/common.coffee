@@ -1,6 +1,6 @@
 request = require 'superagent'
-config = requre './config.js'
-should = requre 'should'
+config = require './config.js'
+should = require 'should'
 
 post = (api, params, cb)->
 	if config.use_crypto is true
@@ -18,7 +18,7 @@ post = (api, params, cb)->
 	if config.use_crypto is true
 		console.log '加密前的参数：', params
 
-	request.post(url)
+	request.post(api)
 	       .type('form')
 	       .send(config.paylod)
 	       .end (err, res)->
@@ -37,7 +37,7 @@ post = (api, params, cb)->
 	       	console.log '返回值：', JSON.stringify(result)
 	       	result.should.not.empty '返回值不能为空'
 	       	result.code.should.equal '0000', '错误码:', result.code, ',错误信息:', result.msg
-	       	cb err, res
+	       	cb result
 
 module.exports = {
 	    post: post

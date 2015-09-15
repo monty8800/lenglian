@@ -36,6 +36,7 @@ post = (api, params, cb, key, iv)->
 	
 	console.log '请求接口:', api
 	console.log '发送参数:', JSON.stringify(paramDic)
+	api = Constants.api.server + api if api.indexOf('http') is 0
 
 	$.post api, paramDic, (data, status, xhr)->
 		console.log '返回数据：', data

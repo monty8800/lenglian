@@ -10,6 +10,12 @@ module.exports = {
 	}
 	#TODO 接口地址
 	api: {
-		server: 'http'
+		server: 'http://192.168.26.177:7080/llmj-app/'
+		#登录
+		LOGIN: '/loginCtl/userLogin.shtml'
+		#注册
+		REGISTER: '/register/registerUser.shtml'
+		#短信验证码
+		SMS_CODE: '/register/sendMobileMsg.shtml'
 	}
 }

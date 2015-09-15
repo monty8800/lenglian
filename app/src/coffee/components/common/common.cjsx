@@ -1,6 +1,5 @@
 require 'majia-style'
-require 'index-style'
-$ = require 'zepto'
+
 fastClick = require 'fastclick'
 
 Constants = require 'constants/constants'
@@ -11,6 +10,4 @@ if Constants.debug
 	DB.clear()
 
 document.addEventListener 'deviceready', ->
-	$ ->
-		fastClick.attach document.body
-	, false
+	fastClick.attach document.body

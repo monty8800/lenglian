@@ -1,8 +1,17 @@
 put = (key, value)->
-	localStorage.setItem key, JSON.stringify(value)
+	if typeof(value) is 'string' and value.constructor is String
+		localStorage.setItem key, value
+	else
+		localStorage.setItem key, JSON.stringify(value)
 
 get = (key)->
-	localStorage.getItem key
+	result = localStorage.getItem key
+	try
+		result = JSON.parse result
+	catch e
+		console.log 'not json, return string'
+	finally
+		return result
 
 remove = (key)->
 	localStorage.removeItem key
