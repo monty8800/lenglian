@@ -8,7 +8,7 @@ post = (api, params, cb)->
 		plainText = JSON.stringify params
 		config.paylod.data = plainText
 	else
-		config.paylod.data = params
+		config.paylod.data = JSON.stringify params
 
 	if api.indexOf 'http' isnt 0
 		api = config.api.server + api
@@ -37,7 +37,7 @@ post = (api, params, cb)->
 	       	console.log '返回值：', JSON.stringify(result)
 	       	result.should.not.empty '返回值不能为空'
 	       	result.code.should.equal '0000', '错误码:', result.code, ',错误信息:', result.msg
-	       	cb result
+	       	cb result.data
 
 module.exports = {
 	    post: post

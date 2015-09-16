@@ -13,7 +13,7 @@
       plainText = JSON.stringify(params);
       config.paylod.data = plainText;
     } else {
-      config.paylod.data = params;
+      config.paylod.data = JSON.stringify(params);
     }
     if (api.indexOf('http' !== 0)) {
       api = config.api.server + api;
@@ -41,7 +41,7 @@
       console.log('返回值：', JSON.stringify(result));
       result.should.not.empty('返回值不能为空');
       result.code.should.equal('0000', '错误码:', result.code, ',错误信息:', result.msg);
-      return cb(result);
+      return cb(result.data);
     });
   };
 

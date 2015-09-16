@@ -138,6 +138,9 @@ for (var i = 0; i < pages.length; i++) {
     //自动生成html
     config.plugins.push(new HtmlWebpackPlugin({
         inject: true,
+        minify: true,
+        title: page.file,
+        hash: true,
         filename: page.file + '.html',
         chunks: ['common', page.file],
         template: 'src/template/index.html'

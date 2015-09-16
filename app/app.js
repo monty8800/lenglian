@@ -17,6 +17,7 @@ app.use(function(req, res, next) {
 });
 app.use(bodyParser());
 
+app.use('/', express.static(__dirname + '/www'));
 
 //反向代理，解决跨域问题
 app.all('/*shtml', function(req, res) {
@@ -32,13 +33,15 @@ app.all('/*shtml', function(req, res) {
             if (err) {
                 res.status(500).send(err);
             } else {
-               // console.log(resp.text);
+               console.log(resp.text);
                 res.send(resp.text);
             }
         });
 });
 
-
+app.get('/', function(req, res) {
+    res.redirect('/home.html');
+});
 
 var server = app.listen(3000, function() {
   console.log('Listening on  port %d', server.address().port);

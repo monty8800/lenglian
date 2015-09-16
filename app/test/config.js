@@ -13,7 +13,8 @@
       server: 'http://192.168.26.177:7080/llmj-app/',
       LOGIN: '/loginCtl/userLogin.shtml',
       REGISTER: '/register/registerUser.shtml',
-      SMS_CODE: '/register/sendMobileMsg.shtml'
+      SMS_CODE: '/register/sendMobileMsg.shtml',
+      USER_CENTER: '/userInfo/userCenter.shtml'
     }
   };
 
