@@ -7,7 +7,7 @@ var request = require('superagent');
 var bodyParser = require('body-parser');
 
 
-var apiServer = 'http://192.168.31.215:8080';
+var apiServer = 'http://192.168.26.177:7080/llmj-app/';
 
 
 // 一个简单的 logger
@@ -21,7 +21,15 @@ app.use('/', express.static(__dirname + '/www'));
 
 //反向代理，解决跨域问题
 app.all('/*shtml', function(req, res) {
-    var url = apiServer + req.url;
+    var url = '';
+    if(req.url.indexOf('http') !== 0) {
+       url = apiServer + req.url;
+    }
+    else
+    {
+      url = req.url;
+    }
+    
     console.log('代理', url);
     console.log(req.body);
 
@@ -31,6 +39,7 @@ app.all('/*shtml', function(req, res) {
         .send(req.body)
         .end(function(err, resp) {
             if (err) {
+              console.log(err);
                 res.status(500).send(err);
             } else {
                console.log(resp.text);

@@ -1,6 +1,8 @@
 $ = require 'zepto'
 Constants = require 'constants/constants'
 DB = require 'util/storage'
+UUID = require 'util/uuid'
+Plugin = require 'util/plugin'
 
 post = (api, params, cb, key, iv)->
 	data = null
@@ -9,7 +11,13 @@ post = (api, params, cb, key, iv)->
 		#TODO: 加密
 		data = plainText
 	else
-		data = params
+		data = JSON.stringify params
+
+	#浏览器中调试，生成假的数据
+	if Constants.inBrowser
+		uuid = UUID.v4()
+		version = '1.0'
+		client_type = '1'
 
 	#没有就从本地取
 	uuid = uuid or DB.get 'uuid'
@@ -33,15 +41,21 @@ post = (api, params, cb, key, iv)->
 		data: data
 	}
 	
-	
 	console.log '请求接口:', api
 	console.log '发送参数:', JSON.stringify(paramDic)
-	api = Constants.api.server + api if api.indexOf('http') is 0
+	api = Constants.api.server + api if api.indexOf('http') isnt 0 and not Constants.inBrowser
 
 	$.post api, paramDic, (data, status, xhr)->
+		if status is 0
+			Plugin.toast.err '暂时无法连接网络，请检查网络设置'
+			return
+
 		console.log '返回数据：', data
 		console.groupEnd()
-		cb data, status, xhr
+		if data.code isnt '0000'
+			console.error "错误码: #{data.code}, 错误信息: #{data.msg}"
+		else
+			cb data.data
 	, 'json'
 
 get = (api, cb)->

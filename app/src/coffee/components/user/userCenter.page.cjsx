@@ -38,10 +38,6 @@ Profile = React.createClass {
 			<div className="g-userInfo">
 				<ul>
 					<li>
-						<p>{user.highPraiseRate}</p>
-						<p>好评率</p>
-					</li>
-					<li>
 						<p>{user.orderDoneCount}单</p>
 						<p>成交数</p>
 					</li>
@@ -56,10 +52,10 @@ Profile = React.createClass {
 
 Menu = React.createClass {
 	render: ->
-		items = this.props.items.map (item)->
+		items = this.props.items.map (item, i)->
 			menu = item.toJS()
 			cls = "ll-font u-arrow-right " + menu.cls
-			<div className={cls}>{menu.title}</div>
+			<div className={cls} key={i}>{menu.title}</div>
 
 		<div className="m-userItem">
 			{items}

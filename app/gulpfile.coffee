@@ -1,7 +1,7 @@
 gulp = require 'gulp'
 plugins = require('gulp-load-plugins')()
 
-gulp.task 'prepare', plugins.shell.task('cordova prepare')
+gulp.task 'prepare', ['webpack'], plugins.shell.task('cordova prepare')
 gulp.task 'webpack', plugins.shell.task('webpack --display-error-details')
 gulp.task 'clean', plugins.shell.task('rm -rf www/* build/*')
 
@@ -25,9 +25,11 @@ gulp.task 'test', ['coffee'], ->
 	gulp.src(['test/*.js', '!test/common.js', '!test/config.js']).pipe(plugins.mocha())
 
 gulp.task 'watch', ->
-	gulp.watch 'src/sass/**', ['sass']
-	gulp.watch ['src/**', '!src/coffee/test/**'], ['webpack']
-	gulp.watch 'www/**', ['prepare']
+	gulp.watch 'src/sass/*.scss', ['sass']
+	gulp.watch ['src/coffee/**/*.coffee',
+	            'src/sass/*.scss', 
+	            '!src/coffee/test/*.coffee'], ['prepare']
+
 	# 自动单元测试
 	gulp.watch('src/coffee/test/*.coffee').on 'change', (file)->
 		gulp.src(file.path).pipe(plugins.coffee()).pipe(gulp.dest('test/'))

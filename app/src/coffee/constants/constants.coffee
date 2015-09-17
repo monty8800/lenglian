@@ -24,3 +24,4 @@ module.exports =
 	api: api
 	actionType: keymirror actionType
 	debug: true
+	inBrowser: true
