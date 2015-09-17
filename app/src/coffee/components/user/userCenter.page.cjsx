@@ -52,10 +52,10 @@ Profile = React.createClass {
 
 Menu = React.createClass {
 	render: ->
-		items = this.props.items.map (item)->
+		items = this.props.items.map (item, i)->
 			menu = item.toJS()
 			cls = "ll-font u-arrow-right " + menu.cls
-			<div className={cls}>{menu.title}</div>
+			<div className={cls} key={i}>{menu.title}</div>
 
 		<div className="m-userItem">
 			{items}
