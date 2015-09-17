@@ -72,7 +72,7 @@ var config = {
         }, {
             test: /\.cjsx$/,
             exclude: /node_modules/,
-            loader: "coffee-jsx-loader"
+            loaders: ['react-hot', "coffee-jsx-loader"]
         }, {
             test: /\.*zepto(\.min)?\.js$/,
             loader: "exports?Zepto"
@@ -101,12 +101,6 @@ var config = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('common', 'common.js'),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     }
-        // }),
-        // new webpack.optimize.DedupePlugin(),
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             inject: true,
@@ -116,17 +110,6 @@ var config = {
         }),
         new webpack.NoErrorsPlugin(),
     ],
-
-    debug: true,
-    devtool: 'eval-cheap-module-source-map',
-    devServer: {
-        contentBase: './www',
-        historyApiFallback: true,
-        hot: true,
-        proxy: {
-            "*shml": "http://localhost:3000" //把请求通过app.js代理一下，解决跨域
-        }
-    }
 };
 
 
@@ -135,7 +118,7 @@ for (var i = 0; i < pages.length; i++) {
     var page = pages[i];
 
     //自动生成js
-    config.entry[page.file] = 'components/' + page.folder + '/' + page.file + '.page';
+    config.entry[page.file] = ['components/' + page.folder + '/' + page.file + '.page'];
 
 
     //自动生成html
