@@ -1,5 +1,6 @@
 # 我要找车  车 车 车 车 车 
 require 'components/common/common'
+require 'index-style'
   
 
 React = require 'react/addons'

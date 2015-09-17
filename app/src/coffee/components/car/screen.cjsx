@@ -6,8 +6,8 @@ ScreenMenu = React.createClass {
 		<div className="m-nav03">
 			<ul>
 				<li>
-					<div className="g-div01 ll-font u-arrow-right">
-						车辆长度<span>全部</span>
+					<div className="g-div01 ll-font u-arrow-right" dangerouslySetInnerHTML={{__html:'车辆长度<span>全部</span>'}}>
+						
 					</div> 
 					<div className="g-div02">
 						<div className="g-div02-item">

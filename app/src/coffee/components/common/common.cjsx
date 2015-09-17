@@ -1,5 +1,4 @@
 require 'majia-style'
-require 'index-style'
 
 fastClick = require 'fastclick'
 
