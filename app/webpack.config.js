@@ -101,7 +101,9 @@ var config = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('common', 'common.js'),
-        new ExtractTextPlugin("[name].css"),
+        new ExtractTextPlugin("[name].css", {
+            allChunks: true
+        }),
         new HtmlWebpackPlugin({
             inject: true,
             filename: 'index.html',

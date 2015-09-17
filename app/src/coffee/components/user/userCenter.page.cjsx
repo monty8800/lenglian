@@ -17,33 +17,29 @@ Profile = React.createClass {
 		user = this.props.user
 		<div className="m-userCenter-top">
 			<div className="g-userPrivate">
-				<dl className="clearfix">
+				<dl className="clearfix"> 
 					<dt className="fl">
 						<img src={userPic}/>
 					</dt>
 					<dd className="fl">
-						<ul>
-							<li>
-								<span className="ll-font">{user.name || user.company || user.mobile}</span>
-							</li>
-							<li className="clearfix">
-								<p className="ll-font">&#xe615;</p>
-								<p className="ll-font">&#xe61a;</p>
-								<p className="ll-font">&#xe60e;</p>
-							</li>
-						</ul>
+						<p className="g-name">{user.name || user.company || user.mobile}</p>
+						<p>成交数：<span>45单</span></p>
 					</dd>
 				</dl>
 			</div>
 			<div className="g-userInfo">
 				<ul>
 					<li>
-						<p>{user.orderDoneCount}单</p>
-						<p>成交数</p>
+						<p className="active01 ll-font" dangerouslySetInnerHTML={{__html:'<span></span>&#xe615;'}}></p>
+						<p>仓库已认证</p>
 					</li>
 					<li>
-						<p>{user.orderBreakCount}单</p>
-						<p>违约数</p>
+						<p className="active02 ll-font" dangerouslySetInnerHTML={{__html:'<span></span>&#xe61a;'}}></p>
+						<p>货源认证中</p>
+					</li>
+					<li>
+						<p className="active03 ll-font"><span></span>&#xe60e;</p>
+						<p>车源已认证</p>
 					</li>
 				</ul>
 			</div>
