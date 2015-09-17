@@ -3,6 +3,7 @@ keymirror  = require 'keymirror'
 actionType = {
 	APP_HELLO: null
 	USER_INFO: null
+	FOUND_CAR: null
 }
 
 api = {

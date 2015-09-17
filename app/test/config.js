@@ -14,7 +14,8 @@
       LOGIN: '/loginCtl/userLogin.shtml',
       REGISTER: '/register/registerUser.shtml',
       SMS_CODE: '/register/sendMobileMsg.shtml',
-      USER_CENTER: '/userInfo/userCenter.shtml'
+      USER_CENTER: '/userInfo/userCenter.shtml',
+      ware_house_detail: 'mjWarehouseCtl/queryMjWarehouseLoad.shtml'
     }
   };
 

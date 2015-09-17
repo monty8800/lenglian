@@ -20,5 +20,11 @@ module.exports = {
 		SMS_CODE: '/register/sendMobileMsg.shtml'
 		# 个人中心
 		USER_CENTER: '/userInfo/userCenter.shtml'
+
+
+
+
+		# 我的仓库详情
+		ware_house_detail: 'mjWarehouseCtl/queryMjWarehouseLoad.shtml'
 	}
 }
