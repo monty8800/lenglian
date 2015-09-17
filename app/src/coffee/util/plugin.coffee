@@ -1,5 +1,6 @@
+Constants = require 'constants/constants'
 xePlugin = null
-if xe
+if not Constants.inBrowser
 	xePlugin = xe
 else
 	push = (args)->
@@ -13,6 +14,20 @@ else
 			push: push
 			pop: pop
 			popTo: popTo
+		}
+		toast: {
+			show: (msg)->
+				alert msg
+			success: (msg)->
+				alert msg
+			err: (msg)->
+				alert msg
+		}
+		loading: {
+			show: (msg)->
+				alert 'show loading', msg
+			hide: ->
+				alert 'hide loading'
 		}
 	}
 

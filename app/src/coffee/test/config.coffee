@@ -12,6 +12,7 @@ module.exports = {
 	api: {
 		server: 'http://192.168.26.177:7080/llmj-app/'
 		#server: 'http://192.168.29.176:8072/'
+		#server: 'http://m.lenglianmajia.com'
 		#登录
 		LOGIN: '/loginCtl/userLogin.shtml'
 		#注册

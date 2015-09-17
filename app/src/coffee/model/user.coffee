@@ -9,5 +9,9 @@ User = Immutable.Record {
 	highPraiseRate: '100%' #好评率
 	name: null #用户真实姓名
 	company: null #公司名字
+	certification: 0 #认证类型 1:个人 2：企业 默认是 0（未认证）
+	carStatus: 0 #0未认证车主，1认证
+	goodsStatus: 0 #0未认证货主，1认证
+	warehouseStatus: 0 #0未认证仓库主，1认证
 }
 module.exports = User

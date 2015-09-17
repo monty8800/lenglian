@@ -38,10 +38,6 @@ Profile = React.createClass {
 			<div className="g-userInfo">
 				<ul>
 					<li>
-						<p>{user.highPraiseRate}</p>
-						<p>好评率</p>
-					</li>
-					<li>
 						<p>{user.orderDoneCount}单</p>
 						<p>成交数</p>
 					</li>

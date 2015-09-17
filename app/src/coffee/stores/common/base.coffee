@@ -2,6 +2,7 @@ EventEmitter = require('events').EventEmitter
 assign = require 'object-assign'
 
 CHANGE_EVENT = 'change'
+ 
 
 
 BaseStore = assign {}, EventEmitter.prototype, {

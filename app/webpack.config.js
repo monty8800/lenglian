@@ -6,6 +6,8 @@ var webpack = require('webpack'),
     srcPath = path.join(__dirname, 'src'),
     coffeePath = path.join(srcPath, 'coffee');
 
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 var fs = require('fs');
 
 var busy = false;
@@ -85,7 +87,7 @@ var config = {
             loader: "exports?Swiper"
         }, {
             test: /\.*css$/,
-            loader: 'style!css'
+            loader:  ExtractTextPlugin.extract("style-loader", "css-loader")
         }, {
             test: /\.(woff|svg|ttf|eot)$/,
             loader: 'url'
@@ -99,12 +101,13 @@ var config = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('common', 'common.js'),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
-        new webpack.optimize.DedupePlugin(),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     }
+        // }),
+        // new webpack.optimize.DedupePlugin(),
+        new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             inject: true,
             filename: 'index.html',
