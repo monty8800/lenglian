@@ -14,7 +14,7 @@ CarAction = require 'actions/car/car'
 
 CarItem = React.createClass {
 	render: ->
-		car = @state.car
+		car = @props.car
 		<div className="m-item01 m-item03">
 			<div className="g-item-dirver">
 				<div className="g-dirver">					

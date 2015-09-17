@@ -9,7 +9,7 @@ Car = require 'model/car'
 Immutable = require 'immutable'
 DB = require 'util/storage'
 
-localCar = db.get 'car'
+localCar = DB.get 'car'
 _car = new Car localCar
 
 carItemInfo = ->

@@ -1,7 +1,7 @@
 'use strict'
 
-Dispatcher = require 'dispatch/dispatcher'
-Constants = require 'constants/contants'
+Dispatcher = require 'dispatcher/dispatcher'
+Constants = require 'constants/constants'
 
 CarAction = {
 	info: ->
