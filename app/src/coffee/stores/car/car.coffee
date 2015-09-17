@@ -18,12 +18,13 @@ carItemInfo = ->
 	_car = _car.set 'remark', 5
 	_car = _car.set 'startPoint', '泰鹏大厦'
 	_car = _car.set 'destination', '永泰庄'
-	_car = _car.set 'carDesc', '低调奢华有内涵' 
+	_car = _car.set 'carDesc', '10米 低调奢华有内涵' 
 	CarStore.emitChange()
 
 CarStore = assign BaseStore, {
 	getCar: ->
 		_car
+
 }
 
 Dispatcher.register (action)->

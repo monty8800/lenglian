@@ -37,7 +37,7 @@ requestInfo = ->
 		userId: '7714d0d83c7f47f4bcfac62b9a1bf101'
 	}, (data)->
 		_user = _user.set 'orderDoneCount', 40
-		_user = _user.set 'orderBreakCount', 2
+		_user = _user.set 'orderBreakCount', 2   
 		_user = _user.set 'name', data.usercode
 		UserStore.emitChange()
 

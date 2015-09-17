@@ -1,7 +1,7 @@
-# 我要找车  车 车 车 车 车 
+# 我要找车
 require 'components/common/common'
 require 'index-style'
-  
+
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
@@ -35,22 +35,34 @@ CarItem = React.createClass {
 			</div>   
 			<div className="g-item">
 				<div className="g-adr-start ll-font g-adr-start-line">
-					黑龙江鹤岗市向阳区
+					{ car.startPoint }
 				</div>
 				<div className="g-adr-end ll-font g-adr-end-line">
-					山西太原市矿区
+					{ car.destination }
 				</div>   
 			</div>
 			<div className="g-item g-item-des">
-				<p>车辆描述 : <span>10米</span><span>高栏</span></p>
+				<p>车辆描述 : <span>{ car.carDesc }</span></p>
 			</div>
 		</div>   
 }
 
 FoundCar = React.createClass {
-
+	minxins: [PureRenderMixin]
 	getInitialState: ->
 		{
+			car: CarStore.getCar()	
+		}
+
+	componentDidMount: ->
+		CarStore.addChangeListener @_onChange
+		CarAction.info()
+
+	componentWillUnmount: ->
+		CarStore.removeChangeListener @_onChange
+
+	_onChange: ->
+		@setState {
 			car: CarStore.getCar()
 		}
 

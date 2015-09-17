@@ -2,14 +2,18 @@ React = require 'react'
 
 # 头部筛选菜单
 ScreenMenu = React.createClass {
+
+	_show: ->
+		alert 'open the menu, fuck'
+
+
 	render: ->
 		<div className="m-nav03">
 			<ul>
 				<li>
-					<div className="g-div01 ll-font u-arrow-right" dangerouslySetInnerHTML={{__html:'车辆长度<span>全部</span>'}}>
-						
+					<div onClick={ this._show } className="g-div01 ll-font u-arrow-right" dangerouslySetInnerHTML={{__html:'车辆长度<span>全部</span>'}}>
 					</div> 
-					<div className="g-div02">
+					<div id="menu" className="g-div02">
 						<div className="g-div02-item">
 							<label className="u-label"><input className="ll-font" type="checkbox">全部</label><label className="u-label"><input className="ll-font" type="checkbox">3.8米</label><label className="u-label"><input className="ll-font" type="checkbox">4.2米</label><label className="u-label"><input className="ll-font" type="checkbox">4.8米</label><label className="u-label"><input className="ll-font" type="checkbox">5.8米</label><label className="u-label"><input className="ll-font" type="checkbox">6.2米</label><label className="u-label"><input className="ll-font" type="checkbox">6.8米</label>
 						</div>
@@ -19,13 +23,12 @@ ScreenMenu = React.createClass {
 					</div>
 				</li>
 				<li>
-					<div className="g-div01 ll-font u-arrow-right">
-						可载重货<span>全部</span>
+					<div className="g-div01 ll-font u-arrow-right" dangerouslySetInnerHTML={{__html:'可载重货<span>全部</span>'}}>
 					</div>
 				</li>
 				<li>
-					<div className="g-div01 ll-font u-arrow-right">
-						需要发票<span>全部</span>
+					<div className="g-div01 ll-font u-arrow-right" dangerouslySetInnerHTML={{__html:'需要发票<span>全部</span>'}}>
+						
 					</div>
 				</li>
 			</ul>
