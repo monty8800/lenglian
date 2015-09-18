@@ -11,10 +11,36 @@ userPic = require 'userPic.jpg'
 UserStore = require 'stores/user/user'
 UserAction = require 'actions/user/user'
 
+AuthStatus = React.createClass {
+	render: ->
+		user = @props.user
+		statusMapper = (status)->
+			switch status
+				when 1 then return 'active01'
+				when 2 then return 'active02'
+				else return 'active03'
+		<div className="g-userInfo">
+			<ul>
+				<li>
+					<p className={'ll-font ' + statusMapper user.warehouseStatus } dangerouslySetInnerHTML={{__html:'<span></span>&#xe615;'}}></p>
+					<p>仓库已认证</p>
+				</li>
+				<li>
+					<p className={'ll-font ' + statusMapper user.goodsStatus} dangerouslySetInnerHTML={{__html:'<span></span>&#xe61a;'}}></p>
+					<p>货源认证中</p>
+				</li>
+				<li>
+					<p className={'ll-font ' + statusMapper user.carStatus} dangerouslySetInnerHTML={{__html: '<span></span>&#xe60e;'}}></p>
+					<p>车源已认证</p>
+				</li>
+			</ul>
+		</div>
+}
 
 Profile = React.createClass {
 	render: ->
 		user = this.props.user
+		console.log 'user is', user
 		<div className="m-userCenter-top">
 			<div className="g-userPrivate">
 				<dl className="clearfix"> 
@@ -27,22 +53,7 @@ Profile = React.createClass {
 					</dd>
 				</dl>
 			</div>
-			<div className="g-userInfo">
-				<ul>
-					<li>
-						<p className="active01 ll-font" dangerouslySetInnerHTML={{__html:'<span></span>&#xe615;'}}></p>
-						<p>仓库已认证</p>
-					</li>
-					<li>
-						<p className="active02 ll-font" dangerouslySetInnerHTML={{__html:'<span></span>&#xe61a;'}}></p>
-						<p>货源认证中</p>
-					</li>
-					<li>
-						<p className="active03 ll-font"><span></span>&#xe60e;</p>
-						<p>车源已认证</p>
-					</li>
-				</ul>
-			</div>
+			<AuthStatus user=@props.user />
 		</div>
 }
 

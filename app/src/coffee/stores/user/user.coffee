@@ -38,7 +38,19 @@ requestInfo = ->
 	}, (data)->
 		_user = _user.set 'orderDoneCount', 40
 		_user = _user.set 'orderBreakCount', 2   
-		_user = _user.set 'name', data.usercode
+		_user = _user.set 'mobile', data.usercode
+		_user = _user.set 'carStatus', data.carStatus
+		_user = _user.set 'certification', data.certification
+		_user = _user.set 'goodsStatus', data.goodsStatus
+		_user = _user.set 'goodsCause', data.goodsCause
+		_user = _user.set 'avatar', data.imgurl
+		_user = _user.set 'carCount', data.myCarCount
+		_user = _user.set 'messageCount', data.messageCount
+		_user = _user.set 'warehouseCount', data.myWishlistCount
+		_user = _user.set 'id', data.userId
+		_user = _user.set 'warehouseStatus', data.warehouseStatus
+		_user = _user.set 'warehouseCause', data.warehouseCause
+		DB.put 'user', _user.toJS()
 		UserStore.emitChange()
 
 
