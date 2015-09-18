@@ -3,6 +3,7 @@ Immutable = require 'immutable'
 User = Immutable.Record {
 	mobile: null #手机号
 	passwd: null #密码
+	avatar: null #头像
 	id: null  #用户id
 	orderDoneCount: 0 #成交订单数
 	orderBreakCount: 0 #违约订单数
@@ -16,5 +17,9 @@ User = Immutable.Record {
 	goodsCause: null #货主驳回原因
 	warehouseStatus: 0 #0未认证仓库主，1认证
 	warehouseCause: null #仓库主驳回原因
+	carCount: 0 #车辆数
+	messageCount: 0 #消息数
+	warehouseCount: 0 #消息数
+	
 }
 module.exports = User
