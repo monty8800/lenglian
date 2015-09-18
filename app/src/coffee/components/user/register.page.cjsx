@@ -13,22 +13,62 @@ SetInervalMixin = require 'components/common/setIntervalMixin'
 UserStore = require 'stores/user/user'
 UserAction = require 'actions/user/user'
 Plugin = require 'util/plugin'
+Validator = require 'util/validator'
+Constants = require 'constants/constants'
+
+Auth = require 'components/user/authDialog'
 
 
 Register = React.createClass {
 	_register: ->
 		console.log 'state', @state
+		if not Validator.mobile @state.mobile
+			Plugin.alert '请输入正确的手机号码'
+			return
+		else if not Validator.smsCode @state.code
+			Plugin.alert '请输入正确长度的验证码'
+			return
+		else if not Validator.passwd @state.passwd
+			Plugin.alert '密码格式不正确'
+			return
+		else if @state.passwd isnt @state.rePasswd
+			Plugin.alert '两次输入密码不一致'
+			return
+		else if not @state.agree
+			Plugin.alert '请同意服务协议'
+			return
+		else
+			UserAction.register @state.mobile, @state.code, @state.passwd
 	_sendSmsCode: ->
+		if not Validator.mobile @state.mobile
+			Plugin.alert '请输入正确的手机号码'
+			return
+		UserAction.smsCode @state.mobile, Constants.smsType.register
 		newState = Object.create @state
 		newState.time = 60
 		@setState newState
 		@setInterval @_countDown, 1000
 	_countDown: ->
 		newState = Object.create @state
-		newState.time--
+		if newState.time > 0
+			newState.time--
+		else
+			@clearInterval()
 		console.log 'time', newState.time
 		@setState newState
 	mixins: [PureRenderMixin, LinkedStateMixin, SetInervalMixin]
+	componentDidMount: ->
+		UserStore.addChangeListener @_success
+
+	componentWillUnmount: ->
+		UserStore.removeChangeListener @_success
+		@clearInterval()
+
+	_success: ->
+		console.log 'register success!'
+		newState = Object.create @state
+		newState.success = true
+		@setState newState
 	getInitialState: ->
 		{
 			mobile: ''
@@ -39,6 +79,7 @@ Register = React.createClass {
 			showRePwd: false
 			agree: true
 			time: 0
+			success: false
 		}
 	render: ->
 		console.log 'this', this
@@ -81,6 +122,7 @@ Register = React.createClass {
 		<div className="m-btn-reg">
 			<label className="u-label"><input className="ll-font" checkedLink={@linkState 'agree'} type="checkbox" />已阅读《冷链马甲服务协议》</label>
 		</div>
+		{ <Auth /> if @state.success}
 		</section>
 }
 

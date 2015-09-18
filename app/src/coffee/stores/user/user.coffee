@@ -53,6 +53,21 @@ requestInfo = ->
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange()
 
+smsCode = (mobile, type)->
+	Http.post Constants.api.SMS_CODE, {
+		mobile: mobile
+		type: type
+	}, (data)->
+		console.log '验证码', data[-6..]
+
+register = (mobile, code, passwd)->
+	Http.post Constants.api.REGISTER, {
+		usercode: mobile
+		mobileCode: code
+		password: passwd
+	}, (data)->
+		UserStore.emitChange()
+
 
 UserStore = assign BaseStore, {
 	getUser: ->
@@ -66,5 +81,7 @@ UserStore = assign BaseStore, {
 Dispatcher.register (action)->
 	switch action.actionType
 		when Constants.actionType.USER_INFO then requestInfo()
+		when Constants.actionType.SMS_CODE then smsCode(action.mobile, action.type)
+		when Constants.actionType.REGISTER then register(action.mobile, action.code, action.passwd)
 
 module.exports = UserStore

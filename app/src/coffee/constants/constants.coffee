@@ -6,6 +6,8 @@ actionType = {
 	FOUND_CAR: null
 	CAR_LIST: null
 	CAR_DETAIL: null
+	SMS_CODE: null
+	REGISTER: null
 }
 
 api = {
@@ -13,10 +15,13 @@ api = {
 	hello: 'http://www.baidu.com'
 	#服务器地址
 	server: 'http://192.168.26.176'
+
+	#短信验证码
+	SMS_CODE: '/register/sendMobileMsg.shtml'
 	#登录
 	LOGIN: '/loginCtl/userLogin.shtml'
 	#注册
-	REGISTER: '/register/registerUser'
+	REGISTER: '/register/registerUser.shtml'
 
 	# 个人中心
 	USER_CENTER: '/userInfo/userCenter.shtml'
@@ -34,8 +39,15 @@ api = {
 	
 }
 
+smsType = {
+	register: 1 #注册
+	resetPwd: 2 #重置密码
+	resetPayPwd: 3 #重置支付密码
+}
+
 module.exports = 
 	api: api
 	actionType: keymirror actionType
 	debug: true
 	inBrowser: true
+	smsType: smsType

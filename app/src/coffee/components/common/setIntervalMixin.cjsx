@@ -5,8 +5,11 @@ SetIntervalMixin = {
 	setInterval: ->
 		@intervals.push setInterval.apply(null, arguments)
 
-	componentWillUnmount: ->
+	clearInterval: ->
 		@intervals.map clearInterval
+
+	componentWillUnmount: ->
+		@clearInterval()
 }
 
 module.exports = SetIntervalMixin

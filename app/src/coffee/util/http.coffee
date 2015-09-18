@@ -4,7 +4,7 @@ DB = require 'util/storage'
 UUID = require 'util/uuid'
 Plugin = require 'util/plugin'
 
-post = (api, params, cb, key, iv)->
+post = (api, params, cb, err, key, iv)->
 	data = null
 	if key
 		plainText = JSON.stringify params
@@ -53,7 +53,12 @@ post = (api, params, cb, key, iv)->
 		console.log '返回数据：', data
 		console.groupEnd()
 		if data.code isnt '0000'
+			return err data if err
 			console.error "错误码: #{data.code}, 错误信息: #{data.msg}"
+			if Constants.inBrowser
+				alert "接口：#{api},错误信息：#{data.msg}"
+			else
+				Plugin.toast.err data.msg
 		else
 			cb data.data
 	, 'json'
