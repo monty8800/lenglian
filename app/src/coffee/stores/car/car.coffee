@@ -13,32 +13,61 @@ _car = new Car
 
 _carList = Immutable.List()
 
+_foundCarList = Immutable.List()
+
 _carDetail = new Car
 
 _carId = ''
+_myCarStatus = '1'
 
 carItemInfo = ->
-	_car = _car.set 'drivePic', ''
-	_car = _car.set 'name', 'sk'
-	_car = _car.set 'remark', 5
-	_car = _car.set 'startPoint', '泰鹏大厦'
-	_car = _car.set 'destination', '永泰庄'
-	_car = _car.set 'carDesc', '10米 低调奢华有内涵' 
-	CarStore.emitChange()
+	params = {
+		startNo: 1
+		pageSize: 10
+		fromProvinceId: ''
+		fromCityId: ''
+		fromAreaId: ''
+		toProvinceId: ''
+		toCityId: ''
+		toAreaId: ''
+		vehicle: ''
+		heavy: ''
+		isInvoice: ''
+		carType: ''
+		id: ''
+	}
+	Http.post Constants.api.found_car, params, (result) ->
+		console.log '我要找车--', result.length
+		for car in result
+			do (car) ->
+				tempCar = new Car
+				tempCar = tempCar.set 'drivePic', car.userImgUrl
+				tempCar = tempCar.set 'name', car.userName
+				tempCar = tempCar.set 'remark', 5
+				tempCar = tempCar.set 'startPoint', car.fromProvinceName + 
+						car.fromCityName + car.fromAreaName
+				tempCar = tempCar.set 'destination', car.toProvinceName + 
+						car.toCityName + car.toAreaName
+				tempCar = tempCar.set 'carDesc', car.heavy + '  ' + car.vehicle
+				_foundCarList = _foundCarList.push tempCar
+		CarStore.emitChange()
 
 # 我的车辆
 carListInfo = ->
+	_myCarStatus = DB.get 'myCarStatus'
 	# 请求网络获取数据
-	console.log 'my_car_list'
 	params = {
 		userId: '7714d0d83c7f47f4bcfac62b9a1bf101',
 		pageNow: 1,
 		pageSize: 10,
-		status: ''  
+		status: _myCarStatus 
 	}
 	Http.post Constants.api.my_car_list, params, (data)->
-		console.log 'data: ' + data 
+		console.log 'data: ' + data
+		_carList = _carList.clear() 
 		tempList = data.myCarInfo; 
+		console.log 'tempList -- ', tempList
+		console.log '_carList -- ', _carList
 		for car in tempList
 			do (car) ->
 				tempCar = new Car
@@ -51,7 +80,7 @@ carListInfo = ->
 				tempCar = tempCar.set 'carId', car.id
 				_carList = _carList.push tempCar
 		CarStore.emitChange()
-
+  
 # 车辆详情
 carDetail = ->
 	Http.post Constants.api.car_detail, {
@@ -77,7 +106,7 @@ carDetail = ->
 
 CarStore = assign BaseStore, {
 	getCar: ->
-		_car
+		_foundCarList
 
 	getCarList: ->
 		_carList
@@ -85,7 +114,6 @@ CarStore = assign BaseStore, {
 	getCarDetail: (carId)->
 		_carId = carId
 		_carDetail
-
 }
 
 Dispatcher.register (action)->

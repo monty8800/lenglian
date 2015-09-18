@@ -29,6 +29,8 @@ api = {
 	my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml'
 	# 车辆详情
 	car_detail: '/mjCarinfoCtl/queryMjCarinfoLoad.shtml'
+	# 我要找车
+	found_car: '/searchCarCtl/searchCar.shtml'
 	
 }
 

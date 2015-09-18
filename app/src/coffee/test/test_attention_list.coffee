@@ -9,4 +9,4 @@ describe '关注列表', ->
 			focustype: '1' # 1:司机 2：货主 3：仓库
 		}
 		request.post config.api.attention_list, params, (result)->
-			done();
+			done();  

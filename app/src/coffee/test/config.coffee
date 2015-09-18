@@ -40,6 +40,10 @@ module.exports = {
 		add_car: '/mjCarinfoCtl/addMjCarinfo.shtml'
 		# 车辆详情
 		car_detail: '/mjCarinfoCtl/queryMjCarinfoLoad.shtml'
+		# 省市区
+		location_list: '/dictionaryCtl/provinceList.shtml'
+		# 我要找车
+		found_car: '/searchCarCtl/searchCar.shtml'
 
 	}
 }

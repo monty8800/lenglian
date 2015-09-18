@@ -20,6 +20,8 @@ addCarUrl = 'addCar'
 
 carList = []
 
+DB.put 'myCarStatus', '1'
+
 CarItem = React.createClass {
 	_goPage: (page, i)-> 
 		console.log 'i可以当做下标来用哦---', carList.toJS()[i].carId
@@ -28,7 +30,6 @@ CarItem = React.createClass {
 		Plugin.nav.push [page]
 
 	render: ->
-		carStatus: (status)->
 		items = @props.items.map (item, i)->
 			car = item
 			<div className="m-item03" key={ i }>
@@ -59,11 +60,46 @@ CarItem = React.createClass {
 			{items}
 		</div>
 }
-  
+
 Car = React.createClass {
+
 	minxins: [PureRenderMixin]
+
+	# 空闲中
+	status_01: ->
+		newState = Object.create @state
+		newState.type = '1'
+		@setState newState
+		DB.put 'myCarStatus', '1'
+		CarAction.carList()
+
+	# 求货中
+	status_02: ->
+		newState = Object.create @state
+		newState.type = '2'
+		@setState newState
+		DB.put 'myCarStatus', '2'
+		CarAction.carList()
+
+	# 运输中
+	status_03: ->
+		newState = Object.create @state
+		newState.type = '3'
+		@setState newState
+		DB.put 'myCarStatus', '3'
+		CarAction.carList()
+
+	# 全部
+	status_04: ->
+		newState = Object.create @state
+		newState.type = '4'
+		@setState newState
+		DB.put 'myCarStatus', ''
+		CarAction.carList()
+
 	getInitialState: ->
 		{
+			type: '1'
 			carList: CarStore.getCarList().toJS()
 		}
 
@@ -84,10 +120,18 @@ Car = React.createClass {
 		<div>
 			<div className="m-tab01">
 				<ul>
-					<li><span className="active">空闲中</span></li>
-					<li>求货中</li>
-					<li>运输中</li>
-					<li>全部</li>
+					<li onClick={ @status_01.bind this }>
+						<span className={ if @state.type is '1' then "active" else "" }>空闲中</span>
+					</li>
+					<li onClick={ @status_02.bind this }>
+						<span className={ if @state.type is '2' then "active" else "" }>求货中</span>
+					</li>
+					<li onClick={ @status_03.bind this }>
+						<span className={ if @state.type is '3' then "active" else "" }>运输中</span>
+					</li>
+					<li onClick={ @status_04.bind this }>
+						<span className={ if @state.type is '4' then "active" else "" }>全部</span>
+					</li>
 				</ul>   
 			</div> 
 			<CarItem items={ @state.carList } />

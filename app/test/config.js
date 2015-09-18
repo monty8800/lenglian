@@ -20,7 +20,9 @@
       attention_list: '/userInfo/queryMjWishlstList.shtml',
       my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml',
       add_car: '/mjCarinfoCtl/addMjCarinfo.shtml',
-      car_detail: '/mjCarinfoCtl/queryMjCarinfoLoad.shtml'
+      car_detail: '/mjCarinfoCtl/queryMjCarinfoLoad.shtml',
+      location_list: '/dictionaryCtl/provinceList.shtml',
+      found_car: '/searchCarCtl/searchCar.shtml'
     }
   };
 
