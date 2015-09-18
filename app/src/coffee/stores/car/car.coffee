@@ -51,7 +51,25 @@ carListInfo = ->
 
 # 车辆详情
 carDetail = ->
-	console.log '----车辆详情'
+	Http.post Constants.api.car_detail, {
+			carId: '9f5d91332ea14017a6c406f9649fb1e1'
+		}, (data) ->
+			console.log '车辆详情----', data
+			td = data.carInfoLoad;
+			_carDetail = _carDetail.set 'carNo', td.carno
+			_carDetail = _carDetail.set 'status', td.status
+			_carDetail = _carDetail.set 'carType', td.type
+			_carDetail = _carDetail.set 'carPic', td.imgurl
+			_carDetail = _carDetail.set 'category', td.category
+			_carDetail = _carDetail.set 'heavy', td.heavy
+			_carDetail = _carDetail.set 'bulky', td.bulky
+			_carDetail = _carDetail.set 'carVehicle', td.vehicle
+			_carDetail = _carDetail.set 'name', td.driver
+			_carDetail = _carDetail.set 'mobile', td.phone
+			_carDetail = _carDetail.set 'drivingImg', td.drivingImg
+			_carDetail = _carDetail.set 'transportImg', td.transportImg
+			console.log '_carDetail -- ', _carDetail
+			CarStore.emitChange()
 
 
 CarStore = assign BaseStore, {

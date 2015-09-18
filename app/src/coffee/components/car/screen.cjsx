@@ -6,7 +6,6 @@ ScreenMenu = React.createClass {
 	_show: ->
 		alert 'open the menu, fuck'
 
-
 	render: ->
 		<div className="m-nav03">
 			<ul>

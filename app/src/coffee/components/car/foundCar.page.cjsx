@@ -1,4 +1,3 @@
-# 我要找车
 require 'components/common/common'
 require 'index-style'
 

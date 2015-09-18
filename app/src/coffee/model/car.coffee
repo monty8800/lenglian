@@ -17,6 +17,14 @@ Car = Immutable.Record {
 	carVehicle: '' # 车辆长度
 
 
+	# 车辆详情数据结构
+	status: '' # 车辆状态 1：空闲中，2：求货中，3：运输中 
+	category: '' # 车辆类别
+	heavy: '' # 可载重货
+	bulky: '' # 可载泡货
+	drivingImg: '' # 行驶证图片
+	transportImg: '' # 道路运输许可证图片
+
 }
 
 module.exports = Car

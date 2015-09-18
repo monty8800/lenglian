@@ -1,4 +1,3 @@
-# 车辆详情
 require 'components/common/common'
 require 'user-center-style'
 
@@ -12,33 +11,25 @@ CarPic03 = require 'car-04.jpg'
 CarAction = require 'actions/car/car'
 CarStore = require 'stores/car/car'
 
-CarDetail = React.createClass {
+Helper = require 'util/helper'
 
-	getInitialState: ->
-		{
-			carDetail: CarStore.getCarDetail()
-		}
+Detail = React.createClass {
 
-	componentDidMount: ->
-		CarStore.addChangeListener @_onChange
-		CarAction.carDetail()
-
-	_onChange: ->
-		@setState {
-			carDetail: CarStore.getCarDetail()
-		}
+	_delStore: ->
+		alert 'are you kidding?'
 
 	render: ->
+		detail = @props.detail
 		<div>
 			<div className="m-item03">
 				<div className="g-itemList">
-					<span>车牌号码:</span> <span>津2767383</span>	
+					<span>车牌号码:</span> <span>{ detail.carNo }</span>	
 					<div className="u-item-btn">
 						<span href="#">求货中</span>
 					</div>
 				</div>
 				<div className="g-itemList">
-					<span>车辆类型:</span> <span>普通货车</span>			
+					<span>车辆类型:</span> <span>{ Helper.carTypeMapper detail.carType }</span>			
 				</div>
 				<div className="g-itemList">
 					<dl className="clearfix">
@@ -46,10 +37,10 @@ CarDetail = React.createClass {
 							<img src={ CarPic01 }/>
 						</dt>
 						<dd className=" fl">
-							<p>车辆类别: <span>前四后四</span></p>
-							<p>可载货重: <span>20吨</span></p>
-							<p>可载泡货: <span>50方</span></p>
-							<p>车辆长度: <span>4米</span></p>
+							<p>车辆类别: <span>{ Helper.carCategoryMapper detail.category }</span></p>
+							<p>可载货重: <span>{ detail.heavy }</span></p>
+							<p>可载泡货: <span>{ detail.bulky }</span></p>
+							<p>车辆长度: <span>{ detail.carVehicle }</span></p>
 						</dd>
 					</dl>			
 				</div>
@@ -57,12 +48,12 @@ CarDetail = React.createClass {
 		
 			<div className="m-releaseitem">
 				<div>
-					<label for="packType"><span>随车司机:</span></label>
-					<input type="text" placeholder="请输入姓名" id="packType"/>
+					<label htmlFor="packType"><span>随车司机:</span></label>
+					<input type="text" value={ detail.name } placeholder="请输入姓名" id="packType"/>
 				</div>
-				<div>
-					<label for="packType"><span>联系电话:</span></label>
-					<input type="tel" placeholder="请输入联系电话" id="packType"/>
+				<div>  
+					<label htmlFor="packType"><span>联系电话:</span></label>
+					<input type="tel" value={ detail.mobile } placeholder="请输入联系电话" id="packType"/>
 				</div>
 			</div>
 			
@@ -79,9 +70,31 @@ CarDetail = React.createClass {
 			
 			<div className="m-detail-bottom">
 				<div className="g-pay-btn">
-					<a href="#" className="u-btn02">删除仓库</a>
+					<a href="#" className="u-btn02" onClick={ @_delStore }>删除仓库</a>
 				</div>
 			</div>
+		</div>
+}
+
+CarDetail = React.createClass {
+
+	getInitialState: ->
+		{
+			carDetail: CarStore.getCarDetail().toJS()
+		}
+  
+	componentDidMount: ->
+		CarStore.addChangeListener @_onChange
+		CarAction.carDetail()
+
+	_onChange: ->
+		@setState {
+			carDetail: CarStore.getCarDetail()
+		}
+
+	render: ->
+		<div>
+			<Detail detail={ @state.carDetail }/>
 		</div>
 }
 

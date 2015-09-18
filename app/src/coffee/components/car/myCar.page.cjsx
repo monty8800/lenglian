@@ -1,4 +1,3 @@
-# 我的车辆 
 require 'components/common/common'
 require 'user-center-style'
 
@@ -10,51 +9,52 @@ CarStore = require 'stores/car/car'
 
 CarPic = require 'car.jpg'
 
+Plugin = require 'util/plugin'
+
+Helper = require 'util/helper'
+
+detailCarUrl = 'carDetail'
+addCarUrl = 'addCar'
+
 CarItem = React.createClass {
+	_goPage: (page, i)->
+		console.log 'i可以当做下标来用哦---', i
+		Plugin.nav.push [page]
+
 	render: ->
-		console.log "----- #{@props.items}"
-		items = @props.items.map (item)->
+		carStatus: (status)->
+		items = @props.items.map (item, i)->
 			car = item
-			<div className="m-item03">
+			<div className="m-item03" key={ i }>
 				<div className="g-itemList">  
 					<h5>
+						{/* 这里是注释 */}
 						车牌号码: <span>{ car.carNo }</span>				
 					</h5>
-					<div className="u-item-btn">
-						<a href="#">发布车源</a>
+					<div className="u-item-btn"> 
+						<a href="#" onClick={@_goPage.bind this, addCarUrl, i} >发布车源</a>
 					</div>
 				</div>			
-				<div className="g-itemList">
-					<dl className="clearfix">
+				<div className="g-itemList" onClick={@_goPage.bind this, detailCarUrl, i} >
+					<dl className="clearfix">  
 						<dt className=" fl">
 							<img src={ CarPic }/>
-						</dt>
+						</dt>  
 						<dd className=" fl">
 							<p>司机姓名: <span>{ car.name }</span></p>
 							<p>联系电话: <span>{ car.mobile }</span></p>
-							<p>车辆类型: 
-								<span>
-							      # {(() => {    
-							      #   switch (car.carType) {
-							      #     case '1': return "#FF0000";
-							      #     case '2': return "#00FF00";
-							      #     case '3': return "#0000FF";
-							      #     default:   return "#FFFFFF";
-							      #   }
-							      # })()}
-									{car.carType}
-								</span> 
-							</p>
+							<p>车辆类型: <span>{ Helper.carTypeMapper car.carType }</span></p>
 							<p>车辆长度: <span>{ car.carVehicle }米</span></p>
 						</dd>
 					</dl>			
 				</div>
 			</div>
+		, this
 		<div>
 			{items}
 		</div>
 }
-
+  
 Car = React.createClass {
 	minxins: [PureRenderMixin]
 	getInitialState: ->
@@ -71,7 +71,7 @@ Car = React.createClass {
 
 	_onChange: ->
 		@setState { 
-			carList: CarStore.getCarList().toJS()
+			carList: CarStore.getCarList()
 		}
    
 	render: ->

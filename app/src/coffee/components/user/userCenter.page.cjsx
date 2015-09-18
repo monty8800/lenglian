@@ -1,7 +1,6 @@
 require 'components/common/common'
 require 'user-center-style'
 
-
 React = require 'react/addons'
 
 PureRenderMixin = React.addons.PureRenderMixin

@@ -27,6 +27,8 @@ api = {
 	attention_list: '/userInfo/queryMjWishlstList.shtml'
 	# 我的车辆
 	my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml'
+	# 车辆详情
+	car_detail: '/mjCarinfoCtl/queryMjCarinfoLoad.shtml'
 	
 }
 

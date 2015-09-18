@@ -1,4 +1,3 @@
-# 新增车辆
 require 'components/common/common'
 require 'user-center-style'
 
