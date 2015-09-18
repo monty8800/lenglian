@@ -15,6 +15,8 @@ _carList = Immutable.List()
 
 _carDetail = new Car
 
+_carId = ''
+
 carItemInfo = ->
 	_car = _car.set 'drivePic', ''
 	_car = _car.set 'name', 'sk'
@@ -53,7 +55,7 @@ carListInfo = ->
 # 车辆详情
 carDetail = ->
 	Http.post Constants.api.car_detail, {
-			carId: '9f5d91332ea14017a6c406f9649fb1e1'
+			carId: _carId
 		}, (data) ->
 			console.log '车辆详情----', data
 			td = data.carInfoLoad;
@@ -80,7 +82,8 @@ CarStore = assign BaseStore, {
 	getCarList: ->
 		_carList
 
-	getCarDetail: ->
+	getCarDetail: (carId)->
+		_carId = carId
 		_carDetail
 
 }

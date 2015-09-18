@@ -94,7 +94,7 @@ CarDetail = React.createClass {
 
 	_onChange: ->
 		@setState {
-			carDetail: CarStore.getCarDetail()
+			carDetail: CarStore.getCarDetail(carId)
 		}
 
 	render: ->
