@@ -8,7 +8,7 @@
   config = require('./config');
 
   describe('测试用户', function() {
-    return it('个人中心', function(done) {
+    it('个人中心', function(done) {
       var userId;
       userId = '7714d0d83c7f47f4bcfac62b9a1bf101';
       return request.post(config.api.USER_CENTER, {
@@ -18,12 +18,28 @@
         result.carStatus.should.be.within(0, 3);
         result.certification.should.be.within(0, 2);
         result.goodsStatus.should.be.within(0, 3);
-        result.imgurl.should.not.be.empty();
         result.myCarCount.should.be.Number();
         result.myMessageCount.should.be.Number();
         result.myWishlistCount.should.be.Number();
         result.userId.should.equal(userId);
         result.usercode.should.not.be.empty();
+        result.warehouseStatus.should.be.within(0, 3);
+        return done();
+      });
+    });
+    return it('登录', function(done) {
+      var mobile, passwd;
+      mobile = '18513468467';
+      passwd = '123456a';
+      return request.post(config.api.LOGIN, {
+        usercode: mobile,
+        password: passwd
+      }, function(result) {
+        result.should.not.be.empty();
+        result.carStatus.should.be.within(0, 3);
+        result.certification.should.be.within(0, 2);
+        result.goodsStatus.should.be.within(0, 3);
+        result.userId.should.not.be.empty();
         result.warehouseStatus.should.be.within(0, 3);
         return done();
       });

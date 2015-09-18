@@ -26,7 +26,7 @@ _menus = Immutable.fromJS [
 	[
 		{cls: 'u-icon-focus', title: '我的关注', url: 'home'},
 		{cls: 'u-icon-judge', title: '我收到的评价', url: 'home'},
-		{cls: 'u-icon-more', title: '更多': url: 'home'}
+		{cls: 'u-icon-more', title: '更多', url: 'home'}
 	]
 ]
 
