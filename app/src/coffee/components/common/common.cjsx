@@ -7,7 +7,8 @@ DB = require 'util/storage'
 
 if Constants.debug
 	console.log 'debug mode, clear localstorage'
-	DB.clear()
+	# TODO
+	# DB.clear()
 
 document.addEventListener 'deviceready', ->
 	fastClick.attach document.body

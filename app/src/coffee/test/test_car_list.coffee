@@ -14,4 +14,4 @@ describe '我的车辆', ->
 			should.exists result
 			# result.myCarInfo should.be.Array()
 			result.myCarInfo[0].driver.should.not.be.empty()
-			done();                
+			done();                 

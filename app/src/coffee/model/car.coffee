@@ -15,6 +15,7 @@ Car = Immutable.Record {
 	mobile: '' # 联系电话
 	carType: '' # 车辆类型
 	carVehicle: '' # 车辆长度
+	carId: ''# id
 
 
 	# 车辆详情数据结构

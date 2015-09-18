@@ -13,12 +13,18 @@ Plugin = require 'util/plugin'
 
 Helper = require 'util/helper'
 
+DB = require 'util/storage'
+
 detailCarUrl = 'carDetail'
 addCarUrl = 'addCar'
 
+carList = []
+
 CarItem = React.createClass {
-	_goPage: (page, i)->
-		console.log 'i可以当做下标来用哦---', i
+	_goPage: (page, i)-> 
+		console.log 'i可以当做下标来用哦---', carList.toJS()[i].carId
+		carId = carList.toJS()[i].carId
+		DB.put 'transData', carId
 		Plugin.nav.push [page]
 
 	render: ->
@@ -28,7 +34,6 @@ CarItem = React.createClass {
 			<div className="m-item03" key={ i }>
 				<div className="g-itemList">  
 					<h5>
-						{/* 这里是注释 */}
 						车牌号码: <span>{ car.carNo }</span>				
 					</h5>
 					<div className="u-item-btn"> 
@@ -75,7 +80,7 @@ Car = React.createClass {
 		}
    
 	render: ->
-		console.log 'itmes---', @state.carList
+		carList = @state.carList
 		<div>
 			<div className="m-tab01">
 				<ul>

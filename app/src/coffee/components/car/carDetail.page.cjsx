@@ -13,6 +13,11 @@ CarStore = require 'stores/car/car'
 
 Helper = require 'util/helper'
 
+DB = require 'util/storage'
+
+carId = DB.get 'transData'
+console.log '-----carId', carId
+
 Detail = React.createClass {
 
 	_delStore: ->
@@ -80,7 +85,7 @@ CarDetail = React.createClass {
 
 	getInitialState: ->
 		{
-			carDetail: CarStore.getCarDetail().toJS()
+			carDetail: CarStore.getCarDetail(carId).toJS()
 		}
   
 	componentDidMount: ->

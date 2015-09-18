@@ -46,6 +46,7 @@ carListInfo = ->
 				tempCar = tempCar.set 'mobile', car.phone
 				tempCar = tempCar.set 'carType', car.category
 				tempCar = tempCar.set 'carVehicle', car.vehicle
+				tempCar = tempCar.set 'carId', car.id
 				_carList = _carList.push tempCar
 		CarStore.emitChange()
 
