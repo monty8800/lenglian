@@ -14,19 +14,19 @@ _user = new User localUser
 
 _menus = Immutable.fromJS [
 	[
-		{cls: 'u-icon-message', title: '我的消息'},
-		{cls: 'u-icon-goods', title: '我的货源'},
-		{cls: 'u-icon-car', title: '我的车辆'},
-		{cls: 'u-icon-store', title: '我的仓库'}
+		{cls: 'u-icon-message', title: '我的消息', url: 'home'},
+		{cls: 'u-icon-goods', title: '我的货源', url: 'home'},
+		{cls: 'u-icon-car', title: '我的车辆', url: 'myCar'},
+		{cls: 'u-icon-store', title: '我的仓库', url: 'home'}
 	],
 	[
-		{cls: 'u-icon-money', title: '我的钱包'},
-		{cls: 'u-icon-adress', title: '我的地址'}
+		{cls: 'u-icon-money', title: '我的钱包', url: 'home'},
+		{cls: 'u-icon-adress', title: '我的地址', url: 'home'}
 	],
 	[
-		{cls: 'u-icon-focus', title: '我的关注'},
-		{cls: 'u-icon-judge', title: '我收到的评价'},
-		{cls: 'u-icon-more', title: '更多'}
+		{cls: 'u-icon-focus', title: '我的关注', url: 'home'},
+		{cls: 'u-icon-judge', title: '我收到的评价', url: 'home'},
+		{cls: 'u-icon-more', title: '更多': url: 'home'}
 	]
 ]
 
