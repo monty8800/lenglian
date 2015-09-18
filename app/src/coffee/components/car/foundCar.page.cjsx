@@ -2,7 +2,6 @@
 require 'components/common/common'
 require 'index-style'
 
-
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
 

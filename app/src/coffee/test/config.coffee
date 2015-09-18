@@ -31,6 +31,15 @@ module.exports = {
 
 
 		# 我的仓库详情
-		ware_house_detail: 'mjWarehouseCtl/queryMjWarehouseLoad.shtml'
+		ware_house_detail: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
+		# 关注列表
+		attention_list: '/userInfo/queryMjWishlstList.shtml'
+		# 我的车辆
+		my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml'
+		# 添加车辆
+		add_car: '/mjCarinfoCtl/addMjCarinfo.shtml'
+		# 车辆详情
+		car_detail: '/mjCarinfoCtl/queryMjCarinfoLoad.shtml'
+
 	}
 }

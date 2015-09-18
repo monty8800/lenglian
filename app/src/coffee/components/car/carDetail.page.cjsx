@@ -9,7 +9,25 @@ CarPic01 = require 'car-02.jpg'
 CarPic02 = require 'car-03.jpg'
 CarPic03 = require 'car-04.jpg'
 
+CarAction = require 'actions/car/car'
+CarStore = require 'stores/car/car'
+
 CarDetail = React.createClass {
+
+	getInitialState: ->
+		{
+			carDetail: CarStore.getCarDetail()
+		}
+
+	componentDidMount: ->
+		CarStore.addChangeListener @_onChange
+		CarAction.carDetail()
+
+	_onChange: ->
+		@setState {
+			carDetail: CarStore.getCarDetail()
+		}
+
 	render: ->
 		<div>
 			<div className="m-item03">

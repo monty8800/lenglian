@@ -4,6 +4,8 @@ actionType = {
 	APP_HELLO: null
 	USER_INFO: null
 	FOUND_CAR: null
+	CAR_LIST: null
+	CAR_DETAIL: null
 }
 
 api = {
@@ -18,6 +20,14 @@ api = {
 
 	# 个人中心
 	USER_CENTER: '/userInfo/userCenter.shtml'
+
+	# 我的仓库详情
+	ware_house_detail: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
+	# 关注列表
+	attention_list: '/userInfo/queryMjWishlstList.shtml'
+	# 我的车辆
+	my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml'
+	
 }
 
 module.exports = 

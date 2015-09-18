@@ -16,7 +16,11 @@
       SMS_CODE: '/register/sendMobileMsg.shtml',
       USER_CENTER: '/userInfo/userCenter.shtml',
       ADDR_LIST: '/userInfo/queryMjUserAddressList.shtml',
-      ware_house_detail: 'mjWarehouseCtl/queryMjWarehouseLoad.shtml'
+      ware_house_detail: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml',
+      attention_list: '/userInfo/queryMjWishlstList.shtml',
+      my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml',
+      add_car: '/mjCarinfoCtl/addMjCarinfo.shtml',
+      car_detail: '/mjCarinfoCtl/queryMjCarinfoLoad.shtml'
     }
   };
 

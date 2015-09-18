@@ -5,7 +5,7 @@ React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
 
 DRIVER_LOGO = require 'user-01.jpg'
-PRODUCT_PIC = require 'car-02.jpg'
+PRODUCT_PIC = require 'product-01.jpg'
 
 StoreDetail = React.createClass {
 	render: ->
