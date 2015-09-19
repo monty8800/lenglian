@@ -23,7 +23,12 @@
       add_car: '/mjCarinfoCtl/addMjCarinfo.shtml',
       car_detail: '/mjCarinfoCtl/queryMjCarinfoLoad.shtml',
       location_list: '/dictionaryCtl/provinceList.shtml',
-      found_car: '/searchCarCtl/searchCar.shtml'
+      found_car: '/searchCarCtl/searchCar.shtml',
+      add_attention: '/userInfo/addDeleteMjWishlst.shtml',
+      cancel_attention: '/userInfo/addDeleteMjWishlst.shtml',
+      add_address: '/userInfo/addMjUserAddress.shtml',
+      del_address: '/userInfo/deleteMjUserAddress.shtml',
+      modify_address: '/userInfo/updateMjUserAddress.shtml'
     }
   };
 

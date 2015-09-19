@@ -1,5 +1,5 @@
 (function() {
-  var config, request, should;
+  var _addressId, config, request, should;
 
   request = require('./common');
 
@@ -7,14 +7,19 @@
 
   config = require('./config');
 
+  _addressId = "";
+
   describe('地址', function() {
-    return it('我的地址列表', function(done) {
-      var userId;
-      userId = 'c413b4b93c674597a563e704090705ef';
-      return request.post(config.api.ADDR_LIST, {
-        userId: userId
+    return it('新增地址', function(done) {
+      return request.post(config.api.add_address, {
+        userId: '7714d0d83c7f47f4bcfac62b9a1bf101',
+        province: '110000',
+        city: '110100',
+        area: '110101',
+        street: '泰鹏大厦111111',
+        licenseno: '',
+        createUser: '888888'
       }, function(result) {
-        result.should.not.be.empty();
         return done();
       });
     });

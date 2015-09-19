@@ -16,7 +16,6 @@ Helper = require 'util/helper'
 DB = require 'util/storage'
 
 carId = DB.get 'transData'
-console.log '-----carId', carId
 
 Detail = React.createClass {
 
@@ -85,16 +84,16 @@ CarDetail = React.createClass {
 
 	getInitialState: ->
 		{
-			carDetail: CarStore.getCarDetail(carId).toJS()
+			carDetail: CarStore.getCarDetail().toJS()
 		}
   
 	componentDidMount: ->
 		CarStore.addChangeListener @_onChange
-		CarAction.carDetail()
+		CarAction.carDetail(carId)
 
 	_onChange: ->
 		@setState {
-			carDetail: CarStore.getCarDetail(carId)
+			carDetail: CarStore.getCarDetail()
 		}
 
 	render: ->

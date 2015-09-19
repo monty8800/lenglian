@@ -8,6 +8,7 @@ Constants = require 'constants/constants'
 Car = require 'model/car'
 Immutable = require 'immutable'
 DB = require 'util/storage'
+Plugin = require 'util/plugin'
 
 _car = new Car
 
@@ -16,9 +17,6 @@ _carList = Immutable.List()
 _foundCarList = Immutable.List()
 
 _carDetail = new Car
-
-_carId = ''
-_myCarStatus = '1'
 
 carItemInfo = ->
 	params = {
@@ -51,23 +49,22 @@ carItemInfo = ->
 				tempCar = tempCar.set 'carDesc', car.heavy + '  ' + car.vehicle
 				_foundCarList = _foundCarList.push tempCar
 		CarStore.emitChange()
+	, (data) ->
+		Plugin.alert data.msg
+
 
 # 我的车辆
-carListInfo = ->
-	_myCarStatus = DB.get 'myCarStatus'
+carListInfo = (status)->
 	# 请求网络获取数据
 	params = {
 		userId: '7714d0d83c7f47f4bcfac62b9a1bf101',
 		pageNow: 1,
 		pageSize: 10,
-		status: _myCarStatus 
+		status: status 
 	}
 	Http.post Constants.api.my_car_list, params, (data)->
-		console.log 'data: ' + data
 		_carList = _carList.clear() 
 		tempList = data.myCarInfo; 
-		console.log 'tempList -- ', tempList
-		console.log '_carList -- ', _carList
 		for car in tempList
 			do (car) ->
 				tempCar = new Car
@@ -82,9 +79,9 @@ carListInfo = ->
 		CarStore.emitChange()
   
 # 车辆详情
-carDetail = ->
+carDetail = (carId)->
 	Http.post Constants.api.car_detail, {
-			carId: _carId
+			carId: carId
 		}, (data) ->
 			console.log '车辆详情----', data
 			td = data.carInfoLoad;
@@ -100,9 +97,7 @@ carDetail = ->
 			_carDetail = _carDetail.set 'mobile', td.phone
 			_carDetail = _carDetail.set 'drivingImg', td.drivingImg
 			_carDetail = _carDetail.set 'transportImg', td.transportImg
-			console.log '_carDetail -- ', _carDetail
 			CarStore.emitChange()
-
 
 CarStore = assign BaseStore, {
 	getCar: ->
@@ -111,16 +106,15 @@ CarStore = assign BaseStore, {
 	getCarList: ->
 		_carList
 
-	getCarDetail: (carId)->
-		_carId = carId
+	getCarDetail: ->
 		_carDetail
 }
 
 Dispatcher.register (action)->
 	switch action.actionType
 		when Constants.actionType.FOUND_CAR then carItemInfo()
-		when Constants.actionType.CAR_LIST then carListInfo()
-		when Constants.actionType.CAR_DETAIL then carDetail()
+		when Constants.actionType.CAR_LIST then carListInfo(action.status)
+		when Constants.actionType.CAR_DETAIL then carDetail(action.carId)
 
 module.exports = CarStore
 
