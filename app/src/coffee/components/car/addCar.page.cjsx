@@ -45,7 +45,7 @@ AddCar = React.createClass {
 			</div>
 			<div className="m-releaseitem">
 				<div>
-					<label for="remark"><span>随车司机</span> </label>
+					<label htmlFor="remark"><span>随车司机</span> </label>
 					<input ref="driver" type="text" placeholder="请输入随车司机" id="remark"/>
 				</div>
 				<div>

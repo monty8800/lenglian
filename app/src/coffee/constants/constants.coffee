@@ -10,6 +10,9 @@ actionType = {
 	REGISTER: null
 	LOGIN: null
 	RESET_PWD: null
+	ATTENTION_LIST: null
+	ADDRESS_LIST: null
+	DEL_ADDRESS: null
 }
 
 
@@ -45,6 +48,12 @@ api = {
 	car_detail: '/mjCarinfoCtl/queryMjCarinfoLoad.shtml'
 	# 我要找车
 	found_car: '/searchCarCtl/searchCar.shtml'
+	# 关注列表
+	attention_list: '/userInfo/queryMjWishlstList.shtml'
+	# 地址列表
+	address_list: '/userInfo/queryMjUserAddressList.shtml'
+	# 删除地址
+	del_address: '/userInfo/deleteMjUserAddress.shtml'
 	
 }
 

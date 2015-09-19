@@ -56,6 +56,16 @@ module.exports = {
 		location_list: '/dictionaryCtl/provinceList.shtml'
 		# 我要找车
 		found_car: '/searchCarCtl/searchCar.shtml'
+		# 添加关注
+		add_attention: '/userInfo/addDeleteMjWishlst.shtml'
+		# 取消收藏
+		cancel_attention: '/userInfo/addDeleteMjWishlst.shtml'
+		# 新增地址
+		add_address: '/userInfo/addMjUserAddress.shtml'
+		# 删除地址
+		del_address: '/userInfo/deleteMjUserAddress.shtml'
+		# 修改地址
+		modify_address: '/userInfo/updateMjUserAddress.shtml'
 
 	}
 }

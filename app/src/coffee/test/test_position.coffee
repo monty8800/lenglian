@@ -9,4 +9,4 @@ describe '省市区列表', ->
 			result[0].rl.should.not.be.empty()
 			result[0].rl[0].rl.should.not.be.empty()
 			done()
-  
+   

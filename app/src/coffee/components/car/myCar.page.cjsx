@@ -20,11 +20,8 @@ addCarUrl = 'addCar'
 
 carList = []
 
-DB.put 'myCarStatus', '1'
-
 CarItem = React.createClass {
 	_goPage: (page, i)-> 
-		console.log 'i可以当做下标来用哦---', carList.toJS()[i].carId
 		carId = carList.toJS()[i].carId
 		DB.put 'transData', carId
 		Plugin.nav.push [page]
@@ -70,32 +67,28 @@ Car = React.createClass {
 		newState = Object.create @state
 		newState.type = '1'
 		@setState newState
-		DB.put 'myCarStatus', '1'
-		CarAction.carList()
+		CarAction.carList('1')
 
 	# 求货中
 	status_02: ->
 		newState = Object.create @state
 		newState.type = '2'
 		@setState newState
-		DB.put 'myCarStatus', '2'
-		CarAction.carList()
+		CarAction.carList('2')
 
 	# 运输中
 	status_03: ->
 		newState = Object.create @state
 		newState.type = '3'
 		@setState newState
-		DB.put 'myCarStatus', '3'
-		CarAction.carList()
+		CarAction.carList('3')
 
 	# 全部
 	status_04: ->
 		newState = Object.create @state
 		newState.type = '4'
 		@setState newState
-		DB.put 'myCarStatus', ''
-		CarAction.carList()
+		CarAction.carList('')
 
 	getInitialState: ->
 		{
@@ -105,7 +98,7 @@ Car = React.createClass {
 
 	componentDidMount: ->
 		CarStore.addChangeListener @_onChange
-		CarAction.carList()
+		CarAction.carList('1')
 
 	componentWillUnmount: ->
 		CarStore.removeChangeListener @_onChange
