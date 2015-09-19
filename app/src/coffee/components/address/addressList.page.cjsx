@@ -42,7 +42,6 @@ Address = React.createClass {
 		AddressStore.removeChangeListener @resultCallBack
 
 	resultCallBack: (who)->
-		console.log 'call back', who
 		switch who
 			when 'list'
 				@setState {
@@ -66,13 +65,13 @@ Address = React.createClass {
 			<div key={ i }>
 				<div className="m-adr-con">
 					<ul>
-						<li onClick={@hrefDetail.bind this, locationUrl}>{ item.provinceId } { item.cityId } { item.areaId }</li>
+						<li>{ item.provinceId } { item.cityId } { item.areaId }</li>
 						<li>
 							<label className="u-label fl" onClick={@setDefault.bind this, item}>
 								<input name="adr-radio" className="ll-font circle" type="radio" />设置为常用地址
 							</label>
 							<p className="fr">
-								<span className="ll-font" onClick={@modifyAddress.bind this, item}>编辑</span>
+								<span className="ll-font" onClick={@hrefDetail.bind this, locationUrl}>编辑</span>
 								<span className="ll-font" onClick={@delAddress.bind this, item, i}>删除</span>
 							</p>
 						</li>

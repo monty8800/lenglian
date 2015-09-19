@@ -24,6 +24,6 @@ Address = React.createClass {
 				<a href="#">地图上定位</a>
 			</div>
 		</div>
-}	
+}
 
 React.render <Address />, document.getElementById('content')
