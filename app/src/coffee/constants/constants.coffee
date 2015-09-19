@@ -10,6 +10,7 @@ actionType = {
 	REGISTER: null
 }
 
+
 api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'

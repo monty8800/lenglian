@@ -44,10 +44,6 @@ Register = React.createClass {
 			Plugin.alert '请输入正确的手机号码'
 			return
 		UserAction.smsCode @state.mobile, Constants.smsType.register
-		newState = Object.create @state
-		newState.time = 60
-		@setState newState
-		@setInterval @_countDown, 1000
 	_countDown: ->
 		newState = Object.create @state
 		if newState.time > 0
@@ -58,17 +54,26 @@ Register = React.createClass {
 		@setState newState
 	mixins: [PureRenderMixin, LinkedStateMixin, SetInervalMixin]
 	componentDidMount: ->
-		UserStore.addChangeListener @_success
+		UserStore.addChangeListener @_change
 
 	componentWillUnmount: ->
-		UserStore.removeChangeListener @_success
+		UserStore.removeChangeListener @_change
 		@clearInterval()
 
-	_success: ->
-		console.log 'register success!'
-		newState = Object.create @state
-		newState.success = true
-		@setState newState
+	_change: (msg)->
+		console.log 'event change ', msg
+		switch msg
+			when 'sms:done'
+				#开始倒计时
+				newState = Object.create @state
+				newState.time = 60
+				@setState newState
+				@setInterval @_countDown, 1000
+			when 'register:done'
+				console.log 'register success!'
+				newState = Object.create @state
+				newState.success = true
+				@setState newState
 	getInitialState: ->
 		{
 			mobile: ''

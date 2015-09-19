@@ -6,8 +6,8 @@ CHANGE_EVENT = 'change'
 
 
 BaseStore = assign {}, EventEmitter.prototype, {
-	emitChange: ->
-		@emit CHANGE_EVENT
+	emitChange: (params)->
+		@emit CHANGE_EVENT, params
 
 	addChangeListener: (cb)->
 		@on CHANGE_EVENT, cb

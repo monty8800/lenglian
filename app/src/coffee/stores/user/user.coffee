@@ -8,6 +8,8 @@ Constants = require 'constants/constants'
 User = require 'model/user'
 DB = require 'util/storage'
 Immutable = require 'immutable'
+Plugin = require 'util/plugin'
+
 
 localUser = DB.get 'user'
 _user = new User localUser
@@ -59,6 +61,10 @@ smsCode = (mobile, type)->
 		type: type
 	}, (data)->
 		console.log '验证码', data[-6..]
+		UserStore.emitChange 'sms:done'
+	, (data)->
+		Plugin.alert data.msg
+		UserStore.emitChange 'sms:failed'
 
 register = (mobile, code, passwd)->
 	Http.post Constants.api.REGISTER, {
@@ -66,16 +72,16 @@ register = (mobile, code, passwd)->
 		mobileCode: code
 		password: passwd
 	}, (data)->
-		UserStore.emitChange()
+		UserStore.emitChange 'register:done'
 
 
 UserStore = assign BaseStore, {
+	_smsCB: null
 	getUser: ->
 		_user
 
 	getMenus: ->
 		_menus
-
 }
 
 Dispatcher.register (action)->
