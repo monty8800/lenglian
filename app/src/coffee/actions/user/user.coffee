@@ -21,6 +21,13 @@ UserAction = {
 			code: code
 			passwd: passwd
 		}
+
+	login: (mobile, passwd)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.LOGIN
+			mobile: mobile
+			passwd: passwd
+		}
 }
 
 module.exports = UserAction

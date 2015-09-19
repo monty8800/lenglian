@@ -74,9 +74,16 @@ register = (mobile, code, passwd)->
 	}, (data)->
 		UserStore.emitChange 'register:done'
 
+login = (mobile, passwd)->
+	console.log 'do login', mobile, passwd
+	Http.post Constants.api.LOGIN, {
+		usercode: mobile
+		password: passwd
+	}, (data)->
+		UserStore.emitChange 'login:done'
+
 
 UserStore = assign BaseStore, {
-	_smsCB: null
 	getUser: ->
 		_user
 
@@ -89,5 +96,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.USER_INFO then requestInfo()
 		when Constants.actionType.SMS_CODE then smsCode(action.mobile, action.type)
 		when Constants.actionType.REGISTER then register(action.mobile, action.code, action.passwd)
+		when Constants.actionType.LOGIN then login(action.mobile, action.passwd)
 
 module.exports = UserStore

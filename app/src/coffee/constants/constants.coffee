@@ -8,6 +8,7 @@ actionType = {
 	CAR_DETAIL: null
 	SMS_CODE: null
 	REGISTER: null
+	LOGIN: null
 }
 
 
