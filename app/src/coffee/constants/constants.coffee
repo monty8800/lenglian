@@ -29,6 +29,9 @@ api = {
 	#找回密码
 	RESET_PWD: '/register/retrievePWD.shtml'
 
+	#修改密码
+	CHANGE_PWD: '/loginCtl/changPwd.shtml'
+
 	# 个人中心
 	USER_CENTER: '/userInfo/userCenter.shtml'
 

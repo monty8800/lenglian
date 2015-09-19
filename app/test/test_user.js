@@ -49,6 +49,41 @@
         });
       });
     });
+    it('修改密码', function(done) {
+      var passwd, userId;
+      userId = '9cd0f23940824702b99bf74328f61f54';
+      passwd = '123456a';
+      return request.post(config.api.CHANGE_PWD, {
+        userId: userId,
+        oldpwd: passwd,
+        newpwd: passwd
+      }, function(result) {
+        result.should.not.be.empty();
+        return done();
+      });
+    });
+    it('检测支付密码，设置/修改支付密码', function(done) {
+      var passwd, userId;
+      userId = '7714d0d83c7f47f4bcfac62b9a1bf101';
+      passwd = '123456';
+      return request.post(config.api.HAS_PAY_PWD, {
+        userId: userId
+      }, function(data) {
+        var status;
+        data.should.not.be.empty();
+        status = data.status;
+        status.should.be.within(0, 1);
+        console.log('支付密码状态', status);
+        return request.post(config.api.PAY_PWD, {
+          userId: userId,
+          payPassword: passwd,
+          oldPayPwd: status === 1 ? passwd : void 0
+        }, function(result) {
+          result.should.not.be.empty();
+          return done();
+        });
+      });
+    });
     return it('登录', function(done) {
       var mobile, passwd;
       mobile = '18513468467';

@@ -860,6 +860,7 @@ p { margin: 0;}
   position: fixed;
   left: 50%;
   top:50%;
+  margin-left: -275/$ppr;
   z-index: 1000;
   visibility: hidden;
   backface-visibility: hidden;

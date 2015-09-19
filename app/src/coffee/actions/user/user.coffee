@@ -35,6 +35,13 @@ UserAction = {
 			code: code
 			passwd: passwd
 		}
+
+	changePasswd: (oldPasswd, newPasswd)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CHANGE_PWD
+			oldPasswd: oldPasswd
+			newPasswd: newPasswd
+		}
 }
 
 module.exports = UserAction

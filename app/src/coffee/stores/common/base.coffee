@@ -1,5 +1,6 @@
 EventEmitter = require('events').EventEmitter
 assign = require 'object-assign'
+DB = require 'util/storage'
 
 CHANGE_EVENT = 'change'
  

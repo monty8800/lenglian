@@ -23,6 +23,15 @@ module.exports = {
 
 		#找回密码
 		RESET_PWD: '/register/retrievePWD.shtml'
+
+		#修改密码
+		CHANGE_PWD: '/loginCtl/changPwd.shtml'
+
+		#判断是否有支付密码
+		HAS_PAY_PWD: '/myWalletCtl/isPayPassword.shtml'
+
+		#设置／修改支付密码
+		PAY_PWD: '/myWalletCtl/payPassword.shtml'
 		
 		# 个人中心
 		USER_CENTER: '/userInfo/userCenter.shtml'

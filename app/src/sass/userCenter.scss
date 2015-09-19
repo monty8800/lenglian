@@ -107,7 +107,7 @@
     background-color: #fff;
     div{
         font-size: 32/$ppr;
-        padding: 40/$ppr 20/$ppr 40/$ppr 50/$ppr;
+        padding: 28/$ppr 20/$ppr 28/$ppr 50/$ppr;
         border-bottom:1px solid #e6e6e6;
         position: relative;
         &:last-child{
@@ -169,8 +169,8 @@
     }
 }
 .m-item02{
-    padding: 0 20/$ppr;
-    line-height: 50/$ppr;
+    padding: 12/$ppr 20/$ppr;
+    line-height: 40/$ppr;
     font-size:28/$ppr;
     background: #fff;
     border-bottom: 1px solid #e6e6e6;
@@ -223,9 +223,10 @@
     margin-top:20/$ppr;  
     font-size: 28/$ppr;
     .g-itemList{
-        padding:20/$ppr 0;
+        padding:30/$ppr 0;
         border-bottom: 1px solid #e6e6e6;
         position: relative;
+        @include box-sizing($sizing:border-box);
         &:last-child{
             border-bottom: 0;
         }
@@ -291,19 +292,19 @@
         .u-item-btn{
             position: absolute;
             right: 20/$ppr;
-            top:20/$ppr;
+            top:30/$ppr;
             text-align: right;
             a{
-                width: 150/$ppr;
-                height:50/$ppr;                
-                line-height: 50/$ppr;
-                text-align: center;
+//              width: 150/$ppr;
+//              height:50/$ppr;                
+//              line-height: 50/$ppr;
+//              text-align: center;
                 color: $main-color;
-                border: 1px solid $main-color;
-                display: block;
-                border-radius: 5/$ppr;
+//              border: 1px solid $main-color;
+//              display: block;
+//              border-radius: 5/$ppr;
                 font-size: 26/$ppr;
-                margin-top:-10/$ppr;
+//              margin-top:-10/$ppr;
             }
             span{
                 text-align: right;
@@ -413,7 +414,7 @@
 }
 
 .g-bankCard{
-    padding: 36/$ppr 20/$ppr;
+    padding: 35/$ppr 20/$ppr 15/$ppr;
     font-size:26/$ppr;
     color:$text-color-666;
 }
@@ -527,6 +528,12 @@
     }
     .g-cashEnd{
         padding:16/$ppr 0 0 70/$ppr;
+        p{
+            &:first-child{
+                color: #333
+                ;
+            }
+        }
         &:before{
             top:16/$ppr;
             color:#999;

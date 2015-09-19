@@ -579,9 +579,11 @@ body,html {
 .g-pro-name{
     color:#333;
     font-size:30/$ppr;
-//  padding:30/$ppr 0;
     border-bottom:1px solid #e6e6e6;
-    padding:30/$ppr;
+    padding:30/$ppr 0;
+    &:first-child{
+        padding:10/$ppr 0 30/$ppr;
+    }
 }
 .g-pro-detail{
     width:100%;
@@ -622,14 +624,14 @@ body,html {
     p{
         padding-right: 20/$ppr;
         border-bottom: 1px solid #e6e6e6;
-        height: 80/$ppr;
-        line-height: 80/$ppr;
+        height: 88/$ppr;
+        line-height: 88/$ppr;
         &:last-child{
             border-bottom: none;
         }
         span{
-            height: 80/$ppr;
-            line-height:80/$ppr;
+//          height: 88/$ppr;
+//          line-height:88/$ppr;
             color:#666;
             font-size:30/$ppr;
             &:first-child{
@@ -637,7 +639,7 @@ body,html {
             }
             &:last-child{
                 float: right;
-                max-width: 400/$ppr;
+                max-width: 450/$ppr;
                 text-align: right;
                 overflow: hidden;
                 white-space: nowrap;
@@ -677,12 +679,12 @@ body,html {
     .g-cancle-btn{
         position: absolute;
         right: 200/$ppr;
-        top:20/$ppr;
+        top:16/$ppr;
     }
     .g-pay-btn{
         position: absolute;
         right: 20/$ppr;
-        top:20/$ppr;        
+        top:16/$ppr;        
     }
 }
 //pay page
@@ -802,7 +804,7 @@ body,html {
 }
 
 .u-pay-btn{
-    margin: 40/$ppr 0 20/$ppr;
+    margin: 40/$ppr 0;
     .btn{
         background-color: $main-color;
         font-weight: bold;
@@ -833,12 +835,12 @@ body,html {
     }
 }
 //paypage alertBox
-.m-gray{
+.m-gray,.m-gray03{
     width: 100%;
     height: 100%;
     background-color: #000;
-    opacity: 0.6;
-    position: absolute;
+    opacity: 0.5;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
@@ -846,10 +848,58 @@ body,html {
     z-index: 99;
 //  display: none;
 }
+
+.m-passwordAlert{
+    width: 500/$ppr;
+    border-radius: 5/$ppr;
+    height: 430/$ppr;
+    background: #f2f2f2;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -215/$ppr 0 0 -250/$ppr;
+    z-index: 100;
+    overflow: hidden;
+    p{
+        text-align: center;
+        @include box-sizing($sizing:border-box);
+        line-height: 1;
+        font-size: 30/$ppr;
+        &.g-texttitle{
+            line-height: 86/$ppr;
+            border-bottom:1px solid #d6d7d9;            
+        }
+        &.g-text01{
+            padding: 20/$ppr 0;
+        }
+        &.g-text02{
+            font-size: 60/$ppr;
+        }
+        &.g-cancle{
+            font-size: 34/$ppr;
+            border-top: 1px solid #d6d7d9;
+//          height: 90/$ppr;
+            line-height: 90/$ppr;
+        } 
+    } 
+    .g-password{
+        width: 404/$ppr;
+        height: 70/$ppr;
+        background: #fff;
+        border:1px solid #d6d7d9;
+        margin: 24/$ppr auto;
+        display: block;
+        text-indent: 10/$ppr;
+        font-size: 30/$ppr;
+        line-height: 40/$ppr;
+    }  
+    
+}
+
 .m-payalert{
     width: 500/$ppr;
 //  height: 290/$ppr;
-    background:url(../images/transparent-bg.png) repeat;
+    background: #f2f2f2;
     border-radius: 5/$ppr;
     position: fixed;
     z-index: 100;
@@ -969,14 +1019,14 @@ body,html {
         p{
             font-size: 32/$ppr;
             color:$text-color-333;
-            line-height: 60/$ppr;
+            line-height: 50/$ppr;
             text-align: center;
             &:first-child{
                 position: relative;
                 &:before{
                     width: 40/$ppr;
                     height: 40/$ppr;
-                    line-height: 60/$ppr;
+                    line-height: 50/$ppr;
                     text-align: left;
                     font-size: 40/$ppr;
                     content: "\e608";
@@ -989,11 +1039,12 @@ body,html {
         }
     }
     .g-paysuccess-item02{
-        padding: 50/$ppr 0 70/$ppr 100/$ppr;
+        padding: 50/$ppr 0 70/$ppr;
         p{
             line-height: 40/$ppr;
             color:#999;
             font-size:26/$ppr;
+            text-align: center;
             i{
                 color:$text-color-fd8;
             }
@@ -1159,13 +1210,12 @@ body,html {
     border-bottom: 1px solid #e6e6e6;
     padding:0 0 0 20/$ppr;
     >div{
-    	padding:30/$ppr 0;
+    	padding:28/$ppr 0;
         font-size:32/$ppr;
         color:$text-color-333;           
         position:relative;
         border-bottom: 1px solid #e6e6e6;
-        @include box-sizing($sizing:border-box);
-        
+        @include box-sizing($sizing:border-box);     
         &.g-releaseDl{
             dd{
                 p{
@@ -1180,8 +1230,7 @@ body,html {
                     }
                 }
             }
-        }
-        
+        }        
         &:last-child{
             border-bottom:0;
         }  
@@ -1193,10 +1242,18 @@ body,html {
                 width: 145/$ppr;
                 margin-right: 0;
                 vertical-align: top;
-            }                        
+            }  
+            &:last-child{
+                display: inline-block;
+                max-width: 450/$ppr;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }                      
         }  
         &.g-testCode{
             position: relative;
+            height: 88/$ppr;
             span{
                 &:first-child{
                     width: 80/$ppr; 
@@ -1210,7 +1267,7 @@ body,html {
                             font-size: 32/$ppr;
                             content: "\e623";
                             position: absolute;
-                            left: 18/$ppr;
+                            left: 10/$ppr;
                             top: -2/$ppr;
                             color: $main-color;
                         }
@@ -1252,20 +1309,21 @@ body,html {
             &:-ms-input-placeholder { color: #acabab;}
             font-size:30/$ppr;
             color:#acabab;
+            padding: 0;
             &.weight{
                 width: 125/$ppr;
                 height: 50/$ppr;
                 border: 1px solid #e6e6e6;
                 border-radius: 5/$ppr;
                 text-indent: 5/$ppr;
-                margin:-9/$ppr 10/$ppr 0 0;
+                margin:-9/$ppr 10/$ppr -9/$ppr 0;
                 &.car{
                     width: 240/$ppr;
                 }
             }
         }
         &.choicePic{
-            line-height: 100/$ppr;
+            line-height: 84/$ppr;
             position: relative;
             input{
                 &:last-child{
@@ -1273,7 +1331,7 @@ body,html {
                     height:100/$ppr;
                     position: absolute;
                     right: 20/$ppr;
-                    top:30/$ppr;
+                    top:20/$ppr;
                     background: pink;
                     opacity: 0;
                 }
@@ -1283,7 +1341,7 @@ body,html {
                 width: 100/$ppr;
                 height:100/$ppr;
                 right: 20/$ppr;
-                top: 30/$ppr;
+                top: 20/$ppr;
                 margin: 0;
                 border: 1px solid #E6E6E6; 
                 padding: 15/$ppr;
@@ -1313,18 +1371,22 @@ body,html {
        i{
            color: #acabab;
            font-size: 30/$ppr; 
-        }  
-        .iconFont{
-            font-size: 28/$ppr;
-            padding-top: 20/$ppr;
         }
+        .star{
+           color: #666;
+           padding-top: 20/$ppr;
+       }
+//      .iconFont{
+//          font-size: 28/$ppr;
+//          padding-top: 20/$ppr;
+//      }
         
         &.g-releaseDl{
             dl{
                 dd{
                     width: 475/$ppr;
                     > div {
-                        padding: 30/$ppr 0 30/$ppr 0;
+                        padding: 28/$ppr 0 28/$ppr 0;
                         border-bottom: 1px solid #E6E6E6;
                         position: relative;
                         font-size: 32/$ppr;
@@ -1341,8 +1403,10 @@ body,html {
                             height: 50/$ppr;
                             border:1px solid #E6E6E6;
                             border-radius: 5/$ppr;
-                            text-align: center;
+                            text-indent: 15/$ppr;
+//                          text-align: center;
                             margin-top: -9/$ppr;
+                            margin-bottom: -9/$ppr;
                             
                         }
                         &:first-child{
@@ -1372,6 +1436,7 @@ body,html {
         &.u-close{
             &:after{
                  content: "\e62e";
+                 color: #ccc;
             }          
         }
     }
@@ -1390,6 +1455,7 @@ body,html {
         }
         input{
             max-width: 400/$ppr;
+            line-height: 1;
         }
     }
     .title{
@@ -1432,7 +1498,7 @@ body,html {
 }
 .g-radio{
     label{
-        margin-right: 12/$ppr;
+        margin-right: 0/$ppr;
     }
 }
 .m-releasehead02{
@@ -1508,7 +1574,6 @@ body,html {
 
 .u-comment{
     padding: 30/$ppr 20/$ppr 0 0;
-    margin-right: 20/$ppr;
     .text{
         width: 100%;
         padding: 20/$ppr;

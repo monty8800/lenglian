@@ -28,15 +28,16 @@ _menus = Immutable.fromJS [
 	[
 		{cls: 'u-icon-focus', title: '我的关注', url: 'home'},
 		{cls: 'u-icon-judge', title: '我收到的评价', url: 'home'},
-		{cls: 'u-icon-more', title: '更多', url: 'home'}
+		{cls: 'u-icon-more', title: '更多', url: 'more'}
 	]
 ]
 
 
 requestInfo = ->
-	#TODO 假数据
+	if not _user?.id
+		return
 	Http.post Constants.api.USER_CENTER, {
-		userId: '7714d0d83c7f47f4bcfac62b9a1bf101'
+		userId: _user.id
 	}, (data)->
 		_user = _user.set 'orderDoneCount', data.myOrderCount
 		# _user = _user.set 'orderBreakCount', 2   
@@ -81,6 +82,14 @@ login = (mobile, passwd)->
 		usercode: mobile
 		password: passwd
 	}, (data)->
+		_user = _user.set 'carStatus', data.carStatus
+		_user = _user.set 'certification', data.certification
+		_user = _user.set 'goodsStatus', data.goodsStatus
+		_user = _user.set 'avatar', data.imgurl
+		_user = _user.set 'id', data.userId
+		_user = _user.set 'mobile', data.usercode
+		_user = _user.set 'warehouseStatus', data.warehouseStatus
+		DB.put 'user', _user.toJS()
 		UserStore.emitChange 'login:done'
 
 resetPwd = (mobile, code, passwd)->
@@ -90,6 +99,14 @@ resetPwd = (mobile, code, passwd)->
 		password: passwd
 	}, (data)->
 		UserStore.emitChange 'resetPasswd:done'
+
+changePwd = (oldPasswd, newPasswd)->
+	Http.post Constants.api.CHANGE_PWD, {
+		userId: _user?.id
+		oldpwd: oldPasswd
+		newpwd: newPasswd
+	}, (data)->
+		UserStore.emitChange 'changePasswd:done'
 
 UserStore = assign BaseStore, {
 	getUser: ->
@@ -106,5 +123,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.REGISTER then register(action.mobile, action.code, action.passwd)
 		when Constants.actionType.LOGIN then login(action.mobile, action.passwd)
 		when Constants.actionType.RESET_PWD then resetPwd(action.mobile, action.code, action.passwd)
+		when Constants.actionType.CHANGE_PWD then changePwd(action.oldPasswd, action.newPasswd)
 
 module.exports = UserStore

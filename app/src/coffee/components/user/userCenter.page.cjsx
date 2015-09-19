@@ -38,6 +38,7 @@ AuthStatus = React.createClass {
 }
 
 Profile = React.createClass {
+	#TODO: 用户头像
 	render: ->
 		user = this.props.user
 		console.log 'user is', user

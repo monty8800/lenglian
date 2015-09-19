@@ -44,7 +44,6 @@ Register = React.createClass {
 
 	componentWillUnmount: ->
 		UserStore.removeChangeListener @_change
-		@clearInterval()
 
 	_change: (msg)->
 		console.log 'event change ', msg

@@ -40,6 +40,39 @@ describe '测试用户', ->
 				result.should.not.be.empty()
 				done()
 
+	it '修改密码', (done)->
+		userId = '9cd0f23940824702b99bf74328f61f54'
+		passwd = '123456a'
+
+		request.post config.api.CHANGE_PWD, {
+			userId: userId
+			oldpwd: passwd
+			newpwd: passwd
+		}, (result)->
+			result.should.not.be.empty()
+			done()
+
+
+	it '检测支付密码，设置/修改支付密码', (done)->
+		userId = '7714d0d83c7f47f4bcfac62b9a1bf101'
+		passwd = '123456'
+
+		request.post config.api.HAS_PAY_PWD, {
+			userId: userId
+		}, (data)->
+			data.should.not.be.empty()
+			status = data.status
+			status.should.be.within 0, 1
+
+			console.log '支付密码状态', status
+
+			request.post config.api.PAY_PWD, {
+				userId: userId
+				payPassword: passwd
+				oldPayPwd: passwd if status is 1
+			}, (result)->
+				result.should.not.be.empty()
+				done()
 
 	it '登录', (done)->
 		mobile = '18513468467'
