@@ -49,7 +49,7 @@ Profile = React.createClass {
 					</dt>
 					<dd className="fl">
 						<p className="g-name">{user.name || user.company || user.mobile}</p>
-						<p>成交数：<span>45单</span></p>
+						<p>成交数：<span>{user.orderDoneCount}单</span></p>
 					</dd>
 				</dl>
 			</div>

@@ -21,6 +21,26 @@ describe '测试用户', ->
 			result.warehouseStatus.should.be.within 0, 3
 			done()
 
+	it '找回密码', (done)->
+		mobile = '18513468467'
+		passwd = '123456a'
+
+		request.post config.api.SMS_CODE, {
+			mobile: mobile
+			type: 2
+		}, (data)->
+			data.should.not.be.empty()
+			code = data[-6..]
+			code.should.not.be.empty()
+			request.post config.api.RESET_PWD, {
+				usercode: mobile
+				password: passwd
+				mobileCode: code
+			}, (result)->
+				result.should.not.be.empty()
+				done()
+
+
 	it '登录', (done)->
 		mobile = '18513468467'
 		passwd = '123456a'

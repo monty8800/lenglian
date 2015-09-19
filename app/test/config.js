@@ -14,6 +14,7 @@
       LOGIN: '/loginCtl/userLogin.shtml',
       REGISTER: '/register/registerUser.shtml',
       SMS_CODE: '/register/sendMobileMsg.shtml',
+      RESET_PWD: '/register/retrievePWD.shtml',
       USER_CENTER: '/userInfo/userCenter.shtml',
       ADDR_LIST: '/userInfo/queryMjUserAddressList.shtml',
       ware_house_detail: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml',

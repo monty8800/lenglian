@@ -28,6 +28,13 @@ UserAction = {
 			mobile: mobile
 			passwd: passwd
 		}
+	resetPasswd: (mobile, code, passwd)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.RESET_PWD
+			mobile: mobile
+			code: code
+			passwd: passwd
+		}
 }
 
 module.exports = UserAction

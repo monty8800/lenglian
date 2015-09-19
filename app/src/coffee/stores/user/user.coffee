@@ -38,8 +38,8 @@ requestInfo = ->
 	Http.post Constants.api.USER_CENTER, {
 		userId: '7714d0d83c7f47f4bcfac62b9a1bf101'
 	}, (data)->
-		_user = _user.set 'orderDoneCount', 40
-		_user = _user.set 'orderBreakCount', 2   
+		_user = _user.set 'orderDoneCount', data.myOrderCount
+		# _user = _user.set 'orderBreakCount', 2   
 		_user = _user.set 'mobile', data.usercode
 		_user = _user.set 'carStatus', data.carStatus
 		_user = _user.set 'certification', data.certification
@@ -52,6 +52,7 @@ requestInfo = ->
 		_user = _user.set 'id', data.userId
 		_user = _user.set 'warehouseStatus', data.warehouseStatus
 		_user = _user.set 'warehouseCause', data.warehouseCause
+		_user = _user.set 'name', data.userName #个人名或者公司名，服务器合并到这个字段返回
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange()
 
@@ -82,6 +83,13 @@ login = (mobile, passwd)->
 	}, (data)->
 		UserStore.emitChange 'login:done'
 
+resetPwd = (mobile, code, passwd)->
+	Http.post Constants.api.RESET_PWD, {
+		usercode: mobile
+		mobileCode: code
+		password: passwd
+	}, (data)->
+		UserStore.emitChange 'resetPasswd:done'
 
 UserStore = assign BaseStore, {
 	getUser: ->
@@ -97,5 +105,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.SMS_CODE then smsCode(action.mobile, action.type)
 		when Constants.actionType.REGISTER then register(action.mobile, action.code, action.passwd)
 		when Constants.actionType.LOGIN then login(action.mobile, action.passwd)
+		when Constants.actionType.RESET_PWD then resetPwd(action.mobile, action.code, action.passwd)
 
 module.exports = UserStore

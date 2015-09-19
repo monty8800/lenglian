@@ -27,6 +27,28 @@
         return done();
       });
     });
+    it('找回密码', function(done) {
+      var mobile, passwd;
+      mobile = '18513468467';
+      passwd = '123456a';
+      return request.post(config.api.SMS_CODE, {
+        mobile: mobile,
+        type: 2
+      }, function(data) {
+        var code;
+        data.should.not.be.empty();
+        code = data.slice(-6);
+        code.should.not.be.empty();
+        return request.post(config.api.RESET_PWD, {
+          usercode: mobile,
+          password: passwd,
+          mobileCode: code
+        }, function(result) {
+          result.should.not.be.empty();
+          return done();
+        });
+      });
+    });
     return it('登录', function(done) {
       var mobile, passwd;
       mobile = '18513468467';

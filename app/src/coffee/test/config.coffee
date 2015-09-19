@@ -20,6 +20,9 @@ module.exports = {
 		REGISTER: '/register/registerUser.shtml'
 		#短信验证码
 		SMS_CODE: '/register/sendMobileMsg.shtml'
+
+		#找回密码
+		RESET_PWD: '/register/retrievePWD.shtml'
 		
 		# 个人中心
 		USER_CENTER: '/userInfo/userCenter.shtml'

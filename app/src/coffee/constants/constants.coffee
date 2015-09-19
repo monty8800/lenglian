@@ -9,6 +9,7 @@ actionType = {
 	SMS_CODE: null
 	REGISTER: null
 	LOGIN: null
+	RESET_PWD: null
 }
 
 
@@ -24,6 +25,9 @@ api = {
 	LOGIN: '/loginCtl/userLogin.shtml'
 	#注册
 	REGISTER: '/register/registerUser.shtml'
+
+	#找回密码
+	RESET_PWD: '/register/retrievePWD.shtml'
 
 	# 个人中心
 	USER_CENTER: '/userInfo/userCenter.shtml'
@@ -53,3 +57,4 @@ module.exports =
 	debug: true
 	inBrowser: true
 	smsType: smsType
+	smsGapTime: 60

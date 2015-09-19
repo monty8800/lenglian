@@ -62,7 +62,7 @@ Login = React.createClass {
 			</ul>
 		</div>
 		<div className="m-login-tips clearfix">
-			<a onClick={@_goPage.bind this, 'register'}>注册</a><a href="#">忘记密码?</a>
+			<a onClick={@_goPage.bind this, 'register'}>注册</a><a onClick={@_goPage.bind this, 'resetPasswd'}>忘记密码?</a>
 		</div>
 		<div className="m-btn-con">
 			<a  className="u-btn" onClick={@_login}>登录</a>
