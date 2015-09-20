@@ -22,6 +22,7 @@ Address = React.createClass {
 
 	setDefault: (item)->
 		console.log 'default ---- ', item
+		Plugin.alert '表结构没有该字段呢' 
 
 	modifyAddress: (item)->
 		console.log 'modify_address -- ',item 
@@ -53,9 +54,9 @@ Address = React.createClass {
 					@setState {
 						addressList: list
 					}	
-					console.log 'del_success'
+					Plugin.alert '删除成功!'
 				else 
-					console.log 'del_falil'					
+					Plugin.alert who			
 
 
 	minxins: [PureRenderMixin]

@@ -13,6 +13,7 @@ actionType = {
 	ATTENTION_LIST: null
 	ADDRESS_LIST: null
 	DEL_ADDRESS: null
+	MSG_LIST: null
 }
 
 
@@ -54,6 +55,9 @@ api = {
 	address_list: '/userInfo/queryMjUserAddressList.shtml'
 	# 删除地址
 	del_address: '/userInfo/deleteMjUserAddress.shtml'
+	# 我的消息
+	message_list: '/mjMymessageCtl/queryMymessage.shtml'
+
 	
 }
 

@@ -66,6 +66,8 @@ module.exports = {
 		del_address: '/userInfo/deleteMjUserAddress.shtml'
 		# 修改地址
 		modify_address: '/userInfo/updateMjUserAddress.shtml'
+		# 我的消息
+		message_list: '/mjMymessageCtl/queryMymessage.shtml'
 
 	}
 }

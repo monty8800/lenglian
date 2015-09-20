@@ -31,7 +31,8 @@
       cancel_attention: '/userInfo/addDeleteMjWishlst.shtml',
       add_address: '/userInfo/addMjUserAddress.shtml',
       del_address: '/userInfo/deleteMjUserAddress.shtml',
-      modify_address: '/userInfo/updateMjUserAddress.shtml'
+      modify_address: '/userInfo/updateMjUserAddress.shtml',
+      message_list: '/mjMymessageCtl/queryMymessage.shtml'
     }
   };
 

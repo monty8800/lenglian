@@ -40,7 +40,7 @@ delAddress = (addressId)->
 	}, (result) ->
 		AddressStore.emitChange 'del_success'
 	, (data) ->
-		AddressStore.emitChange 'del_fail'
+		AddressStore.emitChange data.msg
 
 AddressStore = assign BaseStore, {
 	getAddressList: ->
