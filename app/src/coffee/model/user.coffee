@@ -20,6 +20,7 @@ User = Immutable.Record {
 	carCount: 0 #车辆数
 	messageCount: 0 #消息数
 	warehouseCount: 0 #消息数
+	hasPayPwd: 0 #是否有支付密码，0 未设置， 1 已设置
 	
 }
 module.exports = User

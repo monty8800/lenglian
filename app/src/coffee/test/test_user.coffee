@@ -74,6 +74,26 @@ describe '测试用户', ->
 				result.should.not.be.empty()
 				done()
 
+	it '找回支付密码', (done)->
+		userId = '729667936d0d411daaa946e4592978f0'
+		mobile = '13100000010'
+
+		request.post config.api.SMS_CODE, {
+			mobile: mobile
+			type: 3
+		}, (data)->
+			data.should.not.be.empty()
+			code = data[-6..]
+			code.should.not.be.empty()
+			request.post config.api.RESET_PAY_PWD, {
+				password: '111111'
+				usercode: mobile
+				mobileCode: code
+				userId: userId
+			}, (result)->
+				result.should.equal 1
+				done()
+
 	it '登录', (done)->
 		mobile = '18513468467'
 		passwd = '123456a'

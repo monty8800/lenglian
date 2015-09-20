@@ -15,7 +15,11 @@ Validator = require 'util/validator'
 Constants = require 'constants/constants'
 
 SmsCode = require 'components/common/smsCode'
+DB = require 'util/storage'
 
+transData = DB.get 'transData'
+user = UserStore.getUser()
+hasPayPwd = user.hasPayPwd is 1
 
 ResetPwd = React.createClass {
 	_changePwd: ->
@@ -23,7 +27,7 @@ ResetPwd = React.createClass {
 		if not Validator.mobile @state.mobile
 			Plugin.alert '请输入正确的手机号码'
 			return
-		else if not Validator.passwd @state.oldPasswd
+		else if (transData.type isnt 'payPwd' or hasPayPwd) and not Validator.passwd @state.oldPasswd
 			Plugin.alert '原密码格式不正确'
 			return
 		else if not Validator.passwd @state.passwd
@@ -33,7 +37,10 @@ ResetPwd = React.createClass {
 			Plugin.alert '两次输入密码不一致'
 			return
 		else
-			UserAction.changePasswd @state.oldPasswd, @state.passwd
+			if transData?.type is 'payPwd'
+				UserAction.setPayPwd @state.passwd, @state.oldPasswd
+			else
+				UserAction.changePasswd @state.oldPasswd, @state.passwd
 
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	componentDidMount: ->
@@ -41,6 +48,7 @@ ResetPwd = React.createClass {
 
 	componentWillUnmount: ->
 		UserStore.removeChangeListener @_change
+		DB.remove 'transData'
 
 	_change: (msg)->
 		console.log 'event change ', msg
@@ -48,6 +56,13 @@ ResetPwd = React.createClass {
 			console.log 'changePasswd success!'
 			Plugin.alert '密码修改成功！'
 			Plugin.nav.pop()
+		else if msg is 'setPayPwd:done'
+			if hasPayPwd
+				Plugin.alert '修改支付密码成功！'
+				Plugin.nav.pop()
+			else
+				Plugin.alert '设置支付密码成功！'
+				Plugin.nav.pop()
 
 	getInitialState: ->
 		{
@@ -57,17 +72,15 @@ ResetPwd = React.createClass {
 			rePasswd: ''
 		}
 	render: ->
-		console.log 'user', UserStore.user
+		console.log 'hasPayPwd', hasPayPwd
+		oldPasswd = <li><span className="ll-font u-user-icon c-icon01"></span><input className="input-weak" type="password" placeholder="原密码" valueLink={@linkState 'oldPasswd'} /></li>
 		<section>
 		<div className="m-change-div ll-font">
 			{@state.mobile}
 		</div>
 		<div className="m-login-item m-login-change">
 			<ul>
-				<li>
-					<span className="ll-font u-user-icon c-icon01"></span>
-					<input className="input-weak" type="password" placeholder="原密码" valueLink={@linkState 'oldPasswd'} />
-				</li>
+				{if transData?.type isnt 'payPwd' or hasPayPwd then oldPasswd else null}
 				<li>
 					<span className="ll-font u-user-icon c-icon02"></span>
 					<input className="input-weak" type="password" placeholder="新密码" valueLink={@linkState 'passwd'} />

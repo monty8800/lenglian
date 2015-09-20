@@ -36,11 +36,25 @@ UserAction = {
 			passwd: passwd
 		}
 
+	resetPayPwd: (mobile, code, passwd)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.RESET_PAY_PWD
+			mobile: mobile
+			code: code
+			passwd: passwd
+		}
+
 	changePasswd: (oldPasswd, newPasswd)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CHANGE_PWD
 			oldPasswd: oldPasswd
 			newPasswd: newPasswd
+		}
+	setPayPwd: (payPwd, oldPwd)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.PAY_PWD
+			payPwd: payPwd
+			oldPwd: oldPwd
 		}
 }
 

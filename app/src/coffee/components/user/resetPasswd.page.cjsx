@@ -13,6 +13,10 @@ UserAction = require 'actions/user/user'
 Plugin = require 'util/plugin'
 Validator = require 'util/validator'
 Constants = require 'constants/constants'
+DB = require 'util/storage'
+
+transData = DB.get 'transData'
+
 
 SmsCode = require 'components/common/smsCode'
 
@@ -33,7 +37,10 @@ ResetPwd = React.createClass {
 			Plugin.alert '两次输入密码不一致'
 			return
 		else
-			UserAction.resetPasswd @state.mobile, @state.code, @state.passwd
+			if transData?.type is 'payPwd'
+				UserAction.resetPayPwd @state.mobile, @state.code, @state.passwd
+			else
+				UserAction.resetPasswd @state.mobile, @state.code, @state.passwd
 
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	componentDidMount: ->
@@ -41,6 +48,7 @@ ResetPwd = React.createClass {
 
 	componentWillUnmount: ->
 		UserStore.removeChangeListener @_change
+		DB.remove 'transData'
 
 	_change: (msg)->
 		console.log 'event change ', msg
@@ -48,10 +56,13 @@ ResetPwd = React.createClass {
 			console.log 'resetPasswd success!'
 			Plugin.alert '密码设置成功！'
 			Plugin.nav.pop()
+		else if msg is 'resetPayPwd:done'
+			Plugin.alert '支付密码设置成功！'
+			Plugin.nav.pop()
 
 	getInitialState: ->
 		{
-			mobile: ''
+			mobile: if transData?.type is 'payPwd' then UserStore.getUser().mobile else ''
 			code: ''
 			passwd: ''
 			rePasswd: ''
@@ -60,13 +71,18 @@ ResetPwd = React.createClass {
 		}
 	render: ->
 		console.log 'this', this
+		mobile = null
+		if transData?.type is 'payPwd'
+			mobile = <input type="tel" maxLength="11" placeholder="请输入手机号" valueLink={@linkState 'mobile'} disabled="disabled" />
+		else
+			mobile = <input type="tel" maxLength="11" placeholder="请输入手机号" valueLink={@linkState 'mobile'} />
 		<section>
 		<div className="m-login-item m-reg-item">
 			<ul>
 				<li>
 					<span className="ll-font u-user-icon u-reg-icon"></span>
-					<input type="tel" maxLength="11" placeholder="请输入手机号" valueLink={@linkState 'mobile'} />
-					<SmsCode mobile={@state.mobile} type={Constants.smsType.resetPwd} />
+					{mobile}
+					<SmsCode mobile={@state.mobile} type={if transData?.type is 'payPwd' then Constants.smsType.resetPayPwd else Constants.smsType.resetPwd} />
 				</li>
 				<li>
 					<input type="text" placeholder="请输入手机验证码" valueLink={@linkState 'code'} />

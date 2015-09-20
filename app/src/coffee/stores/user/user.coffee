@@ -56,6 +56,7 @@ requestInfo = ->
 		_user = _user.set 'name', data.userName #个人名或者公司名，服务器合并到这个字段返回
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange()
+		checkPayPwd() if _user.hasPayPwd isnt 1
 
 smsCode = (mobile, type)->
 	Http.post Constants.api.SMS_CODE, {
@@ -108,6 +109,42 @@ changePwd = (oldPasswd, newPasswd)->
 	}, (data)->
 		UserStore.emitChange 'changePasswd:done'
 
+checkPayPwd = ->
+	if not _user?.id
+		return
+	Http.post Constants.api.HAS_PAY_PWD, {
+		userId: _user?.id
+	}, (data)->
+		_user = _user.set 'hasPayPwd', data.status
+		DB.put 'user', _user.toJS()
+
+setPayPwd = (payPwd, oldPwd)->
+	Http.post Constants.api.PAY_PWD, {
+		userId: _user.id
+		payPassword: payPwd
+		oldPayPwd: oldPwd if oldPwd
+	}, (result)->
+		if result.status is 1
+			_user = _user.set 'hasPayPwd', 1
+			DB.put 'user', _user.toJS()
+			UserStore.emitChange 'setPayPwd:done'
+		else
+			UserStore.emitChange 'setPayPwd:failed'
+
+resetPayPwd = (mobile, code, passwd)->
+	Http.post Constants.api.RESET_PAY_PWD, {
+		usercode: mobile
+		mobileCode: code
+		userId: _user?.id
+		password: passwd
+	}, (result)->
+		if result is 1
+			_user = _user.set 'hasPayPwd', 1
+			DB.put 'user', _user.toJS()
+			UserStore.emitChange 'resetPayPwd:done'
+		else
+			UserStore.emitChange 'resetPayPwd:failed'
+
 UserStore = assign BaseStore, {
 	getUser: ->
 		_user
@@ -124,5 +161,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.LOGIN then login(action.mobile, action.passwd)
 		when Constants.actionType.RESET_PWD then resetPwd(action.mobile, action.code, action.passwd)
 		when Constants.actionType.CHANGE_PWD then changePwd(action.oldPasswd, action.newPasswd)
+		when Constants.actionType.PAY_PWD then setPayPwd(action.payPwd, action.oldPwd)
+		when Constants.actionType.RESET_PAY_PWD then resetPayPwd(action.mobile, action.code, action.passwd)
 
 module.exports = UserStore

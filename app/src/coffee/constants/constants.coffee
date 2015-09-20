@@ -10,10 +10,12 @@ actionType = {
 	REGISTER: null
 	LOGIN: null
 	RESET_PWD: null
+	RESET_PAY_PWD: null
 	ATTENTION_LIST: null
 	ADDRESS_LIST: null
 	DEL_ADDRESS: null
 	MSG_LIST: null
+	PAY_PWD: null
 }
 
 
@@ -32,9 +34,16 @@ api = {
 
 	#找回密码
 	RESET_PWD: '/register/retrievePWD.shtml'
-
 	#修改密码
 	CHANGE_PWD: '/loginCtl/changPwd.shtml'
+
+	#判断是否有支付密码
+	HAS_PAY_PWD: '/myWalletCtl/isPayPassword.shtml'
+	#设置／修改支付密码
+	PAY_PWD: '/myWalletCtl/payPassword.shtml'
+	#找回支付密码
+	RESET_PAY_PWD: '/myWalletCtl/resetPayPassword.shtml'
+
 
 	# 个人中心
 	USER_CENTER: '/userInfo/userCenter.shtml'

@@ -32,6 +32,8 @@ module.exports = {
 
 		#设置／修改支付密码
 		PAY_PWD: '/myWalletCtl/payPassword.shtml'
+		#找回支付密码
+		RESET_PAY_PWD: '/myWalletCtl/resetPayPassword.shtml'
 		
 		# 个人中心
 		USER_CENTER: '/userInfo/userCenter.shtml'

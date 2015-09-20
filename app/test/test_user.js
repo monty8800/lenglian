@@ -84,6 +84,29 @@
         });
       });
     });
+    it('找回支付密码', function(done) {
+      var mobile, userId;
+      userId = '729667936d0d411daaa946e4592978f0';
+      mobile = '13100000010';
+      return request.post(config.api.SMS_CODE, {
+        mobile: mobile,
+        type: 3
+      }, function(data) {
+        var code;
+        data.should.not.be.empty();
+        code = data.slice(-6);
+        code.should.not.be.empty();
+        return request.post(config.api.RESET_PAY_PWD, {
+          password: '111111',
+          usercode: mobile,
+          mobileCode: code,
+          userId: userId
+        }, function(result) {
+          result.should.equal(1);
+          return done();
+        });
+      });
+    });
     return it('登录', function(done) {
       var mobile, passwd;
       mobile = '18513468467';

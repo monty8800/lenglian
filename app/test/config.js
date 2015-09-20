@@ -18,6 +18,7 @@
       CHANGE_PWD: '/loginCtl/changPwd.shtml',
       HAS_PAY_PWD: '/myWalletCtl/isPayPassword.shtml',
       PAY_PWD: '/myWalletCtl/payPassword.shtml',
+      RESET_PAY_PWD: '/myWalletCtl/resetPayPassword.shtml',
       USER_CENTER: '/userInfo/userCenter.shtml',
       ADDR_LIST: '/userInfo/queryMjUserAddressList.shtml',
       ware_house_detail: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml',
