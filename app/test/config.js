@@ -21,6 +21,7 @@
       RESET_PAY_PWD: '/myWalletCtl/resetPayPassword.shtml',
       USER_CENTER: '/userInfo/userCenter.shtml',
       ADDR_LIST: '/userInfo/queryMjUserAddressList.shtml',
+      QUERY_BANK_BY_CARD: '/mjUserBankCard/queryBankType.shtml',
       ware_house_detail: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml',
       attention_list: '/userInfo/queryMjWishlstList.shtml',
       my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml',

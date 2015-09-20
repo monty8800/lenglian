@@ -41,8 +41,8 @@ module.exports = {
 		#地址列表
 		ADDR_LIST: '/userInfo/queryMjUserAddressList.shtml'
 
-
-
+		#根据卡号查银行
+		QUERY_BANK_BY_CARD: '/mjUserBankCard/queryBankType.shtml'
 
 		# 我的仓库详情
 		ware_house_detail: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'

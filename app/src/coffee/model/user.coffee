@@ -21,6 +21,7 @@ User = Immutable.Record {
 	messageCount: 0 #消息数
 	warehouseCount: 0 #消息数
 	hasPayPwd: 0 #是否有支付密码，0 未设置， 1 已设置
+	balance: 0 #账户余额
 	
 }
 module.exports = User
