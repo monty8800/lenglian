@@ -7,12 +7,16 @@ Dispatcher = require 'dispatcher/dispatcher'
 Message = require 'model/message'
 Constants = require 'constants/constants'
 Immutable = require 'immutable'
+DB = require 'util/storage'
+
+user = DB.get 'user'
 
 _messageList = Immutable.List()
 
 getMsgList = (status)->
+
 	Http.post Constants.api.message_list, {
-		userId: '7714d0d83c7f47f4bcfac62b9a1bf101'
+		userId: user.id
 		userRole: status
 	}, (result) ->
 		_messageList = _messageList.clear()

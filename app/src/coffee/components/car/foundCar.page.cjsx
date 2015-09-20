@@ -24,7 +24,7 @@ CarItem = React.createClass {
 						</div>       
 						<div className="g-dirver-msg">  
 							<div className="g-dirver-name">
-								<span>{ car.name }</span>
+								<span>{ car?.name }</span>
 							</div>  
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
@@ -35,14 +35,14 @@ CarItem = React.createClass {
 				</div>   
 				<div className="g-item">
 					<div className="g-adr-start ll-font g-adr-start-line">
-						{ car.startPoint }
+						{ car?.startPoint }
 					</div>
 					<div className="g-adr-end ll-font g-adr-end-line">
-						{ car.destination }
+						{ car?.destination }
 					</div>   
 				</div>
 				<div className="g-item g-item-des">
-					<p>车辆描述 : <span>{ car.carDesc }</span></p>
+					<p>车辆描述 : <span>{ car?.carDesc }</span></p>
 				</div>
 			</div>   		
 		<div>

@@ -15,7 +15,7 @@ Item = React.createClass {
 			<div>
 				<div className="m-focus-item">
 					<div className="item-pic"><img src={ DRIVER_LOGO } /></div>
-					<div className="item-name">司机: { item.companyName || item.userName }</div>
+					<div className="item-name">司机: { item?.companyName || item?.userName }</div>
 					<div className="item-btn item-btn-color01 ll-font"></div>
 				</div>
 			</div>

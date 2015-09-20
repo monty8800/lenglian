@@ -11,7 +11,7 @@ Item = React.createClass {
 	render: ->
 		items = @props.items.map (item, i) ->
 			<div className="m-item02" key={ i }>
-				{ item.content }
+				{ item?.content }
 			</div>
 		<div>{ items }</div>
 }
@@ -22,30 +22,30 @@ Message = React.createClass {
 		newState = Object.create @state
 		newState.type = '1'
 		@setState newState
-		MessageAction.msgList('1')
+		MessageAction?.msgList('1')
 
 	attGoodsOwner: ->
 		newState = Object.create @state
 		newState.type = '2'
 		@setState newState
-		MessageAction.msgList('2')
+		MessageAction?.msgList('2')
 
 	attStoreOwner: ->
 		newState = Object.create @state
 		newState.type = '3'
 		@setState newState
-		MessageAction.msgList('3')
+		MessageAction?.msgList('3')
 
 
 	getInitialState: ->
 		{
 			type: '1'
-			msgList: MessageStore.getMsgList()
+			msgList: MessageStore?.getMsgList()
 		}
 
 	componentDidMount: ->
 		MessageStore.addChangeListener @resultCallBack
-		MessageAction.msgList('1')
+		MessageAction?.msgList('1')
 
 	componentWillUnMount: ->
 		MessageStore.removeChangeListener @resultCallBack
@@ -53,7 +53,7 @@ Message = React.createClass {
 	resultCallBack: ->
 		console.log 'callback-------'
 		@setState {
-			msgList: MessageStore.getMsgList()
+			msgList: MessageStore?.getMsgList()
 		}
 
 	minxins: [PureRenderMixin]

@@ -66,7 +66,7 @@ Address = React.createClass {
 			<div key={ i }>
 				<div className="m-adr-con">
 					<ul>
-						<li>{ item.provinceId } { item.cityId } { item.areaId }</li>
+						<li>{ item?.provinceId } { item?.cityId } { item?.areaId }</li>
 						<li>
 							<label className="u-label fl" onClick={@setDefault.bind this, item}>
 								<input name="adr-radio" className="ll-font circle" type="radio" />设置为常用地址

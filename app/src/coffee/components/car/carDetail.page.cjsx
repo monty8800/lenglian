@@ -27,7 +27,7 @@ Detail = React.createClass {
 		<div>
 			<div className="m-item03">
 				<div className="g-itemList">
-					<span>车牌号码:</span> <span>{ detail.carNo }</span>	
+					<span>车牌号码:</span> <span>{ detail?.carNo }</span>	
 					<div className="u-item-btn">
 						<span href="#">求货中</span>
 					</div>
@@ -42,9 +42,9 @@ Detail = React.createClass {
 						</dt>
 						<dd className=" fl">
 							<p>车辆类别: <span>{ Helper.carCategoryMapper detail.category }</span></p>
-							<p>可载货重: <span>{ detail.heavy }</span></p>
-							<p>可载泡货: <span>{ detail.bulky }</span></p>
-							<p>车辆长度: <span>{ detail.carVehicle }</span></p>
+							<p>可载货重: <span>{ detail?.heavy }</span></p>
+							<p>可载泡货: <span>{ detail?.bulky }</span></p>
+							<p>车辆长度: <span>{ detail?.carVehicle }</span></p>
 						</dd>
 					</dl>			
 				</div>

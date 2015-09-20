@@ -32,7 +32,7 @@ CarItem = React.createClass {
 			<div className="m-item03" key={ i }>
 				<div className="g-itemList">  
 					<h5>
-						车牌号码: <span>{ car.carNo }</span>				
+						车牌号码: <span>{ car?.carNo }</span>				
 					</h5>
 					<div className="u-item-btn"> 
 						<a href="#" onClick={@_goPage.bind this, addCarUrl, i} >发布车源</a>
@@ -44,10 +44,10 @@ CarItem = React.createClass {
 							<img src={ CarPic }/>
 						</dt>  
 						<dd className=" fl">
-							<p>司机姓名: <span>{ car.name }</span></p>
-							<p>联系电话: <span>{ car.mobile }</span></p>
+							<p>司机姓名: <span>{ car?.name }</span></p>
+							<p>联系电话: <span>{ car?.mobile }</span></p>
 							<p>车辆类型: <span>{ Helper.carTypeMapper car.carType }</span></p>
-							<p>车辆长度: <span>{ car.carVehicle }米</span></p>
+							<p>车辆长度: <span>{ car?.carVehicle }米</span></p>
 						</dd>
 					</dl>			
 				</div>
