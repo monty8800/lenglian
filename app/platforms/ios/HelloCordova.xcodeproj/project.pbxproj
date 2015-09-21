@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		01D42DAFEB5C4DFFA0D0D827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0597205F9D5541F28FAC3AC4 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -31,6 +32,12 @@
 		4C59DE431B5E50AA0063D9CE /* XELogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59DE421B5E50AA0063D9CE /* XELogFormatter.m */; };
 		4C59DE461B5E519C0063D9CE /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59DE451B5E519C0063D9CE /* BaseViewController.m */; };
 		4C5C87441B74809300609666 /* HelloViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C87431B74809300609666 /* HelloViewController.m */; };
+		4C5D3F8E1BB0222E00BBD5A6 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99761BAFA563008B4AC6 /* HomeViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99801BAFA98D008B4AC6 /* NearByViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CDD99851BAFE4EC008B4AC6 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CDD99841BAFE4EC008B4AC6 /* images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		60D7ECE057704AE1B76AAD24 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5B98B6DD782842E2B57B856C /* CDVNotification.bundle */; };
 		7383466E9567FCDEC93CD82C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE1D01D20475664CE86A61D /* libPods.a */; };
@@ -103,6 +110,17 @@
 		4C59DE451B5E519C0063D9CE /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = common/BaseViewController.m; sourceTree = "<group>"; };
 		4C5C87421B74809300609666 /* HelloViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelloViewController.h; path = hello/HelloViewController.h; sourceTree = "<group>"; };
 		4C5C87431B74809300609666 /* HelloViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelloViewController.m; path = hello/HelloViewController.m; sourceTree = "<group>"; };
+		4C5D3F8C1BB0222E00BBD5A6 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = user/MoreViewController.h; sourceTree = "<group>"; };
+		4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = user/MoreViewController.m; sourceTree = "<group>"; };
+		4CDD99751BAFA563008B4AC6 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = home/HomeViewController.h; sourceTree = "<group>"; };
+		4CDD99761BAFA563008B4AC6 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = home/HomeViewController.m; sourceTree = "<group>"; };
+		4CDD99781BAFA5E7008B4AC6 /* UserCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCenterViewController.h; path = user/UserCenterViewController.h; sourceTree = "<group>"; };
+		4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserCenterViewController.m; path = user/UserCenterViewController.m; sourceTree = "<group>"; };
+		4CDD997C1BAFA7A0008B4AC6 /* OrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderListViewController.h; path = order/OrderListViewController.h; sourceTree = "<group>"; };
+		4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderListViewController.m; path = order/OrderListViewController.m; sourceTree = "<group>"; };
+		4CDD997F1BAFA98D008B4AC6 /* NearByViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NearByViewController.h; path = map/NearByViewController.h; sourceTree = "<group>"; };
+		4CDD99801BAFA98D008B4AC6 /* NearByViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NearByViewController.m; path = map/NearByViewController.m; sourceTree = "<group>"; };
+		4CDD99841BAFE4EC008B4AC6 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		555391413AAD4C94B9C1B273 /* XEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEViewController.m; path = "com.xebest.xe-plugin/XEViewController.m"; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5B98B6DD782842E2B57B856C /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CDVNotification.bundle; sourceTree = "<group>"; };
@@ -151,6 +169,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4CDD99741BAF9B8A008B4AC6 /* map */,
+				4CDD99731BAF9B7D008B4AC6 /* order */,
+				4CDD99721BAF9B65008B4AC6 /* user */,
+				4CDD99711BAF9B59008B4AC6 /* home */,
 				4C5C87411B74800500609666 /* hello */,
 				4C59DE3D1B5E4D9D0063D9CE /* common */,
 				1D3623240D0F684500981E51 /* AppDelegate.h */,
@@ -171,6 +193,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				4CDD99831BAFE4CA008B4AC6 /* assets */,
 				EB87FDF41871DAF40020F90C /* config.xml */,
 				EB87FDF31871DA8E0020F90C /* www */,
 				EB87FDF21871DA7A0020F90C /* merges */,
@@ -306,6 +329,52 @@
 			name = hello;
 			sourceTree = "<group>";
 		};
+		4CDD99711BAF9B59008B4AC6 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				4CDD99751BAFA563008B4AC6 /* HomeViewController.h */,
+				4CDD99761BAFA563008B4AC6 /* HomeViewController.m */,
+			);
+			name = home;
+			sourceTree = "<group>";
+		};
+		4CDD99721BAF9B65008B4AC6 /* user */ = {
+			isa = PBXGroup;
+			children = (
+				4CDD99781BAFA5E7008B4AC6 /* UserCenterViewController.h */,
+				4C5D3F8C1BB0222E00BBD5A6 /* MoreViewController.h */,
+				4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */,
+				4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */,
+			);
+			name = user;
+			sourceTree = "<group>";
+		};
+		4CDD99731BAF9B7D008B4AC6 /* order */ = {
+			isa = PBXGroup;
+			children = (
+				4CDD997C1BAFA7A0008B4AC6 /* OrderListViewController.h */,
+				4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */,
+			);
+			name = order;
+			sourceTree = "<group>";
+		};
+		4CDD99741BAF9B8A008B4AC6 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				4CDD997F1BAFA98D008B4AC6 /* NearByViewController.h */,
+				4CDD99801BAFA98D008B4AC6 /* NearByViewController.m */,
+			);
+			name = map;
+			sourceTree = "<group>";
+		};
+		4CDD99831BAFE4CA008B4AC6 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				4CDD99841BAFE4EC008B4AC6 /* images.xcassets */,
+			);
+			name = assets;
+			sourceTree = "<group>";
+		};
 		B4298CEE55083DFCA0472C61 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +482,7 @@
 				3088BBBD154F3926009F9C59 /* Default-Landscape@2x~ipad.png in Resources */,
 				3088BBBE154F3926009F9C59 /* Default-Landscape~ipad.png in Resources */,
 				3088BBBF154F3926009F9C59 /* Default-Portrait@2x~ipad.png in Resources */,
+				4CDD99851BAFE4EC008B4AC6 /* images.xcassets in Resources */,
 				7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */,
 				3088BBC0154F3926009F9C59 /* Default-Portrait~ipad.png in Resources */,
 				30B4F30019D5E07200D9F7D8 /* Default-667h.png in Resources */,
@@ -498,16 +568,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */,
 				4C59DE461B5E519C0063D9CE /* BaseViewController.m in Sources */,
+				4C5D3F8E1BB0222E00BBD5A6 /* MoreViewController.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				4C5C87441B74809300609666 /* HelloViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
 				4C59DE401B5E4FF30063D9CE /* Global.m in Sources */,
+				4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */,
 				98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */,
 				4C59DE431B5E50AA0063D9CE /* XELogFormatter.m in Sources */,
 				E858DD5946754C3C80EE0FDA /* XEPlugin.m in Sources */,
 				F43C04076AF84FAF9B24968C /* XEViewController.m in Sources */,
+				4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

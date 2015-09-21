@@ -8,7 +8,7 @@ webpack = require 'webpack'
 WebpackDevServer = require 'webpack-dev-server'
 config = require './webpack.config.js'
 
-gulp.task 'webpack:build', ['static', 'sass'], (cb)->
+gulp.task 'webpack:build', ['pre-build'], (cb)->
 	myConfig = Object.create config
 	myConfig.plugins = myConfig.plugins.concat(
 		new webpack.DefinePlugin({
@@ -16,8 +16,8 @@ gulp.task 'webpack:build', ['static', 'sass'], (cb)->
 				'NODE_ENV': JSON.stringify 'production'
 			}
 		}),
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin()
+		# new webpack.optimize.DedupePlugin(),
+		# new webpack.optimize.UglifyJsPlugin()
 	) 
 	webpack myConfig, (err, stats)->
 			plugins.util.PluginError 'webpack', err  if err
@@ -71,16 +71,18 @@ gulp.task 'prepare', ['webpack'], plugins.shell.task('cordova prepare')
 
 gulp.task 'clean', plugins.shell.task('rm -rf www/* build/*')
 
-gulp.task 'sass', ->
+gulp.task 'sass', ['static'], ->
 	plugins.rubySass('src/sass/*.scss').pipe(plugins.cssmin()).pipe(gulp.dest('build/css/'))
 
-gulp.task 'static', plugins.shell.task('cp -r src/fonts src/images build/')
+gulp.task 'static', ['copy-util'], plugins.shell.task('cp -r src/fonts src/images build/')
 
 gulp.task 'copy-util', plugins.shell.task('cp bower_components/xe-common/js/mobileUtil.js www/util.js')
 
 gulp.task 'todo', plugins.shell.task('grep -r "TODO" src -n > TODO.md')
 
-gulp.task 'pre-build', ['copy-util', 'static', 'coffee', 'sass', 'todo']
+gulp.task 'lint', plugins.shell.task('bash validate.sh')
+
+gulp.task 'pre-build', ['coffee', 'sass', 'todo', 'lint']
 
 gulp.task 'build', ['webpack:build'], plugins.shell.task('cordova prepare')
 

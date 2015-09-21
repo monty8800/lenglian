@@ -16,6 +16,7 @@ actionType = {
 	DEL_ADDRESS: null
 	MSG_LIST: null
 	PAY_PWD: null
+	CHANGE_PWD: null
 }
 
 
@@ -80,6 +81,6 @@ module.exports =
 	api: api
 	actionType: keymirror actionType
 	debug: true
-	inBrowser: true
+	inBrowser: false
 	smsType: smsType
 	smsGapTime: 60

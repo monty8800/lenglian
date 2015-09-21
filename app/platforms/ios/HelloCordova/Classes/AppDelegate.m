@@ -30,6 +30,10 @@
 #import "Global.h"
 
 #import "hello/HelloViewController.h"
+#import "home/HomeViewController.h"
+#import "map/NearByViewController.h"
+#import "order/OrderListViewController.h"
+#import "user/UserCenterViewController.h"
 
 #import <Cordova/CDVPlugin.h>
 
@@ -85,9 +89,39 @@
 
     // NOTE: To customize the view's frame size (which defaults to full screen), override
     // [self.viewController viewWillAppear:] in your view controller.
+    _tabVC = [UITabBarController new];
+    
+    //首页
+    HomeViewController *homeVC = [HomeViewController new];
+    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
+    homeNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[[UIImage imageNamed:@"tab_home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  selectedImage:[[UIImage imageNamed:@"tab_home_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [homeNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor WY_ColorWithHex:0x28b3ec]} forState:UIControlStateHighlighted];
+    
+    //附近
+    NearByViewController *nearByVC = [NearByViewController new];
+    UINavigationController *nearByNav = [[UINavigationController alloc] initWithRootViewController:nearByVC];
+    nearByNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"附近" image:[[UIImage imageNamed:@"tab_nearby"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  selectedImage:[[UIImage imageNamed:@"tab_nearby_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [nearByNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor WY_ColorWithHex:0x28b3ec]} forState:UIControlStateHighlighted];
+    
+    //订单
+    OrderListViewController *orderListVC = [OrderListViewController new];
+    UINavigationController *orderListNav = [[UINavigationController alloc] initWithRootViewController:orderListVC];
+    orderListNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"订单" image:[[UIImage imageNamed:@"tab_order"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  selectedImage:[[UIImage imageNamed:@"tab_order_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [orderListNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor WY_ColorWithHex:0x28b3ec]} forState:UIControlStateHighlighted];
+    
+    //我的
+    UserCenterViewController *userCenterVC = [UserCenterViewController new];
+    UINavigationController *userCenterNav = [[UINavigationController alloc] initWithRootViewController:userCenterVC];
+    userCenterNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我的" image:[[UIImage imageNamed:@"tab_user"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  selectedImage:[[UIImage imageNamed:@"tab_user_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [userCenterNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor WY_ColorWithHex:0x28b3ec]} forState:UIControlStateHighlighted];
+    
+    _tabVC.viewControllers = @[homeNav, nearByNav, orderListNav, userCenterNav];
+    _tabVC.tabBar.backgroundColor = [UIColor WY_ColorWithHex:0xf8f8f8];
+    
+    self.window.rootViewController = _tabVC;
     
     //hello world
-    self.window.rootViewController = [HelloViewController new];
+    //self.window.rootViewController = [HelloViewController new];
     
     [self.window makeKeyAndVisible];
 

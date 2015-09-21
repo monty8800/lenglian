@@ -16,6 +16,9 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+
+    <preference name="BackgroundColor" value="ff0xf2f5f5"/>
+    <preference name="Orientation" value="portrait" />
     <platform name="android">
         <allow-intent href="market:*" />
         <!-- ShowTitle (boolean, defaults to false): Show the title at the top of the screen. -->
