@@ -16,6 +16,7 @@ actionType = {
 	DEL_ADDRESS: null
 	MSG_LIST: null
 	PAY_PWD: null
+	GET_WAREHOUSE:null
 }
 
 
@@ -48,8 +49,19 @@ api = {
 	# 个人中心
 	USER_CENTER: '/userInfo/userCenter.shtml'
 
+	# 查询我的仓库
+	GET_WAREHOUSE: '/mjWarehouseCtl/queryMjWarehouse.shtml'
+
+	#删除我的仓库
+	DELETE_WAREHOUSE:'/mjWarehouseCtl/deleteMjWarehouse.shtml'
+	#修改我的仓库
+	UPDATE_WAREHOUSE:'/mjWarehouseCtl/updateMjWarehouse.shtml'
+	
 	# 我的仓库详情
-	ware_house_detail: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
+	WAREHOUSE_DETAIL: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
+	#添加仓库
+	WAREHOUSE_ADD: '/mjWarehouseCtl/addMjWarehouse.shtml'
+
 	# 关注列表
 	attention_list: '/userInfo/queryMjWishlstList.shtml'
 	# 我的车辆

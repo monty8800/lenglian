@@ -214,12 +214,8 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow:ellipsis;
-		margin-top: 16/$ppr;
-		&:first-child{
-		    margin-top:0;
-		}
 	}
-	&.u-content-act{
+	&.u-content-act {
 		&:after {
 			width: 50/$ppr;
 			height: 50/$ppr;
@@ -234,59 +230,6 @@
 			-webkit-transform:translate3d(0,-50%,0);
 			transform:translate3d(0,-50%,0);
 		}
-	}
-	.u-address{
-	    padding-bottom: 20/$ppr;
-	    .g-adr-start,.g-adr-end{
-            height: 40/$ppr;
-            line-height: 40/$ppr;
-            position: relative;
-            padding-left: 40/$ppr;
-            font-size: 28/$ppr;
-            &:before {
-                width: 40/$ppr;
-                height: 40/$ppr;
-                line-height: 40/$ppr;
-                text-align: left;
-                font-size: 40/$ppr;
-                content: "\e60a";
-                position: absolute;
-                left: 0;
-                top: 0;
-                color: #eb4f38;
-            }
-        }    
-        .g-adr-start-line{
-            padding-bottom: 8/$ppr;
-            &:after {
-                content: "";
-                width: 2/$ppr;
-                height: 12/$ppr;
-                position: absolute;
-                left: 19/$ppr;
-                bottom: 0;
-                background: #eb4f38;
-            }
-        }
-        .g-adr-end-line{
-            padding-top: 8/$ppr;
-            &:after {
-                content: "";
-                width: 2/$ppr;
-                height: 12/$ppr;
-                position: absolute;
-                left: 19/$ppr;
-                top: 0;
-                background: #11cd6e;
-            }
-        } 
-        .g-adr-end {
-            &:before {
-                top:8/$ppr;
-                content: "\e620";
-                color: #11cd6e;
-            }
-        }
 	}
 }
 
@@ -853,71 +796,45 @@
 }
 
 .m-cert-item {
-	padding:30/$ppr 40/$ppr;
+	padding:30/$ppr 30/$ppr 30/$ppr 80/$ppr;
 	background: #fff;
 	border-bottom: 1px solid #e6e6e6;
 	border-top: 1px solid #e6e6e6;
 	margin-top:10/$ppr;
+	font-size: 30/$ppr;
+	position: relative;
 	color: #333;
-	.g-certIcon{
-	    width: 100/$ppr;
-	    height:100/$ppr;
-	    border-radius:50%;
-	    background: #fd8d36;
-	    margin-right: 30/$ppr;
-	    position: relative;	   
-	    &:before{
-	        font-size: 46/$ppr;
-            width: 46/$ppr;
-            height: 46/$ppr;
-            line-height: 46/$ppr;
-            text-align: center;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            margin: -23/$ppr 0 0 -23/$ppr;
-            color:#fff;
-            content: "\e61a";
-	    }	
-	     &.cert02{
-            background: #45dada;
-            &:before{
-                content: "\e60e";
-            }
-        }
-        &.cert03{
-            background: #56a1f2;
-            &:before{
-                content: "\e615";
-            }
-        }    
-	}
 	&:first-child {
 		margin-top: 20/$ppr;
 	}
-	.g-certCont{
-	    width: 430/$ppr;
-	    dt{
-	        p{
-	           font-size: 26/$ppr;
-	           line-height: 26/$ppr; 
-	           margin-right: 8/$ppr;
-	        }	        
-	        &.active{
-	            span{
-	                width: 52/$ppr;
-	                height: 25/$ppr;
-	                background: url(../images/yirenzheng.png) no-repeat;
-	                background-size: contain;
-	            }
-	        }
-	    }
-	    dd{
-	        font-size: 24/$ppr;
-	        color:#666;
-	        line-height: 32/$ppr;
-	        margin-top:10/$ppr;
-	    }
+	&:before {
+		font-size: 34/$ppr;
+		width: 34/$ppr;
+		height: 34/$ppr;
+		line-height: 34/$ppr;
+		text-align: center;
+		position: absolute;
+		left: 30/$ppr;
+		top: 50%;
+		margin-top: -17/$ppr;
+	}
+	&.cert01 {
+		&:before {
+			content: "\e61a";
+			color: $com-color;
+		}
+	}
+	&.cert02 {
+		&:before {
+			content: "\e60e";
+			color: $main-color;
+		}
+	}
+	&.cert03 {
+		&:before {
+			content: "\e615";
+			color: #56a1f2;
+		}
 	}
 }
 
@@ -1203,20 +1120,5 @@
 			color: $com-color;
 		}
 	}
-}
-
-.m-tab01 .rightLine{
-    position: relative;
-    &:after{
-        width: 1px;
-        height:60/$ppr;
-        background: #e6e6e6;
-        position: absolute;
-        content: " ";
-        right: 0;
-        top: 10/$ppr;
-        
-        
-    }
 }
 

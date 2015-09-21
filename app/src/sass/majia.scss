@@ -684,62 +684,28 @@ body,html {
     .g-pay-btn{
         position: absolute;
         right: 20/$ppr;
+<<<<<<< Updated upstream
         top:16/$ppr;        
+=======
+        top:20/$ppr;
+>>>>>>> Stashed changes
     }
 }
 //pay page
 .m-pay-item{
     margin-top:20/$ppr;
+    padding:20/$ppr 0/$ppr 20/$ppr 20/$ppr;
     background: #fff;
-    border-top:1px solid #e6e6e6;   
-    .g-pay{
-        padding: 0 20/$ppr;
+    border-top:1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    p{
+        padding: 0 20/$ppr 0 0;
         font-size: 32/$ppr;
         color: $text-color-333;
-        height: 90/$ppr;
-        line-height: 90/$ppr;
-        font-weight: bold;
-        border-bottom: 1px solid #e6e6e6;
-        overflow: hidden;
-        @include box-sizing($sizing:border-box);
+        height: 48/$ppr;
+        line-height: 48/$ppr;
         .g-pay-money{
             color:$com-color;
-        }
-        .setPas{
-            max-width: 300/$ppr;
-            text-align: right;
-            font-size: 30/$ppr;
-            font-weight: normal;
-        }
-        .font30,.font24{
-            font-size: 30/$ppr;
-            font-weight: normal;
-            color: #7f7f7f;
-        }
-        .font24{
-            font-size: 24/$ppr;
-            margin-left: 12/$ppr;
-            line-height: 96/$ppr;
-        }
-        &.offMoney{
-            position: relative;
-            &:after{
-                width: 36/$ppr;
-                height: 36/$ppr;
-                content: "\e625";
-                font-size: 36/$ppr;
-                color: #b9b9b9;
-                position: absolute;
-                right: 20/$ppr;
-                top:27/$ppr;
-                line-height: 36/$ppr;
-            }
-            &.active{
-                &:after{
-                    content:"\e602";
-                    color: $main-color ;
-                }                
-            }
         }
     }
 }
@@ -748,8 +714,8 @@ body,html {
     p{
         height: 90/$ppr;
         line-height: 90/$ppr;
+        color:$text-color-333;
         font-size: 32/$ppr;
-        font-weight: bold;
         &:first-child{
             border-bottom:1px solid #e6e6e6;
         }
@@ -762,52 +728,78 @@ body,html {
     background: #fff;
     border-top:1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
-    color: #7f7f7f;
-    font-weight: normal;
-    .g-bankTitle{
-        height: 90/$ppr;
-        line-height: 90/$ppr;
-        font-size: 30/$ppr;               
-    }
-    .g-bankList{
-        padding-left:30/$ppr;
-        .g-bank01,.g-bank02{
-            height: 120/$ppr;
-            line-height: 120/$ppr;
+    div{
+        font-size: 30/$ppr;
+        color: #2e2e2e;
+        &.g-bank-item01{
+            height: 90/$ppr;
+            line-height: 90/$ppr;
+            padding: 0 20/$ppr 0 0;
+            color:#7F7F7F;
+        }
+        p{
+            padding:30/$ppr 20/$ppr 30/$ppr 0;           
+            height: 60/$ppr;
+            line-height: 60/$ppr;
             font-size: 30/$ppr;
-            border-top: 1px solid #e6e6e6;
             color: #2e2e2e;
-            .font24{
-                font-size: 24/$ppr;
-                color: #7f7f7f;
-            }                      
+            &.g-bank-icon{
+                height: 60/$ppr;
+                width: 60/$ppr;
+                padding-right: 0;
+                a{
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }  
+            &:last-child{
+                width: 540/$ppr;
+                height: 60/$ppr;
+                border-top:1px solid #e6e6e6;
+                &.noborder{
+                    border-top:0;
+                }
+            } 
+            &.g-bank-check{
+                position: relative;
+                &:after{
+                    width: 36/$ppr;
+                    height: 36/$ppr;
+                    content: "\e625";
+                    font-size: 36/$ppr;
+                    color: #b9b9b9;
+                    position: absolute;
+                    right: 20/$ppr;
+                    top:45/$ppr;
+                    line-height: 36/$ppr; 
+                }
+                &.active:after{
+                    color: $text-color-fd8;
+                    content: "\e608";
+                }
+            }   
+            span{
+                margin-left: 20/$ppr;
+                &.g-pay-card{
+                    color: #7F7F7F;
+                    font-size: 24/$ppr;
+                }
+            }     
         }
-        .g-bank01{
-            position: relative;
-            &:after{
-                width: 36/$ppr;
-                height: 36/$ppr;
-                content: "\e625";
-                font-size: 36/$ppr;
-                color: #b9b9b9;
-                position: absolute;
-                right: 20/$ppr;
-                top:45/$ppr;
-                line-height: 36/$ppr;
-            }
-            &.active:after{
-                color: $main-color;
-                content: "\e608";
-            }
-        }
+        
     }
+    
 }
 
 .u-pay-btn{
     margin: 40/$ppr 0;
     .btn{
         background-color: $main-color;
-        font-weight: bold;
         &.noUse{
             color: #5dd0ff;
         }
@@ -1105,10 +1097,8 @@ body,html {
             &:-ms-input-placeholder { color: #fff;}
             font-size:32/$ppr;
             border-bottom: 1px solid #e6e6e6;
-            border-radius: 0;
             height: 90/$ppr;
-            line-height: 1;
-            padding: 28/$ppr 0;
+            line-height:90/$ppr;
             width: 100%;
             color: #fff;
             @include box-sizing($sizing:border-box);
@@ -1215,6 +1205,7 @@ body,html {
         color:$text-color-333;           
         position:relative;
         border-bottom: 1px solid #e6e6e6;
+<<<<<<< Updated upstream
         @include box-sizing($sizing:border-box);     
         &.g-releaseDl{
             dd{
@@ -1231,6 +1222,10 @@ body,html {
                 }
             }
         }        
+=======
+        @include box-sizing($sizing:border-box);
+        
+>>>>>>> Stashed changes
         &:last-child{
             border-bottom:0;
         }  
@@ -1371,6 +1366,66 @@ body,html {
        i{
            color: #acabab;
            font-size: 30/$ppr; 
+<<<<<<< Updated upstream
+=======
+        }  
+//      ul{
+//          display: inline-block;
+//          li{
+//              line-height: 86/$ppr;
+//              font-size:32/$ppr;
+//              color:$text-color-333;
+//              border-bottom: 1px solid #e6e6e6;
+//              @include box-sizing($sizing:border-box);
+//              
+//              &.ll-font{
+//                  padding-left: 50/$ppr;
+//                  position:relative; 
+//                  &:before{
+//                      width: 36/$ppr;
+//                      height: 36/$ppr;
+//                      line-height: 36/$ppr;
+//                      text-align: left;
+//                      font-size: 36/$ppr;
+//                      content: "\e625";
+//                      position: absolute;
+//                      left: 0;
+//                      top: 25/$ppr;
+//                      color: $bot-border-color;
+//                  }
+//                  &:last-child{
+//                      &:before{
+//                          content: "\e608";
+//                          color: $main-color;
+//                      }
+//                  }
+//              }           
+//              &:last-child{
+//                  border-bottom:0;
+//              }
+//              
+//              input{
+//                  width: 218/$ppr;
+//                  height: 50/$ppr;
+//                  border:1px solid #e6e6e6;
+//                  border-radius: 5/$ppr;
+//                  text-align: center;
+//                  color:#acabab;
+//              }
+//              span{
+//                  &:first-child{
+//                      font-weight: normal;
+//                      display: inline;
+//                      margin-right: 20/$ppr;
+//                  }
+//                  
+//              }
+//          }
+//      }
+        .iconFont{
+            font-size: 28/$ppr;
+            padding-top: 20/$ppr;
+>>>>>>> Stashed changes
         }
         .star{
            color: #666;
@@ -1461,7 +1516,6 @@ body,html {
     .title{
         font-size: 32/$ppr;
         font-weight: bold;
-        padding: 15/$ppr 0;
     }
     .carType{
         background-color:#e6f8ff;
@@ -1579,7 +1633,7 @@ body,html {
         padding: 20/$ppr;
         min-height: 120/$ppr;
         line-height: 32/$ppr;
-        font-size:28/$ppr;
+        font--size:28/$ppr;
         color: $text-color-666;
         @include box-sizing($sizing:border-box);
         resize: none;
@@ -1587,6 +1641,7 @@ body,html {
         border-radius: 5/$ppr;
         background: #f9fafa;
         outline: none;
+//      overflow-y: hidden;
 
     }
     
@@ -1597,25 +1652,6 @@ body,html {
         width: 100%;
         padding:0;
         @include flex(1);
-    }
-}
-.m-bankPic{
-    margin:20/$ppr 0;
-    background: #fff;
-    border-top:1px solid #e6e6e6;
-    .g-bankPic{
-        padding: 30/$ppr;
-        border-bottom: 1px solid #e6e6e6;
-        a{
-            width: 140/$ppr;
-            height:34/$ppr;
-            display: block;
-            img{
-                width: 100%;
-                height: 100%;
-            }
-        }
-        
     }
 }
 
