@@ -58,7 +58,7 @@ var config = {
     },
     output: {
         path: path.join(__dirname, 'www'),
-        publicPath: '/',
+        publicPath: './',
         filename: '[name].js',
         library: ['Example', '[name]'],
         pathInfo: true

@@ -50,11 +50,23 @@
     xePlugin.loading = [Global sharedInstance];
     xePlugin.toast = [Global sharedInstance];
     
+    self.webView.backgroundColor = [UIColor WY_ColorWithHex:0xf2f5f5];
+    
     //导航栏标题
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 44)];
-    [_titleLabel WY_SetFontSize:17 textColor:0xffffff];
+    [_titleLabel WY_SetFontSize:19 textColor:0xffffff];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = _titleLabel;
+    
+    //返回
+    if (self.navigationController.viewControllers.count > 1) {
+        UIBarButtonItem *backItem = [[UIBarButtonItem  alloc] initWithImage:[[UIImage imageNamed:@"nav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(navBack)];
+        self.navigationItem.leftBarButtonItem = backItem;
+    }
+}
+
+-(void) navBack {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)setTitle:(NSString *)title {

@@ -18,6 +18,7 @@ actionType = {
 	PAY_PWD: null
 	GET_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
+	CHANGE_PWD: null
 }
 
 
@@ -93,6 +94,6 @@ module.exports =
 	api: api
 	actionType: keymirror actionType
 	debug: true
-	inBrowser: true
+	inBrowser: not window.cordova
 	smsType: smsType
 	smsGapTime: 60
