@@ -109,7 +109,7 @@
                         android:textSize="12sp" />
                 </LinearLayout>
             </RelativeLayout>
-
+   
             <RelativeLayout
                 android:id="@+id/rl_order"
                 android:layout_width="0dp"
