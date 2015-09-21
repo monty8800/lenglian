@@ -8,7 +8,8 @@ DB = require 'util/storage'
 More = React.createClass {
 	_goPage: (page, transData)->
 		DB.put 'transData', transData or {}
-		Plugin.nav.push [page]
+		Plugin.needLogin ->
+			Plugin.nav.push [page]
 	_logout: ->
 		DB.remove 'user'
 		Plugin.alert '成功退出登录'

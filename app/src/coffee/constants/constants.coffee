@@ -24,7 +24,7 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	server: 'http://192.168.26.176'
+	server: 'http://192.168.26.177:7080/llmj-app/'
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'

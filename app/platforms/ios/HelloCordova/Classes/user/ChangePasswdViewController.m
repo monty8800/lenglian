@@ -1,23 +1,23 @@
 //
-//  HomeViewController.m
+//  ChangePasswdViewController.m
 //  HelloCordova
 //
 //  Created by ywen on 15/9/21.
 //
 //
 
-#import "HomeViewController.h"
+#import "ChangePasswdViewController.h"
 
-@interface HomeViewController ()
+@interface ChangePasswdViewController ()
 
 @end
 
-@implementation HomeViewController
+@implementation ChangePasswdViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"home.html";
+        self.startPage = @"changePasswd.html";
     }
     return self;
 }
@@ -30,8 +30,7 @@
 }
 
 -(void) createUI {
-    self.title = @"首页";
-    self.navigationController.navigationBarHidden = YES;
+    self.title = @"修改密码";
 }
 
 - (void)didReceiveMemoryWarning {

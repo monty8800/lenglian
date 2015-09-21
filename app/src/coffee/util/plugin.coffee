@@ -1,5 +1,7 @@
 Constants = require 'constants/constants'
 
+UserStore = require 'stores/user/user'
+
 xePlugin = null
 if not Constants.inBrowser
 	exec = window.cordova.require 'cordova/exec' 
@@ -98,5 +100,13 @@ else
 		}
 		alert: xeAlert
 	}
+
+xePlugin.needLogin = (cb)->
+	if not UserStore.getUser()?.id
+		console.log 'need login!'
+		xePlugin.nav.push ['login']
+	else
+		console.log 'user id', UserStore.getUser()?.id
+		cb()
 
 module.exports = xePlugin

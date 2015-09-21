@@ -35,10 +35,10 @@
 
 -(void)commonCommand:(NSArray *)params {
     if ([params[0] integerValue] == 1) {
-        if ([params[1] isEqualToString:@"more"]) {
+//        if ([params[1] isEqualToString:@"more"]) {
             MoreViewController *moreVC = [MoreViewController new];
             [self.navigationController pushViewController:moreVC animated:YES];
-        }
+//        }
     }
 }
 

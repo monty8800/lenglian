@@ -1,23 +1,23 @@
 //
-//  HomeViewController.m
+//  RegisterViewController.m
 //  HelloCordova
 //
 //  Created by ywen on 15/9/21.
 //
 //
 
-#import "HomeViewController.h"
+#import "RegisterViewController.h"
 
-@interface HomeViewController ()
+@interface RegisterViewController ()
 
 @end
 
-@implementation HomeViewController
+@implementation RegisterViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"home.html";
+        self.startPage = @"register.html";
     }
     return self;
 }
@@ -30,8 +30,7 @@
 }
 
 -(void) createUI {
-    self.title = @"首页";
-    self.navigationController.navigationBarHidden = YES;
+    self.title = @"注册";
 }
 
 - (void)didReceiveMemoryWarning {

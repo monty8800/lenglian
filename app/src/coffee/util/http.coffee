@@ -20,9 +20,9 @@ post = (api, params, cb, err, key, iv)->
 		client_type = '1'
 
 	#没有就从本地取
-	uuid = uuid or DB.get 'uuid'
-	version = version or DB.get 'version'
-	client_type = client_type or DB.get 'client_type'
+	uuid = window.uuid or DB.get 'uuid'
+	version = window.version or DB.get 'version'
+	client_type = window.client_type or DB.get 'client_type'
 
 	if not (uuid && version && client_type)
 		console.error 'uuid:', uuid, ',version:', version, ',client_type:', client_type
@@ -41,9 +41,9 @@ post = (api, params, cb, err, key, iv)->
 		data: data
 	}
 	
+	api = Constants.api.server + api if api.indexOf('http') isnt 0 and not Constants.inBrowser
 	console.log '请求接口:', api
 	console.log '发送参数:', JSON.stringify(paramDic)
-	api = Constants.api.server + api if api.indexOf('http') isnt 0 and not Constants.inBrowser
 
 	$.post api, paramDic, (data, status, xhr)->
 		if status is 0

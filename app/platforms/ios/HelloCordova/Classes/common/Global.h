@@ -18,7 +18,7 @@
 #import <YwenKit/YwenKit.h>
 
 
-#define CLIENT_TYPE @"3"  //客户端类型，2 android， 3 ios
+#define CLIENT_TYPE @"2"  //客户端类型
 #define UMENG_KEY @"559500cc67e58ee95500064a"  //友盟的key
 //效果图与实际屏幕比例
 #define REALSCREEN_MULTIPBY  (SCREEN_WIDTH / 320)

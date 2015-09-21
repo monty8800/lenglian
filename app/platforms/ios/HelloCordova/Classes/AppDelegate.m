@@ -172,13 +172,7 @@
     }
 #endif
 
-- (NSUInteger)application:(UIApplication*)application supportedInterfaceOrientationsForWindow:(UIWindow*)window
-{
-    // iPhone doesn't support upside down by default, while the iPad does.  Override to allow all orientations always, and let the root view controller decide what's allowed (the supported orientations mask gets intersected).
-    NSUInteger supportedInterfaceOrientations = (1 << UIInterfaceOrientationPortrait);
 
-    return supportedInterfaceOrientations;
-}
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication*)application
 {

@@ -1,26 +1,27 @@
 //
-//  HomeViewController.m
+//  ResetPasswdViewController.m
 //  HelloCordova
 //
 //  Created by ywen on 15/9/21.
 //
 //
 
-#import "HomeViewController.h"
+#import "ResetPasswdViewController.h"
 
-@interface HomeViewController ()
+@interface ResetPasswdViewController ()
 
 @end
 
-@implementation HomeViewController
+@implementation ResetPasswdViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"home.html";
+        self.startPage = @"resetPasswd.html";
     }
     return self;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,8 +31,7 @@
 }
 
 -(void) createUI {
-    self.title = @"首页";
-    self.navigationController.navigationBarHidden = YES;
+    self.title = @"重置密码";
 }
 
 - (void)didReceiveMemoryWarning {

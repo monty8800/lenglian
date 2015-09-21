@@ -15,7 +15,7 @@ PODS:
   - UMengAnalytics-NO-IDFA (3.5.9)
   - YwenCrypto (0.0.4):
     - NSData+Base64
-  - YwenKit (0.3.3)
+  - YwenKit (0.3.9)
 
 DEPENDENCIES:
   - CocoaLumberjack (= 2.0.0)
@@ -36,7 +36,7 @@ CHECKOUT OPTIONS:
     :commit: 00ee423f817b0e05b83942daa99618e22171705c
     :git: https://github.com/yaliyingwy/YwenCrypto.git
   YwenKit:
-    :commit: 2afc61abbbab5e0593b63511120751cb9b4a1cfc
+    :commit: bcb9279fb12e0211b80fe15898f2c06f5386ab38
     :git: https://github.com/yaliyingwy/YwenKit.git
 
 SPEC CHECKSUMS:
@@ -47,6 +47,6 @@ SPEC CHECKSUMS:
   TAKUUID: f852c1386a2b6bca0b678b69f9d0860f2c8ac4b0
   UMengAnalytics-NO-IDFA: c5302a2246061c356641bb3056e89dfbdeb37424
   YwenCrypto: badefa9ee0175af857752fa13b44b415837b96e7
-  YwenKit: 1e2943f69b3a301185218132bfd99c50b8b61deb
+  YwenKit: efd32206e3418ec0a3b67a475f4109483af21f46
 
 COCOAPODS: 0.37.2

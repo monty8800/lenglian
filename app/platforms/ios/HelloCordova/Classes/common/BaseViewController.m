@@ -58,6 +58,12 @@
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = _titleLabel;
     
+    self.navigationController.navigationBar.backgroundColor = [UIColor WY_ColorWithHex:0x1987c6];
+    
+    //去掉导航栏分割线
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics: UIBarMetricsDefault];
+    
     //返回
     if (self.navigationController.viewControllers.count > 1) {
         UIBarButtonItem *backItem = [[UIBarButtonItem  alloc] initWithImage:[[UIImage imageNamed:@"nav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(navBack)];
@@ -72,6 +78,16 @@
 -(void)setTitle:(NSString *)title {
     [super setTitle:title];
     _titleLabel.text = title;
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    [super webViewDidFinishLoad:webView];
+    NSString *uuid = [Global sharedInstance].uuid;
+    NSString *version = [Global sharedInstance].version;
+    NSAssert(uuid, @"没有uuid！");
+    NSAssert(version, @"没有版本号!");
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"(function(){window.uuid='%@'; window.version='%@'; window.client_type='%@'})()", uuid, version, CLIENT_TYPE]];
+    
 }
 
 - (void)didReceiveMemoryWarning {

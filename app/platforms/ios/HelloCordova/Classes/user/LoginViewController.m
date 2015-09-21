@@ -1,27 +1,25 @@
 //
-//  MoreViewController.m
+//  LoginViewController.m
 //  HelloCordova
 //
 //  Created by ywen on 15/9/21.
 //
 //
 
-#import "MoreViewController.h"
-
-#import "ChangePasswdViewController.h"
-#import "ResetPasswdViewController.h"
 #import "LoginViewController.h"
+#import "RegisterViewController.h"
+#import "ResetPasswdViewController.h"
 
-@interface MoreViewController ()
+@interface LoginViewController ()
 
 @end
 
-@implementation MoreViewController
+@implementation LoginViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"more.html";
+        self.startPage = @"login.html";
     }
     return self;
 }
@@ -29,29 +27,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self createUI];
 }
 
 -(void) createUI {
-    self.title = @"更多";
+    self.title = @"登录";
 }
 
 -(void)commonCommand:(NSArray *)params {
     if ([params[0] integerValue] == 1) {
-        if ([params[1] isEqualToString:@"changePasswd"]) {
-            ChangePasswdViewController *changePwdVC = [ChangePasswdViewController new];
-            [self.navigationController pushViewController:changePwdVC animated:YES];
+        if ([params[1] isEqualToString:@"register"]) {
+            RegisterViewController *registerVC = [RegisterViewController new];
+            [self.navigationController pushViewController:registerVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"resetPasswd"])
         {
             ResetPasswdViewController *resetPwdVC = [ResetPasswdViewController new];
             [self.navigationController pushViewController:resetPwdVC animated:YES];
-        }
-        else if ([params[1] isEqualToString:@"login"])
-        {
-            LoginViewController *loginVC = [LoginViewController new];
-            [self.navigationController pushViewController:loginVC animated:YES];
         }
     }
 }
