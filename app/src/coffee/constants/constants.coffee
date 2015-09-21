@@ -81,6 +81,6 @@ module.exports =
 	api: api
 	actionType: keymirror actionType
 	debug: true
-	inBrowser: false
+	inBrowser: not window.cordova
 	smsType: smsType
 	smsGapTime: 60
