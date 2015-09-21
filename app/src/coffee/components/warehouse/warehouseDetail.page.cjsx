@@ -6,15 +6,29 @@ React = require 'react/addons'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
 UserStore = require 'stores/user/user'
-
+Helper = require 'util/helper'
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 
 
 _warehouseId = DB.get('transData')
+warehouseStatus = '' #状态
+warehouseType = []		#类型
+warehousePrice = [] #价格
+warehouseIncreaseValue = [] #增值服务
+warehouseArea = [] #面积
+
+conf = (aProperty) ->
+
+	switch aProperty.type
+		when '1' then warehouseType.push aProperty.attributeName
+		when '2' then warehouseIncreaseValue.push aProperty.attributeName
+		when '3' then warehouseArea.push aProperty.value + aProperty.attributeName
+		when '4' then warehousePrice.push  aProperty.value + aProperty.attributeName
 
 WarehouseDetailTop = React.createClass {
-
+	deleteWarehouse: ->
+		alert 'delete warehouse'
 	getInitialState: ->
 		{
 			warehouseDetail:{}
@@ -27,11 +41,12 @@ WarehouseDetailTop = React.createClass {
 		WarehouseStore.removeChangeListener @_onChange
 
 	_onChange: ->
-		console.log '__ _result data + ' + WarehouseStore.getDetail()
+		console.log '~~~~  ~~~  result data + ' + WarehouseStore.getDetail()
+		detailResult = WarehouseStore.getDetail()
+		conf aProperty for aProperty in detailResult.warehouseProperty
 		@setState { 
-			warehouseDetail:WarehouseStore.getDetail()
+			warehouseDetail:detailResult
 		}
-
 	render :->
 		<div>
 			<div className="m-item03">
@@ -46,10 +61,18 @@ WarehouseDetailTop = React.createClass {
 							<img src="../images/product-01.jpg"/>
 						</dt>
 						<dd className=" fl">
-							<p>仓库状态: <span>500立方米</span> <span>空闲中</span></p>
-							<p>仓库类型: <span>驶入式</span></p>
-							<p>仓库价格: <span>1000/天/托</span></p>
-							<p>增值服务: <span>城配</span></p>
+							<p>仓库状态: 
+								<span>{ Helper.warehouseStatus @state.warehouseDetail.status }</span>
+							</p>
+							<p>仓库类型: 
+								<span>{ warehouseType.join ' ' }</span>
+							</p>
+							<p>仓库价格: 
+								<span>{ warehousePrice.join ' ' }</span>
+							</p>
+							<p>增值服务: 
+								<span>{ warehouseIncreaseValue.join ' ' }</span>
+							</p>
 						</dd>
 					</dl>			
 				</div>
@@ -57,36 +80,42 @@ WarehouseDetailTop = React.createClass {
 			<div className="m-detail-info m-nomargin">			
 				<p>
 					<span>仓库面积:</span>
-					<span>常温  1000立方米/冷藏  1000立方米</span>
+					<span>{ warehouseArea.join '/' }</span>
 				</p>
 				<p>
 					<span>仓库地址:</span>
-					<span>海淀区中关村海淀北二街10号</span>
+					<span>{
+						detailAddr = @state.warehouseDetail
+						if detailAddr.provinceName is detailAddr.cityName
+							detailAddr.provinceName + detailAddr.areaName + detailAddr.street 
+						else
+							detailAddr.provinceName + detailAddr.cityName + detailAddr.areaName + detailAddr.street 
+					}</span>
 				</p>		
 			</div>
 			<div className="m-detail-info m-nomargin">			
 				<p>
 					<span>发票:</span>
-					<span>可以开发票</span>
+					<span>{ Helper.invoiceStatus @state.warehouseDetail.isinvoice }</span>
 				</p>		
 			</div>
 			<div className="m-detail-info">			
 				<p>
 					<span>联系人:</span>
-					<span>李鑫萍</span>
+					<span>{ @state.warehouseDetail.contacts }</span>
 				</p>
 				<p>
 					<span>联系手机:</span>
-					<span>18622568566</span>
+					<span>{ @state.warehouseDetail.phone }</span>
 				</p>
 				<p>
 					<span>备注说明:</span>
-					<span>联系时请说明是在冷链马甲看到的！</span>
+					<span>{ @state.warehouseDetail.remark }</span>
 				</p>		
 			</div>
 			<div className="m-detail-bottom">
 				<div className="g-pay-btn">
-					<a href="#" className="u-btn02">删除仓库</a>
+					<a onClick={ @deleteWarehouse } className="u-btn02">删除仓库</a>
 				</div>
 			</div>
 		</div>

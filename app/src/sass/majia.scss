@@ -29,115 +29,115 @@ body,html {
 
 //dingdan-tab
 .m-tab01 {
-	width: 100%;
-	height: 80/$ppr;
-	background: #fff;
-	border-bottom: 1px solid #e6e6e6;
-	ul {
-		width: 100%;
-		display: table;
-	}
-	li {
-		display: table-cell;
-		text-align: center;
-		line-height: 80/$ppr;
-		font-size: 30/$ppr;
-		color: #999;
-		span {
-			display: inline-block;
-			height: 80/$ppr;
-			@include box-sizing(border-box);
-			&.active {
-				color: $main-color;
-				border-bottom: 2px solid $main-color;
-			}
-		}
-	}
+    width: 100%;
+    height: 80/$ppr;
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    ul {
+        width: 100%;
+        display: table;
+    }
+    li {
+        display: table-cell;
+        text-align: center;
+        line-height: 80/$ppr;
+        font-size: 30/$ppr;
+        color: #999;
+        span {
+            display: inline-block;
+            height: 80/$ppr;
+            @include box-sizing(border-box);
+            &.active {
+                color: $main-color;
+                border-bottom: 2px solid $main-color;
+            }
+        }
+    }
 }
 
 //dingdan-ITEM
 .m-item01 {
-	margin-top:20/$ppr;
-	padding:20/$ppr 0/$ppr 20/$ppr 20/$ppr;
-	background: #fff;
-	border-top:1px solid #e6e6e6;
-	border-bottom: 1px solid #e6e6e6;
+    margin-top:20/$ppr;
+    padding:20/$ppr 0/$ppr 20/$ppr 20/$ppr;
+    background: #fff;
+    border-top:1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
     &.nopadding{
         padding:0 0 0 20/$ppr;
     }
-	.g-adr-start,.g-adr-end,.g-adr-active {
-		height: 40/$ppr;
-		line-height: 40/$ppr;
-		position: relative;
-		padding-left: 40/$ppr;
-		font-size: 28/$ppr;
-		&:before {
-			width: 40/$ppr;
-			height: 40/$ppr;
-			line-height: 40/$ppr;
-			text-align: left;
-			font-size: 40/$ppr;
-			content: "\e60a";
-			position: absolute;
-			left: 0;
-			top: 0;
-			color: #eb4f38;
-		}
-	}
-	.g-adr-middle{
-	    display: none;
-	}
+    .g-adr-start,.g-adr-end,.g-adr-active {
+        height: 40/$ppr;
+        line-height: 40/$ppr;
+        position: relative;
+        padding-left: 40/$ppr;
+        font-size: 28/$ppr;
+        &:before {
+            width: 40/$ppr;
+            height: 40/$ppr;
+            line-height: 40/$ppr;
+            text-align: left;
+            font-size: 40/$ppr;
+            content: "\e60a";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #eb4f38;
+        }
+    }
+    .g-adr-middle{
+        display: none;
+    }
 
-	.g-adr-start-line{
-		padding-bottom: 8/$ppr;
-		&:after {
-			content: "";
-			width: 2/$ppr;
-			height: 12/$ppr;
-			position: absolute;
-			left: 19/$ppr;
-			bottom: 0;
-			background: #eb4f38;
-		}
-	}
-	.g-adr-end-line{
-		padding-top: 8/$ppr;
-		&:after {
-			content: "";
-			width: 2/$ppr;
-			height: 12/$ppr;
-			position: absolute;
-			left: 19/$ppr;
-			top: 0;
-			background: #11cd6e;
-		}
-	}
+    .g-adr-start-line{
+        padding-bottom: 8/$ppr;
+        &:after {
+            content: "";
+            width: 2/$ppr;
+            height: 12/$ppr;
+            position: absolute;
+            left: 19/$ppr;
+            bottom: 0;
+            background: #eb4f38;
+        }
+    }
+    .g-adr-end-line{
+        padding-top: 8/$ppr;
+        &:after {
+            content: "";
+            width: 2/$ppr;
+            height: 12/$ppr;
+            position: absolute;
+            left: 19/$ppr;
+            top: 0;
+            background: #11cd6e;
+        }
+    }
 
-	.g-adr-end {
-//		padding-bottom: 20/$ppr;
-		&:before {
-			top:8/$ppr;
-			content: "\e620";
-			color: #11cd6e;
-		}
-	}
-	.g-adr-middle{
-	    &:before {
+    .g-adr-end {
+//      padding-bottom: 20/$ppr;
+        &:before {
+            top:8/$ppr;
+            content: "\e620";
+            color: #11cd6e;
+        }
+    }
+    .g-adr-middle{
+        &:before {
             top:8/$ppr;
             content: "\e60d";
             color: #fd8c2a;
             top:0/$ppr;
             left:0;
         }
-	}
-	
-	.g-adr-store{
-//	    height: 80/$ppr;
+    }
+    
+    .g-adr-store{
+//      height: 80/$ppr;
         line-height: 40/$ppr;
         position: relative;
         padding-left: 40/$ppr;
         font-size: 28/$ppr;
-	    &:before {
+        &:before {
             width: 40/$ppr;
             height: 40/$ppr;
             line-height: 40/$ppr;
@@ -157,53 +157,53 @@ body,html {
             }
         }
         
-	}
-	.g-item {
-		padding:0/$ppr 20/$ppr 20/$ppr 0;
-		border-bottom: 1px solid #e6e6e6;
-		font-size: 28/$ppr;
-		color: $text-color-333;
-		position: relative;
-		&:last-child {
-			border-bottom: 0 none;
-		}
-		&.nopadding{
-		    padding-bottom:0;
-		}
-		&.g-item-brno {
-			border: none;
-		}
-	}
+    }
+    .g-item {
+        padding:0/$ppr 20/$ppr 20/$ppr 0;
+        border-bottom: 1px solid #e6e6e6;
+        font-size: 28/$ppr;
+        color: $text-color-333;
+        position: relative;
+        &:last-child {
+            border-bottom: 0 none;
+        }
+        &.nopadding{
+            padding-bottom:0;
+        }
+        &.g-item-brno {
+            border: none;
+        }
+    }
 
-	.g-pad {
-		padding:30/$ppr 0;
-		&.g-pad-active {
-			border-bottom: none;
-			&:after {
-				-webkit-transform:rotate(90deg);
-				transform:rotate(90deg);
-			}
-		}
-		span{
-		    color:#999;
-		    line-height: 1;
-		}
-	}
+    .g-pad {
+        padding:30/$ppr 0;
+        &.g-pad-active {
+            border-bottom: none;
+            &:after {
+                -webkit-transform:rotate(90deg);
+                transform:rotate(90deg);
+            }
+        }
+        span{
+            color:#999;
+            line-height: 1;
+        }
+    }
 
-	.g-item-des {
-		padding:10/$ppr 0 0 0;
-		p {
-			color: #999;
-			padding-top: 10/$ppr;
-			line-height: 1;
-			span {
-				padding-right: 15/$ppr;
-				&:last-child {
-					padding-right: 0;
-				}
-			}
-		}
-	}
+    .g-item-des {
+        padding:10/$ppr 0 0 0;
+        p {
+            color: #999;
+            padding-top: 10/$ppr;
+            line-height: 1;
+            span {
+                padding-right: 15/$ppr;
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
 }
 
 .z-item-cancel{
@@ -211,53 +211,53 @@ body,html {
 }
 
 .g-item-order {
-	width: 620/$ppr;
-	height: 0;
-	overflow: hidden;
-	margin-left: -20/$ppr;
-	background: #e6f8ff;
-	padding-left: 20/$ppr;
+    width: 620/$ppr;
+    height: 0;
+    overflow: hidden;
+    margin-left: -20/$ppr;
+    background: #e6f8ff;
+    padding-left: 20/$ppr;
 
-	.g-order {
-		width: 330/$ppr;
-		padding:20/$ppr 185/$ppr 20/$ppr 105/$ppr;
-		min-height: 80/$ppr;
-		border-bottom: 1px solid #b1e9ff;
-		position: relative;
-		&:last-child {
-			border-bottom: 0 none;
-		}
-	}
-	.g-order-pic {
-		width: 80/$ppr;
-		height: 80/$ppr;
-		overflow: hidden;
-		border-radius: 50%;
-		position: absolute;
-		left: 0;
-		top: 20/$ppr;
-		img {
-			width: 100%;
-			height: 100%;
-		}
-	}
-	.g-order-name {
-		font-size: 24/$ppr;
-		color: $text-color-333;
-		padding-top: 10/$ppr;
-	}
-	.g-order-dis {
-		font-size: 30/$ppr;
-		color: $text-color-fd8;
-		line-height: 1;
-		padding-top: 10/$ppr;
-	}
-	.g-order-btn {
-		width: 160/$ppr;
-		position: absolute;
-		right: 10/$ppr;
-		top: 30/$ppr;
-	}
+    .g-order {
+        width: 330/$ppr;
+        padding:20/$ppr 185/$ppr 20/$ppr 105/$ppr;
+        min-height: 80/$ppr;
+        border-bottom: 1px solid #b1e9ff;
+        position: relative;
+        &:last-child {
+            border-bottom: 0 none;
+        }
+    }
+    .g-order-pic {
+        width: 80/$ppr;
+        height: 80/$ppr;
+        overflow: hidden;
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        top: 20/$ppr;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .g-order-name {
+        font-size: 24/$ppr;
+        color: $text-color-333;
+        padding-top: 10/$ppr;
+    }
+    .g-order-dis {
+        font-size: 30/$ppr;
+        color: $text-color-fd8;
+        line-height: 1;
+        padding-top: 10/$ppr;
+    }
+    .g-order-btn {
+        width: 160/$ppr;
+        position: absolute;
+        right: 10/$ppr;
+        top: 30/$ppr;
+    }
 }
 
 .g-item-dirver{
@@ -429,13 +429,13 @@ body,html {
             border-bottom: 0 none;
         }
         .g-dirver-pic {
-	        width: 80/$ppr;
-	        height: 80/$ppr;
-	        overflow: hidden;
-	        border-radius: 50%;
-	        position: absolute;
-	        left: 0;
-	        top: 0/$ppr;
+            width: 80/$ppr;
+            height: 80/$ppr;
+            overflow: hidden;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0/$ppr;
             img {
                 width: 100%;
                 height: 100%;
@@ -468,7 +468,7 @@ body,html {
                 padding:30/$ppr 30/$ppr 0;
                 text-align: center;
                 position:relative;
-				border-left:1px solid #e6e6e6;
+                border-left:1px solid #e6e6e6;
                 &:last-child{
                     &:before{
                         width: 30/$ppr;
@@ -483,7 +483,7 @@ body,html {
                     }
                 }
                 &:first-child{
-                	border-left:0;
+                    border-left:0;
                     &:before{
                         width: 30/$ppr;
                         height: 30/$ppr;
@@ -504,13 +504,13 @@ body,html {
         }
     } 
     &.g-det-pad0 {
-    	padding-top:0;
-    	padding-bottom: 0;
-    	margin-bottom: 0;
-    	border-bottom: 0;
-    	.g-detail {
-    		padding-bottom: 0;
-    	}
+        padding-top:0;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: 0;
+        .g-detail {
+            padding-bottom: 0;
+        }
     }
 }
 .g-adr-detail{
@@ -552,15 +552,15 @@ body,html {
     }
 }
 .g-detail-time01{
-	overflow: hidden;
+    overflow: hidden;
     border-bottom:1px solid #e6e6e6;
     padding:30/$ppr 20/$ppr 30/$ppr 0;
     &:first-child {
-    	padding-top: 10/$ppr;
+        padding-top: 10/$ppr;
     }
     &:last-child {
-    	padding-bottom: 10/$ppr;
-    	border-bottom: 0;
+        padding-bottom: 10/$ppr;
+        border-bottom: 0;
     }
     &.g-pad{
         padding: 0;
@@ -569,12 +569,12 @@ body,html {
     }
 }
 .g-pro-p {
-	p {
-		&:nth-of-type(1){
-			padding-top: 10/$ppr;
-		}
-		padding-left: 0;
-	}
+    p {
+        &:nth-of-type(1){
+            padding-top: 10/$ppr;
+        }
+        padding-left: 0;
+    }
 }
 .g-pro-name{
     color:#333;
@@ -600,16 +600,16 @@ body,html {
     }
 }
 .g-pro-text{
-	width: 380/$ppr;
+    width: 380/$ppr;
     height: 200/$ppr;
     line-height:50/$ppr;
     font-size:28/$ppr;
     color:#666;
     span {
-    	padding-right: 10/$ppr;
-    	&:last-child {
-    		padding-right: 0;
-    	}
+        padding-right: 10/$ppr;
+        &:last-child {
+            padding-right: 0;
+        }
     }
 }
 .m-detail-info{
@@ -663,7 +663,7 @@ body,html {
             }
         }
         &:last-child {
-        	border-bottom:0 ;
+            border-bottom:0 ;
         }
     }
 }
@@ -684,28 +684,62 @@ body,html {
     .g-pay-btn{
         position: absolute;
         right: 20/$ppr;
-<<<<<<< Updated upstream
         top:16/$ppr;        
-=======
-        top:20/$ppr;
->>>>>>> Stashed changes
     }
 }
 //pay page
 .m-pay-item{
     margin-top:20/$ppr;
-    padding:20/$ppr 0/$ppr 20/$ppr 20/$ppr;
     background: #fff;
-    border-top:1px solid #e6e6e6;
-    border-bottom: 1px solid #e6e6e6;
-    p{
-        padding: 0 20/$ppr 0 0;
+    border-top:1px solid #e6e6e6;   
+    .g-pay{
+        padding: 0 20/$ppr;
         font-size: 32/$ppr;
         color: $text-color-333;
-        height: 48/$ppr;
-        line-height: 48/$ppr;
+        height: 90/$ppr;
+        line-height: 90/$ppr;
+        font-weight: bold;
+        border-bottom: 1px solid #e6e6e6;
+        overflow: hidden;
+        @include box-sizing($sizing:border-box);
         .g-pay-money{
             color:$com-color;
+        }
+        .setPas{
+            max-width: 300/$ppr;
+            text-align: right;
+            font-size: 30/$ppr;
+            font-weight: normal;
+        }
+        .font30,.font24{
+            font-size: 30/$ppr;
+            font-weight: normal;
+            color: #7f7f7f;
+        }
+        .font24{
+            font-size: 24/$ppr;
+            margin-left: 12/$ppr;
+            line-height: 96/$ppr;
+        }
+        &.offMoney{
+            position: relative;
+            &:after{
+                width: 36/$ppr;
+                height: 36/$ppr;
+                content: "\e625";
+                font-size: 36/$ppr;
+                color: #b9b9b9;
+                position: absolute;
+                right: 20/$ppr;
+                top:27/$ppr;
+                line-height: 36/$ppr;
+            }
+            &.active{
+                &:after{
+                    content:"\e602";
+                    color: $main-color ;
+                }                
+            }
         }
     }
 }
@@ -714,8 +748,8 @@ body,html {
     p{
         height: 90/$ppr;
         line-height: 90/$ppr;
-        color:$text-color-333;
         font-size: 32/$ppr;
+        font-weight: bold;
         &:first-child{
             border-bottom:1px solid #e6e6e6;
         }
@@ -728,78 +762,52 @@ body,html {
     background: #fff;
     border-top:1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
-    div{
-        font-size: 30/$ppr;
-        color: #2e2e2e;
-        &.g-bank-item01{
-            height: 90/$ppr;
-            line-height: 90/$ppr;
-            padding: 0 20/$ppr 0 0;
-            color:#7F7F7F;
-        }
-        p{
-            padding:30/$ppr 20/$ppr 30/$ppr 0;           
-            height: 60/$ppr;
-            line-height: 60/$ppr;
-            font-size: 30/$ppr;
-            color: #2e2e2e;
-            &.g-bank-icon{
-                height: 60/$ppr;
-                width: 60/$ppr;
-                padding-right: 0;
-                a{
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                }
-                img{
-                    width: 100%;
-                    height: 100%;
-                }
-            }  
-            &:last-child{
-                width: 540/$ppr;
-                height: 60/$ppr;
-                border-top:1px solid #e6e6e6;
-                &.noborder{
-                    border-top:0;
-                }
-            } 
-            &.g-bank-check{
-                position: relative;
-                &:after{
-                    width: 36/$ppr;
-                    height: 36/$ppr;
-                    content: "\e625";
-                    font-size: 36/$ppr;
-                    color: #b9b9b9;
-                    position: absolute;
-                    right: 20/$ppr;
-                    top:45/$ppr;
-                    line-height: 36/$ppr; 
-                }
-                &.active:after{
-                    color: $text-color-fd8;
-                    content: "\e608";
-                }
-            }   
-            span{
-                margin-left: 20/$ppr;
-                &.g-pay-card{
-                    color: #7F7F7F;
-                    font-size: 24/$ppr;
-                }
-            }     
-        }
-        
+    color: #7f7f7f;
+    font-weight: normal;
+    .g-bankTitle{
+        height: 90/$ppr;
+        line-height: 90/$ppr;
+        font-size: 30/$ppr;               
     }
-    
+    .g-bankList{
+        padding-left:30/$ppr;
+        .g-bank01,.g-bank02{
+            height: 120/$ppr;
+            line-height: 120/$ppr;
+            font-size: 30/$ppr;
+            border-top: 1px solid #e6e6e6;
+            color: #2e2e2e;
+            .font24{
+                font-size: 24/$ppr;
+                color: #7f7f7f;
+            }                      
+        }
+        .g-bank01{
+            position: relative;
+            &:after{
+                width: 36/$ppr;
+                height: 36/$ppr;
+                content: "\e625";
+                font-size: 36/$ppr;
+                color: #b9b9b9;
+                position: absolute;
+                right: 20/$ppr;
+                top:45/$ppr;
+                line-height: 36/$ppr;
+            }
+            &.active:after{
+                color: $main-color;
+                content: "\e608";
+            }
+        }
+    }
 }
 
 .u-pay-btn{
     margin: 40/$ppr 0;
     .btn{
         background-color: $main-color;
+        font-weight: bold;
         &.noUse{
             color: #5dd0ff;
         }
@@ -935,7 +943,7 @@ body,html {
             }
         }
         &.g-paycode-center {
-        	text-align: center;
+            text-align: center;
         }
     }
     .g-pay-confirm{
@@ -971,7 +979,7 @@ body,html {
             font-size: 34/$ppr;
             color: $text-color-333;
             &.f-pay-succ {
-            	color: #28b3ec;
+                color: #28b3ec;
             }
         }
     }
@@ -1097,8 +1105,10 @@ body,html {
             &:-ms-input-placeholder { color: #fff;}
             font-size:32/$ppr;
             border-bottom: 1px solid #e6e6e6;
+            border-radius: 0;
             height: 90/$ppr;
-            line-height:90/$ppr;
+            line-height: 1;
+            padding: 28/$ppr 0;
             width: 100%;
             color: #fff;
             @include box-sizing($sizing:border-box);
@@ -1200,12 +1210,11 @@ body,html {
     border-bottom: 1px solid #e6e6e6;
     padding:0 0 0 20/$ppr;
     >div{
-    	padding:28/$ppr 0;
+        padding:28/$ppr 0;
         font-size:32/$ppr;
         color:$text-color-333;           
         position:relative;
         border-bottom: 1px solid #e6e6e6;
-<<<<<<< Updated upstream
         @include box-sizing($sizing:border-box);     
         &.g-releaseDl{
             dd{
@@ -1222,10 +1231,6 @@ body,html {
                 }
             }
         }        
-=======
-        @include box-sizing($sizing:border-box);
-        
->>>>>>> Stashed changes
         &:last-child{
             border-bottom:0;
         }  
@@ -1366,66 +1371,6 @@ body,html {
        i{
            color: #acabab;
            font-size: 30/$ppr; 
-<<<<<<< Updated upstream
-=======
-        }  
-//      ul{
-//          display: inline-block;
-//          li{
-//              line-height: 86/$ppr;
-//              font-size:32/$ppr;
-//              color:$text-color-333;
-//              border-bottom: 1px solid #e6e6e6;
-//              @include box-sizing($sizing:border-box);
-//              
-//              &.ll-font{
-//                  padding-left: 50/$ppr;
-//                  position:relative; 
-//                  &:before{
-//                      width: 36/$ppr;
-//                      height: 36/$ppr;
-//                      line-height: 36/$ppr;
-//                      text-align: left;
-//                      font-size: 36/$ppr;
-//                      content: "\e625";
-//                      position: absolute;
-//                      left: 0;
-//                      top: 25/$ppr;
-//                      color: $bot-border-color;
-//                  }
-//                  &:last-child{
-//                      &:before{
-//                          content: "\e608";
-//                          color: $main-color;
-//                      }
-//                  }
-//              }           
-//              &:last-child{
-//                  border-bottom:0;
-//              }
-//              
-//              input{
-//                  width: 218/$ppr;
-//                  height: 50/$ppr;
-//                  border:1px solid #e6e6e6;
-//                  border-radius: 5/$ppr;
-//                  text-align: center;
-//                  color:#acabab;
-//              }
-//              span{
-//                  &:first-child{
-//                      font-weight: normal;
-//                      display: inline;
-//                      margin-right: 20/$ppr;
-//                  }
-//                  
-//              }
-//          }
-//      }
-        .iconFont{
-            font-size: 28/$ppr;
-            padding-top: 20/$ppr;
->>>>>>> Stashed changes
         }
         .star{
            color: #666;
@@ -1516,6 +1461,7 @@ body,html {
     .title{
         font-size: 32/$ppr;
         font-weight: bold;
+        padding: 15/$ppr 0;
     }
     .carType{
         background-color:#e6f8ff;
@@ -1569,7 +1515,7 @@ body,html {
         &:first-child{
             border-top: none;
             &:after {
-            	color: #9dd5fd;
+                color: #9dd5fd;
             }
         }
     }
@@ -1633,7 +1579,7 @@ body,html {
         padding: 20/$ppr;
         min-height: 120/$ppr;
         line-height: 32/$ppr;
-        font--size:28/$ppr;
+        font-size:28/$ppr;
         color: $text-color-666;
         @include box-sizing($sizing:border-box);
         resize: none;
@@ -1641,7 +1587,6 @@ body,html {
         border-radius: 5/$ppr;
         background: #f9fafa;
         outline: none;
-//      overflow-y: hidden;
 
     }
     
@@ -1652,6 +1597,25 @@ body,html {
         width: 100%;
         padding:0;
         @include flex(1);
+    }
+}
+.m-bankPic{
+    margin:20/$ppr 0;
+    background: #fff;
+    border-top:1px solid #e6e6e6;
+    .g-bankPic{
+        padding: 30/$ppr;
+        border-bottom: 1px solid #e6e6e6;
+        a{
+            width: 140/$ppr;
+            height:34/$ppr;
+            display: block;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        
     }
 }
 
