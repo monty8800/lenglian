@@ -40,12 +40,21 @@ module.exports = {
 
 		#地址列表
 		ADDR_LIST: '/userInfo/queryMjUserAddressList.shtml'
-
 		#根据卡号查银行
 		QUERY_BANK_BY_CARD: '/mjUserBankCard/queryBankType.shtml'
 
+		# 查询我的仓库
+		GET_WAREHOUSE: '/mjWarehouseCtl/queryMjWarehouse.shtml'
+
+		#删除我的仓库
+		DELETE_WAREHOUSE:'/mjWarehouseCtl/deleteMjWarehouse.shtml'
+		#修改我的仓库
+		UPDATE_WAREHOUSE:'/mjWarehouseCtl/updateMjWarehouse.shtml'
 		# 我的仓库详情
-		ware_house_detail: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
+		WAREHOUSE_DETAIL: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
+		#添加仓库
+		WAREHOUSE_ADD: '/mjWarehouseCtl/addMjWarehouse.shtml'
+
 		# 关注列表
 		attention_list: '/userInfo/queryMjWishlstList.shtml'
 		# 我的车辆
@@ -70,6 +79,10 @@ module.exports = {
 		modify_address: '/userInfo/updateMjUserAddress.shtml'
 		# 我的消息
 		message_list: '/mjMymessageCtl/queryMymessage.shtml'
+
+
+		
+
 
 	}
 }

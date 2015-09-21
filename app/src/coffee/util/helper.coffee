@@ -20,6 +20,31 @@ carCategory = (status) ->
 		when '8' then return '半挂'
 		else return '未知'	
 
+warehouseStatus = (status) ->
+	switch status
+		when '1' 
+			'空闲中'
+		when '2' 
+			'已发布'
+		when '3' 
+		 	'使用中'
+		
+invoiceStatus = (status) ->
+	switch status
+		when '1'
+			'可以开发票'
+		when '2'
+			'不可以开发票'
+
+		
+	
+	
+
 module.exports = 
 	carTypeMapper: carType # 车辆类型
 	carCategoryMapper: carCategory # 车辆类别
+	warehouseStatus: warehouseStatus #仓库状态
+	invoiceStatus: invoiceStatus #支持不支持开发票
+
+
+
