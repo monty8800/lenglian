@@ -44,7 +44,9 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (flag.equalsIgnoreCase("messageList")) {
+                    if (flag.equalsIgnoreCase("login")) {
+                        LoginActivity.actionView(getActivity());
+                    } else if (flag.equalsIgnoreCase("messageList")) {
                         MsgActivity.actionView(getActivity());
                     } else if (flag.equalsIgnoreCase("myCar")) {
                         CarActivity.actionView(getActivity());
@@ -54,6 +56,8 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                         AttentionActivity.actionView(getActivity());
                     } else if (flag.equalsIgnoreCase("more")) {
                         MoreActivity.actionView(getActivity());
+                    } else if (flag.equalsIgnoreCase("login")) {
+                        LoginActivity.actionView(getActivity());
                     }
                 }
             });

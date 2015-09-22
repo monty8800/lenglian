@@ -68,7 +68,6 @@ Menu = React.createClass {
 		else
 			Auth.needLogin ->
 				Plugin.nav.push [page]
-		Plugin.nav.push [page]   
 	render: ->
 		items = this.props.items.map (item, i)->
 			console.log 'this', this

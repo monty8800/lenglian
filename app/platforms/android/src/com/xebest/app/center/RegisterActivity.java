@@ -22,7 +22,7 @@ import org.json.JSONException;
 /**
  * Created by kaisun on 15/9/22.
  */
-public class MoreActivity extends BaseCordovaActivity implements CordovaInterface {
+public class RegisterActivity extends BaseCordovaActivity implements CordovaInterface {
 
 
     private XEWebView mWebView;
@@ -36,7 +36,7 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, MoreActivity.class));
+        context.startActivity(new Intent(context, RegisterActivity.class));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
 
     protected void initView() {
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("更多");
+        tvTitle.setText("注册");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -63,14 +63,14 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
 
     @Override
     protected void onResume() {
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "more.html", this, this, this, this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "register.html", this, this, this, this);
         super.onResume();
     }
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        if (args.toString().contains("2")) {
+        if (args.toString().contains("user:update")) {
             finish();
         }
     }
@@ -95,5 +95,4 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
         return null;
     }
-
 }
