@@ -9,6 +9,10 @@
 #import "UserCenterViewController.h"
 #import "MoreViewController.h"
 #import "WalletViewController.h"
+#import "MessageListViewController.h"
+#import "CarListViewController.h"
+#import "AddressListViewController.h"
+#import "FollowListViewController.h"
 
 @interface UserCenterViewController ()
 
@@ -24,6 +28,16 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:_navBgBlue forBarMetrics: UIBarMetricsDefault];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:_navBg forBarMetrics: UIBarMetricsDefault];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -32,6 +46,9 @@
 
 -(void) createUI {
     self.title = @"我的";
+    
+    _navBg = [UIImage imageNamed:@"nav_bg"];
+    _navBgBlue = [UIImage WY_ImageWithColor:0x2a7df5 size:CGSizeMake(1, self.navigationController.navigationBar.bounds.size.height+20)];
 }
 
 -(void)commonCommand:(NSArray *)params {
@@ -46,6 +63,26 @@
         {
             WalletViewController *walletVC = [WalletViewController new];
             [self.navigationController pushViewController:walletVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"messageList"])
+        {
+            MessageListViewController *messageListVC = [MessageListViewController new];
+            [self.navigationController pushViewController:messageListVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"myCar"])
+        {
+            CarListViewController *carListVC = [CarListViewController new];
+            [self.navigationController pushViewController:carListVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"addressList"])
+        {
+            AddressListViewController *addressVC = [AddressListViewController new];
+            [self.navigationController pushViewController:addressVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"attentionList"])
+        {
+            FollowListViewController *followVC = [FollowListViewController new];
+            [self.navigationController pushViewController:followVC animated:YES];
         }
     }
 }

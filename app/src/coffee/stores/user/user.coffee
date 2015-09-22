@@ -60,9 +60,11 @@ requestInfo = ->
 		_user = _user.set 'warehouseStatus', data.warehouseStatus
 		_user = _user.set 'warehouseCause', data.warehouseCause
 		_user = _user.set 'name', data.userName #个人名或者公司名，服务器合并到这个字段返回
+		_user = _user.set 'hasPayPwd', data.isPayStatus
+		_user = _user.set 'balance', data.balance
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange()
-		checkPayPwd() if _user.hasPayPwd isnt 1
+		# checkPayPwd() if _user.hasPayPwd isnt 1
 
 smsCode = (mobile, type)->
 	Http.post Constants.api.SMS_CODE, {

@@ -58,6 +58,17 @@
     DDLogDebug(@"uuid is %@, version is %@, wwwVersion is %@", [Global sharedInstance].uuid, [Global sharedInstance].version, [Global sharedInstance].wwwVersion);
 }
 
++(void)setupBaiduMap {
+    [Global sharedInstance].mapManager = [BMKMapManager new];
+    BOOL ret = [[Global sharedInstance].mapManager start:BAIDU_MAP_AK generalDelegate:nil];
+    if (ret == NO) {
+        DDLogDebug(@"初始化百度地图失败！");
+    }
+    else
+    {
+        DDLogDebug(@"初始化百度地图成功！");
+    }
+}
 
 #pragma mark- 检查更新, 服务器版本号大于本地版本号就下载，小于就直接回退本地版本号做降级
 +(void)checkUpdate {

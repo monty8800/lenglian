@@ -9,5 +9,9 @@
 #import "BaseViewController.h"
 
 @interface UserCenterViewController : BaseViewController
+{
+    UIImage *_navBg;
+    UIImage *_navBgBlue;
+}
 
 @end

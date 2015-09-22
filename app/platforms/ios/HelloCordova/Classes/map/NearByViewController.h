@@ -7,7 +7,15 @@
 //
 
 #import "BaseViewController.h"
+#import <BaiduMapAPI/BMapKit.h>
+#import "SelectTab.h"
 
-@interface NearByViewController : BaseViewController
+@interface NearByViewController : UIViewController <SelectTabProtocl>
+{
+    BMKMapView *_mapView;
+    
+    SelectTab *_tab;
+    
+}
 
 @end

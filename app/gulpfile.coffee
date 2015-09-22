@@ -49,7 +49,7 @@ gulp.task 'webpack-dev-server', ['pre-build'], (cb)->
 		)
  
 	new WebpackDevServer webpack(serverConfig), {
-		publicPath: serverConfig.output.publicPath
+		# publicPath: serverConfig.output.publicPath
 		contentBase: serverConfig.output.path
 		hot: true
 		historyApiFallback: true

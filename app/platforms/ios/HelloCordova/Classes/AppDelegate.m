@@ -72,6 +72,8 @@
     //MARK:  初始化
     [Global setUpLogger];
     
+    [Global setupBaiduMap];
+    
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
 
 #if __has_feature(objc_arc)

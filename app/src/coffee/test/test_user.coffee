@@ -19,6 +19,8 @@ describe '测试用户', ->
 			result.userId.should.equal userId
 			result.usercode.should.not.be.empty()
 			result.warehouseStatus.should.be.within 0, 3
+			result.isPayStatus.should.be.within 0, 1
+			result.balance.should.be.Number()
 			done()
 
 	it '找回密码', (done)->

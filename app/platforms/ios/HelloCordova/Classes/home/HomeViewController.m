@@ -32,6 +32,7 @@
 -(void) createUI {
     self.title = @"首页";
     self.navigationController.navigationBarHidden = YES;
+    self.webView.frame = CGRectMake(0, -20, SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 - (void)didReceiveMemoryWarning {

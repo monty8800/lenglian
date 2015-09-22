@@ -14,13 +14,6 @@
 
 @implementation NearByViewController
 
--(instancetype)init {
-    self = [super init];
-    if (self) {
-        self.startPage = @"wallet.html";
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,6 +23,28 @@
 
 -(void) createUI {
     self.title = @"附近";
+    
+    //导航栏
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg"] forBarMetrics: UIBarMetricsDefault];
+    
+    //选择tab
+    CGFloat tabHeight = ceilf(45 * REALSCREEN_MULTIPBY);
+    DDLogDebug(@"-----tab height %f", tabHeight);
+    _tab = [[SelectTab alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, tabHeight)];
+    _tab.delegate = self;
+    _tab.tabs = @[@"附近的车源", @"附近的货源", @"附近的库源"];
+
+    [self.view addSubview:_tab];
+
+    
+    //地图
+    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0,  tabHeight, SCREEN_WIDTH, self.view.bounds.size.height - tabHeight)];
+    [self.view addSubview:_mapView];
+}
+
+-(void)selectTab:(NSInteger)index {
+    DDLogDebug(@"select tab %@", @(index));
 }
 
 - (void)didReceiveMemoryWarning {

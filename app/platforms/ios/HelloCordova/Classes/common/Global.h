@@ -16,6 +16,7 @@
 #import <MKNetworkKit/MKNetworkKit.h>
 #import "XEPlugin.h"
 #import <YwenKit/YwenKit.h>
+#import <BaiduMapAPI/BMapKit.h>
 
 
 #define CLIENT_TYPE @"2"  //客户端类型
@@ -28,11 +29,15 @@
 //通知
 #define NOTI_UPDATE_USER @"update:user"
 
+//百度地图key
+#define BAIDU_MAP_AK @"zG8D9l28S3b9CaZiFRlmYkhl"
+
 @interface Global : NSObject <ToastProtocol, LoadingProtocol>
 
 @property (strong, nonatomic) NSString *uuid;   //uuid
 @property (strong, nonatomic) NSString *version;   //版本号
 @property (strong, nonatomic) NSString *wwwVersion;  //静态目录版本号
+@property (strong, nonatomic) BMKMapManager *mapManager;
 
 @property (weak, nonatomic) UIViewController *currentVC;  //当前显示的vc
 
@@ -44,5 +49,7 @@
 +(void) setUpLogger;
 
 +(void) checkUpdate;
+
++(void) setupBaiduMap;
 
 @end
