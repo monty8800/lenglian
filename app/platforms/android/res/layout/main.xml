@@ -8,21 +8,15 @@
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/bg_common_title" >
+        android:background="@drawable/title_bar_bg" >
 
-        <RelativeLayout
-            android:id="@+id/center_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textSize="20sp"
-                android:textColor="@color/white"/>
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
 
     </RelativeLayout>
 
@@ -74,7 +68,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:text="首页"
-                        android:textColor="@color/bg_common_title"
+                        android:textColor="#00a2f2"
                         android:textSize="12sp" />
                 </LinearLayout>
             </RelativeLayout>
@@ -104,12 +98,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:text="分类"
+                        android:text="附近"
                         android:textColor="@color/gray"
                         android:textSize="12sp" />
                 </LinearLayout>
             </RelativeLayout>
-   
+
             <RelativeLayout
                 android:id="@+id/rl_order"
                 android:layout_width="0dp"
@@ -136,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:text="购物车"
+                        android:text="订单"
                         android:textColor="@color/gray"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -168,7 +162,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:text="我的超市"
+                        android:text="我的"
                         android:textColor="@color/gray"
                         android:textSize="12sp" />
                 </LinearLayout>
