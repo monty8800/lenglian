@@ -7,6 +7,11 @@ Dispatcher = require 'dispatcher/dispatcher'
 AttentionModel = require 'model/attention'
 Constants = require 'constants/constants'
 Immutable = require 'immutable'
+Plugin = require 'util/plugin'
+
+UserStore = require 'stores/user/user'
+
+_user = UserStore.getUser()
 
 
 AttList = Immutable.List()
@@ -15,10 +20,13 @@ AttList = Immutable.List()
 AttentionList = (status)->
 	console.log '--关注列表'  
 	Http.post Constants.api.attention_list, {
-		userId: '4671d0d8c37f47f4bcfa2323222bf102',
+		userId: _user?.id,
 		focustype: status # 1:司机 2：货主 3：仓库
 	}, (data) ->
 		console.log '---- ', data
+		if data.length is 0
+			Plugin.toast.err '没有相关数据呢!'
+			return;
 		AttList = AttList.clear() 
 		for att in data
 			do (att)->

@@ -21,12 +21,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".center.MsgActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".car.CarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.MyCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.AddressActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.AttentionActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.MoreActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.LoginActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.RegisterActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ResetPwdActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.CarDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

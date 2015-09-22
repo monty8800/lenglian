@@ -4,7 +4,7 @@ config = require './config'
 
 describe '测试注册', ->
 	it '注册', (done)->
-		mobile = '18322222222'
+		mobile = '18513468467'
 		request.post config.api.SMS_CODE, {
 			mobile: mobile
 			type: 1 #注册

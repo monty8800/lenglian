@@ -8,17 +8,22 @@ Message = require 'model/message'
 Constants = require 'constants/constants'
 Immutable = require 'immutable'
 DB = require 'util/storage'
+Plugin = require 'util/plugin'
 
-user = DB.get 'user'
+UserStore = require 'stores/user/user'
+
+_user = UserStore.getUser()
 
 _messageList = Immutable.List()
 
 getMsgList = (status)->
-
 	Http.post Constants.api.message_list, {
-		userId: user.id
+		userId: _user?.id
 		userRole: status
 	}, (result) ->
+		if result.myMessage.length is 0
+			Plugin.toast.err '没有相关数据呢!'
+			return;
 		_messageList = _messageList.clear()
 		for msg in result.myMessage
 			do (msg) ->
