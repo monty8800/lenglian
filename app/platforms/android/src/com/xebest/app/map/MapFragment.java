@@ -33,7 +33,7 @@ public class MapFragment extends XEFragment implements CordovaInterface {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mWebView.init(getActivity(), ApiUtils.API_COMMON_URL + "home.html", this, this, this, this);
+        mWebView.init(getActivity(), ApiUtils.API_COMMON_URL + "goodsOwnerOrderList.html", this, this, this, this);
     }
 
     @Override

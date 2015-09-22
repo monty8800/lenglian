@@ -21,7 +21,6 @@ import org.apache.cordova.CordovaPlugin;
  */
 public class AddressActivity extends BaseCordovaActivity implements CordovaInterface {
 
-
     private XEWebView mWebView;
 
     private View backView;

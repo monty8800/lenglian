@@ -29,5 +29,9 @@
         <activity android:name=".center.RegisterActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ResetPwdActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".car.CarDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ModifyLoginPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ModifyPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.BackPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ChangePwdActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>
