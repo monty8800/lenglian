@@ -19,6 +19,7 @@ actionType = {
 	GET_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
 	CHANGE_PWD: null
+	LOGOUT: null
 }
 
 

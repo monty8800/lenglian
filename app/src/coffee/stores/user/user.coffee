@@ -155,6 +155,12 @@ resetPayPwd = (mobile, code, passwd)->
 		else
 			UserStore.emitChange 'resetPayPwd:failed'
 
+logout = ->
+	DB.remove 'user'
+	_user = new User
+	UserStore.emitChange 'logout'
+	Plugin.run [9, 'user:update']
+
 UserStore = assign BaseStore, {
 	getUser: ->
 		_user
@@ -173,5 +179,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.CHANGE_PWD then changePwd(action.oldPasswd, action.newPasswd)
 		when Constants.actionType.PAY_PWD then setPayPwd(action.payPwd, action.oldPwd)
 		when Constants.actionType.RESET_PAY_PWD then resetPayPwd(action.mobile, action.code, action.passwd)
+		when Constants.actionType.LOGOUT then logout()
 
 module.exports = UserStore
