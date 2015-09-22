@@ -54,13 +54,13 @@ Profile = React.createClass {
 						<p className="g-name">{user.name || user.company || user.mobile}</p>
 						<p>成交数：<span>{user.orderDoneCount}单</span></p>
 					</dd>
-				</dl>
+				</dl> 
 			</div>
 			<AuthStatus user=@props.user />
 		</div>
 }
 
-Menu = React.createClass {
+Menu = React.createClass {    
 	_goPage: (page)->
 		console.log 'go page', page
 		if page in ['more']

@@ -240,7 +240,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case 3:
 
                 tvTitle.setText("我的");
-                topView.setVisibility(View.VISIBLE);
+                topView.setVisibility(View.GONE);
 
                 ivHome.setBackgroundResource(R.drawable.bar_home_normal_2);
                 ivMap.setBackgroundResource(R.drawable.bar_map_normal_2);
