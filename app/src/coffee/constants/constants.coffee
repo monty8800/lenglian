@@ -19,7 +19,8 @@ actionType = {
 	GET_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
 	CHANGE_PWD: null
-<<<<<<< HEAD
+	LOGOUT: null
+
 	SEARCH_WAREHOUSE:null
 	COMMENT_ADD:null
 	PERSONINFO_AUTH:null
@@ -30,9 +31,7 @@ actionType = {
 	DRIVER_BIND_ORDER:null
 	DRIVER_BID_FOR_GOODS:null
 	GET_BID_ORDER_LIST:null
-=======
-	LOGOUT: null
->>>>>>> 13da00d29f22d671069dce4d9c1ce269b15acce4
+	
 }
 
 
