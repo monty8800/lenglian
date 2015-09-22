@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.umeng.analytics.MobclickAgent;
 import com.xebest.app.R;
 import com.xebest.app.application.ApiUtils;
 import com.xebest.app.application.Application;
@@ -35,9 +36,33 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mWebView.init(getActivity(), ApiUtils.API_COMMON_URL + "userCenter.html", this, this, this, this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("个人中心");
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        // 统计页面
+        MobclickAgent.onPageStart("个人中心");
         mWebView.getWebView().loadUrl("javascript:updateUser()");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -65,12 +90,6 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                 }
             }
         });
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mWebView.init(getActivity(), ApiUtils.API_COMMON_URL + "userCenter.html", this, this, this, this);
     }
 
     @Override

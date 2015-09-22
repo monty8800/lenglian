@@ -190,6 +190,7 @@ public class Tools {
         Display display = context.getWindowManager().getDefaultDisplay();
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.width = (int) (display.getWidth() * 0.9);
+        lp.alpha = 0.8f;
         window.setAttributes(lp);
         window.setContentView(view);
         // 点击dialog外部不让其消失

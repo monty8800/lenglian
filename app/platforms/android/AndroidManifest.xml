@@ -1,18 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <manifest android:hardwareAccelerated="true" android:versionCode="1" android:versionName="0.0.1" package="com.xebest.app" xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="22" />
+    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="22" />
     <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:maxSdkVersion="18" android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <application android:hardwareAccelerated="true" android:icon="@drawable/icon" android:label="@string/app_name" android:name=".application.Application" android:supportsRtl="true">
         <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/activity_name" android:launchMode="singleTop" android:name="MainActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowSoftInputMode="adjustResize">
             <intent-filter android:label="@string/launcher_name">
@@ -20,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="6LI4AtS4erpYoagW8vPzth1k" />
         <activity android:name=".center.MsgActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".car.MyCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.AddressActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -33,5 +37,6 @@
         <activity android:name=".center.ModifyPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.BackPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ChangePwdActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <meta-data android:name="UMENG_APPKEY" android:value="5601399667e58eaa030036a9" />
     </application>
 </manifest>

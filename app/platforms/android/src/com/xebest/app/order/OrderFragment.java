@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.umeng.analytics.MobclickAgent;
 import com.xebest.app.R;
 import com.xebest.app.application.ApiUtils;
 import com.xebest.app.application.Application;
@@ -34,6 +35,19 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mWebView.init(getActivity(), ApiUtils.API_COMMON_URL + "carOwnerOrderList.html", this, this, this, this);
+    }
+
+    @Override
+    public void onResume() {
+        // 统计页面
+        MobclickAgent.onPageStart("订单");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("订单");
     }
 
     @Override

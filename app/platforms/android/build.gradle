@@ -251,6 +251,10 @@ dependencies {
     releaseCompile project(path: ':CordovaLib', configuration: 'release')
     // SUB-PROJECT DEPENDENCIES END
     compile 'com.android.support:support-v4:22.2.1'
+    // 友盟
+    compile files('libs/umeng-analytics-v5.5.3.jar')
+    compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/IndoorscapeAlbumPlugin.jar')
 }
 
 def promptForReleaseKeyPassword() {

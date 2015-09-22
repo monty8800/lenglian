@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.xebest.app.R;
 import com.xebest.app.application.ApiUtils;
 import com.xebest.app.application.Application;
@@ -33,6 +34,19 @@ public class HomeFragment extends XEFragment implements CordovaInterface {
         View view = inflater.inflate(R.layout.fwebview, container, false);
         mWebView = (XEWebView) view.findViewById(R.id.wb);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        // 统计页面
+        MobclickAgent.onPageStart("首页");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("首页");
     }
 
     @Override

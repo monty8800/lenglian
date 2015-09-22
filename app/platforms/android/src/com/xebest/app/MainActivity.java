@@ -24,6 +24,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -34,6 +35,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.analytics.MobclickAgent;
 import com.xebest.app.application.Application;
 import com.xebest.app.center.CenterFragment;
 import com.xebest.app.home.HomeFragment;
@@ -88,6 +91,29 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         initFragment();
 
+        // 禁止默认的页面统计方式
+        MobclickAgent.openActivityDurationTrack(false);
+
+        // 发送策略定义了用户由统计分析SDK产生的数据发送回友盟服务器的频率。
+        MobclickAgent.updateOnlineConfig(this);
+
+        /** 设置是否对日志信息进行加密, 默认false(不加密). */
+        AnalyticsConfig.enableEncrypt(true);
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 统计时长
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     protected void initView() {
@@ -173,7 +199,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     protected void setViewState(int index) {
-        FragmentTransaction f = getSupportFragmentManager().beginTransaction();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.popBackStack();
+        FragmentTransaction f = manager.beginTransaction();
         switch (index) {
             case 0:
 

@@ -10,7 +10,6 @@ DB = require 'util/storage'
 Immutable = require 'immutable'
 Plugin = require 'util/plugin'
 
-
 localUser = DB.get 'user'
 _user = new User localUser
 
