@@ -22,6 +22,9 @@ More = React.createClass {
 				Plugin.toast.success '成功退出登录!'
 		, ['退出登录', '取消']
 	render: ->
+		logoutBtn = null
+		if UserStore.getUser()?.id
+			logoutBtn = <div className="m-quit" onClick={@_logout}>退出登录</div>
 		<section>
 		<div className="m-more-div">
 			<div className="m-cert-item cert01 ll-font" onClick={@_goPage.bind this, 'changePasswd', {type: 'pwd'}}>
@@ -38,9 +41,7 @@ More = React.createClass {
 			</div>
 		</div>
 
-		<div className="m-quit" onClick={@_logout}>
-			退出登录
-		</div>
+		{logoutBtn}
 		</section>
 }
 

@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 #import "LoginViewController.h"
+#import "ChangePasswdViewController.h"
+#import "ResetPasswdViewController.h"
 
 
 @interface BaseViewController ()
@@ -114,6 +116,8 @@
 }
 
 -(void)commonCommand:(NSArray *)params {
+    
+    
     if ([params[0] integerValue] == 2) {
         NSInteger index = 1;
         if (params.count > 1) {
@@ -136,6 +140,18 @@
         if ([params[1] isEqualToString:@"login"]) {
             LoginViewController *loginVC = [LoginViewController new];
             [self.navigationController pushViewController:loginVC animated:YES];
+            return;
+        }
+        else if ([params[1] isEqualToString:@"changePasswd"])
+        {
+            ChangePasswdViewController *changePwdVC = [ChangePasswdViewController new];
+            [self.navigationController pushViewController:changePwdVC animated:YES];
+            return;
+        }
+        else if ([params[1] isEqualToString:@"resetPasswd"])
+        {
+            ResetPasswdViewController *resetPwdVC = [ResetPasswdViewController new];
+            [self.navigationController pushViewController:resetPwdVC animated:YES];
             return;
         }
     }

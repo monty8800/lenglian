@@ -42,22 +42,6 @@
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
     
-    if ([params[0] integerValue] == 1) {
-        if ([params[1] isEqualToString:@"changePasswd"]) {
-            ChangePasswdViewController *changePwdVC = [ChangePasswdViewController new];
-            [self.navigationController pushViewController:changePwdVC animated:YES];
-        }
-        else if ([params[1] isEqualToString:@"resetPasswd"])
-        {
-            ResetPasswdViewController *resetPwdVC = [ResetPasswdViewController new];
-            [self.navigationController pushViewController:resetPwdVC animated:YES];
-        }
-        else if ([params[1] isEqualToString:@"login"])
-        {
-            LoginViewController *loginVC = [LoginViewController new];
-            [self.navigationController pushViewController:loginVC animated:YES];
-        }
-    }
 }
 
 - (void)didReceiveMemoryWarning {

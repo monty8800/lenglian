@@ -19,6 +19,7 @@ window.updateUser = ->
 	localUser = DB.get 'user'
 	_user = new User localUser
 	console.log 'user------', _user
+	UserStore.emitChange()
 
 _menus = Immutable.fromJS [
 	[
