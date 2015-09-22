@@ -19,6 +19,16 @@ actionType = {
 	GET_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
 	CHANGE_PWD: null
+	SEARCH_WAREHOUSE:null
+	COMMENT_ADD:null
+	PERSONINFO_AUTH:null
+	COMMENT_ADD:null
+	GET_COMMENT:null
+	DRIVER_FIND_GOODS:null
+	GET_CARS_FOR_BIND_ORDER:null
+	DRIVER_BIND_ORDER:null
+	DRIVER_BID_FOR_GOODS:null
+	GET_BID_ORDER_LIST:null
 }
 
 
@@ -51,18 +61,39 @@ api = {
 	# 个人中心
 	USER_CENTER: '/userInfo/userCenter.shtml'
 
+
+#YYQ
 	# 查询我的仓库
 	GET_WAREHOUSE: '/mjWarehouseCtl/queryMjWarehouse.shtml'
-
 	#删除我的仓库
 	DELETE_WAREHOUSE:'/mjWarehouseCtl/deleteMjWarehouse.shtml'
 	#修改我的仓库
 	UPDATE_WAREHOUSE:'/mjWarehouseCtl/updateMjWarehouse.shtml'
-	
-	# 我的仓库详情
+	#我的仓库详情
 	WAREHOUSE_DETAIL: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
 	#添加仓库
 	WAREHOUSE_ADD: '/mjWarehouseCtl/addMjWarehouse.shtml'
+	#我要找库
+	SEARCH_WAREHOUSE: '/searchWarehouseCtl/searchWarehouse.shtml'
+	#个人认证
+	PERSONINFO_AUTH: 'mjPersonInfoAuthCtl/personInfoAuth.shtml'
+	#添加评论
+	COMMENT_ADD: '/mjRate/addMjRate.shtml'
+	# 查询评价
+	GET_COMMENT: '/mjRate/queryMjRateList.shtml'
+	#司机找货
+	DRIVER_FIND_GOODS: '/carFindGoods/list.shtml'
+	#司机 竞价/抢单 时获取自己车源列表
+	GET_CARS_FOR_BIND_ORDER: '/carFindGoods/listCarResources.shtml'
+	#司机找货抢单
+	DRIVER_BIND_ORDER: '/carFindGoods/orderTrade.shtml'
+	#司机为货物 竞价
+	DRIVER_BID_FOR_GOODS:'/carFindGoods/orderBid.shtml'
+	#获取某货源的竞价列表
+	GET_BID_ORDER_LIST: '/carFindGoods/orderBidList.shtml'
+
+
+
 
 	# 关注列表
 	attention_list: '/userInfo/queryMjWishlstList.shtml'
