@@ -14,19 +14,26 @@ Plugin = require 'util/plugin'
 localUser = DB.get 'user'
 _user = new User localUser
 
+window.updateUser = ->
+	console.log 'update user in user storage'
+	localUser = DB.get 'user'
+	_user = new User localUser
+	console.log 'user------', _user
+	UserStore.emitChange()
+
 _menus = Immutable.fromJS [
 	[
-		{cls: 'u-icon-message', title: '我的消息', url: 'home'},
+		{cls: 'u-icon-message', title: '我的消息', url: 'messageList'},
 		{cls: 'u-icon-goods', title: '我的货源', url: 'home'},
 		{cls: 'u-icon-car', title: '我的车辆', url: 'myCar'},
 		{cls: 'u-icon-store', title: '我的仓库', url: 'home'}
 	],
 	[
-		{cls: 'u-icon-money', title: '我的钱包', url: 'home'},
-		{cls: 'u-icon-adress', title: '我的地址', url: 'home'}
+		{cls: 'u-icon-money', title: '我的钱包', url: 'wallet'},
+		{cls: 'u-icon-adress', title: '我的地址', url: 'addressList'}
 	],
 	[
-		{cls: 'u-icon-focus', title: '我的关注', url: 'home'},
+		{cls: 'u-icon-focus', title: '我的关注', url: 'attentionList'},
 		{cls: 'u-icon-judge', title: '我收到的评价', url: 'home'},
 		{cls: 'u-icon-more', title: '更多', url: 'more'}
 	]
@@ -66,7 +73,7 @@ smsCode = (mobile, type)->
 		console.log '验证码', data[-6..]
 		UserStore.emitChange 'sms:done'
 	, (data)->
-		Plugin.alert data.msg
+		Plugin.toast.err data.msg
 		UserStore.emitChange 'sms:failed'
 
 register = (mobile, code, passwd)->
@@ -92,6 +99,9 @@ login = (mobile, passwd)->
 		_user = _user.set 'warehouseStatus', data.warehouseStatus
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange 'login:done'
+		Plugin.run [9, 'user:update']
+	, null
+	, true
 
 resetPwd = (mobile, code, passwd)->
 	Http.post Constants.api.RESET_PWD, {
@@ -145,6 +155,12 @@ resetPayPwd = (mobile, code, passwd)->
 		else
 			UserStore.emitChange 'resetPayPwd:failed'
 
+logout = ->
+	DB.remove 'user'
+	_user = new User
+	UserStore.emitChange 'logout'
+	Plugin.run [9, 'user:update']
+
 UserStore = assign BaseStore, {
 	getUser: ->
 		_user
@@ -163,5 +179,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.CHANGE_PWD then changePwd(action.oldPasswd, action.newPasswd)
 		when Constants.actionType.PAY_PWD then setPayPwd(action.payPwd, action.oldPwd)
 		when Constants.actionType.RESET_PAY_PWD then resetPayPwd(action.mobile, action.code, action.passwd)
+		when Constants.actionType.LOGOUT then logout()
 
 module.exports = UserStore

@@ -56,6 +56,11 @@ UserAction = {
 			payPwd: payPwd
 			oldPwd: oldPwd
 		}
+
+	logout: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.LOGOUT
+		}
 }
 
 module.exports = UserAction

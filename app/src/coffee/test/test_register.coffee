@@ -18,4 +18,4 @@ describe '测试注册', ->
 				password: '123456a'
 			}, (result)->
 				result.userId.should.not.be.empty()
-				done()
+				done()    

@@ -8,6 +8,11 @@
 
 #import "MoreViewController.h"
 
+#import "ChangePasswdViewController.h"
+#import "ResetPasswdViewController.h"
+#import "LoginViewController.h"
+
+
 @interface MoreViewController ()
 
 @end
@@ -31,6 +36,12 @@
 
 -(void) createUI {
     self.title = @"更多";
+}
+
+
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -27,11 +27,16 @@
 		30C1856619D5FC0A00212699 /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30C1856519D5FC0A00212699 /* icon-60@3x.png */; };
 		30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30FC414816E50CA1004E6F35 /* icon-72@2x.png */; };
 		338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9369A918B70F489688A20C61 /* CDVLogger.m */; };
+		4C006DFA1BB02FCC00381462 /* ChangePasswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006DF91BB02FCC00381462 /* ChangePasswdViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E021BB0370600381462 /* ResetPasswdViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4C006E061BB037BB00381462 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E051BB037BB00381462 /* LoginViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E081BB0383F00381462 /* RegisterViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C59DE401B5E4FF30063D9CE /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59DE3F1B5E4FF30063D9CE /* Global.m */; };
 		4C59DE431B5E50AA0063D9CE /* XELogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59DE421B5E50AA0063D9CE /* XELogFormatter.m */; };
 		4C59DE461B5E519C0063D9CE /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59DE451B5E519C0063D9CE /* BaseViewController.m */; };
 		4C5C87441B74809300609666 /* HelloViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C87431B74809300609666 /* HelloViewController.m */; };
 		4C5D3F8E1BB0222E00BBD5A6 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F4F1BB0F48D00112533 /* WalletViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99761BAFA563008B4AC6 /* HomeViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -101,6 +106,14 @@
 		30FC414816E50CA1004E6F35 /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* HelloCordova-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HelloCordova-Prefix.pch"; sourceTree = "<group>"; };
 		3553F9671E7B4DE7B3E58BA9 /* CDVNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVNotification.h; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; };
+		4C006DF81BB02FCC00381462 /* ChangePasswdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswdViewController.h; path = user/ChangePasswdViewController.h; sourceTree = "<group>"; };
+		4C006DF91BB02FCC00381462 /* ChangePasswdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswdViewController.m; path = user/ChangePasswdViewController.m; sourceTree = "<group>"; };
+		4C006E011BB0370600381462 /* ResetPasswdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResetPasswdViewController.h; path = user/ResetPasswdViewController.h; sourceTree = "<group>"; };
+		4C006E021BB0370600381462 /* ResetPasswdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResetPasswdViewController.m; path = user/ResetPasswdViewController.m; sourceTree = "<group>"; };
+		4C006E041BB037BB00381462 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = user/LoginViewController.h; sourceTree = "<group>"; };
+		4C006E051BB037BB00381462 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = user/LoginViewController.m; sourceTree = "<group>"; };
+		4C006E071BB0383F00381462 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = user/RegisterViewController.h; sourceTree = "<group>"; };
+		4C006E081BB0383F00381462 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = user/RegisterViewController.m; sourceTree = "<group>"; };
 		4C59DE3E1B5E4FF30063D9CE /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = common/Global.h; sourceTree = "<group>"; };
 		4C59DE3F1B5E4FF30063D9CE /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Global.m; path = common/Global.m; sourceTree = "<group>"; };
 		4C59DE411B5E50AA0063D9CE /* XELogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XELogFormatter.h; path = common/XELogFormatter.h; sourceTree = "<group>"; };
@@ -111,6 +124,8 @@
 		4C5C87431B74809300609666 /* HelloViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelloViewController.m; path = hello/HelloViewController.m; sourceTree = "<group>"; };
 		4C5D3F8C1BB0222E00BBD5A6 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = user/MoreViewController.h; sourceTree = "<group>"; };
 		4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = user/MoreViewController.m; sourceTree = "<group>"; };
+		4C822F4E1BB0F48D00112533 /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WalletViewController.h; path = wallet/WalletViewController.h; sourceTree = "<group>"; };
+		4C822F4F1BB0F48D00112533 /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WalletViewController.m; path = wallet/WalletViewController.m; sourceTree = "<group>"; };
 		4CDD99751BAFA563008B4AC6 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = home/HomeViewController.h; sourceTree = "<group>"; };
 		4CDD99761BAFA563008B4AC6 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = home/HomeViewController.m; sourceTree = "<group>"; };
 		4CDD99781BAFA5E7008B4AC6 /* UserCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCenterViewController.h; path = user/UserCenterViewController.h; sourceTree = "<group>"; };
@@ -168,6 +183,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4C822F4D1BB0F47500112533 /* wallet */,
 				4CDD99741BAF9B8A008B4AC6 /* map */,
 				4CDD99731BAF9B7D008B4AC6 /* order */,
 				4CDD99721BAF9B65008B4AC6 /* user */,
@@ -328,6 +344,15 @@
 			name = hello;
 			sourceTree = "<group>";
 		};
+		4C822F4D1BB0F47500112533 /* wallet */ = {
+			isa = PBXGroup;
+			children = (
+				4C822F4E1BB0F48D00112533 /* WalletViewController.h */,
+				4C822F4F1BB0F48D00112533 /* WalletViewController.m */,
+			);
+			name = wallet;
+			sourceTree = "<group>";
+		};
 		4CDD99711BAF9B59008B4AC6 /* home */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +366,14 @@
 			isa = PBXGroup;
 			children = (
 				4CDD99781BAFA5E7008B4AC6 /* UserCenterViewController.h */,
+				4C006E041BB037BB00381462 /* LoginViewController.h */,
+				4C006E051BB037BB00381462 /* LoginViewController.m */,
+				4C006E071BB0383F00381462 /* RegisterViewController.h */,
+				4C006E081BB0383F00381462 /* RegisterViewController.m */,
+				4C006DF81BB02FCC00381462 /* ChangePasswdViewController.h */,
+				4C006E011BB0370600381462 /* ResetPasswdViewController.h */,
+				4C006E021BB0370600381462 /* ResetPasswdViewController.m */,
+				4C006DF91BB02FCC00381462 /* ChangePasswdViewController.m */,
 				4C5D3F8C1BB0222E00BBD5A6 /* MoreViewController.h */,
 				4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */,
 				4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */,
@@ -423,7 +456,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 510;
+				LastUpgradeCheck = 700;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "HelloCordova" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -575,12 +608,17 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				4C5C87441B74809300609666 /* HelloViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
+				4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */,
+				4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */,
 				4C59DE401B5E4FF30063D9CE /* Global.m in Sources */,
 				4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */,
+				4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */,
 				98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */,
 				4C59DE431B5E50AA0063D9CE /* XELogFormatter.m in Sources */,
 				E858DD5946754C3C80EE0FDA /* XEPlugin.m in Sources */,
+				4C006E061BB037BB00381462 /* LoginViewController.m in Sources */,
 				F43C04076AF84FAF9B24968C /* XEViewController.m in Sources */,
+				4C006DFA1BB02FCC00381462 /* ChangePasswdViewController.m in Sources */,
 				4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,6 +668,7 @@
 					"$(inherited)",
 				);
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.app;
 				PRODUCT_NAME = HelloCordova;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -662,6 +701,7 @@
 					"$(inherited)",
 				);
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.app;
 				PRODUCT_NAME = HelloCordova;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -678,6 +718,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
@@ -722,6 +764,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";

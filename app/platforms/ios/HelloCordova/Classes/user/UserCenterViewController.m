@@ -8,6 +8,7 @@
 
 #import "UserCenterViewController.h"
 #import "MoreViewController.h"
+#import "WalletViewController.h"
 
 @interface UserCenterViewController ()
 
@@ -34,10 +35,17 @@
 }
 
 -(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"more"]) {
             MoreViewController *moreVC = [MoreViewController new];
             [self.navigationController pushViewController:moreVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"wallet"])
+        {
+            WalletViewController *walletVC = [WalletViewController new];
+            [self.navigationController pushViewController:walletVC animated:YES];
         }
     }
 }

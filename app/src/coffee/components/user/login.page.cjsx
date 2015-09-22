@@ -34,10 +34,10 @@ Login = React.createClass {
 
 	_login: ->
 		if not Validator.mobile @state.mobile
-			Plugin.alert '请输入正确的手机号码'
+			Plugin.toast.err '请输入正确的手机号码'
 			return
 		else if not Validator.passwd @state.passwd
-			Plugin.alert '密码格式不正确'
+			Plugin.toast.err '密码格式不正确'
 			return
 		else
 			UserAction.login @state.mobile, @state.passwd

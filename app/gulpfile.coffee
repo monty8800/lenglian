@@ -10,6 +10,7 @@ config = require './webpack.config.js'
 
 gulp.task 'webpack:build', ['pre-build'], (cb)->
 	myConfig = Object.create config
+	myConfig.output.publicPath = './'
 	myConfig.plugins = myConfig.plugins.concat(
 		new webpack.DefinePlugin({
 			'process.env': {
@@ -28,6 +29,7 @@ gulp.task 'webpack:build', ['pre-build'], (cb)->
 devConfig = Object.create config
 devConfig.devtool = 'eval-cheap-module-source-map'
 devConfig.debug = true
+devConfig.output.publicPath = './'
 devCompiler = webpack devConfig
 gulp.task 'webpack:dev', ['pre-build'], (cb)->
 	devCompiler.run (err, stats)->

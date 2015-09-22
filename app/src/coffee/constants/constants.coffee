@@ -19,6 +19,7 @@ actionType = {
 	GET_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
 	CHANGE_PWD: null
+<<<<<<< HEAD
 	SEARCH_WAREHOUSE:null
 	COMMENT_ADD:null
 	PERSONINFO_AUTH:null
@@ -29,6 +30,9 @@ actionType = {
 	DRIVER_BIND_ORDER:null
 	DRIVER_BID_FOR_GOODS:null
 	GET_BID_ORDER_LIST:null
+=======
+	LOGOUT: null
+>>>>>>> 13da00d29f22d671069dce4d9c1ce269b15acce4
 }
 
 
@@ -36,7 +40,7 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	server: 'http://192.168.26.176'
+	server: 'http://192.168.26.177:7080/llmj-app/'
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'

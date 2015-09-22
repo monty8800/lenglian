@@ -9,6 +9,9 @@ Car = require 'model/car'
 Immutable = require 'immutable'
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
+UserStore = require 'stores/user/user'
+
+_user = UserStore.getUser()
 
 _car = new Car
 
@@ -36,6 +39,9 @@ carItemInfo = ->
 	}
 	Http.post Constants.api.found_car, params, (result) ->
 		console.log '我要找车--', result.length
+		if result.length is 0
+			Plugin.toast.err '没有相关数据呢!'
+			return;
 		for car in result
 			do (car) ->
 				tempCar = new Car
@@ -57,14 +63,17 @@ carItemInfo = ->
 carListInfo = (status)->
 	# 请求网络获取数据
 	params = {
-		userId: '7714d0d83c7f47f4bcfac62b9a1bf101',
-		pageNow: 1,
-		pageSize: 10,
+		userId: _user?.id
+		pageNow: 1
+		pageSize: 10
 		status: status 
 	}
 	Http.post Constants.api.my_car_list, params, (data)->
-		_carList = _carList.clear() 
 		tempList = data.myCarInfo; 
+		if tempList.length is 0
+			Plugin.toast.err '没有相关数据呢!'
+			return;
+		_carList = _carList.clear() 
 		for car in tempList
 			do (car) ->
 				tempCar = new Car
@@ -82,6 +91,7 @@ carListInfo = (status)->
 carDetail = (carId)->
 	Http.post Constants.api.car_detail, {
 			carId: carId
+			userId: _user?.id
 		}, (data) ->
 			console.log '车辆详情----', data
 			td = data.carInfoLoad;

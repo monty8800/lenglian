@@ -4,16 +4,50 @@ require 'index-style'
 React = require 'react/addons'
 Plugin = require 'util/plugin'
 DB = require 'util/storage'
+UserStore = require 'stores/user/user' #需要用到updateuser
+Auth = require 'util/auth'
+UserAction = require 'actions/user/user'
+
+PureRenderMixin = React.addons.PureRenderMixin
 
 More = React.createClass {
+	mixins: [PureRenderMixin]
 	_goPage: (page, transData)->
 		DB.put 'transData', transData or {}
-		Plugin.nav.push [page]
+		Auth.needLogin ->
+			Plugin.nav.push [page]
 	_logout: ->
-		DB.remove 'user'
-		Plugin.alert '成功退出登录'
-		Plugin.nav.pop()
+		if not UserStore.getUser()?.id
+			Plugin.toast.show '尚未登录'
+			return
+		Plugin.alert '确定要退出登录?', '提醒', (index)->
+			console.log 'click index', index
+			if index is 1
+				UserAction.logout()
+		, ['退出登录', '取消']
+
+	componentDidMount: ->
+		UserStore.addChangeListener @_change
+
+	componentWillUnmount: ->
+		UserStore.removeChangeListener @_change
+
+	getInitialState: ->
+		{
+			loggedIn: if UserStore.getUser()?.id then true else false
+		}
+
+	_change: (msg)->
+		@setState {
+			loggedIn: if UserStore.getUser()?.id then true else false
+		}
+		Plugin.toast.success '成功退出登录！' if msg is 'logout'
+
 	render: ->
+		logoutBtn = null
+		if @state.loggedIn
+			logoutBtn = <div className="m-quit" onClick={@_logout}>退出登录</div>
+
 		<section>
 		<div className="m-more-div">
 			<div className="m-cert-item cert01 ll-font" onClick={@_goPage.bind this, 'changePasswd', {type: 'pwd'}}>
@@ -29,10 +63,7 @@ More = React.createClass {
 				关于我们
 			</div>
 		</div>
-
-		<div className="m-quit" onClick={@_logout}>
-			退出登录
-		</div>
+		{logoutBtn}
 		</section>
 }
 

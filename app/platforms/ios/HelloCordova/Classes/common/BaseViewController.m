@@ -7,6 +7,9 @@
 //
 
 #import "BaseViewController.h"
+#import "LoginViewController.h"
+#import "ChangePasswdViewController.h"
+#import "ResetPasswdViewController.h"
 
 
 @interface BaseViewController ()
@@ -58,10 +61,38 @@
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = _titleLabel;
     
+    self.navigationController.navigationBar.backgroundColor = [UIColor WY_ColorWithHex:0x1987c6];
+    
+    //去掉导航栏分割线
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg"] forBarMetrics: UIBarMetricsDefault];
+    
     //返回
     if (self.navigationController.viewControllers.count > 1) {
         UIBarButtonItem *backItem = [[UIBarButtonItem  alloc] initWithImage:[[UIImage imageNamed:@"nav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(navBack)];
         self.navigationItem.leftBarButtonItem = backItem;
+    }
+    
+    //通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUser) name:NOTI_UPDATE_USER object:nil];
+}
+
+-(void) updateUser {
+    DDLogDebug(@"%@ call update user in js", NSStringFromClass([self class]));
+    [self.commandDelegate evalJs:@"(function(){if(window.updateUser != null){window.updateUser()}})()"];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    _navDeepth = self.navigationController.viewControllers.count;
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    if (self.navigationController.viewControllers.count < _navDeepth) {
+        DDLogDebug(@"pop, remove notification");
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
 }
 
@@ -72,6 +103,59 @@
 -(void)setTitle:(NSString *)title {
     [super setTitle:title];
     _titleLabel.text = title;
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    [super webViewDidFinishLoad:webView];
+    NSString *uuid = [Global sharedInstance].uuid;
+    NSString *version = [Global sharedInstance].version;
+    NSAssert(uuid, @"没有uuid！");
+    NSAssert(version, @"没有版本号!");
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"(function(){window.uuid='%@'; window.version='%@'; window.client_type='%@'})()", uuid, version, CLIENT_TYPE]];
+    
+}
+
+-(void)commonCommand:(NSArray *)params {
+    
+    
+    if ([params[0] integerValue] == 2) {
+        NSInteger index = 1;
+        if (params.count > 1) {
+            index = [params[1] integerValue];
+        }
+        UIViewController *toVC = self.navigationController.viewControllers[self.navigationController.viewControllers.count-index-1];
+        [self.navigationController popToViewController:toVC animated:YES];
+        return;
+    }
+    else if ([params[0] integerValue] == 9)
+    {
+        if ([params[1] isEqualToString:@"user:update"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_UPDATE_USER object:nil userInfo:nil];
+            return;
+        }
+        
+    }
+    else if ([params[0] integerValue] == 1)
+    {
+        if ([params[1] isEqualToString:@"login"]) {
+            LoginViewController *loginVC = [LoginViewController new];
+            [self.navigationController pushViewController:loginVC animated:YES];
+            return;
+        }
+        else if ([params[1] isEqualToString:@"changePasswd"])
+        {
+            ChangePasswdViewController *changePwdVC = [ChangePasswdViewController new];
+            [self.navigationController pushViewController:changePwdVC animated:YES];
+            return;
+        }
+        else if ([params[1] isEqualToString:@"resetPasswd"])
+        {
+            ResetPasswdViewController *resetPwdVC = [ResetPasswdViewController new];
+            [self.navigationController pushViewController:resetPwdVC animated:YES];
+            return;
+        }
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

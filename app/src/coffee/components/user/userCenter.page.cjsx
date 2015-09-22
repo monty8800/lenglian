@@ -11,6 +11,8 @@ UserStore = require 'stores/user/user'
 UserAction = require 'actions/user/user'
 Plugin = require 'util/plugin'
 
+Auth = require 'util/auth'
+
 AuthStatus = React.createClass {
 	render: ->
 		user = @props.user
@@ -52,22 +54,26 @@ Profile = React.createClass {
 						<p className="g-name">{user.name || user.company || user.mobile}</p>
 						<p>成交数：<span>{user.orderDoneCount}单</span></p>
 					</dd>
-				</dl>
+				</dl> 
 			</div>
 			<AuthStatus user=@props.user />
 		</div>
 }
 
-Menu = React.createClass {
+Menu = React.createClass {    
 	_goPage: (page)->
 		console.log 'go page', page
-		Plugin.nav.push [page]
+		if page in ['more']
+			Plugin.nav.push [page]
+		else
+			Auth.needLogin ->
+				Plugin.nav.push [page]
 	render: ->
 		items = this.props.items.map (item, i)->
 			console.log 'this', this
 			menu = item.toJS()
 			cls = "ll-font u-arrow-right " + menu.cls
-			<div className={cls} key={i} onClick={@_goPage.bind this, menu.url}>{menu.title}</div>
+			<div className={cls} key={i}  onClick={@_goPage.bind this, menu.url}>{menu.title}</div>
 		, this
 
 		<div className="m-userItem">

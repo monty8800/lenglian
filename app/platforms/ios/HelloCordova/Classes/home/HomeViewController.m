@@ -31,6 +31,7 @@
 
 -(void) createUI {
     self.title = @"首页";
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {

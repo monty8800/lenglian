@@ -1,5 +1,6 @@
 Constants = require 'constants/constants'
 
+
 xePlugin = null
 if not Constants.inBrowser
 	exec = window.cordova.require 'cordova/exec' 
@@ -92,9 +93,9 @@ else
 		}
 		loading: {
 			show: (msg)->
-				alert 'show loading', msg
+				console.log 'show loading', msg
 			hide: ->
-				alert 'hide loading'
+				console.log 'hide loading'
 		}
 		alert: xeAlert
 	}

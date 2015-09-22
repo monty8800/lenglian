@@ -7,16 +7,22 @@ Dispatcher = require 'dispatcher/dispatcher'
 AddressModel = require 'model/address'
 Constants = require 'constants/constants'
 Immutable = require 'immutable'
+Plugin = require 'util/plugin'
 
+UserStore = require 'stores/user/user'
+
+_user = UserStore.getUser()
 
 _addressList = Immutable.List()
 
 addressList = ->
 	console.log '请求网络数据'
 	Http.post Constants.api.address_list, {
-		# TODO 固定的userId
-		userId: '7714d0d83c7f47f4bcfac62b9a1bf101'
+		userId: _user?.id
 	}, (result) ->
+		if result.length is 0
+			Plugin.toast.err '没有相关数据呢!'
+			return;
 		for info in result
 			do (info) ->
 				tempAddress = new AddressModel
@@ -36,7 +42,7 @@ delAddress = (addressId)->
 	console.log '-----删除地址--', addressId
 	Http.post Constants.api.del_address, {
 		id: addressId
-		userId: '7714d0d83c7f47f4bcfac62b9a1bf101'
+		userId: _user?.id
 	}, (result) ->
 		AddressStore.emitChange 'del_success'
 	, (data) ->
