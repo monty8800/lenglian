@@ -14,6 +14,12 @@ Plugin = require 'util/plugin'
 localUser = DB.get 'user'
 _user = new User localUser
 
+window.updateUser = ->
+	console.log 'update user in user storage'
+	localUser = DB.get 'user'
+	_user = new User localUser
+	console.log 'user------', _user
+
 _menus = Immutable.fromJS [
 	[
 		{cls: 'u-icon-message', title: '我的消息', url: 'home'},
@@ -22,7 +28,7 @@ _menus = Immutable.fromJS [
 		{cls: 'u-icon-store', title: '我的仓库', url: 'home'}
 	],
 	[
-		{cls: 'u-icon-money', title: '我的钱包', url: 'home'},
+		{cls: 'u-icon-money', title: '我的钱包', url: 'wallet'},
 		{cls: 'u-icon-adress', title: '我的地址', url: 'home'}
 	],
 	[
@@ -66,7 +72,7 @@ smsCode = (mobile, type)->
 		console.log '验证码', data[-6..]
 		UserStore.emitChange 'sms:done'
 	, (data)->
-		Plugin.alert data.msg
+		Plugin.toast.err data.msg
 		UserStore.emitChange 'sms:failed'
 
 register = (mobile, code, passwd)->
@@ -92,6 +98,9 @@ login = (mobile, passwd)->
 		_user = _user.set 'warehouseStatus', data.warehouseStatus
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange 'login:done'
+		Plugin.run [9, 'user:update']
+	, null
+	, true
 
 resetPwd = (mobile, code, passwd)->
 	Http.post Constants.api.RESET_PWD, {

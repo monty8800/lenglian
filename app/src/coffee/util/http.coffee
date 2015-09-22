@@ -4,7 +4,7 @@ DB = require 'util/storage'
 UUID = require 'util/uuid'
 Plugin = require 'util/plugin'
 
-post = (api, params, cb, err, key, iv)->
+post = (api, params, cb, err, showLoading, key, iv)->
 	data = null
 	if key
 		plainText = JSON.stringify params
@@ -45,9 +45,15 @@ post = (api, params, cb, err, key, iv)->
 	console.log '请求接口:', api
 	console.log '发送参数:', JSON.stringify(paramDic)
 
+	Plugin.loading.show() if showLoading
 	$.post api, paramDic, (data, status, xhr)->
+		console.log '请求状态', status
+		Plugin.loading.hide() if showLoading
 		if status is 0
 			Plugin.toast.err '暂时无法连接网络，请检查网络设置'
+			return
+		if status isnt 'success'
+			Plugin.toast.err '请求出错'
 			return
 
 		console.log '返回数据：', data

@@ -11,6 +11,8 @@ UserStore = require 'stores/user/user'
 UserAction = require 'actions/user/user'
 Plugin = require 'util/plugin'
 
+Auth = require 'util/auth'
+
 AuthStatus = React.createClass {
 	render: ->
 		user = @props.user
@@ -61,7 +63,11 @@ Profile = React.createClass {
 Menu = React.createClass {
 	_goPage: (page)->
 		console.log 'go page', page
-		Plugin.nav.push [page]
+		if page in ['more']
+			Plugin.nav.push [page]
+		else
+			Auth.needLogin ->
+				Plugin.nav.push [page]
 	render: ->
 		items = this.props.items.map (item, i)->
 			console.log 'this', this

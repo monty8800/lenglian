@@ -4,16 +4,23 @@ require 'index-style'
 React = require 'react/addons'
 Plugin = require 'util/plugin'
 DB = require 'util/storage'
+UserStore = require 'stores/user/user' #需要用到updateuser
+Auth = require 'util/auth'
+
 
 More = React.createClass {
 	_goPage: (page, transData)->
 		DB.put 'transData', transData or {}
-		Plugin.needLogin ->
+		Auth.needLogin ->
 			Plugin.nav.push [page]
 	_logout: ->
-		DB.remove 'user'
-		Plugin.alert '成功退出登录'
-		Plugin.nav.pop()
+		Plugin.alert '确定要退出登录?', '提醒', (index)->
+			console.log 'click index', index
+			if index is 1
+				DB.remove 'user'
+				Plugin.nav.pop()
+				Plugin.toast.success '成功退出登录!'
+		, ['退出登录', '取消']
 	render: ->
 		<section>
 		<div className="m-more-div">

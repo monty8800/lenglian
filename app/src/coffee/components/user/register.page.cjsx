@@ -21,19 +21,19 @@ Register = React.createClass {
 	_register: ->
 		console.log 'state', @state
 		if not Validator.mobile @state.mobile
-			Plugin.alert '请输入正确的手机号码'
+			Plugin.toast.err '请输入正确的手机号码'
 			return
 		else if not Validator.smsCode @state.code
-			Plugin.alert '请输入正确长度的验证码'
+			Plugin.toast.err '请输入正确长度的验证码'
 			return
 		else if not Validator.passwd @state.passwd
-			Plugin.alert '密码格式不正确'
+			Plugin.toast.err '密码格式不正确'
 			return
 		else if @state.passwd isnt @state.rePasswd
-			Plugin.alert '两次输入密码不一致'
+			Plugin.toast.err '两次输入密码不一致'
 			return
 		else if not @state.agree
-			Plugin.alert '请同意服务协议'
+			Plugin.toast.err '请同意服务协议'
 			return
 		else
 			UserAction.register @state.mobile, @state.code, @state.passwd

@@ -25,6 +25,9 @@
 
 #define UPDATE_FOLDER [[CDVViewController applicationDocumentsDirectory] stringByAppendingPathComponent:@"update"]  //存放www的升级目录
 
+//通知
+#define NOTI_UPDATE_USER @"update:user"
+
 @interface Global : NSObject <ToastProtocol, LoadingProtocol>
 
 @property (strong, nonatomic) NSString *uuid;   //uuid

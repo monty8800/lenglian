@@ -1,6 +1,5 @@
 Constants = require 'constants/constants'
 
-UserStore = require 'stores/user/user'
 
 xePlugin = null
 if not Constants.inBrowser
@@ -94,19 +93,11 @@ else
 		}
 		loading: {
 			show: (msg)->
-				alert 'show loading', msg
+				console.log 'show loading', msg
 			hide: ->
-				alert 'hide loading'
+				console.log 'hide loading'
 		}
 		alert: xeAlert
 	}
-
-xePlugin.needLogin = (cb)->
-	if not UserStore.getUser()?.id
-		console.log 'need login!'
-		xePlugin.nav.push ['login']
-	else
-		console.log 'user id', UserStore.getUser()?.id
-		cb()
 
 module.exports = xePlugin

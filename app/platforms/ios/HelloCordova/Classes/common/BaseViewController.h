@@ -12,6 +12,8 @@
 @interface BaseViewController : XEViewController
 {
     UILabel *_titleLabel;
+    
+    NSInteger _navDeepth;
 }
 
 @end

@@ -25,16 +25,16 @@ ResetPwd = React.createClass {
 	_resetPwd: ->
 		console.log 'state', @state
 		if not Validator.mobile @state.mobile
-			Plugin.alert '请输入正确的手机号码'
+			Plugin.toast.err '请输入正确的手机号码'
 			return
 		else if not Validator.smsCode @state.code
-			Plugin.alert '请输入正确长度的验证码'
+			Plugin.toast.err '请输入正确长度的验证码'
 			return
 		else if not Validator.passwd @state.passwd
-			Plugin.alert '密码格式不正确'
+			Plugin.toast.err '密码格式不正确'
 			return
 		else if @state.passwd isnt @state.rePasswd
-			Plugin.alert '两次输入密码不一致'
+			Plugin.toast.err '两次输入密码不一致'
 			return
 		else
 			if transData?.type is 'payPwd'
@@ -54,11 +54,11 @@ ResetPwd = React.createClass {
 		console.log 'event change ', msg
 		if msg is 'resetPasswd:done'
 			console.log 'resetPasswd success!'
-			Plugin.alert '密码设置成功！'
 			Plugin.nav.pop()
+			Plugin.toast.success '密码设置成功！'
 		else if msg is 'resetPayPwd:done'
-			Plugin.alert '支付密码设置成功！'
 			Plugin.nav.pop()
+			Plugin.toast.success '支付密码设置成功！'
 
 	getInitialState: ->
 		{

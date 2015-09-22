@@ -35,6 +35,8 @@
 }
 
 -(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"register"]) {
             RegisterViewController *registerVC = [RegisterViewController new];

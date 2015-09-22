@@ -12,6 +12,7 @@
 #import "ResetPasswdViewController.h"
 #import "LoginViewController.h"
 
+
 @interface MoreViewController ()
 
 @end
@@ -37,7 +38,10 @@
     self.title = @"更多";
 }
 
+
 -(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"changePasswd"]) {
             ChangePasswdViewController *changePwdVC = [ChangePasswdViewController new];

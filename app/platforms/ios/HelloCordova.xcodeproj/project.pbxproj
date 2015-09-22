@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		01D42DAFEB5C4DFFA0D0D827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0597205F9D5541F28FAC3AC4 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -37,6 +36,7 @@
 		4C59DE461B5E519C0063D9CE /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59DE451B5E519C0063D9CE /* BaseViewController.m */; };
 		4C5C87441B74809300609666 /* HelloViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C87431B74809300609666 /* HelloViewController.m */; };
 		4C5D3F8E1BB0222E00BBD5A6 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F4F1BB0F48D00112533 /* WalletViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99761BAFA563008B4AC6 /* HomeViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -124,6 +124,8 @@
 		4C5C87431B74809300609666 /* HelloViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelloViewController.m; path = hello/HelloViewController.m; sourceTree = "<group>"; };
 		4C5D3F8C1BB0222E00BBD5A6 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = user/MoreViewController.h; sourceTree = "<group>"; };
 		4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = user/MoreViewController.m; sourceTree = "<group>"; };
+		4C822F4E1BB0F48D00112533 /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WalletViewController.h; path = wallet/WalletViewController.h; sourceTree = "<group>"; };
+		4C822F4F1BB0F48D00112533 /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WalletViewController.m; path = wallet/WalletViewController.m; sourceTree = "<group>"; };
 		4CDD99751BAFA563008B4AC6 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = home/HomeViewController.h; sourceTree = "<group>"; };
 		4CDD99761BAFA563008B4AC6 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = home/HomeViewController.m; sourceTree = "<group>"; };
 		4CDD99781BAFA5E7008B4AC6 /* UserCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCenterViewController.h; path = user/UserCenterViewController.h; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4C822F4D1BB0F47500112533 /* wallet */,
 				4CDD99741BAF9B8A008B4AC6 /* map */,
 				4CDD99731BAF9B7D008B4AC6 /* order */,
 				4CDD99721BAF9B65008B4AC6 /* user */,
@@ -339,6 +342,15 @@
 				4C5C87431B74809300609666 /* HelloViewController.m */,
 			);
 			name = hello;
+			sourceTree = "<group>";
+		};
+		4C822F4D1BB0F47500112533 /* wallet */ = {
+			isa = PBXGroup;
+			children = (
+				4C822F4E1BB0F48D00112533 /* WalletViewController.h */,
+				4C822F4F1BB0F48D00112533 /* WalletViewController.m */,
+			);
+			name = wallet;
 			sourceTree = "<group>";
 		};
 		4CDD99711BAF9B59008B4AC6 /* home */ = {
@@ -597,6 +609,7 @@
 				4C5C87441B74809300609666 /* HelloViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
 				4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */,
+				4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */,
 				4C59DE401B5E4FF30063D9CE /* Global.m in Sources */,
 				4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */,
 				4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */,
