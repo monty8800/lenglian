@@ -38,6 +38,7 @@ import android.widget.Toast;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.app.application.Application;
+import com.xebest.app.application.LocationActivity;
 import com.xebest.app.center.CenterFragment;
 import com.xebest.app.home.HomeFragment;
 import com.xebest.app.map.MapFragment;
@@ -171,9 +172,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 tvDriver.setTextColor(Color.parseColor("#00a2f2"));
                 break;
             case R.id.tv_store: // 仓库订单
-                setViewState(2);
                 popupWindow.dismiss();
+                setViewState(2);
                 tvStore.setTextColor(Color.parseColor("#00a2f2"));
+                break;
+            case R.id.tv_map:
+                popupWindow.dismiss();
+                LocationActivity.actionView(this);
                 break;
         }
     }
@@ -307,7 +312,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         tvStore = (TextView) popView.findViewById(R.id.tv_store);
         tvStore.setOnClickListener(this);
 
-        popupWindow = new PopupWindow(popView, 300, 400);
+        popView.findViewById(R.id.tv_map).setOnClickListener(this);
+
+        popupWindow = new PopupWindow(popView, 300, 520);
         // 使其聚集
         popupWindow.setFocusable(true);
         // 设置允许在外点击消失

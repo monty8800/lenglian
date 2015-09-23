@@ -28,9 +28,12 @@ Address = React.createClass {
 		console.log 'modify_address -- ',item 
 
 	delAddress: (item, i)->
-		_index = i
-		console.log 'del_address -- ',item
-		AddressAction.delAddress(item.id)
+		Plugin.alert '确定删除吗', '提示', (index)->		
+			if index is 1
+				_index = i
+				console.log 'del_address -- ',item
+				AddressAction.delAddress(item.id)
+		, ['确定', '取消']
 
 	getInitialState: ->
 		addressList: AddressStore.getAddressList()

@@ -87,6 +87,8 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                     MoreActivity.actionView(getActivity());
                 } else if (flag.equalsIgnoreCase("login")) {
                     LoginActivity.actionView(getActivity());
+                } else if (args.toString().contains("wallet")) {
+                    WalletActivity.actionView(getActivity());
                 }
             }
         });
