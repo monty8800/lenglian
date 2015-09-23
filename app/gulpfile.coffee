@@ -84,7 +84,7 @@ gulp.task 'todo', plugins.shell.task('grep -r "TODO" src -n > TODO.md')
 
 gulp.task 'lint', plugins.shell.task('bash validate.sh')
 
-gulp.task 'pre-build', ['coffee', 'sass', 'todo', 'lint']
+gulp.task 'pre-build', ['sass', 'todo', 'lint']
 
 gulp.task 'build', ['webpack:build'], plugins.shell.task('cordova prepare')
 

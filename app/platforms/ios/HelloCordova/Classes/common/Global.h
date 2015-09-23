@@ -26,7 +26,7 @@
 
 #define UPDATE_FOLDER [[CDVViewController applicationDocumentsDirectory] stringByAppendingPathComponent:@"update"]  //存放www的升级目录
 
-#define AUTH_PIC_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"tmp"]
+#define AUTH_PIC_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
 //通知
 #define NOTI_UPDATE_USER @"update:user"
