@@ -34,6 +34,7 @@ actionType = {
 
 	PERSONAL_AUTH: null
 	
+	WAREHOUSE_SEARCH_GOODS:null
 }
 
 
@@ -100,6 +101,8 @@ api = {
 	#获取某货源的竞价列表
 	GET_BID_ORDER_LIST: '/carFindGoods/orderBidList.shtml'
 
+	#仓库找货(搜索)
+	WAREHOUSE_SEARCH_GOODS: '/warehouseSearchGoods/warehouseSearchGoodsList.shtml'
 
 
 

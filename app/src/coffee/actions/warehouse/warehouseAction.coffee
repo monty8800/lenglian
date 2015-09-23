@@ -23,6 +23,12 @@ WarehouseAction = {
 			startNo:startNo
 			pageSize:pageSize
 		}
+	warehouseSearchGoods:(startNo,pageSize)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.WAREHOUSE_SEARCH_GOODS
+			startNo:startNo
+			pageSize:pageSize
+		}
 
 }
 
