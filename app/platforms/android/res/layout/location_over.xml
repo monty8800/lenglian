@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_loc_bg">
+
+    <TextView
+        android:id="@+id/loc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="北京市中关村"
+        android:textSize="18sp"
+        android:textColor="@color/bottom_tv_press"/>
+
+    <TextView
+        android:id="@+id/des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="北京市中关村"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:layout_below="@+id/loc"
+        android:textColor="@color/gray"/>
+
+    <Button
+        android:id="@+id/line"
+        android:layout_width="260dp"
+        android:layout_height="1dp"
+        android:text=""
+        android:background="@color/gray2"
+        android:layout_below="@+id/des"
+        android:layout_marginTop="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_geo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/icon"
+            android:text="拖动地图可以修改地点"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"/>
+    </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

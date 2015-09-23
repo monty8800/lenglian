@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data android:name="UMENG_APPKEY" android:value="5601399667e58eaa030036a9" />
         <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="6LI4AtS4erpYoagW8vPzth1k" />
         <activity android:name=".center.MsgActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".car.MyCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -37,6 +38,9 @@
         <activity android:name=".center.ModifyPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.BackPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ChangePwdActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <meta-data android:name="UMENG_APPKEY" android:value="5601399667e58eaa030036a9" />
+        <activity android:name=".application.LocationActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.WalletActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.FoundCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.AddCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

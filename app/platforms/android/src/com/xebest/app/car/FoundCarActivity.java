@@ -21,9 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
+ * 找车
  * Created by kaisun on 15/9/22.
  */
-public class MyCarActivity extends BaseCordovaActivity implements CordovaInterface {
+public class FoundCarActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -36,7 +37,7 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, MyCarActivity.class));
+        context.startActivity(new Intent(context, FoundCarActivity.class));
     }
 
     @Override
@@ -51,13 +52,13 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("我的车辆");
+        MobclickAgent.onPageEnd("我的车");
         MobclickAgent.onPause(this);
     }
 
     protected void initView() {
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("我的车辆");
+        tvTitle.setText("我要找车");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -72,17 +73,17 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         if (args.toString().contains("carDetail")) {
-            CarDetailActivity.actionView(MyCarActivity.this);
+            CarDetailActivity.actionView(FoundCarActivity.this);
         }
     }
 
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("我的车辆");
+        MobclickAgent.onPageStart("我的车");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "myCar.html", this, this, this, this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "foundCar.html", this, this, this, this);
         super.onResume();
     }
 

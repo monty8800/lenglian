@@ -6,12 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.app.R;
 import com.xebest.app.application.ApiUtils;
 import com.xebest.app.application.Application;
+import com.xebest.app.car.AddCarActivity;
+import com.xebest.app.car.FoundCarActivity;
 import com.xebest.plugin.XEFragment;
 import com.xebest.plugin.XEWebView;
 
@@ -36,6 +37,7 @@ public class HomeFragment extends XEFragment implements CordovaInterface {
         return view;
     }
 
+
     @Override
     public void onResume() {
         // 统计页面
@@ -52,7 +54,11 @@ public class HomeFragment extends XEFragment implements CordovaInterface {
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        Toast.makeText(getActivity(), "" + args.toString(), Toast.LENGTH_SHORT).show();
+        if (args.toString().contains("foundCar")) {
+            FoundCarActivity.actionView(getActivity());
+        } else if (args.toString().contains("addCar")) {
+            AddCarActivity.actionView(getActivity());
+        }
     }
 
     @Override
