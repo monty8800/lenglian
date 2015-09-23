@@ -10,7 +10,7 @@
       data: {}
     },
     api: {
-      server: 'http://192.168.26.177:7080/llmj-app/',
+      server: 'http://192.168.29.176:8072/',
       LOGIN: '/loginCtl/userLogin.shtml',
       REGISTER: '/register/registerUser.shtml',
       SMS_CODE: '/register/sendMobileMsg.shtml',

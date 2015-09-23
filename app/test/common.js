@@ -24,13 +24,13 @@
       console.log('加密前的参数：', params);
     }
     return request.post(api).type('form').send(config.paylod).end(function(err, res) {
-      var e, error, j, result;
+      var e, j, result;
       should.ifError(err);
       result = null;
       try {
         result = JSON.parse(res.text);
-      } catch (error) {
-        e = error;
+      } catch (_error) {
+        e = _error;
         console.error(res.text);
         j = new should.Assertion(res.text);
         j.params = {

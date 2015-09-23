@@ -8,37 +8,36 @@
   config = require('./config');
 
   describe('测试认证', function() {
-    return it('企业认证', function(done) {
+    return it('个人认证', function(done) {
       var files, params;
       params = {
-        userId: '837164bf1b544abda5ba379c6ad92e56',
-        name: '怡红院',
-        type: '1',
-        province: 19,
-        city: 228,
-        area: 1147,
-        street: '喂人民服雾',
-        phone: '18513468467',
-        licenseno: 'adffad11',
-        certifies: 'lkajldf',
-        permits: 'sdfad',
-        principalName: '容馍馍'
+        phone: "13100000010",
+        type: "1",
+        username: "王永🐔",
+        userId: "50819ab3c0954f828d0851da576cbc31",
+        cardno: "12342342344234",
+        carno: "1243x",
+        frameno: "sfdj222"
       };
       files = [
         {
-          filed: 'businessLicenseImg',
+          filed: 'idcardImg',
           path: 'src/images/car-02.jpg',
-          name: 'businessLicenseImg.jpg'
+          name: 'idcardImg.jpg'
         }, {
-          filed: 'transportImg',
+          filed: 'drivingImg',
           path: 'src/images/car-03.jpg',
-          name: 'transportImg.jpg'
+          name: 'drivingImg.jpg'
         }, {
-          filed: 'doorImg',
+          filed: 'taxiLicenseImg',
           path: 'src/images/car-04.jpg',
-          name: 'doorImg.jpg'
+          name: 'taxiLicenseImg.jpg'
         }
       ];
+      request.postFile(config.api.PERSONINFO_AUTH, params, files, function(data) {
+        data.should.equal(1);
+        return done();
+      });
       return request.postFile(config.api.COMPANY_AUTH, params, files, function(data) {
         data.should.equal(1);
         return done();

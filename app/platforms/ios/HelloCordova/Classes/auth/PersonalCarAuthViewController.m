@@ -30,6 +30,7 @@
 }
 
 -(void) createUI {
+    
     self.title = @"个人车主认证";
 }
 
@@ -42,6 +43,9 @@
             _imagePikcer.delegate = self;
         }
         [_imagePikcer show:params[1] vc:self];
+    }
+    else if ([params[0] integerValue] == 7)
+    {
     }
 }
 

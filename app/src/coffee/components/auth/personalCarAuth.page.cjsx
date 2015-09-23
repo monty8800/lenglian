@@ -58,22 +58,20 @@ Auth = React.createClass {
 				username: @state.name
 				userId: @state.user.id
 				cardno: @state.idNum
+				carno: @state.carNum
 				frameno: @state.vinNum
 			}, [
 				{
 					filed: 'idcardImg'
 					path: @state.user.idCard
-					name: 'idcardImg.jpg'
 				}
 				{
 					filed: 'drivingImg'
 					path: @state.user.license
-					name: 'drivingImg.jpg'
 				}
 				{
 					filed: 'taxiLicenseImg'
 					path: @state.user.operationLicense
-					name: 'taxiLicenseImg.jpg'
 				}
 			]
 
