@@ -8,21 +8,13 @@
   config = require('./config');
 
   describe('搜索相关', function() {
-    return it('我要找库', function(done) {
+    return it('我要找库(搜索)', function(done) {
       var params;
       params = {
         startNo: '0',
-        pageSize: '10',
-        provinceId: '99',
-        cityId: '5',
-        areaId: '9',
-        id: '234253654375',
-        wareHouseType: [],
-        cuvinType: [],
-        extensiveBegin: '100',
-        extensiveEnd: '200'
+        pageSize: '10'
       };
-      return request.post(config.api.GET_WAREHOUSE, params, function(result) {
+      return request.post(config.api.SEARCH_WAREHOUSE, params, function(result) {
         should.exists(result);
         return done();
       });

@@ -84,6 +84,11 @@
             FollowListViewController *followVC = [FollowListViewController new];
             [self.navigationController pushViewController:followVC animated:YES];
         }
+        else if ([params[1] isEqualToString:@"my_warehouse"])
+        {
+            WalletViewController *walletVC = [WalletViewController new];
+            [self.navigationController pushViewController:walletVC animated:YES];
+        }
     }
 }
 

@@ -111,45 +111,6 @@ describe '测试用户', ->
 			result.warehouseStatus.should.be.within 0, 3
 			done()
 
-	# it '个人认证',(done) ->
-	# 	params = {
-	# 		{
-	# 			phone:"13899997777"		#手机号
-	# 			type:"1"				#认证类型1:货主 2:车主 3:仓库
-	# 			username:"laowang"		#真实姓名
-	#             userId:"c413b4b93c674597a563e704090705ef"	#用户id
-	# 			cardno:"12342342344234"		#身份证号
-	#              #车主认证需要的字段
-	#             carno：""			#车牌号码
-	#             frameno：""			#车架号
-	# 		}
-	# 		idcardImg:file图片文件  //身份证
-	# 		drivingImg:file图片文件//行驶证
-	# 		taxiLicenseImg：file图片文件//营运证
-	# 	}
-
-	it '添加评论',(done) ->
-		params = {
-			onsetId:"4671d0d8c37f47f4bcfa2323222bf102"		#手机号
-			onsetRole:"2"				#评论人角色 1：货主 2:车主 3：仓库主
-			targetId:"7714d0d83c7f47f4bcfac62b9a1bf101"		#目标评价人ID
-			targetRole:"1"		#目标评论人角色 1：货主 2:车主 3：仓库主
-			orderNo:"GC20150912581503100000182"		#订单号
-			score:"10"		# 评分 5星=10 
-			content:"fegsgesgdgsegse"		#内容
-		}
-		request.post config.api.LOGIN, params, (result)->
-			result.should.not.be.empty()
-			result.carStatus.should.be.within 0, 3
-			result.certification.should.be.within 0, 2
-			result.goodsStatus.should.be.within 0, 3
-			result.userId.should.not.be.empty()
-			result.warehouseStatus.should.be.within 0, 3
-			done()
-
-
-
-
 
 
 

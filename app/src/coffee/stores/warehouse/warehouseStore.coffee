@@ -14,6 +14,7 @@ _warehouse = new Warehouse
 
 _warehouseList = Immutable.List()
 _warehouseDetail = {}
+_warehouseSearchResult = []
 
 localUser = DB.get 'user'
 _user = new User localUser
@@ -39,19 +40,33 @@ getDetail = (warehouseId) ->
 		_warehouseDetail = data.warehouseLoad
 		WarehouseStore.emitChange()
 
+searchWarehouse = (startNo,pageSize)->
+	Http.post Constants.api.SEARCH_WAREHOUSE,{
+		startNo:startNo
+		pageSize:pageSize
+	},(data)->
+		_warehouseSearchResult = data	#搜索仓库 返回的data本身就是数组
+		WarehouseStore.emitChange()
+
+
 WarehouseStore = assign BaseStore, {
-	getWarehouseList: (status,pageNow,pageSize)->
+	getWarehouseList: ()->
 		_warehouseList
 	getShowType :->
 		_showType
-	getDetail: (warehouseId)->
+	getDetail: ()->
 		_warehouseDetail
+	getWarehouseSearchResult: ()->
+		console.log _warehouseSearchResult + "123456567890----------"
+		_warehouseSearchResult
+
 }
 
 Dispatcher.register (action)->
 	switch action.actionType
 		when Constants.actionType.GET_WAREHOUSE then getWarehouseList(action.status,action.pageNow,action.pageSize)
 		when Constants.actionType.WAREHOUSE_DETAIL then getDetail(action.warehouseId)
+		when Constants.actionType.SEARCH_WAREHOUSE then searchWarehouse(action.startNo,action.pageSize)
 
 
 

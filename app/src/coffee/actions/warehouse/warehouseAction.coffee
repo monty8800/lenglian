@@ -17,6 +17,12 @@ WarehouseAction = {
 			actionType: Constants.actionType.WAREHOUSE_DETAIL
 			warehouseId: warehouseId
 		}
+	searchWarehouse:(startNo,pageSize) ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.SEARCH_WAREHOUSE
+			startNo:startNo
+			pageSize:pageSize
+		}
 
 }
 

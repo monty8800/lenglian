@@ -41,7 +41,7 @@
       GET_CARS_FOR_BIND_ORDER: '/carFindGoods/listCarResources.shtml',
       DRIVER_BIND_ORDER: '/carFindGoods/orderTrade.shtml',
       DRIVER_BID_FOR_GOODS: '/carFindGoods/orderBid.shtml',
-      GET_BID_ORDER_LIST: '/carFindGoods/orderBidList.shtml',
+      GET_ORDER_BID_LIST: '/carFindGoods/orderBidList.shtml',
       attention_list: '/userInfo/queryMjWishlstList.shtml',
       my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml',
       add_car: '/mjCarinfoCtl/addMjCarinfo.shtml',

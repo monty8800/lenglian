@@ -1,0 +1,220 @@
+require 'components/common/common'
+require 'index-style'
+require 'mobile-util'
+require 'majia-style'
+
+React = require 'react/addons'
+
+headerImg = require 'user-01.jpg'
+WarehouseStore = require 'stores/warehouse/warehouseStore'
+WarehouseAction = require 'actions/warehouse/warehouseAction'
+PureRenderMixin = React.addons.PureRenderMixin
+DB = require 'util/storage'
+
+Plugin = require 'util/plugin'
+
+SearchResultList = React.createClass {
+	render: ->
+		resultList = @props.list
+		console.log resultList + '++()++'
+		items = resultList.map (aResult,i) ->
+			<div>
+				<div className="m-item01">
+					<div className="g-item-dirver">
+						<div className="g-dirver">					
+							<div className="g-dirver-pic">
+								<img src={ headerImg }/>
+							</div>
+							<div className="g-dirver-msg">
+								<div className="g-dirver-name">
+									<span>{ aResult.name }</span><span className="g-dirname-single">(个体)</span>
+								</div>
+								<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+							</div>
+							<div className="g-dirver-btn">
+								<a className="u-btn02">选择该仓库</a>
+							</div>
+						</div>
+					</div>
+					<div className="g-item">
+						<div className="g-adr-store ll-font">
+							{ 
+								if aResult.provinceName is aResult.cityName
+									aResult.provinceName + aResult.areaName + aResult.street 
+								else
+									aResult.provinceName + aResult.cityName + aResult.areaName + aResult.street 
+							}
+						</div>
+					</div>
+					<div className="g-item g-pad ll-font">
+						价格类型 : 竞价
+						<span>( 柠静  4999元 )</span>
+					</div>
+					<div className="g-item g-item-des">
+						<p>仓库类型 : <span>{ aResult.wareHouseType }</span></p>
+						<p>库温类型 : <span>{ aResult.cuvinType }</span></p>
+						<p>仓库价格 : <span>{ aResult.price }</span></p>
+					</div>
+				</div>
+			</div>
+		,this
+		<div>
+			{ items }
+		</div>
+}
+
+SearchWarehouse = React.createClass {
+	getInitialState: ->
+		{
+			searchResult:[]
+			showTypeSelect:0
+			showTempreatureSelect:0
+			showInvoiceSelect:0
+		}
+	componentDidMount: ->
+		WarehouseStore.addChangeListener @_onChange
+		WarehouseAction.searchWarehouse('0','10')
+
+	componentWillUnmount: ->
+		WarehouseStore.removeChangeListener @_onChange
+
+	_onChange: ->
+		@setState { 
+			searchResult:WarehouseStore.getWarehouseSearchResult()
+			showTypeSelect:0
+			showTempreatureSelect:0
+			showInvoiceSelect:0
+		}
+
+	typeChooseCkick: ->
+		newState = Object.create @state
+		if @state.showTypeSelect is 1 then newState.showTypeSelect = 0 else newState.showTypeSelect = 1
+		@setState newState
+		console.log @state.showTypeSelect + "__ \\\\\\\\\\"
+
+	tempreatureSelectCkick: ->
+		newState = Object.create @state
+		if @state.showTempreatureSelect is 1 then newState.showTempreatureSelect = 0 else newState.showTempreatureSelect = 1
+		@setState newState
+
+	invoiceSelectCkick:->
+		newState = Object.create @state
+		if @state.showInvoiceSelect is 1 then newState.showInvoiceSelect = 0 else newState.showInvoiceSelect = 1
+		@setState newState
+
+	sureButtonClick:->
+		WarehouseAction.getWarehouseList('3','1','10')
+
+
+	render: ->
+		<div>
+			<div className="m-nav03">
+				<ul>
+					<li>
+						<div className={ if @state.showTypeSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @typeChooseCkick }>
+							<div dangerouslySetInnerHTML={{__html: "仓库类型"}}/>
+							<span>全部</span>
+						</div>
+						<div className="g-div02" style={ if @state.showTypeSelect is 1 then {display:'block'} else {display:'none'} }>
+							<div className="g-div02-item">
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "全部"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "3.8米"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "4.2米"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "4.8米"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "5.8米"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "6.2米"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "6.8米"}}/></label>
+							</div>
+							<div className="g-div02-btn">
+								<a className="u-btn u-btn-small">确定</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div className={ if @state.showTempreatureSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @tempreatureSelectCkick }>
+							<div dangerouslySetInnerHTML={{__html: "库温类型"}}/>
+							<span>全部</span>
+						</div>
+						<div className="g-div02" style={ if @state.showTempreatureSelect is 1 then {display:'block'} else {display:'none'} }>
+							<div className="g-div02-item">
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "全部"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "-100"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "-50"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "-20"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "0"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "20"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "30"}}/></label>
+							</div>
+							<div className="g-div02-btn">
+								<a className="u-btn u-btn-small">确定</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div className={ if @state.showInvoiceSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @invoiceSelectCkick }>
+							<div dangerouslySetInnerHTML={{__html: "需要发票"}}/>
+							<span>全部</span>
+						</div>
+						<div className="g-div02" style={ if @state.showInvoiceSelect is 1 then {display:'block'} else {display:'none'} }>
+							<div className="g-div02-item">
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "不需要"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "需要"}}/></label>
+							</div>
+						</div>
+					</li>
+				</ul>			
+			</div>
+
+			<SearchResultList list={ @state.searchResult } />
+		</div>
+}
+
+React.render <SearchWarehouse />, document.getElementById('content')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

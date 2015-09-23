@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		01D42DAFEB5C4DFFA0D0D827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0597205F9D5541F28FAC3AC4 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -455,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				4CDD99781BAFA5E7008B4AC6 /* UserCenterViewController.h */,
+				4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */,
 				4C006E041BB037BB00381462 /* LoginViewController.h */,
 				4C006E051BB037BB00381462 /* LoginViewController.m */,
 				4C006E071BB0383F00381462 /* RegisterViewController.h */,
@@ -465,7 +465,6 @@
 				4C006DF91BB02FCC00381462 /* ChangePasswdViewController.m */,
 				4C5D3F8C1BB0222E00BBD5A6 /* MoreViewController.h */,
 				4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */,
-				4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */,
 			);
 			name = user;
 			sourceTree = "<group>";

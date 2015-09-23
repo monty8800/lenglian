@@ -109,7 +109,7 @@
         });
       });
     });
-    it('登录', function(done) {
+    return it('登录', function(done) {
       var mobile, passwd;
       mobile = '18513468467';
       passwd = '123456a';
@@ -117,27 +117,6 @@
         usercode: mobile,
         password: passwd
       }, function(result) {
-        result.should.not.be.empty();
-        result.carStatus.should.be.within(0, 3);
-        result.certification.should.be.within(0, 2);
-        result.goodsStatus.should.be.within(0, 3);
-        result.userId.should.not.be.empty();
-        result.warehouseStatus.should.be.within(0, 3);
-        return done();
-      });
-    });
-    return it('添加评论', function(done) {
-      var params;
-      params = {
-        onsetId: "4671d0d8c37f47f4bcfa2323222bf102",
-        onsetRole: "2",
-        targetId: "7714d0d83c7f47f4bcfac62b9a1bf101",
-        targetRole: "1",
-        orderNo: "GC20150912581503100000182",
-        score: "10",
-        content: "fegsgesgdgsegse"
-      };
-      return request.post(config.api.LOGIN, params, function(result) {
         result.should.not.be.empty();
         result.carStatus.should.be.within(0, 3);
         result.certification.should.be.within(0, 2);

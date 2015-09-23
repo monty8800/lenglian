@@ -85,7 +85,7 @@ module.exports = {
 		#司机为货物 竞价
 		DRIVER_BID_FOR_GOODS:'/carFindGoods/orderBid.shtml'
 		#获取某货源的竞价列表
-		GET_BID_ORDER_LIST: '/carFindGoods/orderBidList.shtml'
+		GET_ORDER_BID_LIST: '/carFindGoods/orderBidList.shtml'
 	
 
 
