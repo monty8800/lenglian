@@ -49,6 +49,7 @@
 		4C822F761BB153F800112533 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C822F751BB153F800112533 /* Security.framework */; };
 		4C822F791BB15F5F00112533 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C822F781BB15F5F00112533 /* mapapi.bundle */; settings = {ASSET_TAGS = (); }; };
 		4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F7B1BB1755A00112533 /* SelectTab.m */; settings = {ASSET_TAGS = (); }; };
+		4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8392CB1BB286D60000466D /* ImagePicker.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99761BAFA563008B4AC6 /* HomeViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -73,6 +74,10 @@
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		E858DD5946754C3C80EE0FDA /* XEPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED7BFE7D7AE4F31A95A8065 /* XEPlugin.m */; };
 		F43C04076AF84FAF9B24968C /* XEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 555391413AAD4C94B9C1B273 /* XEViewController.m */; };
+		D9727DCD25344A78A1E1CAE9 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F987662DA0E495D9EFE5C33 /* CDVFile.m */; };
+		451E6A32E5E8458284842A6D /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = D93F0BAAD6DB4E288E124523 /* CDVLocalFilesystem.m */; };
+		071DD44745444767AAAA973D /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD540853F6B4D3BA9A88258 /* CDVAssetLibraryFilesystem.m */; };
+		FD274F802DF6488EA3C108BD /* CDVFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DBB3804CD4A159BE0E041 /* CDVFileTransfer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +162,8 @@
 		4C822F781BB15F5F00112533 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = "HelloCordova/lib/Release-iphoneall/BaiduMapAPI.framework/Resources/mapapi.bundle"; sourceTree = "<group>"; };
 		4C822F7A1BB1755A00112533 /* SelectTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectTab.h; path = map/SelectTab.h; sourceTree = "<group>"; };
 		4C822F7B1BB1755A00112533 /* SelectTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectTab.m; path = map/SelectTab.m; sourceTree = "<group>"; };
+		4C8392CA1BB286D60000466D /* ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePicker.h; path = common/ImagePicker.h; sourceTree = "<group>"; };
+		4C8392CB1BB286D60000466D /* ImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagePicker.m; path = common/ImagePicker.m; sourceTree = "<group>"; };
 		4CDD99751BAFA563008B4AC6 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = home/HomeViewController.h; sourceTree = "<group>"; };
 		4CDD99761BAFA563008B4AC6 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = home/HomeViewController.m; sourceTree = "<group>"; };
 		4CDD99781BAFA5E7008B4AC6 /* UserCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCenterViewController.h; path = user/UserCenterViewController.h; sourceTree = "<group>"; };
@@ -196,6 +203,14 @@
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = HelloCordova/config.xml; sourceTree = "<group>"; };
+		0F987662DA0E495D9EFE5C33 /* CDVFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVFile.m"; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		D93F0BAAD6DB4E288E124523 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLocalFilesystem.m"; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		2AD540853F6B4D3BA9A88258 /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVAssetLibraryFilesystem.m"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		B9F3665F3EF540C1AE2E04F4 /* CDVFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVFile.h"; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		99DB360D790742CDB050DC69 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLocalFilesystem.h"; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		CFA7BCF9060449F18745EDB1 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		698DBB3804CD4A159BE0E041 /* CDVFileTransfer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVFileTransfer.m"; path = "cordova-plugin-file-transfer/CDVFileTransfer.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		AD54F241ADF644708DE106C8 /* CDVFileTransfer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVFileTransfer.h"; path = "cordova-plugin-file-transfer/CDVFileTransfer.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +345,14 @@
 				555391413AAD4C94B9C1B273 /* XEViewController.m */,
 				21DB33900EE74FD999E25C75 /* XEPlugin.h */,
 				0AEF8DFB4D0A4638A71CD645 /* XEViewController.h */,
+				0F987662DA0E495D9EFE5C33 /* CDVFile.m */,
+				D93F0BAAD6DB4E288E124523 /* CDVLocalFilesystem.m */,
+				2AD540853F6B4D3BA9A88258 /* CDVAssetLibraryFilesystem.m */,
+				B9F3665F3EF540C1AE2E04F4 /* CDVFile.h */,
+				99DB360D790742CDB050DC69 /* CDVLocalFilesystem.h */,
+				CFA7BCF9060449F18745EDB1 /* CDVAssetLibraryFilesystem.h */,
+				698DBB3804CD4A159BE0E041 /* CDVFileTransfer.m */,
+				AD54F241ADF644708DE106C8 /* CDVFileTransfer.h */,
 			);
 			name = Plugins;
 			path = HelloCordova/Plugins;
@@ -378,6 +401,8 @@
 			isa = PBXGroup;
 			children = (
 				4C59DE3E1B5E4FF30063D9CE /* Global.h */,
+				4C8392CA1BB286D60000466D /* ImagePicker.h */,
+				4C8392CB1BB286D60000466D /* ImagePicker.m */,
 				4C59DE411B5E50AA0063D9CE /* XELogFormatter.h */,
 				4C59DE441B5E519C0063D9CE /* BaseViewController.h */,
 				4C59DE451B5E519C0063D9CE /* BaseViewController.m */,
@@ -716,6 +741,7 @@
 				4CE0AE5C1BB241E00081DE22 /* AuthViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
 				4C822F661BB135E500112533 /* AddressListViewController.m in Sources */,
+				4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */,
 				4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */,
 				4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */,
 				4C59DE401B5E4FF30063D9CE /* Global.m in Sources */,
@@ -730,6 +756,10 @@
 				4C822F621BB1354700112533 /* CarListViewController.m in Sources */,
 				4C006DFA1BB02FCC00381462 /* ChangePasswdViewController.m in Sources */,
 				4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */,
+				D9727DCD25344A78A1E1CAE9 /* CDVFile.m in Sources */,
+				451E6A32E5E8458284842A6D /* CDVLocalFilesystem.m in Sources */,
+				071DD44745444767AAAA973D /* CDVAssetLibraryFilesystem.m in Sources */,
+				FD274F802DF6488EA3C108BD /* CDVFileTransfer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

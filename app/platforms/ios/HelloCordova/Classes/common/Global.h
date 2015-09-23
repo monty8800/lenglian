@@ -26,6 +26,8 @@
 
 #define UPDATE_FOLDER [[CDVViewController applicationDocumentsDirectory] stringByAppendingPathComponent:@"update"]  //存放www的升级目录
 
+#define AUTH_PIC_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"tmp"]
+
 //通知
 #define NOTI_UPDATE_USER @"update:user"
 
@@ -40,6 +42,8 @@
 @property (strong, nonatomic) BMKMapManager *mapManager;
 
 @property (weak, nonatomic) UIViewController *currentVC;  //当前显示的vc
+
+@property (weak, nonatomic) UITabBarController *tabVC; //tabbarvc
 
 
 +(Global *) sharedInstance;

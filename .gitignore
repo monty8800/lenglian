@@ -15,6 +15,7 @@ app/coverage
 
 xe_tmp_*
 Pods
+Podfile.lock
 
 #npm  bower
 node_modules

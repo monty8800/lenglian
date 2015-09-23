@@ -46,7 +46,7 @@ describe '测试用户', ->
 		userId = '9cd0f23940824702b99bf74328f61f54'
 		passwd = '123456a'
 
-		request.post config.api.CHANGE_PWD, {
+		request.postFile config.api.CHANGE_PWD, {
 			userId: userId
 			oldpwd: passwd
 			newpwd: passwd
@@ -110,6 +110,28 @@ describe '测试用户', ->
 			result.userId.should.not.be.empty()
 			result.warehouseStatus.should.be.within 0, 3
 			done()
+
+
+	it '添加评论',(done) ->
+		params = {
+			onsetId:"4671d0d8c37f47f4bcfa2323222bf102"		#手机号
+			onsetRole:"2"				#评论人角色 1：货主 2:车主 3：仓库主
+			targetId:"7714d0d83c7f47f4bcfac62b9a1bf101"		#目标评价人ID
+			targetRole:"1"		#目标评论人角色 1：货主 2:车主 3：仓库主
+			orderNo:"GC20150912581503100000182"		#订单号
+			score:"10"		# 评分 5星=10 
+			content:"fegsgesgdgsegse"		#内容
+		}
+		request.post config.api.LOGIN, params, (result)->
+			result.should.not.be.empty()
+			result.carStatus.should.be.within 0, 3
+			result.certification.should.be.within 0, 2
+			result.goodsStatus.should.be.within 0, 3
+			result.userId.should.not.be.empty()
+			result.warehouseStatus.should.be.within 0, 3
+			done()
+
+
 
 
 

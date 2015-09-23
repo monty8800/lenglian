@@ -20,6 +20,12 @@ window.updateUser = ->
 	console.log 'user------', _user
 	UserStore.emitChange()
 
+window.setAuthPic = (picUrl, type)->
+	console.log 'set auth pic', type, picUrl
+	_user = _user.set type, picUrl
+	DB.put 'user', _user.toJS()
+	UserStore.emitChange 'setAuthPic:done'
+
 _menus = Immutable.fromJS [
 	[
 		{cls: 'u-icon-message', title: '我的消息', url: 'messageList'},
@@ -45,22 +51,22 @@ requestInfo = ->
 	Http.post Constants.api.USER_CENTER, {
 		userId: _user.id
 	}, (data)->
-		_user = _user.set 'orderDoneCount', data.myOrderCount
+		_user = _user.set 'orderDoneCount', parseInt(data.myOrderCount)
 		# _user = _user.set 'orderBreakCount', 2   
 		_user = _user.set 'mobile', data.usercode
-		_user = _user.set 'carStatus', data.carStatus
-		_user = _user.set 'certification', data.certification
-		_user = _user.set 'goodsStatus', data.goodsStatus
+		_user = _user.set 'carStatus', parseInt(data.carStatus)
+		_user = _user.set 'certification', parseInt(data.certification)
+		_user = _user.set 'goodsStatus', parseInt(data.goodsStatus)
 		_user = _user.set 'goodsCause', data.goodsCause
 		_user = _user.set 'avatar', data.imgurl
-		_user = _user.set 'carCount', data.myCarCount
-		_user = _user.set 'messageCount', data.messageCount
-		_user = _user.set 'warehouseCount', data.myWishlistCount
+		_user = _user.set 'carCount', parseInt(data.myCarCount)
+		_user = _user.set 'messageCount', parseInt(data.messageCount)
+		_user = _user.set 'warehouseCount', parseInt(data.myWishlistCount)
 		_user = _user.set 'id', data.userId
-		_user = _user.set 'warehouseStatus', data.warehouseStatus
+		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
 		_user = _user.set 'warehouseCause', data.warehouseCause
 		_user = _user.set 'name', data.userName #个人名或者公司名，服务器合并到这个字段返回
-		_user = _user.set 'hasPayPwd', data.isPayStatus
+		_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus)
 		_user = _user.set 'balance', data.balance
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange()
@@ -91,13 +97,13 @@ login = (mobile, passwd)->
 		usercode: mobile
 		password: passwd
 	}, (data)->
-		_user = _user.set 'carStatus', data.carStatus
-		_user = _user.set 'certification', data.certification
-		_user = _user.set 'goodsStatus', data.goodsStatus
+		_user = _user.set 'carStatus', parseInt(data.carStatus)
+		_user = _user.set 'certification', parseInt(data.certification)
+		_user = _user.set 'goodsStatus', parseInt(data.goodsStatus)
 		_user = _user.set 'avatar', data.imgurl
 		_user = _user.set 'id', data.userId
 		_user = _user.set 'mobile', data.usercode
-		_user = _user.set 'warehouseStatus', data.warehouseStatus
+		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange 'login:done'
 		Plugin.run [9, 'user:update']
@@ -162,6 +168,11 @@ logout = ->
 	UserStore.emitChange 'logout'
 	Plugin.run [9, 'user:update']
 
+personalAuth = (params, files)->
+	Http.postFile Constants.api.PERSONAL_AUTH, params, files, (data)->
+		console.log 'auth result', data
+		UserStore.emitChange 'auth:done'
+
 UserStore = assign BaseStore, {
 	getUser: ->
 		_user
@@ -181,5 +192,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.PAY_PWD then setPayPwd(action.payPwd, action.oldPwd)
 		when Constants.actionType.RESET_PAY_PWD then resetPayPwd(action.mobile, action.code, action.passwd)
 		when Constants.actionType.LOGOUT then logout()
+		when Constants.actionType.PERSONAL_AUTH then personalAuth(action.params, action.files)
 
 module.exports = UserStore

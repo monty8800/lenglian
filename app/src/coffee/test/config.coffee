@@ -13,6 +13,7 @@ module.exports = {
 		server: 'http://192.168.26.177:7080/llmj-app/'
 		#server: 'http://192.168.29.176:8072/'
 		#server: 'http://m.lenglianmajia.com'
+		#server: 'http://192.168.28.90:8072/' #朱舟 
 		
 		#登录
 		LOGIN: '/loginCtl/userLogin.shtml'
@@ -55,6 +56,10 @@ module.exports = {
 		NEARBY_GOODS: '/findNear/nearGoods.shtml'
 		SEARCH_GOODS_DETAIL: '/carFindGoods/list.shtml'
 
+		#企业认证
+		COMPANY_AUTH: '/enterprise/enterpriseAuthentication.shtml'
+
+
 
 
 #YYQ
@@ -71,7 +76,7 @@ module.exports = {
 		#我要找库
 		SEARCH_WAREHOUSE: '/searchWarehouseCtl/searchWarehouse.shtml'
 		#个人认证
-		PERSONINFO_AUTH: 'mjPersonInfoAuthCtl/personInfoAuth.shtml'
+		PERSONINFO_AUTH: '/mjPersonInfoAuthCtl/personInfoAuth.shtml'
 		#添加评论
 		COMMENT_ADD: '/mjRate/addMjRate.shtml'
 		# 查询评价

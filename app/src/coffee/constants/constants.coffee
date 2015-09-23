@@ -31,6 +31,8 @@ actionType = {
 	DRIVER_BIND_ORDER:null
 	DRIVER_BID_FOR_GOODS:null
 	GET_BID_ORDER_LIST:null
+
+	PERSONAL_AUTH: null
 	
 }
 
@@ -63,6 +65,9 @@ api = {
 
 	# 个人中心
 	USER_CENTER: '/userInfo/userCenter.shtml'
+
+	#个人认证
+	PERSONAL_AUTH: '/mjPersonInfoAuthCtl/personInfoAuth.shtml'
 
 
 #YYQ
@@ -124,6 +129,12 @@ smsType = {
 	resetPayPwd: 3 #重置支付密码
 }
 
+authType = {
+	GOODS: 1 #货主
+	CAR: 2 #车主
+	WAREHOUSE: 3 #仓库
+}
+
 module.exports = 
 	api: api
 	actionType: keymirror actionType
@@ -131,3 +142,4 @@ module.exports =
 	inBrowser: not window.cordova
 	smsType: smsType
 	smsGapTime: 60
+	authType: authType

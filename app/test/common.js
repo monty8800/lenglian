@@ -1,5 +1,5 @@
 (function() {
-  var config, post, request, should;
+  var config, post, postFile, request, should;
 
   request = require('superagent');
 
@@ -45,8 +45,52 @@
     });
   };
 
+  postFile = function(api, params, files, cb) {
+    var file, i, len, plainText, req;
+    if (config.use_crypto === true) {
+      plainText = JSON.stringify(params);
+      config.paylod.data = plainText;
+    } else {
+      config.paylod.data = JSON.stringify(params);
+    }
+    if (api.indexOf('http' !== 0)) {
+      api = config.api.server + api;
+    }
+    console.log('请求接口：', api);
+    console.log('发送参数：', config.paylod);
+    if (config.use_crypto === true) {
+      console.log('加密前的参数：', params);
+    }
+    req = request.post(api).type('form').query(config.paylod);
+    for (i = 0, len = files.length; i < len; i++) {
+      file = files[i];
+      req = req.attach(file.filed, file.path, file.name);
+    }
+    return req.end(function(err, res) {
+      var e, j, result;
+      should.ifError(err);
+      result = null;
+      try {
+        result = JSON.parse(res.text);
+      } catch (_error) {
+        e = _error;
+        console.error(res.text);
+        j = new should.Assertion(res.text);
+        j.params = {
+          operator: 'json 格式'
+        };
+        j.fail();
+      }
+      console.log('返回值：', JSON.stringify(result));
+      result.should.not.empty('返回值不能为空');
+      result.code.should.equal('0000', '错误码:', result.code, ',错误信息:', result.msg);
+      return cb(result.data);
+    });
+  };
+
   module.exports = {
-    post: post
+    post: post,
+    postFile: postFile
   };
 
 }).call(this);

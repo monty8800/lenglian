@@ -83,6 +83,8 @@ else
 			pop: pop
 			popTo: popTo
 		}
+		run: (args, success, err)->
+			console.log args, success, err
 		toast: {
 			show: (msg)->
 				alert msg

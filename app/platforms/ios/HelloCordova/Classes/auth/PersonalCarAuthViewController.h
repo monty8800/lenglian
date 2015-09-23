@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "ImagePicker.h"
 
-@interface PersonalCarAuthViewController : BaseViewController
+@interface PersonalCarAuthViewController : BaseViewController <ImagePickerDelegate>
+{
+    ImagePicker *_imagePikcer;
+}
 
 @end

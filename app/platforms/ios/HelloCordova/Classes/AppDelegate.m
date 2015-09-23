@@ -122,6 +122,8 @@
     
     self.window.rootViewController = _tabVC;
     
+    [Global sharedInstance].tabVC = _tabVC;
+    
     //hello world
     //self.window.rootViewController = [HelloViewController new];
     

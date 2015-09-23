@@ -8,6 +8,7 @@
 
 #import "PersonalCarAuthViewController.h"
 
+
 @interface PersonalCarAuthViewController ()
 
 @end
@@ -34,6 +35,20 @@
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
+    if ([params[0] integerValue] == 8) {
+        DDLogDebug(@"show pic selector!");
+        if (_imagePikcer == nil) {
+            _imagePikcer = [ImagePicker new];
+            _imagePikcer.delegate = self;
+        }
+        [_imagePikcer show:params[1] vc:self];
+    }
+}
+
+-(void)selectImage:(NSString *)imagePath type:(NSString *)type{
+    NSString *js = [NSString stringWithFormat:@"(function(){window.setAuthPic('%@', '%@')})()", imagePath, type];
+    DDLogDebug(@"image path %@, type: %@, js: %@", imagePath, type, js);
+    [self.commandDelegate evalJs: js];
 }
 
 - (void)didReceiveMemoryWarning {

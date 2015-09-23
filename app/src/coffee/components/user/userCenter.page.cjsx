@@ -17,12 +17,14 @@ Helper = require 'util/helper'
 
 AuthStatus = React.createClass {
 	_goAuth: (auth)->
-		if @props.user.certification is 0
-			Plugin.nav.push ['auth']
-		else if @props.user.certification is 1
-			Plugin.nav.push ['personal' + auth]
-		else
-			Plugin.nav.push ['company' + auth]
+		user = @props.user
+		Auth.needLogin ->
+			if user.certification is 0
+				Plugin.nav.push ['auth']
+			else if user.certification is 1
+				Plugin.nav.push ['personal' + auth]
+			else
+				Plugin.nav.push ['company' + auth]
 	render: ->
 		user = @props.user
 		statusMapper = (status)->

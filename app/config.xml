@@ -23,6 +23,8 @@
         <allow-intent href="market:*" />
         <!-- ShowTitle (boolean, defaults to false): Show the title at the top of the screen. -->
         <preference name="ShowTitle" value="true"/>
+        <!-- 如果文件上传的插件有问题， 放开下面这行 -->
+        <!-- <preference name="AndroidPersistentFileLocation" value="Compatibility" /> -->
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

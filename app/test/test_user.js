@@ -55,7 +55,7 @@
       var passwd, userId;
       userId = '9cd0f23940824702b99bf74328f61f54';
       passwd = '123456a';
-      return request.post(config.api.CHANGE_PWD, {
+      return request.postFile(config.api.CHANGE_PWD, {
         userId: userId,
         oldpwd: passwd,
         newpwd: passwd

@@ -61,6 +61,13 @@ UserAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.LOGOUT
 		}
+
+	personalAuth: (params, files)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.PERSONAL_AUTH
+			params: params
+			files: files
+		}
 }
 
 module.exports = UserAction
