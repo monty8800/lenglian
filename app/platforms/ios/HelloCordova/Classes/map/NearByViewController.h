@@ -10,7 +10,7 @@
 #import <BaiduMapAPI/BMapKit.h>
 #import "SelectTab.h"
 
-@interface NearByViewController : UIViewController <SelectTabProtocl>
+@interface NearByViewController : UIViewController <SelectTabProtocl, BMKMapViewDelegate>
 {
     BMKMapView *_mapView;
     

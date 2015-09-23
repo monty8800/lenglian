@@ -12,7 +12,7 @@ html {
   font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
-  //height: 100%;
+   height: 100%;
 }
 
 /**
@@ -22,7 +22,7 @@ html {
 body {
   margin: 0;
   line-height: 1;
-  //height: 100%;
+  height: 100%;
 }
 
 /* HTML5 display definitions
@@ -508,7 +508,7 @@ p { margin: 0;}
 
 .viewport {
   width: 640/$ppr;
-  //height: 100%;
+  height: 100%;
   margin:0 auto;
   padding-bottom: 20/$ppr;
   //@include transition(all,.3s,ease)
@@ -724,6 +724,7 @@ p { margin: 0;}
   text-align: center;
   display: inline-block;
   border-radius: 2/$ppr;
+  font-weight: bold;
   &.u-btn-disabled {
     background: $bg-disabled-color;
   }
@@ -885,7 +886,7 @@ p { margin: 0;}
   }
 }
 
-// 自定义单复选框样式！！！！
+
 
 .label-checkbox {
     position: relative;

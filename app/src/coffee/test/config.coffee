@@ -43,6 +43,19 @@ module.exports = {
 		#根据卡号查银行
 		QUERY_BANK_BY_CARD: '/mjUserBankCard/queryBankType.shtml'
 
+		#附近找车
+		NEARBY_CAR: '/findNear/nearCar.shtml'
+		SEARCH_CAR_DETAIL: '/searchCarCtl/searchCar.shtml'
+
+		#附近找仓库
+		NEARBY_WAREHOUSE: '/findNear/nearWarehouse.shtml'
+		SEARCH_WAREHOUSE_DETAIL: '/searchWarehouseCtl/searchWarehouse.shtml'
+
+		#附近找货
+		NEARBY_GOODS: '/findNear/nearGoods.shtml'
+		SEARCH_GOODS_DETAIL: '/carFindGoods/list.shtml'
+
+
 
 #YYQ
 		# 查询我的仓库

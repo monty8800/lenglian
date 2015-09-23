@@ -40,7 +40,20 @@
     
     //地图
     _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0,  tabHeight, SCREEN_WIDTH, self.view.bounds.size.height - tabHeight)];
+    _mapView.delegate = self;
     [self.view addSubview:_mapView];
+    
+}
+
+-(void)mapViewDidFinishLoading:(BMKMapView *)mapView {
+    CLLocationCoordinate2D rightTop = [_mapView convertPoint:CGPointMake(SCREEN_WIDTH, 0) toCoordinateFromView:_mapView];
+    CLLocationCoordinate2D leftBottom = [_mapView convertPoint:CGPointMake(0, _mapView.bounds.size.height) toCoordinateFromView:_mapView];
+    
+    DDLogDebug(@"rightTop %f, %f, leftBottom %f, %f", rightTop.latitude, rightTop.longitude, leftBottom.latitude, leftBottom.longitude);
+}
+
+-(void)mapView:(BMKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    [self mapViewDidFinishLoading:mapView];
 }
 
 -(void)selectTab:(NSInteger)index {

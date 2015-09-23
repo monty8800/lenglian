@@ -13,7 +13,16 @@ Plugin = require 'util/plugin'
 
 Auth = require 'util/auth'
 
+Helper = require 'util/helper'
+
 AuthStatus = React.createClass {
+	_goAuth: (auth)->
+		if @props.user.certification is 0
+			Plugin.nav.push ['auth']
+		else if @props.user.certification is 1
+			Plugin.nav.push ['personal' + auth]
+		else
+			Plugin.nav.push ['company' + auth]
 	render: ->
 		user = @props.user
 		statusMapper = (status)->
@@ -23,17 +32,17 @@ AuthStatus = React.createClass {
 				else return 'active03'
 		<div className="g-userInfo">
 			<ul>
-				<li>
+				<li onClick={@_goAuth.bind this, 'WarehouseAuth'}>
 					<p className={'ll-font ' + statusMapper user.warehouseStatus } dangerouslySetInnerHTML={{__html:'<span></span>&#xe615;'}}></p>
-					<p>仓库已认证</p>
+					<p>{'仓库' + Helper.authStatus user.warehouseStatus}</p>
 				</li>
-				<li>
+				<li onClick={@_goAuth.bind this, 'GoodsAuth'}>
 					<p className={'ll-font ' + statusMapper user.goodsStatus} dangerouslySetInnerHTML={{__html:'<span></span>&#xe61a;'}}></p>
-					<p>货源认证中</p>
+					<p>{'货源' + Helper.authStatus user.goodsStatus}</p>
 				</li>
-				<li>
+				<li onClick={@_goAuth.bind this, 'CarAuth'}>
 					<p className={'ll-font ' + statusMapper user.carStatus} dangerouslySetInnerHTML={{__html: '<span></span>&#xe60e;'}}></p>
-					<p>车源已认证</p>
+					<p>{'车源' + Helper.authStatus user.carStatus}</p>
 				</li>
 			</ul>
 		</div>

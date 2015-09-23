@@ -10,6 +10,8 @@
 #import "LoginViewController.h"
 #import "ChangePasswdViewController.h"
 #import "ResetPasswdViewController.h"
+#import "AuthViewController.h"
+#import "PersonalCarAuthViewController.h"
 
 
 @interface BaseViewController ()
@@ -153,6 +155,20 @@
             ResetPasswdViewController *resetPwdVC = [ResetPasswdViewController new];
             [self.navigationController pushViewController:resetPwdVC animated:YES];
             return;
+        }
+        else if ([params[1] isEqualToString:@"auth"])
+        {
+            AuthViewController *authVC = [AuthViewController new];
+            [self.navigationController pushViewController:authVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"personalCarAuth"])
+        {
+            PersonalCarAuthViewController *pCarVC = [PersonalCarAuthViewController new];
+            [self.navigationController pushViewController:pCarVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"personalWarehouseAuth"])
+        {
+            
         }
     }
     

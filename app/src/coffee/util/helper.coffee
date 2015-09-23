@@ -36,6 +36,11 @@ invoiceStatus = (status) ->
 		when '2'
 			'不可以开发票'
 
+authStatus = (status)->
+	switch status
+		when 1 then '已认证'
+		when 2 then '认证中'
+		else '未认证'
 		
 	
 	
@@ -45,6 +50,7 @@ module.exports =
 	carCategoryMapper: carCategory # 车辆类别
 	warehouseStatus: warehouseStatus #仓库状态
 	invoiceStatus: invoiceStatus #支持不支持开发票
+	authStatus: authStatus
 
 
 

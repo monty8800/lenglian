@@ -55,6 +55,8 @@
 		4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99801BAFA98D008B4AC6 /* NearByViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD99851BAFE4EC008B4AC6 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CDD99841BAFE4EC008B4AC6 /* images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		4CE0AE5C1BB241E00081DE22 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0AE5B1BB241E00081DE22 /* AuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CE0AE5F1BB243C20081DE22 /* PersonalCarAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		60D7ECE057704AE1B76AAD24 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5B98B6DD782842E2B57B856C /* CDVNotification.bundle */; };
 		7383466E9567FCDEC93CD82C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE1D01D20475664CE86A61D /* libPods.a */; };
@@ -165,6 +167,10 @@
 		4CDD997F1BAFA98D008B4AC6 /* NearByViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NearByViewController.h; path = map/NearByViewController.h; sourceTree = "<group>"; };
 		4CDD99801BAFA98D008B4AC6 /* NearByViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NearByViewController.m; path = map/NearByViewController.m; sourceTree = "<group>"; };
 		4CDD99841BAFE4EC008B4AC6 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
+		4CE0AE5A1BB241E00081DE22 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthViewController.h; path = auth/AuthViewController.h; sourceTree = "<group>"; };
+		4CE0AE5B1BB241E00081DE22 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthViewController.m; path = auth/AuthViewController.m; sourceTree = "<group>"; };
+		4CE0AE5D1BB243C20081DE22 /* PersonalCarAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalCarAuthViewController.h; path = auth/PersonalCarAuthViewController.h; sourceTree = "<group>"; };
+		4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalCarAuthViewController.m; path = auth/PersonalCarAuthViewController.m; sourceTree = "<group>"; };
 		555391413AAD4C94B9C1B273 /* XEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEViewController.m; path = "com.xebest.xe-plugin/XEViewController.m"; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5B98B6DD782842E2B57B856C /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CDVNotification.bundle; sourceTree = "<group>"; };
@@ -219,6 +225,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4CE0AE591BB241B80081DE22 /* auth */,
 				4C822F671BB1364500112533 /* follow */,
 				4C822F631BB135B800112533 /* address */,
 				4C822F5F1BB1350E00112533 /* car */,
@@ -492,6 +499,17 @@
 			name = assets;
 			sourceTree = "<group>";
 		};
+		4CE0AE591BB241B80081DE22 /* auth */ = {
+			isa = PBXGroup;
+			children = (
+				4CE0AE5A1BB241E00081DE22 /* AuthViewController.h */,
+				4CE0AE5B1BB241E00081DE22 /* AuthViewController.m */,
+				4CE0AE5D1BB243C20081DE22 /* PersonalCarAuthViewController.h */,
+				4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */,
+			);
+			name = auth;
+			sourceTree = "<group>";
+		};
 		B4298CEE55083DFCA0472C61 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +714,7 @@
 				4C5D3F8E1BB0222E00BBD5A6 /* MoreViewController.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				4C5C87441B74809300609666 /* HelloViewController.m in Sources */,
+				4CE0AE5C1BB241E00081DE22 /* AuthViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
 				4C822F661BB135E500112533 /* AddressListViewController.m in Sources */,
 				4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */,
@@ -708,6 +727,7 @@
 				E858DD5946754C3C80EE0FDA /* XEPlugin.m in Sources */,
 				4C006E061BB037BB00381462 /* LoginViewController.m in Sources */,
 				F43C04076AF84FAF9B24968C /* XEViewController.m in Sources */,
+				4CE0AE5F1BB243C20081DE22 /* PersonalCarAuthViewController.m in Sources */,
 				4C822F621BB1354700112533 /* CarListViewController.m in Sources */,
 				4C006DFA1BB02FCC00381462 /* ChangePasswdViewController.m in Sources */,
 				4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */,

@@ -26,81 +26,15 @@
                 }
             }
             dd{
-                li{
-                    padding-top: 20/$ppr;
-                    span{
-                        font-size: 32/$ppr;
-                        color: #fff;
-                        margin-right: 20/$ppr;
-                        position: relative;
-                        &:after{
-                           position: absolute;
-                           width: 30/$ppr;
-                           height:30/$ppr;
-                           font-size: 30/$ppr;
-                           content:"\e600";
-                           color: #80b1fa;
-                           top: 0;
-                           right: -50/$ppr;
-                        }
+                padding-top: 20/$ppr;
+                p{
+                    font-size: 30/$ppr;
+                    color: #fff;
+                    &:first-child{
+                        margin-bottom: 26/$ppr;
                     }
-//                  a{
-//                      display: inline-block;
-//                      width: 22/$ppr;
-//                      height:24/$ppr;
-//                      background: url(../images/edit.png) no-repeat;
-//                      background-size: contain;
-//                  }
-                    p{
-                        float: left;
-                        font-size: 46/$ppr;
-                        color: #80b1fa;
-                        margin-right: 30/$ppr;
-                        &:first-child{
-                            color: #fff;
-                            position: relative;
-                            //method01
-//                          &:after{
-//                              width: 22/$ppr;
-//                              height: 22/$ppr;
-//                              line-height: 22/$ppr;
-//                              text-align: left;
-//                              font-size: 22/$ppr;
-//                              content: "\e608";
-//                              position: absolute;
-//                              right: -4/$ppr;
-//                              bottom: -4/$ppr;
-//                              color: $com-color;
-//                              background-color: #fff;
-//                              border-radius: 50%;
-//                          }
-                            
-                            //method02
-                            &:after,&:before{
-                                width: 22/$ppr;
-                                height: 22/$ppr;
-                                line-height: 22/$ppr;
-                                text-align: left;
-                                font-size: 22/$ppr;
-                                content: "\e608";
-                                position: absolute;
-                                right: -4/$ppr;
-                                bottom: -4/$ppr;
-                                color: $com-color;
-    //                          background-color: #fff;
-    //                          border-radius: 50%;
-                                
-                            }
-                            &:before{
-                                width: 18/$ppr;
-                                height: 18/$ppr;
-                                right: -2/$ppr;
-                                bottom: -2/$ppr;
-                                content: " ";
-                                background-color: #fff;
-                                border-radius: 50%;
-                            }
-                        }
+                    &.g-name{
+                        font-size: 32/$ppr;
                     }
                 }
             }
@@ -109,11 +43,11 @@
     .g-userInfo{
         width: 100%;
         height: 100/$ppr;
+        background: #1c70ec;
         overflow: hidden;
         ul{
             width: 100%;
-            padding: 20/$ppr 0;
-            background: #1c70ec;
+            padding-top: 16/$ppr;           
             display: table;
             li{
                 display: table-cell;
@@ -134,14 +68,30 @@
                     }
                 }
                 p{
+                    color: #b2cdf5;
+                    font-size: 22/$ppr;
+                    position: relative;
                     &:first-child{
-                        font-size: 30/$ppr;
-                        color: #fff;
-                        margin-bottom: 10/$ppr;
-                    }
-                    &:last-child{
-                        font-size: 22/$ppr;
-                        color: #b2cdf5;
+                        margin-bottom: 15/$ppr;
+                        text-align: center;
+                        font-size: 36/$ppr;                     
+                        &.active01,&.active02{
+                            color: #fff; 
+                            span{
+                                position: absolute;
+                                width: 17/$ppr;
+                                height: 18/$ppr;
+                                background: url(../images/userCenter01.png) no-repeat;
+                                background-size: contain;
+                                right: 84/$ppr;
+                                bottom:-4/$ppr;
+                            }                         
+                        }
+                        &.active02{
+                            span{
+                                background-image: url(../images/userCenter02.png);
+                            }
+                        }
                     }
                 }
             }
