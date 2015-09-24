@@ -68,6 +68,12 @@ UserAction = {
 			params: params
 			files: files
 		}
+
+	clearAuthPic: (type)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CLEAR_AUTH_PIC
+			type: type
+		}
 }
 
 module.exports = UserAction

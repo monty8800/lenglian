@@ -33,6 +33,7 @@ actionType = {
 	GET_BID_ORDER_LIST:null
 
 	PERSONAL_AUTH: null
+	CLEAR_AUTH_PIC: null
 	
 }
 
@@ -41,8 +42,8 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	server: 'http://192.168.26.177:7080/llmj-app/'
-	#server: 'http://192.168.29.176:8072/'
+	# server: 'http://192.168.26.177:7080/llmj-app/'
+	server: 'http://192.168.29.176:8072/'
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
