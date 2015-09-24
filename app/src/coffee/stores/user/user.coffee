@@ -26,6 +26,12 @@ window.setAuthPic = (picUrl, type)->
 	DB.put 'user', _user.toJS()
 	UserStore.emitChange 'setAuthPic:done'
 
+clearAuthPic = (type)->
+	console.log 'clear auth pic ', type
+	_user = _user.set type null
+	DB.put 'user', _user.toJS()
+	UserStore.emitChange 'setAuthPic: done'
+
 _menus = Immutable.fromJS [
 	[
 		{cls: 'u-icon-message', title: '我的消息', url: 'messageList'},
@@ -193,5 +199,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.RESET_PAY_PWD then resetPayPwd(action.mobile, action.code, action.passwd)
 		when Constants.actionType.LOGOUT then logout()
 		when Constants.actionType.PERSONAL_AUTH then personalAuth(action.params, action.files)
+		when Constants.actionType.CLEAR_AUTH_PIC then clearAuthPic(action.type)
 
 module.exports = UserStore

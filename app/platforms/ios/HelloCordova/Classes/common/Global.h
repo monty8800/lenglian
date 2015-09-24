@@ -17,6 +17,7 @@
 #import "XEPlugin.h"
 #import <YwenKit/YwenKit.h>
 #import <BaiduMapAPI/BMapKit.h>
+#import <MKNetworkKit.h>
 
 
 #define CLIENT_TYPE @"2"  //客户端类型
@@ -44,6 +45,8 @@
 @property (weak, nonatomic) UIViewController *currentVC;  //当前显示的vc
 
 @property (weak, nonatomic) UITabBarController *tabVC; //tabbarvc
+
+@property (strong, nonatomic) MKNetworkEngine *netEngine; 
 
 
 +(Global *) sharedInstance;
