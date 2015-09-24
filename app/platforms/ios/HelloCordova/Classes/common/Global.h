@@ -17,6 +17,7 @@
 #import "XEPlugin.h"
 #import <YwenKit/YwenKit.h>
 #import <BaiduMapAPI/BMapKit.h>
+#import <MKNetworkKit.h>
 
 
 #define CLIENT_TYPE @"2"  //客户端类型
@@ -26,7 +27,7 @@
 
 #define UPDATE_FOLDER [[CDVViewController applicationDocumentsDirectory] stringByAppendingPathComponent:@"update"]  //存放www的升级目录
 
-#define AUTH_PIC_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"tmp"]
+#define AUTH_PIC_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
 //通知
 #define NOTI_UPDATE_USER @"update:user"
@@ -44,6 +45,8 @@
 @property (weak, nonatomic) UIViewController *currentVC;  //当前显示的vc
 
 @property (weak, nonatomic) UITabBarController *tabVC; //tabbarvc
+
+@property (strong, nonatomic) MKNetworkEngine *netEngine; 
 
 
 +(Global *) sharedInstance;

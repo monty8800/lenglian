@@ -10,8 +10,8 @@ module.exports = {
 	}
 	#TODO 接口地址
 	api: {
-		server: 'http://192.168.26.177:7080/llmj-app/'
-		#server: 'http://192.168.29.176:8072/'
+		#server: 'http://192.168.26.177:7080/llmj-app/'
+		server: 'http://192.168.29.176:8072/'
 		#server: 'http://m.lenglianmajia.com'
 		#server: 'http://192.168.28.90:8072/' #朱舟 
 		
@@ -91,7 +91,9 @@ module.exports = {
 		DRIVER_BID_FOR_GOODS:'/carFindGoods/orderBid.shtml'
 		#获取某货源的竞价列表
 		GET_ORDER_BID_LIST: '/carFindGoods/orderBidList.shtml'
-	
+		
+		#仓库找货(搜索)
+		WAREHOUSE_SEARCH_GOODS: '/warehouseSearchGoods/warehouseSearchGoodsList.shtml'
 
 
 		# 关注列表

@@ -7,6 +7,7 @@
 //
 
 #import "PersonalCarAuthViewController.h"
+#import "Auth.h"
 
 
 @interface PersonalCarAuthViewController ()
@@ -30,6 +31,7 @@
 }
 
 -(void) createUI {
+    
     self.title = @"个人车主认证";
 }
 
@@ -42,6 +44,17 @@
             _imagePikcer.delegate = self;
         }
         [_imagePikcer show:params[1] vc:self];
+    }
+    else if ([params[0] integerValue] == 7)
+    {
+        
+        [Auth auth:params[1] params:params[2] files:params[3] cb:^(NSDictionary *responseDic) {
+            DDLogDebug(@"auth result is %@", responseDic);
+            if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+                [[Global sharedInstance] showSuccess:@"上传成功！"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
     }
 }
 

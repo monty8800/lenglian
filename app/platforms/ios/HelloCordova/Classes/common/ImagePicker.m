@@ -36,7 +36,7 @@
     UIImage *img = [info objectForKey:UIImagePickerControllerEditedImage];
     NSData *data;
     NSString *type;
-    if (UIImagePNGRepresentation(img) == nil) {
+    if (UIImageJPEGRepresentation(img, 0.3) != nil) {
         data = UIImageJPEGRepresentation(img, 0.3);
         type = @".jpg";
     }
@@ -45,7 +45,8 @@
         data = UIImagePNGRepresentation(img);
         type = @".png";
     }
-    NSString *path = [[AUTH_PIC_FOLDER stringByAppendingPathComponent:_name] stringByAppendingString:type];
+    NSString *time = [NSString stringWithFormat:@"%f", [[NSDate new] timeIntervalSince1970]];
+    NSString *path = [[[AUTH_PIC_FOLDER stringByAppendingPathComponent:_name] stringByAppendingString:time] stringByAppendingString:type];
     [data writeToFile:path atomically:YES];
     [self.delegate selectImage:path type:_name];
     [picker dismissViewControllerAnimated:YES completion:nil];

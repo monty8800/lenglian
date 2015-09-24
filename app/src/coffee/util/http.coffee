@@ -3,7 +3,7 @@ Constants = require 'constants/constants'
 DB = require 'util/storage'
 UUID = require 'util/uuid'
 Plugin = require 'util/plugin'
-request = require 'superagent'
+# request = require 'superagent'
 
 postFile = (api, params, files, cb, err)->
 	data = JSON.stringify params
@@ -40,33 +40,37 @@ postFile = (api, params, files, cb, err)->
 	console.log '请求接口:', api
 	console.log '发送参数:', JSON.stringify(paramDic)
 
-	Plugin.loading.show()
-	req = request.post(api)
-	   .type('form')
-	   .query(config.paylod)
-	for file in files
-		req = req.attach file.filed, file.path, file.name if file.path
+	Plugin.run [7, api, paramDic, files]
+	# req = request.post(api)
+	#    .type('form')
+	#    .query(paramDic)
+	# for file in files
+	# 	console.log 'file', file
+	# 	req = req.attach file.filed, file.path, file.name if file.path
 
-	req.end (error, res)->
-		if error
-			Plugin.toast '图片上传失败'
-		else
-			result = null;
-			try
-				result = JSON.parse res.text
-			catch e
-				console.error res.text
-				Plugin.toast.err '出错啦！请稍候重试'
-				return
-			if result.code isnt '0000'
-				return err result if err
-				console.error "错误码: #{result.code}, 错误信息: #{result.msg}"
-				if Constants.inBrowser
-					alert "接口：#{api},错误信息：#{result.msg}"
-				else
-					Plugin.toast.err result.msg
-			else
-				cb result.data
+	# console.log 
+
+	# req.end (error, res)->
+	# 	Plugin.loading.hide()
+	# 	if error
+	# 		Plugin.toast '图片上传失败'
+	# 	else
+	# 		result = null;
+	# 		try
+	# 			result = JSON.parse res.text
+	# 		catch e
+	# 			console.error res.text
+	# 			Plugin.toast.err '出错啦！请稍候重试'
+	# 			return
+	# 		if result.code isnt '0000'
+	# 			return err result if err
+	# 			console.error "错误码: #{result.code}, 错误信息: #{result.msg}"
+	# 			if Constants.inBrowser
+	# 				alert "接口：#{api},错误信息：#{result.msg}"
+	# 			else
+	# 				Plugin.toast.err result.msg
+	# 		else
+	# 			cb result.data
 
 
 post = (api, params, cb, err, showLoading, key, iv)->
