@@ -19,6 +19,14 @@ AuthStatus = React.createClass {
 	_goAuth: (auth)->
 		user = @props.user
 		Auth.needLogin ->
+			switch auth
+				when 'CarAuth'
+					return null if user.carStatus in [1, 2]
+				when 'WarehouseAuth'
+					return null if user.warehouseStatus in [1, 2]
+				when 'GoodsAuth'
+					return null if user.goodsStatus in [1, 2]
+
 			if user.certification is 0
 				Plugin.nav.push ['auth']
 			else if user.certification is 1
@@ -113,6 +121,7 @@ UserCenter = React.createClass {
 		}
 
 	render: ->
+		console.log 'user', @state.user
 		menus = this.state.menus.map (menu)->
 			<Menu items={menu}  />
 

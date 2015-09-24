@@ -32,54 +32,38 @@ Auth = React.createClass {
 		if msg is 'setAuthPic:done'
 			@setState {
 				user: UserStore.getUser()
-				carNum: @state.carNum
-				vinNum: @state.vinNum
 				name: @state.name
 				idNum: @state.idNum
+				mobile: @state.mobile
 			}
 		else if msg is 'auth:done'
 			UserAction.updateUser {
 				name: @state.name
-				carStatus: 2
+				goodsStatus: 2
 				idCardNo: @state.idNum
-				carNo: @state.carNum
-				vinNum: @state.vinNum
+				mobile: @state.mobile
 			}
 
 	_auth: ->
-		if not Validator.carNum @state.carNum
-			Plugin.toast.err '请输入正确的车牌号'
-		else if not Validator.vinNum @state.vinNum
-			Plugin.toast.err '请输入正确的车架号码'
-		else if not Validator.name @state.name
+		if not Validator.name @state.name
 			Plugin.toast.err '请输入正确的姓名'
 		else if not Validator.idCard @state.idNum
 			Plugin.toast.err '请输入正确的身份证号码'
-		else if not @state.user.license
-			Plugin.toast.err '请上传行驶证照片'
+		else if not @state.mobile
+			Plugin.toast.err '请填写电话号码'
 		else if not @state.user.idCard
 			Plugin.toast.err '请上传身份证照片'
 		else
 			UserAction.personalAuth {
-				phone: @state.user.mobile
-				type: Constants.authType.CAR
+				phone: @state.mobile
+				type: Constants.authType.GOODS
 				username: @state.name
 				userId: @state.user.id
 				cardno: @state.idNum
-				carno: @state.carNum
-				frameno: @state.vinNum
 			}, [
 				{
 					filed: 'idcardImg'
 					path: @state.user.idCard
-				}
-				{
-					filed: 'drivingImg'
-					path: @state.user.license
-				}
-				{
-					filed: 'taxiLicenseImg'
-					path: @state.user.operationLicense
 				}
 			]
 
@@ -87,30 +71,17 @@ Auth = React.createClass {
 		user = UserStore.getUser()
 		{
 			user: user
-			carNum: user.carNo or ''
-			vinNum: user.vinNo or ''
 			name: user.name or ''
 			idNum: user.idCardNo or ''
+			mobile: user.mobile or ''
 		}
 	render: ->
 		cells = [
-			{
-				name: '行驶证照片'
-				url: @state.user.license
-				optional: false
-				type: 'license'
-			}
 			{
 				name: '身份证照片'
 				url: @state.user.idCard
 				optional: false
 				type: 'idCard'
-			}
-			{
-				name: '运营证照片'
-				url: @state.user.operationLicense
-				optional: true
-				type: 'operationLicense'
 			}
 		].map (cell, i)->
 			<PicCell key={i} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
@@ -120,40 +91,39 @@ Auth = React.createClass {
 		<div className="m-cert-cons">
 			<ul>
 				<li>
-					<h6 className="xert-h6">车牌号码</h6>
-					<input valueLink={@linkState 'carNum'} className="input-weak" type="text" placeholder="请输入车牌号码" />
-				</li>
-				<li>
-					<h6 className="xert-h6">车架号码</h6>
-					<input valueLink={@linkState 'vinNum'} className="input-weak" type="text" placeholder="请输入车架号码" />
-				</li>
-				<li>
-					<h6 className="xert-h6">车主姓名</h6>
+					<h6 className="xert-h6">真实姓名</h6>
 						{
 							if @state.user.name and @state.user.certification isnt 0
-								<input value=@state.user.name readOnly="readOnly" className="input-weak" type="text" placeholder="请输入车主姓名" />
+								<input  value=@state.user.name readOnly="readonly" className="input-weak" type="text" placeholder="请输入真实姓名"/>
 							else
-								<input valueLink={@linkState 'name'} className="input-weak" type="text" placeholder="请输入车主姓名" />
+								<input  valueLink={@linkState 'name'} className="input-weak" type="text" placeholder="请输入真实姓名"/>
 						}
-					
 				</li>
 				<li>
-					<h6 className="xert-h6 xert-h6-large01">车主身份证号码</h6>
+					<h6 className="xert-h6">身份证号</h6>
 						{
 							if @state.user.idCardNo and @state.user.certification isnt 0
-								<input value=@state.user.idCardNo readOnly="readOnly" className="input-weak" type="text" placeholder="请输入车主姓名" />
+								<input readOnly="readonly" value=@state.user.idCardNo className="input-weak" type="text" placeholder="请输入身份证号"/>
 							else
-								<input valueLink={@linkState 'idNum'} className="input-weak" type="text" placeholder="请输入车主姓名" />
+								<input valueLink={@linkState 'idNum'} className="input-weak" type="text" placeholder="请输入身份证号"/>
 						}
-					
+				</li>
+				<li>
+					<h6 className="xert-h6">手机号码</h6>
+						{
+							if @state.user.mobile
+								<input readOnly="readOnly" value=@state.user.mobile className="input-weak"   maxlength="11" type="tel"/>
+							else
+								<input valueLink={@linkState 'mobile'} className="input-weak"   maxlength="11" type="tel"/>
+						}
 				</li>
 			</ul>
 		</div>
-		<div className="m-file-upload m-file-many">
+		<div className="m-file-upload">
 			{cells}
 		</div>
 		<div className="u-certBtn-con">
-			<a className="u-btn" onClick={@_auth}>提交认证</a>
+			<a onClick={@_auth} className="u-btn">提交认证</a>
 		</div>
 		</section>
 }

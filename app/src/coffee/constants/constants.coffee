@@ -33,9 +33,12 @@ actionType = {
 	GET_BID_ORDER_LIST:null
 
 	PERSONAL_AUTH: null
+	COMPANY_AUTH: null
 	CLEAR_AUTH_PIC: null
 	
 	WAREHOUSE_SEARCH_GOODS:null
+
+	UPDATE_USER: null
 }
 
 
@@ -71,6 +74,8 @@ api = {
 
 	#个人认证
 	PERSONAL_AUTH: '/mjPersonInfoAuthCtl/personInfoAuth.shtml'
+	#公司认证
+	COMPANY_AUTH: '/enterprise/enterpriseAuthentication.shtml'
 
 
 #YYQ
@@ -86,8 +91,6 @@ api = {
 	WAREHOUSE_ADD: '/mjWarehouseCtl/addMjWarehouse.shtml'
 	#我要找库
 	SEARCH_WAREHOUSE: '/searchWarehouseCtl/searchWarehouse.shtml'
-	#个人认证
-	PERSONINFO_AUTH: 'mjPersonInfoAuthCtl/personInfoAuth.shtml'
 	#添加评论
 	COMMENT_ADD: '/mjRate/addMjRate.shtml'
 	# 查询评价

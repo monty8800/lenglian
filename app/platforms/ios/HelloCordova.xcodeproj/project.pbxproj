@@ -7,7 +7,6 @@
 	objects = {
 /* Begin PBXBuildFile section */
 		01D42DAFEB5C4DFFA0D0D827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0597205F9D5541F28FAC3AC4 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		071DD44745444767AAAA973D /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD540853F6B4D3BA9A88258 /* CDVAssetLibraryFilesystem.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
@@ -28,7 +27,6 @@
 		30C1856619D5FC0A00212699 /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30C1856519D5FC0A00212699 /* icon-60@3x.png */; };
 		30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30FC414816E50CA1004E6F35 /* icon-72@2x.png */; };
 		338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9369A918B70F489688A20C61 /* CDVLogger.m */; };
-		451E6A32E5E8458284842A6D /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = D93F0BAAD6DB4E288E124523 /* CDVLocalFilesystem.m */; };
 		4C006DFA1BB02FCC00381462 /* ChangePasswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006DF91BB02FCC00381462 /* ChangePasswdViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E021BB0370600381462 /* ResetPasswdViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C006E061BB037BB00381462 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E051BB037BB00381462 /* LoginViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -52,6 +50,12 @@
 		4C822F791BB15F5F00112533 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C822F781BB15F5F00112533 /* mapapi.bundle */; settings = {ASSET_TAGS = (); }; };
 		4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F7B1BB1755A00112533 /* SelectTab.m */; settings = {ASSET_TAGS = (); }; };
 		4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8392CB1BB286D60000466D /* ImagePicker.m */; settings = {ASSET_TAGS = (); }; };
+		4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020E1BB3FE8B002A0A5C /* BaseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CAB02121BB40002002A0A5C /* PersonalWarehouseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02111BB40002002A0A5C /* PersonalWarehouseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CAB02151BB40093002A0A5C /* CompanyCarAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02141BB40093002A0A5C /* CompanyCarAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CAB02181BB400EF002A0A5C /* CompanyGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02171BB400EF002A0A5C /* CompanyGoodsAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CAB021B1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB021A1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CCA3FC51BB2F4D400F39CE8 /* Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCA3FC41BB2F4D400F39CE8 /* Auth.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99761BAFA563008B4AC6 /* HomeViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD99791BAFA5E7008B4AC6 /* UserCenterViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -78,10 +82,8 @@
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 685FA145C0AA4864A68FAFDD /* CDVNotification.m */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
-		D9727DCD25344A78A1E1CAE9 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F987662DA0E495D9EFE5C33 /* CDVFile.m */; };
 		E858DD5946754C3C80EE0FDA /* XEPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED7BFE7D7AE4F31A95A8065 /* XEPlugin.m */; };
 		F43C04076AF84FAF9B24968C /* XEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 555391413AAD4C94B9C1B273 /* XEViewController.m */; };
-		FD274F802DF6488EA3C108BD /* CDVFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DBB3804CD4A159BE0E041 /* CDVFileTransfer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,14 +106,12 @@
 /* Begin PBXFileReference section */
 		0597205F9D5541F28FAC3AC4 /* AudioToolbox.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0AEF8DFB4D0A4638A71CD645 /* XEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEViewController.h; path = "com.xebest.xe-plugin/XEViewController.h"; sourceTree = "<group>"; };
-		0F987662DA0E495D9EFE5C33 /* CDVFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVFile.m; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* HelloCordova.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloCordova.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21DB33900EE74FD999E25C75 /* XEPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEPlugin.h; path = "com.xebest.xe-plugin/XEPlugin.h"; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		2AD540853F6B4D3BA9A88258 /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVAssetLibraryFilesystem.m; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.m"; sourceTree = "<group>"; };
 		301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
 		301BF56E109A69640062928A /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = SOURCE_ROOT; };
 		305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -170,6 +170,18 @@
 		4C822F7B1BB1755A00112533 /* SelectTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectTab.m; path = map/SelectTab.m; sourceTree = "<group>"; };
 		4C8392CA1BB286D60000466D /* ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePicker.h; path = common/ImagePicker.h; sourceTree = "<group>"; };
 		4C8392CB1BB286D60000466D /* ImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagePicker.m; path = common/ImagePicker.m; sourceTree = "<group>"; };
+		4CAB020A1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalGoodsAuthViewController.h; path = auth/PersonalGoodsAuthViewController.h; sourceTree = "<group>"; };
+		4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalGoodsAuthViewController.m; path = auth/PersonalGoodsAuthViewController.m; sourceTree = "<group>"; };
+		4CAB020D1BB3FE8B002A0A5C /* BaseAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseAuthViewController.h; path = auth/BaseAuthViewController.h; sourceTree = "<group>"; };
+		4CAB020E1BB3FE8B002A0A5C /* BaseAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseAuthViewController.m; path = auth/BaseAuthViewController.m; sourceTree = "<group>"; };
+		4CAB02101BB40002002A0A5C /* PersonalWarehouseAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalWarehouseAuthViewController.h; path = auth/PersonalWarehouseAuthViewController.h; sourceTree = "<group>"; };
+		4CAB02111BB40002002A0A5C /* PersonalWarehouseAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalWarehouseAuthViewController.m; path = auth/PersonalWarehouseAuthViewController.m; sourceTree = "<group>"; };
+		4CAB02131BB40093002A0A5C /* CompanyCarAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyCarAuthViewController.h; path = auth/CompanyCarAuthViewController.h; sourceTree = "<group>"; };
+		4CAB02141BB40093002A0A5C /* CompanyCarAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyCarAuthViewController.m; path = auth/CompanyCarAuthViewController.m; sourceTree = "<group>"; };
+		4CAB02161BB400EF002A0A5C /* CompanyGoodsAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyGoodsAuthViewController.h; path = auth/CompanyGoodsAuthViewController.h; sourceTree = "<group>"; };
+		4CAB02171BB400EF002A0A5C /* CompanyGoodsAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyGoodsAuthViewController.m; path = auth/CompanyGoodsAuthViewController.m; sourceTree = "<group>"; };
+		4CAB02191BB4015F002A0A5C /* CompanyWarehouseAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyWarehouseAuthViewController.h; path = auth/CompanyWarehouseAuthViewController.h; sourceTree = "<group>"; };
+		4CAB021A1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyWarehouseAuthViewController.m; path = auth/CompanyWarehouseAuthViewController.m; sourceTree = "<group>"; };
 		4CCA3FC31BB2F4D400F39CE8 /* Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Auth.h; path = auth/Auth.h; sourceTree = "<group>"; };
 		4CCA3FC41BB2F4D400F39CE8 /* Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Auth.m; path = auth/Auth.m; sourceTree = "<group>"; };
 		4CDD99751BAFA563008B4AC6 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = home/HomeViewController.h; sourceTree = "<group>"; };
@@ -195,7 +207,6 @@
 		5BE2632D1BB3A5E000167D4F /* SearchWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWarehouseViewController.h; sourceTree = "<group>"; };
 		5BE2632E1BB3A5E000167D4F /* SearchWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWarehouseViewController.m; sourceTree = "<group>"; };
 		685FA145C0AA4864A68FAFDD /* CDVNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVNotification.m; path = "cordova-plugin-dialogs/CDVNotification.m"; sourceTree = "<group>"; };
-		698DBB3804CD4A159BE0E041 /* CDVFileTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVFileTransfer.m; path = "cordova-plugin-file-transfer/CDVFileTransfer.m"; sourceTree = "<group>"; };
 		6B0EB7C66DF1B48523C2D80D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7E7966D41810823500FA85AD /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		7E7966D51810823500FA85AD /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40@2x.png"; sourceTree = "<group>"; };
@@ -211,14 +222,9 @@
 		8D1107310486CEB800E47090 /* HelloCordova-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "HelloCordova-Info.plist"; path = "../HelloCordova-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		8ED7BFE7D7AE4F31A95A8065 /* XEPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEPlugin.m; path = "com.xebest.xe-plugin/XEPlugin.m"; sourceTree = "<group>"; };
 		9369A918B70F489688A20C61 /* CDVLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLogger.m; path = "cordova-plugin-console/CDVLogger.m"; sourceTree = "<group>"; };
-		99DB360D790742CDB050DC69 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVLocalFilesystem.h; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; };
 		A7E4DB4F52C7578F94386307 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		AD54F241ADF644708DE106C8 /* CDVFileTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVFileTransfer.h; path = "cordova-plugin-file-transfer/CDVFileTransfer.h"; sourceTree = "<group>"; };
-		B9F3665F3EF540C1AE2E04F4 /* CDVFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVFile.h; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; };
 		BEE1D01D20475664CE86A61D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFA7BCF9060449F18745EDB1 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVAssetLibraryFilesystem.h; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
-		D93F0BAAD6DB4E288E124523 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLocalFilesystem.m; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; };
 		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
@@ -358,14 +364,6 @@
 				555391413AAD4C94B9C1B273 /* XEViewController.m */,
 				21DB33900EE74FD999E25C75 /* XEPlugin.h */,
 				0AEF8DFB4D0A4638A71CD645 /* XEViewController.h */,
-				0F987662DA0E495D9EFE5C33 /* CDVFile.m */,
-				D93F0BAAD6DB4E288E124523 /* CDVLocalFilesystem.m */,
-				2AD540853F6B4D3BA9A88258 /* CDVAssetLibraryFilesystem.m */,
-				B9F3665F3EF540C1AE2E04F4 /* CDVFile.h */,
-				99DB360D790742CDB050DC69 /* CDVLocalFilesystem.h */,
-				CFA7BCF9060449F18745EDB1 /* CDVAssetLibraryFilesystem.h */,
-				698DBB3804CD4A159BE0E041 /* CDVFileTransfer.m */,
-				AD54F241ADF644708DE106C8 /* CDVFileTransfer.h */,
 			);
 			name = Plugins;
 			path = HelloCordova/Plugins;
@@ -541,6 +539,18 @@
 			children = (
 				4CE0AE5A1BB241E00081DE22 /* AuthViewController.h */,
 				4CE0AE5B1BB241E00081DE22 /* AuthViewController.m */,
+				4CAB020D1BB3FE8B002A0A5C /* BaseAuthViewController.h */,
+				4CAB020E1BB3FE8B002A0A5C /* BaseAuthViewController.m */,
+				4CAB020A1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.h */,
+				4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */,
+				4CAB02101BB40002002A0A5C /* PersonalWarehouseAuthViewController.h */,
+				4CAB02111BB40002002A0A5C /* PersonalWarehouseAuthViewController.m */,
+				4CAB02131BB40093002A0A5C /* CompanyCarAuthViewController.h */,
+				4CAB02161BB400EF002A0A5C /* CompanyGoodsAuthViewController.h */,
+				4CAB02171BB400EF002A0A5C /* CompanyGoodsAuthViewController.m */,
+				4CAB02191BB4015F002A0A5C /* CompanyWarehouseAuthViewController.h */,
+				4CAB021A1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m */,
+				4CAB02141BB40093002A0A5C /* CompanyCarAuthViewController.m */,
 				4CE0AE5D1BB243C20081DE22 /* PersonalCarAuthViewController.h */,
 				4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */,
 				4CCA3FC31BB2F4D400F39CE8 /* Auth.h */,
@@ -759,17 +769,23 @@
 				4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */,
 				5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */,
 				4C822F5E1BB1342600112533 /* MessageListViewController.m in Sources */,
+				4CAB02181BB400EF002A0A5C /* CompanyGoodsAuthViewController.m in Sources */,
+				4CAB021B1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
+				4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */,
 				4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */,
 				4C822F6A1BB136C000112533 /* FollowListViewController.m in Sources */,
 				5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */,
 				4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */,
 				4C59DE461B5E519C0063D9CE /* BaseViewController.m in Sources */,
+				4CAB02121BB40002002A0A5C /* PersonalWarehouseAuthViewController.m in Sources */,
 				4C5D3F8E1BB0222E00BBD5A6 /* MoreViewController.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				4C5C87441B74809300609666 /* HelloViewController.m in Sources */,
 				4CE0AE5C1BB241E00081DE22 /* AuthViewController.m in Sources */,
+				4CAB02151BB40093002A0A5C /* CompanyCarAuthViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
+				4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */,
 				4C822F661BB135E500112533 /* AddressListViewController.m in Sources */,
 				4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */,
 				4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */,
