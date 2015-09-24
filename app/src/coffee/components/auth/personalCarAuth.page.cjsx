@@ -41,6 +41,7 @@ Auth = React.createClass {
 			UserAction.updateUser {
 				name: @state.name
 				carStatus: 2
+				certification: 1
 				idCardNo: @state.idNum
 				carNo: @state.carNum
 				vinNum: @state.vinNum

@@ -43,7 +43,7 @@
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
                 [[Global sharedInstance] showSuccess:@"上传成功！"];
                 [self.commandDelegate evalJs:@"(function(){window.authDone()})()"];
-                [self.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
     }

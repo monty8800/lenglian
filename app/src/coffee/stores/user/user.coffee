@@ -185,6 +185,11 @@ personalAuth = (params, files)->
 		console.log 'auth result', data
 		UserStore.emitChange 'auth:done'
 
+companyAuth = (params, files)->
+	Http.postFile Constants.api.COMPANY_AUTH, params, files, (data)->
+		console.log 'auth result', data
+		UserStore.emitChange 'auth:done'
+
 updateUserProps = (properties)->
 	console.log 'set properties to user', properties
 	_user = _user.merge properties
@@ -213,5 +218,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.PERSONAL_AUTH then personalAuth(action.params, action.files)
 		when Constants.actionType.CLEAR_AUTH_PIC then clearAuthPic(action.type)
 		when Constants.actionType.UPDATE_USER then updateUserProps(action.properties)
+		when Constants.actionType.COMPANY_AUTH then companyAuth(action.params, action.files)
 
 module.exports = UserStore
