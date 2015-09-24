@@ -91,7 +91,9 @@ module.exports = {
 		DRIVER_BID_FOR_GOODS:'/carFindGoods/orderBid.shtml'
 		#获取某货源的竞价列表
 		GET_ORDER_BID_LIST: '/carFindGoods/orderBidList.shtml'
-	
+		
+		#仓库找货(搜索)
+		WAREHOUSE_SEARCH_GOODS: '/warehouseSearchGoods/warehouseSearchGoodsList.shtml'
 
 
 		# 关注列表

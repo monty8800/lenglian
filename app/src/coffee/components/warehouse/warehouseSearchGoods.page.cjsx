@@ -1,27 +1,32 @@
 require 'components/common/common'
 require 'index-style'
 require 'majia-style'
+require 'user-center-style'
+
 
 React = require 'react/addons'
 
 headerImg = require 'user-01.jpg'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
+
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 
 Plugin = require 'util/plugin'
 
+
 SearchResultList = React.createClass {
+
 	render: ->
+		console.log "*****____++++" + @props.list.length
 		resultList = @props.list
-		console.log resultList + '++()++'
 		items = resultList.map (aResult,i) ->
-			<div className="m-item01">
+			<div className="m-item01 m-item03">
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
-							<img src={ headerImg }/>
+							<img src={ aResult.userImgUrl }/>
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
@@ -30,78 +35,78 @@ SearchResultList = React.createClass {
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
 						<div className="g-dirver-btn">
-							<a className="u-btn02">选择该仓库</a>
+							<a href="#" className="u-btn03">抢单</a>
 						</div>
 					</div>
 				</div>
 				<div className="g-item">
-					<div className="g-adr-store ll-font">
-						{ 
-							if aResult.provinceName is aResult.cityName
-								aResult.provinceName + aResult.areaName + aResult.street 
+					<div className="g-adr-start ll-font">
+						<p dangerouslySetInnerHTML={{__html: 
+							if aResult.toProvinceName is aResult.toCityName
+								aResult.toProvinceName + aResult.toAreaName + aResult.street 
 							else
-								aResult.provinceName + aResult.cityName + aResult.areaName + aResult.street 
-						}
+								aResult.toProvinceName + aResult.toCityName + aResult.toAreaName + aResult.street 
+						}}/>
 					</div>
 				</div>
 				<div className="g-item g-pad ll-font">
-					价格类型 : 竞价
+					<p dangerouslySetInnerHTML={{__html:"价格类型 : 竞价"}}/> 
 					<span>( 柠静  4999元 )</span>
 				</div>
 				<div className="g-item g-item-des">
-					<p>仓库类型 : <span>{ aResult.wareHouseType }</span></p>
-					<p>库温类型 : <span>{ aResult.cuvinType }</span></p>
-					<p>仓库价格 : <span>{ aResult.price }</span></p>
+					<p>车辆描述 : <span>10米</span><span>高栏</span></p>
 				</div>
 			</div>
 		,this
 		<div>
-			{ items }
+			{items}
 		</div>
 }
 
-SearchWarehouse = React.createClass {
+WarehouseSearchGoods = React.createClass {
 	getInitialState: ->
 		{
 			searchResult:[]
-			showTypeSelect:0
-			showTempreatureSelect:0
+			showGoodsTypeSelect:0
+			showTargetLocationSelect:0
+			showPostTimeSelect:0
 			showInvoiceSelect:0
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
-		WarehouseAction.searchWarehouse('0','10')
+		WarehouseAction.warehouseSearchGoods('0','10')
 
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
 
 	_onChange: ->
-		console.log "#!!!!!!!!!!  " + WarehouseStore.getWarehouseSearchResult()
 		@setState { 
-			searchResult:WarehouseStore.getWarehouseSearchResult()
-			showTypeSelect:0
-			showTempreatureSelect:0
+			searchResult:WarehouseStore.getWarehouseSearchGoodsResult()
+			showGoodsTypeSelect:0
+			showTargetLocationSelect:0
+			showPostTimeSelect:0
 			showInvoiceSelect:0
 		}
 
-	typeChooseCkick: ->
+	goodsTypeCkick: ->
 		newState = Object.create @state
-		if @state.showTypeSelect is 1 then newState.showTypeSelect = 0 else newState.showTypeSelect = 1
-		@setState newState
-		console.log @state.showTypeSelect + "__ \\\\\\\\\\"
-
-	tempreatureSelectCkick: ->
-		newState = Object.create @state
-		if @state.showTempreatureSelect is 1 then newState.showTempreatureSelect = 0 else newState.showTempreatureSelect = 1
+		if @state.showGoodsTypeSelect is 1 then newState.showGoodsTypeSelect = 0 else newState.showGoodsTypeSelect = 1
 		@setState newState
 
-	invoiceSelectCkick:->
+	targetLocationCkick: ->
+		newState = Object.create @state
+		if @state.showTargetLocationSelect is 1 then newState.showTargetLocationSelect = 0 else newState.showTargetLocationSelect = 1
+		@setState newState
+
+	postTimeCkick:->
+		newState = Object.create @state
+		if @state.showPostTimeSelect is 1 then newState.showPostTimeSelect = 0 else newState.showPostTimeSelect = 1
+		@setState newState
+
+	invoiceCkick:->
 		newState = Object.create @state
 		if @state.showInvoiceSelect is 1 then newState.showInvoiceSelect = 0 else newState.showInvoiceSelect = 1
 		@setState newState
-
-	sureButtonClick:->
-		WarehouseAction.getWarehouseList('3','1','10')
 
 
 	render: ->
@@ -109,11 +114,11 @@ SearchWarehouse = React.createClass {
 			<div className="m-nav03">
 				<ul>
 					<li>
-						<div className={ if @state.showTypeSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @typeChooseCkick }>
-							<div dangerouslySetInnerHTML={{__html: "仓库类型"}}/>
+						<div className={ if @state.showGoodsTypeSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @goodsTypeCkick }>
+							<div dangerouslySetInnerHTML={{__html: "货物类型"}}/>
 							<span>全部</span>
 						</div>
-						<div className="g-div02" style={ if @state.showTypeSelect is 1 then {display:'block'} else {display:'none'} }>
+						<div className="g-div02" style={ if @state.showGoodsTypeSelect is 1 then {display:'block'} else {display:'none'} }>
 							<div className="g-div02-item">
 								<label className="u-label">
 									<input className="ll-font" type="checkbox"/>
@@ -143,11 +148,11 @@ SearchWarehouse = React.createClass {
 						</div>
 					</li>
 					<li>
-						<div className={ if @state.showTempreatureSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @tempreatureSelectCkick }>
-							<div dangerouslySetInnerHTML={{__html: "库温类型"}}/>
+						<div className={ if @state.showTargetLocationSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @targetLocationCkick }>
+							<div dangerouslySetInnerHTML={{__html: "需要仓库地"}}/>
 							<span>全部</span>
 						</div>
-						<div className="g-div02" style={ if @state.showTempreatureSelect is 1 then {display:'block'} else {display:'none'} }>
+						<div className="g-div02" style={ if @state.showTargetLocationSelect is 1 then {display:'block'} else {display:'none'} }>
 							<div className="g-div02-item">
 								<label className="u-label">
 									<input className="ll-font" type="checkbox"/>
@@ -177,7 +182,23 @@ SearchWarehouse = React.createClass {
 						</div>
 					</li>
 					<li>
-						<div className={ if @state.showInvoiceSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @invoiceSelectCkick }>
+						<div className={ if @state.showPostTimeSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @postTimeCkick }>
+							<div dangerouslySetInnerHTML={{__html: "发布时间"}}/>
+							<span>全部</span>
+						</div>
+						<div className="g-div02" style={ if @state.showPostTimeSelect is 1 then {display:'block'} else {display:'none'} }>
+							<div className="g-div02-item">
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "不需要"}}/></label>
+								<label className="u-label">
+									<input className="ll-font" type="checkbox"/>
+									<div dangerouslySetInnerHTML={{__html: "需要"}}/></label>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div className={ if @state.showInvoiceSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @invoiceCkick }>
 							<div dangerouslySetInnerHTML={{__html: "需要发票"}}/>
 							<span>全部</span>
 						</div>
@@ -199,20 +220,5 @@ SearchWarehouse = React.createClass {
 		</div>
 }
 
-React.render <SearchWarehouse />, document.getElementById('content')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+React.render <WarehouseSearchGoods />, document.getElementById('content')
 

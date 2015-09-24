@@ -43,6 +43,7 @@
       DRIVER_BIND_ORDER: '/carFindGoods/orderTrade.shtml',
       DRIVER_BID_FOR_GOODS: '/carFindGoods/orderBid.shtml',
       GET_ORDER_BID_LIST: '/carFindGoods/orderBidList.shtml',
+      WAREHOUSE_SEARCH_GOODS: '/warehouseSearchGoods/warehouseSearchGoodsList.shtml',
       attention_list: '/userInfo/queryMjWishlstList.shtml',
       my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml',
       add_car: '/mjCarinfoCtl/addMjCarinfo.shtml',

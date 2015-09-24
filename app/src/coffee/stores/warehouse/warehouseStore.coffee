@@ -14,7 +14,12 @@ _warehouse = new Warehouse
 
 _warehouseList = Immutable.List()
 _warehouseDetail = {}
+
+# 搜索仓库结果
 _warehouseSearchResult = []
+
+# 仓库找货 搜索结果
+_warehouseSearchGoodsResult = []
 
 localUser = DB.get 'user'
 _user = new User localUser
@@ -48,6 +53,13 @@ searchWarehouse = (startNo,pageSize)->
 		_warehouseSearchResult = data	#搜索仓库 返回的data本身就是数组
 		WarehouseStore.emitChange()
 
+warehouseSearchGoods = (startNo,pageSize)->
+	Http.post Constants.api.WAREHOUSE_SEARCH_GOODS,{
+		startNo:startNo
+		pageSize:pageSize
+	},(data)->
+		_warehouseSearchGoodsResult = data.goods
+		WarehouseStore.emitChange()
 
 WarehouseStore = assign BaseStore, {
 	getWarehouseList: ()->
@@ -57,9 +69,9 @@ WarehouseStore = assign BaseStore, {
 	getDetail: ()->
 		_warehouseDetail
 	getWarehouseSearchResult: ()->
-		console.log _warehouseSearchResult + "123456567890----------"
 		_warehouseSearchResult
-
+	getWarehouseSearchGoodsResult: ()->
+		_warehouseSearchGoodsResult
 }
 
 Dispatcher.register (action)->
@@ -67,7 +79,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.GET_WAREHOUSE then getWarehouseList(action.status,action.pageNow,action.pageSize)
 		when Constants.actionType.WAREHOUSE_DETAIL then getDetail(action.warehouseId)
 		when Constants.actionType.SEARCH_WAREHOUSE then searchWarehouse(action.startNo,action.pageSize)
-
+		when Constants.actionType.WAREHOUSE_SEARCH_GOODS then warehouseSearchGoods(action.startNo,action.pageSize)
 
 
 module.exports = WarehouseStore

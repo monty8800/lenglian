@@ -67,13 +67,13 @@
       req = req.attach(file.filed, file.path, file.name);
     }
     return req.end(function(err, res) {
-      var e, j, result;
+      var e, error, j, result;
       should.ifError(err);
       result = null;
       try {
         result = JSON.parse(res.text);
-      } catch (_error) {
-        e = _error;
+      } catch (error) {
+        e = error;
         console.error(res.text);
         j = new should.Assertion(res.text);
         j.params = {
