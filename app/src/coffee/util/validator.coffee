@@ -2,7 +2,10 @@ mobile = (input)->
 	return /^1(3|4|5|6|7|8)\d{9}$/.test input
 
 passwd = (input)->
-	return /^.{6,20}$/.test input
+	return /^[\da-zA-Z]{6}$/.test input
+
+payPasswd = (input)->
+	return /^[\da-zA-Z]{6,20}$/.test input
 
 smsCode = (input)->
 	return /^.{4,8}$/.test input
@@ -14,22 +17,34 @@ carNum = (input)->
 	return /^[\u4E00-\u9FA5][\da-zA-Z]{6}$/.test input
 
 vinNum = (input)->
-	return /^\S{17}$/.test input
+	return /^\S{1,20}$/.test input
 
 name = (input)->
-	return /^[\u4E00-\u9FA5]+$/.test input
+	return /^[\u4E00-\u9FA5]{2,30}$/.test input
 
 company = (input)->
-	return /^\S+$/.test input
+	return /^\S{1,50}$/.test input
 
+businessLicenseNo = (input)->
+	return /^[\da-zA-Z]{15}$/.test input
+
+organizingCode = (input)->
+	return /^[\dA-Z]{9}$/.test input
+
+transLicenseNo = (input)->
+	return /^\S{1,30}$/.test input
 
 module.exports = {
-	mobile: mobile
-	passwd: passwd
-	smsCode: smsCode
-	idCard: idCard
-	vinNum: vinNum
-	name: name
-	company: company
-	carNum: carNum
+	mobile: mobile #手机号
+	passwd: passwd #登录注册密码
+	smsCode: smsCode #短信验证码
+	idCard: idCard #身份证号码
+	vinNum: vinNum #车架号
+	name: name #真实姓名
+	company: company #公司名
+	carNum: carNum #车牌号
+	payPasswd: payPasswd #支付密码
+	businessLicenseNo: businessLicenseNo #营业执照
+	organizingCode: organizingCode #组织机构代码
+	transLicenseNo: transLicenseNo #道路运输许可证
 }

@@ -74,6 +74,18 @@ UserAction = {
 			actionType: Constants.actionType.CLEAR_AUTH_PIC
 			type: type
 		}
+
+	updateUser: (properties)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.UPDATE_USER
+			properties: properties
+		}
+	companyAuth: (params, files)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.COMPANY_AUTH
+			params: params
+			files: files
+		}
 }
 
 module.exports = UserAction

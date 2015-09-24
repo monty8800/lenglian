@@ -24,16 +24,16 @@ Home = React.createClass {
 
 	render: ->
 		nrequest = [
-			{title: '我要找车', page: 'foundCar'},
-			{title: '我要找仓库', page: 'foundCar'},
-			{title: '司机找货', page: 'foundCar'},
-			{title: '仓库找货', page: 'foundCar'}
+			{title: '我要找车', page: 'searchCar'},
+			{title: '我要找仓库', page: 'searchWarehouse'},
+			{title: '司机找货', page: 'dirverSearchWarehouse'},
+			{title: '仓库找货', page: 'warehouseSearchGoods'}
 		]
 		# requests = ['我要找车', '我要找仓库', '司机找货', '仓库找货']
 		nposts = [
-			{title: '发布车源', page: 'addCar'},
-			{title: '发布货源', page: 'addCar'},
-			{title: '发布库源', page: 'addCar'}
+			{title: '发布车源', page: 'releaseCar'},
+			{title: '发布货源', page: 'releaseGoods'},
+			{title: '发布库源', page: 'releaseWarehouse'}
 		]
 		# posts = ['发布车源', '发布货源', '发布库源']
 		console.log 'nrequest ----- ', nrequest

@@ -1,25 +1,23 @@
 //
-//  PersonalCarAuthViewController.m
+//  PersonalGoodsAuthViewController.m
 //  HelloCordova
 //
-//  Created by ywen on 15/9/23.
+//  Created by ywen on 15/9/24.
 //
 //
 
-#import "PersonalCarAuthViewController.h"
-#import "Auth.h"
+#import "PersonalGoodsAuthViewController.h"
 
-
-@interface PersonalCarAuthViewController ()
+@interface PersonalGoodsAuthViewController ()
 
 @end
 
-@implementation PersonalCarAuthViewController
+@implementation PersonalGoodsAuthViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"personalCarAuth.html";
+        self.startPage = @"personalGoodsAuth.html";
     }
     return self;
 }
@@ -27,19 +25,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     [self createUI];
 }
 
 -(void) createUI {
-    
-    self.title = @"个人车主认证";
+    self.title = @"个人货主认证";
 }
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

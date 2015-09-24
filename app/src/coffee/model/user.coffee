@@ -29,5 +29,17 @@ User = Immutable.Record {
 	operationLicense: null #运营证图片地址
 	businessLicense: null #营业执照图片地址
 	companyPic: null #门头照片地址
+
+	transLicensePic: null #道路运输许可证图片地址
+
+	#认证相关字段，本地缓存用，再次认证带过去
+	idCardNo: null #身份证号码
+	carNo: null #车牌号
+	vinNo: null #车架号
+
+	businessLicenseNo: null #营业执照号码
+	transLicenseNo: null #道路运输许可证号码
+	organizingCode: null #组织机构代码
+
 }
 module.exports = User

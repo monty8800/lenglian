@@ -20,6 +20,7 @@ window.updateUser = ->
 	console.log 'update user in user storage'
 	localUser = DB.get 'user'
 	_user = new User localUser
+
 	console.log 'user------', _user
 	UserStore.emitChange()
 
@@ -28,6 +29,9 @@ window.setAuthPic = (picUrl, type)->
 	_user = _user.set type, picUrl
 	DB.put 'user', _user.toJS()
 	UserStore.emitChange 'setAuthPic:done'
+
+window.authDone = ->
+	UserStore.emitChange 'auth:done'
 
 clearAuthPic = (type)->
 	console.log 'clear auth pic ', type
@@ -40,7 +44,7 @@ _menus = Immutable.fromJS [
 		{cls: 'u-icon-message', title: '我的消息', url: 'messageList'},
 		{cls: 'u-icon-goods', title: '我的货源', url: 'home'},
 		{cls: 'u-icon-car', title: '我的车辆', url: 'myCar'},
-		{cls: 'u-icon-store', title: '我的仓库', url: 'home'}
+		{cls: 'u-icon-store', title: '我的仓库', url: 'myWarehouse'}
 	],
 	[
 		{cls: 'u-icon-money', title: '我的钱包', url: 'wallet'},
@@ -98,6 +102,8 @@ register = (mobile, code, passwd)->
 		mobileCode: code
 		password: passwd
 	}, (data)->
+		_user = _user.set 'id', data.userId
+		DB.put 'user', _user.toJS()
 		UserStore.emitChange 'register:done'
 
 login = (mobile, passwd)->
@@ -182,6 +188,12 @@ personalAuth = (params, files)->
 		console.log 'auth result', data
 		UserStore.emitChange 'auth:done'
 
+updateUserProps = (properties)->
+	console.log 'set properties to user', properties
+	_user = _user.merge properties
+	DB.put 'user', _user.toJS()
+	Plugin.run [9, 'user:update']
+
 UserStore = assign BaseStore, {
 	getUser: ->
 		_user
@@ -203,5 +215,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.LOGOUT then logout()
 		when Constants.actionType.PERSONAL_AUTH then personalAuth(action.params, action.files)
 		when Constants.actionType.CLEAR_AUTH_PIC then clearAuthPic(action.type)
+		when Constants.actionType.UPDATE_USER then updateUserProps(action.properties)
 
 module.exports = UserStore

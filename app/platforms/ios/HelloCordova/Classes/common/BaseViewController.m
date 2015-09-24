@@ -12,6 +12,11 @@
 #import "ResetPasswdViewController.h"
 #import "AuthViewController.h"
 #import "PersonalCarAuthViewController.h"
+#import "PersonalGoodsAuthViewController.h"
+#import "PersonalWarehouseAuthViewController.h"
+#import "CompanyCarAuthViewController.h"
+#import "CompanyGoodsAuthViewController.h"
+#import "CompanyWarehouseAuthViewController.h"
 
 
 @interface BaseViewController ()
@@ -113,7 +118,9 @@
     NSString *version = [Global sharedInstance].version;
     NSAssert(uuid, @"没有uuid！");
     NSAssert(version, @"没有版本号!");
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"(function(){window.uuid='%@'; window.version='%@'; window.client_type='%@'})()", uuid, version, CLIENT_TYPE]];
+    NSString *jsString = [NSString stringWithFormat:@"(function(){window.uuid='%@'; window.version='%@'; window.client_type='%@'})()", uuid, version, CLIENT_TYPE];
+
+    [webView stringByEvaluatingJavaScriptFromString:jsString];
     
 }
 
@@ -168,8 +175,30 @@
         }
         else if ([params[1] isEqualToString:@"personalWarehouseAuth"])
         {
-            
+            PersonalWarehouseAuthViewController *pWarehouseVC = [PersonalWarehouseAuthViewController new];
+            [self.navigationController pushViewController:pWarehouseVC animated:YES];
         }
+        else if ([params[1] isEqualToString:@"personalGoodsAuth"])
+        {
+            PersonalGoodsAuthViewController *pGoodsVC = [PersonalGoodsAuthViewController new];
+            [self.navigationController pushViewController:pGoodsVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"companyCarAuth"])
+        {
+            CompanyCarAuthViewController *cCarAuth = [CompanyCarAuthViewController new];
+            [self.navigationController pushViewController:cCarAuth animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"companyGoodsAuth"])
+        {
+            CompanyGoodsAuthViewController *cGoodsAuth = [CompanyGoodsAuthViewController new];
+            [self.navigationController pushViewController:cGoodsAuth animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"companyWarehouseAuth"])
+        {
+            CompanyWarehouseAuthViewController *cWarehouseVC = [CompanyWarehouseAuthViewController new];
+            [self.navigationController pushViewController:cWarehouseVC animated:YES];
+        }
+    
     }
     
 }

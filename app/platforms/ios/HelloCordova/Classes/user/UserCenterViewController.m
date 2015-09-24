@@ -13,6 +13,7 @@
 #import "CarListViewController.h"
 #import "AddressListViewController.h"
 #import "FollowListViewController.h"
+#import "MyWarehouseViewController.h"
 
 @interface UserCenterViewController ()
 
@@ -84,10 +85,13 @@
             FollowListViewController *followVC = [FollowListViewController new];
             [self.navigationController pushViewController:followVC animated:YES];
         }
-        else if ([params[1] isEqualToString:@"my_warehouse"])
+        else if ([params[1] isEqualToString:@"myWarehouse"])
         {
-            WalletViewController *walletVC = [WalletViewController new];
-            [self.navigationController pushViewController:walletVC animated:YES];
+            MyWarehouseViewController *myWarehouse = [MyWarehouseViewController new];
+            [self.navigationController pushViewController:myWarehouse animated:YES];
+            
+//            WalletViewController *walletVC = [WalletViewController new];
+//            [self.navigationController pushViewController:walletVC animated:YES];
         }
     }
 }
