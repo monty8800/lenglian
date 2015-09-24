@@ -49,10 +49,10 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
 
     @Override
     public void onResume() {
-        super.onResume();
         // 统计页面
         MobclickAgent.onPageStart("个人中心");
         mWebView.getWebView().loadUrl("javascript:updateUser()");
+        super.onResume();
     }
 
     @Override
@@ -87,8 +87,8 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                     MoreActivity.actionView(getActivity());
                 } else if (flag.equalsIgnoreCase("login")) {
                     LoginActivity.actionView(getActivity());
-                } else if (args.toString().contains("wallet")) {
-                    WalletActivity.actionView(getActivity());
+                } else if (args.toString().contains("auth")) {
+                    AuthActivity.actionView(getActivity());
                 }
             }
         });

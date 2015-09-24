@@ -10,7 +10,7 @@
   describe('测试注册', function() {
     return it('注册', function(done) {
       var mobile;
-      mobile = '18513468468';
+      mobile = '13888888831';
       return request.post(config.api.SMS_CODE, {
         mobile: mobile,
         type: 1

@@ -13,6 +13,9 @@ Plugin = require 'util/plugin'
 localUser = DB.get 'user'
 _user = new User localUser
 
+window.temp = ->
+	alert 'adfafasd'
+
 window.updateUser = ->
 	console.log 'update user in user storage'
 	localUser = DB.get 'user'

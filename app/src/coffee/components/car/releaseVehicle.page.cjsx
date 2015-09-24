@@ -3,8 +3,16 @@ require 'index-style'
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+Plugin = require 'util/plugin'
 
 Vehicle = React.createClass {
+
+	_submit: ->
+		Plugin.nav.push ['pic']
+
+	_temp: ->
+		Plugin.nav.push ['temp']		
+
 	render: ->
 		<div>
 			<div className="m-releasehead ll-font">
@@ -44,13 +52,13 @@ Vehicle = React.createClass {
 			</div>
 			<div className="m-releaseitem">
 				<div className="u-voice ll-font">
-					<label for="remark"><span>备注说明</span> </label>
+					<label for="remark"><span onClick={@_temp}>备注说明</span> </label>
 					<input type="text" placeholder="选填" id="remark"/>
 				</div>
 			</div>		
 			<div className="u-pay-btn">
 				<div className="u-pay-btn">
-					<a href="#" className="btn">发布</a>
+					<a href="#" className="btn" onClick={@_submit}>发布</a>
 				</div>
 			</div>
 		</div>

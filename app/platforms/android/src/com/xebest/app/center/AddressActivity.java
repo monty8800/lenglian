@@ -65,6 +65,7 @@ public class AddressActivity extends BaseCordovaActivity implements CordovaInter
         // 统计时长
         MobclickAgent.onResume(this);
         mWebView.init(this, ApiUtils.API_COMMON_URL + "addressList.html", this, this, this, this);
+
         super.onResume();
     }
 
