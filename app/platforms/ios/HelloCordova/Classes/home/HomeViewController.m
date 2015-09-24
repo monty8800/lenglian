@@ -7,7 +7,8 @@
 //
 
 #import "HomeViewController.h"
-
+#import "SearchWarehouseViewController.h"
+#import "WarehouseSearchGoodsViewController.h"
 @interface HomeViewController ()
 
 @end
@@ -31,8 +32,48 @@
 
 -(void) createUI {
     self.title = @"首页";
-    self.navigationController.navigationBarHidden = YES;
     self.webView.frame = CGRectMake(0, -20, SCREEN_WIDTH, SCREEN_HEIGHT);
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
+-(void)commonCommand:(NSArray *)params{
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"searchCar"]) {
+            NSLog(@"找车");
+        }
+        else if ([params[1] isEqualToString:@"searchWarehouse"])
+        {
+            NSLog(@"找库");
+            SearchWarehouseViewController *searchWarehouse = [SearchWarehouseViewController new];
+            [self.navigationController pushViewController:searchWarehouse animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"dirverSearchWarehouse"])
+        {
+            NSLog(@"司机找库");
+        }
+        else if ([params[1] isEqualToString:@"warehouseSearchGoods"])
+        {
+            NSLog(@"仓库找货");
+            WarehouseSearchGoodsViewController *wSG = [WarehouseSearchGoodsViewController new];
+            [self.navigationController pushViewController:wSG animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"releaseCar"])
+        {
+            NSLog(@"发布车源");
+        }
+        else if ([params[1] isEqualToString:@"releaseGoods"])
+        {
+            NSLog(@"发布货源");
+        }
+        else if ([params[1] isEqualToString:@"releaseWarehouse"])
+        {
+            NSLog(@"发布库源");
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

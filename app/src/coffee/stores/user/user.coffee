@@ -31,7 +31,7 @@ _menus = Immutable.fromJS [
 		{cls: 'u-icon-message', title: '我的消息', url: 'messageList'},
 		{cls: 'u-icon-goods', title: '我的货源', url: 'home'},
 		{cls: 'u-icon-car', title: '我的车辆', url: 'myCar'},
-		{cls: 'u-icon-store', title: '我的仓库', url: 'home'}
+		{cls: 'u-icon-store', title: '我的仓库', url: 'myWarehouse'}
 	],
 	[
 		{cls: 'u-icon-money', title: '我的钱包', url: 'wallet'},

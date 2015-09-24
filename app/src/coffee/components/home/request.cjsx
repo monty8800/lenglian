@@ -3,6 +3,7 @@ Plugin = require 'util/plugin'
 
 Request = React.createClass {
 	_goPage: (page)->
+		console.log 'home push ' + page
 		Plugin.nav.push [page]
 
 	render: ->

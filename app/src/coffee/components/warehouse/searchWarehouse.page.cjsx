@@ -70,6 +70,7 @@ SearchWarehouse = React.createClass {
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
+		alert window.uuid
 		WarehouseAction.searchWarehouse('0','10')
 
 	componentWillUnmount: ->

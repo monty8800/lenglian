@@ -113,7 +113,9 @@
     NSString *version = [Global sharedInstance].version;
     NSAssert(uuid, @"没有uuid！");
     NSAssert(version, @"没有版本号!");
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"(function(){window.uuid='%@'; window.version='%@'; window.client_type='%@'})()", uuid, version, CLIENT_TYPE]];
+    NSString *jsString = [NSString stringWithFormat:@"(function(){window.uuid='%@'; window.version='%@'; window.client_type='%@'})()", uuid, version, CLIENT_TYPE];
+
+    [webView stringByEvaluatingJavaScriptFromString:jsString];
     
 }
 

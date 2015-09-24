@@ -75,6 +75,7 @@ WarehouseList = React.createClass {
 			showType:'1'
 		}
 	componentDidMount: ->
+		alert window.uuid
 		WarehouseStore.addChangeListener @_onChange
 		WarehouseAction.getWarehouseList(@state.showType,'1','10')
 
