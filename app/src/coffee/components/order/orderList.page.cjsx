@@ -80,7 +80,7 @@ OrderDoc = React.createClass {
 					<li onClick={@status_04}>
 						<span className={ if @state.type is '4' then "active" else ""}>待评价</span>
 					</li>
-				</ul>
+				</ul> 
 				{
 					switch @state.orderType
 						when 'car'

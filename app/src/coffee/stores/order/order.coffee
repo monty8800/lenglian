@@ -15,7 +15,7 @@ _user = UserStore.getUser()
 _orderList = Immutable.List()
 _orderDetail = new CarModel
 
-# 0 货主订单  1 司机订单  2 仓库订单
+# 0 货主订单  1 司机订单  2 仓库订单   
 _page = -1
 
 window.temp = (page)->
