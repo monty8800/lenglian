@@ -4,12 +4,12 @@ Address = Immutable.Record {
 	id: null # 地址id
 	userId: null # 用户id
 	street: null # 详细地址
-	provinceId: 0 # 
-	cityId: 0
-	areaId: 0
-	provinceName: null
-	cityName: null
-	areaName: null
+	provinceId: null # 省id
+	cityId: null #城市id
+	areaId: null #区id
+	provinceName: null #省
+	cityName: null #市
+	areaName: null #区
 	
 }
 module.exports = Address

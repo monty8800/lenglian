@@ -18,6 +18,9 @@ Helper = require 'util/helper'
 AuthStatus = React.createClass {
 	_goAuth: (auth)->
 		user = @props.user
+		if user.carStatus is 2 or user.goodsStatus is 2 or user.warehouseStatus is 2
+			Plugin.toast.show '有认证正在审核中，无法继续认证!'
+			return
 		Auth.needLogin ->
 			switch auth
 				when 'CarAuth'

@@ -39,11 +39,16 @@ actionType = {
 	WAREHOUSE_SEARCH_GOODS:null
 
 	UPDATE_USER: null
+
 	CARORDERLIST: null
 	CARORDER_DETAIL: null
 
 	ORDER_LIST: null
 	ORDER_DETAIL: null
+
+	CITY_LIST: null
+	SELECT_ADDRESS: null
+	CHANGE_SELECTOR: null
 }
 
 
@@ -81,6 +86,9 @@ api = {
 	PERSONAL_AUTH: '/mjPersonInfoAuthCtl/personInfoAuth.shtml'
 	#公司认证
 	COMPANY_AUTH: '/enterprise/enterpriseAuthentication.shtml'
+
+	#城市列表
+	CITY_LIST: '/dictionaryCtl/provinceList.shtml'
 
 
 #YYQ
@@ -159,6 +167,7 @@ authType = {
 	WAREHOUSE: 3 #仓库
 }
 
+
 orderStatus = {
 	st_01: '1' # 洽谈中
 	st_02: '2' # 待付款
@@ -166,6 +175,9 @@ orderStatus = {
 	st_04: '4' # 待评价
 	st_05: '5' # 已取消
 	PAGESIZE: 10 # 每页记录数
+
+cache = {
+	CITY_LIST: 7 * 24 * 60 * 60 * 1000
 }
 
 module.exports = 
@@ -177,3 +189,4 @@ module.exports =
 	smsGapTime: 60
 	authType: authType
 	orderStatus: orderStatus
+	cache: cache

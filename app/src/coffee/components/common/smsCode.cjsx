@@ -47,6 +47,8 @@ SmsCode = React.createClass {
 				time: Constants.smsGapTime
 			}
 			@setInterval @_countDown, 1000
+		else if msg is 'register:done'
+			@clearInterval()
 
 
 	getInitialState: ->

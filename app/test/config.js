@@ -10,7 +10,11 @@
       data: {}
     },
     api: {
+<<<<<<< Updated upstream
       server: 'http://192.168.29.190:8072/',
+=======
+      server: 'http://192.168.26.177:7080/llmj-app/',
+>>>>>>> Stashed changes
       LOGIN: '/loginCtl/userLogin.shtml',
       REGISTER: '/register/registerUser.shtml',
       SMS_CODE: '/register/sendMobileMsg.shtml',

@@ -15,6 +15,8 @@ Plugin = require 'util/plugin'
 Validator = require 'util/validator'
 Constants = require 'constants/constants'
 
+DB = require 'util/storage'
+
 
 
 Login = React.createClass {
@@ -30,6 +32,7 @@ Login = React.createClass {
 		Plugin.nav.pop() if msg is 'login:done'
 
 	_goPage: (page)->
+		DB.remove 'transData'
 		Plugin.nav.push [page]
 
 	_login: ->

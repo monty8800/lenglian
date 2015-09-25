@@ -32,9 +32,9 @@ window.authDone = ->
 
 clearAuthPic = (type)->
 	console.log 'clear auth pic ', type
-	_user = _user.set type null
+	_user = _user.set type, null
 	DB.put 'user', _user.toJS()
-	UserStore.emitChange 'setAuthPic: done'
+	UserStore.emitChange 'setAuthPic:done'
 
 _menus = Immutable.fromJS [
 	[
