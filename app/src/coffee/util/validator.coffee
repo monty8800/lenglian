@@ -34,6 +34,12 @@ organizingCode = (input)->
 transLicenseNo = (input)->
 	return /^\S{1,30}$/.test input
 
+tel = (input)->
+	return /^[\d\-]{6,11}$/.test input
+
+street = (input)->
+	return /^\S{1,20}$/.test input
+
 module.exports = {
 	mobile: mobile #手机号
 	passwd: passwd #登录注册密码
@@ -47,4 +53,6 @@ module.exports = {
 	businessLicenseNo: businessLicenseNo #营业执照
 	organizingCode: organizingCode #组织机构代码
 	transLicenseNo: transLicenseNo #道路运输许可证
+	tel: tel #固定电话
+	street: street #详细地址
 }

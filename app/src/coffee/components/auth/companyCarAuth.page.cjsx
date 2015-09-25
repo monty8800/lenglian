@@ -42,6 +42,7 @@ Auth = React.createClass {
 			UserAction.updateUser {
 				company: @state.companyName
 				carStatus: 2
+				certification: 2
 				name: @state.managerName
 				businessLicenseNo: @state.businessLicenseNo
 				organizingCode: @state.organizingCode
@@ -59,7 +60,7 @@ Auth = React.createClass {
 			Plugin.toast.err '请输入正确的组织资格代码'
 		else if not Validator.transLicenseNo @state.transLicenseNo
 			Plugin.toast.err '请输入正确的道路运输许可证'
-		else if not @state.user.businessLicenseImg
+		else if not @state.user.businessLicense
 			Plugin.toast.err '请上传营业执照照片'
 		else if not @state.user.transLicensePic
 			Plugin.toast.err '请上传道路运输许可证照片'
@@ -132,7 +133,7 @@ Auth = React.createClass {
 							if @state.user.company and @state.user.certification isnt 0
 								<input value=@state.user.company readOnly="readOnly" className="input-weak" type="text" placeholder="请输入公司名称" />
 							else
-								<input valueLink={@linkState 'carNum'} className="input-weak" type="text" placeholder="请输入公司名称" />
+								<input valueLink={@linkState 'companyName'} className="input-weak" type="text" placeholder="请输入公司名称" />
 						}
 					
 				</li>

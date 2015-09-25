@@ -41,5 +41,10 @@ User = Immutable.Record {
 	transLicenseNo: null #道路运输许可证号码
 	organizingCode: null #组织机构代码
 
+	address: null #公司地址
+	street: null #公司详细地址
+	tel: null #公司电话
+	
+
 }
 module.exports = User
