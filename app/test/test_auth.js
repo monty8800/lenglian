@@ -13,7 +13,7 @@
       params = {
         phone: "13100000010",
         type: "1",
-        username: "王永🐔",
+        username: "王永",
         userId: "50819ab3c0954f828d0851da576cbc31",
         cardno: "12342342344234",
         carno: "1243x",

@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -20,11 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
+import com.xebest.app.MainActivity;
 import com.xebest.app.R;
 import com.xebest.app.application.ApiUtils;
 import com.xebest.app.application.Application;
 import com.xebest.app.common.BaseCordovaActivity;
 import com.xebest.app.utils.Tools;
+import com.xebest.app.utils.UploadFile;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -32,13 +35,16 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 个人车辆认证
@@ -67,6 +73,8 @@ public class CarAuthActivity extends BaseCordovaActivity implements CordovaInter
 
     private String resource = "";
 
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -79,7 +87,7 @@ public class CarAuthActivity extends BaseCordovaActivity implements CordovaInter
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cwebview);
-
+        isOnCreate = true;
         initView();
     }
 
@@ -96,10 +104,15 @@ public class CarAuthActivity extends BaseCordovaActivity implements CordovaInter
         });
     }
 
+    String url;
+    Map<String, Object> content;
+    Map<String, File> driving;
+    Map<String, File> idCard;
+    Map<String, File> operate;
+
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_SHORT).show();
         if (args.toString().contains("license")) {
             resource = "license";
             // 行驶证照片
@@ -112,6 +125,98 @@ public class CarAuthActivity extends BaseCordovaActivity implements CordovaInter
             resource = "operationLicense";
             // 运营证照片(非必填)
             showWindow();
+        } else if (args.toString().contains("7")) {
+            // [7,"http:\/\/192.168.29.176:8072\/\/mjPersonInfoAuthCtl\/personInfoAuth.shtml",
+            // {"data":"{\"phone\":\"18513468467\",\"type\":2,\"username\":\"骨灰盒\",\"userId\":\"50819ab3c0954f828d0851da576cbc31\",\"cardno\":\"340621188807124021\",\"carno\":\"京j12345\",\"frameno\":\"11111111111111111\"}",
+            // "client_type":"2","version":"10","uuid":"4ab872a3-143d-4ace-b6cc-9f8f11e599cb"},
+            // [{"path":"\/storage\/emulated\/0\/IMG_20150903_140507.jpg","filed":"idcardImg"},
+            // {"path":"\/storage\/emulated\/0\/IMG_20150904_110451.jpg","filed":"drivingImg"},
+            // {"path":"\/storage\/emulated\/0\/IMG_20150903_190520.jpg","filed":"taxiLicenseImg"}]]
+            Log.i("info", "----------------source:" + args.toString());
+            url = args.getString(1);
+            Log.i("info", "--------------url:" + url);
+            JSONObject data = args.getJSONObject(2);
+            final JSONArray files = args.getJSONArray(3);
+            final String ttData = data.getString("data");
+            JSONObject ttObj = new JSONObject(ttData);
+            final String client_type = data.getString("client_type");
+            final String version = data.getString("version");
+            final String uuid = data.getString("uuid");
+            Log.i("info", "--------------client_type:" + client_type);
+            Log.i("info", "--------------uuid:" + uuid);
+            Log.i("info", "--------------version:" + version);
+            JSONObject jb = files.getJSONObject(0);
+            Log.i("info", "--------------files:" + jb);
+
+            String a = jb.getString("filed");
+            Log.i("info", "--------------filed:" + a);
+
+            content = new HashMap<String, Object>();
+            content.put("client_type", client_type);
+            content.put("uuid", uuid);
+            content.put("version", version);
+            content.put("data", ttData);
+
+            driving = new HashMap<String, File>();
+            idCard = new HashMap<String, File>();
+            operate = new HashMap<String, File>();
+
+            driving.put("drivingImg", new File(files.getJSONObject(0).getString("path")));
+            idCard.put("idcardImg", new File(files.getJSONObject(1).getString("path")));
+            operate.put("taxiLicenseImg", new File(files.getJSONObject(2).getString("path")));
+
+
+            Log.i("info", "--------------content:" + content);
+            Log.i("info", "--------------content:");
+
+            new RequestTask().execute();
+
+        }
+    }
+
+    boolean success = false;
+    public class RequestTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Tools.createLoadingDialog(CarAuthActivity.this, "认证中...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                String result = UploadFile.post(url, content, driving, idCard, operate );
+                JSONObject jsonObject = new JSONObject(result);
+                Log.i("info", "----------------result" + result);
+                if (jsonObject.getString("code").equals("0000")) {
+                    // 认证成功
+                    success = true;
+                } else {
+                    // 认证失败
+                    success = false;
+                }
+            } catch(Exception e) {
+                e.printStackTrace();
+                success = false;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Tools.dismissLoading();
+            if (success) {
+                // TODO 调用js方法更新User
+                mWebView.getWebView().loadUrl("javascript:authDone()");
+                Tools.showSuccessToast(CarAuthActivity.this, "认证成功!");
+                finish();
+                MainActivity.actionView(CarAuthActivity.this, 3);
+            } else {
+                Tools.showErrorToast(CarAuthActivity.this, "认证失败!");
+            }
         }
     }
 
@@ -121,7 +226,10 @@ public class CarAuthActivity extends BaseCordovaActivity implements CordovaInter
         MobclickAgent.onPageStart("个人车辆认证");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "personalCarAuth.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "personalCarAuth.html", this, this, this, this);
+        }
+        isOnCreate = false;
         super.onResume();
     }
 
@@ -232,7 +340,7 @@ public class CarAuthActivity extends BaseCordovaActivity implements CordovaInter
                     }
 
                     // 通知js更新图片内容
-                    mWebView.getWebView().loadUrl("javascript:setAuthPic('"+ pat +"', '"+ resource +"')");
+                    mWebView.getWebView().loadUrl("javascript:(function(){setAuthPic('"+ pat +"', '"+ resource +"')})()");
                     Log.i("info", "-----------resource:" + resource);
                     Log.i("info", "-----------img:" + pat);
 
@@ -280,7 +388,9 @@ public class CarAuthActivity extends BaseCordovaActivity implements CordovaInter
                         }
 
                         // 通知js更新图片内容
-                        mWebView.getWebView().loadUrl("javascript:setAuthPic('"+ temp +"', '"+ resource +"')");
+                        mWebView.getWebView().loadUrl("javascript:setAuthPic('" + temp + "', '" + resource + "', '" + System.currentTimeMillis() + "')");
+//                        mWebView.getWebView().loadUrl("javascript:setAuthPic('"+ temp + "', '"+ resource + "')");
+//                        mWebView.getWebView().loadUrl("javascript:(function(){setAuthPic('"+ temp +"', '"+ resource +"')})()");
                         Log.i("info", "-----------resource:" + resource);
                         Log.i("info", "-----------temp:" + temp);
 

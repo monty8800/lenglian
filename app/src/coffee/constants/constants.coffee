@@ -39,6 +39,11 @@ actionType = {
 	WAREHOUSE_SEARCH_GOODS:null
 
 	UPDATE_USER: null
+	CARORDERLIST: null
+	CARORDER_DETAIL: null
+
+	ORDER_LIST: null
+	ORDER_DETAIL: null
 }
 
 
@@ -46,8 +51,8 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	# server: 'http://192.168.26.177:7080/llmj-app/'
-	server: 'http://192.168.29.176:8072/'
+	server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.29.176:8072/'
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
@@ -127,7 +132,18 @@ api = {
 	del_address: '/userInfo/deleteMjUserAddress.shtml'
 	# 我的消息
 	message_list: '/mjMymessageCtl/queryMymessage.shtml'
-
+	# 车主订单列表
+	carowner_order_list: '/ownerOrderCtl/ownerOrderlst.shtml'
+	# 车主订单详情
+	carowner_order_detail: '/ownerOrderCtl/ownerOrderDetail.shtml'
+	# 货主订单列表
+	goods_order_list: '/orderGoods/list.shtml'
+	# 货主订单详情
+	goods_order_detail: '/orderGoods/detail.shtml'
+	# 仓库订单列表
+	store_order_List: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderList.shtml'
+	# 仓库订单详情
+	store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml'
 	
 }
 
@@ -143,6 +159,15 @@ authType = {
 	WAREHOUSE: 3 #仓库
 }
 
+orderStatus = {
+	st_01: '1' # 洽谈中
+	st_02: '2' # 待付款
+	st_03: '3' # 已付款
+	st_04: '4' # 待评价
+	st_05: '5' # 已取消
+	PAGESIZE: 10 # 每页记录数
+}
+
 module.exports = 
 	api: api
 	actionType: keymirror actionType
@@ -151,3 +176,4 @@ module.exports =
 	smsType: smsType
 	smsGapTime: 60
 	authType: authType
+	orderStatus: orderStatus

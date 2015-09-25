@@ -7,7 +7,7 @@ describe '测试认证', ->
 		params = {
 			phone:"13100000010"		#手机号
 			type:"1"				#认证类型1:货主 2:车主 3:仓库
-			username:"王永🐔"		#真实姓名
+			username:"王永"		#真实姓名
 			userId:"50819ab3c0954f828d0851da576cbc31"	#用户id
 			cardno:"12342342344234"		#身份证号
 			#车主认证需要的字段
@@ -19,7 +19,7 @@ describe '测试认证', ->
 			{
 				filed: 'idcardImg'
 				path: 'src/images/car-02.jpg'
-				name: 'idcardImg.jpg'
+				name: 'idcardImg.jpg'    
 			}
 			{
 				filed: 'drivingImg'
