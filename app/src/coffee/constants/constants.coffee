@@ -174,7 +174,8 @@ orderStatus = {
 	st_03: '3' # 已付款
 	st_04: '4' # 待评价
 	st_05: '5' # 已取消
-	PAGESIZE: 10 # 每页记录数
+	PAGESIZE: '10' # 每页记录数
+}
 
 cache = {
 	CITY_LIST: 7 * 24 * 60 * 60 * 1000

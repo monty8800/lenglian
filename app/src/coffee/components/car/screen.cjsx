@@ -47,7 +47,3 @@ ScreenMenu = React.createClass {
 }
 
 module.exports = ScreenMenu
-
-
-
-

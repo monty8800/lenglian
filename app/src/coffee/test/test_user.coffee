@@ -25,11 +25,11 @@ describe '测试用户', ->
 
 	it '找回密码', (done)->
 		mobile = '18513468467'
-		passwd = '123456a'
+		passwd = '123456abc'
 
 		request.post config.api.SMS_CODE, {
 			mobile: mobile
-			type: 2
+			type: 2	
 		}, (data)->
 			data.should.not.be.empty()
 			code = data[-6..]
