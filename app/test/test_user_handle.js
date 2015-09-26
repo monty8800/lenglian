@@ -11,13 +11,13 @@
     it('添加评论', function(done) {
       var params;
       params = {
-        onsetId: "4671d0d8c37f47f4bcfa2323222bf102",
+        onsetId: "7201beba475b49fd8b872e2d1493844a",
         onsetRole: "2",
         targetId: "7714d0d83c7f47f4bcfac62b9a1bf101",
         targetRole: "1",
         orderNo: "GC20150912581503100000182",
-        score: "10",
-        content: "fegsgesgdgsegse"
+        score: "8",
+        content: "车开得不赖"
       };
       return request.post(config.api.COMMENT_ADD, params, function(result) {
         should.exists(result);
@@ -27,13 +27,10 @@
     it('查询评论', function(done) {
       var params;
       params = {
-        onsetId: "4671d0d8c37f47f4bcfa2323222bf102",
+        startNo: '0',
+        pageSize: '10',
         onsetRole: "2",
-        targetId: "7714d0d83c7f47f4bcfac62b9a1bf101",
-        targetRole: "1",
-        orderNo: "GC20150912581503100000182",
-        score: "10",
-        content: "fegsgesgdgsegse"
+        targetId: "7201beba475b49fd8b872e2d1493844a"
       };
       return request.post(config.api.GET_COMMENT, params, function(result) {
         should.exists(result);

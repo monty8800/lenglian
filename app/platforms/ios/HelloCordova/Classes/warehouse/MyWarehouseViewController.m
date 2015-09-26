@@ -7,7 +7,7 @@
 //
 
 #import "MyWarehouseViewController.h"
-
+#import "AddWarehouseViewController.h"
 @interface MyWarehouseViewController ()
 
 @end
@@ -31,12 +31,23 @@
 
 -(void) createUI {
     self.title = @"我的仓库";
+    
+    UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addWarehouseButton setFrame:CGRectMake(0, 0, 80, 44)];
+    [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [addWarehouseButton setTitle:@"新增仓库" forState:UIControlStateNormal];
+    [addWarehouseButton addTarget:self action:@selector(addWarehouse) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
 }
-
+-(void)addWarehouse{
+    AddWarehouseViewController *addWarehouseVC = [AddWarehouseViewController new];
+    [self.navigationController pushViewController:addWarehouseVC animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -9,6 +9,8 @@ Constants = require 'constants/constants'
 Warehouse = require 'model/warehouseModel'
 Immutable = require 'immutable'
 DB = require 'util/storage'
+Plugin = require 'util/plugin'
+UserStore = require 'stores/user/user'
 
 _warehouse = new Warehouse
 
@@ -21,38 +23,45 @@ _warehouseSearchResult = []
 # 仓库找货 搜索结果
 _warehouseSearchGoodsResult = []
 
-localUser = DB.get 'user'
-_user = new User localUser
 _showType = '1'
 
 getWarehouseList = (status,pageNow,pageSize)->
 	_showType = status
 	console.log '获取仓库列表 status='+status+' pageNow='+pageNow+' pageSize='+pageSize + '__showType='+_showType
+	user = UserStore.getUser()
 	Http.post Constants.api.GET_WAREHOUSE,{
-		userId:_user.id
+		userId:user.id
 		status:status
 		pageNow:pageNow
 		pageSize:pageSize
 	},(data)->
 		_warehouseList = data.myWarehouse
 		WarehouseStore.emitChange 'getMyWarehouseList'
+	,null,true
+
 
 getDetail = (warehouseId) ->
+	user = UserStore.getUser()
+
 	Http.post Constants.api.WAREHOUSE_DETAIL,{
-		userId:_user.id
+		userId:user.id
 		warehouseId:warehouseId
 	},(data)->
 		_warehouseDetail = data.warehouseLoad
 		WarehouseStore.emitChange 'getDetailWithId'
+	,null,true
 
 searchWarehouse = (startNo,pageSize)->
-	console.log '搜索获取仓库  startNo='+startNo+' pageSize='+pageSize
+	console.log '搜索获取仓库  star+++tNo='+startNo+' pageSize='+pageSize
+
 	Http.post Constants.api.SEARCH_WAREHOUSE,{
 		startNo:startNo
 		pageSize:pageSize
 	},(data)->
+		Plugin.loading.hide()
 		_warehouseSearchResult = data	#搜索仓库 返回的data本身就是数组
 		WarehouseStore.emitChange 'searchWarehouse'
+	,null,true
 
 warehouseSearchGoods = (startNo,pageSize)->
 	Http.post Constants.api.WAREHOUSE_SEARCH_GOODS,{
@@ -61,6 +70,7 @@ warehouseSearchGoods = (startNo,pageSize)->
 	},(data)->
 		_warehouseSearchGoodsResult = data.goods
 		WarehouseStore.emitChange 'warehouseSearchGoods'
+	,null,true
 
 WarehouseStore = assign BaseStore, {
 	getWarehouseList: ()->

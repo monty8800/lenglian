@@ -14,6 +14,7 @@
 #import "AddressListViewController.h"
 #import "FollowListViewController.h"
 #import "MyWarehouseViewController.h"
+#import "CommentViewController.h"
 
 @interface UserCenterViewController ()
 
@@ -92,6 +93,11 @@
             
 //            WalletViewController *walletVC = [WalletViewController new];
 //            [self.navigationController pushViewController:walletVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"myComment"])
+        {
+            CommentViewController *commentVC = [CommentViewController new];
+            [self.navigationController pushViewController:commentVC animated:YES];
         }
     }
 }

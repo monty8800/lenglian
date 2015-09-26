@@ -68,6 +68,9 @@
 		5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5BE2632F1BB3A5E000167D4F /* SearchWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE2632E1BB3A5E000167D4F /* SearchWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5BEB92651BB6492C003970B3 /* SearchCarsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB92641BB6492C003970B3 /* SearchCarsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5BEB92681BB64BBE003970B3 /* AddWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB92671BB64BBE003970B3 /* AddWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5BEB926C1BB651A0003970B3 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB926B1BB651A0003970B3 /* CommentViewController.m */; settings = {ASSET_TAGS = (); }; };
 		60D7ECE057704AE1B76AAD24 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5B98B6DD782842E2B57B856C /* CDVNotification.bundle */; };
 		7383466E9567FCDEC93CD82C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE1D01D20475664CE86A61D /* libPods.a */; };
 		7E7966DE1810823500FA85AD /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D41810823500FA85AD /* icon-40.png */; };
@@ -206,6 +209,12 @@
 		5B98B6DD782842E2B57B856C /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CDVNotification.bundle; sourceTree = "<group>"; };
 		5BE2632D1BB3A5E000167D4F /* SearchWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWarehouseViewController.h; sourceTree = "<group>"; };
 		5BE2632E1BB3A5E000167D4F /* SearchWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWarehouseViewController.m; sourceTree = "<group>"; };
+		5BEB92631BB6492C003970B3 /* SearchCarsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCarsViewController.h; path = car/SearchCarsViewController.h; sourceTree = "<group>"; };
+		5BEB92641BB6492C003970B3 /* SearchCarsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCarsViewController.m; path = car/SearchCarsViewController.m; sourceTree = "<group>"; };
+		5BEB92661BB64BBE003970B3 /* AddWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddWarehouseViewController.h; sourceTree = "<group>"; };
+		5BEB92671BB64BBE003970B3 /* AddWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddWarehouseViewController.m; sourceTree = "<group>"; };
+		5BEB926A1BB651A0003970B3 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
+		5BEB926B1BB651A0003970B3 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		685FA145C0AA4864A68FAFDD /* CDVNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVNotification.m; path = "cordova-plugin-dialogs/CDVNotification.m"; sourceTree = "<group>"; };
 		6B0EB7C66DF1B48523C2D80D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7E7966D41810823500FA85AD /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
@@ -257,6 +266,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5BEB92691BB65185003970B3 /* comment */,
 				5BE263291BB3A5A400167D4F /* warehouse */,
 				4CE0AE591BB241B80081DE22 /* auth */,
 				4C822F671BB1364500112533 /* follow */,
@@ -455,6 +465,8 @@
 			children = (
 				4C822F601BB1354700112533 /* CarListViewController.h */,
 				4C822F611BB1354700112533 /* CarListViewController.m */,
+				5BEB92631BB6492C003970B3 /* SearchCarsViewController.h */,
+				5BEB92641BB6492C003970B3 /* SearchCarsViewController.m */,
 			);
 			name = car;
 			sourceTree = "<group>";
@@ -568,8 +580,19 @@
 				5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */,
 				5B2F623B1BB3EBA10020AD28 /* MyWarehouseViewController.h */,
 				5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */,
+				5BEB92661BB64BBE003970B3 /* AddWarehouseViewController.h */,
+				5BEB92671BB64BBE003970B3 /* AddWarehouseViewController.m */,
 			);
 			path = warehouse;
+			sourceTree = "<group>";
+		};
+		5BEB92691BB65185003970B3 /* comment */ = {
+			isa = PBXGroup;
+			children = (
+				5BEB926A1BB651A0003970B3 /* CommentViewController.h */,
+				5BEB926B1BB651A0003970B3 /* CommentViewController.m */,
+			);
+			path = comment;
 			sourceTree = "<group>";
 		};
 		B4298CEE55083DFCA0472C61 /* Pods */ = {
@@ -773,6 +796,7 @@
 				4CAB021B1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
 				4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */,
+				5BEB92651BB6492C003970B3 /* SearchCarsViewController.m in Sources */,
 				4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */,
 				4C822F6A1BB136C000112533 /* FollowListViewController.m in Sources */,
 				5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */,
@@ -784,6 +808,7 @@
 				4C5C87441B74809300609666 /* HelloViewController.m in Sources */,
 				4CE0AE5C1BB241E00081DE22 /* AuthViewController.m in Sources */,
 				4CAB02151BB40093002A0A5C /* CompanyCarAuthViewController.m in Sources */,
+				5BEB926C1BB651A0003970B3 /* CommentViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
 				4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */,
 				4C822F661BB135E500112533 /* AddressListViewController.m in Sources */,
@@ -791,6 +816,7 @@
 				4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */,
 				4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */,
 				4C59DE401B5E4FF30063D9CE /* Global.m in Sources */,
+				5BEB92681BB64BBE003970B3 /* AddWarehouseViewController.m in Sources */,
 				4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */,
 				4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */,
 				98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */,
@@ -803,11 +829,7 @@
 				4C822F621BB1354700112533 /* CarListViewController.m in Sources */,
 				4C006DFA1BB02FCC00381462 /* ChangePasswdViewController.m in Sources */,
 				4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */,
-				D9727DCD25344A78A1E1CAE9 /* CDVFile.m in Sources */,
-				451E6A32E5E8458284842A6D /* CDVLocalFilesystem.m in Sources */,
-				071DD44745444767AAAA973D /* CDVAssetLibraryFilesystem.m in Sources */,
 				5BE2632F1BB3A5E000167D4F /* SearchWarehouseViewController.m in Sources */,
-				FD274F802DF6488EA3C108BD /* CDVFileTransfer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

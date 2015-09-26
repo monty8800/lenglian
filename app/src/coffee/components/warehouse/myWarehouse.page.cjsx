@@ -49,6 +49,8 @@ WarehouseList = React.createClass {
 	mixins : [PureRenderMixin]
 
 	showNormalWarehouse: ->
+		if @state.showType is '1'
+			return
 		newState = Object.create @state
 		newState.showType = '1'
 		newState.warehouseList = []
@@ -56,6 +58,8 @@ WarehouseList = React.createClass {
 		WarehouseAction.getWarehouseList '1','1','10'
 
 	showSendingWarehouse: ->
+		if @state.showType is '2'
+			return
 		newState = Object.create @state
 		newState.showType = '2'
 		newState.warehouseList = []
@@ -63,6 +67,8 @@ WarehouseList = React.createClass {
 		WarehouseAction.getWarehouseList '2','1','10'
 
 	showUsingWarehouse: ->
+		if @state.showType is '3'
+			return
 		newState = Object.create @state
 		newState.showType = '3'
 		newState.warehouseList = []

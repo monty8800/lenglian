@@ -101,7 +101,7 @@ SearchWarehouse = React.createClass {
 		@setState newState
 
 	sureButtonClick:->
-		WarehouseAction.getWarehouseList '3','1','10'
+		WarehouseAction.searchWarehouse '0','10'
 
 
 	render: ->

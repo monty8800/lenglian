@@ -22,13 +22,13 @@ describe '用户以通用角色 获取相关自己相关信息 如评论 ', ->
 
 	it '添加评论',(done) ->
 		params = {
-			onsetId:"4671d0d8c37f47f4bcfa2323222bf102"		#评价人ID
+			onsetId:"7201beba475b49fd8b872e2d1493844a"		#评价人ID
 			onsetRole:"2"				#评论人角色 1：货主 2:车主 3：仓库主
 			targetId:"7714d0d83c7f47f4bcfac62b9a1bf101"		#目标评价人ID
 			targetRole:"1"		#目标评论人角色 1：货主 2:车主 3：仓库主
 			orderNo:"GC20150912581503100000182"		#订单号
-			score:"10"		# 评分 5星=10 
-			content:"fegsgesgdgsegse"		#内容
+			score:"8"		# 评分 5星=10 
+			content:"车开得不赖"		#内容
 		}
 		request.post config.api.COMMENT_ADD, params, (result)->
 			should.exists result
@@ -38,13 +38,10 @@ describe '用户以通用角色 获取相关自己相关信息 如评论 ', ->
 
 #TODO:
 		params = {
-			onsetId:"4671d0d8c37f47f4bcfa2323222bf102"		#评价人ID
+			startNo:'0'
+			pageSize:'10'
 			onsetRole:"2"				#评论人角色 1：货主 2:车主 3：仓库主
-			targetId:"7714d0d83c7f47f4bcfac62b9a1bf101"		#目标评价人ID
-			targetRole:"1"		#目标评论人角色 1：货主 2:车主 3：仓库主
-			orderNo:"GC20150912581503100000182"		#订单号
-			score:"10"		# 评分 5星=10 
-			content:"fegsgesgdgsegse"		#内容
+			targetId:"7201beba475b49fd8b872e2d1493844a"		#目标评价人ID
 		}
 		request.post config.api.GET_COMMENT, params, (result)->
 			should.exists result

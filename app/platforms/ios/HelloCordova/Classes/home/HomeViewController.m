@@ -10,6 +10,7 @@
 #import "SearchWarehouseViewController.h"
 #import "WarehouseSearchGoodsViewController.h"
 #import "MyWarehouseViewController.h"
+#import "SearchCarsViewController.h"
 @interface HomeViewController ()
 
 @end
@@ -44,6 +45,8 @@
     [super commonCommand:params];
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"searchCar"]) {
+            SearchCarsViewController *searchCarsVC = [SearchCarsViewController new];
+            [self.navigationController pushViewController:searchCarsVC animated:YES];
             NSLog(@"找车");
         }
         else if ([params[1] isEqualToString:@"searchWarehouse"])
