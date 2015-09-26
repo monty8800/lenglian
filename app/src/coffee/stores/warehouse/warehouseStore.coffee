@@ -35,7 +35,7 @@ getWarehouseList = (status,pageNow,pageSize)->
 		pageSize:pageSize
 	},(data)->
 		_warehouseList = data.myWarehouse
-		WarehouseStore.emitChange()
+		WarehouseStore.emitChange 'getMyWarehouseList'
 
 getDetail = (warehouseId) ->
 	Http.post Constants.api.WAREHOUSE_DETAIL,{
@@ -43,15 +43,16 @@ getDetail = (warehouseId) ->
 		warehouseId:warehouseId
 	},(data)->
 		_warehouseDetail = data.warehouseLoad
-		WarehouseStore.emitChange()
+		WarehouseStore.emitChange 'getDetailWithId'
 
 searchWarehouse = (startNo,pageSize)->
+	console.log '搜索获取仓库  startNo='+startNo+' pageSize='+pageSize
 	Http.post Constants.api.SEARCH_WAREHOUSE,{
 		startNo:startNo
 		pageSize:pageSize
 	},(data)->
 		_warehouseSearchResult = data	#搜索仓库 返回的data本身就是数组
-		WarehouseStore.emitChange()
+		WarehouseStore.emitChange 'searchWarehouse'
 
 warehouseSearchGoods = (startNo,pageSize)->
 	Http.post Constants.api.WAREHOUSE_SEARCH_GOODS,{
@@ -59,7 +60,7 @@ warehouseSearchGoods = (startNo,pageSize)->
 		pageSize:pageSize
 	},(data)->
 		_warehouseSearchGoodsResult = data.goods
-		WarehouseStore.emitChange()
+		WarehouseStore.emitChange 'warehouseSearchGoods'
 
 WarehouseStore = assign BaseStore, {
 	getWarehouseList: ()->

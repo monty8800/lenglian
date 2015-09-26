@@ -5,10 +5,10 @@ config = require './config'
 describe '测试认证', ->
 	it '个人认证',(done) ->
 		params = {
-			phone:"13100000010"		#手机号
-			type:"1"				#认证类型1:货主 2:车主 3:仓库
-			username:"王永🐔"		#真实姓名
-			userId:"50819ab3c0954f828d0851da576cbc31"	#用户id
+			phone:"18988889999"		#手机号
+			type:"3"				#认证类型1:货主 2:车主 3:仓库
+			username:"YYQ"		#真实姓名
+			userId:"7201beba475b49fd8b872e2d1493844a"	#用户id
 			cardno:"12342342344234"		#身份证号
 			#车主认证需要的字段
 			carno:"1243x"			#车牌号码
@@ -71,8 +71,8 @@ describe '测试认证', ->
 	# 		}
 	# 	]
 
-		request.postFile config.api.COMPANY_AUTH, params, files, (data)->
-			data.should.equal 1
-			done()
+		# request.postFile config.api.COMPANY_AUTH, params, files, (data)->
+		# 	data.should.equal 1
+		# 	done()
 
 

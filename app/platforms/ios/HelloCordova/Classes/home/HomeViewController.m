@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "SearchWarehouseViewController.h"
 #import "WarehouseSearchGoodsViewController.h"
+#import "MyWarehouseViewController.h"
 @interface HomeViewController ()
 
 @end

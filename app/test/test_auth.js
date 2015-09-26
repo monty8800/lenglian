@@ -11,10 +11,10 @@
     return it('个人认证', function(done) {
       var files, params;
       params = {
-        phone: "13100000010",
-        type: "1",
-        username: "王永🐔",
-        userId: "50819ab3c0954f828d0851da576cbc31",
+        phone: "18988889999",
+        type: "3",
+        username: "YYQ",
+        userId: "7201beba475b49fd8b872e2d1493844a",
         cardno: "12342342344234",
         carno: "1243x",
         frameno: "sfdj222"
@@ -34,11 +34,7 @@
           name: 'taxiLicenseImg.jpg'
         }
       ];
-      request.postFile(config.api.PERSONINFO_AUTH, params, files, function(data) {
-        data.should.equal(1);
-        return done();
-      });
-      return request.postFile(config.api.COMPANY_AUTH, params, files, function(data) {
+      return request.postFile(config.api.PERSONINFO_AUTH, params, files, function(data) {
         data.should.equal(1);
         return done();
       });

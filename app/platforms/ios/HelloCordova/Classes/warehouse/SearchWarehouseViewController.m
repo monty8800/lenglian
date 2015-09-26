@@ -38,6 +38,13 @@
     self.navigationController.navigationBarHidden = NO;
 }
 
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    [super webViewDidFinishLoad:webView];
+    
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.uuid=%@;",[Global sharedInstance].uuid]];
+//    [webView stringByEvaluatingJavaScriptFromString:@"alert(window.uuid)"];
+    NSLog(@"网页加载完成");
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

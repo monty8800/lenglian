@@ -70,7 +70,7 @@ SearchWarehouse = React.createClass {
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
-		WarehouseAction.searchWarehouse('0','10')
+		WarehouseAction.searchWarehouse '0','10'
 
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
@@ -101,7 +101,7 @@ SearchWarehouse = React.createClass {
 		@setState newState
 
 	sureButtonClick:->
-		WarehouseAction.getWarehouseList('3','1','10')
+		WarehouseAction.getWarehouseList '3','1','10'
 
 
 	render: ->
@@ -137,7 +137,7 @@ SearchWarehouse = React.createClass {
 									<input className="ll-font" type="checkbox"/>
 									<div dangerouslySetInnerHTML={{__html: "6.8米"}}/></label>
 							</div>
-							<div className="g-div02-btn">
+							<div className="g-div02-btn" onClick={ @sureButtonClick }>
 								<a className="u-btn u-btn-small">确定</a>
 							</div>
 						</div>

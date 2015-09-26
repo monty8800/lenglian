@@ -53,21 +53,21 @@ WarehouseList = React.createClass {
 		newState.showType = '1'
 		newState.warehouseList = []
 		@setState newState
-		WarehouseAction.getWarehouseList('1','1','10')
+		WarehouseAction.getWarehouseList '1','1','10'
 
 	showSendingWarehouse: ->
 		newState = Object.create @state
 		newState.showType = '2'
 		newState.warehouseList = []
 		@setState newState
-		WarehouseAction.getWarehouseList('2','1','10')
+		WarehouseAction.getWarehouseList '2','1','10'
 
 	showUsingWarehouse: ->
 		newState = Object.create @state
 		newState.showType = '3'
 		newState.warehouseList = []
 		@setState newState
-		WarehouseAction.getWarehouseList('3','1','10')
+		WarehouseAction.getWarehouseList '3','1','10'
 
 	getInitialState: ->
 		{
@@ -75,9 +75,8 @@ WarehouseList = React.createClass {
 			showType:'1'
 		}
 	componentDidMount: ->
-		alert window.uuid
 		WarehouseStore.addChangeListener @_onChange
-		WarehouseAction.getWarehouseList(@state.showType,'1','10')
+		WarehouseAction.getWarehouseList '1','1','10'
 
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange

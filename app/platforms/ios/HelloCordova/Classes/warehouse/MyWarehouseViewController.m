@@ -32,6 +32,10 @@
 -(void) createUI {
     self.title = @"我的仓库";
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

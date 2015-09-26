@@ -74,7 +74,7 @@ WarehouseSearchGoods = React.createClass {
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
-		WarehouseAction.warehouseSearchGoods('0','10')
+		WarehouseAction.warehouseSearchGoods '0','10'
 
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
