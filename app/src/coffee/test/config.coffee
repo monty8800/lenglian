@@ -11,15 +11,12 @@ module.exports = {
 	#TODO 接口地址
 	api: {
 		server: 'http://192.168.26.177:7080/llmj-app/'
-<<<<<<< Updated upstream
 		# server: 'http://192.168.29.176:8072/'
 		#server: 'http://m.lenglianmajia.com'
 		#server: 'http://192.168.28.90:8072/' #朱舟 
-=======
 		# server: 'http://192.168.29.176:8072/' # 盘代军
 		# server: 'http://m.lenglianmajia.com'
 		# server: 'http://192.168.29.190:8072/' #朱舟 
->>>>>>> Stashed changes
 		
 		#登录
 		LOGIN: '/loginCtl/userLogin.shtml'
@@ -138,7 +135,8 @@ module.exports = {
 		store_order_List: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderList.shtml'
 		# 仓库订单详情
 		store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml'
-
+		# 发布车源
+		release_car: '/mjCarinfoCtl/addCarResource.shtml'
 
 	}
 }

@@ -49,6 +49,7 @@ actionType = {
 	CITY_LIST: null
 	SELECT_ADDRESS: null
 	CHANGE_SELECTOR: null
+	RELEASE_CAR: null
 }
 
 
@@ -152,6 +153,8 @@ api = {
 	store_order_List: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderList.shtml'
 	# 仓库订单详情
 	store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml'
+	# 发布车源
+	release_car: '/mjCarinfoCtl/addCarResource.shtml'
 	
 }
 

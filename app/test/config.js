@@ -61,7 +61,8 @@
       goods_order_list: '/orderGoods/list.shtml',
       goods_order_detail: '/orderGoods/detail.shtml',
       store_order_List: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderList.shtml',
-      store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml'
+      store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml',
+      release_car: '/mjCarinfoCtl/addCarResource.shtml'
     }
   };
 

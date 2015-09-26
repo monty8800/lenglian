@@ -3,15 +3,27 @@ require 'index-style'
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+LinkedStateMixin = React.addons.LinkedStateMixin
 Plugin = require 'util/plugin'
+UserStore = require 'stores/user/user'
+Validator = require 'util/validator'
+CarAction = require 'actions/car/car'
+
 
 Vehicle = React.createClass {
 
+	mixins: [PureRenderMixin, LinkedStateMixin]
+
 	getInitialState: ->
+		user = UserStore.getUser()
 		{
 			isShow: 1
-			note1: 1
-			note2: 2
+			startPoint: '' # 出发地
+			destination: '' # 目的地
+			invoice: 1 # 是否需要发票 默认是
+			contact: user.name or '' # 联系人
+			mobile:  user.mobile or '' # 手机号
+			remark:  '' # 备注
 		}
 
 	_showCar: ->
@@ -24,33 +36,26 @@ Vehicle = React.createClass {
 				isShow: 1
 			}
 
-	_isChecked: (who)->
-		console.log 'dffdfd'
-		if who is 1
-			@setState {
-				note1: 1
-				note2: 2
-			}
-		else 
-			@setState {
-				note1: 2
-				note2: 1
-			}
-
 	_submit: ->
-		Plugin.nav.push ['pic']
-
-	_temp: ->
-		Plugin.nav.push ['temp']		
+		if @state.startPoint is ''
+			Plugin.toast.err '请输入出发地'
+		else if not Validator.name @state.contact
+			Plugin.toast.err '请输入正确的姓名'
+		else if not Validator.mobile @state.mobile
+			Plugin.toast.err '请输入正确的手机号'
+		else if not Validator.remark @state.remark
+			Plugin.toast.err '备注1-30个字符'
+		else
+			CarAction.releaseCar();
 
 	render: ->
 		<div>
 			<div className="m-releasehead ll-font">
 				<div className="g-adr-end ll-font g-adr-end-line g-adr-car">
-					<input type="type" placeholder="出发地"/>
+					<input valueLink={@linkState 'startPoint'} type="text" placeholder="出发地"/>
 				</div>
 				<div className="g-adr-start ll-font g-adr-start-line  g-adr-car">
-					<input type="type" placeholder="终点(选填)"/>
+					<input valueLink={@linkState 'destination'} type="text" placeholder="终点(选填)"/>
 				</div>
 			</div>	
 			<div className="m-releaseitem">
@@ -68,24 +73,26 @@ Vehicle = React.createClass {
 			<div className="m-releaseitem">
 				<div className="g-radio">
 					<span>提供发票</span>
-					<input type="radio" name="invoice" onClic={@_isChecked.bind this} value="no" id="no" className={ if @state.note1 is 1 then "radio ll-font" else 'radio ll-font checked'}/>
+					<input type="radio" name="invoice" value="no" id="no" className='radio ll-font checked'/>
 					<label htmlFor="no">否</label>
-					<input type="radio" name="invoice" onClic={@_isChecked.bind this} value="yes" id="yes" className={ if @state.note2 is 1 then "radio ll-font" else 'radio ll-font checked'}/>
+					<input type="radio" name="invoice" value="yes" id="yes" className='radio ll-font' />
 					<label htmlFor="yes">是</label>
 				</div>
 			</div>
 			<div className="m-releaseitem">
 				<div className="u-personIcon ll-font">
-					<span>联系人</span><span>柠静</span>
+					<span>联系人</span>
+					<span><input type="text" valueLink={@linkState 'contact'} placeholder="请输入联系人" id="remark"/></span>		
 				</div>
 				<div>
-					<span>手机号</span><span>13412356854</span>
+					<span>手机号</span>
+					<span><input type="text" valueLink={@linkState 'mobile'} placeholder="请输入手机号" /></span>
 				</div>
 			</div>
 			<div className="m-releaseitem">
 				<div className="u-voice ll-font">
-					<label htmlFor="remark"><span onClick={@_temp}>备注说明</span> </label>
-					<input type="text" placeholder="选填" id="remark"/>
+					<label htmlFor="remark"><span>备注说明</span> </label>
+					<input type="text" valueLink={@linkState 'remark'} placeholder="选填" id="remark"/>
 				</div>
 			</div>		
 			<div className="u-pay-btn">
