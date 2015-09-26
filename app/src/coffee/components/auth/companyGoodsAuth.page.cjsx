@@ -16,6 +16,12 @@ UserAction = require 'actions/user/user'
 
 Constants = require 'constants/constants'
 
+AddressStore = require 'stores/address/address'
+
+AddressAction = require 'actions/address/address'
+
+AddressSelector = require 'components/address/citySelector'
+
 
 Auth = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -26,6 +32,11 @@ Auth = React.createClass {
 	componentWillUnmount: ->
 		UserStore.removeChangeListener @_change
 		DB.remove 'transData'
+
+	_showSelector: ->
+		user = UserStore.getUser()
+		if not user.address or user.certification is 0
+			AddressAction.changeSelector 'show'
 
 	_change: (msg)->
 		console.log 'event change ', msg
@@ -50,6 +61,12 @@ Auth = React.createClass {
 				businessLicenseNo: @state.businessLicenseNo
 				organizingCode: @state.organizingCode
 			}
+		else if msg.msg is 'address:changed' and msg.type is 'area'
+			address = AddressStore.getAddress()
+			console.log 'address===', address
+			newState = Object.create @state
+			newState.address = address.provinceName + address.cityName + address.areaName
+			@setState newState
 
 	_auth: ->
 		if not Validator.company @state.companyName
@@ -64,29 +81,25 @@ Auth = React.createClass {
 			Plugin.toast.err '请输入正确的组织资格代码'
 		else if not Validator.businessLicenseNo @state.businessLicenseNo
 			Plugin.toast.err '请输入正确的营业执照'
-		else if not @state.user.businessLicenseImg
+		else if not @state.user.businessLicense
 			Plugin.toast.err '请上传营业执照照片'
 		else
+			address = AddressStore.getAddress()
 			UserAction.companyAuth {
 				type: Constants.authType.GOODS
 				name: @state.companyName
+				province: address.provinceId
+				city: address.cityId
+				area: address.areaId
+				street: @state.address
+				phone: @state.tel
 				licenseno: @state.businessLicenseNo
 				certifies: @state.organizingCode
-				permits: @state.transLicenseNo
-				principalName: @state.managerName
 				userId: @state.user.id
 			}, [
 				{
 					filed: 'businessLicenseImg'
 					path: @state.user.businessLicense
-				}
-				{
-					filed: 'transportImg'
-					path: @state.user.transLicensePic
-				}
-				{
-					filed: 'doorImg'
-					path: @state.user.companyPic
 				}
 			]
 
@@ -127,7 +140,7 @@ Auth = React.createClass {
 				</li>
 				<li>
 					<h6 className="xert-h6">所在城市</h6>
-					<input readOnly="readOnly" value={@state.address} className="input-weak cert-input-cityCh" type="text" />
+					<input readOnly="readOnly" onClick={@_showSelector} value={@state.address} className="input-weak cert-input-cityCh" type="text" />
 				</li>
 				<li>
 					<h6 className="xert-h6">详细地址</h6>
@@ -173,6 +186,7 @@ Auth = React.createClass {
 		<div className="u-certBtn-con">
 			<a className="u-btn" onClick={@_auth}>提交认证</a>
 		</div>
+		<AddressSelector />
 		</section>
 }
 

@@ -53,6 +53,7 @@ var config = {
             "majia-style": "build/css/majia.css",
             "index-style": "build/css/index.css",
             "user-center-style": "build/css/userCenter.css",
+            "address-style": "build/css/address.css",
             "crypto": "node_modules/crypto-browserify"
         }
     },

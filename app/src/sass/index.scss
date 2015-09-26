@@ -192,6 +192,13 @@
 	}
 }
 
+.g-div01-act {
+	&:after {
+		-webkit-transform:rotate(90deg);
+		transform:rotate(90deg);
+	}
+}
+
 .u-content-item {
 	width: 550/$ppr;
 	padding:30/$ppr 100/$ppr 20/$ppr 40/$ppr;

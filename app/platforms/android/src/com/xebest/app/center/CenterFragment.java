@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.app.R;
@@ -49,10 +50,10 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
 
     @Override
     public void onResume() {
-        super.onResume();
         // 统计页面
         MobclickAgent.onPageStart("个人中心");
         mWebView.getWebView().loadUrl("javascript:updateUser()");
+        super.onResume();
     }
 
     @Override
@@ -68,6 +69,7 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
     @Override
     public void jsCallNative(final JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
+        Toast.makeText(getActivity(), "" + args.toString(), Toast.LENGTH_SHORT).show();
         if (args.length() == 0) return;
         final String flag = args.getString(1);
         getActivity().runOnUiThread(new Runnable() {
@@ -87,8 +89,10 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                     MoreActivity.actionView(getActivity());
                 } else if (flag.equalsIgnoreCase("login")) {
                     LoginActivity.actionView(getActivity());
-                } else if (args.toString().contains("wallet")) {
-                    WalletActivity.actionView(getActivity());
+                } else if (args.toString().contains("companyWarehouseAuth")) {
+                    AuthActivity.actionView(getActivity());
+                }else if (args.toString().contains("personalWare")) {
+                    AuthActivity.actionView(getActivity());
                 }
             }
         });
@@ -106,7 +110,7 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
 
     @Override
     public Object onMessage(String id, Object data) {
-        mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getActivity().getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
+        mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getActivity().getApplicationContext()).VERSIONCODE + "';client_type='3';})();");
         return null;
     }
 

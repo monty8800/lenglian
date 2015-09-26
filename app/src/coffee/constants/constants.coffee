@@ -39,6 +39,16 @@ actionType = {
 	WAREHOUSE_SEARCH_GOODS:null
 
 	UPDATE_USER: null
+
+	CARORDERLIST: null
+	CARORDER_DETAIL: null
+
+	ORDER_LIST: null
+	ORDER_DETAIL: null
+
+	CITY_LIST: null
+	SELECT_ADDRESS: null
+	CHANGE_SELECTOR: null
 }
 
 
@@ -76,6 +86,9 @@ api = {
 	PERSONAL_AUTH: '/mjPersonInfoAuthCtl/personInfoAuth.shtml'
 	#公司认证
 	COMPANY_AUTH: '/enterprise/enterpriseAuthentication.shtml'
+
+	#城市列表
+	CITY_LIST: '/dictionaryCtl/provinceList.shtml'
 
 
 #YYQ
@@ -127,7 +140,18 @@ api = {
 	del_address: '/userInfo/deleteMjUserAddress.shtml'
 	# 我的消息
 	message_list: '/mjMymessageCtl/queryMymessage.shtml'
-
+	# 车主订单列表
+	carowner_order_list: '/ownerOrderCtl/ownerOrderlst.shtml'
+	# 车主订单详情
+	carowner_order_detail: '/ownerOrderCtl/ownerOrderDetail.shtml'
+	# 货主订单列表
+	goods_order_list: '/orderGoods/list.shtml'
+	# 货主订单详情
+	goods_order_detail: '/orderGoods/detail.shtml'
+	# 仓库订单列表
+	store_order_List: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderList.shtml'
+	# 仓库订单详情
+	store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml'
 	
 }
 
@@ -143,6 +167,19 @@ authType = {
 	WAREHOUSE: 3 #仓库
 }
 
+
+orderStatus = {
+	st_01: '1' # 洽谈中
+	st_02: '2' # 待付款
+	st_03: '3' # 已付款
+	st_04: '4' # 待评价
+	st_05: '5' # 已取消
+	PAGESIZE: 10 # 每页记录数
+
+cache = {
+	CITY_LIST: 7 * 24 * 60 * 60 * 1000
+}
+
 module.exports = 
 	api: api
 	actionType: keymirror actionType
@@ -151,3 +188,5 @@ module.exports =
 	smsType: smsType
 	smsGapTime: 60
 	authType: authType
+	orderStatus: orderStatus
+	cache: cache

@@ -15,6 +15,11 @@ Helper = require 'util/helper'
 
 DB = require 'util/storage'
 
+st_01 = '1'
+st_02 = '2'
+st_03 = '3'
+st_04 = ''
+
 detailCarUrl = 'carDetail'
 addCarUrl = 'addCar'
 
@@ -65,30 +70,30 @@ Car = React.createClass {
 	# 空闲中
 	status_01: ->
 		newState = Object.create @state
-		newState.type = '1'
+		newState.type = st_01
 		@setState newState
-		CarAction.carList('1')
+		CarAction.carList(st_01)
 
 	# 求货中
 	status_02: ->
 		newState = Object.create @state
-		newState.type = '2'
+		newState.type = st_02
 		@setState newState
-		CarAction.carList('2')
+		CarAction.carList(st_02)
 
 	# 运输中
 	status_03: ->
 		newState = Object.create @state
-		newState.type = '3'
+		newState.type = st_03
 		@setState newState
-		CarAction.carList('3')
+		CarAction.carList(st_03)
 
 	# 全部
 	status_04: ->
 		newState = Object.create @state
-		newState.type = '4'
+		newState.type = st_04
 		@setState newState
-		CarAction.carList('')
+		CarAction.carList(st_04)
 
 	getInitialState: ->
 		{

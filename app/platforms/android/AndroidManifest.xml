@@ -40,6 +40,8 @@
         <activity android:name=".application.LocationActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.WalletActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".car.FoundCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".car.AddCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:configChanges="orientation|keyboardHidden" android:name=".car.ReleaseCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.CarAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

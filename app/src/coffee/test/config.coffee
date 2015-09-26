@@ -120,9 +120,18 @@ module.exports = {
 		modify_address: '/userInfo/updateMjUserAddress.shtml'
 		# 我的消息
 		message_list: '/mjMymessageCtl/queryMymessage.shtml'
-
-
-		
+		# 车主订单列表
+		carowner_order_list: '/ownerOrderCtl/ownerOrderlst.shtml'
+		# 车主订单详情
+		carowner_order_detail: '/ownerOrderCtl/ownerOrderDetail.shtml'
+		# 货主订单列表
+		goods_order_list: '/orderGoods/list.shtml'
+		# 货主订单详情
+		goods_order_detail: '/orderGoods/detail.shtml'
+		# 仓库订单列表
+		store_order_List: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderList.shtml'
+		# 仓库订单详情
+		store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml'
 
 
 	}

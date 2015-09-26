@@ -55,7 +55,13 @@
       add_address: '/userInfo/addMjUserAddress.shtml',
       del_address: '/userInfo/deleteMjUserAddress.shtml',
       modify_address: '/userInfo/updateMjUserAddress.shtml',
-      message_list: '/mjMymessageCtl/queryMymessage.shtml'
+      message_list: '/mjMymessageCtl/queryMymessage.shtml',
+      carowner_order_list: '/ownerOrderCtl/ownerOrderlst.shtml',
+      carowner_order_detail: '/ownerOrderCtl/ownerOrderDetail.shtml',
+      goods_order_list: '/orderGoods/list.shtml',
+      goods_order_detail: '/orderGoods/detail.shtml',
+      store_order_List: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderList.shtml',
+      store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml'
     }
   };
 

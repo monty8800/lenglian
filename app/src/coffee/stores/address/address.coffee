@@ -11,9 +11,19 @@ Plugin = require 'util/plugin'
 
 UserStore = require 'stores/user/user'
 
+DB = require 'util/storage'
+
 _user = UserStore.getUser()
 
 _addressList = Immutable.List()
+
+cityData = DB.get 'cityList'
+
+_cityList = Immutable.fromJS (cityData?.list or [])
+
+localAddress = DB.get 'address'
+
+_address = new AddressModel localAddress
 
 addressList = ->
 	console.log '请求网络数据'
@@ -48,15 +58,45 @@ delAddress = (addressId)->
 	, (data) ->
 		AddressStore.emitChange data.msg
 
+cityList = ->
+	now = new Date
+	if cityData?.list?.length > 0 and now.getTime() - cityData?.updateTime < Constants.cache.CITY_LIST
+		AddressStore.emitChange {msg: 'cityList:changed'}
+	else
+		Http.post Constants.api.CITY_LIST, {
+		}, (result)->
+			_cityList = Immutable.fromJS result
+			DB.put 'cityList', {
+				updateTime: now.getTime()
+				list: result
+			}
+			AddressStore.emitChange {msg: 'cityList:changed'}
+
+selectAddress = (address, type, item)->
+	_address = _address.merge address
+	DB.put 'address', _address.toJS()
+	AddressStore.emitChange {msg: 'address:changed', type: type, item: item}
+
+changeSelector = (status)->
+	AddressStore.emitChange 'selector:' + status
+
 AddressStore = assign BaseStore, {
 	getAddressList: ->
 		_addressList
 
+	getCityList: ->
+		_cityList
+
+	getAddress: ->
+		_address
 }
 
 Dispatcher.register (action) ->
 	switch action.actionType
 		when Constants.actionType.ADDRESS_LIST then addressList()
 		when Constants.actionType.DEL_ADDRESS then delAddress(action.addressId)
+		when Constants.actionType.CITY_LIST then cityList()
+		when Constants.actionType.SELECT_ADDRESS then selectAddress(action.address, action.type, action.item)
+		when Constants.actionType.CHANGE_SELECTOR then changeSelector(action.status)
 
 module.exports = AddressStore

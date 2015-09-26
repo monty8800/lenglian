@@ -1,0 +1,102 @@
+@import 'mixin';
+// ---
+.chadr_box {
+	width: 640/$ppr;
+	height: 630/$ppr;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	z-index: 1000;
+	-webkit-transform:translate3d(-50%,0,0);
+	@include box-sizing(border-box);
+	background: #f0f0f0;
+
+	.deepth0 {
+		-webkit-transform: translate3d(0px, 0px, 0px);
+	}
+	.deepth1 {
+		-webkit-transform: translate3d(-640/$ppr, 0px, 0px);
+	}
+	.deepth2 {
+		-webkit-transform: translate3d(-1280/$ppr, 0px, 0px);
+	}
+	&.show {
+		-webkit-transform: translate3d(0px, 100%, 0px)
+	}
+	&.hide {
+		-webkit-transform: translate3d(0px, 0px, 0px)
+	}	
+}
+.chadr_topbar {
+	height: 85/$ppr;
+	line-height: 85/$ppr;
+	text-indent: center;
+	padding: 0 80/$ppr;
+	text-align: center;
+	font-size: 30/$ppr;
+	position: relative;
+	.arrow-left {
+		width: 80/$ppr;
+		height: 85/$ppr;
+		line-height: 85/$ppr;
+		text-align: center;
+		font-size: 30/$ppr;
+		position: absolute;
+		left: 0;
+		top: 0;
+		
+		&:after {
+			content: "\d616";
+		}
+		-webkit-transform:rotate(180deg);
+		transform:rotate(180deg);
+	}
+	.ch-close {
+		width: 80/$ppr;
+		height: 85/$ppr;
+		line-height: 85/$ppr;
+		text-align: center;
+		font-size: 30/$ppr;
+		position: absolute;
+		right: 0;
+		top: 0;
+		&:after {
+			content: "\d632";
+		}
+	}
+}
+
+.chadr_con {
+	width: 640/$ppr;
+	overflow: hidden;
+	height: 545/$ppr;
+	@include box-sizing(border-box);
+	border-top:1px solid #ccc;
+}
+
+.ul_con {
+	width: 320%; 
+	height: 544/$ppr; 
+	-webkit-transition:all .3s ease;
+	transition:all .3s ease;
+	
+	ul {
+		float: left;
+		width: 640/$ppr;
+
+		height: 545/$ppr;
+		@include box-sizing(border-box);
+		padding-left: 20/$ppr;
+		overflow-y:auto;
+		-webkit-overflow-scrolling: touch;
+		li {
+			font-size: 26/$ppr;
+			height: 70/$ppr;
+			line-height: 70/$ppr;
+			border-bottom: 1px solid #ccc;
+			&.active {
+				color: #d9493d;
+			}
+		}
+	}
+}

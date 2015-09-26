@@ -20,6 +20,7 @@
 package com.xebest.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -38,7 +39,6 @@ import android.widget.Toast;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.app.application.Application;
-import com.xebest.app.application.LocationActivity;
 import com.xebest.app.center.CenterFragment;
 import com.xebest.app.home.HomeFragment;
 import com.xebest.app.map.MapFragment;
@@ -58,8 +58,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private View popView;
     private PopupWindow popupWindow;
 
-    private TextView tvGoods;
-    private TextView tvDriver;
+    // 货主订单
+    public TextView tvGoods;
+    // 车主订单
+    public TextView tvDriver;
+    // 仓库订单
     private TextView tvStore;
 
     private ImageView ivHome;
@@ -79,9 +82,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private OrderFragment orderFragment;
     private CenterFragment centerFragment;
 
-    private int mCurrentItem = 0;
-
     private Application mApplication;
+
+    private static int mCurrentItem = 0;
+
+    public int mOrderStatus = 0;
+
+    public static void actionView(Context context, int index) {
+        mCurrentItem = index;
+        context.startActivity(new Intent(context, MainActivity.class));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -162,23 +172,25 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setViewState(3);
                 break;
             case R.id.tv_goods: // 货主订单
+                mOrderStatus = 0;
                 setViewState(2);
                 tvGoods.setTextColor(Color.parseColor("#00a2f2"));
                 popupWindow.dismiss();
+                orderFragment.reload();
                 break;
             case R.id.tv_driver: // 司机订单
+                mOrderStatus = 1;
                 setViewState(2);
                 popupWindow.dismiss();
                 tvDriver.setTextColor(Color.parseColor("#00a2f2"));
+                orderFragment.reload();
                 break;
             case R.id.tv_store: // 仓库订单
+                mOrderStatus = 2;
                 popupWindow.dismiss();
                 setViewState(2);
                 tvStore.setTextColor(Color.parseColor("#00a2f2"));
-                break;
-            case R.id.tv_map:
-                popupWindow.dismiss();
-                LocationActivity.actionView(this);
+                orderFragment.reload();
                 break;
         }
     }
@@ -312,9 +324,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         tvStore = (TextView) popView.findViewById(R.id.tv_store);
         tvStore.setOnClickListener(this);
 
-        popView.findViewById(R.id.tv_map).setOnClickListener(this);
-
-        popupWindow = new PopupWindow(popView, 300, 520);
+        popupWindow = new PopupWindow(popView, 300, 400);
         // 使其聚集
         popupWindow.setFocusable(true);
         // 设置允许在外点击消失

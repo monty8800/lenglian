@@ -45,6 +45,10 @@
                 [self.commandDelegate evalJs:@"(function(){window.authDone()})()"];
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }
+            else
+            {
+                [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+            }
         }];
     }
 }

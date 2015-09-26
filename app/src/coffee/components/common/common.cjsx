@@ -16,3 +16,4 @@ document.addEventListener 'deviceready', ->
 	DB.put 'version', window.version if window.version
 	DB.put 'client_type', window.client_type if window.client_type
 	
+	

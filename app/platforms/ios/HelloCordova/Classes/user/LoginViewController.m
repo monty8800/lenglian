@@ -42,11 +42,6 @@
             RegisterViewController *registerVC = [RegisterViewController new];
             [self.navigationController pushViewController:registerVC animated:YES];
         }
-        else if ([params[1] isEqualToString:@"resetPasswd"])
-        {
-            ResetPasswdViewController *resetPwdVC = [ResetPasswdViewController new];
-            [self.navigationController pushViewController:resetPwdVC animated:YES];
-        }
     }
 }
 
