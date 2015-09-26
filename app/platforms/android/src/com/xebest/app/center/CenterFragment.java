@@ -9,9 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
+import com.xebest.app.auth.AuthActivity;
+import com.xebest.app.auth.CompanyCarAuthActivity;
+import com.xebest.app.auth.CompanyGoodsAuthActivity;
+import com.xebest.app.auth.CompanyWareHouseAuthActivity;
+import com.xebest.app.auth.PersonalCarAuthActivity;
 import com.xebest.app.R;
 import com.xebest.app.application.ApiUtils;
 import com.xebest.app.application.Application;
+import com.xebest.app.auth.PersonalGoodsAuthActivity;
+import com.xebest.app.auth.PersonalWareHouseAuthActivity;
 import com.xebest.app.car.MyCarActivity;
 import com.xebest.plugin.XEFragment;
 import com.xebest.plugin.XEWebView;
@@ -89,11 +96,41 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                     MoreActivity.actionView(getActivity());
                 } else if (flag.equalsIgnoreCase("login")) {
                     LoginActivity.actionView(getActivity());
-                } else if (args.toString().contains("companyWarehouseAuth")) {
-                    AuthActivity.actionView(getActivity());
-                }else if (args.toString().contains("personalWare")) {
+                }
+                // 未认证
+                else if (flag.equalsIgnoreCase("auth")) {
                     AuthActivity.actionView(getActivity());
                 }
+                // 个人车主认证
+                else if (flag.equalsIgnoreCase("personalCarAuth")) {
+                    PersonalCarAuthActivity.actionView(getActivity());
+                }
+
+                // 个人货主认证
+                else if (flag.equalsIgnoreCase("personalGoodsAuth")) {
+                    PersonalGoodsAuthActivity.actionView(getActivity());
+                }
+
+                // 个人仓库认证
+                else if (flag.equalsIgnoreCase("personalWarehouseAuth")) {
+                    PersonalWareHouseAuthActivity.actionView(getActivity());
+                }
+
+                // 公司车主认证
+                else if (flag.equalsIgnoreCase("companyCarAuth")) {
+                    CompanyCarAuthActivity.actionView(getActivity());
+                }
+
+                // 公司货主认证
+                else if (flag.equalsIgnoreCase("companyGoodsAuth")) {
+                    CompanyGoodsAuthActivity.actionView(getActivity());
+                }
+
+                // 公司仓库认证
+                else if (flag.equalsIgnoreCase("companyWarehouseAuth")) {
+                    CompanyWareHouseAuthActivity.actionView(getActivity());
+                }
+
             }
         });
     }

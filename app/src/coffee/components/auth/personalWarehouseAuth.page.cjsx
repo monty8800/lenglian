@@ -56,7 +56,7 @@ Auth = React.createClass {
 		else
 			UserAction.personalAuth {
 				phone: @state.mobile
-				type: Constants.authType.GOODS
+				type: Constants.authType.WAREHOUSE
 				username: @state.name
 				userId: @state.user.id
 				cardno: @state.idNum
