@@ -117,7 +117,7 @@ UserCenter = React.createClass {
 	componentWillUnmount: ->
 		UserStore.removeChangeListener @_onChange
 
-	_onChange: ->
+	_onChange: (msg)->
 		@setState {
 			user: UserStore.getUser()
 			menus: UserStore.getMenus()

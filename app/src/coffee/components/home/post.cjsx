@@ -1,10 +1,12 @@
 React = require 'react'
 Plugin = require 'util/plugin'
+Auth = require 'util/auth'
 
 Post = React.createClass {
 
 	_goPage: (page)->
-		Plugin.nav.push [page]
+		Auth.needLogin ->
+			Plugin.nav.push [page]
 
 	render: ->
 		posts = this.props.items.map (item, i)->

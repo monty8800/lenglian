@@ -32,7 +32,7 @@ Home = React.createClass {
 		# requests = ['我要找车', '我要找仓库', '司机找货', '仓库找货']
 		nposts = [
 			{title: '发布车源', page: 'releaseCar'},
-			{title: '发布货源', page: 'releaseGoods'},
+			{title: '发布货源', page: 'addGoods'},
 			{title: '发布库源', page: 'releaseWarehouse'}
 		]
 		# posts = ['发布车源', '发布货源', '发布库源']

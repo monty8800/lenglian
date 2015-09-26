@@ -10,6 +10,7 @@
 #import "SearchWarehouseViewController.h"
 #import "WarehouseSearchGoodsViewController.h"
 #import "MyWarehouseViewController.h"
+#import "AddGoodsViewController.h"
 @interface HomeViewController ()
 
 @end
@@ -40,6 +41,12 @@
     self.navigationController.navigationBarHidden = YES;
 }
 
+-(void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    
+}
+
 -(void)commonCommand:(NSArray *)params{
     [super commonCommand:params];
     if ([params[0] integerValue] == 1) {
@@ -66,9 +73,12 @@
         {
             NSLog(@"发布车源");
         }
-        else if ([params[1] isEqualToString:@"releaseGoods"])
+        else if ([params[1] isEqualToString:@"addGoods"])
         {
             NSLog(@"发布货源");
+            AddGoodsViewController *addGoodsVC = [AddGoodsViewController new];
+            addGoodsVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:addGoodsVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"releaseWarehouse"])
         {

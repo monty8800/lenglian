@@ -17,6 +17,8 @@
 #import "CompanyCarAuthViewController.h"
 #import "CompanyGoodsAuthViewController.h"
 #import "CompanyWarehouseAuthViewController.h"
+#import "LoactionViewController.h"
+#import "SelectAddressViewController.h"
 
 
 @interface BaseViewController ()
@@ -70,18 +72,22 @@
     
     self.navigationController.navigationBar.backgroundColor = [UIColor WY_ColorWithHex:0x1987c6];
     
-    //去掉导航栏分割线
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg"] forBarMetrics: UIBarMetricsDefault];
+
     
     //返回
     if (self.navigationController.viewControllers.count > 1) {
         UIBarButtonItem *backItem = [[UIBarButtonItem  alloc] initWithImage:[[UIImage imageNamed:@"nav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(navBack)];
         self.navigationItem.leftBarButtonItem = backItem;
     }
+    else
+    {
+        //去掉导航栏分割线
+        self.navigationController.navigationBar.shadowImage = [UIImage new];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg"] forBarMetrics: UIBarMetricsDefault];
+    }
     
-    //通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUser) name:NOTI_UPDATE_USER object:nil];
+    //通知 改为从js刷新了，已经不需要了
+   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUser) name:NOTI_UPDATE_USER object:nil];
 }
 
 -(void) updateUser {
@@ -144,6 +150,20 @@
         }
         
     }
+    else if ([params[0] integerValue] == 6)
+    {
+        if ([params[1] isEqualToString:@"locate"]) {
+            [Global getLocation:^(BMKUserLocation *location) {
+                DDLogDebug(@"location is -----%@", location);
+                [Global reverseGeo:location.location.coordinate cb:^(BMKReverseGeoCodeResult *result) {
+                    DDLogDebug(@"reverse geo is ----%@", result.address);
+                    NSString *userProps = [NSString stringWithFormat: @"{geoAddress:'%@%@%@', geoStreet:'%@%@', lati: '%f', longi: '%f'}", result.addressDetail.province, result.addressDetail.city, result.addressDetail.district, result.addressDetail.streetName, result.addressDetail.streetNumber, location.location.coordinate.latitude, location.location.coordinate.longitude];
+                    NSString *js = [NSString stringWithFormat:@"(function(){window.updateAddress(%@)})()", userProps];
+                    [self.commandDelegate evalJs:js];
+                }];
+            }];
+        }
+    }
     else if ([params[0] integerValue] == 1)
     {
         if ([params[1] isEqualToString:@"login"]) {
@@ -197,6 +217,17 @@
         {
             CompanyWarehouseAuthViewController *cWarehouseVC = [CompanyWarehouseAuthViewController new];
             [self.navigationController pushViewController:cWarehouseVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"location"])
+        {
+            LoactionViewController *locationVC = [LoactionViewController new];
+            locationVC.delegate = (id<LocationDelegate>)self;
+            [self.navigationController pushViewController:locationVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"selectAddress"])
+        {
+            SelectAddressViewController *selectAddressVC = [SelectAddressViewController new];
+            [self.navigationController pushViewController:selectAddressVC animated:YES];
         }
     
     }

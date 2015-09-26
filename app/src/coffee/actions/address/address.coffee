@@ -31,6 +31,11 @@ AddressAction = {
 			actionType: Constants.actionType.CHANGE_SELECTOR
 			status: status
 		}
+
+	locate: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.LOCATE
+		}
 }
 
 module.exports = AddressAction

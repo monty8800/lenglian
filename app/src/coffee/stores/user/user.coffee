@@ -13,13 +13,23 @@ Plugin = require 'util/plugin'
 localUser = DB.get 'user'
 _user = new User localUser
 
-window.updateUser = ->
-	console.log 'update user in user storage'
-	localUser = DB.get 'user'
-	_user = new User localUser
+now = new Date
+_updateTime = now.getTime()
 
-	console.log 'user------', _user
-	UserStore.emitChange()
+needCheck = ->
+	return _user.carStatus is 2 or _user.goodsStatus is 2 or _user.warehouseStatus is 2
+
+updateUser = ->
+	now = new Date
+	if now.getTime() - _updateTime < Constants.cache.USER_INFO or not needCheck()
+		localUser = DB.get 'user'
+		_user = new User localUser
+		console.log 'new user', _user
+		UserStore.emitChange 'user:update'
+	else
+		requestInfo()
+
+window.updateUser = updateUser
 
 window.setAuthPic = (picUrl, type)->
 	console.log 'set auth pic', type, picUrl
@@ -30,11 +40,14 @@ window.setAuthPic = (picUrl, type)->
 window.authDone = ->
 	UserStore.emitChange 'auth:done'
 
+
+
 clearAuthPic = (type)->
 	console.log 'clear auth pic ', type
 	_user = _user.set type, null
 	DB.put 'user', _user.toJS()
 	UserStore.emitChange 'setAuthPic:done'
+
 
 _menus = Immutable.fromJS [
 	[
@@ -61,6 +74,8 @@ requestInfo = ->
 	Http.post Constants.api.USER_CENTER, {
 		userId: _user.id
 	}, (data)->
+		now = new Date
+		_updateTime = now.getTime()
 		_user = _user.set 'orderDoneCount', parseInt(data.myOrderCount)
 		# _user = _user.set 'orderBreakCount', 2   
 		_user = _user.set 'mobile', data.usercode
@@ -79,7 +94,7 @@ requestInfo = ->
 		_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus)
 		_user = _user.set 'balance', data.balance
 		DB.put 'user', _user.toJS()
-		UserStore.emitChange()
+		UserStore.emitChange 'user:update'
 		# checkPayPwd() if _user.hasPayPwd isnt 1
 
 smsCode = (mobile, type)->
@@ -118,7 +133,7 @@ login = (mobile, passwd)->
 		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange 'login:done'
-		Plugin.run [9, 'user:update']
+		# Plugin.run [9, 'user:update']
 	, null
 	, true
 
@@ -178,7 +193,7 @@ logout = ->
 	DB.remove 'user'
 	_user = new User
 	UserStore.emitChange 'logout'
-	Plugin.run [9, 'user:update']
+	# Plugin.run [9, 'user:update']
 
 personalAuth = (params, files)->
 	Http.postFile Constants.api.PERSONAL_AUTH, params, files, (data)->
@@ -194,7 +209,10 @@ updateUserProps = (properties)->
 	console.log 'set properties to user', properties
 	_user = _user.merge properties
 	DB.put 'user', _user.toJS()
-	Plugin.run [9, 'user:update']
+	UserStore.emitChange 'user:update'
+	# Plugin.run [9, 'user:update']
+
+window.updateUserProps = updateUserProps
 
 UserStore = assign BaseStore, {
 	getUser: ->
@@ -219,5 +237,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.CLEAR_AUTH_PIC then clearAuthPic(action.type)
 		when Constants.actionType.UPDATE_USER then updateUserProps(action.properties)
 		when Constants.actionType.COMPANY_AUTH then companyAuth(action.params, action.files)
+		when Constants.actionType.UPDATE_STORE then updateUser()
 
 module.exports = UserStore
