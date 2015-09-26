@@ -44,7 +44,6 @@ User = Immutable.Record {
 	address: null #公司地址
 	street: null #公司详细地址
 	tel: null #公司电话
-	
 
 }
 module.exports = User

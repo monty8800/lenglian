@@ -20,6 +20,7 @@
 #import <MKNetworkKit.h>
 
 
+
 #define CLIENT_TYPE @"2"  //客户端类型
 #define UMENG_KEY @"559500cc67e58ee95500064a"  //友盟的key
 //效果图与实际屏幕比例
@@ -35,12 +36,22 @@
 //百度地图key
 #define BAIDU_MAP_AK @"zG8D9l28S3b9CaZiFRlmYkhl"
 
-@interface Global : NSObject <ToastProtocol, LoadingProtocol>
+typedef void (^LocationCB)(BMKUserLocation *location);
+typedef void (^ReverseGeoCB)(BMKReverseGeoCodeResult *result);
+
+@interface Global : NSObject <ToastProtocol, LoadingProtocol, BMKLocationServiceDelegate, BMKGeoCodeSearchDelegate>
+{
+    LocationCB _locationCB;
+    ReverseGeoCB _reverseGeoCB;
+}
 
 @property (strong, nonatomic) NSString *uuid;   //uuid
 @property (strong, nonatomic) NSString *version;   //版本号
 @property (strong, nonatomic) NSString *wwwVersion;  //静态目录版本号
 @property (strong, nonatomic) BMKMapManager *mapManager;
+@property (strong, nonatomic) BMKLocationService *locationService;
+@property (strong, nonatomic) BMKUserLocation *userLocation;
+@property (strong, nonatomic) BMKGeoCodeSearch *geoCoder;
 
 @property (weak, nonatomic) UIViewController *currentVC;  //当前显示的vc
 
@@ -58,5 +69,9 @@
 +(void) checkUpdate;
 
 +(void) setupBaiduMap;
+
++(void) getLocation:(LocationCB) cb;
++(void) reverseGeo:(CLLocationCoordinate2D) point cb:(ReverseGeoCB) cb;
+
 
 @end

@@ -125,7 +125,7 @@ post = (api, params, cb, err, showLoading, key, iv)->
 			Plugin.toast.err '请求出错'
 			return
 
-		console.log '返回数据：', data
+		console.log '返回数据：', JSON.stringify(data)
 		console.groupEnd()
 		if data.code isnt '0000'
 			return err data if err

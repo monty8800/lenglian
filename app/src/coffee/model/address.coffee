@@ -11,5 +11,10 @@ Address = Immutable.Record {
 	cityName: null #市
 	areaName: null #区
 	
+	#定位的缓存
+	lati: null
+	longi: null
+	geoAddress: null
+	geoStreet: null
 }
 module.exports = Address

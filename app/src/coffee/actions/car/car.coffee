@@ -21,6 +21,13 @@ CarAction = {
 			actionType: Constants.actionType.CAR_DETAIL
 			carId: carid
 		}
+
+	# 发布车源
+	releaseCar: ->
+		console.log '--------action'
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.RELEASE_CAR
+		}
 }
 
 module.exports = CarAction

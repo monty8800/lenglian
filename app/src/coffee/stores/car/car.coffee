@@ -56,7 +56,7 @@ carItemInfo = ->
 				_foundCarList = _foundCarList.push tempCar
 		CarStore.emitChange()
 	, (data) ->
-		Plugin.alert data.msg
+		Plugin.toast.err data.msg
 
 
 # 我的车辆
@@ -109,6 +109,11 @@ carDetail = (carId)->
 			_carDetail = _carDetail.set 'transportImg', td.transportImg
 			CarStore.emitChange()
 
+# 发布车源
+_releaeCar = ->
+	console.log '发布车源---'
+
+
 CarStore = assign BaseStore, {
 	getCar: ->
 		_foundCarList
@@ -125,6 +130,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.FOUND_CAR then carItemInfo()
 		when Constants.actionType.CAR_LIST then carListInfo(action.status)
 		when Constants.actionType.CAR_DETAIL then carDetail(action.carId)
+		when Constants.actionType.RELEASE_CAR then _releaeCar()
 
 module.exports = CarStore
 

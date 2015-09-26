@@ -59,6 +59,8 @@
     DDLogDebug(@"uuid is %@, version is %@, wwwVersion is %@", [Global sharedInstance].uuid, [Global sharedInstance].version, [Global sharedInstance].wwwVersion);
 }
 
+#pragma mark- 地图相关
+
 +(void)setupBaiduMap {
     [Global sharedInstance].mapManager = [BMKMapManager new];
     BOOL ret = [[Global sharedInstance].mapManager start:BAIDU_MAP_AK generalDelegate:nil];
@@ -69,6 +71,67 @@
     {
         DDLogDebug(@"初始化百度地图成功！");
     }
+}
+
+//MARK:- 获取地理位置
++(void)getLocation:(LocationCB)cb {
+    
+    [[Global sharedInstance] updateLocation: cb];
+}
+
+-(void) updateLocation:(LocationCB) cb {
+    if (_locationService == nil) {
+        _locationService = [BMKLocationService new];
+        _locationService.delegate = self;
+    }
+    _locationCB = cb;
+    [_locationService startUserLocationService];
+}
+
+-(void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation {
+    DDLogDebug(@"user loaction update %@", userLocation);
+    [_locationService stopUserLocationService];
+    _userLocation = userLocation;
+    _locationCB(_userLocation);
+    _locationCB = nil;
+}
+
+//MARK:- 反向地址查询
++(void)reverseGeo:(CLLocationCoordinate2D)point cb:(ReverseGeoCB)cb {
+    [[Global sharedInstance] doReverseGeo:point cb:cb];
+}
+
+-(void) doReverseGeo:(CLLocationCoordinate2D) point cb:(ReverseGeoCB) cb {
+    _reverseGeoCB = cb;
+    if (_geoCoder == nil) {
+        _geoCoder = [BMKGeoCodeSearch new];
+        _geoCoder.delegate = self;
+    }
+    
+    BMKReverseGeoCodeOption *option = [BMKReverseGeoCodeOption new];
+    option.reverseGeoPoint = point;
+    BOOL ret = [_geoCoder reverseGeoCode:option];
+    if (ret) {
+        DDLogDebug(@"反向解析请求发送成功");
+    }
+    else
+    {
+        
+        DDLogError(@"反向解析请求发送失败 %f, %f", point.latitude, point.longitude);
+    }
+    
+}
+
+-(void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error {
+    DDLogDebug(@"result---%@", result);
+    if (error == 0) {
+        _reverseGeoCB(result);
+    }
+    else
+    {
+        DDLogError(@"反向解析失败 %d", error);
+    }
+    _reverseGeoCB = nil;
 }
 
 #pragma mark- 检查更新, 服务器版本号大于本地版本号就下载，小于就直接回退本地版本号做降级

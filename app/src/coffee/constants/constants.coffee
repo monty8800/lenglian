@@ -49,6 +49,11 @@ actionType = {
 	CITY_LIST: null
 	SELECT_ADDRESS: null
 	CHANGE_SELECTOR: null
+	RELEASE_CAR: null
+
+	UPDATE_STORE: null
+
+	LOCATE: null
 }
 
 
@@ -152,6 +157,8 @@ api = {
 	store_order_List: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderList.shtml'
 	# 仓库订单详情
 	store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml'
+	# 发布车源
+	release_car: '/mjCarinfoCtl/addCarResource.shtml'
 	
 }
 
@@ -179,6 +186,7 @@ orderStatus = {
 
 cache = {
 	CITY_LIST: 7 * 24 * 60 * 60 * 1000
+	USER_INFO: 3 * 60 * 1000 #更新用户信息的间隔
 }
 
 module.exports = 

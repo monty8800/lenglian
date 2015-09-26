@@ -40,6 +40,9 @@ tel = (input)->
 street = (input)->
 	return /^\S{1,20}$/.test input
 
+remark = (input)->
+	return /^\S{1,30}$/.test input
+
 module.exports = {
 	mobile: mobile #手机号
 	passwd: passwd #登录注册密码
@@ -55,4 +58,5 @@ module.exports = {
 	transLicenseNo: transLicenseNo #道路运输许可证
 	tel: tel #固定电话
 	street: street #详细地址
+	remark: remark
 }

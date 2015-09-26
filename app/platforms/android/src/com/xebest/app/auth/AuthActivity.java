@@ -1,4 +1,4 @@
-package com.xebest.app.center;
+package com.xebest.app.auth;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,8 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
-import com.xebest.app.auth.AuthActivity;
-import com.xebest.app.MainActivity;
 import com.xebest.app.R;
 import com.xebest.app.application.ApiUtils;
 import com.xebest.app.application.Application;
@@ -24,10 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
+ * 认证
  * Created by kaisun on 15/9/22.
  */
-public class RegisterActivity extends BaseCordovaActivity implements CordovaInterface {
-
+public class AuthActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -40,7 +38,7 @@ public class RegisterActivity extends BaseCordovaActivity implements CordovaInte
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, RegisterActivity.class));
+        context.startActivity(new Intent(context, AuthActivity.class));
     }
 
     @Override
@@ -52,9 +50,44 @@ public class RegisterActivity extends BaseCordovaActivity implements CordovaInte
 
     }
 
+    @Override
+    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        super.jsCallNative(args, callbackContext);
+        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_SHORT).show();
+        // 个人车主认证
+        if (args.toString().contains("personalCarAuth")) {
+            PersonalCarAuthActivity.actionView(AuthActivity.this);
+        }
+
+        // 个人货主认证
+        else if (args.toString().contains("personalGoodsAuth")) {
+            PersonalGoodsAuthActivity.actionView(AuthActivity.this);
+        }
+
+        // 个人仓库认证
+        else if (args.toString().contains("personalWarehouseAuth")) {
+            PersonalWareHouseAuthActivity.actionView(AuthActivity.this);
+        }
+
+        // 公司车主认证
+        else if (args.toString().contains("companyCarAuth")) {
+            CompanyCarAuthActivity.actionView(AuthActivity.this);
+        }
+
+        // 公司货主认证
+        else if (args.toString().contains("companyGoodsAuth")) {
+            CompanyGoodsAuthActivity.actionView(AuthActivity.this);
+        }
+
+        // 公司仓库认证
+        else if (args.toString().contains("companyWarehouseAuth")) {
+            CompanyWareHouseAuthActivity.actionView(AuthActivity.this);
+        }
+    }
+
     protected void initView() {
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("注册");
+        tvTitle.setText("认证");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -68,32 +101,18 @@ public class RegisterActivity extends BaseCordovaActivity implements CordovaInte
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("注册");
+        MobclickAgent.onPageStart("认证");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "register.html", this, this, this, this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "auth.html", this, this, this, this);
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("注册");
+        MobclickAgent.onPageEnd("认证");
         MobclickAgent.onPause(this);
-    }
-
-    @Override
-    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
-        super.jsCallNative(args, callbackContext);
-        Toast.makeText(RegisterActivity.this, "" + args.toString(), Toast.LENGTH_SHORT).show();
-        if (args.toString().contains("user:update")) {
-            finish();
-        } else if (args.toString().contains("2")) {
-            // 跳过认证
-            MainActivity.actionView(RegisterActivity.this, 3);
-        } else if (args.toString().contains("auth")) {
-            AuthActivity.actionView(RegisterActivity.this);
-        }
     }
 
     @Override
@@ -116,4 +135,5 @@ public class RegisterActivity extends BaseCordovaActivity implements CordovaInte
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
         return null;
     }
+
 }

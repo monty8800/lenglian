@@ -84,7 +84,7 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         Log.i("info", "---------------" + args.toString());
-        if (args.toString().contains("2")) {
+        if (args.toString().contains("user:update")) {
             finish();
         } else if (args.toString().contains("changePasswd")) {
             ChangePwdActivity.actionView(MoreActivity.this);

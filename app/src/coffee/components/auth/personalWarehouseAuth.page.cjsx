@@ -39,7 +39,8 @@ Auth = React.createClass {
 		else if msg is 'auth:done'
 			UserAction.updateUser {
 				name: @state.name
-				goodsStatus: 2
+				warehouseStatus: 2
+				certification: 1
 				idCardNo: @state.idNum
 				mobile: @state.mobile
 			}
@@ -56,7 +57,7 @@ Auth = React.createClass {
 		else
 			UserAction.personalAuth {
 				phone: @state.mobile
-				type: Constants.authType.GOODS
+				type: Constants.authType.WAREHOUSE
 				username: @state.name
 				userId: @state.user.id
 				cardno: @state.idNum

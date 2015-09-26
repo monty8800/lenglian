@@ -22,7 +22,19 @@
 }
 
 -(void) createUI {
-    self.title = @"附近";
+    
+    //导航栏标题
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 44)];
+    [titleLabel WY_SetFontSize:19 textColor:0xffffff];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.navigationItem.titleView = titleLabel;
+    titleLabel.text = @"附近";
+    
+    self.navigationController.navigationBar.backgroundColor = [UIColor WY_ColorWithHex:0x1987c6];
+    
+    //去掉导航栏分割线
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg"] forBarMetrics: UIBarMetricsDefault];
     
     //导航栏
     self.navigationController.navigationBar.shadowImage = [UIImage new];

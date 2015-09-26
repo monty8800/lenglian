@@ -39,7 +39,8 @@ public class UploadFile {
         String CHARSET = "UTF-8";
 
 
-        url = "http://192.168.29.176:8072/mjPersonInfoAuthCtl/personInfoAuth.shtml";
+//        url = "http://192.168.29.176:8072/mjPersonInfoAuthCtl/personInfoAuth.shtml";
+//        url = "http://192.168.27.188:8072/enterprise/enterpriseAuthentication.shtml";
 //        url = "http://m.lenglianmajia.com/mjPersonInfoAuthCtl/personInfoAuth.shtml";
         URL uri = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) uri.openConnection();

@@ -50,6 +50,9 @@
 		4C822F791BB15F5F00112533 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C822F781BB15F5F00112533 /* mapapi.bundle */; settings = {ASSET_TAGS = (); }; };
 		4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F7B1BB1755A00112533 /* SelectTab.m */; settings = {ASSET_TAGS = (); }; };
 		4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8392CB1BB286D60000466D /* ImagePicker.m */; settings = {ASSET_TAGS = (); }; };
+		4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523351BB6A229008205E3 /* SelectAddressViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523391BB6B16D008205E3 /* AddGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4C9A184D1BB680710072F940 /* LoactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A184C1BB680710072F940 /* LoactionViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020E1BB3FE8B002A0A5C /* BaseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB02121BB40002002A0A5C /* PersonalWarehouseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02111BB40002002A0A5C /* PersonalWarehouseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -173,6 +176,12 @@
 		4C822F7B1BB1755A00112533 /* SelectTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectTab.m; path = map/SelectTab.m; sourceTree = "<group>"; };
 		4C8392CA1BB286D60000466D /* ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePicker.h; path = common/ImagePicker.h; sourceTree = "<group>"; };
 		4C8392CB1BB286D60000466D /* ImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagePicker.m; path = common/ImagePicker.m; sourceTree = "<group>"; };
+		4C8523341BB6A229008205E3 /* SelectAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectAddressViewController.h; path = address/SelectAddressViewController.h; sourceTree = "<group>"; };
+		4C8523351BB6A229008205E3 /* SelectAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectAddressViewController.m; path = address/SelectAddressViewController.m; sourceTree = "<group>"; };
+		4C8523381BB6B16D008205E3 /* AddGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddGoodsViewController.h; path = goods/AddGoodsViewController.h; sourceTree = "<group>"; };
+		4C8523391BB6B16D008205E3 /* AddGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddGoodsViewController.m; path = goods/AddGoodsViewController.m; sourceTree = "<group>"; };
+		4C9A184B1BB680710072F940 /* LoactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoactionViewController.h; path = map/LoactionViewController.h; sourceTree = "<group>"; };
+		4C9A184C1BB680710072F940 /* LoactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoactionViewController.m; path = map/LoactionViewController.m; sourceTree = "<group>"; };
 		4CAB020A1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalGoodsAuthViewController.h; path = auth/PersonalGoodsAuthViewController.h; sourceTree = "<group>"; };
 		4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalGoodsAuthViewController.m; path = auth/PersonalGoodsAuthViewController.m; sourceTree = "<group>"; };
 		4CAB020D1BB3FE8B002A0A5C /* BaseAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseAuthViewController.h; path = auth/BaseAuthViewController.h; sourceTree = "<group>"; };
@@ -267,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				5BEB92691BB65185003970B3 /* comment */,
+				4C8523371BB6B14E008205E3 /* goods */,
 				5BE263291BB3A5A400167D4F /* warehouse */,
 				4CE0AE591BB241B80081DE22 /* auth */,
 				4C822F671BB1364500112533 /* follow */,
@@ -476,6 +486,8 @@
 			children = (
 				4C822F641BB135E500112533 /* AddressListViewController.h */,
 				4C822F651BB135E500112533 /* AddressListViewController.m */,
+				4C8523341BB6A229008205E3 /* SelectAddressViewController.h */,
+				4C8523351BB6A229008205E3 /* SelectAddressViewController.m */,
 			);
 			name = address;
 			sourceTree = "<group>";
@@ -487,6 +499,15 @@
 				4C822F691BB136C000112533 /* FollowListViewController.m */,
 			);
 			name = follow;
+			sourceTree = "<group>";
+		};
+		4C8523371BB6B14E008205E3 /* goods */ = {
+			isa = PBXGroup;
+			children = (
+				4C8523381BB6B16D008205E3 /* AddGoodsViewController.h */,
+				4C8523391BB6B16D008205E3 /* AddGoodsViewController.m */,
+			);
+			name = goods;
 			sourceTree = "<group>";
 		};
 		4CDD99711BAF9B59008B4AC6 /* home */ = {
@@ -530,6 +551,8 @@
 			isa = PBXGroup;
 			children = (
 				4CDD997F1BAFA98D008B4AC6 /* NearByViewController.h */,
+				4C9A184B1BB680710072F940 /* LoactionViewController.h */,
+				4C9A184C1BB680710072F940 /* LoactionViewController.m */,
 				4C822F7A1BB1755A00112533 /* SelectTab.h */,
 				4C822F7B1BB1755A00112533 /* SelectTab.m */,
 				4CDD99801BAFA98D008B4AC6 /* NearByViewController.m */,
@@ -819,7 +842,9 @@
 				5BEB92681BB64BBE003970B3 /* AddWarehouseViewController.m in Sources */,
 				4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */,
 				4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */,
+				4C9A184D1BB680710072F940 /* LoactionViewController.m in Sources */,
 				98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */,
+				4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */,
 				4C59DE431B5E50AA0063D9CE /* XELogFormatter.m in Sources */,
 				E858DD5946754C3C80EE0FDA /* XEPlugin.m in Sources */,
 				4C006E061BB037BB00381462 /* LoginViewController.m in Sources */,
@@ -829,6 +854,7 @@
 				4C822F621BB1354700112533 /* CarListViewController.m in Sources */,
 				4C006DFA1BB02FCC00381462 /* ChangePasswdViewController.m in Sources */,
 				4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */,
+				4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */,
 				5BE2632F1BB3A5E000167D4F /* SearchWarehouseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

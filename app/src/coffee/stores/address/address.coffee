@@ -80,6 +80,17 @@ selectAddress = (address, type, item)->
 changeSelector = (status)->
 	AddressStore.emitChange 'selector:' + status
 
+locate = ->
+	Plugin.run [6, 'locate']
+
+updateAddress = (props)->
+	_address = _address.merge props
+	console.log 'updateAddress', _address
+	DB.put 'address', _address
+	AddressStore.emitChange 'address:update'
+
+window.updateAddress = updateAddress
+
 AddressStore = assign BaseStore, {
 	getAddressList: ->
 		_addressList
@@ -98,5 +109,6 @@ Dispatcher.register (action) ->
 		when Constants.actionType.CITY_LIST then cityList()
 		when Constants.actionType.SELECT_ADDRESS then selectAddress(action.address, action.type, action.item)
 		when Constants.actionType.CHANGE_SELECTOR then changeSelector(action.status)
+		when Constants.actionType.LOCATE then locate()
 
 module.exports = AddressStore
