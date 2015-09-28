@@ -38,7 +38,7 @@
 #import <Cordova/CDVPlugin.h>
 @interface AppDelegate ()
 {
-    BOOL _orderLoaded;
+    BOOL _orderVCShouldLoad;
     UIView *_alphaView;
     UIImageView *_menuView;
     NSInteger _orderMenuSelIndex;
@@ -184,6 +184,12 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:CDVRemoteNotificationError object:error];
     }
 #endif
+- (void)applicationDidReceiveMemoryWarning:(UIApplication*)application
+{
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+}
+
+#pragma mark - handle orderMenu
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     if ([tabBarController.viewControllers[tabBarController.selectedIndex] isEqual:viewController] && tabBarController.selectedIndex == 2) {
@@ -196,7 +202,7 @@
     }
     
     if (viewController == [tabBarController.viewControllers objectAtIndex:2]){
-        if (_orderLoaded) {
+        if (_orderVCShouldLoad) {
             if (_alphaView) {
                 [self hideOrderMenu];
             }else{
@@ -219,10 +225,7 @@
         return YES;
     }
 }
-- (void)applicationDidReceiveMemoryWarning:(UIApplication*)application
-{
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-}
+
 -(void)hideOrderMenu{
     if (_alphaView) {
         [_menuView removeFromSuperview];
@@ -272,13 +275,15 @@
         _alphaView = nil;
     }
 }
+
 -(void)menuBtnClick:(UIButton *)btn{
     NSInteger index = btn.tag - 800;
     _orderMenuSelIndex = index;
-    _orderLoaded = YES;
+    _orderVCShouldLoad = YES;
     [self.tabVC setSelectedIndex:2];
     OrderListViewController *orderVC = (OrderListViewController *)((UINavigationController *)self.tabVC.viewControllers[2]).topViewController;
     [orderVC showWithType:index];
     [self hideOrderMenu];
 }
+
 @end

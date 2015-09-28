@@ -70,8 +70,6 @@
         {
             [self.toast showErr:message];
         }
-        
-        
     }
     
 }

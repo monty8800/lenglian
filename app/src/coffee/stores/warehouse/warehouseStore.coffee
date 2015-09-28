@@ -38,13 +38,14 @@ getWarehouseList = (status,pageNow,pageSize)->
 		warehouses = data.myWarehouse
 		if pageNow is '0'
 			_warehouseList = []
-
-		for i in warehouses
+		
+		for aWarehouse in warehouses
 			warehouseModel = new WarehouseModel
-			warehouseModel = warehouseModel.set 'provinceName',warehouses[i].provinceName
-			warehouseModel = warehouseModel.set 'cityName',warehouses[i].cityName
-			warehouseModel = warehouseModel.set 'areaName',warehouses[i].areaName
-			warehouseModel = warehouseModel.set 'name',warehouses[i].name
+			warehouseModel = warehouseModel.set 'provinceName',aWarehouse.provinceName
+			warehouseModel = warehouseModel.set 'cityName',aWarehouse.cityName
+			warehouseModel = warehouseModel.set 'areaName',aWarehouse.areaName
+			warehouseModel = warehouseModel.set 'name',aWarehouse.name
+			warehouseModel = warehouseModel.set 'street',aWarehouse.street
 			_warehouseList = _warehouseList.push warehouseModel
 
 		WarehouseStore.emitChange 'getMyWarehouseList'
@@ -89,13 +90,13 @@ getDetail = (warehouseId) ->
 
 		propertyArr = warehouseLoad.warehouseProperty
 		tempArr = []
-		for i in propertyArr
+		for prop in propertyArr
 			propertyModel = new WarehousePropertyModel
-			propertyModel = propertyModel.set 'type',propertyArr[i].type
-			propertyModel = propertyModel.set 'attribute',propertyArr[i].attribute
-			propertyModel = propertyModel.set 'value',propertyArr[i].value
-			propertyModel = propertyModel.set 'typeName',propertyArr[i].typeName
-			propertyModel = propertyModel.set 'attributeName',propertyArr[i].attributeName
+			propertyModel = propertyModel.set 'type',prop.type
+			propertyModel = propertyModel.set 'attribute',prop.attribute
+			propertyModel = propertyModel.set 'value',prop.value
+			propertyModel = propertyModel.set 'typeName',prop.typeName
+			propertyModel = propertyModel.set 'attributeName',prop.attributeName
 			tempArr.push propertyModel
 		_warehouse = _warehouse.set 'warehouseProperty', tempArr	#仓库各种属性的数组 
 		

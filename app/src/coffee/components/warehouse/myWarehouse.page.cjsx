@@ -87,11 +87,12 @@ WarehouseList = React.createClass {
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
 
-	_onChange: ->
-		@setState { 
-			warehouseList:WarehouseStore.getWarehouseList()
-			showType:WarehouseStore.getShowType()
-		}	
+	_onChange: (mark)->
+		if mark is 'getMyWarehouseList'		
+			@setState { 
+				warehouseList:WarehouseStore.getWarehouseList()
+				showType:WarehouseStore.getShowType()
+			}	
 
 	render: ->
 		<div>
