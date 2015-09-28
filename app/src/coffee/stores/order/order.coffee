@@ -18,7 +18,7 @@ _orderDetail = new CarModel
 # 0 货主订单  1 司机订单  2 仓库订单   
 _page = -1
 
-window.comeFromFlag = (page)->
+window.comeFromFlag = (page)->			
 	#  禁止多次相同请求
 	if _page is page 
 		return

@@ -49,7 +49,7 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
 
     public void reload() {
         if (mWebView != null && mWebView.getWebView() != null) {
-            mWebView.getWebView().loadUrl("javascript:temp(" + mainActivity.mOrderStatus + ")");
+            mWebView.getWebView().loadUrl("javascript:comeFromFlag(" + mainActivity.mOrderStatus + ")");
         }
     }
 
@@ -85,7 +85,7 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
     @Override
     public Object onMessage(String id, Object data) {
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getActivity().getApplicationContext()).VERSIONCODE + "';client_type='3';})();");
-        mWebView.getWebView().loadUrl("javascript:temp(" + mainActivity.mOrderStatus + ")");
+        mWebView.getWebView().loadUrl("javascript:comeFromFlag(" + mainActivity.mOrderStatus + ")");
         return null;
     }
 

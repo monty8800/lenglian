@@ -80,7 +80,7 @@ public class ReleaseCarActivity extends BaseCordovaActivity implements CordovaIn
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        
+
     }
 
     @Override
