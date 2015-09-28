@@ -31,6 +31,7 @@
 		4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E021BB0370600381462 /* ResetPasswdViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C006E061BB037BB00381462 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E051BB037BB00381462 /* LoginViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E081BB0383F00381462 /* RegisterViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4C134C281BB8EC4200490AF5 /* ModifyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C134C271BB8EC4200490AF5 /* ModifyAddressViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C59DE401B5E4FF30063D9CE /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59DE3F1B5E4FF30063D9CE /* Global.m */; };
 		4C59DE431B5E50AA0063D9CE /* XELogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59DE421B5E50AA0063D9CE /* XELogFormatter.m */; };
 		4C59DE461B5E519C0063D9CE /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59DE451B5E519C0063D9CE /* BaseViewController.m */; };
@@ -145,6 +146,8 @@
 		4C006E051BB037BB00381462 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = user/LoginViewController.m; sourceTree = "<group>"; };
 		4C006E071BB0383F00381462 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = user/RegisterViewController.h; sourceTree = "<group>"; };
 		4C006E081BB0383F00381462 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = user/RegisterViewController.m; sourceTree = "<group>"; };
+		4C134C261BB8EC4200490AF5 /* ModifyAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModifyAddressViewController.h; path = address/ModifyAddressViewController.h; sourceTree = "<group>"; };
+		4C134C271BB8EC4200490AF5 /* ModifyAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModifyAddressViewController.m; path = address/ModifyAddressViewController.m; sourceTree = "<group>"; };
 		4C59DE3E1B5E4FF30063D9CE /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = common/Global.h; sourceTree = "<group>"; };
 		4C59DE3F1B5E4FF30063D9CE /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Global.m; path = common/Global.m; sourceTree = "<group>"; };
 		4C59DE411B5E50AA0063D9CE /* XELogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XELogFormatter.h; path = common/XELogFormatter.h; sourceTree = "<group>"; };
@@ -486,6 +489,8 @@
 			children = (
 				4C822F641BB135E500112533 /* AddressListViewController.h */,
 				4C822F651BB135E500112533 /* AddressListViewController.m */,
+				4C134C261BB8EC4200490AF5 /* ModifyAddressViewController.h */,
+				4C134C271BB8EC4200490AF5 /* ModifyAddressViewController.m */,
 				4C8523341BB6A229008205E3 /* SelectAddressViewController.h */,
 				4C8523351BB6A229008205E3 /* SelectAddressViewController.m */,
 			);
@@ -834,6 +839,7 @@
 				5BEB926C1BB651A0003970B3 /* CommentViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
 				4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */,
+				4C134C281BB8EC4200490AF5 /* ModifyAddressViewController.m in Sources */,
 				4C822F661BB135E500112533 /* AddressListViewController.m in Sources */,
 				4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */,
 				4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */,

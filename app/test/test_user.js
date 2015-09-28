@@ -32,7 +32,7 @@
     it('找回密码', function(done) {
       var mobile, passwd;
       mobile = '18513468467';
-      passwd = '123456abc';
+      passwd = '123456';
       return request.post(config.api.SMS_CODE, {
         mobile: mobile,
         type: 2

@@ -1,23 +1,23 @@
 //
-//  SelectAddressViewController.m
+//  ModifyAddressViewController.m
 //  HelloCordova
 //
-//  Created by ywen on 15/9/26.
+//  Created by ywen on 15/9/28.
 //
 //
 
-#import "SelectAddressViewController.h"
+#import "ModifyAddressViewController.h"
 
-@interface SelectAddressViewController ()
+@interface ModifyAddressViewController ()
 
 @end
 
-@implementation SelectAddressViewController
+@implementation ModifyAddressViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"selectAddress.html";
+        self.startPage = @"modifyAddress.html";
     }
     return self;
 }
@@ -25,26 +25,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     [self createUI];
 }
 
 -(void) createUI {
-    self.title = @"选择地区";
     
-     UIImage *navBgBlue = [UIImage WY_ImageWithColor:0x2a7df5 size:CGSizeMake(1, self.navigationController.navigationBar.bounds.size.height+20)];
-    [self.navigationController.navigationBar setBackgroundImage:navBgBlue forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(clickDone)];
-    rightBtn.tintColor = [UIColor whiteColor];
-}
-
--(void) clickDone {
-    [self.commandDelegate evalJs:@"(function(){window.selectCurrent()})()"];
-}
-
--(void)commonCommand:(NSArray *)params {
-    [super commonCommand:params];
 }
 
 -(void)select:(BMKAddressComponent *)address coor:(CLLocationCoordinate2D)coor {

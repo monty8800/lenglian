@@ -25,7 +25,7 @@ describe '测试用户', ->
 
 	it '找回密码', (done)->
 		mobile = '18513468467'
-		passwd = '123456abc'
+		passwd = '123456'
 
 		request.post config.api.SMS_CODE, {
 			mobile: mobile

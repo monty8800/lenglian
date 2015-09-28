@@ -14,7 +14,5 @@ Address = Immutable.Record {
 	#定位的缓存
 	lati: null
 	longi: null
-	geoAddress: null
-	geoStreet: null
 }
 module.exports = Address

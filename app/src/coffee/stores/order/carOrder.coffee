@@ -18,7 +18,7 @@ CarOrderList = Immutable.List()
 carDetail = new CarOrderModel
 
 window.temp = ->
-	alert 'aaa'
+	Plugin.debug 'aaa'
 
 # 车主订单列表
 CarOrderListMethod = (status)->

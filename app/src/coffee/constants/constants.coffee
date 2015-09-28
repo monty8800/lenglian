@@ -54,7 +54,14 @@ actionType = {
 	UPDATE_STORE: null
 
 	LOCATE: null
+<<<<<<< Updated upstream
 	ADD_CAR:null
+=======
+
+	EDIT_ADDRESS: null
+	NEW_ADDRESS: null
+	SELECT_LIST_ADDRESS: null
+>>>>>>> Stashed changes
 }
 
 
@@ -95,6 +102,11 @@ api = {
 
 	#城市列表
 	CITY_LIST: '/dictionaryCtl/provinceList.shtml'
+
+	#编辑地址
+	EDIT_ADDRESS: '/userInfo/updateMjUserAddress.shtml'
+	#添加地址
+	ADD_ADDRESS: '/userInfo/addMjUserAddress.shtml'
 
 
 #YYQ

@@ -57,21 +57,25 @@
     [commitBtn addTarget:self action:@selector(commit) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:commitBtn];
     
+   
     [Global getLocation:^(BMKUserLocation *location) {
         DDLogDebug(@"-----location:%@", location);
-        [_mapView setCenterCoordinate:location.location.coordinate];
-        _pointAnno = [BMKPointAnnotation new];
-        _pointAnno.coordinate = location.location.coordinate;
-        _pointAnno.title = @"我的位置";
-        [Global reverseGeo:location.location.coordinate cb:^(BMKReverseGeoCodeResult *result) {
-            _pointAnno.title = result.address;
-            _address = result.addressDetail;
-        }];
-        _pointAnno.subtitle = @"拖拽修改位置";
-        [_mapView addAnnotation:_pointAnno];
+        __block LoactionViewController *weakSelf = self;
+        [weakSelf addAnno:location];
     }];
-    
-   
+}
+
+-(void) addAnno:(BMKUserLocation *) location {
+    [_mapView setCenterCoordinate:location.location.coordinate];
+    _pointAnno = [BMKPointAnnotation new];
+    _pointAnno.coordinate = location.location.coordinate;
+    _pointAnno.title = @"我的位置";
+    [Global reverseGeo:location.location.coordinate cb:^(BMKReverseGeoCodeResult *result) {
+        _pointAnno.title = result.address;
+        _address = result.addressDetail;
+    }];
+    _pointAnno.subtitle = @"拖拽修改位置";
+    [_mapView addAnnotation:_pointAnno];
 }
 
 -(BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {
@@ -91,11 +95,16 @@
 
 -(void)mapView:(BMKMapView *)mapView annotationView:(BMKAnnotationView *)view didChangeDragState:(BMKAnnotationViewDragState)newState fromOldState:(BMKAnnotationViewDragState)oldState {
     if (newState == BMKAnnotationViewDragStateEnding) {
+        __block LoactionViewController *weakSelf = self;
         [Global reverseGeo:_pointAnno.coordinate cb:^(BMKReverseGeoCodeResult *result) {
-            _pointAnno.title = result.address;
-            _address = result.addressDetail;
+            [weakSelf updateAddress:result];
         }];
     }
+}
+
+-(void) updateAddress:(BMKReverseGeoCodeResult *) result {
+    _pointAnno.title = result.address;
+    _address = result.addressDetail;
 }
 
 -(void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view {
@@ -120,6 +129,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    _mapView.delegate = nil;
 }
 
 /*

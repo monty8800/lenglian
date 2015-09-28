@@ -134,6 +134,46 @@
     _reverseGeoCB = nil;
 }
 
+//MARK:- 地理位置解析
++(void)geo:(NSString *)city address:(NSString *)address cb:(GeoCB)cb {
+    [[Global sharedInstance] geo:city address:address cb:cb];
+}
+
+-(void)geo:(NSString *)city address:(NSString *)address cb:(GeoCB)cb {
+    _geoCB = cb;
+    if (_geoCoder == nil) {
+        _geoCoder = [BMKGeoCodeSearch new];
+        _geoCoder.delegate = self;
+    }
+    
+    BMKGeoCodeSearchOption *option = [BMKGeoCodeSearchOption new];
+    option.city = city;
+    option.address = address;
+    BOOL ret = [_geoCoder geoCode:option];
+    if (ret) {
+        DDLogDebug(@"正向解析请求发送成功");
+    }
+    else
+    {
+        
+        DDLogError(@"正向解析请求发送失败");
+    }
+
+}
+
+-(void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error {
+    DDLogDebug(@"result------%@", result);
+    if (error == 0) {
+        _geoCB(result);
+    }
+    else
+    {
+        DDLogError(@"正向解析失败 %d", error);
+    }
+    _geoCB = nil;
+}
+
+
 #pragma mark- 检查更新, 服务器版本号大于本地版本号就下载，小于就直接回退本地版本号做降级
 +(void)checkUpdate {
     //TODO:  等接口，再具体实现

@@ -79,6 +79,7 @@
         else if ([params[1] isEqualToString:@"addressList"])
         {
             AddressListViewController *addressVC = [AddressListViewController new];
+            addressVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:addressVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"attentionList"])

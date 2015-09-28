@@ -1,8 +1,10 @@
 require 'components/common/common'
 require 'index-style'
+require 'anim-style'
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 
 AddressStore = require 'stores/address/address'
 AddressAction = require 'actions/address/address'
@@ -15,6 +17,8 @@ _addressList = []
 
 locationUrl = 'modifyAddress'
 
+DB = require 'util/storage'
+
 Address = React.createClass {
 
 	hrefDetail: (page)->
@@ -22,13 +26,16 @@ Address = React.createClass {
 
 	setDefault: (item)->
 		console.log 'default ---- ', item
-		Plugin.alert '表结构没有该字段呢' 
+		Plugin.debug '表结构没有该字段呢' 
 
 	modifyAddress: (item)->
 		console.log 'modify_address -- ',item 
+		DB.put 'transData', item
+		Plugin.nav.push ['modifyAddress']
 
 	delAddress: (item, i)->
-		Plugin.alert '确定删除吗', '提示', (index)->		
+		Plugin.alert '确定删除吗', '提示', (index)->
+			console.log index
 			if index is 1
 				_index = i
 				console.log 'del_address -- ',item
@@ -41,6 +48,7 @@ Address = React.createClass {
 	componentDidMount: ->
 		AddressStore.addChangeListener @resultCallBack
 		AddressAction.addressList()
+		DB.remove 'transData'
   
 	componentWillUnMount: ->
 		AddressStore.removeChangeListener @resultCallBack
@@ -59,7 +67,7 @@ Address = React.createClass {
 					}	
 					Plugin.alert '删除成功!'
 				else 
-					Plugin.alert who			
+					console.log who			
 
 
 	minxins: [PureRenderMixin]
@@ -71,11 +79,8 @@ Address = React.createClass {
 					<ul>
 						<li>{ item?.provinceName }{ item?.cityName }{ item?.areaName }{ item?.street}</li>
 						<li>
-							<label className="u-label fl" onClick={@setDefault.bind this, item}>
-								<input name="adr-radio" className="ll-font circle" type="radio" />设置为常用地址
-							</label>
 							<p className="fr">
-								<span className="ll-font" onClick={@hrefDetail.bind this, locationUrl}>编辑</span>
+								<span className="ll-font" onClick={@modifyAddress.bind this, item}>编辑</span>
 								<span className="ll-font" onClick={@delAddress.bind this, item, i}>删除</span>
 							</p>
 						</li>
@@ -83,7 +88,11 @@ Address = React.createClass {
 				</div>
 			</div>
 		, this
-		<div>{ items }</div>
+		<div>
+		<CSSTransitionGroup transitionName="list">
+		{ items }
+		</CSSTransitionGroup>
+		</div>
 }
 
 React.render <Address />, document.getElementById('content')

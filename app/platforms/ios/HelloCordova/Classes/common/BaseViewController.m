@@ -69,6 +69,9 @@
     [_titleLabel WY_SetFontSize:19 textColor:0xffffff];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = _titleLabel;
+    if (self.title != nil) {
+        _titleLabel.text = self.title;
+    }
     
     self.navigationController.navigationBar.backgroundColor = [UIColor WY_ColorWithHex:0x1987c6];
     
@@ -150,19 +153,26 @@
         }
         
     }
+    
     else if ([params[0] integerValue] == 6)
     {
         if ([params[1] isEqualToString:@"locate"]) {
+            __block BaseViewController *weakSelf = self;
             [Global getLocation:^(BMKUserLocation *location) {
                 DDLogDebug(@"location is -----%@", location);
+                
                 [Global reverseGeo:location.location.coordinate cb:^(BMKReverseGeoCodeResult *result) {
                     DDLogDebug(@"reverse geo is ----%@", result.address);
-                    NSString *userProps = [NSString stringWithFormat: @"{geoAddress:'%@%@%@', geoStreet:'%@%@', lati: '%f', longi: '%f'}", result.addressDetail.province, result.addressDetail.city, result.addressDetail.district, result.addressDetail.streetName, result.addressDetail.streetNumber, location.location.coordinate.latitude, location.location.coordinate.longitude];
+                    NSString *userProps = [NSString stringWithFormat: @"{provinceName:'%@', cityName:'%@', areaName:'%@', street:'%@%@', lati: '%f', longi: '%f'}", result.addressDetail.province, result.addressDetail.city, result.addressDetail.district, result.addressDetail.streetName, result.addressDetail.streetNumber, location.location.coordinate.latitude, location.location.coordinate.longitude];
                     NSString *js = [NSString stringWithFormat:@"(function(){window.updateAddress(%@)})()", userProps];
-                    [self.commandDelegate evalJs:js];
+                    [weakSelf.commandDelegate evalJs:js];
                 }];
             }];
         }
+    }
+    else if ([params[0] integerValue] == 5)
+    {
+        [self updateTitle:params[1]];
     }
     else if ([params[0] integerValue] == 1)
     {
@@ -232,6 +242,10 @@
     
     }
     
+}
+
+-(void) updateTitle: (NSString *) title {
+    self.title = title;
 }
 
 - (void)didReceiveMemoryWarning {

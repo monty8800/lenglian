@@ -3,6 +3,7 @@ require 'user-center-style'
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+
 LinkedStateMixin = React.addons.LinkedStateMixin
 Plugin = require 'util/plugin'
 Validator = require 'util/validator'
@@ -11,6 +12,9 @@ UserStore = require 'stores/user/user'
 CarStore = require 'stores/car/car'
 CarAction = require 'actions/car/car'
 AddressStore = require 'stores/address/address'
+
+Plugin = require 'util/plugin'
+
 
 AddCar = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -92,6 +96,7 @@ AddCar = React.createClass {
 					name: 'transLicensePic.jpg'
 				}
 			]
+
 
 	render: ->
 

@@ -7,6 +7,7 @@
 //
 
 #import "AddressListViewController.h"
+#import "ModifyAddressViewController.h"
 
 @interface AddressListViewController ()
 
@@ -31,10 +32,29 @@
 
 -(void) createUI {
     self.title = @"我的地址";
+    
+    UIBarButtonItem *rigthBtn = [[UIBarButtonItem alloc] initWithTitle:@"新增地址" style:UIBarButtonItemStylePlain target:self action:@selector(newAddress)];
+    rigthBtn.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = rigthBtn;
+}
+
+-(void) newAddress {
+    ModifyAddressViewController *addressVC = [ModifyAddressViewController new];
+    addressVC.title = @"新增地址";
+    [self.navigationController pushViewController:addressVC animated:YES];
+    
 }
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
+    
+    if ([params[0] integerValue] == 1 ) {
+        if ([params[1] isEqualToString:@"modifyAddress"]) {
+            ModifyAddressViewController *addressVC = [ModifyAddressViewController new];
+            addressVC.title = @"编辑地址";
+            [self.navigationController pushViewController:addressVC animated:YES];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
