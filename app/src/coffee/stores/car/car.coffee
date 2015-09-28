@@ -115,8 +115,18 @@ carDetail = (carId)->
 			CarStore.emitChange()
 
 # 发布车源
-_releaeCar = ->
-	console.log '发布车源---'
+_releaeCar = (params)->
+	Plugin.loading.show '正在发布...'
+	console.log '发布车源---', params
+	Http.post Constants.api.release_car, params, (result)->
+		Plugin.loading.hide()
+		Plugin.toast.success '发布成功'
+		Plugin.nav.push ['release_success']
+		CarStore.emitChange 'success'
+	, (err)->
+		Plugin.loading.hide()
+		Plugin.toast.err err.msg
+
 
 _addCar = (params, files)->
 	console.log '----params -', params
@@ -142,7 +152,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.FOUND_CAR then carItemInfo()
 		when Constants.actionType.CAR_LIST then carListInfo(action.status)
 		when Constants.actionType.CAR_DETAIL then carDetail(action.carId)
-		when Constants.actionType.RELEASE_CAR then _releaeCar()
+		when Constants.actionType.RELEASE_CAR then _releaeCar(action.params)
 		when Constants.actionType.ADD_CAR then _addCar(action.params, action.files)
 
 module.exports = CarStore

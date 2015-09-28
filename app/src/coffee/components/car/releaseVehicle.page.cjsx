@@ -8,7 +8,11 @@ Plugin = require 'util/plugin'
 UserStore = require 'stores/user/user'
 Validator = require 'util/validator'
 CarAction = require 'actions/car/car'
+CarStore = require 'stores/car/car'
+DB = require 'util/storage'
 
+CarInfo = DB.get 'transData'
+carId = CarInfo.carId
 
 Vehicle = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -17,13 +21,34 @@ Vehicle = React.createClass {
 		user = UserStore.getUser()
 		{
 			isShow: 1
-			startPoint: '' # 出发地
-			destination: '' # 目的地
-			invoice: 1 # 是否需要发票 默认是
-			contact: user.name or '' # 联系人
-			mobile:  user.mobile or '' # 手机号
-			remark:  '' # 备注
+
+			startPoint: 'sss' # 出发地
+			destination: 'sss' # 目的地
+			isinvoice: 1 # 是否需要发票 默认是
+			contacts: user.name or '' # 联系人
+			phone:  user.mobile or '' # 手机号
+			carId: carId # 车辆Id
+			remark:  'bbb' # 备注
+			startTime: '2015-09-30'
+			endTime: '2015-09-30'
+			fromProvince: '北京市'
+			fromCity: '北京市'
+			fromArea: '海淀区'
+			fromStreet: '2红'
+			toProvince: '北京市'
+			toCity: '北京市'
+			toArea: '海淀区'
+			toStreet: '青楼'
 		}
+
+	componentDidMount: ->
+		CarStore.addChangeListener @resultCallBack
+
+	componentWillUnMount: ->
+		CarStore.removeChangeListener @resultCallBack
+
+	resultCallBack: (result)->
+		console.log '------', result
 
 	_showCar: ->
 		if @state.isShow is 1
@@ -45,7 +70,25 @@ Vehicle = React.createClass {
 		else if not Validator.remark @state.remark
 			Plugin.toast.err '备注1-30个字符'
 		else
-			CarAction.releaseCar();
+			CarAction.releaseCar({
+				startPoint: @state.startPoint # 出发地
+				destination: @state.destination # 目的地
+				isinvoice: @state.isinvoice # 是否需要发票 默认是
+				contacts: @state.contact # 联系人
+				phone:  @state.mobile # 手机号
+				carId: @state.carId # 车辆Id
+				remark:  @state.remark # 备注
+				startTime: @state.startTime
+				endTime: @state.endTime
+				fromProvince: @state.fromProvince
+				fromCity: @state.fromCity
+				fromArea: @state.fromArea
+				fromStreet: @state.fromStreet
+				toProvince: @state.toProvince
+				toCity: @state.toCity
+				toArea: @state.toArea
+				toStreet: @state.toStreet
+			});
 
 	render: ->
 		<div>

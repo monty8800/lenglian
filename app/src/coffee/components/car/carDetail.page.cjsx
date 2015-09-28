@@ -12,12 +12,13 @@ CarAction = require 'actions/car/car'
 CarStore = require 'stores/car/car'
 Plugin = require 'util/plugin'
 
-
 Helper = require 'util/helper'
 
 DB = require 'util/storage'
 
-carId = DB.get 'transData'
+CarInfo = DB.get 'transData'
+carId = CarInfo.carId
+DB.remove 'transData'
 
 Detail = React.createClass {
 
@@ -31,7 +32,7 @@ Detail = React.createClass {
 				<div className="g-itemList">
 					<span>车牌号码:</span> <span>{ detail?.carNo }</span>	
 					<div className="u-item-btn">
-						<span href="#">求货中</span>
+						<span href="#">{ Helper.navStatus detail?.status }</span>
 					</div>
 				</div>
 				<div className="g-itemList">
