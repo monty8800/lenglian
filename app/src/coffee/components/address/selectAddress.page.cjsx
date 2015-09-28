@@ -7,10 +7,15 @@ AddressAction = require 'actions/address/address'
 
 Plugin = require 'util/plugin'
 
-CitySelector = require 'components/address/citySelector'
+AddressList = require 'components/address/myAddressList'
+
+Validator = require 'util/validator'
+
+DB = require 'util/storage'
+
+transData = DB.get 'transData' #这里是个字符串，如 from,to,by0,by1
 
 
-#TODO:  常用地址经纬度的问题，有待跟产品确认
 SelectAddress = React.createClass {
 	mixins: [PureRenderMixin]
 	getInitialState: ->
@@ -18,12 +23,26 @@ SelectAddress = React.createClass {
 		{
 			lati: address.lati
 			longi: address.longi
-			address: address.geoAddress or '选择地区'
-			street: address.geoStreet or '详细地址（点击地图选择）'
+			address: if address.areaName then address.provinceName + address.cityName + address.areaName else '选择地区'
+			street: address.street or '详细地址'
 		}
 	componentDidMount: ->
 		AddressStore.addChangeListener @_change
-		AddressAction.locate()
+		AddressAction.locate() if not AddressStore.getAddress()?.lati
+		window.selectCurrent = ->
+			if not @state.lati
+				Plugin.toast.err '请选择城市'
+			# else if not Validator.street @state.street
+				# Plugin.toast.err '请填写详细地址'
+			else
+				address = AddressStore.getAddress()
+				#根据上个界面放在transddata中的key，把数据放在value里传回去
+				data = {}
+				data[transData] = address.toJS()
+				DB.put 'transData', data
+				Plugin.nav.pop()
+					
+				
 
 	componentWillUnMount: ->
 		AddressStore.removeChangeListener @_change
@@ -38,9 +57,15 @@ SelectAddress = React.createClass {
 			@setState {
 				lati: address.lati
 				longi: address.longi
-				address: address.geoAddress
-				street: address.geoStreet
+				address: address.provinceName + address.cityName + address.areaName
+				street: address.street or '详细地址'
 			}
+		else if arg.msg is 'address:select'
+			#根据上个界面放在transddata中的key，把数据放在value里传回去
+			data = {}
+			data[transData] = arg.address.toJS()
+			DB.put 'transData', data
+			Plugin.nav.pop()
 	render: ->
 		<section>
 		<div onClick={@_locate} className="m-releasehead02 ll-font">
@@ -51,13 +76,7 @@ SelectAddress = React.createClass {
 				{@state.street}
 			</div>
 		</div>
-		<div className="m-releaseitem">
-			<div className="title">常用地址</div>
-			<div>北京市海淀区中关村泰鹏大厦</div>
-			<div>北京市海淀区中关村泰鹏大厦</div>
-			<div>北京市海淀区中关村泰鹏大厦</div>
-		</div>	
-		<CitySelector />
+		<AddressList />	
 		</section>
 }
 

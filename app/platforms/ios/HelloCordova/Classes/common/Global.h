@@ -38,11 +38,13 @@
 
 typedef void (^LocationCB)(BMKUserLocation *location);
 typedef void (^ReverseGeoCB)(BMKReverseGeoCodeResult *result);
+typedef void(^GeoCB) (BMKGeoCodeResult *result);
 
 @interface Global : NSObject <ToastProtocol, LoadingProtocol, BMKLocationServiceDelegate, BMKGeoCodeSearchDelegate>
 {
     LocationCB _locationCB;
     ReverseGeoCB _reverseGeoCB;
+    GeoCB _geoCB;
 }
 
 @property (strong, nonatomic) NSString *uuid;   //uuid
@@ -72,6 +74,8 @@ typedef void (^ReverseGeoCB)(BMKReverseGeoCodeResult *result);
 
 +(void) getLocation:(LocationCB) cb;
 +(void) reverseGeo:(CLLocationCoordinate2D) point cb:(ReverseGeoCB) cb;
+
++(void) geo:(NSString *) city address:(NSString *) address cb:(GeoCB) cb;
 
 
 @end

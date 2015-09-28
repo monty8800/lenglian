@@ -10,6 +10,7 @@ CarPic03 = require 'car-04.jpg'
 
 CarAction = require 'actions/car/car'
 CarStore = require 'stores/car/car'
+Plugin = require 'util/plugin'
 
 Helper = require 'util/helper'
 
@@ -22,7 +23,7 @@ DB.remove 'transData'
 Detail = React.createClass {
 
 	_delStore: ->
-		alert 'are you kidding?'
+		Plugin.debug 'are you kidding?'
 
 	render: ->
 		detail = @props.detail

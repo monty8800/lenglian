@@ -14,6 +14,16 @@ AddressAction = {
 			addressId: addressid
 		}
 
+	editAddress: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.EDIT_ADDRESS
+			params: params
+		}
+	newAddress: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.NEW_ADDRESS
+			params: params
+		}
 	cityList: ->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CITY_LIST
@@ -35,6 +45,11 @@ AddressAction = {
 	locate: ->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.LOCATE
+		}
+	selectAddressInList: (address)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.SELECT_LIST_ADDRESS
+			address: address
 		}
 }
 

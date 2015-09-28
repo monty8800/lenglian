@@ -9,7 +9,7 @@ UserStore = require 'stores/user/user'
 Helper = require 'util/helper'
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
-
+Plugin = require 'util/plugin'
 
 _warehouseId = DB.get('transData')
 warehouseStatus = '' #状态
@@ -30,6 +30,7 @@ WarehouseDetail = React.createClass {
 	getInitialState: -> {
 		warehouseDetail:{}
 	}
+
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
 		WarehouseAction.getDetail(_warehouseId)

@@ -54,6 +54,7 @@ var config = {
             "index-style": "build/css/index.css",
             "user-center-style": "build/css/userCenter.css",
             "address-style": "build/css/address.css",
+            "anim-style": "build/css/anim.css",
             "crypto": "node_modules/crypto-browserify"
         }
     },

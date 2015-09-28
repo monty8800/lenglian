@@ -33,16 +33,16 @@ AddGoods = React.createClass {
 		<section>
 		<div onClick={@_selectAddress} className="m-releasehead ll-font">
 			<div className="g-adr-end ll-font g-adr-end-line">
-				<input type="type" placeholder="输入终点"/>
+				<input readOnly="readOnly" type="type" placeholder="输入终点"/>
 			</div>
 			<div className="g-adr-pass ll-font g-adr-pass-line">
-				<input type="type" placeholder="北京海淀区中关村泰鹏大厦"/>
+				<input readOnly="readOnly" type="type" placeholder="北京海淀区中关村泰鹏大厦"/>
 			</div>
 			<div className="g-adr-middle ll-font">
-				<input type="type" placeholder="途径地"/>
+				<input readOnly="readOnly" type="type" placeholder="途径地"/>
 			</div>
 			<div className="g-adr-start ll-font g-adr-start-line">
-				<input type="type" placeholder="输入起点"/>
+				<input readOnly="readOnly" type="type" placeholder="输入起点"/>
 			</div>
 			<a href="#" className="u-addIcon"></a>
 		</div>

@@ -102,4 +102,6 @@ else
 		alert: xeAlert
 	}
 
+xePlugin.debug = if Constants.debug is true then alert else console.log
+
 module.exports = xePlugin

@@ -25,6 +25,8 @@ localAddress = DB.get 'address'
 
 _address = new AddressModel localAddress
 
+_fromToList = Immutable.Map()
+
 addressList = ->
 	console.log '请求网络数据'
 	Http.post Constants.api.address_list, {
@@ -33,6 +35,7 @@ addressList = ->
 		if result.length is 0
 			Plugin.toast.err '没有相关数据呢!'
 			return;
+		_addressList = Immutable.List()
 		for info in result
 			do (info) ->
 				tempAddress = new AddressModel
@@ -45,6 +48,8 @@ addressList = ->
 				tempAddress = tempAddress.set 'provinceName', info.provinceName
 				tempAddress = tempAddress.set 'cityName', info.cityName
 				tempAddress = tempAddress.set 'areaName', info.areaName
+				tempAddress = tempAddress.set 'lati', info.latitude
+				tempAddress = tempAddress.set 'longi', info.longitue
 				_addressList = _addressList.push tempAddress
 		AddressStore.emitChange 'list'
 
@@ -57,6 +62,14 @@ delAddress = (addressId)->
 		AddressStore.emitChange 'del_success'
 	, (data) ->
 		AddressStore.emitChange data.msg
+
+editAddress = (params)->
+	Http.post Constants.api.EDIT_ADDRESS, params, (result)->
+		AddressStore.emitChange 'address:edit:success'
+
+addAddress = (params)->
+	Http.post Constants.api.ADD_ADDRESS, params, (result)->
+		AddressStore.emitChange 'address:new:success'
 
 cityList = ->
 	now = new Date
@@ -85,17 +98,40 @@ locate = ->
 
 updateAddress = (props)->
 	_address = _address.merge props
-	console.log '---------updateAddress', _address
-	DB.put 'address', _address
+	console.log 'updateAddress', _address
+	DB.put 'address', _address.toJS()
+
 	AddressStore.emitChange 'address:update'
 
+updateFromTo = ->
+	transData = DB.get 'transData'
+	_fromToList.merge transData if transData.constructor isnt String
+	DB.remove 'transData'
+	AddressStore.emitChange 'fromTo:update'
+
+
+updateStore = ->
+	paths = window.location.href.split('/')
+	page = paths[paths.length-1]
+	switch page
+		when 'addressList.html' then addressList()
+		when 'addGoods.html' then updateFromTo()
+
 window.updateAddress = updateAddress
+
 
 window.updateAdd = (lat, lon)->	
 	_address = _address.set 'lati', lat
 	_address = _address.set 'longi', lon
 	DB.put 'address', _address
 	console.log '---------updateAddress--------', lon
+
+selectListAddress = (address)->
+	AddressStore.emitChange {
+		msg: 'address:select'
+		address: address
+	}
+
 
 AddressStore = assign BaseStore, {
 	getAddressList: ->
@@ -106,6 +142,9 @@ AddressStore = assign BaseStore, {
 
 	getAddress: ->
 		_address
+
+	getFromToList: ->
+		_fromToList
 }
 
 Dispatcher.register (action) ->
@@ -116,5 +155,9 @@ Dispatcher.register (action) ->
 		when Constants.actionType.SELECT_ADDRESS then selectAddress(action.address, action.type, action.item)
 		when Constants.actionType.CHANGE_SELECTOR then changeSelector(action.status)
 		when Constants.actionType.LOCATE then locate()
+		when Constants.actionType.EDIT_ADDRESS then editAddress(action.params)
+		when Constants.actionType.NEW_ADDRESS then addAddress(action.params)
+		when Constants.actionType.UPDATE_STORE then updateStore()
+		when Constants.actionType.SELECT_LIST_ADDRESS then selectListAddress(action.address)
 
 module.exports = AddressStore
