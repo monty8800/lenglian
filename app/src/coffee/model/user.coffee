@@ -24,11 +24,13 @@ User = Immutable.Record {
 	balance: 0 #账户余额
 
 	#认证需要的相关图片
+	carPic: null #车辆图片
 	license: null #驾驶证图片地址
 	idCard: null #身份证图片地址
 	operationLicense: null #运营证图片地址
 	businessLicense: null #营业执照图片地址
 	companyPic: null #门头照片地址
+	transLicensePic: null # 道路运输许可证照片
 
 	transLicensePic: null #道路运输许可证图片地址
 

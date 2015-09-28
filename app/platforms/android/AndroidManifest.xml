@@ -17,14 +17,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <application android:hardwareAccelerated="true" android:icon="@drawable/icon" android:label="@string/app_name" android:name=".application.Application" android:supportsRtl="true">
-        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/activity_name" android:launchMode="singleTop" android:name="MainActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowSoftInputMode="adjustResize">
+        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/activity_name" android:launchMode="singleTop" android:name=".MainActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowSoftInputMode="adjustResize">
             <intent-filter android:label="@string/launcher_name">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <meta-data android:name="UMENG_APPKEY" android:value="5601399667e58eaa030036a9" />
-        <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="6LI4AtS4erpYoagW8vPzth1k" />
+        <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="rrq8hCpdFLvkaRkE40LKbINB" />
         <activity android:name=".center.MsgActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".car.MyCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.AddressActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -49,5 +49,6 @@
         <activity android:name=".auth.CompanyGoodsAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".auth.CompanyWareHouseAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".auth.CompanyCarAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.AddCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

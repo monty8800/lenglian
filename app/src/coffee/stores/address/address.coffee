@@ -85,11 +85,17 @@ locate = ->
 
 updateAddress = (props)->
 	_address = _address.merge props
-	console.log 'updateAddress', _address
+	console.log '---------updateAddress', _address
 	DB.put 'address', _address
 	AddressStore.emitChange 'address:update'
 
 window.updateAddress = updateAddress
+
+window.updateAdd = (lat, lon)->	
+	_address = _address.set 'lati', lat
+	_address = _address.set 'longi', lon
+	DB.put 'address', _address
+	console.log '---------updateAddress--------', lon
 
 AddressStore = assign BaseStore, {
 	getAddressList: ->

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
-import com.xebest.app.utils.Tools;
+import com.xebest.llmj.utils.Tools;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;

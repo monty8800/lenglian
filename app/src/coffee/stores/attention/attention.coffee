@@ -24,10 +24,9 @@ AttentionList = (status)->
 		focustype: status # 1:司机 2：货主 3：仓库
 	}, (data) ->
 		console.log '---- ', data
+		AttList = AttList.clear() 
 		if data.length is 0
 			Plugin.toast.err '没有相关数据呢!'
-			return;
-		AttList = AttList.clear() 
 		for att in data
 			do (att)->
 				tempAtt = new AttentionModel

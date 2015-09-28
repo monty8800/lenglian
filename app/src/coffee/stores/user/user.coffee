@@ -133,7 +133,7 @@ login = (mobile, passwd)->
 		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange 'login:done'
-		# Plugin.run [9, 'user:update']
+		Plugin.run [9, 'user:update']
 	, null
 	, true
 

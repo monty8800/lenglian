@@ -21,10 +21,9 @@ getMsgList = (status)->
 		userId: _user?.id
 		userRole: status
 	}, (result) ->
+		_messageList = _messageList.clear()
 		if result.myMessage.length is 0
 			Plugin.toast.err '没有相关数据呢!'
-			return;
-		_messageList = _messageList.clear()
 		for msg in result.myMessage
 			do (msg) ->
 				_msg = new Message

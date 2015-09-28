@@ -19,8 +19,10 @@
 # 				vehicle: '2' # 车辆长度
 # 				#id: '' # carId 应该是编辑车辆的时候用的
 # 			}
-# 			imgUrl: '' # 车辆图片
-# 			drivingImg: '' # 行驶证图片
-# 			transportImg: '' # 道路运输许可证图片
-# 		}
+# 			imgUrl: 'dddd' # 车辆图片
+# 			drivingImg: 'aaaa' # 行驶证图片
+# 			transportImg: 'ffff' # 道路运输许可证图片
+# 		}	
+# 		request.post config.api.add_car, params, (data) ->
+# 			console.log 'data--------', data
 

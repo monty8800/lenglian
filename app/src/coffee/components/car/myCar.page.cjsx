@@ -128,7 +128,7 @@ Car = React.createClass {
 						<span className={ if @state.type is '3' then "active" else "" }>运输中</span>
 					</li>
 					<li onClick={ @status_04.bind this }>
-						<span className={ if @state.type is '4' then "active" else "" }>全部</span>
+						<span className={ if @state.type is '' then "active" else "" }>全部</span>
 					</li>
 				</ul>   
 			</div> 

@@ -54,6 +54,7 @@ actionType = {
 	UPDATE_STORE: null
 
 	LOCATE: null
+	ADD_CAR:null
 }
 
 
@@ -159,6 +160,8 @@ api = {
 	store_order_detail: '/mjOrderWarhouse/queryWarhousefoundGoodsOrderInfo.shtml'
 	# 发布车源
 	release_car: '/mjCarinfoCtl/addCarResource.shtml'
+	# 添加车源
+	add_car: '/mjCarinfoCtl/addMjCarinfo.shtml'
 	
 }
 

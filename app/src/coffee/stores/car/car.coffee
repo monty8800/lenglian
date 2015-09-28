@@ -21,6 +21,12 @@ _foundCarList = Immutable.List()
 
 _carDetail = new Car
 
+window.setPicAuth = (picUrl, type)->
+	_user = _user.set type, picUrl
+	DB.put 'user', _user.toJS()
+	UserStore.emitChange 'setPicDone'
+
+
 carItemInfo = ->
 	params = {
 		startNo: 1
@@ -70,10 +76,9 @@ carListInfo = (status)->
 	}
 	Http.post Constants.api.my_car_list, params, (data)->
 		tempList = data.myCarInfo; 
+		_carList = _carList.clear() 
 		if tempList.length is 0
 			Plugin.toast.err '没有相关数据呢!'
-			return;
-		_carList = _carList.clear() 
 		for car in tempList
 			do (car) ->
 				tempCar = new Car
@@ -113,6 +118,13 @@ carDetail = (carId)->
 _releaeCar = ->
 	console.log '发布车源---'
 
+_addCar = (params, files)->
+	console.log '----params -', params
+	console.log '----files --', files
+	Http.postFile Constants.api.add_car, params, files, (data)->
+		console.log 'auth result', data
+		UserStore.emitChange 'auth:done'
+
 
 CarStore = assign BaseStore, {
 	getCar: ->
@@ -131,6 +143,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.CAR_LIST then carListInfo(action.status)
 		when Constants.actionType.CAR_DETAIL then carDetail(action.carId)
 		when Constants.actionType.RELEASE_CAR then _releaeCar()
+		when Constants.actionType.ADD_CAR then _addCar(action.params, action.files)
 
 module.exports = CarStore
 

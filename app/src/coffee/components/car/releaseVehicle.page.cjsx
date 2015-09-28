@@ -11,7 +11,6 @@ CarAction = require 'actions/car/car'
 
 
 Vehicle = React.createClass {
-
 	mixins: [PureRenderMixin, LinkedStateMixin]
 
 	getInitialState: ->
