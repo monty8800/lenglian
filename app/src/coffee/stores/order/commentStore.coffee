@@ -6,7 +6,7 @@ assign = require 'object-assign'
 Dispatcher = require 'dispatcher/dispatcher'
 Constants = require 'constants/constants'
 Comment = require 'model/comment'
-CommentStore = require 'stores/user/commentStore'
+CommentStore = require 'stores/order/commentStore'
 Immutable = require 'immutable'
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
@@ -43,6 +43,23 @@ getCommentList = (userId,status,startNo,pageSize)->
 		CommentStore.emitChange 'getCommentList'
 	,null,true
 
+submitComment = (userId,userRole,targetId,targetRole,startStage,orderNo,commentValue) ->
+	Http.post Constants.api.COMMENT_ADD,{
+		onsetId:userId				#评价人ID
+		onsetRole:userRole			#评论人角色 1：货主 2:车主 3：仓库主
+		targetId:targetId			#目标评价人ID
+		targetRole:targetRole		#目标评论人角色 1：货主 2:车主 3：仓库主
+		orderNo:orderNo				#订单号
+		score:startStage			# 评分 5星=10 
+		content:commentValue		#内容
+	},(data)->
+		console.log '__ _评价成功__'
+		CommentStore.emitChange 'addNewCommentSucc'
+	,(data)->
+		console.log '__ _添加评价失败__'
+		CommentStore.emitChange 'addNewCommentFaile'
+	,true
+
 CommentStore = assign BaseStore, {
 	getCommentList: ()->
 		_commentList
@@ -51,6 +68,7 @@ CommentStore = assign BaseStore, {
 Dispatcher.register (action)->
 	switch action.actionType
 		when Constants.actionType.GET_COMMENT then getCommentList(action.userId,action.status,action.startNo,action.pageSize)
+		when Constants.actionType.COMMENT_ADD then submitComment(action.userId,action.userRole,action.targetId,action.targetRole,action.startStage,action.orderNo,action.commentValue)
 
 
 module.exports = CommentStore

@@ -5,8 +5,8 @@ require 'majia-style'
 
 React = require 'react/addons'
 
-CommentStore = require 'stores/user/commentStore'
-CommentAction = require 'actions/user/commentAction'
+CommentStore = require 'stores/order/commentStore'
+CommentAction = require 'actions/order/commentAction'
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 headerImg = require 'user-01.jpg'
