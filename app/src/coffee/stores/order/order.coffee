@@ -24,7 +24,7 @@ window.comeFromFlag = (page)->
 		return
 	_page = page 
 	OrderAction.getOrderList(Constants.orderStatus.st_01, 1)
-
+				
 # 订单列表
 getOrderList = (status, currentPage)->
 	console.log 'get order list from net -- ',currentPage 
