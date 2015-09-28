@@ -11,7 +11,7 @@
     it('查询我的仓库', function(done) {
       var params;
       params = {
-        userId: '7714d0d83c7f47f4bcfac62b9a1bf101',
+        userId: '7201beba475b49fd8b872e2d1493844a',
         status: '1',
         pageNow: 1,
         pageSize: 10
@@ -24,7 +24,7 @@
     it('删除我的仓库', function(done) {
       var params;
       params = {
-        userId: '7714d0d83c7f47f4bcfac62b9a1bf101',
+        userId: '7201beba475b49fd8b872e2d1493844a',
         warehouseId: '1221223456789'
       };
       return request.post(config.api.DELETE_WAREHOUSE, params, function(result) {
@@ -35,7 +35,7 @@
     it('修改我的仓库', function(done) {
       var params;
       params = {
-        userId: '3456789',
+        userId: '7201beba475b49fd8b872e2d1493844a',
         warehouseId: '4567890',
         remark: "刁兄的仓库。。。",
         phone: "1381231231232",
@@ -50,7 +50,7 @@
       var params;
       params = {
         userId: '7714d0d83c7f47f4bcfac62b9a1bf101',
-        warehouseId: '9bea9e8f561d4922bc5709cc267ee0eb'
+        warehouseId: '42951c18a8264a86912b348bd6019f8d'
       };
       return request.post(config.api.WAREHOUSE_DETAIL, params, function(result) {
         should.exists(result);
@@ -71,8 +71,7 @@
         province: "1",
         remark: "备注",
         street: "北京市",
-        userId: "7714d0d83c7f47f4bcfac62b9a1bf101",
-        file: '',
+        userId: "7201beba475b49fd8b872e2d1493844a",
         warehouseProperty: [
           {
             type: "1",
@@ -110,6 +109,13 @@
             value: "",
             typeName: "价格",
             attributeName: "天/平"
+          }
+        ],
+        file: [
+          {
+            filed: 'idcardImg',
+            path: 'src/images/car-02.jpg',
+            name: 'idcardImg.jpg'
           }
         ]
       };

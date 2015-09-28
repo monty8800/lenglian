@@ -5,7 +5,7 @@ config = require './config'
 describe '库相关', ->
 	it '查询我的仓库', (done)->
 		params = {
-			userId:'7714d0d83c7f47f4bcfac62b9a1bf101'
+			userId:'7201beba475b49fd8b872e2d1493844a'
 			status:'1'
 			pageNow:1
 			pageSize:10
@@ -17,7 +17,7 @@ describe '库相关', ->
 
 	it '删除我的仓库', (done)->
 		params = {
-			userId:'7714d0d83c7f47f4bcfac62b9a1bf101'
+			userId:'7201beba475b49fd8b872e2d1493844a'
 			warehouseId:'1221223456789'
 		}
 		request.post config.api.DELETE_WAREHOUSE, params, (result)->
@@ -26,7 +26,7 @@ describe '库相关', ->
 
 	it '修改我的仓库', (done)->
 		params = {
-			userId:'3456789'
+			userId:'7201beba475b49fd8b872e2d1493844a'
 			warehouseId:'4567890'
 			remark:"刁兄的仓库。。。"		#备注
 			phone:"1381231231232"		#联系人电话
@@ -39,7 +39,7 @@ describe '库相关', ->
 	it '我的仓库详情', (done)->
 		params = {
 			userId:'7714d0d83c7f47f4bcfac62b9a1bf101'
-			warehouseId:'9bea9e8f561d4922bc5709cc267ee0eb'
+			warehouseId:'42951c18a8264a86912b348bd6019f8d'
 		}
 		request.post config.api.WAREHOUSE_DETAIL, params, (result)->
 			should.exists result
@@ -58,8 +58,7 @@ describe '库相关', ->
 			province:"1"					#省id
 			remark:"备注"					#备注
 			street:"北京市"					#详细地址
-			userId:"7714d0d83c7f47f4bcfac62b9a1bf101" 	#用户id
-			file:''
+			userId:"7201beba475b49fd8b872e2d1493844a" 	#用户id
 			warehouseProperty:[
 				#1：仓库类型；
 					#仓库类型 1：驶入式 2：横梁式 3：平推式 4：自动立体货架式， 
@@ -111,6 +110,13 @@ describe '库相关', ->
 				   	typeName:"价格"			#跟type对应中文
 				   	attributeName:"天/平"	#跟attribute对应中文
 				}            
+			]
+			file: [
+				{
+					filed: 'idcardImg'
+					path: 'src/images/car-02.jpg'
+					name: 'idcardImg.jpg'    
+				}
 			]
 		}
 		request.post config.api.WAREHOUSE_ADD, params, (result)->

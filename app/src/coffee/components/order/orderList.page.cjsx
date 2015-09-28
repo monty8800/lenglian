@@ -57,11 +57,12 @@ OrderDoc = React.createClass {
 		OrderStore.removeChangeListener @resultCallBack
 
 	resultCallBack: (orderType)->
-		console.log '-----orderType--', orderType
-		# type: 'car'司机订单  'goods'货主订单  'store'仓库订单
-		@setState {
-			orderType: orderType
-		}
+		if orderType is 'car' || orderType is 'goods' || orderType is 'store'
+			console.log '-----orderType--', orderType
+			# type: 'car'司机订单  'goods'货主订单  'store'仓库订单
+			@setState {
+				orderType: orderType
+			}
 
 	minxins: [PureRenderMixin]
 	render: ->

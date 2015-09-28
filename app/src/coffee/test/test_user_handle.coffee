@@ -24,7 +24,7 @@ describe '用户以通用角色 获取相关自己相关信息 如评论 ', ->
 		params = {
 			onsetId:"7201beba475b49fd8b872e2d1493844a"		#评价人ID
 			onsetRole:"2"				#评论人角色 1：货主 2:车主 3：仓库主
-			targetId:"7714d0d83c7f47f4bcfac62b9a1bf101"		#目标评价人ID
+			targetId:"7201beba475b49fd8b872e2d1493844a"		#目标评价人ID
 			targetRole:"1"		#目标评论人角色 1：货主 2:车主 3：仓库主
 			orderNo:"GC20150912581503100000182"		#订单号
 			score:"8"		# 评分 5星=10 
@@ -35,8 +35,6 @@ describe '用户以通用角色 获取相关自己相关信息 如评论 ', ->
 			done()
 
 	it '查询评论',(done) ->
-
-#TODO:
 		params = {
 			startNo:'0'
 			pageSize:'10'

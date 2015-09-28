@@ -20,6 +20,7 @@ _page = -1
 
 window.comeFromFlag = (page)->			
 	#  禁止多次相同请求
+	console.log page + '~~~~~~~~~~~~~~'
 	if _page is page 
 		return
 	_page = page 

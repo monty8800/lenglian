@@ -7,9 +7,11 @@
 //
 
 #import "OrderListViewController.h"
+#import "AppDelegate.h"
 
 @interface OrderListViewController ()
-
+@property (assign,nonatomic)NSInteger showOrderType;
+@property (assign,nonatomic)BOOL isLoaded;
 @end
 
 @implementation OrderListViewController
@@ -17,7 +19,7 @@
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"carOwnerOrderList.html";
+        self.startPage = @"orderList.html";
     }
     return self;
 }
@@ -31,7 +33,27 @@
 -(void) createUI {
     self.title = @"订单";
 }
-
+-(void)showWithType:(NSInteger )type{
+    NSLog(@"_______%d",(int)type);
+    AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appdelegate.orderVCLoaded) {
+        _showOrderType = -1;
+        [self.commandDelegate evalJs:[NSString stringWithFormat:@"comeFromFlag(%d)",(int)type]];
+    }else{
+        _showOrderType = type;
+    }
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    [super webViewDidFinishLoad:webView];
+    AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appdelegate.orderVCLoaded) {
+        return;
+    }
+    if (_showOrderType == 0 || _showOrderType == 1 || _showOrderType == 2) {
+        [self.commandDelegate evalJs:[NSString stringWithFormat:@"comeFromFlag(%d)",(int)_showOrderType]];
+    }
+    appdelegate.orderVCLoaded = YES;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -71,7 +71,7 @@ SearchWarehouse = React.createClass {
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
 		WarehouseAction.searchWarehouse '0','10'
-
+		
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
 

@@ -37,7 +37,7 @@ CommentItem = React.createClass {
 						</div>
 						<div className="item-text">{ item.content }</div>
 						<div className="item-status">
-							<p className="fl">{ item.createTime }</p><span className="fr ll-font">删除</span>
+							<p className="fl">{ item.createTime }</p>
 						</div>
 					</div>
 				</div>

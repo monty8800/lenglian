@@ -26,13 +26,10 @@ conf = (aProperty) ->
 		when '3' then warehouseArea.push aProperty.value + aProperty.attributeName
 		when '4' then warehousePrice.push  aProperty.value + aProperty.attributeName
 
-WarehouseDetailTop = React.createClass {
-	deleteWarehouse: ->
-		alert 'delete warehouse'
-	getInitialState: ->
-		{
-			warehouseDetail:{}
-		}
+WarehouseDetail = React.createClass {
+	getInitialState: -> {
+		warehouseDetail:{}
+	}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
 		WarehouseAction.getDetail(_warehouseId)
@@ -41,93 +38,75 @@ WarehouseDetailTop = React.createClass {
 		WarehouseStore.removeChangeListener @_onChange
 
 	_onChange: ->
-		console.log '~~~~  ~~~  result data + ' + WarehouseStore.getDetail()
 		detailResult = WarehouseStore.getDetail()
 		conf aProperty for aProperty in detailResult.warehouseProperty
 		@setState { 
 			warehouseDetail:detailResult
 		}
-	render :->
-		<div>
-			<div className="m-item03">
-				<div className="g-itemList">
-					<h5>
-						{ @state.warehouseDetail.name }				
-					</h5>		
-				</div>			
-				<div className="g-itemList">
-					<dl className="clearfix">
-						<dt className=" fl">
-							<img src="../images/product-01.jpg"/>
-						</dt>
-						<dd className=" fl">
-							<p>仓库状态: 
-								<span>{ Helper.warehouseStatus @state.warehouseDetail.status }</span>
-							</p>
-							<p>仓库类型: 
-								<span>{ warehouseType.join ' ' }</span>
-							</p>
-							<p>仓库价格: 
-								<span>{ warehousePrice.join ' ' }</span>
-							</p>
-							<p>增值服务: 
-								<span>{ warehouseIncreaseValue.join ' ' }</span>
-							</p>
-						</dd>
-					</dl>			
-				</div>
-			</div>
-			<div className="m-detail-info m-nomargin">			
-				<p>
-					<span>仓库面积:</span>
-					<span>{ warehouseArea.join '/' }</span>
-				</p>
-				<p>
-					<span>仓库地址:</span>
-					<span>{
-						detailAddr = @state.warehouseDetail
-						if detailAddr.provinceName is detailAddr.cityName
-							detailAddr.provinceName + detailAddr.areaName + detailAddr.street 
-						else
-							detailAddr.provinceName + detailAddr.cityName + detailAddr.areaName + detailAddr.street 
-					}</span>
-				</p>		
-			</div>
-			<div className="m-detail-info m-nomargin">			
-				<p>
-					<span>发票:</span>
-					<span>{ Helper.invoiceStatus @state.warehouseDetail.isinvoice }</span>
-				</p>		
-			</div>
-			<div className="m-detail-info">			
-				<p>
-					<span>联系人:</span>
-					<span>{ @state.warehouseDetail.contacts }</span>
-				</p>
-				<p>
-					<span>联系手机:</span>
-					<span>{ @state.warehouseDetail.phone }</span>
-				</p>
-				<p>
-					<span>备注说明:</span>
-					<span>{ @state.warehouseDetail.remark }</span>
-				</p>		
-			</div>
-			<div className="m-detail-bottom">
-				<div className="g-pay-btn">
-					<a onClick={ @deleteWarehouse } className="u-btn02">删除仓库</a>
-				</div>
-			</div>
-		</div>
-}
 
-
-
-WarehouseDetail = React.createClass {
 	render : ->
 		<div>
-			<WarehouseDetailTop />
+			<div className="m-releaseitem">
+				<div>
+					<span>租赁时间</span><span>2015-10-29</span><span>10:00</span>
+				</div>
+			</div>
+			<div className="m-releaseitem">
+				<div>
+					<span>仓库状态</span><span>500立方米</span><span>空闲中</span>
+				</div>
+				<div>
+					<span>仓库价格</span><span>1000/天/平</span>
+				</div>
+				<div>
+					<span>仓库类型</span><span>驶入式</span>
+				</div>
+				<div className="g-releaseDl">				
+					<dl className="clearfix">
+						<dt className="fl"><span>仓库面积</span></dt>
+						<dd className="fl">
+							<p>
+								<u>常温</u> <label>1000立方米</label>
+							</p>
+							<p>
+								<label>冷藏</label> <label>1000立方米</label>
+							</p>					
+						</dd>
+					</dl>				
+				</div>			
+				<div>
+					<span>仓库地址</span><span>海淀区中关村海淀北二街10号</span>
+				</div>
+			</div>
+			<div className="m-releaseitem">
+				<div>
+					<span>发票</span><span>提供发票</span>
+				</div>
+			</div>
+			<div className="m-releaseitem">
+				<div>
+					<span>增值服务</span><span>城配</span>
+				</div>
+			</div>
+			<div className="m-releaseitem">
+				<div>
+					<span>联系人</span><span>李鑫萍</span>
+				</div>
+				<div>
+					<span>手机号</span><span>13412356854</span>
+				</div>
+			</div>
+			<div className="m-releaseitem">
+				<div>
+					<span>备注说明</span><span>联系时说明在冷链马甲看到的！</span>
+				</div>
+			</div>
 		</div>
 }
 
-React.render <WarehouseDetail />, document.getElementById('content')
+
+
+
+
+
+React.render <WarehouseDetail />,document.getElementById('content')

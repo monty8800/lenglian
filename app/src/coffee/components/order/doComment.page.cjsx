@@ -12,11 +12,12 @@ DB = require 'util/storage'
 
 DoComment = React.createClass {
 	submitBtnClick: ->
-		userRole = '2'
-		targetId = '7201beba475b49fd8b872e2d1493844a'
-		targetRole = '3'
+		#TODO: 假数据
+		userRole = ''#'2'
+		targetId = ''#'7201beba475b49fd8b872e2d1493844a'
+		targetRole = ''#'3'
+		orderNo = ''#'d8b872e2d1493844a'
 		startStage = @state.startStage
-		orderNo = 'd8b872e2d1493844a'
 		commentValue = @state.commentValue
 		CommentAction.submitComment userRole,targetId,targetRole,startStage,orderNo,commentValue
 	textareaValueChange : (e)->
@@ -40,7 +41,6 @@ DoComment = React.createClass {
 			alert 'comment succ'
 		else if mark is 'addNewCommentFaile'
 			alert 'comment faile'
-
 
 	render : ->
 		<div>

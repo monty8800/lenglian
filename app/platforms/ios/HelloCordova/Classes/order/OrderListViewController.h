@@ -10,4 +10,5 @@
 
 @interface OrderListViewController : BaseViewController
 
+-(void)showWithType:(NSInteger )type;
 @end

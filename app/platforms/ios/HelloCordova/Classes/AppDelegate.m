@@ -36,7 +36,15 @@
 #import "user/UserCenterViewController.h"
 
 #import <Cordova/CDVPlugin.h>
+@interface AppDelegate ()
+{
+    BOOL _orderLoaded;
+    UIView *_alphaView;
+    UIImageView *_menuView;
+    NSInteger _orderMenuSelIndex;
+}
 
+@end
 @implementation AppDelegate
 
 
@@ -92,6 +100,7 @@
     // NOTE: To customize the view's frame size (which defaults to full screen), override
     // [self.viewController viewWillAppear:] in your view controller.
     _tabVC = [UITabBarController new];
+    _tabVC.delegate = self;
     
     //首页
     HomeViewController *homeVC = [HomeViewController new];
@@ -176,11 +185,100 @@
     }
 #endif
 
-
-
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    if ([tabBarController.viewControllers[tabBarController.selectedIndex] isEqual:viewController] && tabBarController.selectedIndex == 2) {
+        if (!_alphaView) {
+            [self showOrderMenu];
+        }else{
+            [self hideOrderMenu];
+        }
+        return YES;
+    }
+    
+    if (viewController == [tabBarController.viewControllers objectAtIndex:2]){
+        if (_orderLoaded) {
+            if (_alphaView) {
+                [self hideOrderMenu];
+            }else{
+                if (!_orderVCLoaded) {
+                    [self showOrderMenu];
+                }
+            }
+            return YES;
+        }else{
+            if (_alphaView) {
+                [self hideOrderMenu];
+            }else{
+                _orderMenuSelIndex = -1;
+                [self showOrderMenu];
+            }
+            return NO;
+        }
+    }else {
+        [self hideOrderMenu];
+        return YES;
+    }
+}
 - (void)applicationDidReceiveMemoryWarning:(UIApplication*)application
 {
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
-
+-(void)hideOrderMenu{
+    if (_alphaView) {
+        [_menuView removeFromSuperview];
+        _menuView = nil;
+        [_alphaView removeFromSuperview];
+        _alphaView = nil;
+    }
+}
+-(void)showOrderMenu{
+    if (!_alphaView) {
+        _alphaView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
+        [_alphaView setBackgroundColor:[UIColor clearColor]];
+        [_alphaView setAlpha:0.5];
+        [self.window addSubview:_alphaView];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideOrderMenu)];
+        [_alphaView addGestureRecognizer:tap];
+        _menuView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 75, 136)];
+        [_menuView setCenter:CGPointMake(SCREEN_WIDTH * 5 / 8, SCREEN_HEIGHT - 49 - _menuView.frame.size.height/2)];
+        [_menuView setImage:[UIImage imageNamed:@"pop_bg"]];
+        [_menuView setUserInteractionEnabled:YES];
+        [self.window addSubview:_menuView];
+        NSArray *titleArr = @[@"货主",@"司机",@"仓库"];
+        CGFloat perH = (_menuView.frame.size.height - 5)/3;
+        for (int i = 0; i < 3; i ++) {
+            UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [menuBtn setFrame:CGRectMake(0, perH * i, _menuView.frame.size.width, perH)];
+            [menuBtn setTag:800 + i];
+            [menuBtn setTitle:titleArr[i] forState:UIControlStateNormal];
+            [menuBtn addTarget:self action:@selector(menuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            [menuBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [_menuView addSubview:menuBtn];
+            if (i != 0) {
+                UIView *sepLine = [[UIView alloc]initWithFrame:CGRectMake(10, perH * i , _menuView.frame.size.width - 20, 1)];
+                [sepLine setBackgroundColor:[UIColor grayColor]];
+                [sepLine.layer setCornerRadius:0.5];
+                [_menuView addSubview:sepLine];
+            }
+        }
+        if (_orderMenuSelIndex > -1 && _orderMenuSelIndex < 3) {
+            UIButton *selBtn = (UIButton *)[_menuView viewWithTag:800 + _orderMenuSelIndex];
+            [selBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        }
+    }else{
+        [_menuView removeFromSuperview];
+        _menuView = nil;
+        [_alphaView removeFromSuperview];
+        _alphaView = nil;
+    }
+}
+-(void)menuBtnClick:(UIButton *)btn{
+    NSInteger index = btn.tag - 800;
+    _orderMenuSelIndex = index;
+    _orderLoaded = YES;
+    [self.tabVC setSelectedIndex:2];
+    OrderListViewController *orderVC = (OrderListViewController *)((UINavigationController *)self.tabVC.viewControllers[2]).topViewController;
+    [orderVC showWithType:index];
+    [self hideOrderMenu];
+}
 @end

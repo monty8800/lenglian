@@ -29,7 +29,7 @@
 
 #import <Cordova/CDVViewController.h>
 
-@interface AppDelegate : NSObject <UIApplicationDelegate>{}
+@interface AppDelegate : NSObject <UIApplicationDelegate,UITabBarControllerDelegate>{}
 
 // invoke string is passed to your app on launch, this is only valid if you
 // edit HelloCordova-Info.plist to add a protocol
@@ -40,5 +40,6 @@
 
 @property(strong, nonatomic) UITabBarController *tabVC;
 
+@property(assign, nonatomic)BOOL orderVCLoaded;
 
 @end
