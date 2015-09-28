@@ -19,12 +19,7 @@ _orderDetail = new CarModel
 _page = -1
 
 window.comeFromFlag = (page)->			
-<<<<<<< Updated upstream
-	#  禁止多次相同请求
-	console.log page + '~~~~~~~~~~~~~~'
-=======
 	# 禁止多次相同请求
->>>>>>> Stashed changes
 	if _page is page 
 		return
 	_page = page 
