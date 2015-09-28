@@ -52,8 +52,12 @@ authStatus = (status)->
 		when 1 then '已认证'
 		when 2 then '认证中'
 		else '未认证'
-		
-	
+
+navigationStatus = (status)->
+	switch status
+		when 1 then '空闲中'
+		when 2 then '求货种'
+		when 3 then '运输中'
 	
 
 module.exports = 
@@ -64,6 +68,4 @@ module.exports =
 	authStatus: authStatus
 	payTypeMapper: payType # 支付方式字典映射
 	priceTypeMapper: priceType # 价格类型字典映射
-
-
-
+	navStatus: navigationStatus

@@ -1,7 +1,6 @@
 package com.xebest.llmj.car;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,9 +20,6 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 发布车源
  * Created by kaisun on 15/9/22.
@@ -35,18 +31,6 @@ public class ReleaseCarActivity extends BaseCordovaActivity implements CordovaIn
     private View backView;
 
     private TextView tvTitle;
-
-    private Dialog mDialog;
-
-    private String localTempImgDir = "tempPic";
-
-    private String localTempImgFileName = "p_0923.jpg";
-
-    public final int GET_IMAGE_VIA_CAMERA = 10001;
-
-    public final int IMAGE_CODE = 10002;
-
-    private List<String> paths = new ArrayList<String>();
 
     /**
      * 活跃当前窗口
@@ -80,7 +64,9 @@ public class ReleaseCarActivity extends BaseCordovaActivity implements CordovaIn
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-
+        if (args.toString().contains("release_success")) {
+            finish();
+        }
     }
 
     @Override

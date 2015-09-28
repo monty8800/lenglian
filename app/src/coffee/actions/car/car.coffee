@@ -28,9 +28,10 @@ CarAction = {
 			files: files
 		}
 
-	releaseCar: ->
+	releaseCar: (params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.RELEASE_CAR
+			params: params
 		}
 
 
