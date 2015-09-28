@@ -26,7 +26,6 @@
         <meta-data android:name="UMENG_APPKEY" android:value="5601399667e58eaa030036a9" />
         <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="rrq8hCpdFLvkaRkE40LKbINB" />
         <activity android:name=".center.MsgActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".car.MyCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.AddressActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.AttentionActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.MoreActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -50,5 +49,6 @@
         <activity android:name=".auth.CompanyWareHouseAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".auth.CompanyCarAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".car.AddCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.MyCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

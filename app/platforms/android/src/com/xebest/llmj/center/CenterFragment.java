@@ -19,7 +19,6 @@ import com.xebest.llmj.auth.CompanyWareHouseAuthActivity;
 import com.xebest.llmj.auth.PersonalCarAuthActivity;
 import com.xebest.llmj.auth.PersonalGoodsAuthActivity;
 import com.xebest.llmj.auth.PersonalWareHouseAuthActivity;
-import com.xebest.llmj.car.MyCarActivity;
 import com.xebest.plugin.XEFragment;
 import com.xebest.plugin.XEWebView;
 
@@ -87,7 +86,7 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                 } else if (flag.equalsIgnoreCase("messageList")) {
                     MsgActivity.actionView(getActivity());
                 } else if (flag.equalsIgnoreCase("myCar")) {
-                    MyCarActivity.actionView(getActivity());
+//                    MyCarActivity.actionView(getActivity());
                 } else if (flag.equalsIgnoreCase("addressList")) {
                     AddressActivity.actionView(getActivity());
                 } else if (flag.equalsIgnoreCase("attentionList")) {

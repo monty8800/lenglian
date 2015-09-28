@@ -71,8 +71,12 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        if (args.toString().contains("carDetail")) {
+        String flag = args.getString(1);
+        if (flag.equals("flag")) {
             CarDetailActivity.actionView(MyCarActivity.this);
+        }
+        else if (flag.equals("releaseVehicle")) {
+            ReleaseCarActivity.actionView(MyCarActivity.this);
         }
     }
 

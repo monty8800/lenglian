@@ -21,16 +21,17 @@ st_03 = '3'
 st_04 = ''
 
 detailCarUrl = 'carDetail'
-addCarUrl = 'addCar'
-
-carList = []
+addCarUrl = 'releaseVehicle'
+	
+carList = []				
 
 CarItem = React.createClass {
 	_goPage: (page, i)-> 
 		carId = carList.toJS()[i].carId
-		DB.put 'transData', carId
+		console.log '----------page:', page
+		DB.put 'transData', carList.toJS()[i]
 		Plugin.nav.push [page]
-
+		
 	render: ->
 		items = @props.items.map (item, i)->
 			car = item

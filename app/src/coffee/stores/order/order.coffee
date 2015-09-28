@@ -19,13 +19,17 @@ _orderDetail = new CarModel
 _page = -1
 
 window.comeFromFlag = (page)->			
+<<<<<<< Updated upstream
 	#  禁止多次相同请求
 	console.log page + '~~~~~~~~~~~~~~'
+=======
+	# 禁止多次相同请求
+>>>>>>> Stashed changes
 	if _page is page 
 		return
 	_page = page 
 	OrderAction.getOrderList(Constants.orderStatus.st_01, 1)
-				
+
 # 订单列表
 getOrderList = (status, currentPage)->
 	console.log 'get order list from net -- ',currentPage 
