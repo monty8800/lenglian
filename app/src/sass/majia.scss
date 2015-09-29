@@ -1,10 +1,5 @@
 @import 'mixin';
 @import 'normalize';
-
-body,html {
-    height: 100%;
-    width: 100%;
-}
 @font-face
 {
     font-family: 'll-font';
@@ -807,7 +802,7 @@ body,html {
 }
 
 .u-pay-btn{
-    margin: 40/$ppr 0;
+    margin: 50/$ppr 0 0/$ppr 0;
     .btn{
         background-color: $main-color;
         font-weight: bold;
@@ -1124,8 +1119,15 @@ body,html {
         }
     }
     .g-adr-middle{
+        position: relative;
         &:before{
-           content: " ";
+            content: "";
+            width: 2/$ppr;
+            height: 90/$ppr;
+            position: absolute;
+            left: 19/$ppr;
+            top: 0/$ppr;
+            background: #fff;
         }
         input{
             &::-webkit-input-placeholder { color: #9dd5fd; }
@@ -1182,7 +1184,7 @@ body,html {
         &:after{
             background: #9dd5fd;
             bottom:64/$ppr;
-            height: 72/$ppr;
+            height: 25/$ppr;
         }
     }
     .g-adr-start-line.g-adr-car{
@@ -1192,9 +1194,9 @@ body,html {
     }
     .g-adr-pass-line{
         &:after{
-            height:72/$ppr;
+            height:30/$ppr;
             background: #fff;
-            bottom:-44/$ppr;
+            bottom:0/$ppr;
         }       
     }
     .u-addIcon{
@@ -1213,11 +1215,12 @@ body,html {
     border-bottom: 1px solid #e6e6e6;
     padding:0 0 0 20/$ppr;
     >div{
+        min-height: 20/$ppr;
     	padding:28/$ppr 0;
         font-size:32/$ppr;
         color:$text-color-333;           
         position:relative;
-        border-bottom: 1px solid #e6e6e6;
+        border-top: 1px solid #e6e6e6;
         @include box-sizing($sizing:border-box);     
         &.g-releaseDl{
             dd{
@@ -1234,11 +1237,12 @@ body,html {
                 }
             }
         }        
-        &:last-child{
-            border-bottom:0;
+        &:first-child{
+            border-top:0;
         }  
         span{
             margin-right: 5/$ppr;
+            line-height: 1;
             &:first-child{
                 font-weight: bold;
                 display: inline-block;
@@ -1246,13 +1250,13 @@ body,html {
                 margin-right: 0;
                 vertical-align: top;
             }  
-            &:last-child{
-                display: inline-block;
-                max-width: 450/$ppr;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }                      
+            // &:last-child{
+            //     display: inline-block;
+            //     max-width: 450/$ppr;
+            //     white-space: nowrap;
+            //     text-overflow: ellipsis;
+            //     //overflow: hidden;
+            // }             
         }  
         &.g-testCode{
             position: relative;
@@ -1315,11 +1319,11 @@ body,html {
             padding: 0;
             &.weight{
                 width: 125/$ppr;
-                height: 50/$ppr;
+                height: 45/$ppr;
                 border: 1px solid #e6e6e6;
                 border-radius: 5/$ppr;
                 text-indent: 5/$ppr;
-                margin:-9/$ppr 10/$ppr -9/$ppr 0;
+                margin:-10/$ppr 10/$ppr -8/$ppr 0;
                 &.car{
                     width: 240/$ppr;
                 }
@@ -1466,13 +1470,22 @@ body,html {
         font-weight: bold;
         padding: 15/$ppr 0;
     }
-    .carType{
-        background-color:#e6f8ff;
-        border-bottom:1px solid #b1e9ff;
-        margin-left: -20/$ppr;
-        padding-left: 20/$ppr;
+    .carType-con {
+        padding:0;
+
+        .carType{
+            background-color:#e6f8ff;
+            border-bottom:1px solid #b1e9ff;
+            margin-left: -20/$ppr;
+            padding-left: 20/$ppr;
+            line-height: 90/$ppr;
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
     }
 }
+
 
 
 .radio{
@@ -1501,7 +1514,7 @@ body,html {
 }
 .g-radio{
     label{
-        margin-right: 0/$ppr;
+        //margin-right: 0/$ppr;
     }
 }
 .m-releasehead02{

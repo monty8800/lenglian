@@ -1,3 +1,4 @@
+
 'use strict'
 
 Dispatcher = require 'dispatcher/dispatcher'
