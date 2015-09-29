@@ -11,41 +11,28 @@ Plugin = require 'util/plugin'
 Validator = require 'util/validator'
 Constants = require 'constants/constants'
 
+GoodsStore = require 'stores/goods/goods'
+
+FromTo = require 'components/goods/fromTo'
+
 
 AddGoods = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	componentDidMount: ->
-		UserStore.addChangeListener @_change
+		GoodsStore.addChangeListener @_change
 
 	componentWillUnmount: ->
-		UserStore.removeChangeListener @_change
+		GoodsStore.removeChangeListener @_change
 
 	_change: (msg)->
 		console.log 'event change ', msg
-
-	_selectAddress: ->
-		Plugin.nav.push ['selectAddress']
 
 	getInitialState: ->
 		{
 		}
 	render: ->
 		<section>
-		<div onClick={@_selectAddress} className="m-releasehead ll-font">
-			<div className="g-adr-end ll-font g-adr-end-line">
-				<input readOnly="readOnly" type="type" placeholder="输入终点"/>
-			</div>
-			<div className="g-adr-pass ll-font g-adr-pass-line">
-				<input readOnly="readOnly" type="type" placeholder="北京海淀区中关村泰鹏大厦"/>
-			</div>
-			<div className="g-adr-middle ll-font">
-				<input readOnly="readOnly" type="type" placeholder="途径地"/>
-			</div>
-			<div className="g-adr-start ll-font g-adr-start-line">
-				<input readOnly="readOnly" type="type" placeholder="输入起点"/>
-			</div>
-			<a href="#" className="u-addIcon"></a>
-		</div>
+		<FromTo type="addGoods" />
 
 		<div className="m-releaseitem">
 			<div className="u-arrow-right ll-font">

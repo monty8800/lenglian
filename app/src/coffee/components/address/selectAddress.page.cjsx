@@ -29,18 +29,20 @@ SelectAddress = React.createClass {
 	componentDidMount: ->
 		AddressStore.addChangeListener @_change
 		AddressAction.locate() if not AddressStore.getAddress()?.lati
+
 		window.selectCurrent = ->
-			if not @state.lati
+			address = AddressStore.getAddress()
+			if not address.lati
 				Plugin.toast.err '请选择城市'
 			# else if not Validator.street @state.street
 				# Plugin.toast.err '请填写详细地址'
-			else
-				address = AddressStore.getAddress()
+			else		
 				#根据上个界面放在transddata中的key，把数据放在value里传回去
 				data = {}
 				data[transData] = address.toJS()
 				DB.put 'transData', data
 				Plugin.nav.pop()
+
 					
 				
 

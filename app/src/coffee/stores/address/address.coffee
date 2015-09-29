@@ -25,7 +25,6 @@ localAddress = DB.get 'address'
 
 _address = new AddressModel localAddress
 
-_fromToList = Immutable.Map()
 
 addressList = ->
 	console.log '请求网络数据'
@@ -103,11 +102,6 @@ updateAddress = (props)->
 
 	AddressStore.emitChange 'address:update'
 
-updateFromTo = ->
-	transData = DB.get 'transData'
-	_fromToList.merge transData if transData.constructor isnt String
-	DB.remove 'transData'
-	AddressStore.emitChange 'fromTo:update'
 
 
 updateStore = ->
@@ -115,7 +109,7 @@ updateStore = ->
 	page = paths[paths.length-1]
 	switch page
 		when 'addressList.html' then addressList()
-		when 'addGoods.html' then updateFromTo()
+
 
 window.updateAddress = updateAddress
 
@@ -142,9 +136,6 @@ AddressStore = assign BaseStore, {
 
 	getAddress: ->
 		_address
-
-	getFromToList: ->
-		_fromToList
 }
 
 Dispatcher.register (action) ->
