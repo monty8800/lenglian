@@ -7,48 +7,61 @@ PureRenderMixin = React.addons.PureRenderMixin
 
 Plugin = require 'util/plugin'
 
-AddressStore = require 'stores/address/address'
 DB = require 'util/storage'
+GoodsStore = require 'stores/goods/goods'
+GoodsAction = require 'actions/goods/goods'
 
 
 FromTo = React.createClass {
 	mixins: [PureRenderMixin]
 	componentDidMount: ->
-		AddressStore.addChangeListener @_change
+		GoodsStore.addChangeListener @_change
 
 	componentWillUnmount: ->
-		AddressStore.removeChangeListener @_change
+		GoodsStore.removeChangeListener @_change
 
 	_selectAddress: (type)->
+		console.log 'select ', type
 		DB.put 'transData', type
 		Plugin.nav.push ['selectAddress']
 
+	_addPassBy: ->
+		if @props.type is 'addGoods'
+			GoodsAction.addPassBy()
+
+
 	_change: (msg)->
 		console.log 'event change ', msg
-		if msg is 'fromTo:update'
+		if msg is 'goods:update'
 			@setState {
-				fromTo: AddressStore.getFromToList()
+				from: GoodsStore.getFrom()
+				to: GoodsStore.getTo()
+				passBy: GoodsStore.getPassBy()
 			}
 
 	getInitialState: ->
 		{
-			fromTo: AddressStore.getFromToList()
+			from: GoodsStore.getFrom
+			to: GoodsStore.getTo
+			passBy: GoodsStore.getPassBy()
 		}
 	render: ->
-		<div onClick={@_selectAddress} className="m-releasehead ll-font">
-			<div className="g-adr-end ll-font g-adr-end-line">
-				<input readOnly="readOnly" type="type" placeholder="输入终点"/>
+		console.log 'state---', @state
+		passBy = @state.passBy.toArray().map (address, i)->
+			<div key={i} onClick={@_selectAddress.bind this,  'passBy' + i} className="g-adr-middle ll-font">
+				<input value={if address.lati then address.provinceName + address.cityName + address.areaName + address.street else ''} readOnly="readOnly" type="type" placeholder="途径地"/>
 			</div>
-			<div className="g-adr-pass ll-font g-adr-pass-line">
-				<input readOnly="readOnly" type="type" placeholder="北京海淀区中关村泰鹏大厦"/>
+		,this
+
+		<div  className="m-releasehead ll-font">
+			<div onClick={@_selectAddress.bind this, 'to'} className="g-adr-end ll-font g-adr-end-line">
+				<input readOnly="readOnly" type="type" value={if @state.to.lati then @state.to.provinceName + @state.to.cityName + @state.to.areaName + @state.to.street else ''} placeholder="输入终点"/>
 			</div>
-			<div className="g-adr-middle ll-font">
-				<input readOnly="readOnly" type="type" placeholder="途径地"/>
+			{passBy}
+			<div onClick={@_selectAddress.bind this, 'from'} className="g-adr-start ll-font g-adr-start-line">
+				<input readOnly="readOnly" type="type" value={if @state.from.lati then @state.from.provinceName + @state.from.cityName + @state.from.areaName + @state.from.street else ''} placeholder="输入起点"/>
 			</div>
-			<div className="g-adr-start ll-font g-adr-start-line">
-				<input readOnly="readOnly" type="type" placeholder="输入起点"/>
-			</div>
-			<a href="#" className="u-addIcon"></a>
+			<a onClick={@_addPassBy} className="u-addIcon"></a>
 		</div>
 }
 

@@ -336,7 +336,6 @@
 }
 .g-uploadPic{
     padding: 30/$ppr 0 0 50/$ppr;
-    margin-bottom: 100/$ppr;
     ul{
         li{
             float: left;
@@ -345,7 +344,6 @@
             background:#fff;
             margin: 0 30/$ppr 20/$ppr 0;
             @include box-sizing($sizing:border-box);
-            padding-top: 60/$ppr;
             a{
                 text-align: center;
                 font-size: 26/$ppr;
@@ -575,7 +573,6 @@
     top: 80/$ppr;
     bottom: 0;
     left: 0;
-    right: 0;
     right: 0;
     z-index: 99;
 }

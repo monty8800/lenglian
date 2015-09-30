@@ -192,13 +192,6 @@
 	}
 }
 
-.g-div01-act {
-	&:after {
-		-webkit-transform:rotate(90deg);
-		transform:rotate(90deg);
-	}
-}
-
 .u-content-item {
 	width: 550/$ppr;
 	padding:30/$ppr 100/$ppr 20/$ppr 40/$ppr;
@@ -398,7 +391,7 @@
 		padding-left: 20/$ppr;
 	}
 	li {
-		padding:20/$ppr 20/$ppr 20/$ppr 60/$ppr;
+		padding:25/$ppr 20/$ppr 25/$ppr 60/$ppr;
 		border-bottom: 1px solid #e6e6e6;
 		position: relative;
 		input {
@@ -413,7 +406,7 @@
 			height: 40/$ppr;
 			position: absolute;
 			left: 0;
-			top: 24/$ppr;
+			top: 22/$ppr;
 			text-align: center;
 			font-size: 36/$ppr;
 			&:after {
@@ -644,6 +637,7 @@
 					position: relative;
 					font-size: 24/$ppr;
 					border-right: 1px solid #7f7f7f;
+					display: inline-block;
 					&:before {
 						width: 22/$ppr;
 						height: 22/$ppr;
@@ -987,8 +981,7 @@
 }
 
 .m-file-upload {
-	padding:30/$ppr;
-	margin-bottom: 120/$ppr;
+	padding:30/$ppr 30/$ppr 0 30/$ppr;
 	.m-file-div {
 		width: 250/$ppr;
 		height: 250/$ppr;
@@ -1098,7 +1091,7 @@
 
 	&.m-file-many {
 		overflow: hidden;
-		margin:0 auto 120/$ppr auto;
+		margin:0 auto;
 		width: 530/$ppr;
 		.m-file-div {
 			float: left;

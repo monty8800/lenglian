@@ -59,6 +59,8 @@ actionType = {
 	EDIT_ADDRESS: null
 	NEW_ADDRESS: null
 	SELECT_LIST_ADDRESS: null
+
+	GOODS_ADD_PASS_BY: null
 }
 
 
