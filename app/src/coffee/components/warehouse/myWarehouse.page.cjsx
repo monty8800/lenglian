@@ -19,14 +19,15 @@ showType = '1' 		# 1-空闲中  2-已发布 3-使用中
 
 WarehouseItem = React.createClass {
 	goToDetail: (index)->
+		console.log '######## $$$$$$ ' ,index
 		DB.put 'transData', @props.list[index].id
 		Plugin.nav.push ['warehouseDetail']
 
 	render: ->
 		list = @props.list
-		console.log list + '++++'
+		console.log list + '++***&&&++'
 		items = list.map (aWarehouse,i) ->
-			<div className="m-store" onClick={ @goToDetail.bind this,i }>
+			<div className="m-store" onClick={ @goToDetail.bind this, i }>
 				<div>
 					<p>{ aWarehouse.name }</p>
 					<span>

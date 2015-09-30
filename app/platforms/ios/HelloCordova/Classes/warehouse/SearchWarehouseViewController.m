@@ -17,7 +17,7 @@
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"searchWarehouse.html";
+        self.startPage = @"searchWarehouse.html";//@"warehouseEdit.html";//
     }
     return self;
 }

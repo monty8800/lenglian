@@ -11,10 +11,10 @@
     return it('个人认证', function(done) {
       var files, params;
       params = {
-        phone: "18988889999",
-        type: "2",
-        username: "王永",
-        userId: "7201beba475b49fd8b872e2d1493844a",
+        phone: "18088889999",
+        type: "3",
+        username: "YYQ",
+        userId: "5b3d93775a22449284aad35443c09fb6",
         cardno: "12342342344234",
         carno: "1243x",
         frameno: "sfdj222"

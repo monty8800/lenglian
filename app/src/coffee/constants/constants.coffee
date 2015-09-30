@@ -54,14 +54,11 @@ actionType = {
 	UPDATE_STORE: null
 
 	LOCATE: null
-<<<<<<< Updated upstream
 	ADD_CAR:null
-=======
 
 	EDIT_ADDRESS: null
 	NEW_ADDRESS: null
 	SELECT_LIST_ADDRESS: null
->>>>>>> Stashed changes
 }
 
 

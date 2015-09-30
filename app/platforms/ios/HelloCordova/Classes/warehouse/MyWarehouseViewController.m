@@ -8,6 +8,7 @@
 
 #import "MyWarehouseViewController.h"
 #import "AddWarehouseViewController.h"
+#import "WarehouseDetailViewController.h"
 @interface MyWarehouseViewController ()
 
 @end
@@ -48,6 +49,17 @@
     AddWarehouseViewController *addWarehouseVC = [AddWarehouseViewController new];
     [self.navigationController pushViewController:addWarehouseVC animated:YES];
 }
+
+-(void)commonCommand:(NSArray *)params{
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"warehouseDetail"]) {
+            WarehouseDetailViewController *warehouseDetailVC = [WarehouseDetailViewController new];
+            [self.navigationController pushViewController:warehouseDetailVC animated:YES];
+        }
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
