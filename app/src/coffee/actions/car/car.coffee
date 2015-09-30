@@ -34,6 +34,10 @@ CarAction = {
 			params: params
 		}
 
+	getFreedomCar: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.FREEDOM_CAR
+		}
 
 }
 

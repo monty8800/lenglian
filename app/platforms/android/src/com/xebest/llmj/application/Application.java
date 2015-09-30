@@ -34,6 +34,10 @@ public class Application extends android.app.Application {
 
     public double lontitude = 0.00;
 
+    public String contacts = "";
+
+    public String phone = "";
+
     public static Application getInstance(){
         return instance;
     }
@@ -161,6 +165,21 @@ public class Application extends android.app.Application {
 
     }
 
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
 
+    public String getContacts() {
 
+        return contacts;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+
+        return phone;
+    }
 }

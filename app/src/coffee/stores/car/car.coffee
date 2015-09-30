@@ -17,15 +17,31 @@ _car = new Car
 
 _carList = Immutable.List()
 
+_freeCarList = Immutable.List()
+
 _foundCarList = Immutable.List()
 
 _carDetail = new Car
+
+# 更新联系人
+window.updateContact = (contact, phone)->
+	console.log '------updateContact-', phone
+	CarStore.emitChange ['updateContact', contact, phone]
 
 window.setPicAuth = (picUrl, type)->
 	_user = _user.set type, picUrl
 	DB.put 'user', _user.toJS()
 	UserStore.emitChange 'setPicDone'
 
+# 更新地址  flag: startAddress, endAddress
+window.updateAddress = (flag)->
+	console.log '--------flag:', flag
+	UserStore.emitChange [flag]
+
+# 更新装货时间
+window.updateDate = (startDate, endDate)->
+	console.log '--------', endDate
+	CarStore.emitChange ['updateDate', startDate, endDate]
 
 carItemInfo = ->
 	params = {
@@ -127,13 +143,36 @@ _releaeCar = (params)->
 		Plugin.loading.hide()
 		Plugin.toast.err err.msg
 
-
 _addCar = (params, files)->
 	console.log '----params -', params
 	console.log '----files --', files
 	Http.postFile Constants.api.add_car, params, files, (data)->
 		console.log 'auth result', data
 		UserStore.emitChange 'auth:done'
+
+# 发布车源 -- 车辆列表
+_freedomCar = ->
+	Http.post Constants.api.my_car_list, {
+		userId: _user?.id
+		pageNow: 1
+		pageSize: 100
+		status: 1 # 空闲中
+	}, (data)->
+		tempList = data.myCarInfo; 
+		for car in tempList
+			do (car) ->
+				tempCar = new Car
+				tempCar = tempCar.set 'name', car.driver
+				tempCar = tempCar.set 'carNo', car.carno
+				tempCar = tempCar.set 'carPic', car.imgurl
+				tempCar = tempCar.set 'mobile', car.phone
+				tempCar = tempCar.set 'carType', car.category
+				tempCar = tempCar.set 'carVehicle', car.vehicle
+				tempCar = tempCar.set 'carId', car.id
+				_freeCarList = _freeCarList.push tempCar
+		CarStore.emitChange ['free_car']
+	, (data) ->
+		Plugin.toast.err data.msg
 
 
 CarStore = assign BaseStore, {
@@ -145,6 +184,9 @@ CarStore = assign BaseStore, {
 
 	getCarDetail: ->
 		_carDetail
+
+	getFreeCar: ->
+		_freeCarList
 }
 
 Dispatcher.register (action)->
@@ -154,6 +196,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.CAR_DETAIL then carDetail(action.carId)
 		when Constants.actionType.RELEASE_CAR then _releaeCar(action.params)
 		when Constants.actionType.ADD_CAR then _addCar(action.params, action.files)
+		when Constants.actionType.FREEDOM_CAR then _freedomCar()
 
 module.exports = CarStore
 

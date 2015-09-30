@@ -98,6 +98,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        initView();
 
         initFragment();
 

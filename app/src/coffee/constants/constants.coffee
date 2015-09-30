@@ -61,6 +61,8 @@ actionType = {
 	SELECT_LIST_ADDRESS: null
 
 	GOODS_ADD_PASS_BY: null
+
+	FREEDOM_CAR: null
 }
 
 
@@ -188,7 +190,6 @@ authType = {
 	CAR: 2 #车主
 	WAREHOUSE: 3 #仓库
 }
-
 
 orderStatus = {
 	st_01: '1' # 洽谈中

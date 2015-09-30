@@ -15,7 +15,6 @@ DB = require 'util/storage'
 
 transData = DB.get 'transData' #这里是个字符串，如 from,to,by0,by1
 
-
 SelectAddress = React.createClass {
 	mixins: [PureRenderMixin]
 	getInitialState: ->
@@ -41,6 +40,7 @@ SelectAddress = React.createClass {
 				data = {}
 				data[transData] = address.toJS()
 				DB.put 'transData', data
+				console.log 'transData----', data
 				Plugin.nav.pop()
 
 					
@@ -56,6 +56,7 @@ SelectAddress = React.createClass {
 		console.log 'change arg', arg
 		if arg is 'address:update'
 			address = AddressStore.getAddress()
+			console.log 'address after update is', address
 			@setState {
 				lati: address.lati
 				longi: address.longi
