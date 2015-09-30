@@ -61,6 +61,8 @@ actionType = {
 	SELECT_LIST_ADDRESS: null
 
 	GOODS_ADD_PASS_BY: null
+	ADD_GOODS: null
+	CLEAR_GOODS_PIC: null
 }
 
 
@@ -68,9 +70,9 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
-	# server: 'http://192.168.29.190:8072/'
+	server: 'http://192.168.29.204:8072/'
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
@@ -107,6 +109,9 @@ api = {
 	EDIT_ADDRESS: '/userInfo/updateMjUserAddress.shtml'
 	#添加地址
 	ADD_ADDRESS: '/userInfo/addMjUserAddress.shtml'
+
+	#添加货源
+	ADD_GOODS: '/mjGoodsResource/addGoodsResource.shtml'
 
 
 #YYQ

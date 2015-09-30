@@ -58,6 +58,15 @@ navigationStatus = (status)->
 		when 1 then '空闲中'
 		when 2 then '求货种'
 		when 3 then '运输中'
+
+goodsType = (type)->
+	switch parseInt(type)
+		when 1 then '常温'
+		when 2 then '冷藏'
+		when 3 then '冷冻'
+		when 4 then '急冻'
+		when 5 then '深冷'
+		else '请选择'
 	
 
 module.exports = 
@@ -69,3 +78,4 @@ module.exports =
 	payTypeMapper: payType # 支付方式字典映射
 	priceTypeMapper: priceType # 价格类型字典映射
 	navStatus: navigationStatus
+	goodsType: goodsType #货物类型
