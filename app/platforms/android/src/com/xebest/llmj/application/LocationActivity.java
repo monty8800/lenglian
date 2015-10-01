@@ -3,10 +3,12 @@ package com.xebest.llmj.application;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +63,22 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
     private TextView loc;
     private TextView des;
 
+    private Button btnSubmit;
+
+    private double mLatitude = 0.00;
+
+    private double mLontitud = 0.00;
+
+    private String mProvince = "";
+
+    private String mCity = "";
+
+    private String mArea = "";
+
+    private String mStreet = "";
+
+    private String mStreetNumber = "";
+
     /**
      * 活跃当前窗口
      * @param context
@@ -83,6 +101,29 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
         initLocation();
 
         mLocationClient.start();
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("info", "-------mLatitude" + mLatitude);
+                Log.i("info", "-------mLontitud" + mLontitud);
+                Log.i("info", "-------mProvince" + mProvince);
+                Log.i("info", "-------mCity" + mCity);
+                Log.i("info", "-------mStreet" + mStreet);
+                Log.i("info", "-------mStreetNumber" + mStreetNumber);
+
+                SharedPreferences.Editor editor = getSharedPreferences("location", 0).edit();
+                editor.putString("mLatitude", mLatitude + "");
+                editor.putString("mLontitud", mLontitud + "");
+                editor.putString("mProvince", mProvince + "");
+                editor.putString("mCity", mCity + "");
+                editor.putString("mArea", mArea + "");
+                editor.putString("mStreet", mStreet + "");
+                editor.putString("mStreetNumber", mStreetNumber + "");
+                editor.commit();
+                finish();
+            }
+        });
 
     }
 
@@ -116,12 +157,20 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
                     .show();
             return;
         }
-        Log.i("info", "---------------address:" + result.getAddress());
-        Log.i("info", "---------------street:" + result.getAddressDetail().street);
-        Log.i("info", "---------------streetNumber:" + result.getAddressDetail().streetNumber);
-        Log.i("info", "---------------district:" + result.getAddressDetail().district);
-        Log.i("info", "---------------city:" + result.getAddressDetail().city);
-        Log.i("info", "---------------province:" + result.getAddressDetail().province);
+
+        mLatitude = result.getLocation().latitude;
+
+        mLontitud = result.getLocation().longitude;
+
+        mProvince = result.getAddressDetail().province;
+
+        mCity = result.getAddressDetail().city;
+
+        mArea = result.getAddressDetail().district;
+
+        mStreet = result.getAddressDetail().street;
+
+        mStreetNumber = result.getAddressDetail().streetNumber;
 
         loc.setText(result.getAddress());
         des.setText(result.getAddressDetail().street + result.getAddressDetail().streetNumber);
@@ -161,6 +210,7 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
                 sb.append("\ndescribe : ");
                 sb.append("gps定位成功");
 
+
             } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
                 sb.append("\naddr : ");
                 sb.append(location.getAddrStr());
@@ -193,6 +243,7 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
                     sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
                 }
             }
+            Log.i("area", "--------------" + location.getAddress().district);
             Log.i("BaiduLocationApiDem", "--------------" + sb.toString());
 
             // 物理地址
@@ -201,6 +252,22 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
             double latitude = location.getLatitude();
             // 维度
             double lontitud = location.getLongitude();
+
+
+
+            mLatitude = latitude;
+
+            mLontitud = lontitud;
+
+            mProvince = location.getProvince();
+
+            mCity = location.getCity();
+
+            mArea = location.getAddress().district;
+
+            mStreet = location.getStreet();
+
+            mStreetNumber = location.getStreetNumber();
 
             initOverlay(latitude, lontitud);
 
@@ -254,6 +321,7 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
 
     public void initView() {
         mMapView = (MapView) findViewById(R.id.bmapView);
+        btnSubmit = (Button) findViewById(R.id.submit);
 
         mBaiduMap = mMapView.getMap();
 

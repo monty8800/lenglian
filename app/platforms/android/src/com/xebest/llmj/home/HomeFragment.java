@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -15,6 +14,7 @@ import com.xebest.llmj.application.Application;
 import com.xebest.llmj.car.AddCarActivity;
 import com.xebest.llmj.car.FoundCarActivity;
 import com.xebest.llmj.car.ReleaseCarActivity;
+import com.xebest.llmj.center.LoginActivity;
 import com.xebest.plugin.XEFragment;
 import com.xebest.plugin.XEWebView;
 
@@ -57,13 +57,14 @@ public class HomeFragment extends XEFragment implements CordovaInterface {
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Toast.makeText(getActivity(), "" + flag, Toast.LENGTH_SHORT).show();
         if (flag.equals("searchCar")) {
             FoundCarActivity.actionView(getActivity());
         } else if (flag.equals("addCar")) {
             AddCarActivity.actionView(getActivity());
         } else if (flag.equals("releaseCar")) {
             ReleaseCarActivity.actionView(getActivity());
+        } else if (flag.equals("login")) {
+            LoginActivity.actionView(getActivity());
         }
     }
 

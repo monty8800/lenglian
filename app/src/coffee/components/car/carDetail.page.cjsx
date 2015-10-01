@@ -94,10 +94,11 @@ CarDetail = React.createClass {
 		CarStore.addChangeListener @_onChange
 		CarAction.carDetail(carId)
 
-	_onChange: ->
-		@setState {
-			carDetail: CarStore.getCarDetail()
-		}
+	_onChange: (params)->
+		if params[0] is 'car_detail'
+			@setState {
+				carDetail: CarStore.getCarDetail()
+			}
 
 	render: ->
 		<div>

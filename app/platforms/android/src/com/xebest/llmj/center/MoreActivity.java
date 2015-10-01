@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -83,6 +84,7 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
+        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_SHORT).show();
         Log.i("info", "---------------" + args.toString());
         if (args.toString().contains("user:update")) {
             finish();

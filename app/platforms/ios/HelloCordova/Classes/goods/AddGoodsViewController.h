@@ -7,7 +7,13 @@
 //
 
 #import "BaseViewController.h"
+#import "ImagePicker.h"
+#import "DatePicker.h"
 
-@interface AddGoodsViewController : BaseViewController
+@interface AddGoodsViewController : BaseViewController <ImagePickerDelegate, DatePickerDelegate>
+{
+    ImagePicker *_imagePicker;
+    DatePicker *_datePicker;
+}
 
 @end

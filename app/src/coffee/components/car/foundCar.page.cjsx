@@ -59,15 +59,16 @@ FoundCar = React.createClass {
 
 	componentDidMount: ->
 		CarStore.addChangeListener @_onChange
-		CarAction.info()
+		CarAction.info([''])
 
 	componentWillUnmount: ->
 		CarStore.removeChangeListener @_onChange
 
-	_onChange: ->
-		@setState {
-			carList: CarStore.getCar()
-		}
+	_onChange: (params)->
+		if params[0] is 'found_car'
+			@setState {
+				carList: CarStore.getCar()
+			}
 
 	render: ->
 		<section>

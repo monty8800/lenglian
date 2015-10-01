@@ -193,7 +193,7 @@ logout = ->
 	DB.remove 'user'
 	_user = new User
 	UserStore.emitChange 'logout'
-	# Plugin.run [9, 'user:update']
+	Plugin.run [9, 'user:update']
 
 personalAuth = (params, files)->
 	Http.postFile Constants.api.PERSONAL_AUTH, params, files, (data)->

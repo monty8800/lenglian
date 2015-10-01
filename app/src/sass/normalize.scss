@@ -1072,3 +1072,18 @@ input[type=text],input[type=tel] {
 .mui-checkbox-anim {
   transition: background-color ease 0.2s; 
 }
+
+// 
+.g-tab01 {
+  &.g-tab01-act {
+    &:after {
+      -webkit-transform:rotate(90deg);
+      transform:rotate(90deg);
+    }
+  }
+}
+.g-tab01-con {
+  display: none;
+}
+
+

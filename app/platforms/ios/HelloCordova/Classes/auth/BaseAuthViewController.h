@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 #import "ImagePicker.h"
-#import "Auth.h"
+#import "Net.h"
 
 @interface BaseAuthViewController : BaseViewController <ImagePickerDelegate>
 {

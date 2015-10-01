@@ -1119,8 +1119,15 @@
         }
     }
     .g-adr-middle{
+        position: relative;
         &:before{
-           content: " ";
+            content: "";
+            width: 2/$ppr;
+            height: 90/$ppr;
+            position: absolute;
+            left: 19/$ppr;
+            top: 0/$ppr;
+            background: #fff;
         }
         input{
             &::-webkit-input-placeholder { color: #9dd5fd; }
@@ -1177,7 +1184,7 @@
         &:after{
             background: #9dd5fd;
             bottom:64/$ppr;
-            height: 72/$ppr;
+            height: 25/$ppr;
         }
     }
     .g-adr-start-line.g-adr-car{
@@ -1187,9 +1194,9 @@
     }
     .g-adr-pass-line{
         &:after{
-            height:72/$ppr;
+            height:30/$ppr;
             background: #fff;
-            bottom:-44/$ppr;
+            bottom:0/$ppr;
         }       
     }
     .u-addIcon{
@@ -1208,11 +1215,12 @@
     border-bottom: 1px solid #e6e6e6;
     padding:0 0 0 20/$ppr;
     >div{
+        min-height: 20/$ppr;
         padding:28/$ppr 0;
         font-size:32/$ppr;
         color:$text-color-333;           
         position:relative;
-        border-bottom: 1px solid #e6e6e6;
+        border-top: 1px solid #e6e6e6;
         @include box-sizing($sizing:border-box);     
         &.g-releaseDl{
             dd{
@@ -1229,11 +1237,12 @@
                 }
             }
         }        
-        &:last-child{
-            border-bottom:0;
+        &:first-child{
+            border-top:0;
         }  
         span{
             margin-right: 5/$ppr;
+            line-height: 1;
             &:first-child{
                 font-weight: bold;
                 display: inline-block;
@@ -1306,7 +1315,6 @@
             &:-moz-placeholder { color:  #acabab;}
             &:-ms-input-placeholder { color: #acabab;}
             font-size:30/$ppr;
-            color:#acabab;
             padding: 0;
             &.weight{
                 width: 125/$ppr;
@@ -1431,11 +1439,24 @@
             top: 25/$ppr;
             color: $text-color-666;
         }
+        em {
+            width: 36/$ppr;
+            height: 36/$ppr;
+            line-height: 36/$ppr;
+            position: absolute;
+            right: 20/$ppr;
+            top: 25/$ppr;
+            color: $text-color-666;
+            z-index: 2;
+        }
         &.u-close{
             &:after{
                  content: "\e62e";
                  color: #ccc;
             }          
+        }
+        .input-weak {
+            width: 400/$ppr;
         }
     }
     .u-voice{
@@ -1461,13 +1482,22 @@
         font-weight: bold;
         padding: 15/$ppr 0;
     }
-    .carType{
-        background-color:#e6f8ff;
-        border-bottom:1px solid #b1e9ff;
-        margin-left: -20/$ppr;
-        padding-left: 20/$ppr;
+    .carType-con {
+        padding:0;
+
+        .carType{
+            background-color:#e6f8ff;
+            border-bottom:1px solid #b1e9ff;
+            margin-left: -20/$ppr;
+            padding-left: 20/$ppr;
+            line-height: 90/$ppr;
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
     }
 }
+
 
 
 .radio{

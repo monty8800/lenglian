@@ -62,6 +62,26 @@ actionType = {
 	SELECT_LIST_ADDRESS: null
 
 	GOODS_ADD_PASS_BY: null
+
+	FREEDOM_CAR: null
+
+	CHECKED_LEN_ALL: null
+	UNCHECKED_LEN_ALL: null
+	CHECKED_LEN_ST: null
+	UNCHECKED_LEN_ST: null
+	CLOSE_CAR_LEN: null
+	CHECKED_HEA_ALL: null
+	UNCHECKED_HEA_ALL: null
+	CHECKED_HEA_ST: null
+	UNCHECKED_HEA_ST:null
+	HAHAHA: null
+	CLOSE_CAR_HEA: null
+	CLOSE_INVOINCE: null
+	NEEDINV: null
+	NOTNEEDINV: null
+
+	ADD_GOODS: null
+	CLEAR_GOODS_PIC: null
 }
 
 
@@ -69,9 +89,14 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
+<<<<<<< HEAD
 	# server: 'http://192.168.29.190:8072/'
+	# server: 'http://192.168.29.204:8072/'
+=======
+	server: 'http://192.168.29.204:8072/'
+>>>>>>> 938fc62fcad6dcc22d1e232ef2b10f5f302479e4
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
@@ -108,6 +133,9 @@ api = {
 	EDIT_ADDRESS: '/userInfo/updateMjUserAddress.shtml'
 	#添加地址
 	ADD_ADDRESS: '/userInfo/addMjUserAddress.shtml'
+
+	#添加货源
+	ADD_GOODS: '/mjGoodsResource/addGoodsResource.shtml'
 
 
 #YYQ
@@ -189,7 +217,6 @@ authType = {
 	CAR: 2 #车主
 	WAREHOUSE: 3 #仓库
 }
-
 
 orderStatus = {
 	st_01: '1' # 洽谈中
