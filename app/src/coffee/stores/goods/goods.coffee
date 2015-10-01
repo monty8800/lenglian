@@ -34,6 +34,16 @@ GoodsStore = assign BaseStore, {
 		_passBy
 }
 
+window.setGoodsPic = (picUrl)->
+	console.log 'set goods pic',  picUrl
+	GoodsStore.emitChange {
+		msg: 'set:goods:photo:done'
+		url: picUrl
+	}
+clearPic = ->
+	console.log 'clear goods pic'
+	GoodsStore.emitChange 'clear:goods:photo'
+
 updateStore = ->
 	paths = window.location.href.split('/')
 	page = paths[paths.length-1]
@@ -65,15 +75,29 @@ updateGoods = ->
 	DB.put 'goods', _goods.toJS()
 	GoodsStore.emitChange 'goods:update'
 
+window.updateTime = (start, end, type)->
+	console.log 'update time', start, end, type
+	GoodsStore.emitChange {
+		msg: 'goods:time:' + type
+		start: start
+		end: end
+	}
+
+
 addPassBy = ->
 	console.log 'goods', _goods
 	_passBy = _passBy.set 'passBy' + _passBy.size, new Address
 	DB.put 'passBy', _passBy.toJS()
 	GoodsStore.emitChange 'goods:update'
 
+addGoods = (params, files)->
+	Http.postFile Constants.api.ADD_GOODS, params, files
+
 Dispatcher.register (action) ->
 	switch action.actionType
 		when Constants.actionType.UPDATE_STORE then updateStore()
 		when Constants.actionType.GOODS_ADD_PASS_BY then addPassBy()
+		when Constants.actionType.ADD_GOODS then addGoods(action.params, action.files)
+		when Constants.actionType.CLEAR_GOODS_PIC then clearPic()
 
 module.exports = GoodsStore

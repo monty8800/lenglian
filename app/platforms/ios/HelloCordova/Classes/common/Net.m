@@ -1,17 +1,18 @@
 //
-//  Auth.m
+//  Net.m
 //  HelloCordova
 //
-//  Created by ywen on 15/9/23.
+//  Created by ywen on 15/9/30.
 //
 //
 
-#import "Auth.h"
+#import "Net.h"
 #import "Global.h"
 
-@implementation Auth
+@implementation Net
 
-+(void)auth:(NSString *)api params:(NSDictionary *)params files:(NSArray *)files cb:(SimpleNetHandler)cb {
++(void)postFile:(NSString *)api params:(NSDictionary *)params files:(NSArray *)files cb:(SimpleNetHandler)cb
+{
     MKNetworkEngine *engine = [Global sharedInstance].netEngine;
     MKNetworkOperation *op = [[MKNetworkOperation alloc] initWithURLString:api params:nil httpMethod:@"POST"];
     for (NSDictionary *file in files) {

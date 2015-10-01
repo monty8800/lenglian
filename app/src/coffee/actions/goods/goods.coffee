@@ -8,6 +8,17 @@ GoodsAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.GOODS_ADD_PASS_BY
 		}
+	addGoods: (params, files)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ADD_GOODS
+			params: params
+			files: files
+		}
+
+	clearPic: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CLEAR_GOODS_PIC
+		}
 }
 
 module.exports = GoodsAction
