@@ -7,7 +7,8 @@
 //
 
 #import "AddWarehouseViewController.h"
-
+#import "Auth.h"
+#import "MyWarehouseViewController.h"
 @interface AddWarehouseViewController ()
 
 @end
@@ -42,10 +43,44 @@
 }
 
 -(void)saveBtnClick{
-    
-    [self.commandDelegate evalJs:@"addCurrentWarehouse()"];
+    [self.view endEditing:YES];
+    NSString *saveJs = [NSString stringWithFormat:@"(function(){window.postAddWarehouse()})()"];
+    [self.commandDelegate evalJs: saveJs];
+}
+- (void)commonCommand:(NSArray *)params{
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 8) {
+        DDLogDebug(@"show pic selector!");
+        if (_imagePikcer == nil) {
+            _imagePikcer = [ImagePicker new];
+            _imagePikcer.delegate = self;
+        }
+        [_imagePikcer show:params[1] vc:self];
+    }
+    else if ([params[0] integerValue] == 7)
+    {
+        [Auth auth:params[1] params:params[2] files:params[3] cb:^(NSDictionary *responseDic) {
+            DDLogDebug(@"新增仓库 结果 %@", responseDic);
+            if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+                [[Global sharedInstance] showSuccess:@"上传成功！"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadMyWarehouseList" object:nil];
+//                [self.commandDelegate evalJs:@"(function(){window.refreshWarehousListAfterAdd()})()"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else
+            {
+                [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+            }
+        }];
+    }
+
 }
 
+-(void)selectImage:(NSString *)imagePath type:(NSString *)type{
+    NSString *js = [NSString stringWithFormat:@"(function(){window.showAddWarehouseImage('%@', '%@')})()", imagePath, type];
+    DDLogDebug(@"image path %@, type: %@, js: %@", imagePath, type, js);
+    [self.commandDelegate evalJs: js];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

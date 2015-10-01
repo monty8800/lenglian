@@ -13,7 +13,7 @@ Plugin = require 'util/plugin'
 
 _warehouseId = DB.get('transData')
 warehouseStatus = '' #状态
-warehouseType = []		#类型
+warehouseType = []	#类型
 warehousePrice = [] #价格
 warehouseIncreaseValue = [] #增值服务
 warehouseArea = [] #面积
@@ -31,14 +31,16 @@ window.startEditWarehouse = ->
 
 WarehouseDetail = React.createClass {
 	deleteWarehouse: ->
-		alert 'delete warehouse'
+		alert @state.warehouseDetail.id
+		WarehouseAction.deleteWarehouse @state.warehouseDetail.id
+
 	getInitialState: ->
 		{
 			warehouseDetail:{}
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
-		WarehouseAction.getDetail(_warehouseId)
+		WarehouseAction.getDetail _warehouseId
 
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
@@ -137,7 +139,7 @@ WarehouseDetail = React.createClass {
 					<input type="text" placeholder="选填" id="remark"/>
 				</div>
 			</div>
-			
+
 			<div className="m-detail-bottom">
 				<div className="g-pay-btn">
 					<a onClick={ @deleteWarehouse } className="u-btn02">删除仓库</a>

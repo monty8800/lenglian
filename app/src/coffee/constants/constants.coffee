@@ -17,6 +17,7 @@ actionType = {
 	MSG_LIST: null
 	PAY_PWD: null
 	GET_WAREHOUSE:null
+	DELETE_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
 	CHANGE_PWD: null
 	LOGOUT: null

@@ -72,6 +72,7 @@
 		5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B69AE511BBB8AFB00A14101 /* ReleaseWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5B69AE841BBD116000A14101 /* AddCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69AE831BBD116000A14101 /* AddCarViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5BE2632F1BB3A5E000167D4F /* SearchWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE2632E1BB3A5E000167D4F /* SearchWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5BEAC0D61BBA361100D9753C /* WarehouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAC0D51BBA361100D9753C /* WarehouseDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5BEB92651BB6492C003970B3 /* SearchCarsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB92641BB6492C003970B3 /* SearchCarsViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -222,6 +223,8 @@
 		5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWarehouseViewController.m; sourceTree = "<group>"; };
 		5B69AE4F1BBB8AFB00A14101 /* ReleaseWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleaseWarehouseViewController.h; sourceTree = "<group>"; };
 		5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReleaseWarehouseViewController.m; sourceTree = "<group>"; };
+		5B69AE821BBD116000A14101 /* AddCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddCarViewController.h; path = car/AddCarViewController.h; sourceTree = "<group>"; };
+		5B69AE831BBD116000A14101 /* AddCarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddCarViewController.m; path = car/AddCarViewController.m; sourceTree = "<group>"; };
 		5B98B6DD782842E2B57B856C /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CDVNotification.bundle; sourceTree = "<group>"; };
 		5BE2632D1BB3A5E000167D4F /* SearchWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWarehouseViewController.h; sourceTree = "<group>"; };
 		5BE2632E1BB3A5E000167D4F /* SearchWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWarehouseViewController.m; sourceTree = "<group>"; };
@@ -484,6 +487,8 @@
 			children = (
 				4C822F601BB1354700112533 /* CarListViewController.h */,
 				4C822F611BB1354700112533 /* CarListViewController.m */,
+				5B69AE821BBD116000A14101 /* AddCarViewController.h */,
+				5B69AE831BBD116000A14101 /* AddCarViewController.m */,
 				5BEB92631BB6492C003970B3 /* SearchCarsViewController.h */,
 				5BEB92641BB6492C003970B3 /* SearchCarsViewController.m */,
 			);
@@ -874,6 +879,7 @@
 				4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */,
 				4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */,
 				5BE2632F1BB3A5E000167D4F /* SearchWarehouseViewController.m in Sources */,
+				5B69AE841BBD116000A14101 /* AddCarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

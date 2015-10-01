@@ -7,7 +7,7 @@
 //
 
 #import "CarListViewController.h"
-
+#import "AddCarViewController.h"
 @interface CarListViewController ()
 
 @end
@@ -32,8 +32,17 @@
 
 -(void) createUI {
     self.title = @"我的车辆";
+    UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addWarehouseButton setFrame:CGRectMake(0, 0, 80, 44)];
+    [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [addWarehouseButton setTitle:@"新增车辆" forState:UIControlStateNormal];
+    [addWarehouseButton addTarget:self action:@selector(addNewCar) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
 }
-
+- (void)addNewCar{
+    AddCarViewController *addNewCarVC = [AddCarViewController new];
+    [self.navigationController pushViewController:addNewCarVC animated:YES];
+}
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
 }

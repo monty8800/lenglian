@@ -29,7 +29,17 @@ WarehouseAction = {
 			startNo:startNo
 			pageSize:pageSize
 		}
-
+	postAddWarehouse:(params,url)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.WAREHOUSE_ADD
+			params:params
+			fileUrl:url
+		}
+	deleteWarehouse:(warehouseId)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.DELETE_WAREHOUSE
+			warehouseId:warehouseId
+		}
 }
 
 module.exports = WarehouseAction

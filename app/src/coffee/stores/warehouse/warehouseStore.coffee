@@ -15,7 +15,7 @@ UserStore = require 'stores/user/user'
 
 _warehouse = new WarehouseModel
 
-_warehouseList = []#Immutable.List()
+_warehouseList = []
 
 # 搜索仓库结果
 _warehouseSearchResult = []
@@ -53,6 +53,9 @@ getWarehouseList = (status,pageNow,pageSize)->
 		WarehouseStore.emitChange 'getMyWarehouseList'
 	,null,true
 
+window.refreshWarehousListAfterAdd = ()->
+	alert '刷新了...'
+	getWarehouseList _showType,'1','10'
 
 getDetail = (warehouseId) ->
 	user = UserStore.getUser()
@@ -82,7 +85,7 @@ getDetail = (warehouseId) ->
 		_warehouse = _warehouse.set 'longitude', warehouseLoad.longitude	#坐标 经度
 		_warehouse = _warehouse.set 'remark', warehouseLoad.remark			#仓库备注
 		_warehouse = _warehouse.set 'updateTime', warehouseLoad.updateTime		#信息更新时间
-		
+
 		# _warehouse = _warehouse.set 'volume', warehouseLoad.volume  			# 容量 单位 m³
 		# _warehouse = _warehouse.set 'acreageTotal', warehouseLoad.acreageTotal  	#总面积 单位 ㎡
 		# _warehouse = _warehouse.set 'temperatureType', warehouseLoad.temperatureType #温度类型
@@ -126,6 +129,47 @@ warehouseSearchGoods = (startNo,pageSize)->
 		WarehouseStore.emitChange 'warehouseSearchGoods'
 	,null,true
 
+postAddWarehouse = (params,fileUrl) ->
+	file = [{
+			filed: 'file'
+			path: fileUrl
+			name: 'addWarehouse.jpg'    
+		}]
+	Http.postFile Constants.api.WAREHOUSE_ADD,params,file,(data)->
+		Plugin.loading.hide()
+		console.log '发布仓库',data
+	,(data)->
+		console.log '发布仓库 失败', data.msg
+
+
+# 新增仓库时添加图片 回来后显示
+window.showAddWarehouseImage = (picUrl,type)->
+	console.log '_____showAddWarehouseImage_______', picUrl,type
+	param = {}
+	param.mark = 'addWarehouseImage:done'
+	param.picUrl = picUrl
+	param.type = type
+	WarehouseStore.emitChange param
+
+window.postAddWarehouse = ->
+	WarehouseStore.emitChange "saveAddAWarehouse"
+	
+deleteWarehouseRequest = (warehouseId)->
+	user = UserStore.getUser()
+	Http.post Constants.api.DELETE_WAREHOUSE, {
+		userId:user.id
+		warehouseId:warehouseId
+	},(data)->
+		Plugin.loading.hide()
+		console.log '仓库删除成功'
+		Plugin.nav.pop()
+	,(date)->
+		Plugin.loading.hide()
+		Plugin.err.show data.msg
+		console.log '仓库删除失败'
+	,true
+
+
 WarehouseStore = assign BaseStore, {
 	getWarehouseList: ()->
 		_warehouseList
@@ -145,6 +189,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.WAREHOUSE_DETAIL then getDetail(action.warehouseId)
 		when Constants.actionType.SEARCH_WAREHOUSE then searchWarehouse(action.startNo,action.pageSize)
 		when Constants.actionType.WAREHOUSE_SEARCH_GOODS then warehouseSearchGoods(action.startNo,action.pageSize)
-
-
+		when Constants.actionType.WAREHOUSE_ADD then postAddWarehouse(action.params,action.fileUrl)
+		when Constants.actionType.DELETE_WAREHOUSE then deleteWarehouseRequest(action.warehouseId)
 module.exports = WarehouseStore

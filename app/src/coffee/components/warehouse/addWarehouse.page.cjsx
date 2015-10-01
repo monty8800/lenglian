@@ -5,69 +5,32 @@ React = require 'react/addons'
 
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
+UserStore = require 'stores/user/user'
 WarehousePropertyModel = require 'model/warehouseProperty'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
-
+Plugin = require 'util/plugin'
 DB = require 'util/storage'
 assign = require 'object-assign'
 
-_params = {
-	area:""						#区id
-	city:""						#市id
-	contacts:""					#联系人
-	isinvoice:""				#1:要发票 2：不要发票
-	latitude:""					#纬度
-	longitude:""				#经度
-	name:""						#仓库名称
-	phone:""					#联系电话
-	province:""					#省id
-	remark:""					#备注
-	street:""					#详细地址
-	userId:""					#"7201beba475b49fd8b872e2d1493844a" 	#用户id
-	warehouseProperty:[]
-}
-_priceProperty = new WarehousePropertyModel
-_priceProperty = _priceProperty.set 'type','4'
-_priceProperty = _priceProperty.set 'typeName',"价格"
+user = UserStore.getUser()
 
-_areaProperty1 = new WarehousePropertyModel
-_areaProperty1 = _areaProperty1.set 'attribute','1'
-_areaProperty1 = _areaProperty1.set 'attributeName',"常温"
-_areaProperty1 = _areaProperty1.set 'type','3'
-_areaProperty1 = _areaProperty1.set 'typeName',"仓库面积"
-
-_areaProperty2 = new WarehousePropertyModel
-_areaProperty1 = _areaProperty1.set 'attribute','2'
-_areaProperty1 = _areaProperty1.set 'attributeName',"冷藏"
-_areaProperty1 = _areaProperty1.set 'type','3'
-_areaProperty1 = _areaProperty1.set 'typeName',"仓库面积"
-
-_areaProperty3 = new WarehousePropertyModel
-_areaProperty1 = _areaProperty1.set 'attribute','3'
-_areaProperty1 = _areaProperty1.set 'attributeName',"冷冻"
-_areaProperty1 = _areaProperty1.set 'type','3'
-_areaProperty1 = _areaProperty1.set 'typeName',"仓库面积"
-
-_areaProperty4 = new WarehousePropertyModel
-_areaProperty1 = _areaProperty1.set 'attribute','4'
-_areaProperty1 = _areaProperty1.set 'attributeName',"急冻"
-_areaProperty1 = _areaProperty1.set 'type','3'
-_areaProperty1 = _areaProperty1.set 'typeName',"仓库面积"
-
-_areaProperty5 = new WarehousePropertyModel
-_areaProperty1 = _areaProperty1.set 'attribute','5'
-_areaProperty1 = _areaProperty1.set 'attributeName',"深冷"
-_areaProperty1 = _areaProperty1.set 'type','3'
-_areaProperty1 = _areaProperty1.set 'typeName',"仓库面积"
-
-
-_increaseServeProperty = [];
-
+addPropertyModel = (attribute,attributeName,type,typeName,value) ->
+	areaModel = new WarehousePropertyModel
+	areaModel = areaModel.set 'attribute',attribute
+	areaModel = areaModel.set 'attributeName',attributeName
+	areaModel = areaModel.set 'type',type
+	areaModel = areaModel.set 'typeName',typeName
+	areaModel = areaModel.set 'value',value
+	areaModel
 
 AddWarehouse = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	getInitialState: ->
+		priceProperty = new WarehousePropertyModel
+		priceProperty = priceProperty.set 'type','4'
+		priceProperty = priceProperty.set 'typeName',"价格"
+		
 		{
 			priceValue1:''
 			priceValue2:''
@@ -81,6 +44,23 @@ AddWarehouse = React.createClass {
 			temperatureArea3:''
 			temperatureArea4:''
 			temperatureArea5:''
+			addWarehouseImageUrl:''
+			priceProperty:priceProperty
+			params:{
+				area:"宛城区"						#区id
+				city:"南阳市"						#市id
+				contacts:"YYQ"					#联系人
+				isinvoice:"1"				#1:要发票 2：不要发票
+				latitude:"111.0"					#纬度
+				longitude:"126.0"				#经度
+				name:"不知道"						#仓库名称
+				phone:"15321620771"					#联系电话
+				province:"河南省"					#省id
+				remark:"23456789"					#备注
+				street:"地安门"					#详细地址
+				userId:user.id 			#'5b3d93775a22449284aad35443c09fb6'	#user.id
+				warehouseProperty:[]
+			}
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
@@ -88,20 +68,88 @@ AddWarehouse = React.createClass {
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
 
-	_onChange : ->
+	_onChange :(mark) ->
+		if mark.mark is 'addWarehouseImage:done'
+			console.log 'show addWarehouseImage files://',mark.picUrl
+			newState = Object.create @state
+			newState.addWarehouseImageUrl = mark.picUrl
+			@setState newState
+		else if mark is "saveAddAWarehouse"
+			if !@state.params.name
+				Plugin.toast.show '请输入仓库名'
+				return
+			if !@state.params.street
+				Plugin.toast.show '请输入仓详细地址'
+				return
+			if !@state.priceProperty.value
+				Plugin.toast.show '请输入价格'
+				return
+			else
+				@state.params.warehouseProperty.push @state.priceProperty
+			if !@state.params.contacts
+				Plugin.toast.show '请输入联系人姓名'
+				return
+			if !@state.params.phone
+				Plugin.toast.show '请输入联系人电话'
+				return
+# 温度区域面积
+			newState = Object.create @state
+			if @state.temperatureChecked1 is '1'
+				if !@state.temperatureArea1
+					Plugin.toast.show '常温面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '1','常温','3','仓库面积',@state.temperatureArea1
+					newState.params.warehouseProperty.push aPropertyModel
+			if @state.temperatureChecked2 is '1'
+				if !@state.temperatureArea2
+					Plugin.toast.show '冷藏面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '2','冷藏','3','仓库面积',@state.temperatureArea2
+					newState.params.warehouseProperty.push aPropertyModel
+			if @state.temperatureChecked3 is '1'
+				if !@state.temperatureArea3
+					Plugin.toast.show '冷冻面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '3','冷冻','3','仓库面积',@state.temperatureArea3
+					newState.params.warehouseProperty.push aPropertyModel
+			if @state.temperatureChecked4 is '1'
+				if !@state.temperatureArea4
+					Plugin.toast.show '急冻面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '4','急冻','3','仓库面积',@state.temperatureArea4
+					newState.params.warehouseProperty.push aPropertyModel
+			if @state.temperatureChecked5 is '1'
+				if !@state.temperatureArea5
+					Plugin.toast.show '深冷面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '5','深冷','3','仓库面积',@state.temperatureArea5
+					newState.params.warehouseProperty.push aPropertyModel
+			@setState newState
 
+			WarehouseAction.postAddWarehouse @state.params, @state.addWarehouseImageUrl
 
 # 仓库名称
 	warehouseNameValueChange : (e)->
-		_params.name = e.target.value
+		newState = Object.create @state
+		newState.params.name = e.target.value
+		@setState newState
 
 # 仓库地址
 	addressVAalueChange: (e) ->
-		_params.street = e.target.value
+		newState = Object.create @state
+		newState.params.street = e.target.value
+		@setState newState
 
 # 仓库详细地址
 	detailAddressVAalueChange : (e) ->
-		_params.street = e.target.value
+		newState = Object.create @state
+		newState.params.street = e.target.value
+		@setState newState
 
 # 价格
 	priceValueChange1 :(e) ->
@@ -109,74 +157,76 @@ AddWarehouse = React.createClass {
 		if @state.priceValue2.length > 0
 			newState.priceValue2 = ''
 		newState.priceValue1 = e.target.value
+		aPriceProperty = newState.priceProperty
+		aPriceProperty = aPriceProperty.set 'value',newState.priceValue1
+		aPriceProperty = aPriceProperty.set 'attribute','1'
+		aPriceProperty = aPriceProperty.set 'attributeName','天/托'
+		newState.priceProperty = aPriceProperty
 		@setState newState
-		_priceProperty = _priceProperty.set 'attribute','1'
-		_priceProperty = _priceProperty.set 'attributeName',"天/托"
-		_priceProperty = _priceProperty.set 'value',e.target.value
 
 	priceValueChange2 : (e) ->
 		newState = Object.create @state
 		if @state.priceValue1.length > 0
 			newState.priceValue1 = ''
 		newState.priceValue2 = e.target.value
+		aPriceProperty = newState.priceProperty
+		aPriceProperty = aPriceProperty.set 'value',newState.priceValue2
+		aPriceProperty = aPriceProperty.set 'attribute','2'
+		aPriceProperty = aPriceProperty.set 'attributeName','天/平'
+		newState.priceProperty = aPriceProperty
 		@setState newState
-		_priceProperty = _priceProperty.set 'attribute','2'
-		_priceProperty = _priceProperty.set 'attributeName',"天/平"
-		_priceProperty = _priceProperty.set 'value',e.target.value
 
 # 发票
 	needInvoice : (e)->
-		_params.isinvoice = '1'
+		newState = Object.create @state
+		newState.isinvoice = '1'
+		@setState newState
 	unNeedInvoice : (e)->
-		_params.isinvoice = '2'
+		newState = Object.create @state
+		newState.isinvoice = '2'
+		@setState newState
 
 #增值服务
 	increaseServe1 : (e)-> #城配
+		newState = Object.create @state
 		if e.target.checked
-			increaseModel = new WarehousePropertyModel
-			increaseModel = increaseModel.set 'type','2'
-			increaseModel = increaseModel.set 'attribute','1'
-			increaseModel = increaseModel.set 'typeName','仓库增值服务'
-			increaseModel = increaseModel.set 'attributeName','城配'
-			_increaseServeProperty.push increaseModel
+			aPropertyModel = addPropertyModel '1','城配','2','仓库增值服务',''
+			newState.params.warehouseProperty.push aPropertyModel
 		else
-			_increaseServeProperty.map (model,i) ->
-					if model.attribute is '1'	
-						_increaseServeProperty.splice(i,1)
+			@state.params.warehouseProperty.map (model,i) ->
+					if model.attribute is '1' and model.type is '2'
+						newState.params.warehouseProperty.splice(i,1)
 				,this
-		console.log "增值服务",_increaseServeProperty
+		@setState newState
+		console.log "增值服务",@state.params.warehouseProperty
 	increaseServe2 : (e)-> #仓配
+		newState = Object.create @state
 		if e.target.checked
-			increaseModel = new WarehousePropertyModel
-			increaseModel = increaseModel.set 'type','2'
-			increaseModel = increaseModel.set 'attribute','2'
-			increaseModel = increaseModel.set 'typeName','仓库增值服务'
-			increaseModel = increaseModel.set 'attributeName','仓配'
-			_increaseServeProperty.push increaseModel
+			aPropertyModel = addPropertyModel '2','仓配','2','仓库增值服务',''
+			newState.params.warehouseProperty.push aPropertyModel
 		else
-			_increaseServeProperty.map (model,i) ->
-					if model.attribute is '2'	
-						_increaseServeProperty.splice(i,1)
+			@state.params.warehouseProperty.map (model,i) ->
+					if model.attribute is '2' and model.type is '2'
+						newState.params.warehouseProperty.splice(i,1)
 				,this
-		console.log "增值服务",_increaseServeProperty
+		@setState newState
+		console.log "增值服务",@state.params.warehouseProperty
 	increaseServe3 : (e)-> #金融
+		newState = Object.create @state
 		if e.target.checked
-			increaseModel = new WarehousePropertyModel
-			increaseModel = increaseModel.set 'type','2'
-			increaseModel = increaseModel.set 'attribute','3'
-			increaseModel = increaseModel.set 'typeName','仓库增值服务'
-			increaseModel = increaseModel.set 'attributeName','金融'
-			_increaseServeProperty.push increaseModel
+			aPropertyModel = addPropertyModel '3','金融','2','仓库增值服务',''
+			newState.params.warehouseProperty.push aPropertyModel
 		else
-			_increaseServeProperty.map (model,i) ->
-					if model.attribute is '3'
-						_increaseServeProperty.splice(i,1)
+			@state.params.warehouseProperty.map (model,i) ->
+					if model.attribute is '3' and model.type is '2'
+						newState.params.warehouseProperty.splice(i,1)
 				,this
-		console.log "增值服务",_increaseServeProperty
+		@setState newState
+		console.log "增值服务",@state.params.warehouseProperty
 
 	_takePhoto : ()->
-		# Plugin.run ['8',]
-		# TODO:
+		Plugin.run [8,'addWarehouse']
+		# TODO:id
 			
 # 仓库面积
 	temperatureCheck1 : (e) ->
@@ -187,6 +237,7 @@ AddWarehouse = React.createClass {
 		else
 			newState.temperatureChecked1 = '0'
 		@setState newState
+
 	temperatureCheck2 : (e) ->
 		console.log '冷藏'
 		newState = Object.create @state
@@ -347,11 +398,15 @@ AddWarehouse = React.createClass {
 
 			<div className="m-releaseitem">
 				<div className="choicePic">
-					<span>货物照片</span> <i>选填</i>
-					<figure>
-						<span className="ll-font"></span>
+					<span>货物照片</span> <i>选填</i>					
+					<figure onClick={@_takePhoto}>
+						{
+							if @state.addWarehouseImageUrl
+								<img className="ll-font" src={'file://' + @state.addWarehouseImageUrl} />
+							else
+								<span className="ll-font"></span>
+						}
 					</figure>
-					<input type="file" accept="image/*" onClick={@_takePhoto.bind this} />
 				</div>
 			</div>
 			<div className="m-releaseitem">
@@ -368,8 +423,6 @@ AddWarehouse = React.createClass {
 					<input type="text" className="input-weak" placeholder="请输入备注消息" id="remark"/>
 				</div>
 			</div>
-						
-			
 		</div>
 }
 

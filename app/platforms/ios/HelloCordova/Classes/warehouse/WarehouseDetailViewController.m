@@ -41,6 +41,11 @@
 -(void)editWarehouse{
     [self.commandDelegate evalJs:@"startEditWarehouse()"];
 }
+-(void)commonCommand:(NSArray *)params{
+    [super commonCommand:params];
+
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

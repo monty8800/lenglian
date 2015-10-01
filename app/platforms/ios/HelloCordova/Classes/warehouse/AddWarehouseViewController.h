@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
-
-@interface AddWarehouseViewController : BaseViewController
+#import "ImagePicker.h"
+@interface AddWarehouseViewController : BaseViewController <ImagePickerDelegate>
+{
+    ImagePicker *_imagePikcer;
+}
 
 @end
