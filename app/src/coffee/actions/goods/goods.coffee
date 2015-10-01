@@ -19,6 +19,10 @@ GoodsAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CLEAR_GOODS_PIC
 		}
+	clearGoods: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CLEAR_GOODS
+		}
 }
 
 module.exports = GoodsAction

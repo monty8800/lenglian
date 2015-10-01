@@ -6,6 +6,7 @@ PureRenderMixin = React.addons.PureRenderMixin
 Banner = require 'components/home/banner'
 Request = require 'components/home/request'
 Post = require 'components/home/post'
+GoodsAction = require 'actions/goods/goods'
 
 Home = React.createClass {
 	mixins: [PureRenderMixin]
@@ -15,6 +16,7 @@ Home = React.createClass {
 
 	componentDidMount: ->
 		console.log 'mount'
+		GoodsAction.clearGoods()
 
 	componentWillUnmount: ->
 		console.log 'unmount'

@@ -41,8 +41,8 @@ FromTo = React.createClass {
 
 	getInitialState: ->
 		{
-			from: GoodsStore.getFrom
-			to: GoodsStore.getTo
+			from: GoodsStore.getFrom()
+			to: GoodsStore.getTo()
 			passBy: GoodsStore.getPassBy()
 		}
 	render: ->

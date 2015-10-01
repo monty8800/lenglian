@@ -14,4 +14,6 @@ typedef void (^SimpleNetHandler)(NSDictionary *responseDic);
 
 +(void) postFile:(NSString *) api params:(NSDictionary *) params files:(NSArray *) files cb:(SimpleNetHandler) cb;
 
++(void) post:(NSString *)api params:(NSDictionary *)params cb:(SimpleNetHandler)cb;
+
 @end

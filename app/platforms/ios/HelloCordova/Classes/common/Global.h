@@ -19,6 +19,18 @@
 #import <BaiduMapAPI/BMapKit.h>
 #import <MKNetworkKit.h>
 
+#pragma mark- api
+
+//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
+#define SERVER @"http://192.168.29.204:8072/"
+#define NEARBY_GOODS [SERVER stringByAppendingString: @"/findNear/nearGoods.shtml"]
+#define NEARBY_CAR [SERVER stringByAppendingString: @"/findNear/nearCar.shtml"]
+#define NEARBY_WAREHOUSE [SERVER stringByAppendingString: @"/findNear/nearWarehouse.shtml"]
+
+#define NEARBY_GOODS_DETAIL [SERVER stringByAppendingString: @"/carFindGoods/list.shtml"]
+#define NEARBY_CAR_DETAIL [SERVER stringByAppendingString: @"/searchCarCtl/searchCar.shtml"]
+#define NEARBY_WAREHOUSE_DETAIL [SERVER stringByAppendingString: @"/searchWarehouseCtl/searchWarehouse.shtml"]
+
 
 
 #define CLIENT_TYPE @"2"  //客户端类型

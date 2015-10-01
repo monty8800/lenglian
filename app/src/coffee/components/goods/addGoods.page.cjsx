@@ -29,6 +29,7 @@ AddGoods = React.createClass {
 
 	componentWillUnmount: ->
 		GoodsStore.removeChangeListener @_change
+		GoodsAction.clearGoods()
 
 	_change: (msg)->
 		console.log 'event change ', msg
@@ -51,6 +52,16 @@ AddGoods = React.createClass {
 			newState.arriveMinTime = msg.start
 			newState.arriveMaxTime = msg.end
 			@setState newState
+		else if msg.msg is 'select:contacts:sender'
+			newState = Object.create @state
+			newState.sender = msg.name
+			newState.senderMobile = msg.mobile
+			@setState newState
+		else if msg.msg is 'select:contacts:reciver'
+			newState = Object.create @state
+			newState.reciver = msg.name
+			newState.reciverMobile = msg.mobile
+			@setState newState
 
 	_selectPic: ->
 		console.log '_selectPic'
@@ -58,6 +69,9 @@ AddGoods = React.createClass {
 
 	_selectTime: (type)->
 		Plugin.run [6, 'select:time:' + type]
+
+	_selectContacts: (type)->
+		Plugin.run [4, 'select:contacts:' + type]
 
 	_pic404: ->
 		GoodsAction.clearPhoto()
@@ -328,9 +342,10 @@ AddGoods = React.createClass {
 			</div>
 		</div>
 		<div className="m-releaseitem">
-			<div className="u-personIcon ll-font">
+			<div>
 				<span>发货人</span>
 				<input className="input-weak" valueLink={@linkState 'sender'} type="text" placeholder="请输入或点击图标导入" />
+				<em onClick={@_selectContacts.bind this, 'sender'} className="u-personIcon ll-font"></em>
 			</div>
 			<div>
 				<span>手机号</span>
@@ -338,9 +353,10 @@ AddGoods = React.createClass {
 			</div>
 		</div>
 		<div className="m-releaseitem">
-			<div className="u-personIcon ll-font">
+			<div >
 				<span>收货人</span>
 				<input className="input-weak" valueLink={@linkState 'reciver'} type="text" placeholder="请输入或点击图标导入" />
+				<em onClick={@_selectContacts.bind this, 'reciver'} className="u-personIcon ll-font"></em>
 			</div>
 			<div>
 				<span>手机号</span>

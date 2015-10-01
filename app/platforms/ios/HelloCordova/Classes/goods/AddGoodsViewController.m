@@ -78,6 +78,19 @@
             }
         }];
     }
+    else if ([params[0] integerValue] == 4)
+    {
+        ContactsViewController *contactsVC = [ContactsViewController new];
+        contactsVC.type = params[1];
+        contactsVC.delegate = self;
+        [self.navigationController pushViewController:contactsVC animated:YES];
+    }
+}
+-(void)select:(NSDictionary *)contact type:(NSString *)type {
+    NSString *name = [contact objectForKey:@"name"];
+    NSString *mobile = [contact objectForKey:@"mobile"];
+    NSString *js = [NSString stringWithFormat:@"(function(){window.updateContact('%@','%@','%@')})()", name, mobile, type];
+    [self.commandDelegate evalJs:js];
 }
 
 -(void)selectDate:(NSArray *)dateList type:(NSString *)type {

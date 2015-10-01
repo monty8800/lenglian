@@ -1,5 +1,5 @@
 mobile = (input)->
-	return /^1(3|4|5|6|7|8)\d{9}$/.test input
+	return /^1(3|4|5|6|7|8)\d(-|\s)?\d{4}(-|\s)?\d{4}$/.test input
 
 passwd = (input)->
 	return /^[\da-zA-Z]{6}$/.test input

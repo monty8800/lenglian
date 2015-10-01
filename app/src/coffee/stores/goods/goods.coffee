@@ -44,6 +44,16 @@ clearPic = ->
 	console.log 'clear goods pic'
 	GoodsStore.emitChange 'clear:goods:photo'
 
+clearGoods = ->
+	DB.remove 'goods'
+	DB.remove 'from'
+	DB.remove 'to'
+	DB.remove 'passBy'
+	_goods = new Goods
+	_from = new Address
+	_to = new Address
+	_passBy = Immutable.Map()
+
 updateStore = ->
 	paths = window.location.href.split('/')
 	page = paths[paths.length-1]
@@ -83,6 +93,14 @@ window.updateTime = (start, end, type)->
 		end: end
 	}
 
+window.updateContact = (name, mobile, type)->
+	console.log 'update contact', name, mobile, type
+	GoodsStore.emitChange {
+		msg: type
+		name: name
+		mobile: mobile
+	}
+
 
 addPassBy = ->
 	console.log 'goods', _goods
@@ -99,5 +117,6 @@ Dispatcher.register (action) ->
 		when Constants.actionType.GOODS_ADD_PASS_BY then addPassBy()
 		when Constants.actionType.ADD_GOODS then addGoods(action.params, action.files)
 		when Constants.actionType.CLEAR_GOODS_PIC then clearPic()
+		when Constants.actionType.CLEAR_GOODS then clearGoods()
 
 module.exports = GoodsStore
