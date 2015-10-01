@@ -15,21 +15,23 @@ Warehouse = Immutable.Record {
 	styleType:0 		#  驶入式、横梁式、平推式、自动立体货架式
 	imageUrl:null			#图片
 	invoice:0 			# 0-不提供发票 1-提供发票
-	volume:0  			# 容量 单位 m³
-	acreageTotal:0  	#总面积 单位 ㎡
-	temperatureType: null #温度类型
-	#acreageNormal:0 	#常温面积 单位 ㎡
-	#acreageCold:0   	#冷藏面积 单位 ㎡
+	rentTime:null		#租赁时间
 	contact:null  		#联系人姓名
 	contactTel:null 	#联系人电话
-	price:0 			#价格 单位待定 ¥100/天 ¥100/托  
-	increaseServe:null  #城配 仓配 金融
 	latitude:null		#坐标 纬度
 	longitude:null		#坐标 经度
 	remark:null			#仓库备注
 	updateTime:null		#信息更新时间
 	warehouseProperty:[]	#仓库各种属性的数组 
-	
+
+	# volume:0  			# 容量 单位 m³
+	# acreageTotal:0  	#总面积 单位 ㎡
+	# temperatureType: null #温度类型
+	# #acreageNormal:0 	#常温面积 单位 ㎡
+	# #acreageCold:0   	#冷藏面积 单位 ㎡
+	# price:0 			#价格 单位待定 ¥100/天 ¥100/托  
+	# increaseServe:null  #城配 仓配 金融
+
 }
 module.exports = Warehouse
 

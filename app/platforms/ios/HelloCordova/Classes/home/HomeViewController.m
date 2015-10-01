@@ -12,6 +12,7 @@
 #import "MyWarehouseViewController.h"
 #import "SearchCarsViewController.h"
 #import "AddGoodsViewController.h"
+#import "ReleaseWarehouseViewController.h"
 @interface HomeViewController ()
 
 @end
@@ -53,6 +54,7 @@
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"searchCar"]) {
             SearchCarsViewController *searchCarsVC = [SearchCarsViewController new];
+            searchCarsVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:searchCarsVC animated:YES];
             NSLog(@"找车");
         }
@@ -60,6 +62,7 @@
         {
             NSLog(@"找库");
             SearchWarehouseViewController *searchWarehouse = [SearchWarehouseViewController new];
+            searchWarehouse.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:searchWarehouse animated:YES];
         }
         else if ([params[1] isEqualToString:@"dirverSearchWarehouse"])
@@ -70,6 +73,7 @@
         {
             NSLog(@"仓库找货");
             WarehouseSearchGoodsViewController *wSG = [WarehouseSearchGoodsViewController new];
+            wSG.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:wSG animated:YES];
         }
         else if ([params[1] isEqualToString:@"releaseCar"])
@@ -86,6 +90,9 @@
         else if ([params[1] isEqualToString:@"releaseWarehouse"])
         {
             NSLog(@"发布库源");
+            ReleaseWarehouseViewController *releaseWarehouseVC = [ReleaseWarehouseViewController new];
+            releaseWarehouseVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:releaseWarehouseVC animated:YES];
         }
     }
 }

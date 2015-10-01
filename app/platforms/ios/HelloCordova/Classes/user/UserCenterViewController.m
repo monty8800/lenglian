@@ -59,21 +59,25 @@
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"more"]) {
             MoreViewController *moreVC = [MoreViewController new];
+            moreVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:moreVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"wallet"])
         {
             WalletViewController *walletVC = [WalletViewController new];
+            walletVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:walletVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"messageList"])
         {
             MessageListViewController *messageListVC = [MessageListViewController new];
+            messageListVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:messageListVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"myCar"])
         {
             CarListViewController *carListVC = [CarListViewController new];
+            carListVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:carListVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"addressList"])
@@ -85,19 +89,19 @@
         else if ([params[1] isEqualToString:@"attentionList"])
         {
             FollowListViewController *followVC = [FollowListViewController new];
+            followVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:followVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"myWarehouse"])
         {
             MyWarehouseViewController *myWarehouse = [MyWarehouseViewController new];
+            myWarehouse.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:myWarehouse animated:YES];
-            
-//            WalletViewController *walletVC = [WalletViewController new];
-//            [self.navigationController pushViewController:walletVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"myComment"])
         {
             CommentViewController *commentVC = [CommentViewController new];
+            commentVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:commentVC animated:YES];
         }
     }

@@ -109,10 +109,11 @@ Car = React.createClass {
 	componentWillUnmount: ->
 		CarStore.removeChangeListener @_onChange
 
-	_onChange: ->
-		@setState { 
-			carList: CarStore.getCarList()
-		}
+	_onChange: (params)->
+		if params[0] is 'my_car_list'
+			@setState { 
+				carList: CarStore.getCarList()
+			}
    
 	render: ->
 		carList = @state.carList

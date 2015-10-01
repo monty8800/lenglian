@@ -15,7 +15,7 @@ UserStore = require 'stores/user/user'
 
 _warehouse = new WarehouseModel
 
-_warehouseList = Immutable.List()
+_warehouseList = []#Immutable.List()
 
 # 搜索仓库结果
 _warehouseSearchResult = []
@@ -36,7 +36,7 @@ getWarehouseList = (status,pageNow,pageSize)->
 		pageSize:pageSize
 	},(data)->
 		warehouses = data.myWarehouse
-		if pageNow is '0'
+		if pageNow is '1'
 			_warehouseList = []
 		
 		for aWarehouse in warehouses
@@ -46,7 +46,9 @@ getWarehouseList = (status,pageNow,pageSize)->
 			warehouseModel = warehouseModel.set 'areaName',aWarehouse.areaName
 			warehouseModel = warehouseModel.set 'name',aWarehouse.name
 			warehouseModel = warehouseModel.set 'street',aWarehouse.street
-			_warehouseList = _warehouseList.push warehouseModel
+			warehouseModel = warehouseModel.set 'id',aWarehouse.id
+			
+			_warehouseList.push warehouseModel
 
 		WarehouseStore.emitChange 'getMyWarehouseList'
 	,null,true
@@ -73,21 +75,22 @@ getDetail = (warehouseId) ->
 		_warehouse = _warehouse.set 'status', warehouseLoad.status  			# 0-空闲中  1-已发布 2-使用中
 		_warehouse = _warehouse.set 'styleType', warehouseLoad.styleType		#  驶入式、横梁式、平推式、自动立体货架式
 		_warehouse = _warehouse.set 'imageUrl', warehouseLoad.imageUrl			#图片
-		_warehouse = _warehouse.set 'invoice', warehouseLoad.invoice			# 0-不提供发票 1-提供发票
-		_warehouse = _warehouse.set 'volume', warehouseLoad.volume  			# 容量 单位 m³
-		_warehouse = _warehouse.set 'acreageTotal', warehouseLoad.acreageTotal  	#总面积 单位 ㎡
-		_warehouse = _warehouse.set 'temperatureType', warehouseLoad.temperatureType #温度类型
-		_warehouse = _warehouse.set '#acreageNormal', warehouseLoad.acreageNormal 	#常温面积 单位 ㎡
-		_warehouse = _warehouse.set '#acreageCold', warehouseLoad.acreageCold   	#冷藏面积 单位 ㎡
-		_warehouse = _warehouse.set 'contact', warehouseLoad.contact  		#联系人姓名
-		_warehouse = _warehouse.set 'contactTel', warehouseLoad.contactTel 	#联系人电话
-		_warehouse = _warehouse.set 'price', warehouseLoad.price			#价格 单位待定 ¥100/天 ¥100/托  
-		_warehouse = _warehouse.set 'increaseServe', warehouseLoad.increaseServe  #城配 仓配 金融
+		_warehouse = _warehouse.set 'invoice', warehouseLoad.isinvoice			# 0-不提供发票 1-提供发票
+		_warehouse = _warehouse.set 'contact', warehouseLoad.contacts  		#联系人姓名
+		_warehouse = _warehouse.set 'contactTel', warehouseLoad.phone 	#联系人电话
 		_warehouse = _warehouse.set 'latitude', warehouseLoad.latitude		#坐标 纬度
 		_warehouse = _warehouse.set 'longitude', warehouseLoad.longitude	#坐标 经度
 		_warehouse = _warehouse.set 'remark', warehouseLoad.remark			#仓库备注
 		_warehouse = _warehouse.set 'updateTime', warehouseLoad.updateTime		#信息更新时间
-
+		
+		# _warehouse = _warehouse.set 'volume', warehouseLoad.volume  			# 容量 单位 m³
+		# _warehouse = _warehouse.set 'acreageTotal', warehouseLoad.acreageTotal  	#总面积 单位 ㎡
+		# _warehouse = _warehouse.set 'temperatureType', warehouseLoad.temperatureType #温度类型
+		# _warehouse = _warehouse.set '#acreageNormal', warehouseLoad.acreageNormal 	#常温面积 单位 ㎡
+		# _warehouse = _warehouse.set '#acreageCold', warehouseLoad.acreageCold   	#冷藏面积 单位 ㎡
+		# _warehouse = _warehouse.set 'price', warehouseLoad.price			#价格 单位待定 ¥100/天 ¥100/托  
+		# _warehouse = _warehouse.set 'increaseServe', warehouseLoad.increaseServe  #城配 仓配 金融
+		
 		propertyArr = warehouseLoad.warehouseProperty
 		tempArr = []
 		for prop in propertyArr

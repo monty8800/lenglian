@@ -71,7 +71,9 @@
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5B69AE511BBB8AFB00A14101 /* ReleaseWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5BE2632F1BB3A5E000167D4F /* SearchWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE2632E1BB3A5E000167D4F /* SearchWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5BEAC0D61BBA361100D9753C /* WarehouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAC0D51BBA361100D9753C /* WarehouseDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5BEB92651BB6492C003970B3 /* SearchCarsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB92641BB6492C003970B3 /* SearchCarsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5BEB92681BB64BBE003970B3 /* AddWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB92671BB64BBE003970B3 /* AddWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5BEB926C1BB651A0003970B3 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB926B1BB651A0003970B3 /* CommentViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -218,9 +220,13 @@
 		5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WarehouseSearchGoodsViewController.m; sourceTree = "<group>"; };
 		5B2F623B1BB3EBA10020AD28 /* MyWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWarehouseViewController.h; sourceTree = "<group>"; };
 		5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWarehouseViewController.m; sourceTree = "<group>"; };
+		5B69AE4F1BBB8AFB00A14101 /* ReleaseWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleaseWarehouseViewController.h; sourceTree = "<group>"; };
+		5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReleaseWarehouseViewController.m; sourceTree = "<group>"; };
 		5B98B6DD782842E2B57B856C /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CDVNotification.bundle; sourceTree = "<group>"; };
 		5BE2632D1BB3A5E000167D4F /* SearchWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWarehouseViewController.h; sourceTree = "<group>"; };
 		5BE2632E1BB3A5E000167D4F /* SearchWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWarehouseViewController.m; sourceTree = "<group>"; };
+		5BEAC0D41BBA361100D9753C /* WarehouseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarehouseDetailViewController.h; sourceTree = "<group>"; };
+		5BEAC0D51BBA361100D9753C /* WarehouseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WarehouseDetailViewController.m; sourceTree = "<group>"; };
 		5BEB92631BB6492C003970B3 /* SearchCarsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCarsViewController.h; path = car/SearchCarsViewController.h; sourceTree = "<group>"; };
 		5BEB92641BB6492C003970B3 /* SearchCarsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCarsViewController.m; path = car/SearchCarsViewController.m; sourceTree = "<group>"; };
 		5BEB92661BB64BBE003970B3 /* AddWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddWarehouseViewController.h; sourceTree = "<group>"; };
@@ -610,6 +616,10 @@
 				5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */,
 				5BEB92661BB64BBE003970B3 /* AddWarehouseViewController.h */,
 				5BEB92671BB64BBE003970B3 /* AddWarehouseViewController.m */,
+				5BEAC0D41BBA361100D9753C /* WarehouseDetailViewController.h */,
+				5BEAC0D51BBA361100D9753C /* WarehouseDetailViewController.m */,
+				5B69AE4F1BBB8AFB00A14101 /* ReleaseWarehouseViewController.h */,
+				5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */,
 			);
 			path = warehouse;
 			sourceTree = "<group>";
@@ -843,11 +853,13 @@
 				4C822F661BB135E500112533 /* AddressListViewController.m in Sources */,
 				4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */,
 				4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */,
+				5B69AE511BBB8AFB00A14101 /* ReleaseWarehouseViewController.m in Sources */,
 				4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */,
 				4C59DE401B5E4FF30063D9CE /* Global.m in Sources */,
 				5BEB92681BB64BBE003970B3 /* AddWarehouseViewController.m in Sources */,
 				4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */,
 				4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */,
+				5BEAC0D61BBA361100D9753C /* WarehouseDetailViewController.m in Sources */,
 				4C9A184D1BB680710072F940 /* LoactionViewController.m in Sources */,
 				98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */,
 				4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */,

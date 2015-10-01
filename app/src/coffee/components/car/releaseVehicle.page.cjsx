@@ -25,11 +25,10 @@ Vehicle = React.createClass {
 		Plugin.nav.push [page]
 
 	_goFreeCar: (item)->
-		console.log 'ddddd'
 		@setState {
 			isShow: 1
 			currentCar: item.carNo
-			carId: item.id
+			carId: item.carId
 		}
 
 	getInitialState: ->
@@ -39,10 +38,10 @@ Vehicle = React.createClass {
 
 			startPoint: '' # 出发地
 			destination: '' # 目的地
-			isinvoice: 1 # 是否需要发票 默认是
+			isinvoice: '' # 是否需要发票 默认是
 			contacts: user.name or '' # 联系人
 			phone:  user.mobile or '' # 手机号
-			carId: carId # 车辆Id
+			carId: '' # 车辆Id
 			remark:  'bbb' # 备注
 			startTime: ''
 			endTime: ''
@@ -117,12 +116,23 @@ Vehicle = React.createClass {
 				isShow: 1
 			}
 
+	# 发票
+	needInvoice : (e)->
+		if e.target.checked
+			@setState {
+				isinvoice: '1'
+			}
+	unNeedInvoice : (e)->
+		if e.target.checked
+			@setState {
+				isinvoice: '2'
+			}
 	_submit: ->
 		if @state.startPoint is ''
 			Plugin.toast.err '请输入出发地'
-		else if not Validator.name @state.contact
+		else if not Validator.name @state.contacts
 			Plugin.toast.err '请输入正确的姓名'
-		else if not Validator.mobile @state.mobile
+		else if not Validator.mobile @state.phone
 			Plugin.toast.err '请输入正确的手机号'
 		else if not Validator.remark @state.remark
 			Plugin.toast.err '备注1-30个字符'
@@ -131,8 +141,8 @@ Vehicle = React.createClass {
 				startPoint: @state.startPoint # 出发地
 				destination: @state.destination # 目的地
 				isinvoice: @state.isinvoice # 是否需要发票 默认是
-				contacts: @state.contact # 联系人
-				phone:  @state.mobile # 手机号
+				contacts: @state.contacts # 联系人
+				phone:  @state.phone # 手机号
 				carId: @state.carId # 车辆Id
 				remark:  @state.remark # 备注
 				startTime: @state.startTime
@@ -178,10 +188,10 @@ Vehicle = React.createClass {
 					<span>提供发票</span> 
 					<div className="radio-box">
 						<label className="label-checkbox">
-							<input type="radio" name="xe-checkbox"/><span className="item-media ll-font"></span><span>否</span>
+							<input onChange=@unNeedInvoice type="radio" name="xe-checkbox"/><span className="item-media ll-font"></span><span>否</span>
 						</label>
 						<label className="label-checkbox">
-							<input type="radio" name="xe-checkbox"/><span className="item-media ll-font"></span><span>是</span>
+							<input onChange=@needInvoice type="radio" name="xe-checkbox"/><span className="item-media ll-font"></span><span>是</span>
 						</label>
 					</div>
 				</div>

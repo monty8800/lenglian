@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -82,7 +81,6 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_SHORT).show();
         if (args.toString().contains("2")) {
             finish();
         } else if (args.toString().contains("location")) {
