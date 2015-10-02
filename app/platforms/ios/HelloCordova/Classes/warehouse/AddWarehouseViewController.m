@@ -9,8 +9,9 @@
 #import "AddWarehouseViewController.h"
 #import "MyWarehouseViewController.h"
 #import "Net.h"
+#import "LocationViewController.h"
 
-@interface AddWarehouseViewController ()
+@interface AddWarehouseViewController ()<LocationDelegate>
 
 @end
 
@@ -45,11 +46,18 @@
 
 -(void)saveBtnClick{
     [self.view endEditing:YES];
-    NSString *saveJs = [NSString stringWithFormat:@"(function(){window.postAddWarehouse()})()"];
+    NSString *saveJs = [NSString stringWithFormat:@"(function(){window.addWarehouseBtnClick()})()"];
     [self.commandDelegate evalJs: saveJs];
 }
 - (void)commonCommand:(NSArray *)params{
     [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"locationView"]) {
+            LocationViewController *locationVC = [LocationViewController new];
+            locationVC.delegate = self;
+            [self.navigationController pushViewController:locationVC animated:YES];
+        }
+    }
     if ([params[0] integerValue] == 8) {
         DDLogDebug(@"show pic selector!");
         if (_imagePikcer == nil) {
@@ -64,8 +72,8 @@
             DDLogDebug(@"新增仓库 结果 %@", responseDic);
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
                 [[Global sharedInstance] showSuccess:@"上传成功！"];
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadMyWarehouseList" object:nil];
-//                [self.commandDelegate evalJs:@"(function(){window.refreshWarehousListAfterAdd()})()"];
+//                [[NSNotificationCenter defaultCenter]postNotificationName:@"tryReloadWarehousList" object:nil];
+                [self.commandDelegate evalJs:@"(function(){window.addWarehouseSucc()})()"];
                 [self.navigationController popViewControllerAnimated:YES];
             }
             else
@@ -82,6 +90,13 @@
     DDLogDebug(@"image path %@, type: %@, js: %@", imagePath, type, js);
     [self.commandDelegate evalJs: js];
 }
+-(void) select:(BMKAddressComponent *) address coor:(CLLocationCoordinate2D) coor{
+    NSString *lat = [NSString stringWithFormat:@"%f",coor.latitude];
+    NSString *lon = [NSString stringWithFormat:@"%f",coor.longitude];
+    NSString *js = [NSString stringWithFormat:@"(function(){window.showAddressFromMap('%@','%@','%@','%@','%@','%@','%@')})()",address.province,address.city,address.district,address.streetName,address.streetNumber,lat,lon];
+    [self.commandDelegate evalJs:js];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

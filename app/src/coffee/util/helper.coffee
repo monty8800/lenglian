@@ -67,6 +67,14 @@ goodsType = (type)->
 		when 4 then '急冻'
 		when 5 then '深冷'
 		else '请选择'
+
+warehouseType = (type)->
+	switch parseInt(type)
+		when 1 then '驶入式'
+		when 2 then '横梁式'
+		when 3 then '平推式'
+		when 4 then '自动立体货架式'
+					
 	
 
 module.exports = 
@@ -79,3 +87,5 @@ module.exports =
 	priceTypeMapper: priceType # 价格类型字典映射
 	navStatus: navigationStatus
 	goodsType: goodsType #货物类型
+	warehouseType:warehouseType #仓库类型
+	

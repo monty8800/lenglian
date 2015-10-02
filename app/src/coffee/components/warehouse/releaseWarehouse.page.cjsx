@@ -17,7 +17,7 @@ ToReleaseWarehouseList = React.createClass {
 		Plugin.nav.push ['warehouseDetail']
 
 	sureToRelease:(index, e)->
-		Plugin.toast.show('发布库源')
+		WarehouseAction.releaseWarehouse @state.warehouseList[index].id
 		e.stopPropagation()
 
 	mixins : [PureRenderMixin]
@@ -37,6 +37,9 @@ ToReleaseWarehouseList = React.createClass {
 			@setState { 
 				warehouseList:WarehouseStore.getWarehouseList()
 			}	
+		else if mark is 'warehouseReleaseSucc'
+			WarehouseAction.getWarehouseList '1','1','10'
+		
 
 	render: ->
 		list = @state.warehouseList

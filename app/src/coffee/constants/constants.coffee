@@ -19,6 +19,7 @@ actionType = {
 	GET_WAREHOUSE:null
 	DELETE_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
+	RELEASE_WAREHOUSE:null
 	CHANGE_PWD: null
 	LOGOUT: null
 
@@ -146,6 +147,8 @@ api = {
 	WAREHOUSE_DETAIL: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
 	#添加仓库
 	WAREHOUSE_ADD: '/mjWarehouseCtl/addMjWarehouse.shtml'
+	#发布库源
+	RELEASE_WAREHOUSE: '/mjWarehouseCtl/addMjWarehouseResource.shtml'
 	#我要找库
 	SEARCH_WAREHOUSE: '/searchWarehouseCtl/searchWarehouse.shtml'
 	#添加评论

@@ -17,7 +17,7 @@
 #import "CompanyCarAuthViewController.h"
 #import "CompanyGoodsAuthViewController.h"
 #import "CompanyWarehouseAuthViewController.h"
-#import "LoactionViewController.h"
+#import "LocationViewController.h"
 #import "SelectAddressViewController.h"
 
 
@@ -230,7 +230,7 @@
         }
         else if ([params[1] isEqualToString:@"location"])
         {
-            LoactionViewController *locationVC = [LoactionViewController new];
+            LocationViewController *locationVC = [LocationViewController new];
             locationVC.delegate = (id<LocationDelegate>)self;
             [self.navigationController pushViewController:locationVC animated:YES];
         }

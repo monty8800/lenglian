@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-#import "LoactionViewController.h"
+#import "LocationViewController.h"
 
 @interface SelectAddressViewController : BaseViewController<LocationDelegate>
 

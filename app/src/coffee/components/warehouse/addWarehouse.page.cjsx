@@ -34,6 +34,9 @@ AddWarehouse = React.createClass {
 		{
 			priceValue1:''
 			priceValue2:''
+			increaseServe1:'0'
+			increaseServe2:'0'
+			increaseServe3:'0'
 			temperatureChecked1:'0'
 			temperatureChecked2:'0'
 			temperatureChecked3:'0'
@@ -46,18 +49,20 @@ AddWarehouse = React.createClass {
 			temperatureArea5:''
 			addWarehouseImageUrl:''
 			priceProperty:priceProperty
+			mainStreet:''
+			detailStreet:''
 			params:{
-				area:"宛城区"						#区id
-				city:"南阳市"						#市id
-				contacts:"YYQ"					#联系人
+				area:""						#区id
+				city:""						#市id
+				contacts:"YYQ"				#联系人
 				isinvoice:"1"				#1:要发票 2：不要发票
-				latitude:"111.0"					#纬度
-				longitude:"126.0"				#经度
-				name:"不知道"						#仓库名称
+				latitude:""					#纬度
+				longitude:""				#经度,116.361905,39.948242 北站 
+				name:""						#仓库名称
 				phone:"15321620771"					#联系电话
-				province:"河南省"					#省id
+				province:""					#省id
 				remark:"23456789"					#备注
-				street:"地安门"					#详细地址
+				street:""					#详细地址
 				userId:user.id 			#'5b3d93775a22449284aad35443c09fb6'	#user.id
 				warehouseProperty:[]
 			}
@@ -74,7 +79,27 @@ AddWarehouse = React.createClass {
 			newState = Object.create @state
 			newState.addWarehouseImageUrl = mark.picUrl
 			@setState newState
+		else if mark.mark is 'getAddressFromMap'
+			newState = Object.create @state
+			pa = newState.params;
+			pa.province = mark.province
+			pa.city = mark.city
+			pa.area = mark.district
+			pa.street = mark.streetName
+			pa.latitude = mark.latitude
+			pa.longitude = mark.longitude
+			newState.params = pa
+			if pa.city is pa.province
+				mainStreet = pa.province + pa.area
+			else
+				mainStreet = pa.province + pa.city + pa.area
+			newState.mainStreet = mainStreet
+			newState.detailStreet = pa.street + mark.streetNumber
+			@setState newState
+
 		else if mark is "saveAddAWarehouse"
+			newState = Object.create @state
+			newState.params.warehouseProperty = []
 			if !@state.params.name
 				Plugin.toast.show '请输入仓库名'
 				return
@@ -85,15 +110,30 @@ AddWarehouse = React.createClass {
 				Plugin.toast.show '请输入价格'
 				return
 			else
-				@state.params.warehouseProperty.push @state.priceProperty
+				newState.params.warehouseProperty.push @state.priceProperty
 			if !@state.params.contacts
 				Plugin.toast.show '请输入联系人姓名'
 				return
 			if !@state.params.phone
 				Plugin.toast.show '请输入联系人电话'
 				return
+#仓库类型  目前都指定为驶入式
+#TODO:
+			typeModel = addPropertyModel '1','驶入式','1','仓库类型',''
+			newState.params.warehouseProperty.push typeModel
+
+# 增值服务
+			if @state.increaseServe1 is '1'
+				aPropertyModel = addPropertyModel '1','城配','2','仓库增值服务',''
+				newState.params.warehouseProperty.push aPropertyModel
+			if @state.increaseServe2 is '1'
+				aPropertyModel = addPropertyModel '2','仓配','2','仓库增值服务',''
+				newState.params.warehouseProperty.push aPropertyModel
+			if @state.increaseServe3 is '1'
+				aPropertyModel = addPropertyModel '3','金融','2','仓库增值服务',''
+				newState.params.warehouseProperty.push aPropertyModel
+			
 # 温度区域面积
-			newState = Object.create @state
 			if @state.temperatureChecked1 is '1'
 				if !@state.temperatureArea1
 					Plugin.toast.show '常温面积未填写'
@@ -138,16 +178,13 @@ AddWarehouse = React.createClass {
 		newState = Object.create @state
 		newState.params.name = e.target.value
 		@setState newState
+	selectAddress : ()->
+		Plugin.nav.push ['locationView']
 
-# 仓库地址
-	addressVAalueChange: (e) ->
-		newState = Object.create @state
-		newState.params.street = e.target.value
-		@setState newState
-
-# 仓库详细地址
+# # 仓库详细地址
 	detailAddressVAalueChange : (e) ->
 		newState = Object.create @state
+		newState.detailStreet = e.target.value
 		newState.params.street = e.target.value
 		@setState newState
 
@@ -190,43 +227,31 @@ AddWarehouse = React.createClass {
 	increaseServe1 : (e)-> #城配
 		newState = Object.create @state
 		if e.target.checked
-			aPropertyModel = addPropertyModel '1','城配','2','仓库增值服务',''
-			newState.params.warehouseProperty.push aPropertyModel
+			newState.increaseServe1 = '1'
 		else
-			@state.params.warehouseProperty.map (model,i) ->
-					if model.attribute is '1' and model.type is '2'
-						newState.params.warehouseProperty.splice(i,1)
-				,this
+			newState.increaseServe1 = '0'
 		@setState newState
 		console.log "增值服务",@state.params.warehouseProperty
 	increaseServe2 : (e)-> #仓配
 		newState = Object.create @state
 		if e.target.checked
-			aPropertyModel = addPropertyModel '2','仓配','2','仓库增值服务',''
-			newState.params.warehouseProperty.push aPropertyModel
+			newState.increaseServe2 = '1'
 		else
-			@state.params.warehouseProperty.map (model,i) ->
-					if model.attribute is '2' and model.type is '2'
-						newState.params.warehouseProperty.splice(i,1)
-				,this
+			newState.increaseServe2 = '0'
 		@setState newState
 		console.log "增值服务",@state.params.warehouseProperty
 	increaseServe3 : (e)-> #金融
 		newState = Object.create @state
 		if e.target.checked
-			aPropertyModel = addPropertyModel '3','金融','2','仓库增值服务',''
-			newState.params.warehouseProperty.push aPropertyModel
+			newState.increaseServe3 = '1'
 		else
-			@state.params.warehouseProperty.map (model,i) ->
-					if model.attribute is '3' and model.type is '2'
-						newState.params.warehouseProperty.splice(i,1)
-				,this
+			newState.increaseServe3 = '0'
 		@setState newState
 		console.log "增值服务",@state.params.warehouseProperty
 
 	_takePhoto : ()->
 		Plugin.run [8,'addWarehouse']
-		# TODO:id
+
 			
 # 仓库面积
 	temperatureCheck1 : (e) ->
@@ -280,11 +305,11 @@ AddWarehouse = React.createClass {
 				</div>
 				<div>
 					<label for="packType"><span>仓库地址</span></label>
-					<input type="text" className="input-weak" placeholder="请输入地址" onChange=@addressVAalueChange />
+					<input readOnly="true" value={ @state.mainStreet } onClick=@selectAddress type="text" className="input-weak" placeholder="请选择地址" />
 				</div>
 				<div>
 					<label for="packType"><span>详细地址</span></label>
-					<input type="text" className="input-weak" placeholder="详细地址" onChange=@detailAddressVAalueChange />
+					<input type="text" value={ @state.detailStreet  } className="input-weak" placeholder="详细地址" onChange=@detailAddressVAalueChange />
 				</div>
 			</div>
 			<div className="m-releaseitem">
@@ -411,10 +436,10 @@ AddWarehouse = React.createClass {
 			</div>
 			<div className="m-releaseitem">
 				<div className="u-personIcon ll-font">
-					<span>联系人</span><span>柠静</span>
+					<span>联系人</span><span>{ user.name }</span>
 				</div>
 				<div>
-					<span>联系手机</span><span>13412356854</span>
+					<span>联系手机</span><span>{ user.mobile }</span>
 				</div>
 			</div>
 			<div className="m-releaseitem">

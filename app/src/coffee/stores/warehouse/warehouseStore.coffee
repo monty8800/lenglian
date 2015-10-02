@@ -35,6 +35,7 @@ getWarehouseList = (status,pageNow,pageSize)->
 		pageNow:pageNow
 		pageSize:pageSize
 	},(data)->
+		DB.remove 'shouldWarehouseListReload'
 		warehouses = data.myWarehouse
 		if pageNow is '1'
 			_warehouseList = []
@@ -53,9 +54,16 @@ getWarehouseList = (status,pageNow,pageSize)->
 		WarehouseStore.emitChange 'getMyWarehouseList'
 	,null,true
 
-window.refreshWarehousListAfterAdd = ()->
-	alert '刷新了...'
-	getWarehouseList _showType,'1','10'
+window.tryReloadWarehousList = ()->
+	shouldReloadWarehouseList = DB.get 'shouldWarehouseListReload'
+	if (parseInt shouldReloadWarehouseList) is 1
+		getWarehouseList _showType,'1','10'
+		console.log '仓库列表刷新......'	
+
+window.addWarehouseSucc = ()->
+	#  1  应该刷新仓库列表 刷新后del
+	DB.put 'shouldWarehouseListReload',1
+
 
 getDetail = (warehouseId) ->
 	user = UserStore.getUser()
@@ -130,6 +138,7 @@ warehouseSearchGoods = (startNo,pageSize)->
 	,null,true
 
 postAddWarehouse = (params,fileUrl) ->
+	console.log '___...___',params
 	file = [{
 			filed: 'file'
 			path: fileUrl
@@ -141,6 +150,20 @@ postAddWarehouse = (params,fileUrl) ->
 	,(data)->
 		console.log '发布仓库 失败', data.msg
 
+#获取地址后回显
+window.showAddressFromMap = (province,city,district,streetName,streetNumber,latitude,longitude)->
+	console.log province,city,district,streetName,streetNumber,latitude,longitude
+	mark = {
+		mark:'getAddressFromMap'
+		province:province
+		city:city
+		district:district 
+		streetName:streetName
+		streetNumber:streetNumber
+		latitude:latitude
+		longitude:longitude
+	}
+	WarehouseStore.emitChange mark
 
 # 新增仓库时添加图片 回来后显示
 window.showAddWarehouseImage = (picUrl,type)->
@@ -151,7 +174,7 @@ window.showAddWarehouseImage = (picUrl,type)->
 	param.type = type
 	WarehouseStore.emitChange param
 
-window.postAddWarehouse = ->
+window.addWarehouseBtnClick = ->
 	WarehouseStore.emitChange "saveAddAWarehouse"
 	
 deleteWarehouseRequest = (warehouseId)->
@@ -162,11 +185,23 @@ deleteWarehouseRequest = (warehouseId)->
 	},(data)->
 		Plugin.loading.hide()
 		console.log '仓库删除成功'
+		DB.put 'shouldWarehouseListReload',1
 		Plugin.nav.pop()
 	,(date)->
 		Plugin.loading.hide()
 		Plugin.err.show data.msg
 		console.log '仓库删除失败'
+	,true
+releaseWarehouse = (warehouseId)->
+	user = UserStore.getUser()
+	Http.post Constants.api.RELEASE_WAREHOUSE, {
+		warehouseId:warehouseId
+		userId:user.id
+	},(data)->
+		Plugin.toast.show '发布成功'
+		WarehouseStore.emitChange "warehouseReleaseSucc"
+	,(date)->
+		Plugin.err.show date.msg
 	,true
 
 
@@ -181,6 +216,7 @@ WarehouseStore = assign BaseStore, {
 		_warehouseSearchResult
 	getWarehouseSearchGoodsResult: ()->
 		_warehouseSearchGoodsResult
+
 }
 
 Dispatcher.register (action)->
@@ -191,4 +227,5 @@ Dispatcher.register (action)->
 		when Constants.actionType.WAREHOUSE_SEARCH_GOODS then warehouseSearchGoods(action.startNo,action.pageSize)
 		when Constants.actionType.WAREHOUSE_ADD then postAddWarehouse(action.params,action.fileUrl)
 		when Constants.actionType.DELETE_WAREHOUSE then deleteWarehouseRequest(action.warehouseId)
+		when Constants.actionType.RELEASE_WAREHOUSE then releaseWarehouse(action.warehouseId)
 module.exports = WarehouseStore

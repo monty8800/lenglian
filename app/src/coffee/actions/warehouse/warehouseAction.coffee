@@ -40,6 +40,11 @@ WarehouseAction = {
 			actionType:Constants.actionType.DELETE_WAREHOUSE
 			warehouseId:warehouseId
 		}
+	releaseWarehouse:(warehouseId)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.RELEASE_WAREHOUSE
+			warehouseId:warehouseId
+		}
 }
 
 module.exports = WarehouseAction

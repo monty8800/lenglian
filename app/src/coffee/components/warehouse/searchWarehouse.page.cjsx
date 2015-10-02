@@ -13,11 +13,13 @@ DB = require 'util/storage'
 Plugin = require 'util/plugin'
 
 SearchResultList = React.createClass {
+	selectWarehouse :(index) ->
+
 	render: ->
 		resultList = @props.list
 		console.log resultList + '++()++'
 		items = resultList.map (aResult,i) ->
-			<div className="m-item01">
+			<div className="m-item01 m-item03">
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
@@ -30,7 +32,7 @@ SearchResultList = React.createClass {
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
 						<div className="g-dirver-btn">
-							<a className="u-btn02">选择该仓库</a>
+							<a onClick={ @selectWarehouse.bind this,i} className="u-btn02">选择该仓库</a>
 						</div>
 					</div>
 				</div>
@@ -57,6 +59,35 @@ SearchResultList = React.createClass {
 		,this
 		<div>
 			{ items }
+			<div className="u-pop-box">
+				<div className="u-content">
+					<div className="u-content-item ll-font">
+						<div className="u-address">
+							<div className="g-adr-start ll-font g-adr-start-line">
+								黑龙江鹤岗市向阳区
+							</div>
+							<div className="g-adr-end ll-font g-adr-end-line">
+								山西太原市矿区
+							</div>
+						</div>
+						<p>价格类型:一口价 4000元</p>
+						<p>货物描述:小鲜肉 1吨 冷鲜肉</p>
+					</div>
+					<div className="u-content-item ll-font">
+						<div className="u-address">
+							<div className="g-adr-start ll-font g-adr-start-line">
+								黑龙江鹤岗市向阳区
+							</div>
+							<div className="g-adr-end ll-font g-adr-end-line">
+								山西太原市矿区
+							</div>
+						</div>
+						<p>价格类型:一口价 4000元</p>
+						<p>货物描述:小鲜肉 1吨 冷鲜肉</p>
+					</div>
+				</div>
+			</div>
+			<div className="u-mask-grid"></div>	
 		</div>
 }
 
@@ -105,6 +136,10 @@ SearchWarehouse = React.createClass {
 
 
 	render: ->
+		# items = @state.searchResult.map (item, i)->
+		# 	<SearchResultList list={item} />
+		# , this
+
 		<div>
 			<div className="m-nav03">
 				<ul>

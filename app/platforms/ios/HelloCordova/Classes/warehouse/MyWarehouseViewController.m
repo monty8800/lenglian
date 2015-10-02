@@ -39,12 +39,13 @@
     [addWarehouseButton setTitle:@"新增仓库" forState:UIControlStateNormal];
     [addWarehouseButton addTarget:self action:@selector(addWarehouse) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMyWarehouseList:) name:@"reloadMyWarehouseList" object:nil];
     
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    [self.commandDelegate evalJs:@"(function(){window.tryReloadWarehousList()})()"];
+
 }
 -(void)addWarehouse{
     AddWarehouseViewController *addWarehouseVC = [AddWarehouseViewController new];
@@ -60,9 +61,8 @@
         }
     }
 }
-- (void)reloadMyWarehouseList:(NSNotification *)notify{
-    [self.commandDelegate evalJs:@"(function(){window.reloadWarehousList()})()"];
-}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

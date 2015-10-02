@@ -6,14 +6,14 @@
 //
 //
 
-#import "LoactionViewController.h"
+#import "LocationViewController.h"
 #import "Global.h"
 
-@interface LoactionViewController ()
+@interface LocationViewController ()
 
 @end
 
-@implementation LoactionViewController
+@implementation LocationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,7 +60,7 @@
    
     [Global getLocation:^(BMKUserLocation *location) {
         DDLogDebug(@"-----location:%@", location);
-        __block LoactionViewController *weakSelf = self;
+        __block LocationViewController *weakSelf = self;
         [weakSelf addAnno:location];
     }];
 }
@@ -95,7 +95,7 @@
 
 -(void)mapView:(BMKMapView *)mapView annotationView:(BMKAnnotationView *)view didChangeDragState:(BMKAnnotationViewDragState)newState fromOldState:(BMKAnnotationViewDragState)oldState {
     if (newState == BMKAnnotationViewDragStateEnding) {
-        __block LoactionViewController *weakSelf = self;
+        __block LocationViewController *weakSelf = self;
         [Global reverseGeo:_pointAnno.coordinate cb:^(BMKReverseGeoCodeResult *result) {
             [weakSelf updateAddress:result];
         }];

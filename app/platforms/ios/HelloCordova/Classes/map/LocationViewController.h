@@ -16,7 +16,7 @@
 
 @end
 
-@interface LoactionViewController : UIViewController <BMKMapViewDelegate>
+@interface LocationViewController : UIViewController <BMKMapViewDelegate>
 {
     BMKMapView *_mapView;
     BMKPointAnnotation *_pointAnno;

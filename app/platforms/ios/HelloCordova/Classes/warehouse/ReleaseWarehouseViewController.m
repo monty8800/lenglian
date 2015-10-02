@@ -7,7 +7,7 @@
 //
 
 #import "ReleaseWarehouseViewController.h"
-
+#import "WarehouseDetailViewController.h"
 @interface ReleaseWarehouseViewController ()
 
 @end
@@ -31,6 +31,20 @@
 -(void)createUI{
     self.title = @"发布库源";
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.commandDelegate evalJs:@"(function(){window.tryReloadWarehousList()})()"];
+}
+-(void)commonCommand:(NSArray *)params{
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"warehouseDetail"]) {
+            WarehouseDetailViewController *warehouseDetailVC = [WarehouseDetailViewController new];
+            [self.navigationController pushViewController:warehouseDetailVC animated:YES];
+        }
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

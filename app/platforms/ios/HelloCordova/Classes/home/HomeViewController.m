@@ -13,6 +13,7 @@
 #import "SearchCarsViewController.h"
 #import "AddGoodsViewController.h"
 #import "ReleaseWarehouseViewController.h"
+#import "ReleaseCarViewController.h"
 @interface HomeViewController ()
 
 @end
@@ -79,6 +80,9 @@
         else if ([params[1] isEqualToString:@"releaseCar"])
         {
             NSLog(@"发布车源");
+            ReleaseCarViewController *releaseCarVC = [ReleaseCarViewController new];
+            releaseCarVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:releaseCarVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"addGoods"])
         {
