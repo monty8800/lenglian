@@ -14,8 +14,11 @@ import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
+import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Created by kaisun on 15/9/22.
@@ -28,6 +31,8 @@ public class CarDetailActivity extends BaseCordovaActivity implements CordovaInt
 
     private TextView tvTitle;
 
+    private TextView editorCar;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -39,12 +44,26 @@ public class CarDetailActivity extends BaseCordovaActivity implements CordovaInt
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cwebview);
+        setContentView(R.layout.car_detail);
 
         initView();
     }
 
+    @Override
+    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        super.jsCallNative(args, callbackContext);
+        String flag = args.getString(1);
+        if (flag.equals("del_success")) {
+            MyCarActivity.isRefresh = true;
+            finish();
+        } else if (args.toString().contains("modify_success")) {
+            MyCarActivity.isRefresh = true;
+            finish();
+        }
+    }
+
     protected void initView() {
+        editorCar = (TextView) findViewById(R.id.editor);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("车辆详情");
         mWebView = (XEWebView) findViewById(R.id.wb);
@@ -53,6 +72,18 @@ public class CarDetailActivity extends BaseCordovaActivity implements CordovaInt
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        editorCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ("编辑".equals(editorCar.getText().toString().trim())) {
+                    mWebView.getWebView().loadUrl("javascript:editorCar()");
+                    editorCar.setText("完成");
+                } else {
+                    mWebView.getWebView().loadUrl("javascript:editorCarDone()");
+                    editorCar.setText("编辑");
+                }
             }
         });
     }
@@ -92,7 +123,7 @@ public class CarDetailActivity extends BaseCordovaActivity implements CordovaInt
     @Override
     public Object onMessage(String id, Object data) {
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
-        return null;
+        return super.onMessage(id, data);
     }
 
 }

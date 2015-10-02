@@ -9,8 +9,8 @@ Car = require 'model/car'
 Immutable = require 'immutable'
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
+CarAction = require 'actions/car/car'
 UserStore = require 'stores/user/user'
-
 _user = UserStore.getUser()
 
 _car = new Car
@@ -56,6 +56,18 @@ window.updateAddress = (flag)->
 window.updateDate = (startDate, endDate)->
 	console.log '--------', endDate
 	CarStore.emitChange ['updateDate', startDate, endDate]
+
+# 更新我的车辆列表
+window.updateMyCarList = ->
+	CarAction.carList('1')
+	Plugin.toast.show 'update'
+
+# 编辑车辆
+window.editorCar = ->
+	CarStore.emitChange ['editor_car']	
+
+window.editorCarDone = ->
+	CarStore.emitChange ['editor_car_done']		
 
 # 我要找车
 carItemInfo = (param)->
@@ -132,6 +144,7 @@ carDetail = (carId)->
 		}, (data) ->
 			console.log '车辆详情----', data
 			td = data.carInfoLoad;
+			_carDetail = _carDetail.set 'id', td.id
 			_carDetail = _carDetail.set 'carNo', td.carno
 			_carDetail = _carDetail.set 'status', td.status
 			_carDetail = _carDetail.set 'carType', td.type
@@ -149,7 +162,7 @@ carDetail = (carId)->
 # 发布车源
 _releaeCar = (params)->
 	Plugin.loading.show '正在发布...'
-	console.log '发布车源---', params
+	console.log '发布车源-------', params
 	Http.post Constants.api.release_car, params, (result)->
 		Plugin.loading.hide()
 		Plugin.toast.success '发布成功'
@@ -275,6 +288,32 @@ _notNeedInv = (type)->
 		_isInvoice = '2'
 		CarStore.emitChange ['one_need']
 
+# 删除车辆
+_carDel = (carId)->
+	Plugin.loading.show '正在删除...'
+	console.log '-------delCar:', carId
+	Http.post Constants.api.detail_car, {
+		userId: _user?.id
+		carId: carId
+	}, (data)->				
+		Plugin.loading.hide()
+		console.log '--------delSuccess:', data
+		Plugin.toast.err '删除成功'
+		Plugin.nav.push ['del_success']
+	, (data)->
+		Plugin.loading.hide()
+		Plugin.toast.err err.msg
+
+# 编辑车辆
+_modifyCar = (params)->
+	Http.post Constants.api.modify_car, params, (data)->
+		 console.log '------success'
+		 Plugin.toast.err '编辑成功'
+		 Plugin.nav.push ['modify_success']
+	, (data)->
+		Plugin.toast.err data.msg
+
+
 CarStore = assign BaseStore, {
 	getCar: ->
 		_foundCarList
@@ -311,6 +350,8 @@ Dispatcher.register (action)->
 		when Constants.actionType.CLOSE_INVOINCE then _close_car_invoince()
 		when Constants.actionType.NEEDINV then _needInv(action.type)
 		when Constants.actionType.NOTNEEDINV then _notNeedInv(action.type)
+		when Constants.actionType.DEL_CAR then _carDel(action.carId)
+		when Constants.actionType.MODIFY_CAR then _modifyCar(action.param)
 
 module.exports = CarStore
 

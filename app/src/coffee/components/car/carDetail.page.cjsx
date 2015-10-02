@@ -3,6 +3,7 @@ require 'user-center-style'
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+LinkedStateMixin = React.addons.LinkedStateMixin
 
 CarPic01 = require 'car-02.jpg'
 CarPic02 = require 'car-03.jpg'
@@ -16,17 +17,69 @@ Helper = require 'util/helper'
 
 DB = require 'util/storage'
 
+UserStore = require 'stores/user/user'
+_user = UserStore.getUser()
+
 CarInfo = DB.get 'transData'
 carId = CarInfo.carId
 DB.remove 'transData'
 
-Detail = React.createClass {
+_carId = ''
 
-	_delStore: ->
-		Plugin.debug 'are you kidding?'
+Detail = React.createClass {
+	mixins: [PureRenderMixin, LinkedStateMixin]
+
+	getInitialState: ->
+		{
+			isDel: 1
+			driver: ''
+			phone: ''
+			carDetail: CarStore.getCarDetail().toJS()
+		}
+
+	componentDidMount: ->
+		CarStore.addChangeListener @_onChange
+		CarAction.carDetail(carId)
+
+	componentWillUnMount: ->
+		CarStore.removeChangeListener @_onChange
+
+	_onChange: (params)->
+		carDetail = CarStore.getCarDetail()
+		if params[0] is 'car_detail'
+			@setState {
+				name: carDetail.name
+				mobile: carDetail.mobile
+				carDetail: carDetail
+			}
+		else if params[0] is 'editor_car'
+			@setState {
+				isDel: 2
+			}
+		else if params[0] is 'editor_car_done'
+			@setState {
+				isDel: 1
+			}
+
+	_delStore: (params)->
+		CarAction.delCar(params)
+
+	_editorCarDone: ->
+		if not Validator.name @state.name
+			Plugin.toast.err '请输入正确的姓名'
+			return
+		else if not Validator.mobile @state.mobile
+			Plugin.toast.err '请输入正确的手机号'
+			return
+		CarAction.modifyCar({
+			carId: carId
+			userId: _user?.id
+			driver: @state.name
+			phone: @state.mobile
+		});
 
 	render: ->
-		detail = @props.detail
+		detail = @state.carDetail
 		<div>
 			<div className="m-item03">
 				<div className="g-itemList">
@@ -52,18 +105,16 @@ Detail = React.createClass {
 					</dl>			
 				</div>
 			</div>
-		
 			<div className="m-releaseitem">
 				<div>
 					<label htmlFor="packType"><span>随车司机:</span></label>
-					<input type="text" value={ detail.name } placeholder="请输入姓名" id="packType"/>
+					<input type="text" readOnly={ if @state.isDel is 1 then "readOnly" else ""} valueLink={@linkState 'name'} placeholder="请输入姓名" id="packType"/>
 				</div>
 				<div>  
 					<label htmlFor="packType"><span>联系电话:</span></label>
-					<input type="tel" value={ detail.mobile } placeholder="请输入联系电话" id="packType"/>
+					<input type="tel" readOnly={ if @state.isDel is 1 then "readOnly" else ""} valueLink={@linkState 'mobile'} placeholder="请输入联系电话" id="packType"/>
 				</div>
 			</div>
-			
 			<div className="g-uploadPic">
 				<ul className="clearfix">
 					<li>
@@ -74,10 +125,12 @@ Detail = React.createClass {
 					</li>
 				</ul>
 			</div>
-			
-			<div className="m-detail-bottom">
+			<div className="u-pay-btn" style={{display: if @state.isDel is 2 then 'block' else 'none'}}>
+				<a href="###" onClick={@_editorCarDone} className="btn">提交</a>
+			</div>
+			<div className="m-detail-bottom" style={{display: if @state.isDel is 1 then 'block' else 'none'}}>
 				<div className="g-pay-btn">
-					<a href="#" className="u-btn02" onClick={ @_delStore }>删除仓库</a>
+					<a href="###" className="u-btn02" onClick={@_delStore.bind this, detail.id}>删除车辆</a>
 				</div>
 			</div>
 		</div>
@@ -94,6 +147,9 @@ CarDetail = React.createClass {
 		CarStore.addChangeListener @_onChange
 		CarAction.carDetail(carId)
 
+	componentWillUnMount: ->
+		CarStore.removeChangeListener @_onChange
+
 	_onChange: (params)->
 		if params[0] is 'car_detail'
 			@setState {
@@ -106,5 +162,5 @@ CarDetail = React.createClass {
 		</div>
 }
 
-React.render <CarDetail />, document.getElementById('content')
+React.render <Detail />, document.getElementById('content')
 

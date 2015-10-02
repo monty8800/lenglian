@@ -121,6 +121,17 @@ CarAction = {
 			type: type
 		}
 
+	delCar: (carId)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.DEL_CAR
+			carId: carId
+		}
+	modifyCar: (param)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.MODIFY_CAR
+			param: param
+		}
+
 }
 
 module.exports = CarAction

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -31,6 +32,12 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
 
     private TextView tvTitle;
 
+    private TextView addCar;
+
+    public static boolean isRefresh = false;
+
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -42,8 +49,8 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cwebview);
-
+        setContentView(R.layout.my_car);
+        isOnCreate = true;
         initView();
 
     }
@@ -56,6 +63,7 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
     }
 
     protected void initView() {
+        addCar = (TextView) findViewById(R.id.add);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("我的车辆");
         mWebView = (XEWebView) findViewById(R.id.wb);
@@ -64,6 +72,12 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        addCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddCarActivity.actionView(MyCarActivity.this);
             }
         });
     }
@@ -77,6 +91,8 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
         }
         else if (flag.equals("releaseVehicle")) {
             ReleaseCarActivity.actionView(MyCarActivity.this);
+        } else if (flag.equals("carDetail")) {
+            CarDetailActivity.actionView(MyCarActivity.this);
         }
     }
 
@@ -86,7 +102,18 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
         MobclickAgent.onPageStart("我的车辆");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "myCar.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "myCar.html", this, this, this, this);
+        }
+        isOnCreate = false;
+
+        if (isRefresh) {
+            Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+            // 删除成功刷新列表
+            mWebView.getWebView().loadUrl("javascript:updateMyCarList()");
+        }
+        isRefresh = false;
+
         super.onResume();
     }
 
@@ -108,7 +135,7 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
     @Override
     public Object onMessage(String id, Object data) {
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
-        return null;
+        return super.onMessage(id, data);
     }
 
 }

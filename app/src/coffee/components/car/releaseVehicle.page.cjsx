@@ -11,6 +11,10 @@ CarAction = require 'actions/car/car'
 CarStore = require 'stores/car/car'
 DB = require 'util/storage'
 
+UserStore = require 'stores/user/user'
+
+_user = UserStore.getUser()
+
 CarInfo = DB.get 'transData'
 carId = CarInfo?.carId
 
@@ -42,17 +46,21 @@ Vehicle = React.createClass {
 			contacts: user.name or '' # 联系人
 			phone:  user.mobile or '' # 手机号
 			carId: '' # 车辆Id
-			remark:  'bbb' # 备注
+			remark:  '' # 备注
 			startTime: ''
 			endTime: ''
-			fromProvince: '北京市'
-			fromCity: '北京市'
-			fromArea: '海淀区'
-			fromStreet: '2红'
-			toProvince: '北京市'
-			toCity: '北京市'
-			toArea: '海淀区'
-			toStreet: '青楼'
+			fromProvince: ''
+			fromCity: ''
+			fromArea: ''
+			fromStreet: ''
+			toProvince: ''
+			toCity: ''
+			toArea: ''
+			toStreet: ''
+			fromLng: ''
+			fromLat: ''
+			toLng: ''
+			toLat: ''
 
 			currentCar: '' # 选择车辆
 			carList: CarStore.getFreeCar()
@@ -88,6 +96,8 @@ Vehicle = React.createClass {
 				fromCity: add.cityName
 				fromArea: add.areaName
 				fromStreet: add.street
+				fromLng: add.longi
+				fromLat: add.lati
 			}
 		else if result[0] is 'endAddress'
 			endAddress = DB.get 'transData'
@@ -98,6 +108,8 @@ Vehicle = React.createClass {
 				toCity: add.cityName
 				toArea: add.areaName
 				toStreet: add.street
+				toLng: add.longi
+				toLat: add.lati
 			}
 		else if result[0] is 'free_car'
 			console.log '-----freeCar:'
@@ -138,6 +150,7 @@ Vehicle = React.createClass {
 			Plugin.toast.err '备注1-30个字符'
 		else
 			CarAction.releaseCar({
+				userId: _user?.id
 				startPoint: @state.startPoint # 出发地
 				destination: @state.destination # 目的地
 				isinvoice: @state.isinvoice # 是否需要发票 默认是
@@ -155,6 +168,10 @@ Vehicle = React.createClass {
 				toCity: @state.toCity
 				toArea: @state.toArea
 				toStreet: @state.toStreet
+				fromLng: @state.fromLng
+				fromLat: @state.fromLat
+				toLng: @state.toLng
+				toLat: @state.toLat
 			});
 
 	render: ->
