@@ -49,7 +49,7 @@
     [engine enqueueOperation:op forceReload:YES];
 }
 
-+(void)post:(NSString *)api params:(NSDictionary *)params cb:(SimpleNetHandler)cb {
++(void)post:(NSString *)api params:(NSDictionary *)params cb:(SimpleNetHandler)cb loading:(BOOL)loading {
     MKNetworkEngine *engine = [Global sharedInstance].netEngine;
     MKNetworkOperation *op = [[MKNetworkOperation alloc] initWithURLString:api params:@{
                                                                                         @"uuid": [Global sharedInstance].uuid,
@@ -61,7 +61,10 @@
     
     DDLogDebug(@"请求接口%@, 参数%@", api, op);
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
-        [[Global sharedInstance] hide];
+        if (loading == YES) {
+            [[Global sharedInstance] hide];
+        }
+        
         //解析外层json
         id result = [NSJSONSerialization JSONObjectWithData:[completedOperation responseData] options:NSJSONReadingMutableContainers error:nil];
         //除了dictionary类型，其他都是不正确的
@@ -82,7 +85,10 @@
         [[Global sharedInstance] hide];
         [[Global sharedInstance] showErr:@"网络出错，请检查网络设置"];
     }];
-    [[Global sharedInstance] show:@"正在请求，请稍候..." force:YES];
+    if (loading == YES) {
+        [[Global sharedInstance] show:@"正在请求，请稍候..." force:YES];
+    }
+    
     [engine enqueueOperation:op forceReload:YES];
 }
 

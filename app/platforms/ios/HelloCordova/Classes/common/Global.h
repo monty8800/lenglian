@@ -21,8 +21,8 @@
 
 #pragma mark- api
 
-//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
-#define SERVER @"http://192.168.29.204:8072/"
+#define SERVER @"http://192.168.26.177:7080/llmj-app/"
+//#define SERVER @"http://192.168.29.204:8072/"
 #define NEARBY_GOODS [SERVER stringByAppendingString: @"/findNear/nearGoods.shtml"]
 #define NEARBY_CAR [SERVER stringByAppendingString: @"/findNear/nearCar.shtml"]
 #define NEARBY_WAREHOUSE [SERVER stringByAppendingString: @"/findNear/nearWarehouse.shtml"]

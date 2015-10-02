@@ -17,6 +17,8 @@
     SelectTab *_tab;
     
     NSMutableArray *_annoList;
+    
+    BOOL _refresh;
 }
 
 @property (assign, nonatomic) NSInteger tabIndex;

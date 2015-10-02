@@ -48,12 +48,12 @@
             image = [UIImage imageNamed:@"map_point"];
             break;
     }
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (_imageView == nil) {
         self.bounds = CGRectMake(0, 0, image.size.width, image.size.height);
         _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
         [self addSubview:_imageView];
-    });
+    }
+    
     _imageView.image = image;
    
 }

@@ -69,8 +69,5 @@
 
 }
 
--(void)setData:(NSDictionary *)data {
-    _data = data;
-}
 
 @end

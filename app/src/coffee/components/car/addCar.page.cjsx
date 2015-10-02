@@ -13,7 +13,6 @@ CarStore = require 'stores/car/car'
 CarAction = require 'actions/car/car'
 AddressStore = require 'stores/address/address'
 
-Plugin = require 'util/plugin'
 
 
 AddCar = React.createClass {

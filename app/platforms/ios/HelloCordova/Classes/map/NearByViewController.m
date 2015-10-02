@@ -11,6 +11,9 @@
 #import "XeAnnotationView.h"
 #import "XeAnnotation.h"
 #import "XeBubbleView.h"
+#import "CarBubbleView.h"
+#import "GoodsBubbleView.h"
+#import "WarehouseBubbleView.h"
 
 @interface NearByViewController ()
 
@@ -56,6 +59,8 @@
     _annoList = [NSMutableArray new];
 
     [self.view addSubview:_tab];
+    
+    _refresh = YES;
 
     
     //地图
@@ -70,12 +75,24 @@
 }
 
 -(void)mapView:(BMKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
-    [self mapViewDidFinishLoading:mapView];
+    if (_refresh) {
+        [self mapViewDidFinishLoading:mapView];
+    }
+    else
+    {
+        _refresh = YES;
+    }
+    
 }
 
 -(void)selectTab:(NSInteger)index {
     DDLogDebug(@"select tab %@", @(index));
-    self.tabIndex = index;
+    if (index != self.tabIndex) {
+        [_mapView removeAnnotations:_annoList];
+        [_annoList removeAllObjects];
+        self.tabIndex = index;
+    }
+    
 }
 
 -(void)setTabIndex:(NSInteger)tabIndex {
@@ -149,7 +166,7 @@
             [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
         }
         
-    }];
+    } loading:NO];
 }
 
 -(BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {
@@ -158,36 +175,54 @@
     if (annoView == nil) {
         annoView = [[XeAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"anno"];
     }
+    annoView.data = ((XeAnnotation *)annotation).data;
+    
+    XeBubbleView *bubbleView;
     
     switch (_tabIndex) {
         case 0:
             annoView.type = CAR;
+            bubbleView = [[CarBubbleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 180)];
             break;
             
         case 1:
-            annoView.type = GOODS;
+        {
+            if ([[annoView.data objectForKey:@"coldStoreFlag"] integerValue] == 1) {
+                annoView.type = GOODS;
+            }
+            else
+            {
+                annoView.type = GOODS_NEED_WAREHOUSE;
+            }
+            bubbleView = [[GoodsBubbleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 249)];
             break;
+        }
             
         case 2:
             annoView.type = WAREHOUSE;
+            bubbleView = [[WarehouseBubbleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 148)];
             break;
             
         default:
+            bubbleView = [[XeBubbleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 20, 250)];
             break;
     }
-    XeBubbleView *bubble = [[XeBubbleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 20, 250)];
-//    bubble.backgroundColor = [UIColor redColor];
-    annoView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:bubble];
-    annoView.data = ((XeAnnotation *)annotation).data;
-    annoView.calloutOffset = CGPointMake(0, 250 + annoView.bounds.size.height);
+    
+    bubbleView.tag = 100;
+   
+    
+    annoView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:bubbleView];
+    
+    annoView.calloutOffset = CGPointMake(0, bubbleView.bounds.size.height + 10 + annoView.bounds.size.height);
     return annoView;
 }
 
 -(void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view {
+    _refresh = NO;
     XeAnnotationView *xeAnnoView = (XeAnnotationView *) view;
     DDLogDebug(@"click %@", xeAnnoView.data);
     CGPoint pt = [_mapView convertCoordinate:xeAnnoView.annotation.coordinate toPointToView:_mapView];
-    CLLocationCoordinate2D center = [_mapView convertPoint:CGPointMake(pt.x, pt.y + 100) toCoordinateFromView:_mapView];
+    CLLocationCoordinate2D center = [_mapView convertPoint:CGPointMake(pt.x, pt.y + 150) toCoordinateFromView:_mapView];
     [_mapView setCenterCoordinate:center animated:YES];
     NSString *api;
     switch (xeAnnoView.type) {
@@ -196,6 +231,7 @@
             break;
             
         case GOODS:
+        case GOODS_NEED_WAREHOUSE:
             api = NEARBY_GOODS_DETAIL;
             break;
             
@@ -206,6 +242,40 @@
         default:
             break;
     }
+    
+    [Net post:api params:@{@"id": [xeAnnoView.data objectForKey:@"id"]} cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"detail---%@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            
+            @try {
+                NSDictionary *detail;
+                if ([api isEqualToString:NEARBY_GOODS_DETAIL]) {
+                    detail = [[[responseDic objectForKey:@"data"] objectForKey:@"goods"] firstObject];
+                }
+                else
+                {
+                    detail = [[responseDic objectForKey:@"data"] firstObject];
+                }
+                
+                if ([detail isKindOfClass:[NSDictionary class]]) {
+                    XeBubbleView *bubbleView = (XeBubbleView *)([xeAnnoView.paopaoView viewWithTag:100]);
+                    bubbleView.data = detail;
+                }
+            }
+            @catch (NSException *exception) {
+                [[Global sharedInstance] showErr:@"服务器异常！"];
+            }
+            @finally {
+                
+            }
+
+            
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+    } loading:NO];
 }
 
 

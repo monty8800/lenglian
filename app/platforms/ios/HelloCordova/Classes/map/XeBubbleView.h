@@ -16,5 +16,6 @@
 @property (strong, nonatomic) NSDictionary *data;
 
 -(void) clickBtn;
+-(void) createUI;
 
 @end

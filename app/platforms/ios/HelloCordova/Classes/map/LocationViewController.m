@@ -8,6 +8,7 @@
 
 #import "LocationViewController.h"
 #import "Global.h"
+#import "XeAnnotationView.h"
 
 @interface LocationViewController ()
 
@@ -80,15 +81,12 @@
 
 -(BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {
     NSString *AnnotationViewID = @"renameMark";
-    BMKPinAnnotationView *annotationView = (BMKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+    XeAnnotationView *annotationView = (XeAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
     if (annotationView == nil) {
-        annotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
-        // 设置颜色
-        annotationView.pinColor = BMKPinAnnotationColorPurple;
-        // 从天上掉下效果
-        annotationView.animatesDrop = YES;
+        annotationView = [[XeAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
         // 设置可拖拽
         annotationView.draggable = YES;
+        annotationView.type = POINT;
     }
     return annotationView;
 }
