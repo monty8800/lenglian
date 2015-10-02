@@ -7,8 +7,9 @@
 //
 
 #import "AddWarehouseViewController.h"
-#import "Auth.h"
 #import "MyWarehouseViewController.h"
+#import "Net.h"
+
 @interface AddWarehouseViewController ()
 
 @end
@@ -59,7 +60,7 @@
     }
     else if ([params[0] integerValue] == 7)
     {
-        [Auth auth:params[1] params:params[2] files:params[3] cb:^(NSDictionary *responseDic) {
+        [Net postFile:params[1] params:params[2] files:params[3] cb:^(NSDictionary *responseDic) {
             DDLogDebug(@"新增仓库 结果 %@", responseDic);
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
                 [[Global sharedInstance] showSuccess:@"上传成功！"];
