@@ -1,12 +1,21 @@
 package com.xebest.llmj.utils;
 
+import android.util.Log;
+
+import com.xebest.llmj.application.Application;
+
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -169,6 +178,85 @@ public class UploadFile {
         outStream.close();
         conn.disconnect();
         return sb2.toString();
+    }
+
+    public static String postWithJsonString(String api, String jsonStr) {
+        Map<String, String> finalParams = new HashMap<String, String>();
+        finalParams.put("client_type", "3");
+        finalParams.put("uuid", Application.getInstance().UUID);
+        finalParams.put("version", Application.getInstance().VERSIONCODE + "");
+        finalParams.put("data", jsonStr);
+        Log.i("info", "--------jsonStr-----" + jsonStr);
+        String result = httpPost(api, finalParams);
+        return  result;
+    }
+
+    // post请求
+    public static String httpPost(String urlStr, Map<String, String> params) {
+        String result = null;
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(urlStr);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5 * 1000);
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+
+            connection.setInstanceFollowRedirects(true);
+            connection.setUseCaches(false);
+            connection.connect();
+            DataOutputStream outputStream = new DataOutputStream(
+                    connection.getOutputStream());
+            StringBuffer paramStr = new StringBuffer();
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                paramStr.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+                paramStr.append("=");
+                paramStr.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+                paramStr.append("&");
+            }
+            paramStr.deleteCharAt(paramStr.length() - 1);
+
+            Log.d("post json string is", paramStr.toString());
+            outputStream.write(paramStr.toString().getBytes());
+            outputStream.flush();
+            outputStream.close();
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                result = readStream(connection.getInputStream());
+            } else {
+                Log.e("server err",
+                        "response code " + connection.getResponseCode());
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
+    public static String readStream(InputStream is) {
+        StringBuffer result = new StringBuffer();
+        try {
+            InputStreamReader reader = new InputStreamReader(is);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                result.append(line);
+            }
+        } catch (IOException e) {
+            Log.e("error while read stream", e.getLocalizedMessage());
+        } finally {
+            try {
+                is.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result.toString();
     }
 
 }

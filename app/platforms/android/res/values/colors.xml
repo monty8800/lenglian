@@ -8,5 +8,6 @@
     <color name="bg_common_title">#c61c00</color>
     <color name="black">#000000</color>
     <color name="gray2">#a7a7a7</color>
+    <color name="gray3">#b5b5b5</color>
 
 </resources>

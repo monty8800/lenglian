@@ -256,6 +256,8 @@ dependencies {
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/IndoorscapeAlbumPlugin.jar')
     compile files('libs/Volley.jar')
+    compile files('libs/gson-2.2.1.jar')
+    compile files('libs/fastjson-1.1.34.android.jar')
 }
 
 def promptForReleaseKeyPassword() {

@@ -19,6 +19,7 @@ Car = Immutable.Record {
 
 
 	# 车辆详情数据结构
+	id: ''
 	status: '' # 车辆状态 1：空闲中，2：求货中，3：运输中 
 	category: '' # 车辆类别
 	heavy: '' # 可载重货

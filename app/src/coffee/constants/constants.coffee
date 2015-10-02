@@ -84,6 +84,9 @@ actionType = {
 	ADD_GOODS: null
 	CLEAR_GOODS_PIC: null
 	CLEAR_GOODS: null
+
+	DEL_CAR: null
+	MODIFY_CAR:null
 }
 
 
@@ -95,6 +98,7 @@ api = {
 	# server: 'http://192.168.29.176:8072/'
 	# server: 'http://192.168.29.204:8072/'
 
+	server: 'http://192.168.29.204:8072/'
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
@@ -203,7 +207,10 @@ api = {
 	release_car: '/mjCarinfoCtl/addCarResource.shtml'
 	# 添加车源
 	add_car: '/mjCarinfoCtl/addMjCarinfo.shtml'
-	
+	# 车辆详情
+	detail_car: '/mjCarinfoCtl/deleteMjCarinfo.shtml'
+	# 编辑车辆
+	modify_car: '/mjCarinfoCtl/updateMjCarinfo.shtml'
 }
 
 smsType = {
