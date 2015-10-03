@@ -4,6 +4,7 @@ require 'user-center-style'
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
+Validator = require 'util/validator'
 
 CarPic01 = require 'car-02.jpg'
 CarPic02 = require 'car-03.jpg'
