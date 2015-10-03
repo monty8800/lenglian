@@ -28,6 +28,7 @@
 }
 
 -(void)setData:(NSDictionary *)data {
+    [super setData:data];
     NSString *addr = [NSString stringWithFormat:@"仓库地址： %@%@%@", [data objectForKey:@"provinceName"], [data objectForKey:@"cityName"], [data objectForKey:@"areaName"]];
     
     NSAttributedString *addrStr = [[NSAttributedString alloc] initWithString:addr attributes:@{NSForegroundColorAttributeName: [UIColor WY_ColorWithHex:0xff8e24]}];
@@ -41,7 +42,7 @@
 }
 
 -(void)clickBtn {
-    [SelectWarehouseWidget show];
+    [SelectWarehouseWidget show: (id<SelectWarehouseDelegate>)([Global sharedInstance].mapVC) warehouseId: [self.data objectForKey:@"id"]];
 }
 
 @end

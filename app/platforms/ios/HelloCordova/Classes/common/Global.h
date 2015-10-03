@@ -21,17 +21,35 @@
 
 #pragma mark- api
 
-//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
-#define SERVER @"http://192.168.29.204:8072/"
+#define SERVER @"http://192.168.26.177:7080/llmj-app/"
+//#define SERVER @"http://192.168.29.204:8072/"
+
+//附近
+//货源
 #define NEARBY_GOODS [SERVER stringByAppendingString: @"/findNear/nearGoods.shtml"]
+//车源
 #define NEARBY_CAR [SERVER stringByAppendingString: @"/findNear/nearCar.shtml"]
+//库源
 #define NEARBY_WAREHOUSE [SERVER stringByAppendingString: @"/findNear/nearWarehouse.shtml"]
 
+//详情
+//货
 #define NEARBY_GOODS_DETAIL [SERVER stringByAppendingString: @"/carFindGoods/list.shtml"]
+//车
 #define NEARBY_CAR_DETAIL [SERVER stringByAppendingString: @"/searchCarCtl/searchCar.shtml"]
+//库
 #define NEARBY_WAREHOUSE_DETAIL [SERVER stringByAppendingString: @"/searchWarehouseCtl/searchWarehouse.shtml"]
 
+//地图弹窗
+//我的货源列表
 #define MY_GOODS [SERVER stringByAppendingString: @"/mjGoodsResource/queryMjGoodsResourceList.shtml"]
+
+//订单
+//货找库
+#define ORDER_GOODS_SELECT_WAREHOUSE [SERVER stringByAppendingString: @"/mjOrderWarhouse/addGoodsFoundWarhouseOrder.shtml"]
+//货找车
+#define ORDER_GOODS_SELECT_CAR [SERVER stringByAppendingString: @"/goodFoundCarCtl/goodFoundCar.shtml"]
+
 
 #define CLIENT_TYPE @"2"  //客户端类型
 #define UMENG_KEY @"559500cc67e58ee95500064a"  //友盟的key
@@ -70,6 +88,8 @@ typedef void(^GeoCB) (BMKGeoCodeResult *result);
 @property (weak, nonatomic) UIViewController *currentVC;  //当前显示的vc
 
 @property (weak, nonatomic) UITabBarController *tabVC; //tabbarvc
+
+@property (weak, nonatomic) UIViewController *mapVC; //地图vc
 
 @property (strong, nonatomic) MKNetworkEngine *netEngine; 
 

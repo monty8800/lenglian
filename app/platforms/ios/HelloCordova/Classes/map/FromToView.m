@@ -30,6 +30,7 @@
     _cellHeight = [UIImage imageNamed:@"address_passby"].size.height;
 }
 
+
 -(void)setAddressList:(NSArray *)addressList {
     _addressList = addressList;
     [_tabView reloadData];
@@ -40,7 +41,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return _cellHeight + 2;
+    return 27;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

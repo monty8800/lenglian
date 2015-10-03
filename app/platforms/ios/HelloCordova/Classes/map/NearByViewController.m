@@ -131,7 +131,7 @@
                              @"rightLng": [NSString stringWithFormat:@"%f", rightTop.longitude],
                              @"rightLat": [NSString stringWithFormat:@"%f", rightTop.latitude],
                              };
-    
+    [[Global sharedInstance].netEngine cancelAllOperations]; //取消之前的请求，避免根据tabindex进行switch，错误的数据会引发崩溃
     [Net post: api params: params cb:^(NSDictionary *responseDic) {
         DDLogDebug(@"result---- %@", responseDic);
         if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
@@ -182,7 +182,7 @@
     switch (_tabIndex) {
         case 0:
             annoView.type = CAR;
-            bubbleView = [[CarBubbleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 170)];
+            bubbleView = [[CarBubbleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 160)];
             break;
             
         case 1:
@@ -213,6 +213,7 @@
     
     annoView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:bubbleView];
     
+    
     annoView.calloutOffset = CGPointMake(0, bubbleView.bounds.size.height + 10 + annoView.bounds.size.height);
     return annoView;
 }
@@ -234,7 +235,7 @@
         case GOODS_NEED_WAREHOUSE:
             api = NEARBY_GOODS_DETAIL;
             break;
-            
+        
         case WAREHOUSE:
             api = NEARBY_WAREHOUSE_DETAIL;
             break;
@@ -279,6 +280,43 @@
 }
 
 
+
+#pragma mark- 选择代码函数
+-(void)selectWarehouse:(NSString *)warehouseId goods:(NSString *)goodsId {
+    NSDictionary *params = @{
+                             @"userId": [[Global getUser] objectForKey:@"id"],
+                             @"warehouseId": warehouseId,
+                             @"orderGoodsId": goodsId
+                             };
+    [Net post:ORDER_GOODS_SELECT_WAREHOUSE params:params cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"goods select warehouse result %@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+    } loading:YES];
+}
+
+-(void)selectCar:(NSString *)carId goods:(NSString *)goodsId {
+    NSDictionary *params = @{
+                             @"goodsUserId": [[Global getUser] objectForKey:@"id"],
+                             @"goodsResouseId": goodsId,
+                             @"carResouseId": carId
+                             };
+    [Net post:ORDER_GOODS_SELECT_CAR params:params cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"goods select car result %@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+    } loading:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -133,6 +133,8 @@
     
     [Global sharedInstance].tabVC = _tabVC;
     
+    [Global sharedInstance].mapVC = nearByVC;
+    
     //hello world
     //self.window.rootViewController = [HelloViewController new];
     

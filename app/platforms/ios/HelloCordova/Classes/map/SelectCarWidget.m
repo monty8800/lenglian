@@ -1,16 +1,17 @@
 //
-//  SelectWarehouseWidget.m
+//  SelectCarWidget.m
 //  HelloCordova
 //
-//  Created by ywen on 15/10/2.
+//  Created by ywen on 15/10/3.
 //
 //
 
-#import "SelectWarehouseWidget.h"
+#import "SelectCarWidget.h"
 #import "Global.h"
+#import "SelectCarTableViewCell.h"
 #import "Net.h"
 
-@implementation SelectWarehouseWidget
+@implementation SelectCarWidget
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -30,24 +31,24 @@
 
 -(void) createUI {
     self.backgroundColor = [UIColor WY_ColorWithHex:0x000000 alpha:0.3];
-    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 220) style:UITableViewStylePlain];
+    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.center.y - 110, SCREEN_WIDTH-40, 260) style:UITableViewStylePlain];
     _tabView.center = self.center;
     _tabView.dataSource = self;
     _tabView.delegate = self;
     _tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tabView.backgroundColor = [UIColor whiteColor];
-    [_tabView registerClass:[SelectWarehouseTableViewCell class] forCellReuseIdentifier:@"select_warehouse_cell"];
+    [_tabView registerClass:[SelectCarTableViewCell class] forCellReuseIdentifier:@"select_car_cell"];
     [self addSubview:_tabView];
     
-    _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-33, _tabView.frame.origin.y-7, 20, 20)];
+    _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-33, self.center.y-117, 20, 20)];
     [_closeBtn addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
     
     [_closeBtn WY_SetBgColor:0x1987c6 title:@"X" titleColor:0xffffff corn:10 fontSize:15];
     _closeBtn.hitTestEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20);
     [self addSubview:_closeBtn];
     
-//    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
-//    [self addGestureRecognizer:tapGes];
+    //    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
+    //    [self addGestureRecognizer:tapGes];
 }
 
 -(void)setDataList:(NSArray *)dataList {
@@ -55,23 +56,23 @@
     [_tabView reloadData];
 }
 
-
-
-+(void)show:(id<SelectWarehouseDelegate>)delegate warehouseId:(NSString *)warehouseId {
++(void)show:(id<SelectCarDelegate>)delegate carId:(NSString *)carId
+{
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
-     SelectWarehouseWidget *widget = [[SelectWarehouseWidget alloc] initWithFrame:window.bounds];
+    SelectCarWidget *widget = [[SelectCarWidget alloc] initWithFrame:window.bounds];
     [window addSubview:widget];
     widget.delegate = delegate;
-    widget.warehouseId = warehouseId;
+    widget. carId= carId;
     [widget showAnim];
-    
 }
+
+
 
 -(void) showAnim {
     _closeBtn.alpha = 0;
     _tabView.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:0 animations:^{
-        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 240);
+        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 260);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.3 animations:^{
             _closeBtn.alpha = 1;
@@ -86,26 +87,34 @@
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
                 NSMutableArray *goodsList = [NSMutableArray new];
                 for (NSDictionary *dic in [[responseDic objectForKey:@"data"] objectForKey:@"GoodsResource"]) {
-//                    NSString *addr;
-//                    switch ([[dic objectForKey:@"coldStoreFlag"] integerValue]) {
-//                        case 2:
-//                            addr = [NSString stringWithFormat:@"需要仓库地： %@, %@", [dic objectForKey:@"fromProvinceName"], [dic objectForKey:@"toProvinceName"]];
-//                            break;
-//                            
-//                        case 3:
-//                            addr = [NSString stringWithFormat:@"需要仓库地： %@", [dic objectForKey:@"toProvinceName"]];
-//                            break;
-//                            
-//                        case 4:
-//                            addr = [NSString stringWithFormat:@"需要仓库地： %@", [dic objectForKey:@"fromProvinceName"]];
-//                            break;
-//                            
-//                        default:
-//                            addr = @"不需要仓库";
-//                            break;
-//                    }
-//                    
-//                    NSAttributedString *addrStr = [[NSAttributedString alloc] initWithString:addr attributes:@{NSForegroundColorAttributeName: [UIColor WY_ColorWithHex:0x333333], NSFontAttributeName: [UIFont boldSystemFontOfSize:15]}];
+                    
+                    //MARK: 描述字段
+                    NSString *priceType;
+                    switch ([[dic objectForKey:@"priceType"] integerValue]) {
+                        case 1:
+                            priceType = @"一口价";
+                            break;
+                            
+                        case 2:
+                            priceType = @"竞价";
+                            
+                        default:
+                            priceType = @"";
+                            break;
+                    }
+                    
+                    NSString *price = [dic objectForKey:@"price"];
+                    
+                    NSString *priceStr;
+                    if ([price isKindOfClass:[NSNull class]]) {
+                        priceStr = priceType;
+                    }
+                    else
+                    {
+                        priceStr = [NSString stringWithFormat:@"价格类型： %@ %@", priceType, price];
+                    }
+                    
+                    NSString *descStr;
                     
                     NSString *typeStr;
                     switch ([[dic objectForKey:@"goodsType"] integerValue]) {
@@ -134,47 +143,70 @@
                             break;
                     }
                     
+                    
+                    
+                    NSString *name = [dic objectForKey:@"name"];
+                    
                     NSString *weightStr;
                     
                     NSString *weight = [dic objectForKey:@"weight"];
                     
                     if (weight != nil && ![weight isKindOfClass:[NSNull class]] ) {
-                        weightStr = [NSString stringWithFormat:@"货物重量： %@吨", weight];
+                        weightStr = [NSString stringWithFormat:@"%@吨", weight];
                     }
                     else
                     {
-                        weightStr = [NSString stringWithFormat:@"货物体积： %@方", [dic objectForKey:@"cube"]];
+                        weightStr = [NSString stringWithFormat:@"%@方", [dic objectForKey:@"cube"]];
+                    }
+
+                    if ([name isKindOfClass:[NSNull class]]) {
+                        descStr = [NSString stringWithFormat:@"货物描述： %@ %@ %@", name, weightStr, typeStr];
+                    }
+                    else
+                    {
+                        descStr = [NSString stringWithFormat:@"货物描述： %@ %@", weightStr, typeStr];
                     }
                     
-                    NSMutableArray *infoList = [NSMutableArray new];
                     
-                    NSString *name = [dic objectForKey:@"name"];
-                    if (name.length > 0) {
-                        [infoList addObject:[NSString stringWithFormat:@"货物名称： %@", name]];
+                    
+                    //MARK: 起始地
+                    NSMutableArray *addressList = [NSMutableArray new];
+                    NSString *fromStr = [NSString stringWithFormat:@"%@%@%@", [dic objectForKey:@"fromProvinceName"], [dic objectForKey:@"fromCityName"], [dic objectForKey:@"fromAreaName"]];
+                    [addressList addObject:@{@"type": @(FROM), @"text": fromStr}];
+                    
+                   
+                    
+                    for (NSDictionary *route in [dic objectForKey:@"mjGoodsRoutes"]) {
+                        NSString *passby = [NSString stringWithFormat:@"%@%@%@", [route objectForKey:@"provinceName"], [route objectForKey:@"cityName"], [route objectForKey:@"areaName"]];
+                        [addressList addObject:@{@"type": @(PASSBY), @"text": passby}];
                     }
                     
-                    [infoList addObject:typeStr];
-                    [infoList addObject:weightStr];
-                    
+                    NSString *toStr = [NSString stringWithFormat:@"%@%@%@", [dic objectForKey:@"toProvinceName"], [dic objectForKey:@"toCityName"], [dic objectForKey:@"toAreaName"]];
+                    [addressList addObject:@{@"type": @(TO), @"text": toStr}];
                     
                     [goodsList addObject:@{
                                            @"data": @{
                                                    @"id": [dic objectForKey:@"id"]
                                                    },
-                                           @"infoList": infoList
+                                           @"infoList": @[priceStr, descStr],
+                                           @"addressList": addressList
                                            }];
                     
-                    self.dataList = goodsList;
+                    
                 }
+                
+                self.dataList = goodsList;
+                
             }
             else
             {
-                [[Global sharedInstance] showErr:@"服务器异常！"];
+                [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
             }
+
         } loading:NO];
     }
     
-
+    
 }
 
 -(void) hide {
@@ -188,20 +220,21 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+    return 130;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = @"select_warehouse_cell";
-    SelectWarehouseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    NSString *identifier = @"select_car_cell";
+    SelectCarTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     cell.infoList = [_dataList[indexPath.row] objectForKey:@"infoList"];
+    cell.addressList = [_dataList[indexPath.row] objectForKey:@"addressList"];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dic = [_dataList[indexPath.row] objectForKey:@"data"];
     DDLogDebug(@"select %@", dic);
-    [self.delegate selectWarehouse:_warehouseId goods:[dic objectForKey:@"id"]];
+    [self.delegate selectCar:self.carId goods:[dic objectForKey:@"id"]];
     [self hide];
 }
 

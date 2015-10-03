@@ -9,8 +9,10 @@
 #import "BaseViewController.h"
 #import <BaiduMapAPI/BMapKit.h>
 #import "SelectTab.h"
+#import "SelectWarehouseWidget.h"
+#import "SelectCarWidget.h"
 
-@interface NearByViewController : UIViewController <SelectTabProtocl, BMKMapViewDelegate>
+@interface NearByViewController : UIViewController <SelectTabProtocl, BMKMapViewDelegate, SelectWarehouseDelegate, SelectCarDelegate>
 {
     BMKMapView *_mapView;
     

@@ -18,4 +18,7 @@
     FromToView *_fromToView;
 }
 
+@property (strong, nonatomic) NSArray *infoList;
+@property (strong, nonatomic) NSArray *addressList;
+
 @end

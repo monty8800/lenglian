@@ -10,9 +10,9 @@
 
 @interface InfoView : UIView<UITableViewDataSource, UITableViewDelegate>
 {
-    UITableView *_tabView;
 }
 
 @property (strong, nonatomic) NSArray *dataList;
+@property (strong, nonatomic) UITableView *tabView;
 
 @end

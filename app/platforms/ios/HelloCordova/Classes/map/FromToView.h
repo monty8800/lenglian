@@ -11,10 +11,10 @@
 
 @interface FromToView : UIView<UITableViewDataSource, UITableViewDelegate>
 {
-    UITableView *_tabView;
     CGFloat _cellHeight;
 }
 
 @property (strong, nonatomic) NSArray *addressList;
+@property (strong, nonatomic) UITableView *tabView;
 
 @end

@@ -12,18 +12,20 @@
 @protocol SelectWarehouseDelegate <NSObject>
 
 @required
--(void) selectWarehouse:(NSDictionary *) warehouse;
+-(void) selectWarehouse:(NSString *) warehouseId goods:(NSString *) goodsId;
 
 @end
 
 @interface SelectWarehouseWidget : UIView<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *_tabView;
+    UIButton *_closeBtn;
 }
 
 @property (strong, nonatomic) NSArray *dataList;
 @property (weak, nonatomic) id<SelectWarehouseDelegate> delegate;
+@property (strong, nonatomic) NSString *warehouseId;
 
-+(void) show;
++(void) show:(id<SelectWarehouseDelegate>) delegate warehouseId:(NSString *) warehouseId;
 
 @end

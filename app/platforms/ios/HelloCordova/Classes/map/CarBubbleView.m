@@ -7,6 +7,8 @@
 //
 
 #import "CarBubbleView.h"
+#import "SelectCarWidget.h"
+#import "Global.h"
 
 @implementation CarBubbleView
 
@@ -21,16 +23,19 @@
 -(void)createUI {
     [super createUI];
     
-    _fromToView = [[FromToView alloc] initWithFrame:CGRectMake(10, 15, self.bounds.size.width - 20, 70)];
+    _fromToView = [[FromToView alloc] initWithFrame:CGRectMake(10, 15, self.bounds.size.width - 20, 55)];
     [self addSubview:_fromToView];
     
     _infoView = [[InfoView alloc] initWithFrame:CGRectMake(10, _fromToView.frame.origin.y + _fromToView.frame.size.height + 10, self.bounds.size.width-20, 30)];
+    _infoView.tabView.scrollEnabled = NO;
     [self addSubview:_infoView];
     
     [_btn setTitle:@"选择司机" forState:UIControlStateNormal];
 }
 
 -(void)setData:(NSDictionary *)data {
+    [super setData:data];
+    
     NSString *fromProvince = [data objectForKey:@"fromProvinceName"];
     NSString *fromCity = [data objectForKey:@"fromCityName"];
     NSString *fromArea = [data objectForKey:@"fromAreaName"];
@@ -80,7 +85,7 @@
 }
 
 -(void)clickBtn {
-    
+    [SelectCarWidget show:(id<SelectCarDelegate>)([Global sharedInstance].mapVC) carId:[self.data objectForKey:@"id"]];
 }
 
 @end
