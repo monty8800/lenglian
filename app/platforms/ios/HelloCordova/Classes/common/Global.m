@@ -139,6 +139,26 @@
     [[Global sharedInstance] geo:city address:address cb:cb];
 }
 
+//MARK:- 用户信息
++(NSDictionary *)getUser {
+    NSString *userStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    if (userStr) {
+        NSDictionary *user = [NSJSONSerialization JSONObjectWithData:[userStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+        if ([user isKindOfClass:[NSDictionary class]]) {
+            return user;
+        }
+        else
+        {
+            return nil;
+        }
+        
+    }
+    else
+    {
+        return nil;
+    }
+}
+
 -(void)geo:(NSString *)city address:(NSString *)address cb:(GeoCB)cb {
     _geoCB = cb;
     if (_geoCoder == nil) {

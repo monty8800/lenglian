@@ -182,7 +182,7 @@
     switch (_tabIndex) {
         case 0:
             annoView.type = CAR;
-            bubbleView = [[CarBubbleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 180)];
+            bubbleView = [[CarBubbleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 170)];
             break;
             
         case 1:

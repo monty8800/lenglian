@@ -45,21 +45,23 @@
         case FROM:
         {
             icon = [UIImage imageNamed:@"address_start"];
-            _iconView.contentMode = UIViewContentModeBottom;
+            _iconView.frame = CGRectMake(0, self.bounds.size.height - icon.size.height, icon.size.width, icon.size.height);
+            self.contentView.backgroundColor = [UIColor redColor];
         }
             break;
         
         case TO:
         {
             icon = [UIImage imageNamed:@"address_to"];
-            _iconView.contentMode = UIViewContentModeTop;
+            _iconView.frame = CGRectMake(0, 0, icon.size.width, icon.size.height);
+            self.contentView.backgroundColor = [UIColor yellowColor];
         }
             break;
             
         case PASSBY:
         {
             icon = [UIImage imageNamed:@"address_passby"];
-            _iconView.contentMode = UIViewContentModeCenter;
+            _iconView.frame = CGRectMake(0, 0, icon.size.width, icon.size.height);
         }
             break;
         
@@ -68,11 +70,9 @@
             break;
     }
     
-    _iconView.frame = CGRectMake(0, 0, icon.size.width, self.contentView.bounds.size.height);
-    
     _iconView.image = icon;
     
-    _addressLabel.frame = CGRectMake(25, 0, self.contentView.bounds.size.width - 25, self.contentView.bounds.size.height-2);
+    _addressLabel.frame = CGRectMake(25, 0, self.bounds.size.width - 25, self.bounds.size.height-2);
     _addressLabel.text = [_addressDic objectForKey:@"text"];
     
 }

@@ -8,6 +8,7 @@
 
 #import "WarehouseBubbleView.h"
 #import "Global.h"
+#import "SelectWarehouseWidget.h"
 
 @implementation WarehouseBubbleView
 
@@ -31,34 +32,16 @@
     
     NSAttributedString *addrStr = [[NSAttributedString alloc] initWithString:addr attributes:@{NSForegroundColorAttributeName: [UIColor WY_ColorWithHex:0xff8e24]}];
     
-//    NSString *type = @"";
-//    switch ([[data objectForKey:@"wareHouseType"] integerValue]) {
-//        case 1:
-//            type = @"驶入式";
-//            break;
-//            
-//        case 2:
-//            type = @"横梁式";
-//            break;
-//            
-//        case 3:
-//            type = @"平推式";
-//            break;
-//            
-//        case 4:
-//            type = @"自动立体货架式";
-//            break;
-//            
-//        default:
-//            type = @"未知类型";
-//            break;
-//    }
     _infoView.dataList = @[
                            addrStr,
                            [NSString stringWithFormat:@"仓库类型： %@", [data objectForKey:@"wareHouseType"]],
                            [NSString stringWithFormat:@"库温类型： %@", [data objectForKey:@"cuvinType"]],
                            [NSString stringWithFormat:@"仓库价格： %@", [data objectForKey:@"price"]]
                            ];
+}
+
+-(void)clickBtn {
+    [SelectWarehouseWidget show];
 }
 
 @end

@@ -94,6 +94,7 @@ requestInfo = ->
 		_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus)
 		_user = _user.set 'balance', data.balance
 		DB.put 'user', _user.toJS()
+		Plugin.run [9, 'user:update', _user.toJS()]
 		UserStore.emitChange 'user:update'
 		# checkPayPwd() if _user.hasPayPwd isnt 1
 
@@ -133,7 +134,8 @@ login = (mobile, passwd)->
 		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
 		DB.put 'user', _user.toJS()
 		UserStore.emitChange 'login:done'
-		Plugin.run [9, 'user:update']
+		Plugin.run [9, 'user:update', _user.toJS()]
+
 	, null
 	, true
 
@@ -193,7 +195,7 @@ logout = ->
 	DB.remove 'user'
 	_user = new User
 	UserStore.emitChange 'logout'
-	Plugin.run [9, 'user:update']
+	Plugin.run [9, 'user:update', '{}']
 
 personalAuth = (params, files)->
 	Http.postFile Constants.api.PERSONAL_AUTH, params, files, (data)->
@@ -210,7 +212,7 @@ updateUserProps = (properties)->
 	_user = _user.merge properties
 	DB.put 'user', _user.toJS()
 	UserStore.emitChange 'user:update'
-	# Plugin.run [9, 'user:update']
+	Plugin.run [9, 'user:update', _user.toJS()]
 
 window.updateUserProps = updateUserProps
 

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "InfoView.h"
 
+
+
 @interface SelectWarehouseTableViewCell : UITableViewCell
 {
     InfoView *_infoView;

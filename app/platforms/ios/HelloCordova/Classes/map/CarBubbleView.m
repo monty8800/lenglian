@@ -21,10 +21,10 @@
 -(void)createUI {
     [super createUI];
     
-    _fromToView = [[FromToView alloc] initWithFrame:CGRectMake(10, 15, self.bounds.size.width - 20, 60)];
+    _fromToView = [[FromToView alloc] initWithFrame:CGRectMake(10, 15, self.bounds.size.width - 20, 70)];
     [self addSubview:_fromToView];
     
-    _infoView = [[InfoView alloc] initWithFrame:CGRectMake(10, _fromToView.frame.origin.y + _fromToView.frame.size.height, self.bounds.size.width-20, 20)];
+    _infoView = [[InfoView alloc] initWithFrame:CGRectMake(10, _fromToView.frame.origin.y + _fromToView.frame.size.height + 10, self.bounds.size.width-20, 30)];
     [self addSubview:_infoView];
     
     [_btn setTitle:@"选择司机" forState:UIControlStateNormal];

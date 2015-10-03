@@ -21,8 +21,8 @@
 
 #pragma mark- api
 
-#define SERVER @"http://192.168.26.177:7080/llmj-app/"
-//#define SERVER @"http://192.168.29.204:8072/"
+//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
+#define SERVER @"http://192.168.29.204:8072/"
 #define NEARBY_GOODS [SERVER stringByAppendingString: @"/findNear/nearGoods.shtml"]
 #define NEARBY_CAR [SERVER stringByAppendingString: @"/findNear/nearCar.shtml"]
 #define NEARBY_WAREHOUSE [SERVER stringByAppendingString: @"/findNear/nearWarehouse.shtml"]
@@ -31,7 +31,7 @@
 #define NEARBY_CAR_DETAIL [SERVER stringByAppendingString: @"/searchCarCtl/searchCar.shtml"]
 #define NEARBY_WAREHOUSE_DETAIL [SERVER stringByAppendingString: @"/searchWarehouseCtl/searchWarehouse.shtml"]
 
-
+#define MY_GOODS [SERVER stringByAppendingString: @"/mjGoodsResource/queryMjGoodsResourceList.shtml"]
 
 #define CLIENT_TYPE @"2"  //客户端类型
 #define UMENG_KEY @"559500cc67e58ee95500064a"  //友盟的key
@@ -88,6 +88,8 @@ typedef void(^GeoCB) (BMKGeoCodeResult *result);
 +(void) reverseGeo:(CLLocationCoordinate2D) point cb:(ReverseGeoCB) cb;
 
 +(void) geo:(NSString *) city address:(NSString *) address cb:(GeoCB) cb;
+
++(NSDictionary *) getUser;
 
 
 @end

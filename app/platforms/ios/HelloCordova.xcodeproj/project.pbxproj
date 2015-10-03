@@ -66,13 +66,14 @@
 		4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8392CB1BB286D60000466D /* ImagePicker.m */; settings = {ASSET_TAGS = (); }; };
 		4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523351BB6A229008205E3 /* SelectAddressViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523391BB6B16D008205E3 /* AddGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		4C9A184D1BB680710072F940 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A184C1BB680710072F940 /* LocationViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020E1BB3FE8B002A0A5C /* BaseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB02121BB40002002A0A5C /* PersonalWarehouseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02111BB40002002A0A5C /* PersonalWarehouseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB02151BB40093002A0A5C /* CompanyCarAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02141BB40093002A0A5C /* CompanyCarAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB02181BB400EF002A0A5C /* CompanyGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02171BB400EF002A0A5C /* CompanyGoodsAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB021B1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB021A1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CB4C0E01BBF6FE50095ABE8 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A184C1BB680710072F940 /* LocationViewController.m */; };
+		4CB4C0E31BBF7E3B0095ABE8 /* SelectCarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CD14AC81BBE8226009FFF0C /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD14AC71BBE8226009FFF0C /* InfoView.m */; settings = {ASSET_TAGS = (); }; };
 		4CD14ACB1BBE9189009FFF0C /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD14ACA1BBE9189009FFF0C /* InfoTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CD9A94B1BBD366D0098C9B7 /* XeAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD9A94A1BBD366D0098C9B7 /* XeAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
@@ -242,6 +243,8 @@
 		4CAB02171BB400EF002A0A5C /* CompanyGoodsAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyGoodsAuthViewController.m; path = auth/CompanyGoodsAuthViewController.m; sourceTree = "<group>"; };
 		4CAB02191BB4015F002A0A5C /* CompanyWarehouseAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyWarehouseAuthViewController.h; path = auth/CompanyWarehouseAuthViewController.h; sourceTree = "<group>"; };
 		4CAB021A1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyWarehouseAuthViewController.m; path = auth/CompanyWarehouseAuthViewController.m; sourceTree = "<group>"; };
+		4CB4C0E11BBF7E3B0095ABE8 /* SelectCarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectCarTableViewCell.h; path = map/SelectCarTableViewCell.h; sourceTree = "<group>"; };
+		4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectCarTableViewCell.m; path = map/SelectCarTableViewCell.m; sourceTree = "<group>"; };
 		4CD14AC61BBE8226009FFF0C /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoView.h; path = map/InfoView.h; sourceTree = "<group>"; };
 		4CD14AC71BBE8226009FFF0C /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoView.m; path = map/InfoView.m; sourceTree = "<group>"; };
 		4CD14AC91BBE9189009FFF0C /* InfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoTableViewCell.h; path = map/InfoTableViewCell.h; sourceTree = "<group>"; };
@@ -628,7 +631,6 @@
 		4CDD99741BAF9B8A008B4AC6 /* map */ = {
 			isa = PBXGroup;
 			children = (
-				4CDD997F1BAFA98D008B4AC6 /* NearByViewController.h */,
 				4C6584151BBE2982005FEB16 /* WarehouseBubbleView.h */,
 				4C6584181BBE2995005FEB16 /* CarBubbleView.h */,
 				4C6584191BBE2995005FEB16 /* CarBubbleView.m */,
@@ -648,6 +650,8 @@
 				4C3353E81BBEB18E0020EB06 /* SelectWarehouseWidget.h */,
 				4C3353EB1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.h */,
 				4C3353EC1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m */,
+				4CB4C0E11BBF7E3B0095ABE8 /* SelectCarTableViewCell.h */,
+				4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */,
 				4C3353E91BBEB18E0020EB06 /* SelectWarehouseWidget.m */,
 				4C6584121BBE295C005FEB16 /* GoodsBubbleView.h */,
 				4C65841B1BBE2B3B005FEB16 /* FromToView.h */,
@@ -917,6 +921,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CB4C0E01BBF6FE50095ABE8 /* LocationViewController.m in Sources */,
 				4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */,
 				5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */,
 				4C822F5E1BB1342600112533 /* MessageListViewController.m in Sources */,
@@ -956,14 +961,13 @@
 				4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */,
 				4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */,
 				5BEAC0D61BBA361100D9753C /* WarehouseDetailViewController.m in Sources */,
-				4C9A184D1BB680710072F940 /* LocationViewController.m in Sources */,
 				4CD14ACB1BBE9189009FFF0C /* InfoTableViewCell.m in Sources */,
-				4C9A184D1BB680710072F940 /* LoactionViewController.m in Sources */,
 				98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */,
 				4C6584201BBE2BC1005FEB16 /* FromToTableViewCell.m in Sources */,
 				4C3353ED1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m in Sources */,
 				4C6584141BBE295C005FEB16 /* GoodsBubbleView.m in Sources */,
 				4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */,
+				4CB4C0E31BBF7E3B0095ABE8 /* SelectCarTableViewCell.m in Sources */,
 				4C5992A81BBCD3BE00CA5039 /* Contacts.m in Sources */,
 				4C5992A51BBCD0D900CA5039 /* ContactsViewController.m in Sources */,
 				4C59DE431B5E50AA0063D9CE /* XELogFormatter.m in Sources */,
