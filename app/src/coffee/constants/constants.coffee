@@ -87,6 +87,8 @@ actionType = {
 
 	DEL_CAR: null
 	MODIFY_CAR:null
+
+	UPDATE_SELECTION: null
 }
 
 

@@ -118,8 +118,8 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请填写货物重量'
 		else if not @state.installMinTime or not @state.installMaxTime
 			Plugin.toast.err '请填写装车时间'
-		else if @state.priceType is 2 and not @state.price
-			Plugin.toast.err '请输入竞价价格'
+		else if not @state.price
+			Plugin.toast.err '请输入价格'
 		else if @state.payType is 3 and not @state.prePay
 			Plugin.toast.err '请输入预付款'
 		else if not Validator.name @state.sender
