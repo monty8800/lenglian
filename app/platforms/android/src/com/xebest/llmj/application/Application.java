@@ -46,7 +46,6 @@ public class Application extends android.app.Application {
     }
 
     public String getUserId() {
-
         return userId;
     }
 
@@ -81,11 +80,9 @@ public class Application extends android.app.Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-
         for (Activity activity : activities) {
             activity.finish();
         }
-
         System.exit(0);
     }
 
@@ -186,7 +183,6 @@ public class Application extends android.app.Application {
     }
 
     public String getContacts() {
-
         return contacts;
     }
 
@@ -195,7 +191,6 @@ public class Application extends android.app.Application {
     }
 
     public String getPhone() {
-
         return phone;
     }
 }

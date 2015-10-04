@@ -190,8 +190,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 String title = marker.getTitle();
                 String id = list.get(Integer.parseInt(title)).getId();
                 if (status == 1) {
-                    goodsId = id;
-                    goodsBottomView.setVisibility(View.VISIBLE);
+                    goodsId = id;                    goodsBottomView.setVisibility(View.VISIBLE);
                 } else if (status == 2) {
                     carId = id;
                     carBottomView.setVisibility(View.VISIBLE);
@@ -678,4 +677,5 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             Tools.dismissLoading();
         }
     }
+
 }
