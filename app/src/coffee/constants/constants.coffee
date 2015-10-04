@@ -87,16 +87,16 @@ actionType = {
 
 	DEL_CAR: null
 	MODIFY_CAR:null
-<<<<<<< HEAD
+
 
 	UPDATE_SELECTION: null
-=======
+
 	CAR_OWNER_DETAIL: null
 
 	ATTENTION_DETAIL: null
 
 	UPDATE_INV_STATUS: null
->>>>>>> 3f898c235eb0a5b397a584ecbeb628e0243f48d9
+
 }
 
 
