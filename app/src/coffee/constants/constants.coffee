@@ -87,8 +87,16 @@ actionType = {
 
 	DEL_CAR: null
 	MODIFY_CAR:null
+<<<<<<< HEAD
 
 	UPDATE_SELECTION: null
+=======
+	CAR_OWNER_DETAIL: null
+
+	ATTENTION_DETAIL: null
+
+	UPDATE_INV_STATUS: null
+>>>>>>> 3f898c235eb0a5b397a584ecbeb628e0243f48d9
 }
 
 
@@ -96,11 +104,12 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
 	# server: 'http://192.168.29.204:8072/'
 
 	# server: 'http://192.168.29.204:8072/'
+	server: 'http://192.168.29.204:8072/'
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
@@ -213,6 +222,10 @@ api = {
 	detail_car: '/mjCarinfoCtl/deleteMjCarinfo.shtml'
 	# 编辑车辆
 	modify_car: '/mjCarinfoCtl/updateMjCarinfo.shtml'
+	# 我的车辆---空闲中
+	car_free_list: '/mjCarinfoCtl/queryMjCarinfoFree.shtml'
+	# 关注
+	attention: '/userInfo/addDeleteMjWishlst.shtml'
 }
 
 smsType = {

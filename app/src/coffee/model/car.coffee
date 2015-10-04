@@ -16,7 +16,7 @@ Car = Immutable.Record {
 	carType: '' # 车辆类型
 	carVehicle: '' # 车辆长度
 	carId: ''# id
-
+	vehicle: ''
 
 	# 车辆详情数据结构
 	id: ''
@@ -26,6 +26,11 @@ Car = Immutable.Record {
 	bulky: '' # 可载泡货
 	drivingImg: '' # 行驶证图片
 	transportImg: '' # 道路运输许可证图片
+
+	userId: '' # 车主Id
+	wishlst: false
+	goodScore: null
+	certification: null
 
 }
 

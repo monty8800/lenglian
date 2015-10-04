@@ -65,9 +65,19 @@ window.updateMyCarList = ->
 # 编辑车辆
 window.editorCar = ->
 	CarStore.emitChange ['editor_car']	
-
+# 提交编辑
 window.editorCarDone = ->
 	CarStore.emitChange ['editor_car_done']		
+# 页面销毁时清空transdata
+window.cleanTransData = ->
+	CarStore.emitChange ['release_success']	
+
+# 车辆搜索
+window.searchMyCar = ->
+	CarAction.info([''])
+	CarAction.closeCarHea()
+	CarAction.closeCarInvoince()
+	CarAction.closeCarLen()
 
 # 我要找车
 carItemInfo = (param)->
@@ -84,7 +94,7 @@ carItemInfo = (param)->
 		toAreaId: ''
 		vehicle: _carLenList
 		heavy: _carHeaList
-		isInvoice: param[0]
+		isInvoice: _isInvoice
 		carType: ''
 		id: ''
 	}
@@ -96,9 +106,13 @@ carItemInfo = (param)->
 		for car in result
 			do (car) ->
 				tempCar = new Car
+				tempCar = tempCar.set 'id', car.id
+				tempCar = tempCar.set 'userId', car.userId
 				tempCar = tempCar.set 'drivePic', car.userImgUrl
 				tempCar = tempCar.set 'name', car.userName
-				tempCar = tempCar.set 'remark', 5
+				tempCar = tempCar.set 'remark', car.carScore
+				tempCar = tempCar.set 'carType', car.carType
+				tempCar = tempCar.set 'vehicle', car.vehicle
 				tempCar = tempCar.set 'startPoint', car.fromProvinceName + 
 						car.fromCityName + car.fromAreaName
 				tempCar = tempCar.set 'destination', car.toProvinceName + 
@@ -142,7 +156,6 @@ carDetail = (carId)->
 			carId: carId
 			userId: _user?.id
 		}, (data) ->
-			console.log '车辆详情----', data
 			td = data.carInfoLoad;
 			_carDetail = _carDetail.set 'id', td.id
 			_carDetail = _carDetail.set 'carNo', td.carno
@@ -159,6 +172,33 @@ carDetail = (carId)->
 			_carDetail = _carDetail.set 'transportImg', td.transportImg
 			CarStore.emitChange ['car_detail']
 
+# 车主详情
+_carOwnerDetail = (userId, carId)->
+	Http.post Constants.api.car_detail, {
+			carId: carId
+			userId: userId # 找车列表车主的Id
+			# carId: 'b6be54c8d6e348f7b8559b6ef10376e6'
+			# userId: '50819ab3c0954f828d0851da576cbc31'
+		}, (data) ->
+			td = data.carInfoLoad;
+			_carDetail = _carDetail.set 'id', td.id
+			_carDetail = _carDetail.set 'carNo', td.carno
+			_carDetail = _carDetail.set 'status', td.status
+			_carDetail = _carDetail.set 'carType', td.type
+			_carDetail = _carDetail.set 'carPic', td.imgurl
+			_carDetail = _carDetail.set 'category', td.category
+			_carDetail = _carDetail.set 'heavy', td.heavy
+			_carDetail = _carDetail.set 'bulky', td.bulky
+			_carDetail = _carDetail.set 'carVehicle', td.vehicle
+			_carDetail = _carDetail.set 'name', td.driver
+			_carDetail = _carDetail.set 'mobile', td.phone
+			_carDetail = _carDetail.set 'drivingImg', td.drivingImg
+			_carDetail = _carDetail.set 'transportImg', td.transportImg
+			_carDetail = _carDetail.set 'wishlst', data.wishlst
+			_carDetail = _carDetail.set 'goodScore', data.goodScore
+			_carDetail = _carDetail.set 'certification', data.certification
+			CarStore.emitChange ['car_owner_detail']
+
 # 发布车源
 _releaeCar = (params)->
 	Plugin.loading.show '正在发布...'
@@ -167,7 +207,7 @@ _releaeCar = (params)->
 		Plugin.loading.hide()
 		Plugin.toast.success '发布成功'
 		Plugin.nav.push ['release_success']
-		CarStore.emitChange 'success'
+		CarStore.emitChange ['release_success']
 	, (err)->
 		Plugin.loading.hide()
 		Plugin.toast.err err.msg
@@ -181,15 +221,12 @@ _addCar = (params, files)->
 
 # 发布车源 -- 车辆列表
 _freedomCar = ->
-	Http.post Constants.api.my_car_list, {
+	Http.post Constants.api.car_free_list, {
 		userId: _user?.id
-		pageNow: 1
-		pageSize: 100
-		status: 1 # 空闲中
-	}, (data)->
+	}, (data)->			
 		tempList = data.myCarInfo; 
 		for car in tempList
-			do (car) ->
+			do (car) ->			
 				tempCar = new Car
 				tempCar = tempCar.set 'name', car.driver
 				tempCar = tempCar.set 'carNo', car.carno
@@ -275,18 +312,22 @@ _needInv = (type)->
 	if type is 1
 		_isInvoice = '1'
 		CarStore.emitChange ['one_need']
+		console.log '-------_needInv:', _isInvoice
 	else
 		_isInvoice = '2'
 		CarStore.emitChange ['one_not_need']
+		console.log '-------_needInv:', _isInvoice
 
 _notNeedInv = (type)->
 	console.log '------type:', type
 	if type is 1
 		_isInvoice = '1'
 		CarStore.emitChange ['one_not_need']
+		console.log '-------_notNeedInv:', _isInvoice
 	else
 		_isInvoice = '2'
 		CarStore.emitChange ['one_need']
+		console.log '-------_notNeedInv:', _isInvoice
 
 # 删除车辆
 _carDel = (carId)->
@@ -312,6 +353,22 @@ _modifyCar = (params)->
 		 Plugin.nav.push ['modify_success']
 	, (data)->
 		Plugin.toast.err data.msg
+
+# 车主详情
+_attentionDetail = (params)->
+	console.log '--------params:', params
+	Http.post Constants.api.attention, params, (data)->
+		if params.type is 1
+			Plugin.toast.success '关注成功'
+			CarStore.emitChange ['attention_success']
+		else if params.type is 2
+			Plugin.toast.success '取消关注成功'
+			CarStore.emitChange ['attention_cancel_success']
+	, (data)->
+		Plugin.toast.err data.msg
+
+_updateInvStatus = (params)->
+	_isInvoice = params
 
 
 CarStore = assign BaseStore, {
@@ -352,6 +409,9 @@ Dispatcher.register (action)->
 		when Constants.actionType.NOTNEEDINV then _notNeedInv(action.type)
 		when Constants.actionType.DEL_CAR then _carDel(action.carId)
 		when Constants.actionType.MODIFY_CAR then _modifyCar(action.param)
+		when Constants.actionType.CAR_OWNER_DETAIL then _carOwnerDetail(action.userId,action.carId)
+		when Constants.actionType.ATTENTION_DETAIL then _attentionDetail(action.params)
+		when Constants.actionType.UPDATE_INV_STATUS then _updateInvStatus(action.params)
 
 module.exports = CarStore
 

@@ -1,12 +1,12 @@
 package com.xebest.llmj.center;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -28,6 +28,7 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by kaisun on 15/9/21.
@@ -76,63 +77,65 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
     @Override
     public void jsCallNative(final JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        Toast.makeText(getActivity(), "" + args.toString(), Toast.LENGTH_SHORT).show();
         if (args.length() == 0) return;
         final String flag = args.getString(1);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (flag.equalsIgnoreCase("login")) {
-                    LoginActivity.actionView(getActivity());
-                } else if (flag.equalsIgnoreCase("messageList")) {
-                    MsgActivity.actionView(getActivity());
-                } else if (flag.equalsIgnoreCase("myCar")) {
-                    MyCarActivity.actionView(getActivity());
-                } else if (flag.equalsIgnoreCase("addressList")) {
-                    AddressActivity.actionView(getActivity());
-                } else if (flag.equalsIgnoreCase("attentionList")) {
-                    AttentionActivity.actionView(getActivity());
-                } else if (flag.equalsIgnoreCase("more")) {
-                    MoreActivity.actionView(getActivity());
-                } else if (flag.equalsIgnoreCase("login")) {
-                    LoginActivity.actionView(getActivity());
-                }
-                // 未认证
-                else if (flag.equalsIgnoreCase("auth")) {
-                    AuthActivity.actionView(getActivity());
-                }
-                // 个人车主认证
-                else if (flag.equalsIgnoreCase("personalCarAuth")) {
-                    PersonalCarAuthActivity.actionView(getActivity());
-                }
+        if (flag.equals("user:update")) {
+            String userInfo = args.getString(2);
+            JSONObject jsonObject = new JSONObject(userInfo);
+            // 存放userId
+            ((Application) getActivity().getApplication()).setUserId(jsonObject.getString("id"));
+            SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
+            editor.putString("userId", jsonObject.getString("id"));
+            editor.commit();
+        }
+        else if (flag.equalsIgnoreCase("login")) {
+            LoginActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("messageList")) {
+            MsgActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("myCar")) {
+            MyCarActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("addressList")) {
+            AddressActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("attentionList")) {
+            AttentionActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("more")) {
+            MoreActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("login")) {
+            LoginActivity.actionView(getActivity());
+        }
+        // 未认证
+        else if (flag.equalsIgnoreCase("auth")) {
+            AuthActivity.actionView(getActivity());
+        }
+        // 个人车主认证
+        else if (flag.equalsIgnoreCase("personalCarAuth")) {
+            PersonalCarAuthActivity.actionView(getActivity());
+        }
 
-                // 个人货主认证
-                else if (flag.equalsIgnoreCase("personalGoodsAuth")) {
-                    PersonalGoodsAuthActivity.actionView(getActivity());
-                }
+        // 个人货主认证
+        else if (flag.equalsIgnoreCase("personalGoodsAuth")) {
+            PersonalGoodsAuthActivity.actionView(getActivity());
+        }
 
-                // 个人仓库认证
-                else if (flag.equalsIgnoreCase("personalWarehouseAuth")) {
-                    PersonalWareHouseAuthActivity.actionView(getActivity());
-                }
+        // 个人仓库认证
+        else if (flag.equalsIgnoreCase("personalWarehouseAuth")) {
+            PersonalWareHouseAuthActivity.actionView(getActivity());
+        }
 
-                // 公司车主认证
-                else if (flag.equalsIgnoreCase("companyCarAuth")) {
-                    CompanyCarAuthActivity.actionView(getActivity());
-                }
+        // 公司车主认证
+        else if (flag.equalsIgnoreCase("companyCarAuth")) {
+            CompanyCarAuthActivity.actionView(getActivity());
+        }
 
-                // 公司货主认证
-                else if (flag.equalsIgnoreCase("companyGoodsAuth")) {
-                    CompanyGoodsAuthActivity.actionView(getActivity());
-                }
+        // 公司货主认证
+        else if (flag.equalsIgnoreCase("companyGoodsAuth")) {
+            CompanyGoodsAuthActivity.actionView(getActivity());
+        }
 
-                // 公司仓库认证
-                else if (flag.equalsIgnoreCase("companyWarehouseAuth")) {
-                    CompanyWareHouseAuthActivity.actionView(getActivity());
-                }
-
-            }
-        });
+        // 公司仓库认证
+        else if (flag.equalsIgnoreCase("companyWarehouseAuth")) {
+            CompanyWareHouseAuthActivity.actionView(getActivity());
+        }
     }
 
     @Override

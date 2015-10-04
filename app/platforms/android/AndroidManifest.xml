@@ -53,5 +53,6 @@
         <activity android:name=".car.MyCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".sort.ContactListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.SelectAddressActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.CarOwnerDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

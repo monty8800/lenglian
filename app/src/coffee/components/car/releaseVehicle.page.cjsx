@@ -17,6 +17,7 @@ _user = UserStore.getUser()
 
 CarInfo = DB.get 'transData'
 carId = CarInfo?.carId
+_carNo = CarInfo?.carNo
 
 Vehicle = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -28,6 +29,7 @@ Vehicle = React.createClass {
 			DB.put 'transData', 'end_address'
 		Plugin.nav.push [page]
 
+	# 车辆列表点击
 	_goFreeCar: (item)->
 		@setState {
 			isShow: 1
@@ -45,7 +47,7 @@ Vehicle = React.createClass {
 			isinvoice: '' # 是否需要发票 默认是
 			contacts: user.name or '' # 联系人
 			phone:  user.mobile or '' # 手机号
-			carId: '' # 车辆Id
+			carId: carId # 车辆Id
 			remark:  '' # 备注
 			startTime: ''
 			endTime: ''
@@ -62,7 +64,7 @@ Vehicle = React.createClass {
 			toLng: ''
 			toLat: ''
 
-			currentCar: '' # 选择车辆
+			currentCar: _carNo # 选择车辆
 			carList: CarStore.getFreeCar()
 		}
 
@@ -75,7 +77,10 @@ Vehicle = React.createClass {
 		CarStore.removeChangeListener @resultCallBack
 
 	resultCallBack: (result)->
-		if result[0] is 'updateContact'
+		if result[0] is 'release_success'
+			# 发布成功
+			DB.remove 'transData'
+		else if result[0] is 'updateContact'
 			@setState {
 				contacts: result[1] # 联系人
 				phone: result[2] # 手机号
@@ -142,12 +147,20 @@ Vehicle = React.createClass {
 	_submit: ->
 		if @state.startPoint is ''
 			Plugin.toast.err '请输入出发地'
+		else if @state.currentCar is undefined 
+			Plugin.toast.err '请选择要发布的车辆'
+		else if @state.currentCar is '' 
+			Plugin.toast.err '请选择要发布的车辆'
+		else if not Validator.isEmpty @state.startTime
+			Plugin.toast.err '请选择开始时间'
+		else if not Validator.isEmpty @state.endTime
+			Plugin.toast.err '请选择结束时间'
+		else if not Validator.isEmpty @state.isinvoice
+			Plugin.toast.err '是否需要发票'
 		else if not Validator.name @state.contacts
-			Plugin.toast.err '请输入正确的姓名'
+			Plugin.toast.err '请输入正确的联系人'
 		else if not Validator.mobile @state.phone
 			Plugin.toast.err '请输入正确的手机号'
-		else if not Validator.remark @state.remark
-			Plugin.toast.err '备注1-30个字符'
 		else
 			CarAction.releaseCar({
 				userId: _user?.id

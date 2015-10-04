@@ -1,6 +1,7 @@
 package com.xebest.llmj.application;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -38,6 +39,17 @@ public class Application extends android.app.Application {
 
     public String phone = "";
 
+    public String userId = "";
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+
+        return userId;
+    }
+
     public static Application getInstance(){
         return instance;
     }
@@ -60,6 +72,10 @@ public class Application extends android.app.Application {
         VERSIONCODE = getAppVersionCode();
 
         mLocationClient.start();
+
+        SharedPreferences sp = getSharedPreferences("userInfo", 0);
+        String id = sp.getString("userId", "");
+        userId = id;
     }
 
     @Override

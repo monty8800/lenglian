@@ -149,6 +149,7 @@ public class ReleaseCarActivity extends BaseCordovaActivity implements CordovaIn
         // 清空本次联系人相关动作
         ((Application) getApplication()).setContacts("");
         ((Application) getApplication()).setPhone("");
+        mWebView.getWebView().loadUrl("javascript:cleanTransData()");
         super.onDestroy();
     }
 

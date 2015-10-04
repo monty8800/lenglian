@@ -4,6 +4,7 @@ LinkedStateMixin = React.addons.LinkedStateMixin
 
 CarStore = require 'stores/car/car'
 CarAction = require 'actions/car/car'
+DB = require 'util/storage'
 
 # 头部筛选菜单
 ScreenMenu = React.createClass {
@@ -267,11 +268,13 @@ ScreenMenu = React.createClass {
 			@setState {
 				isinvoice: '1'
 			}
+			CarAction.updateInvState('1')
 	unNeedInvoice: (e)->
 		if e.target.checked
 			@setState {
 				isinvoice: '2'
 			}
+			CarAction.updateInvState('2')
 	componentDidMount: ->
 		CarStore.addChangeListener @_onChange
 
@@ -861,7 +864,7 @@ ScreenMenu = React.createClass {
 						<div className="g-div02-item">
 							<label className="u-label"><input checked={checkedLinkAll.value} onChange={@len_all} className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'全部'}} /></label><label className="u-label"><input checked={checkedLink38.value} onChange=@len38 className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'3.8米'}} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'4.2米'}} checked={checkedLink42.value} onChange=@len42 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'4.8米'}} checked={checkedLink48.value} onChange=@len48 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'5.8米'}} checked={checkedLink58.value} onChange=@len58 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'6.2米'}} checked={checkedLink62.value} onChange=@len62 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'6.8米'}} checked={checkedLink68.value} onChange=@len68 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'7.4米'}} checked={checkedLink74.value} onChange=@len74 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'7.8米'}} checked={checkedLink78.value} onChange=@len78 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'8.6米'}} checked={checkedLink86.value} onChange=@len86 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'9.6米'}} checked={checkedLink96.value} onChange=@len96 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'13~15'}} checked={checkedLink13.value} onChange=@len13 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'15~米'}} checked={checkedLink15.value} onChange=@len15 /></label>
 						</div>
-						<div className="g-div02-btn">
+						<div className="g-div02-btn" style={{display: 'none'}}>
 							<a href="###" onClick={@carLenSub} className="u-btn u-btn-small">确定</a>
 						</div>
 					</div>
@@ -873,7 +876,7 @@ ScreenMenu = React.createClass {
 						<div className="g-div02-item">
 							<label className="u-label"><input checked={heaCheckedLinkAll.value} onChange={@hea_all} className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'全部'}} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'2吨'}} checked={heaCheckedLink2.value} onChange=@hea2 /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'3吨'}} checked={heaCheckedLink3.value} onChange={@hea3} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'4吨'}} checked={heaCheckedLink4.value} onChange={@hea4}/></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'5吨'}} checked={heaCheckedLink5.value} onChange={@hea5} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'6吨'}} checked={heaCheckedLink6.value} onChange={@hea6} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'8吨'}} checked={heaCheckedLink8.value} onChange={@hea8} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'10吨'}} checked={heaCheckedLink10.value} onChange={@hea10} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'12吨'}} checked={heaCheckedLink12.value} onChange={@hea12} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'15吨'}} checked={heaCheckedLink15.value} onChange={@hea15} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'18吨'}} checked={heaCheckedLink18.value} onChange={@hea18} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'20吨'}} checked={heaCheckedLink20.value} onChange={@hea20} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'25吨'}} checked={heaCheckedLink25.value} onChange={@hea25} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'28吨'}} checked={heaCheckedLink28.value} onChange={@hea28} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'30吨'}} checked={heaCheckedLink30.value} onChange={@hea30} /></label><label className="u-label"><input className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'30~40'}} checked={heaCheckedLink40.value} onChange={@hea40} /></label>
 						</div>
-						<div className="g-div02-btn">
+						<div className="g-div02-btn" style={{display: 'none'}}>
 							<a href="###" onClick={@carHeaSub} className="u-btn u-btn-small">确定</a>
 						</div>
 					</div>
@@ -885,7 +888,7 @@ ScreenMenu = React.createClass {
 						<div className="g-div02-item">
 							<label className="u-label"><input name="a" onChange=@needInvoice className="ll-font" type="radio" dangerouslySetInnerHTML={{__html:'是'}} /></label><label className="u-label"><input name="a" className="ll-font" type="radio" dangerouslySetInnerHTML={{__html:'否'}} onChange=@unNeedInvoice /></label>
 						</div>
-						<div className="g-div02-btn">
+						<div className="g-div02-btn" style={{display: 'none'}}>
 							<a href="###" onClick={@carInvoince} className="u-btn u-btn-small">确定</a>
 						</div>
 					</div>

@@ -131,6 +131,23 @@ CarAction = {
 			actionType: Constants.actionType.MODIFY_CAR
 			param: param
 		}
+	carOwnerDetail: (userId,carId)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CAR_OWNER_DETAIL
+			userId: userId
+			carId: carId
+		}
+	attentionDetail: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ATTENTION_DETAIL
+			params: params
+		}
+
+	updateInvState: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.UPDATE_INV_STATUS
+			params: params
+		}		
 
 }
 

@@ -263,6 +263,7 @@
             android:layout_marginRight="10dp"/>
 
         <Button
+            android:id="@+id/select_goods"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="抢单"
@@ -349,6 +350,7 @@
             android:layout_marginRight="10dp"/>
 
         <Button
+            android:id="@+id/select_driver"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="选择司机"
@@ -423,6 +425,7 @@
 
 
         <Button
+            android:id="@+id/select_store"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="选择仓库"
