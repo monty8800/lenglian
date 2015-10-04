@@ -9,6 +9,7 @@
 #import "LocationViewController.h"
 #import "Global.h"
 #import "XeAnnotationView.h"
+#import "LocationBubbleView.h"
 
 @interface LocationViewController ()
 
@@ -71,9 +72,9 @@
     _pointAnno = [BMKPointAnnotation new];
     _pointAnno.coordinate = location.location.coordinate;
     _pointAnno.title = @"我的位置";
+    __block LocationViewController *weakSelf = self;
     [Global reverseGeo:location.location.coordinate cb:^(BMKReverseGeoCodeResult *result) {
-        _pointAnno.title = result.address;
-        _address = result.addressDetail;
+        [weakSelf updateAddress:result];
     }];
     _pointAnno.subtitle = @"拖拽修改位置";
     [_mapView addAnnotation:_pointAnno];
@@ -88,6 +89,9 @@
         annotationView.draggable = YES;
         annotationView.type = POINT;
     }
+    _bubble = [[LocationBubbleView alloc] initWithFrame:CGRectMake(0, 0, 190, 90)];
+    annotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:_bubble];
+    annotationView.calloutOffset = CGPointMake(0, -10);
     return annotationView;
 }
 
@@ -103,6 +107,8 @@
 -(void) updateAddress:(BMKReverseGeoCodeResult *) result {
     _pointAnno.title = result.address;
     _address = result.addressDetail;
+    _bubble.address = [NSString stringWithFormat:@"%@%@%@", _address.province, _address.city, _address.district];
+    _bubble.street = [NSString stringWithFormat:@"%@%@", _address.streetName, _address.streetNumber];
 }
 
 -(void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view {

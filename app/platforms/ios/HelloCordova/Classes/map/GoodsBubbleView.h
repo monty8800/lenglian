@@ -17,6 +17,5 @@
     FromToView *_fromToView;
 }
 
-@property (strong, nonatomic) NSDictionary *data;
 
 @end

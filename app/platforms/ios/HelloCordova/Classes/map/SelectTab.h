@@ -24,5 +24,6 @@
 
 @property (strong, nonatomic) NSArray *tabs;
 @property (weak, nonatomic) id<SelectTabProtocl> delegate;
+@property (assign, nonatomic) NSInteger index;
 
 @end

@@ -149,7 +149,7 @@
                     NSMutableArray *infoList = [NSMutableArray new];
                     
                     NSString *name = [dic objectForKey:@"name"];
-                    if (name.length > 0) {
+                    if (![name isKindOfClass:[NSNull class]]) {
                         [infoList addObject:[NSString stringWithFormat:@"货物名称： %@", name]];
                     }
                     

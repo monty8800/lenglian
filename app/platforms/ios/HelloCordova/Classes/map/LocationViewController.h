@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <BaiduMapAPI/BMapKit.h>
+#import "LocationBubbleView.h"
 
 @protocol LocationDelegate <NSObject>
 
@@ -21,6 +22,7 @@
     BMKMapView *_mapView;
     BMKPointAnnotation *_pointAnno;
     BMKAddressComponent *_address;
+    LocationBubbleView *_bubble;
 }
 
 @property (weak, nonatomic) id<LocationDelegate> delegate;

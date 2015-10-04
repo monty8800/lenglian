@@ -151,7 +151,14 @@
             DDLogDebug(@"update user %@", params[2]);
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_UPDATE_USER object:nil userInfo:nil];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject: [params[2] WY_ToJson] forKey:@"user"];
+            if ([params[2] isKindOfClass:[NSDictionary class]]) {
+                [userDefaults setObject: [params[2] WY_ToJson] forKey:@"user"];
+            }
+            else
+            {
+                [userDefaults removeObjectForKey:@"user"];
+            }
+            
             [userDefaults synchronize];
             DDLogDebug(@"user defaults %@", userDefaults);
             return;

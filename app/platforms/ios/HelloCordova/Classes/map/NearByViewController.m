@@ -318,6 +318,25 @@
     } loading:YES];
 }
 
+-(void)selectGoods:(NSString *)goodsId car:(NSString *)carId
+{
+    NSDictionary *params = @{
+                             @"goodsUserId": [[Global getUser] objectForKey:@"id"],
+                             @"goodsResouseId": goodsId,
+                             @"carResouseId": carId
+                             };
+    [Net post:ORDER_CAR_SELECT_GOODS params:params cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"goods select car result %@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+    } loading:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

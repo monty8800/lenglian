@@ -8,6 +8,7 @@
 
 #import "GoodsBubbleView.h"
 #import "Global.h"
+#import "SelectGoodsWidget.h"
 
 @implementation GoodsBubbleView
 
@@ -35,6 +36,11 @@
 
 -(void)setData:(NSDictionary *)data {
 //TODO: 更新界面
+    [super setData:data];
+}
+
+-(void)clickBtn {
+    [SelectGoodsWidget show:(id<SelectGoodsDelegate>)([Global sharedInstance].mapVC) goods:[self.data objectForKey:@"id"]];
 }
 
 @end

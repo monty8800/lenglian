@@ -11,12 +11,12 @@
 #import "SelectTab.h"
 #import "SelectWarehouseWidget.h"
 #import "SelectCarWidget.h"
+#import "SelectGoodsWidget.h"
 
-@interface NearByViewController : UIViewController <SelectTabProtocl, BMKMapViewDelegate, SelectWarehouseDelegate, SelectCarDelegate>
+@interface NearByViewController : UIViewController <SelectTabProtocl, BMKMapViewDelegate, SelectWarehouseDelegate, SelectCarDelegate, SelectGoodsDelegate>
 {
     BMKMapView *_mapView;
     
-    SelectTab *_tab;
     
     NSMutableArray *_annoList;
     
@@ -24,5 +24,6 @@
 }
 
 @property (assign, nonatomic) NSInteger tabIndex;
+@property (strong, nonatomic) SelectTab *tab;
 
 @end

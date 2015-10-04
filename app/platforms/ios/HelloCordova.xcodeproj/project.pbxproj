@@ -87,6 +87,9 @@
 		4CDD99851BAFE4EC008B4AC6 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CDD99841BAFE4EC008B4AC6 /* images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		4CE0AE5C1BB241E00081DE22 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0AE5B1BB241E00081DE22 /* AuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CE0AE5F1BB243C20081DE22 /* PersonalCarAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CE2FFED1BC0C81100935C9F /* SelectGoodsWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */; settings = {ASSET_TAGS = (); }; };
+		4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */; settings = {ASSET_TAGS = (); }; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -270,6 +273,12 @@
 		4CE0AE5B1BB241E00081DE22 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthViewController.m; path = auth/AuthViewController.m; sourceTree = "<group>"; };
 		4CE0AE5D1BB243C20081DE22 /* PersonalCarAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalCarAuthViewController.h; path = auth/PersonalCarAuthViewController.h; sourceTree = "<group>"; };
 		4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalCarAuthViewController.m; path = auth/PersonalCarAuthViewController.m; sourceTree = "<group>"; };
+		4CE2FFEB1BC0C81100935C9F /* SelectGoodsWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectGoodsWidget.h; path = map/SelectGoodsWidget.h; sourceTree = "<group>"; };
+		4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectGoodsWidget.m; path = map/SelectGoodsWidget.m; sourceTree = "<group>"; };
+		4CE2FFEE1BC0C83900935C9F /* SelectGoodsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectGoodsTableViewCell.h; path = map/SelectGoodsTableViewCell.h; sourceTree = "<group>"; };
+		4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectGoodsTableViewCell.m; path = map/SelectGoodsTableViewCell.m; sourceTree = "<group>"; };
+		4CE2FFF21BC102F000935C9F /* LocationBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationBubbleView.h; path = map/LocationBubbleView.h; sourceTree = "<group>"; };
+		4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationBubbleView.m; path = map/LocationBubbleView.m; sourceTree = "<group>"; };
 		555391413AAD4C94B9C1B273 /* XEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEViewController.m; path = "com.xebest.xe-plugin/XEViewController.m"; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5B2F62381BB3E7870020AD28 /* WarehouseSearchGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarehouseSearchGoodsViewController.h; sourceTree = "<group>"; };
@@ -603,6 +612,8 @@
 				4C6584191BBE2995005FEB16 /* CarBubbleView.m */,
 				4C6584161BBE2982005FEB16 /* WarehouseBubbleView.m */,
 				4C3D705A1BBD54B80048E3FF /* XeBubbleView.h */,
+				4CE2FFF21BC102F000935C9F /* LocationBubbleView.h */,
+				4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */,
 				4C3D705B1BBD54B80048E3FF /* XeBubbleView.m */,
 				4C6584121BBE295C005FEB16 /* GoodsBubbleView.h */,
 				4C6584131BBE295C005FEB16 /* GoodsBubbleView.m */,
@@ -614,6 +625,10 @@
 			isa = PBXGroup;
 			children = (
 				4CB4C0E11BBF7E3B0095ABE8 /* SelectCarTableViewCell.h */,
+				4CE2FFEB1BC0C81100935C9F /* SelectGoodsWidget.h */,
+				4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */,
+				4CE2FFEE1BC0C83900935C9F /* SelectGoodsTableViewCell.h */,
+				4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */,
 				4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */,
 				4CB4C0EB1BBFD50A0095ABE8 /* SelectCarWidget.h */,
 				4CB4C0EC1BBFD50A0095ABE8 /* SelectCarWidget.m */,
@@ -990,6 +1005,7 @@
 				4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */,
 				4C822F6A1BB136C000112533 /* FollowListViewController.m in Sources */,
 				5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */,
+				4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */,
 				4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */,
 				4C59DE461B5E519C0063D9CE /* BaseViewController.m in Sources */,
 				4CAB02121BB40002002A0A5C /* PersonalWarehouseAuthViewController.m in Sources */,
@@ -1001,6 +1017,7 @@
 				4CAB02151BB40093002A0A5C /* CompanyCarAuthViewController.m in Sources */,
 				5BEB926C1BB651A0003970B3 /* CommentViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
+				4CE2FFED1BC0C81100935C9F /* SelectGoodsWidget.m in Sources */,
 				4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */,
 				4C134C281BB8EC4200490AF5 /* ModifyAddressViewController.m in Sources */,
 				4C822F661BB135E500112533 /* AddressListViewController.m in Sources */,
@@ -1018,6 +1035,7 @@
 				5BEAC0D61BBA361100D9753C /* WarehouseDetailViewController.m in Sources */,
 				4CD14ACB1BBE9189009FFF0C /* InfoTableViewCell.m in Sources */,
 				98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */,
+				4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */,
 				4C6584201BBE2BC1005FEB16 /* FromToTableViewCell.m in Sources */,
 				4C3353ED1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m in Sources */,
 				4C6584141BBE295C005FEB16 /* GoodsBubbleView.m in Sources */,

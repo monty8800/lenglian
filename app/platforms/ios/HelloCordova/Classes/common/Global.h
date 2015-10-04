@@ -43,12 +43,20 @@
 //地图弹窗
 //我的货源列表
 #define MY_GOODS [SERVER stringByAppendingString: @"/mjGoodsResource/queryMjGoodsResourceList.shtml"]
+//我的车源列表
+#define MY_CARS [SERVER stringByAppendingString: @"/carFindGoods/listCarResources.shtml"]
+
 
 //订单
 //货找库
 #define ORDER_GOODS_SELECT_WAREHOUSE [SERVER stringByAppendingString: @"/mjOrderWarhouse/addGoodsFoundWarhouseOrder.shtml"]
 //货找车
 #define ORDER_GOODS_SELECT_CAR [SERVER stringByAppendingString: @"/goodFoundCarCtl/goodFoundCar.shtml"]
+
+//车找货
+#define ORDER_CAR_SELECT_GOODS [SERVER stringByAppendingString: @"/carFindGoods/orderTrade.shtml"]
+
+
 
 
 #define CLIENT_TYPE @"2"  //客户端类型

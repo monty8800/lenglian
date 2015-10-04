@@ -109,6 +109,20 @@
     
 }
 
+-(void)setIndex:(NSInteger)index {
+    UIButton *btn = (UIButton *)[self viewWithTag:100 + index];
+    if (btn == _selectTab) {
+        return;
+    }
+    _selectTab.selected = NO;
+    _selectTab = btn;
+    _selectTab.selected = YES;
+    CGFloat tabWidth = self.bounds.size.width / _tabs.count;
+    _linePosition.constant = ceilf(tabWidth * (btn.tag - 100));
+    [self layoutIfNeeded];
+    [self.delegate selectTab:index];
+}
+
 -(void) clickTab:(UIButton *) btn {
     if (btn != _selectTab) {
         _selectTab.selected = NO;
