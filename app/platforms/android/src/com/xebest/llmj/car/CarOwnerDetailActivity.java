@@ -1,9 +1,8 @@
-package com.xebest.llmj.center;
+package com.xebest.llmj.car;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,18 +14,14 @@ import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
-import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
- * Created by kaisun on 15/9/22.
+ * 车主详情
+ * Created by kaisun on 15/10/3.
  */
-public class LoginActivity extends BaseCordovaActivity implements CordovaInterface {
-
+public class CarOwnerDetailActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -39,21 +34,20 @@ public class LoginActivity extends BaseCordovaActivity implements CordovaInterfa
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, LoginActivity.class));
+        context.startActivity(new Intent(context, CarOwnerDetailActivity.class));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cwebview);
+        setContentView(R.layout.car_owner);
 
         initView();
-
     }
 
     protected void initView() {
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("登录");
+        tvTitle.setText("车主详情");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -67,38 +61,18 @@ public class LoginActivity extends BaseCordovaActivity implements CordovaInterfa
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("登录");
+        MobclickAgent.onPageStart("车主详情");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "login.html", this, this, this, this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "carOwnerDetail.html", this, this, this, this);
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("登录");
+        MobclickAgent.onPageEnd("车主详情");
         MobclickAgent.onPause(this);
-    }
-
-    @Override
-    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
-        super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        if (flag.equals("user:update")) {
-            String userInfo = args.getString(2);
-            JSONObject jsonObject = new JSONObject(userInfo);
-            // 存放userId
-            ((Application) getApplication()).setUserId(jsonObject.getString("id"));
-            SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
-            editor.putString("userId", jsonObject.getString("id"));
-            editor.commit();
-            finish();
-        } else if (flag.equals("register")) {
-            RegisterActivity.actionView(LoginActivity.this);
-        } else if (flag.equals("resetPasswd")) {
-            ResetPwdActivity.actionView(LoginActivity.this);
-        }
     }
 
     @Override
@@ -119,7 +93,7 @@ public class LoginActivity extends BaseCordovaActivity implements CordovaInterfa
     @Override
     public Object onMessage(String id, Object data) {
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
-        return null;
+        return super.onMessage(id, data);
     }
 
 }

@@ -188,24 +188,25 @@ public class UploadFile {
         finalParams.put("data", jsonStr);
         Log.i("info", "--------jsonStr-----" + jsonStr);
         String result = httpPost(api, finalParams);
-        return  result;
+        return result;
     }
 
     // post请求
     public static String httpPost(String urlStr, Map<String, String> params) {
         String result = null;
         HttpURLConnection connection = null;
+        DataOutputStream outputStream = null;
         try {
             URL url = new URL(urlStr);
             connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(5 * 1000);
+            connection.setConnectTimeout(10 * 1000);
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
 
             connection.setInstanceFollowRedirects(true);
             connection.setUseCaches(false);
             connection.connect();
-            DataOutputStream outputStream = new DataOutputStream(
+            outputStream = new DataOutputStream(
                     connection.getOutputStream());
             StringBuffer paramStr = new StringBuffer();
             for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -218,19 +219,25 @@ public class UploadFile {
 
             Log.d("post json string is", paramStr.toString());
             outputStream.write(paramStr.toString().getBytes());
-            outputStream.flush();
-            outputStream.close();
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 result = readStream(connection.getInputStream());
             } else {
                 Log.e("server err",
                         "response code " + connection.getResponseCode());
             }
-
+            outputStream.flush();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return result;

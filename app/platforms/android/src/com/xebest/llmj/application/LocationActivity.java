@@ -253,8 +253,6 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
             // 维度
             double lontitud = location.getLongitude();
 
-
-
             mLatitude = latitude;
 
             mLontitud = lontitud;
@@ -308,6 +306,14 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
 
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                         .location(ll));
+
+
+                // 重新设置地图中心点
+                MapStatus mMapStatus = new MapStatus.Builder().target(ll).zoom(14.0f).build();
+
+                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+
+                mBaiduMap.setMapStatus(mMapStatusUpdate);
 
             }
 

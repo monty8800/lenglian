@@ -67,4 +67,38 @@ public class Helper {
         return "未知";
     }
 
+    /**价格类型：，
+     * 价格类型
+     */
+    public static String getPriceType(String status) {
+        if (status == null) return "未知";
+        if (status.equals("1")) {
+            return "一口价";
+        } else if (status.equals("2")) {
+            return "竞价";
+        }
+        return "未知";
+    }
+
+    /**
+     * 货物类型 (1:常温、2:冷藏、3:冷冻、4:急冻、5:深冷)
+     * @param status
+     * @return
+     */
+    public static String getGoodsType(String status) {
+        if (status == null) return "未知";
+        if (status.equals("1")) {
+            return "常温";
+        } else if (status.equals("2")) {
+            return "冷藏";
+        } else if (status.equals("3")) {
+            return "冷冻";
+        } else if (status.equals("4")) {
+            return "急冻";
+        } else if (status.equals("5")) {
+            return "深冷";
+        }
+        return "未知";
+    }
+
 }

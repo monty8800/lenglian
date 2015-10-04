@@ -1,5 +1,7 @@
 package com.xebest.llmj.map;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.AsyncTask;
@@ -10,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,13 +29,24 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
+import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
+import com.xebest.llmj.adapter.CarAdapter;
+import com.xebest.llmj.adapter.StoreAdapter;
+import com.xebest.llmj.application.ApiUtils;
+import com.xebest.llmj.application.Application;
 import com.xebest.llmj.model.CarDetailInfo;
+import com.xebest.llmj.model.CarListInfo;
+import com.xebest.llmj.model.GoodsDetailInfo;
 import com.xebest.llmj.model.NearInfo;
 import com.xebest.llmj.model.StoreDetailInfo;
 import com.xebest.llmj.utils.Helper;
+import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
+import com.xebest.llmj.widget.XListView;
+import com.xebest.llmj.widget.XListView.IXListViewListener;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -42,7 +57,8 @@ import java.util.Map;
 /**
  * Created by kaisun on 15/9/21.
  */
-public class MapFragment extends Fragment implements View.OnClickListener, BaiduMap.OnMapLoadedCallback, BaiduMap.OnMapStatusChangeListener {
+public class MapFragment extends Fragment implements View.OnClickListener, BaiduMap.OnMapLoadedCallback,
+            BaiduMap.OnMapStatusChangeListener {
 
     private MapView mMapView;
     private BaiduMap baiduMap;
@@ -74,9 +90,27 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     private TextView storeTemperatureType;
     private TextView storePrice;
 
+    private Button goodsBtn;
+    private Button carBtn;
+    private Button storeBtn;
+
+    private Dialog mDialog;
+
+    private XListView mListView;
+    private CarAdapter carAdapter;
+    private StoreAdapter storeAdapter;
+
     private int status = 1;
 
+    private String carId = "";
+
+    private String storeId = "";
+
+    private String goodsId = "";
+
     private List<NearInfo> list = new ArrayList<NearInfo>();
+
+    private List<CarListInfo> carList = new ArrayList<CarListInfo>();
 
     // 附近的货源--要冷库
     private BitmapDescriptor goodsCold = BitmapDescriptorFactory
@@ -84,6 +118,14 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     // 附近的货源--不要冷库
     private BitmapDescriptor goods = BitmapDescriptorFactory
             .fromResource(R.drawable.near_goods);
+
+    private MainActivity mainActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mainActivity = (MainActivity) activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -127,6 +169,13 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         storeTemperatureType = (TextView) view.findViewById(R.id.store_temperature_type);
         storePrice = (TextView) view.findViewById(R.id.store_price);
 
+        goodsBtn = (Button) view.findViewById(R.id.select_goods);
+        carBtn = (Button) view.findViewById(R.id.select_driver);
+        storeBtn = (Button) view.findViewById(R.id.select_store);
+        goodsBtn.setOnClickListener(this);
+        carBtn.setOnClickListener(this);
+        storeBtn.setOnClickListener(this);
+
         return view;
     }
 
@@ -139,14 +188,15 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             @Override
             public boolean onMarkerClick(Marker marker) {
                 String title = marker.getTitle();
-                Log.i("info", "-----------title:" + title);
                 String id = list.get(Integer.parseInt(title)).getId();
-                Log.i("info", "-----------id:" + id);
                 if (status == 1) {
+                    goodsId = id;
                     goodsBottomView.setVisibility(View.VISIBLE);
                 } else if (status == 2) {
+                    carId = id;
                     carBottomView.setVisibility(View.VISIBLE);
                 } else if (status == 3) {
+                    storeId = id;
                     storeBottomView.setVisibility(View.VISIBLE);
                 }
                 new DetailTask().execute(id);
@@ -155,8 +205,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         });
 
     }
-
-
 
     @Override
     public void onResume() {
@@ -253,6 +301,14 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 break;
             case R.id.store_close:
                 storeBottomView.setVisibility(View.GONE);
+                break;
+            case R.id.select_goods: // 抢单
+                break;
+            case R.id.select_driver: // 选择司机
+                new SelectDriverTask().execute();
+                break;
+            case R.id.select_store: // 选择仓库
+                new SelectDriverTask().execute();
                 break;
         }
     }
@@ -382,11 +438,11 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         protected String doInBackground(String... params) {
             String url = "";
             if (status == 1) {
-                url = "http://192.168.26.177:7080/llmj-app/carFindGoods/list.shtml";
+                url = ApiUtils.SERVER + "/carFindGoods/list.shtml";
             } else if (status == 2) {
-                url = "http://192.168.26.177:7080/llmj-app/searchCarCtl/searchCar.shtml";
+                url = ApiUtils.SERVER + "/searchCarCtl/searchCar.shtml";
             } else if (status == 3) {
-                url = "http://192.168.26.177:7080/llmj-app/searchWarehouseCtl/searchWarehouse.shtml";
+                url = ApiUtils.SERVER + "/searchWarehouseCtl/searchWarehouse.shtml";
             }
             Map<String, String> map = new HashMap<String, String>();
             map.put("id", params[0]);
@@ -403,6 +459,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 String data = jsonObject.getString("data");
                 if (status == 2) { // 车
                     List<CarDetailInfo> list = JSON.parseArray(data, CarDetailInfo.class);
+                    if (list.size() == 0) return;
                     carDestination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() +
                             list.get(0).getToAreaName());
                     carStartPoint.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() +
@@ -410,12 +467,16 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     carDes.setText("车辆描述：" + list.get(0).getVehicle() + "米 " + Helper.getCarType(list.get(0).getCarType()));
                 } else if (status == 3) { // 库
                     List<StoreDetailInfo> list = JSON.parseArray(data, StoreDetailInfo.class);
+                    if (list.size() == 0) return;
                     storeAddress.setText("仓库地址：" + list.get(0).getProvinceName() + list.get(0).getCityName() +
                             list.get(0).getAreaName() + list.get(0).getName());
                     storeType.setText("仓库类型：" + Helper.getStoreType(list.get(0).getWareHouseType()));
                     storeTemperatureType.setText("库温类型：" + list.get(0).getCuvinType());
                     storePrice.setText("价格：" + list.get(0).getPrice());
                 } else if (status == 1) {// 货
+                    JSONObject jsonObject1 = new JSONObject(data);
+                    List<GoodsDetailInfo> list = JSON.parseArray(jsonObject1.getString("goods"), GoodsDetailInfo.class);
+                    if (list.size() == 0) return;
 
                 }
             } catch (Exception e) {
@@ -426,4 +487,195 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
 
     }
 
+    /**
+     * 查询货源列表--让该司机拉我的那批货
+     */
+    private class SelectDriverTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("userId", Application.getInstance().userId);
+            map.put("resourceStatus", "1");
+            map.put("pageNow", "1");
+            map.put("pageSize", "2");
+            return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("info", "------dsssss-------" + s);
+            if (s != null && s != "") {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String data = jsonObject.getString("data");
+                    String str = new JSONObject(data).getString("GoodsResource");
+                    List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
+                    carBottomView.setVisibility(View.GONE);
+                    goodsBottomView.setVisibility(View.GONE);
+                    storeBottomView.setVisibility(View.GONE);
+                    carList.addAll(list);
+                    showDialog(list);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 货源、车源、库源列表
+     */
+    public void showDialog(final List<CarListInfo> list) {
+        mDialog = Tools.getCustomDialog(getActivity(), R.layout.near_lv_dialog,
+        new Tools.BindEventView() {
+            @Override
+            public void bindEvent(final View view) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mListView = (XListView) view.findViewById(R.id.xlv);
+                        mListView.setPullRefreshEnable(false);
+//                        mListView.setXListViewListener((XListView.IXListViewListener) mainActivity);
+                        mListView.setXListViewListener(new IXListViewListener() {
+                            @Override
+                            public void onRefresh() {
+
+                            }
+
+                            @Override
+                            public void onLoadMore() {
+
+                            }
+                        });
+                        if (list.size() < 10) {
+                            mListView.setPullLoadEnable(false);
+                        } else {
+                            mListView.setPullLoadEnable(true);
+                        }
+                        if (status == 1) {
+                            // 货
+                        } else if (status == 2) {
+                            carAdapter = new CarAdapter(getActivity());
+                            mListView.setAdapter(carAdapter);
+                            // 车
+                            carAdapter.addData(list);
+                            carAdapter.notifyDataSetChanged();
+                        } else if (status == 3) {
+                            // 库
+                            storeAdapter = new StoreAdapter(getActivity());
+                            mListView.setAdapter(storeAdapter);
+                            storeAdapter.addData(list);
+                            storeAdapter.notifyDataSetChanged();
+                        }
+
+                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                String goodsId = carList.get(position - 1).getId();
+                                new CarFoundGoodsTask().execute(goodsId);
+                                carBottomView.setVisibility(View.GONE);
+                                storeBottomView.setVisibility(View.GONE);
+                                mDialog.dismiss();
+                            }
+                        });
+                    }
+                });
+
+            }
+        });
+    }
+
+    /**
+     * 车找货下单
+     */
+    public class CarFoundGoodsTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Tools.createLoadingDialog(getActivity(), "正在提交...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String url = "";
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("userId", Application.getInstance().userId);
+            if (status == 2) {
+                map.put("carResourceId", carId);
+                map.put("goodsResourceId", params[0]);
+                url = ApiUtils.car_found_goods;
+            } else if (status == 3) {
+                map.put("warehouseId", storeId);
+                map.put("orderGoodsId", params[0]);
+                url = ApiUtils.store_found_goods;
+            }
+
+            return UploadFile.postWithJsonString(url, new Gson().toJson(map));
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("info", "-------------result:" + s);
+            if (s != null && s != "") {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String code = jsonObject.getString("code");
+                    if (code.equals("0000")) {
+                        Tools.showSuccessToast(getActivity(), "下单成功");
+                    } else {
+                        Tools.showErrorToast(getActivity(), jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            Tools.dismissLoading();
+        }
+
+    }
+
+    /**
+     * 库找货下单
+     */
+    public class StoreFoundGoodsTash extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Tools.createLoadingDialog(getActivity(), "正在提交...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("userId", Application.getInstance().userId);
+            map.put("carResourceId", carId);
+            map.put("orderGoodsId", params[0]);
+            return UploadFile.postWithJsonString(ApiUtils.car_found_goods, new Gson().toJson(map));
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("info", "-------------result:" + s);
+            if (s != null && s != "") {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String code = jsonObject.getString("code");
+                    if (code.equals("0000")) {
+                        Tools.showSuccessToast(getActivity(), "下单成功");
+                    } else {
+                        Tools.showErrorToast(getActivity(), jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            Tools.dismissLoading();
+        }
+    }
 }
