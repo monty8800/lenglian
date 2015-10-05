@@ -3,16 +3,16 @@ should = require 'should'
 config = require './config'
 
 describe '库相关', ->
-	it '查询我的仓库', (done)->
-		params = {
-			userId:'5b3d93775a22449284aad35443c09fb6'
-			status:'1'
-			pageNow:1
-			pageSize:10
-		}
-		request.post config.api.GET_WAREHOUSE, params, (result)->
-			should.exists result
-			done()
+	# it '查询我的仓库', (done)->
+	# 	params = {
+	# 		userId:'5b3d93775a22449284aad35443c09fb6'
+	# 		status:'1'
+	# 		pageNow:1
+	# 		pageSize:10
+	# 	}
+	# 	request.post config.api.GET_WAREHOUSE, params, (result)->
+	# 		should.exists result
+	# 		done()
 
 
 	# it '删除我的仓库', (done)->
@@ -122,7 +122,18 @@ describe '库相关', ->
 	# 		done()
 
 
+	it '货找库 下单', (done)->
+		params = {
+			userId:'5b3d93775a22449284aad35443c09fb6'
+			warehouseId:'295dd8ab5f6442afae2542175efdba1e'
+			orderGoodsId:'d881b05483ef4f59b4e36290136d7204'
+		}
+		request.post config.api.GOODS_BIND_WAREHOUSE_ORDER, params, (result)->
+			should.exists result
+			done()
 
+
+			 
 
 
 

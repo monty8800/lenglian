@@ -7,68 +7,121 @@ React = require 'react/addons'
 headerImg = require 'user-01.jpg'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
+GoodsStore = require 'stores/goods/goods'
+GoodsAction = require 'actions/goods/goods'
+
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 
 Plugin = require 'util/plugin'
+
+Selection = require 'components/common/selection'
+SelectionStore = require 'stores/common/selection'
+
+selectionList = [
+	{
+		key: 'goodsType'
+		value: '货物类型 仓库'
+		options: [
+			{key: '1', value: '常温'}
+			{key: '2', value: '冷藏'}
+			{key: '3', value: '冷冻'}
+			{key: '4', value: '急冻'}
+			{key: '5', value: '深冷'}
+		]
+	}
+	{
+		key: 'needWarehouseType'
+		value: '需要仓库地'
+		options: [
+			{key: '1', value: '一口价'}
+			{key: '2', value: '竞价'}
+		]
+	}
+	{
+		key: 'releaseTime'
+		value: '发布时间'
+		options: [
+			{key: '1', value: '可开发票'}
+			{key: '2', value: '不可开发票'}
+		]
+	}
+	{
+		key: 'invoiceType'
+		value: '需要发票'
+		options: [
+			{key: '1', value: '可开发票'}
+			{key: '2', value: '不可开发票'}
+		]
+	}
+]
 
 SearchWarehouse = React.createClass {
 	getInitialState: ->
 		{
 			searchResult:[]
 			userGoodsSource:['1','2']
-			showTypeSelect:0
-			showTempreatureSelect:0
-			showInvoiceSelect:0
-			showGoodsListMenu:0
+			# showTypeSelect:0
+			# showTempreatureSelect:0
+			# showInvoiceSelect:0
+			# showGoodsListMenu:0
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
+		GoodsStore.addChangeListener @_onChange
 		WarehouseAction.searchWarehouse '0','10'
 		
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
+		GoodsStore.removeChangeListener @_onChange
 
 	_onChange: (mark)->
 		console.log "#!!!!!!!!!!  " + WarehouseStore.getWarehouseSearchResult()
 		if mark is "searchWarehouse"
-			@setState { 
-				searchResult:WarehouseStore.getWarehouseSearchResult()
-				showTypeSelect:0
-				showTempreatureSelect:0
-				showInvoiceSelect:0
-				showGoodsListMenu:0
-			}
+			newState = Object.create @state
+			newState.searchResult = WarehouseStore.getWarehouseSearchResult()
+			newState.showGoodsListMenu = 1
+			@setState newState
+		else if mark is "getUserGoodsListSucc"
 
-	typeChooseCkick: ->
-		newState = Object.create @state
-		if @state.showTypeSelect is 1 then newState.showTypeSelect = 0 else newState.showTypeSelect = 1
-		@setState newState
-		console.log @state.showTypeSelect + "__ \\\\\\\\\\"
+			newState = Object.create @state
+			newState.showGoodsListMenu = 1
+			newState.userGoodsSource = GoodsStore.getMyGoodsList()
+			@setState newState
 
-	tempreatureSelectCkick: ->
-		newState = Object.create @state
-		if @state.showTempreatureSelect is 1 then newState.showTempreatureSelect = 0 else newState.showTempreatureSelect = 1
-		@setState newState
-
-	invoiceSelectCkick:->
-		newState = Object.create @state
-		if @state.showInvoiceSelect is 1 then newState.showInvoiceSelect = 0 else newState.showInvoiceSelect = 1
-		@setState newState
-
-	sureButtonClick:->
-		WarehouseAction.searchWarehouse '0','10'
+		else if mark is 'goods_bind_warehouse_order_succ'
+			Plugin.toast.show 'bind success'
+		
 
 
-	selectWarehouse :(index) ->
+	# typeChooseCkick: ->
+	# 	newState = Object.create @state
+	# 	if @state.showTypeSelect is 1 then newState.showTypeSelect = 0 else newState.showTypeSelect = 1
+	# 	@setState newState
+	# 	console.log @state.showTypeSelect + "__ \\\\\\\\\\"
+
+	# tempreatureSelectCkick: ->
+	# 	newState = Object.create @state
+	# 	if @state.showTempreatureSelect is 1 then newState.showTempreatureSelect = 0 else newState.showTempreatureSelect = 1
+	# 	@setState newState
+
+	# invoiceSelectCkick:->
+	# 	newState = Object.create @state
+	# 	if @state.showInvoiceSelect is 1 then newState.showInvoiceSelect = 0 else newState.showInvoiceSelect = 1
+	# 	@setState newState
+
+
+	_selectWarehouse :(index) ->
 		# if @state.userGoodsSource.length < 1
 		# 	Plugin.toast.show '没有货源适合这个仓库'
 		# 	return
-		newState = Object.create @state
-		newState.showGoodsListMenu = 1
-		@setState newState
-	selectGoods :(index) ->
 
+		GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
+
+
+
+	_selectGoods :(index) ->
+		GoodsAction.bindWarehouseOrder '',''
 		newState = Object.create @state
 		newState.showGoodsListMenu = 0 
 		@setState newState
@@ -88,7 +141,7 @@ SearchWarehouse = React.createClass {
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
 						<div className="g-dirver-btn">
-							<a onClick={ @selectWarehouse.bind this,i} className="u-btn02">选择该仓库</a>
+							<a onClick={ @_selectWarehouse.bind this,i} className="u-btn02">选择该仓库</a>
 						</div>
 					</div>
 				</div>
@@ -115,7 +168,7 @@ SearchWarehouse = React.createClass {
 		, this
 
 		goodsLists = @state.userGoodsSource.map (aResult, i)->
-			<div className="u-content" onClick={@selectGoods.bind this,i}>
+			<div className="u-content" onClick={@_selectGoods.bind this,i}>
 				<div className="u-content-item ll-font">
 					<div className="u-address">
 						<div className="g-adr-start ll-font g-adr-start-line">
@@ -134,90 +187,10 @@ SearchWarehouse = React.createClass {
 		<div>
 			<div className="m-nav03">
 				<ul>
-					<li>
-						<div className={ if @state.showTypeSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @typeChooseCkick }>
-							<div dangerouslySetInnerHTML={{__html: "仓库类型"}}/>
-							<span>全部</span>
-						</div>
-						<div className="g-div02" style={ if @state.showTypeSelect is 1 then {display:'block'} else {display:'none'} }>
-							<div className="g-div02-item">
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "全部"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "3.8米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "4.2米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "4.8米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "5.8米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "6.2米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "6.8米"}}/></label>
-							</div>
-							<div className="g-div02-btn" onClick={ @sureButtonClick }>
-								<a className="u-btn u-btn-small">确定</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className={ if @state.showTempreatureSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @tempreatureSelectCkick }>
-							<div dangerouslySetInnerHTML={{__html: "库温类型"}}/>
-							<span>全部</span>
-						</div>
-						<div className="g-div02" style={ if @state.showTempreatureSelect is 1 then {display:'block'} else {display:'none'} }>
-							<div className="g-div02-item">
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "全部"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "-100"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "-50"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "-20"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "0"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "20"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "30"}}/></label>
-							</div>
-							<div className="g-div02-btn">
-								<a className="u-btn u-btn-small">确定</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className={ if @state.showInvoiceSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @invoiceSelectCkick }>
-							<div dangerouslySetInnerHTML={{__html: "需要发票"}}/>
-							<span>全部</span>
-						</div>
-						<div className="g-div02" style={ if @state.showInvoiceSelect is 1 then {display:'block'} else {display:'none'} }>
-							<div className="g-div02-item">
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "不需要"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "需要"}}/></label>
-							</div>
-						</div>
-					</li>
+					{
+						for s, i in selectionList
+							<Selection selectionMap=s  key={i} />
+					}
 				</ul>			
 			</div>
 			{ searchResultList }

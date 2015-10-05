@@ -31,8 +31,16 @@
 
 -(void) createUI {
     self.title = @"仓库找货";
+    UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
+    [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [addWarehouseButton setTitle:@"确定" forState:UIControlStateNormal];
+    [addWarehouseButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
 }
-
+-(void)sureToSearch{
+    
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;

@@ -37,6 +37,15 @@
 
 -(void) createUI {
     self.title = @"我要找车";
+    UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
+    [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [addWarehouseButton setTitle:@"确定" forState:UIControlStateNormal];
+    [addWarehouseButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
+}
+-(void)sureToSearch{
+    
 }
 
 -(void)commonCommand:(NSArray *)params {

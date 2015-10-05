@@ -115,7 +115,7 @@ getDetail = (warehouseId) ->
 		_warehouse = _warehouse.set 'warehouseProperty', tempArr	#仓库各种属性的数组 
 		
 		WarehouseStore.emitChange 'getDetailWithId'
-	,null,true
+
 
 searchWarehouse = (startNo,pageSize)->
 	console.log '搜索获取仓库  star+++tNo='+startNo+' pageSize='+pageSize
@@ -135,7 +135,7 @@ warehouseSearchGoods = (startNo,pageSize)->
 	},(data)->
 		_warehouseSearchGoodsResult = data.goods
 		WarehouseStore.emitChange 'warehouseSearchGoods'
-	,null,true
+
 
 postAddWarehouse = (params,fileUrl) ->
 	console.log '___...___',params

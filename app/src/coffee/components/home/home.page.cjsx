@@ -28,7 +28,7 @@ Home = React.createClass {
 		nrequest = [
 			{title: '我要找车', page: 'searchCar'},
 			{title: '我要找仓库', page: 'searchWarehouse'},
-			{title: '司机找货', page: 'dirverSearchWarehouse'},
+			{title: '司机找货', page: 'carSearchGoods'},
 			{title: '仓库找货', page: 'warehouseSearchGoods'}
 		]
 		# requests = ['我要找车', '我要找仓库', '司机找货', '仓库找货']

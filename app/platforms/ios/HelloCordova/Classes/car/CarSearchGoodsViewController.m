@@ -1,26 +1,27 @@
 //
-//  WalletViewController.m
+//  CarSearchGoodsViewController.m
 //  HelloCordova
 //
-//  Created by ywen on 15/9/22.
+//  Created by YYQ on 15/10/5.
 //
 //
 
-#import "WalletViewController.h"
-#import "BankCardsListViewController.h"
-@interface WalletViewController ()
+#import "CarSearchGoodsViewController.h"
+
+@interface CarSearchGoodsViewController ()
 
 @end
 
-@implementation WalletViewController
+@implementation CarSearchGoodsViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"wallet.html";
+        self.startPage = @"carFindGoods.html";
     }
     return self;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,17 +31,16 @@
 }
 
 -(void) createUI {
-    self.title = @"我的钱包";
+    self.title = @"司机找货";
     UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addWarehouseButton setFrame:CGRectMake(0, 0, 60, 44)];
+    [addWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
     [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
-    [addWarehouseButton setTitle:@"我的银行卡" forState:UIControlStateNormal];
-    [addWarehouseButton addTarget:self action:@selector(showMyCards) forControlEvents:UIControlEventTouchUpInside];
+    [addWarehouseButton setTitle:@"确定" forState:UIControlStateNormal];
+    [addWarehouseButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
 }
--(void)showMyCards{
-    BankCardsListViewController *bankCardListVC = [BankCardsListViewController new];
-    [self.navigationController pushViewController:bankCardListVC animated:YES];
+-(void)sureToSearch{
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

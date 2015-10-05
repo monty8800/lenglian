@@ -199,6 +199,18 @@ getGoodsDetail = (goodsId)->
 	,(data)->
 		console.log 'faile'
 
+bindWarehouseOrder: (warehouseId,goodsId)->
+	user = UserStore.getUser()
+	params = {
+		#TODO:
+		userId:user.id
+		warehouseId:warehouseId
+		orderGoodsId:goodsId
+	}
+	Http.post Constants.api.GOODS_BIND_WAREHOUSE_ORDER,params,(data)->
+		
+		GoodsStore.emitChange 'goods_bind_warehouse_order_succ'
+
 
 
 Dispatcher.register (action) ->
@@ -210,5 +222,6 @@ Dispatcher.register (action) ->
 		when Constants.actionType.CLEAR_GOODS then clearGoods()
 		when Constants.actionType.GET_GOODS_LIST then getUserGoodsList(action.pageNow,action.pageSize,action.status)
 		when Constants.actionType.GET_GOODS_DETAIL then getGoodsDetail(action.goodsId)
+		when Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER then bindWarehouseOrder(actionType.warehouseId,actionType.goodsId)
 
 module.exports = GoodsStore

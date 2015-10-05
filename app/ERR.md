@@ -1,2 +1,3 @@
 未定义的actiontype列表:
+GOOD_BIND_WAREHOUSE_ORDER\n
 WAREHOUE_ADD\n

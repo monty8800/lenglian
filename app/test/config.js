@@ -10,7 +10,7 @@
       data: {}
     },
     api: {
-      server: 'http://192.168.26.177:7080/llmj-app/',
+      server: 'http://192.168.29.204:8072/',
       LOGIN: '/loginCtl/userLogin.shtml',
       REGISTER: '/register/registerUser.shtml',
       SMS_CODE: '/register/sendMobileMsg.shtml',
@@ -43,6 +43,7 @@
       DRIVER_BIND_ORDER: '/carFindGoods/orderTrade.shtml',
       DRIVER_BID_FOR_GOODS: '/carFindGoods/orderBid.shtml',
       GET_ORDER_BID_LIST: '/carFindGoods/orderBidList.shtml',
+      GOODS_BIND_WAREHOUSE_ORDER: '/mjOrderWarhouse/addGoodsFoundWarhouseOrder.shtml',
       WAREHOUSE_SEARCH_GOODS: '/warehouseSearchGoods/warehouseSearchGoodsList.shtml',
       GET_GOODS_LIST: '/mjGoodsResource/queryMjGoodsResourceList.shtml',
       GET_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml',

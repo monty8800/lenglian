@@ -14,6 +14,7 @@
 #import "AddGoodsViewController.h"
 #import "ReleaseWarehouseViewController.h"
 #import "ReleaseCarViewController.h"
+#import "CarSearchGoodsViewController.h"
 @interface HomeViewController ()
 
 @end
@@ -66,9 +67,12 @@
             searchWarehouse.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:searchWarehouse animated:YES];
         }
-        else if ([params[1] isEqualToString:@"dirverSearchWarehouse"])
+        else if ([params[1] isEqualToString:@"carSearchGoods"])
         {
-            NSLog(@"司机找库");
+            NSLog(@"司机找货");
+            CarSearchGoodsViewController *carSearchGoodsVC = [CarSearchGoodsViewController new];
+            carSearchGoodsVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:carSearchGoodsVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"warehouseSearchGoods"])
         {

@@ -10,11 +10,51 @@ headerImg = require 'user-01.jpg'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
 
+Selection = require 'components/common/selection'
+SelectionStore = require 'stores/common/selection'
+
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 
 Plugin = require 'util/plugin'
 
+selectionList = [
+	{
+		key: 'goodsType'
+		value: '货物类型'
+		options: [
+			{key: '1', value: '常温'}
+			{key: '2', value: '冷藏'}
+			{key: '3', value: '冷冻'}
+			{key: '4', value: '急冻'}
+			{key: '5', value: '深冷'}
+		]
+	}
+	{
+		key: 'needWarehouseType'
+		value: '需要仓库地'
+		options: [
+			{key: '1', value: '一口价'}
+			{key: '2', value: '竞价'}
+		]
+	}
+	{
+		key: 'releaseTime'
+		value: '发布时间'
+		options: [
+			{key: '1', value: '可开发票'}
+			{key: '2', value: '不可开发票'}
+		]
+	}
+	{
+		key: 'invoiceType'
+		value: '需要发票'
+		options: [
+			{key: '1', value: '可开发票'}
+			{key: '2', value: '不可开发票'}
+		]
+	}
+]
 
 SearchResultList = React.createClass {
 
@@ -74,11 +114,13 @@ WarehouseSearchGoods = React.createClass {
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
+		SelectionStore.addChangeListener @_onChange
 		WarehouseAction.warehouseSearchGoods '0','10'
 
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
-
+		SelectionStore.removeChangeListener @_onChange
+		
 	_onChange: ->
 		@setState { 
 			searchResult:WarehouseStore.getWarehouseSearchGoodsResult()
@@ -113,106 +155,10 @@ WarehouseSearchGoods = React.createClass {
 		<div>
 			<div className="m-nav03">
 				<ul>
-					<li>
-						<div className={ if @state.showGoodsTypeSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @goodsTypeCkick }>
-							<div dangerouslySetInnerHTML={{__html: "货物类型"}}/>
-							<span>全部</span>
-						</div>
-						<div className="g-div02" style={ if @state.showGoodsTypeSelect is 1 then {display:'block'} else {display:'none'} }>
-							<div className="g-div02-item">
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "全部"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "3.8米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "4.2米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "4.8米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "5.8米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "6.2米"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "6.8米"}}/></label>
-							</div>
-							<div className="g-div02-btn">
-								<a className="u-btn u-btn-small">确定</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className={ if @state.showTargetLocationSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @targetLocationCkick }>
-							<div dangerouslySetInnerHTML={{__html: "需要仓库地"}}/>
-							<span>全部</span>
-						</div>
-						<div className="g-div02" style={ if @state.showTargetLocationSelect is 1 then {display:'block'} else {display:'none'} }>
-							<div className="g-div02-item">
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "全部"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "-100"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "-50"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "-20"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "0"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "20"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "30"}}/></label>
-							</div>
-							<div className="g-div02-btn">
-								<a className="u-btn u-btn-small">确定</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className={ if @state.showPostTimeSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @postTimeCkick }>
-							<div dangerouslySetInnerHTML={{__html: "发布时间"}}/>
-							<span>全部</span>
-						</div>
-						<div className="g-div02" style={ if @state.showPostTimeSelect is 1 then {display:'block'} else {display:'none'} }>
-							<div className="g-div02-item">
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "不需要"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "需要"}}/></label>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className={ if @state.showInvoiceSelect is 1 then "g-div01 ll-font u-arrow-right g-div01-act" else "g-div01 ll-font u-arrow-right" } onClick={ @invoiceCkick }>
-							<div dangerouslySetInnerHTML={{__html: "需要发票"}}/>
-							<span>全部</span>
-						</div>
-						<div className="g-div02" style={ if @state.showInvoiceSelect is 1 then {display:'block'} else {display:'none'} }>
-							<div className="g-div02-item">
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "不需要"}}/></label>
-								<label className="u-label">
-									<input className="ll-font" type="checkbox"/>
-									<div dangerouslySetInnerHTML={{__html: "需要"}}/></label>
-							</div>
-						</div>
-					</li>
+					{
+						for s, i in selectionList
+							<Selection selectionMap=s  key={i} />
+					}
 				</ul>			
 			</div>
 
