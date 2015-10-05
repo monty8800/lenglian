@@ -8,6 +8,7 @@
 
 #import "CarListViewController.h"
 #import "AddCarViewController.h"
+#import "CarDetailViewController.h"
 @interface CarListViewController ()
 
 @end
@@ -45,6 +46,12 @@
 }
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"carDetail"]) {
+            CarDetailViewController *carDetailVC = [CarDetailViewController new];
+            [self.navigationController pushViewController:carDetailVC animated:YES];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

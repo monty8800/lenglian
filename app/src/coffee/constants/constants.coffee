@@ -33,6 +33,8 @@ actionType = {
 	DRIVER_BIND_ORDER:null
 	DRIVER_BID_FOR_GOODS:null
 	GET_BID_ORDER_LIST:null
+	GET_GOODS_LIST:null
+	GET_GOODS_DETAIL:null
 
 	PERSONAL_AUTH: null
 	COMPANY_AUTH: null
@@ -184,7 +186,11 @@ api = {
 	#仓库找货(搜索)
 	WAREHOUSE_SEARCH_GOODS: '/warehouseSearchGoods/warehouseSearchGoodsList.shtml'
 
-
+#货
+	# 查询我的货源
+	GET_GOODS_LIST: '/mjGoodsResource/queryMjGoodsResourceList.shtml'
+	#查询货源详情
+	GET_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
 
 	# 关注列表
 	attention_list: '/userInfo/queryMjWishlstList.shtml'

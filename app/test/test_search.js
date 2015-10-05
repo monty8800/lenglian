@@ -8,24 +8,15 @@
   config = require('./config');
 
   describe('搜索相关', function() {
-    it('我要找库(搜索)', function(done) {
+    return it('查询我的货源', function(done) {
       var params;
       params = {
-        startNo: '0',
+        userId: '50819ab3c0954f828d0851da576cbc31',
+        resourceStatus: '',
+        pageNow: '1',
         pageSize: '10'
       };
-      return request.post(config.api.SEARCH_WAREHOUSE, params, function(result) {
-        should.exists(result);
-        return done();
-      });
-    });
-    return it('仓库找货(搜索)', function(done) {
-      var params;
-      params = {
-        startNo: '0',
-        pageSize: '10'
-      };
-      return request.post(config.api.WAREHOUSE_SEARCH_GOODS, params, function(result) {
+      return request.post(config.api.GET_GOODS_LIST, params, function(result) {
         should.exists(result);
         return done();
       });

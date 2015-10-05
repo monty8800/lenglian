@@ -8,14 +8,14 @@
   config = require('./config');
 
   describe('货主订单详情', function() {
-    return it('货主订单详情', function(done) {
+    return it('货源详情', function(done) {
       var params;
       params = {
-        userId: '7714d0d83c7f47f4bcfac62b9a1bf101',
-        orderNo: '1'
+        userId: '50819ab3c0954f828d0851da576cbc31',
+        id: '665a4a2a311547e5a4be6defeb67cbd4'
       };
-      console.log(config.api.goods_order_detail);
-      return request.post(config.api.goods_order_detail, params, function(result) {
+      return request.post(config.api.GET_GOODS_DETAIL, params, function(result) {
+        should.exists(result);
         return done();
       });
     });

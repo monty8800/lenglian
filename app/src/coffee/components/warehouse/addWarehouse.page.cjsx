@@ -51,19 +51,21 @@ AddWarehouse = React.createClass {
 			priceProperty:priceProperty
 			mainStreet:''
 			detailStreet:''
+			contactName:''
+			contactMobile:''
 			params:{
 				area:""						#区id
 				city:""						#市id
-				contacts:"YYQ"				#联系人
-				isinvoice:"1"				#1:要发票 2：不要发票
+				contacts:user.name				#联系人
+				isinvoice:""				#1:要发票 2：不要发票
 				latitude:""					#纬度
 				longitude:""				#经度,116.361905,39.948242 北站 
 				name:""						#仓库名称
-				phone:"15321620771"					#联系电话
+				phone:user.mobile			#联系电话
 				province:""					#省id
-				remark:"23456789"					#备注
+				remark:""					#备注
 				street:""					#详细地址
-				userId:user.id 			#'5b3d93775a22449284aad35443c09fb6'	#user.id
+				userId:user.id 				#'5b3d93775a22449284aad35443c09fb6'	#user.id
 				warehouseProperty:[]
 			}
 		}
@@ -96,7 +98,13 @@ AddWarehouse = React.createClass {
 			newState.mainStreet = mainStreet
 			newState.detailStreet = pa.street + mark.streetNumber
 			@setState newState
-
+		else if mark.mark is 'getContectForAddWarehouse'
+			newState = Object.create @state
+			newState.contactName = mark.contactName
+			newState.params.contacts = mark.contactName
+			newState.contactMobile = mark.contactMobile
+			newState.params.phone = mark.contactMobile
+			@setState newState
 		else if mark is "saveAddAWarehouse"
 			newState = Object.create @state
 			newState.params.warehouseProperty = []
@@ -178,6 +186,7 @@ AddWarehouse = React.createClass {
 		newState = Object.create @state
 		newState.params.name = e.target.value
 		@setState newState
+#选择位置 调用原生地图
 	selectAddress : ()->
 		Plugin.nav.push ['locationView']
 
@@ -216,11 +225,11 @@ AddWarehouse = React.createClass {
 # 发票
 	needInvoice : (e)->
 		newState = Object.create @state
-		newState.isinvoice = '1'
+		newState.params.isinvoice = '1'
 		@setState newState
 	unNeedInvoice : (e)->
 		newState = Object.create @state
-		newState.isinvoice = '2'
+		newState.params.isinvoice = '2'
 		@setState newState
 
 #增值服务
@@ -248,9 +257,6 @@ AddWarehouse = React.createClass {
 			newState.increaseServe3 = '0'
 		@setState newState
 		console.log "增值服务",@state.params.warehouseProperty
-
-	_takePhoto : ()->
-		Plugin.run [8,'addWarehouse']
 
 			
 # 仓库面积
@@ -295,6 +301,28 @@ AddWarehouse = React.createClass {
 		else
 			newState.temperatureChecked5 = '0'
 		@setState newState
+#图片 调用原生相机
+	_takePhoto : ()->
+		Plugin.run [8,'addWarehouse']
+#获取联系人 通讯录导入
+	selectContacts :()->
+		Plugin.run [4,'getContectForAddWarehouse']
+	
+	_contactNameChange :(e)->
+		newState = Object.create @state
+		newState.contactName = e.target.value
+		newState.params.contacts = e.target.value
+		@setState newState
+	_contactMobileChange :(e)->
+		newState = Object.create @state
+		newState.contactMobile = e.target.value
+		newState.params.phone = e.target.value
+		@setState newState
+#备注
+	markChange :(e)->
+		newState = Object.create @state
+		newState.params.remark = e.target.value
+		@setState newState
 
 	render : -> 
 		<div>
@@ -326,7 +354,7 @@ AddWarehouse = React.createClass {
 						<span>提供发票</span>
 						<div className="radio-box">
 							<label className="mr5">
-		                        <input onChange=@needInvoice className="mui-checkbox ll-font" name="xe-checkbox" type="radio"/>否
+		                        <input onChange=@needInvoice defaultChecked=true className="mui-checkbox ll-font" name="xe-checkbox" type="radio"/>否
 		                    </label>
 		                    <label className="mr5">
 		                        <input onChange=@unNeedInvoice className="mui-checkbox ll-font" name="xe-checkbox" type="radio"/>是
@@ -435,17 +463,20 @@ AddWarehouse = React.createClass {
 				</div>
 			</div>
 			<div className="m-releaseitem">
-				<div className="u-personIcon ll-font">
-					<span>联系人</span><span>{ user.name }</span>
+				<div className="ll-font">
+					<span>联系人</span>
+					<input className="input-weak" onChange={@_contactNameChange} type="text" value={@state.contactName} placeholder="请输入或点击图标导入" />
+					<em onClick={@selectContacts.bind this,'sender'} className="u-personIcon ll-font"></em>
 				</div>
 				<div>
-					<span>联系手机</span><span>{ user.mobile }</span>
+					<span>联系手机</span>
+					<input className="input-weak" onChange={@_contactMobileChange} type="tel" value={@state.contactMobile} placeholder="电话号码" />
 				</div>
 			</div>
 			<div className="m-releaseitem">
 				<div className="u-voice ll-font">
 					<label for="remark"><span>备注说明</span> </label>
-					<input type="text" className="input-weak" placeholder="请输入备注消息" id="remark"/>
+					<input type="text" onChange={ @markChange } className="input-weak" placeholder="请输入备注消息" id="remark"/>
 				</div>
 			</div>
 		</div>
@@ -453,7 +484,7 @@ AddWarehouse = React.createClass {
 
 React.render <AddWarehouse />,document.getElementById('content')
 
-
+# <span>{ user.name }</span> <span>{ user.mobile }</span>
 # <div className="u-pay-btn">
 # 	<div className="u-pay-btn">
 # 		<a href="#" className="btn">发布</a>

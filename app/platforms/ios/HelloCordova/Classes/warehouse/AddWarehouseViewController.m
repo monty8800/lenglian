@@ -10,8 +10,9 @@
 #import "MyWarehouseViewController.h"
 #import "Net.h"
 #import "LocationViewController.h"
+#import "ContactsViewController.h"
 
-@interface AddWarehouseViewController ()<LocationDelegate>
+@interface AddWarehouseViewController ()<LocationDelegate,SelectContactDelegate>
 
 @end
 
@@ -72,7 +73,6 @@
             DDLogDebug(@"新增仓库 结果 %@", responseDic);
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
                 [[Global sharedInstance] showSuccess:@"上传成功！"];
-//                [[NSNotificationCenter defaultCenter]postNotificationName:@"tryReloadWarehousList" object:nil];
                 [self.commandDelegate evalJs:@"(function(){window.addWarehouseSucc()})()"];
                 [self.navigationController popViewControllerAnimated:YES];
             }
@@ -82,9 +82,21 @@
             }
         }];
     }
-
+    else if ([params[0] integerValue] == 4)
+    {
+        ContactsViewController *contactsVC = [ContactsViewController new];
+        contactsVC.type = params[1];
+        contactsVC.delegate = self;
+        [self.navigationController pushViewController:contactsVC animated:YES];
+    }
 }
 
+-(void)select:(NSDictionary *)contact type:(NSString *)type {
+    NSString *name = [contact objectForKey:@"name"];
+    NSString *mobile = [contact objectForKey:@"mobile"];
+    NSString *js = [NSString stringWithFormat:@"(function(){window.updateContact('%@','%@','%@')})()", name, mobile, type];
+    [self.commandDelegate evalJs:js]; 
+}
 -(void)selectImage:(NSString *)imagePath type:(NSString *)type{
     NSString *js = [NSString stringWithFormat:@"(function(){window.showAddWarehouseImage('%@', '%@')})()", imagePath, type];
     DDLogDebug(@"image path %@, type: %@, js: %@", imagePath, type, js);

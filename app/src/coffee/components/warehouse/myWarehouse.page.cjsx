@@ -19,13 +19,11 @@ showType = '1' 		# 1-空闲中  2-已发布 3-使用中
 
 WarehouseItem = React.createClass {
 	goToDetail: (index)->
-		console.log '######## $$$$$$ ' ,index
 		DB.put 'transData', @props.list[index].id
 		Plugin.nav.push ['warehouseDetail']
 
 	render: ->
 		list = @props.list
-		console.log list + '++***&&&++'
 		items = list.map (aWarehouse,i) ->
 			<div className="m-store" onClick={ @goToDetail.bind this, i }>
 				<div>
@@ -49,32 +47,14 @@ WarehouseItem = React.createClass {
 WarehouseList = React.createClass {
 	mixins : [PureRenderMixin]
 
-	showNormalWarehouse: ->
-		if @state.showType is '1'
+	_topTypeClick : (index)->
+		if index is @state.showType
 			return
 		newState = Object.create @state
-		newState.showType = '1'
+		newState.showType = index
 		newState.warehouseList = []
 		@setState newState
-		WarehouseAction.getWarehouseList '1','1','10'
-
-	showSendingWarehouse: ->
-		if @state.showType is '2'
-			return
-		newState = Object.create @state
-		newState.showType = '2'
-		newState.warehouseList = []
-		@setState newState
-		WarehouseAction.getWarehouseList '2','1','10'
-
-	showUsingWarehouse: ->
-		if @state.showType is '3'
-			return
-		newState = Object.create @state
-		newState.showType = '3'
-		newState.warehouseList = []
-		@setState newState
-		WarehouseAction.getWarehouseList '3','1','10'
+		WarehouseAction.getWarehouseList index,'1','10'
 
 	getInitialState: ->
 		{
@@ -99,17 +79,17 @@ WarehouseList = React.createClass {
 		<div>
 			<div className="m-tab01">
 				<ul>
-					<li onClick={ @showNormalWarehouse }>
+					<li onClick={ @_topTypeClick.bind this,'1' }>
 						<span className={ if @state.showType == '1' then "active" else "" }>
 							空闲中
 						</span>
 					</li>
-					<li onClick={ @showSendingWarehouse }>
+					<li onClick={ @_topTypeClick.bind this,'2' }>
 						<span className={ if @state.showType == '2' then "active" else "" }>
 							已发布
 						</span>
 					</li>
-					<li onClick={ @showUsingWarehouse }>
+					<li onClick={ @_topTypeClick.bind this,'3' }>
 						<span className={ if @state.showType == '3' then "active" else "" }>
 							使用中
 					</span>

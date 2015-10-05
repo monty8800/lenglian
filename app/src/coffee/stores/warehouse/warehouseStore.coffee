@@ -192,6 +192,17 @@ deleteWarehouseRequest = (warehouseId)->
 		Plugin.err.show data.msg
 		console.log '仓库删除失败'
 	,true
+
+window.updateContact = (contactName,contactMobile,type)->
+	mark = {
+		mark:'getContectForAddWarehouse'
+		contactName:contactName
+		contactMobile:contactMobile
+		type:type 
+	}
+	WarehouseStore.emitChange mark
+
+
 releaseWarehouse = (warehouseId)->
 	user = UserStore.getUser()
 	Http.post Constants.api.RELEASE_WAREHOUSE, {

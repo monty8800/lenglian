@@ -8,6 +8,7 @@
 
 #import "ReleaseWarehouseViewController.h"
 #import "WarehouseDetailViewController.h"
+#import "AddWarehouseViewController.h"
 @interface ReleaseWarehouseViewController ()
 
 @end
@@ -30,6 +31,17 @@
 }
 -(void)createUI{
     self.title = @"发布库源";
+    
+    UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addWarehouseButton setFrame:CGRectMake(0, 0, 80, 44)];
+    [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [addWarehouseButton setTitle:@"新增仓库" forState:UIControlStateNormal];
+    [addWarehouseButton addTarget:self action:@selector(addWarehouse) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
+}
+-(void)addWarehouse{
+    AddWarehouseViewController *addWarehouseVC = [AddWarehouseViewController new];
+    [self.navigationController pushViewController:addWarehouseVC animated:YES];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

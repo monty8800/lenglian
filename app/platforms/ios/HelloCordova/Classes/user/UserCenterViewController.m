@@ -15,6 +15,7 @@
 #import "FollowListViewController.h"
 #import "MyWarehouseViewController.h"
 #import "CommentViewController.h"
+#import "MyGoodsListViewController.h"
 
 @interface UserCenterViewController ()
 
@@ -103,6 +104,12 @@
             CommentViewController *commentVC = [CommentViewController new];
             commentVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:commentVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"myGoods"])
+        {
+            MyGoodsListViewController *myGoodsVC = [MyGoodsListViewController new];
+            myGoodsVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:myGoodsVC animated:YES];
         }
     }
 }

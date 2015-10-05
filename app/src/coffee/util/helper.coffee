@@ -21,43 +21,58 @@ carCategory = (status) ->
 		else '未知'	
 
 payType = (type) ->
-	switch type
-		when '1' then '货到付款（线下）'
-		when '2' then '回单付款（线下）'
-		when '3' then '预付款（线上）'
+	switch parseInt(type)
+		when 1 then '货到付款（线下）'
+		when 2 then '回单付款（线下）'
+		when 3 then '预付款（线上）'
 
 priceType = (type) ->
-	switch type
-		when '1' then '一口价'
-		when '2' then '竞价'
-
-warehouseStatus = (status) ->
-	switch status
-		when '1' 
-			'空闲中'
-		when '2' 
-			'已发布'
-		when '3' 
-		 	'使用中'
+	switch parseInt(type)
+		when 1 then '一口价'
+		when 2 then '竞价'
 		
 invoiceStatus = (status) ->
-	switch status
-		when '1'
+	switch parseInt(status)
+		when 1
 			'可以开发票'
-		when '2'
+		when 2
 			'不可以开发票'
 
 authStatus = (status)->
-	switch status
+	switch parseInt(status)
 		when 1 then '已认证'
 		when 2 then '认证中'
 		else '未认证'
 
-navigationStatus = (status)->
-	switch status
+carStatus = (status)->
+	switch parseInt(status)
 		when 1 then '空闲中'
-		when 2 then '求货种'
+		when 2 then '求货中'
 		when 3 then '运输中'
+warehouseStatus = (status) ->
+	switch parseInt(status)
+		when 1
+			'空闲中'
+		when 2 
+			'已发布'
+		when 3 
+		 	'使用中'
+
+goodsStatus = (status)->
+	switch parseInt(status)
+		when 0
+			'全部'
+		when 1
+			'求车中'
+		when 2
+			'求库中'
+		when 3
+			'有人响应'
+		when 4
+			'已成交'
+		when 5
+			'待评价'
+
 
 goodsType = (type)->
 	switch parseInt(type)
@@ -74,18 +89,30 @@ warehouseType = (type)->
 		when 2 then '横梁式'
 		when 3 then '平推式'
 		when 4 then '自动立体货架式'
-					
+
+#TODO:			
+packType = (type) ->
+	switch parseInt(type)
+		when 1 then '硬纸壳'		
+
+subStr = (start,length,str)->
+	if str.length > length
+		str.substring start,length
+	else
+		str
 	
 
 module.exports = 
-	carTypeMapper: carType # 车辆类型
-	carCategoryMapper: carCategory # 车辆类别
-	warehouseStatus: warehouseStatus #仓库状态
-	invoiceStatus: invoiceStatus #支持不支持开发票
-	authStatus: authStatus
-	payTypeMapper: payType # 支付方式字典映射
-	priceTypeMapper: priceType # 价格类型字典映射
-	navStatus: navigationStatus
-	goodsType: goodsType #货物类型
-	warehouseType:warehouseType #仓库类型
-	
+	carTypeMapper: carType 				# 车辆类型
+	carCategoryMapper: carCategory 		# 车辆类别
+	warehouseStatus: warehouseStatus 	#仓库状态
+	navStatus: carStatus				#车辆状态
+	goodsStatus:goodsStatus				#货源状态
+	invoiceStatus: invoiceStatus 		#支持不支持开发票
+	authStatus: authStatus				#认证状态
+	payTypeMapper: payType 				# 支付方式字典映射
+	priceTypeMapper: priceType 			# 价格类型字典映射
+	goodsType: goodsType 				#货物类型
+	warehouseType:warehouseType 		#仓库类型
+	packType:packType 					#货物打包类型
+	subStr:subStr

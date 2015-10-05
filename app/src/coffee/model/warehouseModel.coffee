@@ -3,7 +3,7 @@ Immutable = require 'immutable'
 Warehouse = Immutable.Record {
 	id:null 			#仓库ID
 	name:null 			#仓库名称
-	address:null 		#仓库名称
+	address:null 		#仓库完整地址
 	provinceName:null 	#地址 省
 	provinceId:null		#省 ID
 	cityName:null 		#地址 市

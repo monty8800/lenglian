@@ -63,6 +63,7 @@
     xePlugin.toast = [Global sharedInstance];
     
     self.webView.backgroundColor = [UIColor WY_ColorWithHex:0xf2f5f5];
+    self.webView.opaque = NO;
     
     //导航栏标题
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 44)];

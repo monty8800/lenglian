@@ -12,13 +12,69 @@ DB = require 'util/storage'
 
 Plugin = require 'util/plugin'
 
-SearchResultList = React.createClass {
+SearchWarehouse = React.createClass {
+	getInitialState: ->
+		{
+			searchResult:[]
+			userGoodsSource:['1','2']
+			showTypeSelect:0
+			showTempreatureSelect:0
+			showInvoiceSelect:0
+			showGoodsListMenu:0
+		}
+	componentDidMount: ->
+		WarehouseStore.addChangeListener @_onChange
+		WarehouseAction.searchWarehouse '0','10'
+		
+	componentWillUnmount: ->
+		WarehouseStore.removeChangeListener @_onChange
+
+	_onChange: (mark)->
+		console.log "#!!!!!!!!!!  " + WarehouseStore.getWarehouseSearchResult()
+		if mark is "searchWarehouse"
+			@setState { 
+				searchResult:WarehouseStore.getWarehouseSearchResult()
+				showTypeSelect:0
+				showTempreatureSelect:0
+				showInvoiceSelect:0
+				showGoodsListMenu:0
+			}
+
+	typeChooseCkick: ->
+		newState = Object.create @state
+		if @state.showTypeSelect is 1 then newState.showTypeSelect = 0 else newState.showTypeSelect = 1
+		@setState newState
+		console.log @state.showTypeSelect + "__ \\\\\\\\\\"
+
+	tempreatureSelectCkick: ->
+		newState = Object.create @state
+		if @state.showTempreatureSelect is 1 then newState.showTempreatureSelect = 0 else newState.showTempreatureSelect = 1
+		@setState newState
+
+	invoiceSelectCkick:->
+		newState = Object.create @state
+		if @state.showInvoiceSelect is 1 then newState.showInvoiceSelect = 0 else newState.showInvoiceSelect = 1
+		@setState newState
+
+	sureButtonClick:->
+		WarehouseAction.searchWarehouse '0','10'
+
+
 	selectWarehouse :(index) ->
+		# if @state.userGoodsSource.length < 1
+		# 	Plugin.toast.show '没有货源适合这个仓库'
+		# 	return
+		newState = Object.create @state
+		newState.showGoodsListMenu = 1
+		@setState newState
+	selectGoods :(index) ->
+
+		newState = Object.create @state
+		newState.showGoodsListMenu = 0 
+		@setState newState
 
 	render: ->
-		resultList = @props.list
-		console.log resultList + '++()++'
-		items = resultList.map (aResult,i) ->
+		searchResultList = @state.searchResult.map (aResult, i)->
 			<div className="m-item01 m-item03">
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
@@ -56,89 +112,24 @@ SearchResultList = React.createClass {
 					<p>仓库价格 : <span>{ aResult.price }</span></p>
 				</div>
 			</div>
-		,this
-		<div>
-			{ items }
-			<div className="u-pop-box">
-				<div className="u-content">
-					<div className="u-content-item ll-font">
-						<div className="u-address">
-							<div className="g-adr-start ll-font g-adr-start-line">
-								黑龙江鹤岗市向阳区
-							</div>
-							<div className="g-adr-end ll-font g-adr-end-line">
-								山西太原市矿区
-							</div>
+		, this
+
+		goodsLists = @state.userGoodsSource.map (aResult, i)->
+			<div className="u-content" onClick={@selectGoods.bind this,i}>
+				<div className="u-content-item ll-font">
+					<div className="u-address">
+						<div className="g-adr-start ll-font g-adr-start-line">
+							黑龙江鹤岗市向阳区
 						</div>
-						<p>价格类型:一口价 4000元</p>
-						<p>货物描述:小鲜肉 1吨 冷鲜肉</p>
-					</div>
-					<div className="u-content-item ll-font">
-						<div className="u-address">
-							<div className="g-adr-start ll-font g-adr-start-line">
-								黑龙江鹤岗市向阳区
-							</div>
-							<div className="g-adr-end ll-font g-adr-end-line">
-								山西太原市矿区
-							</div>
+						<div className="g-adr-end ll-font g-adr-end-line">
+							山西太原市矿区123456
 						</div>
-						<p>价格类型:一口价 4000元</p>
-						<p>货物描述:小鲜肉 1吨 冷鲜肉</p>
 					</div>
+					<p>价格类型:一口价 4000元</p>
+					<p>货物描述:小鲜肉 1吨 冷鲜肉</p>
 				</div>
 			</div>
-			<div className="u-mask-grid"></div>	
-		</div>
-}
-
-SearchWarehouse = React.createClass {
-	getInitialState: ->
-		{
-			searchResult:[]
-			showTypeSelect:0
-			showTempreatureSelect:0
-			showInvoiceSelect:0
-		}
-	componentDidMount: ->
-		WarehouseStore.addChangeListener @_onChange
-		WarehouseAction.searchWarehouse '0','10'
-		
-	componentWillUnmount: ->
-		WarehouseStore.removeChangeListener @_onChange
-
-	_onChange: ->
-		console.log "#!!!!!!!!!!  " + WarehouseStore.getWarehouseSearchResult()
-		@setState { 
-			searchResult:WarehouseStore.getWarehouseSearchResult()
-			showTypeSelect:0
-			showTempreatureSelect:0
-			showInvoiceSelect:0
-		}
-
-	typeChooseCkick: ->
-		newState = Object.create @state
-		if @state.showTypeSelect is 1 then newState.showTypeSelect = 0 else newState.showTypeSelect = 1
-		@setState newState
-		console.log @state.showTypeSelect + "__ \\\\\\\\\\"
-
-	tempreatureSelectCkick: ->
-		newState = Object.create @state
-		if @state.showTempreatureSelect is 1 then newState.showTempreatureSelect = 0 else newState.showTempreatureSelect = 1
-		@setState newState
-
-	invoiceSelectCkick:->
-		newState = Object.create @state
-		if @state.showInvoiceSelect is 1 then newState.showInvoiceSelect = 0 else newState.showInvoiceSelect = 1
-		@setState newState
-
-	sureButtonClick:->
-		WarehouseAction.searchWarehouse '0','10'
-
-
-	render: ->
-		# items = @state.searchResult.map (item, i)->
-		# 	<SearchResultList list={item} />
-		# , this
+		,this
 
 		<div>
 			<div className="m-nav03">
@@ -229,25 +220,15 @@ SearchWarehouse = React.createClass {
 					</li>
 				</ul>			
 			</div>
+			{ searchResultList }
+			<div className={ if @state.showGoodsListMenu is 1 then "u-pop-box u-show" else "u-pop-box" }>
+				{ goodsLists }
+			</div>
+			<div className={ if @state.showGoodsListMenu is 1 then "u-mask-grid show" else "u-mask-grid" }></div>
 
-			<SearchResultList list={ @state.searchResult } />
 		</div>
 }
 
 React.render <SearchWarehouse />, document.getElementById('content')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

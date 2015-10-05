@@ -95,9 +95,12 @@ module.exports = {
 		#获取某货源的竞价列表
 		GET_ORDER_BID_LIST: '/carFindGoods/orderBidList.shtml'
 		
-		#仓库找货(搜索)
+#仓库找货(搜索)
 		WAREHOUSE_SEARCH_GOODS: '/warehouseSearchGoods/warehouseSearchGoodsList.shtml'
-
+		# 获取货源列表
+		GET_GOODS_LIST:'/mjGoodsResource/queryMjGoodsResourceList.shtml'
+		#查询我的货源详情
+		GET_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
 
 		# 关注列表
 		attention_list: '/userInfo/queryMjWishlstList.shtml'

@@ -23,6 +23,18 @@ GoodsAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CLEAR_GOODS
 		}
+	getGoodsList: (pageNow,pageSize,status)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.GET_GOODS_LIST
+			pageNow:pageNow
+			pageSize:pageSize
+			status:status
+		}
+	getGoodsDetail :(goodsId) ->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.GET_GOODS_DETAIL
+			goodsId:goodsId
+		}
 }
 
 module.exports = GoodsAction
