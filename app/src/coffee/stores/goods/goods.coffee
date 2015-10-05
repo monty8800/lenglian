@@ -19,6 +19,8 @@ _goods = new Goods localGoods
 _goodsDetail = new Goods
 _myGoodsList = []
 
+_goodsList = Immutable.List()
+
 _from = new Address DB.get('from')
 _to = new Address DB.get('to')
 _passBy = Immutable.Map DB.get('passBy')
@@ -35,10 +37,16 @@ GoodsStore = assign BaseStore, {
 		_to
 	getPassBy: ->
 		_passBy
+
 	getMyGoodsList: ->
 		_myGoodsList
 	getGoodsDetail:->
 		_goodsDetail
+
+
+	getGoodsList: ->
+		_goodsList
+
 }
 
 window.setGoodsPic = (picUrl)->
@@ -117,6 +125,7 @@ addPassBy = ->
 
 addGoods = (params, files)->
 	Http.postFile Constants.api.ADD_GOODS, params, files
+
 
 getUserGoodsList = (pageNow,pageSize,status)->
 	user = UserStore.getUser()
@@ -213,6 +222,54 @@ bindWarehouseOrder: (warehouseId,goodsId)->
 
 
 
+searchGoods = (params)->
+	Http.post Constants.api.DRIVER_FIND_GOODS, params, (data)->
+		console.log 'search goods result', data
+		_goodsList = Immutable.List() if params.startNo is 0
+		_goods.merge data.goods
+		GoodsStore.emitChange 'search:goods:done'
+		# for goods in data.goods
+		# 	newGoods = new Goods {
+		# 		id: goods.id #货源id
+		# 		name: goods.name #货物名称
+		# 		type: null #货物类型 1常温，2冷藏，3冷冻，4急冻， 5深冷
+		# 		weight: '' #货物重量
+		# 		cube: ''   #货物体积
+		# 		packType: ''  #包装类型
+		# 		photo: null  #货物图片
+		# 		installMinTime: null #最早装车时间
+		# 		installMaxTime: null  #最晚装车时间
+		# 		arriveMinTime: null  #最早到货时间
+		# 		arriveMaxTime: null #最迟到货时间
+		# 		refrigeration: 1 #需要冷库 1不需要，2需要，3目的地需要，4起始地需要
+		# 		priceType: 1 #价格类型 1一口价， 2竞价
+		# 		price: null
+		# 		payType: 1 #支付方式 1货到付款， 2回单付款， 3预付款
+		# 		prePay: null #预付款
+		# 		invoice: 1 #是否需要发票 1需要 2不需要
+
+		# 		sender: null #发货人
+		# 		senderMobile: null #发货人电话
+		# 		reciver: null #收货人
+		# 		reciverMobile: null #收货人电话
+
+		# 		remark: null #备注
+
+		# 		#搜索返回的冗余字段
+		# 		canBid: 1 #是否可以竞价 1可以 2不可以
+		# 		certification: 0 #认证类型 0 未认证 1个人 2公司
+		# 		userAvatar: null #用户头像
+		# 		userId: null #用户id
+		# 		userName: null #用户姓名
+		# 		userScore: 0 #用户积分
+		# 	}
+changeWidget = (show)->
+	GoodsStore.emitChange {
+		msg: 'change:widget:status'
+		show: show
+	}
+
+
 Dispatcher.register (action) ->
 	switch action.actionType
 		when Constants.actionType.UPDATE_STORE then updateStore()
@@ -220,8 +277,13 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ADD_GOODS then addGoods(action.params, action.files)
 		when Constants.actionType.CLEAR_GOODS_PIC then clearPic()
 		when Constants.actionType.CLEAR_GOODS then clearGoods()
+
 		when Constants.actionType.GET_GOODS_LIST then getUserGoodsList(action.pageNow,action.pageSize,action.status)
 		when Constants.actionType.GET_GOODS_DETAIL then getGoodsDetail(action.goodsId)
 		when Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER then bindWarehouseOrder(actionType.warehouseId,actionType.goodsId)
+
+		when Constants.actionType.SEARCH_GOODS then searchGoods(action.params)
+		when Constants.actionType.CHANGE_WIDGET_STATUS then changeWidget(action.show)
+
 
 module.exports = GoodsStore

@@ -23,6 +23,7 @@ GoodsAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CLEAR_GOODS
 		}
+
 	getGoodsList: (pageNow,pageSize,status)->
 		Dispatcher.dispatch {
 			actionType:Constants.actionType.GET_GOODS_LIST
@@ -40,6 +41,19 @@ GoodsAction = {
 			actionType:Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER
 			warehouseId:warehouseId
 			goodsId:goodsId
+		}
+
+	searchGoods: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.SEARCH_GOODS
+			params: params
+		}
+
+	changeWidgetStatus: (show)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CHANGE_WIDGET_STATUS
+			show: show
+
 		}
 }
 

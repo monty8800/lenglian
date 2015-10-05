@@ -37,6 +37,8 @@ _carHeaListAll = ['2', '3', '4', '5', '6', '8', '10', '12', '15', '18', '20', '2
 
 _isInvoice = ''
 
+_orderSelectCarList = Immutable.List()
+
 # 更新联系人
 window.updateContact = (contact, phone)->
 	console.log '------updateContact-', phone
@@ -370,6 +372,12 @@ _attentionDetail = (params)->
 _updateInvStatus = (params)->
 	_isInvoice = params
 
+orderSelectCarList = (params)->
+	Http.post Constants.api.GET_CARS_FOR_BIND_ORDER, params, (data)->
+		console.log 'car list', data
+		_orderSelectCarList = Immutable.List data
+		CarStore.emitChange 'order:select:car:list:done'
+
 
 CarStore = assign BaseStore, {
 	getCar: ->
@@ -383,6 +391,9 @@ CarStore = assign BaseStore, {
 
 	getFreeCar: ->
 		_freeCarList
+
+	getOrderSelectCarList: ->
+		_orderSelectCarList
 }
 
 Dispatcher.register (action)->
@@ -412,6 +423,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.CAR_OWNER_DETAIL then _carOwnerDetail(action.userId,action.carId)
 		when Constants.actionType.ATTENTION_DETAIL then _attentionDetail(action.params)
 		when Constants.actionType.UPDATE_INV_STATUS then _updateInvStatus(action.params)
+		when Constants.actionType.ORDER_SELECT_CAR_LIST then orderSelectCarList(action.params)
 
 module.exports = CarStore
 

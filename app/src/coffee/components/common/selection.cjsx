@@ -22,6 +22,7 @@ Selection = React.createClass {
 		else
 			#取前4个显示
 			newState.text = (option.value for option in @props.selectionMap.options when option.key in newState.checkedList[0..3]).join ','
+		newState.text = '全部' if newState.text?.length < 1
 		@setState newState
 		SelectionAction.updateSelection @props.selectionMap.key, newState.checkedList
 
@@ -59,7 +60,7 @@ Selection = React.createClass {
 	render: ->
 		console.log 'option', @props.selectionMap
 		options = @props.selectionMap.options.map (option, i)->
-			<label className="u-label"><input checked={option.key in @state.checkedList} onChange={@_handleChange.bind this, option} className="ll-font" type="checkbox" /><div>{option.value}</div></label>
+			<label className="u-label" key={i}><input checked={option.key in @state.checkedList} onChange={@_handleChange.bind this, option} className="ll-font" type="checkbox" /><div>{option.value}</div></label>
 		, this
 		cls = "g-div01 ll-font u-arrow-right"
 		<li>

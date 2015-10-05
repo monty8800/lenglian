@@ -51,7 +51,20 @@ Goods = Immutable.Record {
 	mjGoodsRoutes:[]			#途经地
 	remark: null 				#备注
 
+
 	cube: ''   				#货物体积
+
+	remark: null #备注
+
+	#搜索返回的冗余字段
+	canBid: 1 #是否可以竞价 1可以 2不可以
+	certification: 0 #认证类型 0 未认证 1个人 2公司
+	userAvatar: null #用户头像
+	userId: null #用户id
+	userName: null #用户姓名
+	userScore: 0 #用户积分
+
+
 }
 
 module.exports = Goods

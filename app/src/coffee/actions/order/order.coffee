@@ -20,6 +20,24 @@ OrderAction = {
 			orderId: orderid
 		}
 
+	carSelectGoods: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_CAR_SELECT_GOODS
+			params: params
+		}
+
+	goBidGoods: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.GO_BID_GOODS
+			params: params
+		}
+
+	carBidGoods: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_CAR_BID_GOODS
+			params: params
+		}
+
 }
 
 module.exports = OrderAction

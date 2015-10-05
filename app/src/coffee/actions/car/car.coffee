@@ -147,8 +147,13 @@ CarAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.UPDATE_INV_STATUS
 			params: params
-		}		
+		}
 
+	orderSelectCarList: (params)->	
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_SELECT_CAR_LIST
+			params: params
+		}
 }
 
 module.exports = CarAction

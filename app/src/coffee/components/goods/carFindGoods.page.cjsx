@@ -24,6 +24,12 @@ UserStore = require 'stores/user/user'
 Selection = require 'components/common/selection'
 SelectionStore = require 'stores/common/selection'
 
+CarFindGoodsCell = require 'components/goods/carFindGoodsCell'
+
+CarListWidget = require 'components/goods/carListWidget'
+
+OrderStore = require 'stores/order/order'
+
 
 selectionList = [
 	{
@@ -61,6 +67,7 @@ CarFindGoods = React.createClass {
 	componentDidMount: ->
 		GoodsStore.addChangeListener @_change
 		SelectionStore.addChangeListener @_change
+		@_search()
 
 	componentWillUnmount: ->
 		GoodsStore.removeChangeListener @_change
@@ -72,14 +79,37 @@ CarFindGoods = React.createClass {
 		if msg.type #从selectionstore过来的
 			newState = Object.create @state
 			newState[msg.type] = msg.list
-		console.log 'newState', newState
-		@state newState
+			console.log 'newState', newState
+			# @setState newState
+		else if msg.msg is 'change:widget:status'
+			newState = Object.create @state
+			newState.showCarList = msg.show
+			@setState newState
+
+
+	_search: ->
+		GoodsAction.searchGoods {
+			startNo: @state.startNo
+			pageSize: @state.pageSize
+			goodsType: @state.goodsType
+			fromProvinceId: @state.fromProvinceId if @state.fromProvinceId
+			fromCityId: @state.fromCityId if @state.fromCityId
+			fromAreaId: @state.fromAreaId if @state.fromAreaId
+			priceType: @state.priceType[0] if @state.priceType.length is 1
+			isInvoice: @state.invoiceType[0] if @state.invoiceType.length is 1 
+		}
 
 	getInitialState: ->
 		initState = {
 			fromProvince: null
+			fromProvinceId: null
 			fromCity: null
+			fromCityId: null
 			fromArea: null
+			fromAreaId: null
+			startNo: 0
+			pageSize: 10
+			showCarList: false
 		}
 
 		for selection in selectionList
@@ -100,6 +130,8 @@ CarFindGoods = React.createClass {
 			</ul>
 			
 		</div>
+		<CarFindGoodsCell />
+		<CarListWidget show={@state.showCarList} goodsId="4e78aa6fe4704ee39efbbb3407265bfe" />
 		</section>
 }
 

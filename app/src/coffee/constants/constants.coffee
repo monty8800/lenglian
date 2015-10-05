@@ -99,6 +99,16 @@ actionType = {
 
 	UPDATE_INV_STATUS: null
 
+	SEARCH_GOODS: null
+
+	ORDER_SELECT_CAR_LIST: null
+
+	CHANGE_WIDGET_STATUS: null
+
+	ORDER_CAR_SELECT_GOODS: null
+	GO_BID_GOODS: null
+	ORDER_CAR_BID_GOODS: null
+
 }
 
 

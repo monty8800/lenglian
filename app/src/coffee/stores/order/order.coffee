@@ -78,6 +78,14 @@ getStoreOrderList = (status, currentPage)->
 getOrderDetail = (orderId)->
 	console.log 'get order detail from net'
 
+carSelectGoods = (params)->
+	Http.post Constants.api.DRIVER_BIND_ORDER, params, (data)->
+		console.log 'car select goods result', data
+		Plugin.run [3, 'order:car:select:goods:done']
+		# OrderStore.emitChange 'order:car:select:goods:done'
+	, null
+	, true
+
 OrderStore = assign BaseStore, {
 	getOrderList: ->
 		_orderList
@@ -90,6 +98,7 @@ Dispatcher.register (action) ->
 	switch action.actionType
 		when Constants.actionType.ORDER_LIST then getOrderList(action.status, action.currentPage)
 		when Constants.actionType.ORDER_DETAIL then getOrderDetail(action.orderId, action.currentPage)
+		when Constants.actionType.ORDER_CAR_SELECT_GOODS then carSelectGoods(action.params)
 
 module.exports = OrderStore
 		
