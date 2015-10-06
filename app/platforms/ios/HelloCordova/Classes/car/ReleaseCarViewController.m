@@ -7,6 +7,7 @@
 //
 
 #import "ReleaseCarViewController.h"
+#import "SelectAddressViewController.h"
 
 @interface ReleaseCarViewController ()
 
@@ -37,6 +38,21 @@
 
 -(void) createUI {
     self.title = @"发布车源";
+    
+    UIImage *navBgBlue = [UIImage WY_ImageWithColor:0x2a7df5 size:CGSizeMake(1, self.navigationController.navigationBar.bounds.size.height+20)];
+    
+    [self.navigationController.navigationBar setBackgroundImage:navBgBlue forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+}
+
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"select_start_address"] || [params[1] isEqualToString:@"select_end_address"]) {
+            SelectAddressViewController *selectAddressVC = [SelectAddressViewController new];
+            [self.navigationController pushViewController:selectAddressVC animated:YES];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
