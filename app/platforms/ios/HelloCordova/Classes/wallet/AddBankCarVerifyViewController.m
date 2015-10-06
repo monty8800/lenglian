@@ -17,7 +17,7 @@
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"AddBankCardVerify.html";
+        self.startPage = @"addBankCardVerify.html";
     }
     return self;
 }

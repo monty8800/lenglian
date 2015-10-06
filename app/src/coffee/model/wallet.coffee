@@ -7,4 +7,4 @@ Wallet = Immutable.Record {
 	bankCardsList:[]		#银行卡列表
 
 }
-module.exports:Wallet
+module.exports = Wallet

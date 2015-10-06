@@ -10,7 +10,7 @@
       data: {}
     },
     api: {
-      server: 'http://192.168.29.204:8072/',
+      server: 'http://192.168.26.177:7080/llmj-app/',
       LOGIN: '/loginCtl/userLogin.shtml',
       REGISTER: '/register/registerUser.shtml',
       SMS_CODE: '/register/sendMobileMsg.shtml',
@@ -47,6 +47,12 @@
       WAREHOUSE_SEARCH_GOODS: '/warehouseSearchGoods/warehouseSearchGoodsList.shtml',
       GET_GOODS_LIST: '/mjGoodsResource/queryMjGoodsResourceList.shtml',
       GET_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml',
+      GET_WALLET_IN_OUT: '/myWalletCtl/queryPayIncomeOrOut.shtml',
+      ADD_BANK_CARD_COMMPANY: '/mjUserBankCard/addMjEnterPriseUserBankCard.shtml',
+      ADD_BANK_CARD_PRIVET: '/mjUserBankCard/addMjUserBankCard.shtml',
+      VERITY_PHONE_FOR_BANK: '/mjUserBankCard/validateMjUserBankCard.shtml',
+      GET_BANK_CARD_INFO: '/mjUserBankCard/queryBankType.shtml',
+      GET_BANK_LIST: '/mjUserBankCard/queryBankCardList.shtml',
       attention_list: '/userInfo/queryMjWishlstList.shtml',
       my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml',
       add_car: '/mjCarinfoCtl/addMjCarinfo.shtml',

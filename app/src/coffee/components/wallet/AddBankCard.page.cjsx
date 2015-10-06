@@ -21,10 +21,12 @@ AddBankCard = React.createClass {
 			
 			<div className="m-releaseitem">
 				<div>
-					<span>持卡人: </span><span>林夕</span>
+					<label htmlFor="packType"><span>持卡人:</span></label>
+					<input type="text" placeholder="请输入持卡人姓名" id="packType"/>
 				</div>
 				<div className="u-personIcon u-close ll-font">
-					<span>卡&nbsp;&nbsp;&nbsp;号: </span><span>13412356854</span>
+					<label htmlFor="packType"><span>卡&nbsp;&nbsp;&nbsp;号:</span></label>
+					<input type="text" placeholder="请输入银行卡号" id="packType"/>
 				</div>
 			</div>
 			

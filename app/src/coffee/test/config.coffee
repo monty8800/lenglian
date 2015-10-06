@@ -10,14 +10,14 @@ module.exports = {
 	}
 	#TODO 接口地址
 	api: {
-		# server: 'http://192.168.26.177:7080/llmj-app/'
+		server: 'http://192.168.26.177:7080/llmj-app/'
 		# server: 'http://192.168.29.176:8072/'
 		#server: 'http://m.lenglianmajia.com'
 		# server: 'http://192.168.29.190:8072/' #朱舟 
 		# server: 'http://192.168.29.176:8072/' # 盘代军
 		# server: 'http://m.lenglianmajia.com'
 		# server: 'http://192.168.29.190:8072/' #朱舟 
-		server: 'http://192.168.29.204:8072/'
+		# server: 'http://192.168.29.204:8072/'
 
 		#登录
 		LOGIN: '/loginCtl/userLogin.shtml'
@@ -107,6 +107,23 @@ module.exports = {
 		GET_GOODS_LIST:'/mjGoodsResource/queryMjGoodsResourceList.shtml'
 		#查询我的货源详情
 		GET_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
+
+#支付相关 钱包
+		#我的收入和支出
+		GET_WALLET_IN_OUT: '/myWalletCtl/queryPayIncomeOrOut.shtml'
+		#添加企业银行卡
+		ADD_BANK_CARD_COMMPANY: '/mjUserBankCard/addMjEnterPriseUserBankCard.shtml'
+		#添加个人银行卡及绑定
+		ADD_BANK_CARD_PRIVET: '/mjUserBankCard/addMjUserBankCard.shtml'
+		#验证预留手机号码
+		VERITY_PHONE_FOR_BANK: '/mjUserBankCard/validateMjUserBankCard.shtml'
+		#根据银行卡号查询银行
+		GET_BANK_CARD_INFO: '/mjUserBankCard/queryBankType.shtml'
+		#查询银行列表
+		GET_BANK_LIST: '/mjUserBankCard/queryBankCardList.shtml'
+		
+
+
 
 		# 关注列表
 		attention_list: '/userInfo/queryMjWishlstList.shtml'
