@@ -123,7 +123,7 @@ SearchWarehouse = React.createClass {
 		Plugin.toast.show 'select goods'
 		goodsId = @state.userGoodsSource[index].id
 		console.log goodsId,'____货源ID_'
-
+		_selectedWarehouseId = '295dd8ab5f6442afae2542175efdba1e'
 		GoodsAction.bindWarehouseOrder _selectedWarehouseId,goodsId
 		_selectedWarehouseId = ''
 		newState = Object.create @state

@@ -57,7 +57,7 @@ AddWarehouse = React.createClass {
 				area:""						#区id
 				city:""						#市id
 				contacts:user.name				#联系人
-				isinvoice:""				#1:要发票 2：不要发票
+				isinvoice:"1"				#1:要发票 2：不要发票
 				latitude:""					#纬度
 				longitude:""				#经度,116.361905,39.948242 北站 
 				name:""						#仓库名称

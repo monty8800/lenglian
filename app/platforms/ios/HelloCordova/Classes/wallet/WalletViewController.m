@@ -32,7 +32,7 @@
 -(void) createUI {
     self.title = @"我的钱包";
     UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addWarehouseButton setFrame:CGRectMake(0, 0, 60, 44)];
+    [addWarehouseButton setFrame:CGRectMake(0, 0, 70, 44)];
     [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
     [addWarehouseButton setTitle:@"我的银行卡" forState:UIControlStateNormal];
     [addWarehouseButton addTarget:self action:@selector(showMyCards) forControlEvents:UIControlEventTouchUpInside];
