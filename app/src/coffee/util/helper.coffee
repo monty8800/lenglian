@@ -100,6 +100,9 @@ subStr = (start,length,str)->
 		str.substring start,length
 	else
 		str
+
+hideName = (name)->
+	name[0] + '**'
 	
 
 module.exports = 
@@ -116,3 +119,4 @@ module.exports =
 	warehouseType:warehouseType 		#仓库类型
 	packType:packType 					#货物打包类型
 	subStr:subStr
+	hideName: hideName

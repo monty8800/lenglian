@@ -378,6 +378,11 @@ orderSelectCarList = (params)->
 		_orderSelectCarList = Immutable.List data
 		CarStore.emitChange 'order:select:car:list:done'
 
+# 新增车辆筛选
+_addCarSelection = (param)->
+	console.log '---------', param
+	CarStore.emitChange ['selection', param[0], param[1]]
+
 
 CarStore = assign BaseStore, {
 	getCar: ->
@@ -424,6 +429,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.ATTENTION_DETAIL then _attentionDetail(action.params)
 		when Constants.actionType.UPDATE_INV_STATUS then _updateInvStatus(action.params)
 		when Constants.actionType.ORDER_SELECT_CAR_LIST then orderSelectCarList(action.params)
+		when Constants.actionType.ADD_CAR_SELECTION then _addCarSelection(action.params)
 
 module.exports = CarStore
 

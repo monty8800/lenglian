@@ -49,11 +49,11 @@ GoodsAction = {
 			params: params
 		}
 
-	changeWidgetStatus: (show)->
+	changeWidgetStatus: (show, bid)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CHANGE_WIDGET_STATUS
 			show: show
-
+			bid: bid
 		}
 }
 

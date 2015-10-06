@@ -50,6 +50,7 @@
 		4C65841A1BBE2995005FEB16 /* CarBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6584191BBE2995005FEB16 /* CarBubbleView.m */; settings = {ASSET_TAGS = (); }; };
 		4C65841D1BBE2B3B005FEB16 /* FromToView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C65841C1BBE2B3B005FEB16 /* FromToView.m */; settings = {ASSET_TAGS = (); }; };
 		4C6584201BBE2BC1005FEB16 /* FromToTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C65841F1BBE2BC1005FEB16 /* FromToTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		4C7813581BC3C8B900EFE04E /* CarbidGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7813571BC3C8B900EFE04E /* CarbidGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F4F1BB0F48D00112533 /* WalletViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C822F5E1BB1342600112533 /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F5D1BB1342600112533 /* MessageListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C822F621BB1354700112533 /* CarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F611BB1354700112533 /* CarListViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -216,6 +217,8 @@
 		4C65841C1BBE2B3B005FEB16 /* FromToView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FromToView.m; path = map/FromToView.m; sourceTree = "<group>"; };
 		4C65841E1BBE2BC1005FEB16 /* FromToTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FromToTableViewCell.h; path = map/FromToTableViewCell.h; sourceTree = "<group>"; };
 		4C65841F1BBE2BC1005FEB16 /* FromToTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FromToTableViewCell.m; path = map/FromToTableViewCell.m; sourceTree = "<group>"; };
+		4C7813561BC3C8B900EFE04E /* CarbidGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarbidGoodsViewController.h; path = goods/CarbidGoodsViewController.h; sourceTree = "<group>"; };
+		4C7813571BC3C8B900EFE04E /* CarbidGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarbidGoodsViewController.m; path = goods/CarbidGoodsViewController.m; sourceTree = "<group>"; };
 		4C822F4E1BB0F48D00112533 /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WalletViewController.h; path = wallet/WalletViewController.h; sourceTree = "<group>"; };
 		4C822F4F1BB0F48D00112533 /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WalletViewController.m; path = wallet/WalletViewController.m; sourceTree = "<group>"; };
 		4C822F5C1BB1342600112533 /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageListViewController.h; path = message/MessageListViewController.h; sourceTree = "<group>"; };
@@ -639,6 +642,8 @@
 				5BDFC3861BBFC86100712DBB /* MyGoodsListViewController.m */,
 				5B3733D71BC1066100807804 /* GoodsDetailViewController.h */,
 				5B3733D81BC1066100807804 /* GoodsDetailViewController.m */,
+				4C7813561BC3C8B900EFE04E /* CarbidGoodsViewController.h */,
+				4C7813571BC3C8B900EFE04E /* CarbidGoodsViewController.m */,
 			);
 			name = goods;
 			sourceTree = "<group>";
@@ -1033,6 +1038,7 @@
 				4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */,
 				5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */,
 				5B3733FB1BC2242600807804 /* CarSearchGoodsViewController.m in Sources */,
+				4C7813581BC3C8B900EFE04E /* CarbidGoodsViewController.m in Sources */,
 				4C822F5E1BB1342600112533 /* MessageListViewController.m in Sources */,
 				4CAB02181BB400EF002A0A5C /* CompanyGoodsAuthViewController.m in Sources */,
 				4CAB021B1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m in Sources */,

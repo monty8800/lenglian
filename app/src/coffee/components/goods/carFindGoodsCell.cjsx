@@ -25,7 +25,7 @@ CarFindGoodsCell = React.createClass {
 		console.log 'event change ', msg
 
 	_showWidget: ->
-		GoodsAction.changeWidgetStatus(true)
+		GoodsAction.changeWidgetStatus(true, @props.bid)
 
 	render: ->
 		console.log 'state---', @state
@@ -42,7 +42,7 @@ CarFindGoodsCell = React.createClass {
 						<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 					</div>
 					<div onClick={@_showWidget} className="g-dirver-btn">
-						<a href="#" className="u-btn03">抢单</a>
+						<a className="u-btn03">{if @props.bid then '竞价' else '抢单'}</a>
 					</div>
 				</div>
 			</div>

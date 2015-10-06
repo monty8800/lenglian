@@ -5,7 +5,6 @@ PureRenderMixin = React.addons.PureRenderMixin
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
 Constants = require 'constants/constants'
-
 OrderAction = require 'actions/order/order'
 OrderStore = require 'stores/order/order'
 
@@ -15,6 +14,7 @@ StoreItem = require 'components/order/storeOrderCell'
 
 
 OrderDoc = React.createClass {
+	minxins: [PureRenderMixin]
 
 	# 洽谈中
 	status_01: ->
@@ -45,26 +45,27 @@ OrderDoc = React.createClass {
 		OrderAction.getOrderList(Constants.orderStatus.st_04, 1)
 
 	getInitialState: ->
-		{
+		{	
+			orderType: ''
 			type: Constants.orderStatus.st_01
-			# orderList: OrderAction.getOrderList(Constants.orderStatus.st_01, 1)
+			orderList: OrderStore.getOrderList().toJS()
 		}
 
 	componentDidMount: ->
+		OrderAction.browerTemp(2)
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->
 		OrderStore.removeChangeListener @resultCallBack
 
-	resultCallBack: (orderType)->
-		if orderType is 'car' || orderType is 'goods' || orderType is 'store'
-			console.log '-----orderType--', orderType
-			# type: 'car'司机订单  'goods'货主订单  'store'仓库订单
-			@setState {
-				orderType: orderType
-			}
+	resultCallBack: (params)->
+		# type: 'car'司机订单  'goods'货主订单  'store'仓库订单
+		if params[0] is 'car' || params[0] is 'goods' || params[0] is 'store'
+			newState = Object.create @state
+			newState.orderType = params[0]
+			newState.orderList = OrderStore.getOrderList().toJS()
+			@setState newState
 
-	minxins: [PureRenderMixin]
 	render: ->
 		<div>
 			<div className="m-tab01">
@@ -85,11 +86,11 @@ OrderDoc = React.createClass {
 				{
 					switch @state.orderType
 						when 'car'
-							<CarItem />
+							<CarItem items=@state.orderList />
 						when 'goods'
-						 	<GoodsItem />
+						 	<GoodsItem items=@state.orderList />
 						when 'store'
-							<StoreItem />	
+							<StoreItem items=@state.orderList />	
 				}
 			</div>
 		</div>

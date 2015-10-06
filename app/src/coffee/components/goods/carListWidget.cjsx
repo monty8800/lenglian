@@ -15,6 +15,8 @@ Helper = require 'util/helper'
 
 OrderAction = require 'actions/order/order'
 
+DB = require 'util/storage'
+
 
 
 CarListWidget = React.createClass {
@@ -49,18 +51,25 @@ CarListWidget = React.createClass {
 		
 
 	_hide: ->
-		GoodsAction.changeWidgetStatus(false)
+		GoodsAction.changeWidgetStatus(false, false)
 
 	_select: (car)->
 		newState = Object.create @state
 		newState.selected = car.id
 		@setState newState
 		@_hide()
-		OrderAction.carSelectGoods {
-			userId: UserStore.getUser()?.id
-			carResourceId: car.id
-			goodsResourceId: @props.goodsId
-		}
+		if @props.bid
+			DB.put 'transData', {
+				carId: car.id
+				goodsId: @props.goodsId
+			}
+			Plugin.nav.push ['carBidGoods']
+		else
+			OrderAction.carSelectGoods {
+				userId: UserStore.getUser()?.id
+				carResourceId: car.id
+				goodsResourceId: @props.goodsId
+			}
 
 	getInitialState: ->
 		{

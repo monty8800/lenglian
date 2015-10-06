@@ -80,11 +80,14 @@ CarFindGoods = React.createClass {
 			newState = Object.create @state
 			newState[msg.type] = msg.list
 			console.log 'newState', newState
-			# @setState newState
+			@setState newState
 		else if msg.msg is 'change:widget:status'
 			newState = Object.create @state
 			newState.showCarList = msg.show
+			newState.bid = msg.bid
 			@setState newState
+		else if msg is 'do:car:search:goods'
+			@_search()
 
 
 	_search: ->
@@ -110,6 +113,7 @@ CarFindGoods = React.createClass {
 			startNo: 0
 			pageSize: 10
 			showCarList: false
+			bid: false
 		}
 
 		for selection in selectionList
@@ -130,8 +134,9 @@ CarFindGoods = React.createClass {
 			</ul>
 			
 		</div>
-		<CarFindGoodsCell />
-		<CarListWidget show={@state.showCarList} goodsId="968a935c845440d897abb979a367b8b8" />
+		<CarFindGoodsCell  />
+		<CarFindGoodsCell bid=true />
+		<CarListWidget bid={@state.bid} show={@state.showCarList} goodsId="a8627979d90d48f29ed5e2c1aa17b6d5" />
 		</section>
 }
 

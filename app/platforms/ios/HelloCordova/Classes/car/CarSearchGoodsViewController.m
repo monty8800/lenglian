@@ -7,6 +7,7 @@
 //
 
 #import "CarSearchGoodsViewController.h"
+#import "CarbidGoodsViewController.h"
 
 @interface CarSearchGoodsViewController ()
 
@@ -40,7 +41,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
 }
 -(void)sureToSearch{
-    
+    [self.commandDelegate evalJs:@"(function(){window.doCarSearchGoods()})()"];
 }
 
 -(void)commonCommand:(NSArray *)params {
@@ -49,6 +50,13 @@
         if ([params [1] isEqualToString:@"order:car:select:goods:done"]) {
             [self.navigationController popToRootViewControllerAnimated:YES];
             //TODO: 跳转到订单页面
+        }
+    }
+    else if ([params[0] integerValue] == 1)
+    {
+        if ([params[1] isEqualToString:@"carBidGoods"]) {
+            CarbidGoodsViewController *bidVC = [CarbidGoodsViewController new];
+            [self.navigationController pushViewController:bidVC animated:YES];
         }
     }
 }
