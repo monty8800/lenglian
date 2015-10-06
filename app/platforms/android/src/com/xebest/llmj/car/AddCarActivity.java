@@ -379,7 +379,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Tools.createLoadingDialog(AddCarActivity.this, "认证中...");
+            Tools.createLoadingDialog(AddCarActivity.this, "提交中...");
         }
 
         @Override

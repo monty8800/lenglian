@@ -37,6 +37,17 @@ OrderAction = {
 			actionType: Constants.actionType.ORDER_CAR_BID_GOODS
 			params: params
 		}
+	# browertemp
+	browerTemp: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.BROWSER_TEMP
+			params: params
+		}
+	getBiddingList: (goodsResourceId)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.GET_BIDDING_LIST
+			goodsResourceId: goodsResourceId
+		}		
 
 }
 

@@ -112,6 +112,12 @@ actionType = {
 
 	GET_BID_LIST: null
 
+	ADD_CAR_SELECTION: null
+
+	BROWSER_TEMP: null
+	
+	GET_BIDDING_LIST: null
+
 }
 
 
@@ -121,12 +127,7 @@ api = {
 	#服务器地址
 	server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
-	# server: 'http://192.168.29.204:8072/'
-
-	# server: 'http://192.168.29.204:8072/'
-
-	# server: 'http://192.168.29.204:8072/'
-
+	# server: 'http://192.168.29.204:8072/'		
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'

@@ -147,6 +147,11 @@ CarAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.UPDATE_INV_STATUS
 			params: params
+		}	
+	AddCarSelection: (params) ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ADD_CAR_SELECTION
+			params: params
 		}
 
 	orderSelectCarList: (params)->	
