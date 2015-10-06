@@ -10,8 +10,8 @@ user = UserStore.getUser()
 
 
 AddBankCard = React.createClass {
-	_addNewBankCard:->
-		Plugin.nav.push ['addBankCard']
+	_addNewBankNext:->
+		Plugin.nav.push ['addBankCardNext']
 
 	render : ->
 		<div>
@@ -30,7 +30,7 @@ AddBankCard = React.createClass {
 			
 			<div className="u-pay-btn">
 				<div className="u-pay-btn">
-					<a href="#" className="btn">下一步</a>
+					<a onClick={ @_addNewBankNext } href="#" className="btn">下一步</a>
 
 				</div>
 			</div>

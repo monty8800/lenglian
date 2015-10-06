@@ -137,7 +137,7 @@ getUserGoodsList = (pageNow,pageSize,status)->
 		resourceStatus:status
 	}
 	Http.post Constants.api.GET_GOODS_LIST,params,(data)->
-		console.log data
+		console.log data,'{{{{{[[[[[[[[[]]]]]]]]]]]]}}}}}}}'
 		if pageNow is '1'
 			_myGoodsList = []
 		for goodsObj in data.GoodsResource
@@ -208,7 +208,7 @@ getGoodsDetail = (goodsId)->
 	,(data)->
 		console.log 'faile'
 
-bindWarehouseOrder: (warehouseId,goodsId)->
+bindWarehouseOrder = (warehouseId,goodsId)->
 	user = UserStore.getUser()
 	params = {
 		#TODO:
@@ -216,8 +216,8 @@ bindWarehouseOrder: (warehouseId,goodsId)->
 		warehouseId:warehouseId
 		orderGoodsId:goodsId
 	}
+	console.log "____",warehouseId,'+++',goodsId
 	Http.post Constants.api.GOODS_BIND_WAREHOUSE_ORDER,params,(data)->
-		
 		GoodsStore.emitChange 'goods_bind_warehouse_order_succ'
 
 
@@ -280,7 +280,7 @@ Dispatcher.register (action) ->
 
 		when Constants.actionType.GET_GOODS_LIST then getUserGoodsList(action.pageNow,action.pageSize,action.status)
 		when Constants.actionType.GET_GOODS_DETAIL then getGoodsDetail(action.goodsId)
-		when Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER then bindWarehouseOrder(actionType.warehouseId,actionType.goodsId)
+		when Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER then bindWarehouseOrder(action.warehouseId,action.goodsId)
 
 		when Constants.actionType.SEARCH_GOODS then searchGoods(action.params)
 		when Constants.actionType.CHANGE_WIDGET_STATUS then changeWidget(action.show)

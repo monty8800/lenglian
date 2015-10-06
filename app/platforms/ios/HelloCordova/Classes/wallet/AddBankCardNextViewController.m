@@ -1,23 +1,23 @@
 //
-//  BnakCardsListViewController.m
+//  AddBankCardNextViewController.m
 //  HelloCordova
 //
-//  Created by YYQ on 15/10/5.
+//  Created by YYQ on 15/10/6.
 //
 //
 
-#import "BankCardsListViewController.h"
-#import "AddBankCardViewController.h"
-@interface BankCardsListViewController ()
+#import "AddBankCardNextViewController.h"
+#import "AddBankCarVerifyViewController.h"
+@interface AddBankCardNextViewController ()
 
 @end
 
-@implementation BankCardsListViewController
+@implementation AddBankCardNextViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"BankCardsList.html";
+        self.startPage = @"AddBankCardNext.html";
     }
     return self;
 }
@@ -30,18 +30,17 @@
 }
 
 -(void) createUI {
-    self.title = @"我的银行卡";
+    self.title = @"添加银行卡";
 }
 -(void)commonCommand:(NSArray *)params{
     [super commonCommand:params];
     if ([params[0] integerValue] == 1) {
-        if ([params[1] isEqualToString:@"addBankCard"]) {
-            AddBankCardViewController *addBankCarVC = [AddBankCardViewController new];
-            [self.navigationController pushViewController:addBankCarVC animated:YES];
+        if ([params[1] isEqualToString:@"addBankCardVerify"]) {
+            AddBankCarVerifyViewController *addBankCardVerifyVC = [AddBankCarVerifyViewController new];
+            [self.navigationController pushViewController:addBankCardVerifyVC animated:YES];
         }
     }
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -1,5 +1,6 @@
 require 'components/common/common'
 require 'user-center-style'
+require 'majia-style'
 
 React = require 'react/addons'
 
@@ -10,25 +11,25 @@ user = UserStore.getUser()
 
 
 AddBankCardVerify = React.createClass {
-	_addNewBankCard:->
-		Plugin.nav.push ['addBankCard']
+	_verifyNext:->
+		Plugin.toast.show 'VerifyNext'
 
 	render : ->
 		<div>
-			<div class="m-releaseitem">
-				<div class="g-testCode">
-					<span class="icon ll-font"></span><span>15011212563</span>
-					<div class="g-dirver-btn">
-						<a href="#" class="u-btn02">发送验证码</a>
+			<div className="m-releaseitem">
+				<div className="g-testCode">
+					<span className="icon ll-font"></span><span>15011212563</span>
+					<div className="g-dirver-btn">
+						<a href="#" className="u-btn02">发送验证码</a>
 					</div>
 				</div>
-				<div class="g-testCode">
+				<div className="g-testCode">
 					<span> </span>
-					<span><input type="text" placeholder="请输入手机验证码"></span>
+					<span><input type="text" placeholder="请输入手机验证码"/></span>
 				</div>
 			</div>		
-			<div class="u-pay-btn">
-				<a href="#" class="btn">下一步</a>
+			<div className="u-pay-btn">
+				<a onClick={ @_verifyNext } href="#" className="btn">下一步</a>
 			</div>
 		</div>
 }

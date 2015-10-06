@@ -18,6 +18,9 @@ Plugin = require 'util/plugin'
 Selection = require 'components/common/selection'
 SelectionStore = require 'stores/common/selection'
 
+_selectedWarehouseId = ''
+
+
 selectionList = [
 	{
 		key: 'goodsType'
@@ -60,11 +63,8 @@ SearchWarehouse = React.createClass {
 	getInitialState: ->
 		{
 			searchResult:[]
-			userGoodsSource:['1','2']
-			# showTypeSelect:0
-			# showTempreatureSelect:0
-			# showInvoiceSelect:0
-			# showGoodsListMenu:0
+			userGoodsSource:[]
+			showGoodsListMenu:0
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
@@ -80,10 +80,9 @@ SearchWarehouse = React.createClass {
 		if mark is "searchWarehouse"
 			newState = Object.create @state
 			newState.searchResult = WarehouseStore.getWarehouseSearchResult()
-			newState.showGoodsListMenu = 1
 			@setState newState
 		else if mark is "getUserGoodsListSucc"
-
+			console.log  'imposible ________'
 			newState = Object.create @state
 			newState.showGoodsListMenu = 1
 			newState.userGoodsSource = GoodsStore.getMyGoodsList()
@@ -115,13 +114,18 @@ SearchWarehouse = React.createClass {
 		# if @state.userGoodsSource.length < 1
 		# 	Plugin.toast.show '没有货源适合这个仓库'
 		# 	return
-
+		_selectedWarehouseId = @state.searchResult[index].id
+		console.log _selectedWarehouseId,'____库源ID_'
 		GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
 
 
-
 	_selectGoods :(index) ->
-		GoodsAction.bindWarehouseOrder '',''
+		Plugin.toast.show 'select goods'
+		goodsId = @state.userGoodsSource[index].id
+		console.log goodsId,'____货源ID_'
+
+		GoodsAction.bindWarehouseOrder _selectedWarehouseId,goodsId
+		_selectedWarehouseId = ''
 		newState = Object.create @state
 		newState.showGoodsListMenu = 0 
 		@setState newState
@@ -141,7 +145,7 @@ SearchWarehouse = React.createClass {
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
 						<div className="g-dirver-btn">
-							<a onClick={ @_selectWarehouse.bind this,i} className="u-btn02">选择该仓库</a>
+							<a onClick={ @_selectWarehouse.bind this,i } className="u-btn02">选择该仓库</a>
 						</div>
 					</div>
 				</div>
@@ -172,10 +176,20 @@ SearchWarehouse = React.createClass {
 				<div className="u-content-item ll-font">
 					<div className="u-address">
 						<div className="g-adr-start ll-font g-adr-start-line">
-							黑龙江鹤岗市向阳区
+							{
+								if aResult.toProvinceName is aResult.toCityName
+									aResult.toCityName + aResult.toAreaName + aResult.toStreet
+								else
+									aResult.toProvinceName + aResult.toCityName + aResult.toAreaName + aResult.toStreet
+							}
 						</div>
 						<div className="g-adr-end ll-font g-adr-end-line">
-							山西太原市矿区123456
+							{
+								if aResult.fromProvinceName is aResult.fromCityName
+									aResult.fromCityName + aResult.fromAreaName + aResult.fromStreet
+								else
+									aResult.fromProvinceName + aResult.fromCityName + aResult.fromAreaName + aResult.fromStreet
+							}
 						</div>
 					</div>
 					<p>价格类型:一口价 4000元</p>

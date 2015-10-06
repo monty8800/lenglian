@@ -149,8 +149,6 @@ GoodsList = React.createClass {
 						<li onClick={ @_topTypeClick.bind this,3 } className={ if @state.showType is 3 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>发布日期</li>
 					</ul>
 				</div>
-				<GoodsListItem list={ @state.goodsList } />
-
 				<div style={display: if @state.shouldShowMenu is 1 then 'block' else 'none'} className="m-dropDown">
 					<ul>
 						<li onClick={ @_subMenu1Click.bind this,0 } className={ if @state.selectedMenu1 is 0 then "active" else "" } >全部</li>
@@ -177,6 +175,7 @@ GoodsList = React.createClass {
 						<li onClick={ @_subMenu3Click.bind this,3 } className={ if @state.selectedMenu3 is 3 then "active" else "" } >两周内</li>
 					</ul>
 				</div>
+				<GoodsListItem list={ @state.goodsList } />
 			</div>
 			<div style={display: if @state.shouldShowMenu isnt 0 then 'block' else 'none'} className="m-gray02"></div>
 		</div>

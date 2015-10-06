@@ -90,6 +90,8 @@
 		4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */; settings = {ASSET_TAGS = (); }; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
+		5B1CBCF61BC36D4D00D94095 /* AddBankCardNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5B1CBCF91BC36DD100D94095 /* AddBankCarVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B3733D91BC1066100807804 /* GoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3733D81BC1066100807804 /* GoodsDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -286,6 +288,10 @@
 		4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationBubbleView.m; path = map/LocationBubbleView.m; sourceTree = "<group>"; };
 		555391413AAD4C94B9C1B273 /* XEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEViewController.m; path = "com.xebest.xe-plugin/XEViewController.m"; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		5B1CBCF41BC36D4D00D94095 /* AddBankCardNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCardNextViewController.h; path = wallet/AddBankCardNextViewController.h; sourceTree = "<group>"; };
+		5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCardNextViewController.m; path = wallet/AddBankCardNextViewController.m; sourceTree = "<group>"; };
+		5B1CBCF71BC36DD100D94095 /* AddBankCarVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCarVerifyViewController.h; path = wallet/AddBankCarVerifyViewController.h; sourceTree = "<group>"; };
+		5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCarVerifyViewController.m; path = wallet/AddBankCarVerifyViewController.m; sourceTree = "<group>"; };
 		5B2F62381BB3E7870020AD28 /* WarehouseSearchGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarehouseSearchGoodsViewController.h; sourceTree = "<group>"; };
 		5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WarehouseSearchGoodsViewController.m; sourceTree = "<group>"; };
 		5B2F623B1BB3EBA10020AD28 /* MyWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWarehouseViewController.h; sourceTree = "<group>"; };
@@ -566,6 +572,10 @@
 				5B3734011BC24C7C00807804 /* BankCardsListViewController.m */,
 				5B3734031BC2519600807804 /* AddBankCardViewController.h */,
 				5B3734041BC2519600807804 /* AddBankCardViewController.m */,
+				5B1CBCF41BC36D4D00D94095 /* AddBankCardNextViewController.h */,
+				5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */,
+				5B1CBCF71BC36DD100D94095 /* AddBankCarVerifyViewController.h */,
+				5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */,
 			);
 			name = wallet;
 			sourceTree = "<group>";
@@ -1033,6 +1043,7 @@
 				4CD14AC81BBE8226009FFF0C /* InfoView.m in Sources */,
 				5BEB92651BB6492C003970B3 /* SearchCarsViewController.m in Sources */,
 				5BDFC3841BBFBDD000712DBB /* CarDetailViewController.m in Sources */,
+				5B1CBCF91BC36DD100D94095 /* AddBankCarVerifyViewController.m in Sources */,
 				4CD9A94E1BBD49340098C9B7 /* XeAnnotation.m in Sources */,
 				4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */,
 				4C822F6A1BB136C000112533 /* FollowListViewController.m in Sources */,
@@ -1082,6 +1093,7 @@
 				E858DD5946754C3C80EE0FDA /* XEPlugin.m in Sources */,
 				4C006E061BB037BB00381462 /* LoginViewController.m in Sources */,
 				F43C04076AF84FAF9B24968C /* XEViewController.m in Sources */,
+				5B1CBCF61BC36D4D00D94095 /* AddBankCardNextViewController.m in Sources */,
 				4CE0AE5F1BB243C20081DE22 /* PersonalCarAuthViewController.m in Sources */,
 				4C822F621BB1354700112533 /* CarListViewController.m in Sources */,
 				4C3D705C1BBD54B80048E3FF /* XeBubbleView.m in Sources */,
