@@ -383,6 +383,18 @@ _addCarSelection = (param)->
 	console.log '---------', param
 	CarStore.emitChange ['selection', param[0], param[1]]
 
+changeAddress = ->
+	transData = DB.get 'transData'
+	if transData.start_address
+		CarStore.emitChange ['startAddress']
+	else if transData.end_address
+		CarStore.emitChange ['endAddress']
+
+updateStore = ->
+	paths = window.location.href.split('/')
+	page = paths[paths.length-1]
+	switch page
+		when 'releaseVehicle.html' then changeAddress()
 
 CarStore = assign BaseStore, {
 	getCar: ->
@@ -430,6 +442,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.UPDATE_INV_STATUS then _updateInvStatus(action.params)
 		when Constants.actionType.ORDER_SELECT_CAR_LIST then orderSelectCarList(action.params)
 		when Constants.actionType.ADD_CAR_SELECTION then _addCarSelection(action.params)
+		when Constants.actionType.UPDATE_STORE then updateStore()
 
 module.exports = CarStore
 
