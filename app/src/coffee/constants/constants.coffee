@@ -108,8 +108,9 @@ actionType = {
 	CHANGE_WIDGET_STATUS: null
 
 	ORDER_CAR_SELECT_GOODS: null
-	GO_BID_GOODS: null
 	ORDER_CAR_BID_GOODS: null
+
+	GET_BID_LIST: null
 
 }
 

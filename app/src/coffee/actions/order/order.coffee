@@ -26,9 +26,9 @@ OrderAction = {
 			params: params
 		}
 
-	goBidGoods: (params)->
+	getBidList: (params)->
 		Dispatcher.dispatch {
-			actionType: Constants.actionType.GO_BID_GOODS
+			actionType: Constants.actionType.GET_BID_LIST
 			params: params
 		}
 

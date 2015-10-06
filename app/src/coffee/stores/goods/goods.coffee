@@ -263,11 +263,15 @@ searchGoods = (params)->
 		# 		userName: null #用户姓名
 		# 		userScore: 0 #用户积分
 		# 	}
-changeWidget = (show)->
+changeWidget = (show, bid)->
 	GoodsStore.emitChange {
 		msg: 'change:widget:status'
 		show: show
+		bid: bid
 	}
+
+window.doCarSearchGoods = ->
+	GoodsStore.emitChange 'do:car:search:goods'
 
 
 Dispatcher.register (action) ->
@@ -283,7 +287,7 @@ Dispatcher.register (action) ->
 		when Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER then bindWarehouseOrder(action.warehouseId,action.goodsId)
 
 		when Constants.actionType.SEARCH_GOODS then searchGoods(action.params)
-		when Constants.actionType.CHANGE_WIDGET_STATUS then changeWidget(action.show)
+		when Constants.actionType.CHANGE_WIDGET_STATUS then changeWidget(action.show, action.bid)
 
 
 module.exports = GoodsStore

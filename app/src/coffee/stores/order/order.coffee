@@ -15,6 +15,8 @@ _user = UserStore.getUser()
 _orderList = Immutable.List()
 _orderDetail = new CarModel
 
+_bidList = Immutable.List()
+
 # 0 货主订单  1 司机订单  2 仓库订单   
 _page = -1
 
@@ -86,12 +88,26 @@ carSelectGoods = (params)->
 	, null
 	, true
 
+getBidList = (params)->
+	Http.post Constants.api.GET_BID_ORDER_LIST, params, (data)->
+		console.log 'get bind list result', data
+		_bidList = Immutable.List data
+		OrderStore.emitChange 'get:bid:list:done'
+
+carBidGoods = (params)->
+	Http.post Constants.api.DRIVER_BID_FOR_GOODS, params, (data)->
+		console.log 'car bid goods result ', data
+		OrderStore.emitChange 'car:bid:goods:done'
+
 OrderStore = assign BaseStore, {
 	getOrderList: ->
 		_orderList
 
 	getOrderDetail: ->
 		_orderDetail
+
+	getBidList: ->
+		_bidList
 }
 
 Dispatcher.register (action) ->
@@ -99,6 +115,8 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ORDER_LIST then getOrderList(action.status, action.currentPage)
 		when Constants.actionType.ORDER_DETAIL then getOrderDetail(action.orderId, action.currentPage)
 		when Constants.actionType.ORDER_CAR_SELECT_GOODS then carSelectGoods(action.params)
+		when Constants.actionType.GET_BID_LIST then getBidList(action.params)
+		when Constants.actionType.ORDER_CAR_BID_GOODS then carBidGoods(action.params)
 
 module.exports = OrderStore
 		

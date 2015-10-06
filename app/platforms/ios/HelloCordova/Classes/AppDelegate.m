@@ -268,7 +268,7 @@
         }
         if (_orderMenuSelIndex > -1 && _orderMenuSelIndex < 3) {
             UIButton *selBtn = (UIButton *)[_menuView viewWithTag:800 + _orderMenuSelIndex];
-            [selBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            [selBtn setTitleColor:[UIColor WY_ColorWithHex:0x1987c6] forState:UIControlStateNormal];
         }
     }else{
         [_menuView removeFromSuperview];

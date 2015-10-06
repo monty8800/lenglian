@@ -46,6 +46,9 @@ remark = (input)->
 isEmpty = (input)->
 	return /^\S{1,30}$/.test input
 
+price = (input)->
+	return /^\d+(\.\d{0,2})?$/.test input
+
 module.exports = {
 	mobile: mobile #手机号
 	passwd: passwd #登录注册密码
@@ -63,4 +66,5 @@ module.exports = {
 	street: street #详细地址
 	remark: remark
 	isEmpty: isEmpty
+	price: price
 }
