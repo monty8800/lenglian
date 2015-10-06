@@ -8,7 +8,8 @@ BankCard = Immutable.Record {
 	bankCode:null			#银行code
 	bankMobile:null 		#预留手机号 "15321720999", 
 	bankName:null			#银行名称 "建设银行", 
-	cardName:null			#卡名  '龙卡通'cardNo:null 			# 卡号"6217000010062303072", 
+	cardName:null			#卡名  '龙卡通'
+	cardNo:null 			# 卡号"6217000010062303072", 
 	cardType:null 			#卡种 "借记卡", 
 	createTime:null		 
 	createUser:null

@@ -11,12 +11,12 @@ describe '钱包_相关', ->
 	# 		should.exists data
 	# 		done()     
 
-	it '查询银行列表',(done)->
-		request.post config.api.GET_BANK_LIST, {
-			userId:'7201beba475b49fd8b872e2d1493844a'							#用户id
-		}, (data)->
-			should.exists data
-			done() 
+	# it '查询银行列表',(done)->
+	# 	request.post config.api.GET_BANK_LIST, {
+	# 		userId:'7201beba475b49fd8b872e2d1493844a'							#用户id
+	# 	}, (data)->
+	# 		should.exists data
+	# 		done() 
 
 
 	# it '根据银行卡号查询银行',(done)->
@@ -79,24 +79,24 @@ describe '钱包_相关', ->
 	# 		should.exists data
 	# 		done() 
 
-	# it '添加个人银行卡及绑定(农行)', (done)->
-	# 	request.post config.api.ADD_BANK_CARD_PRIVET, {
-	# 		id:'7201beba475b49fd8b872e2d1493844a'						# 不知道是什么ID
-	# 		userId:'7201beba475b49fd8b872e2d1493844a'								#用户id
-	# 		cardName:'金穗通宝卡(银联卡)'								#银行卡姓名
-	# 		cardNo:'6228480097678508670'							#银行卡号
-	# 		blankName:'农业银行'								#银行名称 如:中国银行
-	# 		cardType:'借记卡'							#银行卡类型 如:储蓄卡	
-	# 		bankMobile:	'15321720999'							#银行预留手机号
-	# 		userIdNumber:'363241199005251325'							# 用户身份证号
-	# 		mobileCode:'5689'											#验证码短信
-	# 		bankCode:'078403e4d180a28621'								#银行编码
-	# 		zfNo:'105'						#银行在支付公司的编码
-	# 		bankBranchName:'南环路支行'						#银行支行
+	it '添加个人银行卡及绑定(农行)', (done)->
+		request.post config.api.ADD_BANK_CARD_PRIVET, {
+			id:'7201beba475b49fd8b872e2d1493844a'						# 不知道是什么ID
+			userId:'7201beba475b49fd8b872e2d1493844a'								#用户id
+			cardName:'金穗通宝卡(银联卡)'								#银行卡姓名
+			cardNo:'6228480097678508670'							#银行卡号
+			blankName:'瑞士银行'								#银行名称 如:中国银行
+			cardType:'借记卡'							#银行卡类型 如:储蓄卡	
+			bankMobile:	'15321720999'							#银行预留手机号
+			userIdNumber:'363241199005251325'							# 用户身份证号
+			mobileCode:'5689'											#验证码短信
+			bankCode:'078403e4d180a28621'								#银行编码
+			zfNo:'105'						#银行在支付公司的编码
+			bankBranchName:'南环路支行'						#银行支行
 
-	# 	}, (data) ->
-	# 		should.exists data
-	# 		done()
+		}, (data) ->
+			should.exists data
+			done()
 
 
 

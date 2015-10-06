@@ -49,6 +49,7 @@ BankCardsList = React.createClass {
 
 	_onChange :(mark) ->
 		if mark is 'getBankCardsListSucc'
+			console.log '++++++ get it success'
 			newState = Object.create @state
 			newState.bankCardsList = WalletStore.getBankCardsList()
 			@setState newState

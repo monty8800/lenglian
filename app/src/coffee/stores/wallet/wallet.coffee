@@ -22,15 +22,16 @@ getBankCardsList = ->
 	Http.post Constants.api.GET_BANK_LIST, {
 		userId:user.id
 	},(data)->
-		WalletStore.emitChange "getBankCardsListSucc"
 		for obj in data
 			aBankCardModel = new BankCardModel
 			aBankCardModel = aBankCardModel.set 'bankBranchName',obj.bankBranchName
-			aBankCardModel = aBankCardModel.set 'blankName',obj.blankName
+			aBankCardModel = aBankCardModel.set 'bankName',obj.blankName
 			aBankCardModel = aBankCardModel.set 'cardName',obj.cardName
 			aBankCardModel = aBankCardModel.set 'cardType',obj.cardType
 			aBankCardModel = aBankCardModel.set 'cardNo',obj.cardNo
 			_bankCardsList.push aBankCardModel
+			
+		WalletStore.emitChange "getBankCardsListSucc"
 	,(date)->
 		Plugin.err.show date.msg
 
