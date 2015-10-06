@@ -131,7 +131,7 @@ CarFindGoods = React.createClass {
 			
 		</div>
 		<CarFindGoodsCell />
-		<CarListWidget show={@state.showCarList} goodsId="4e78aa6fe4704ee39efbbb3407265bfe" />
+		<CarListWidget show={@state.showCarList} goodsId="968a935c845440d897abb979a367b8b8" />
 		</section>
 }
 

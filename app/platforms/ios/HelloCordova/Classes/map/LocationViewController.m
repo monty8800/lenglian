@@ -62,7 +62,7 @@
    
     [Global getLocation:^(BMKUserLocation *location) {
         DDLogDebug(@"-----location:%@", location);
-        __block LocationViewController *weakSelf = self;
+        __block __weak LocationViewController *weakSelf = self;
         [weakSelf addAnno:location];
     }];
 }
@@ -72,7 +72,7 @@
     _pointAnno = [BMKPointAnnotation new];
     _pointAnno.coordinate = location.location.coordinate;
     _pointAnno.title = @"我的位置";
-    __block LocationViewController *weakSelf = self;
+    __block __weak LocationViewController *weakSelf = self;
     [Global reverseGeo:location.location.coordinate cb:^(BMKReverseGeoCodeResult *result) {
         [weakSelf updateAddress:result];
     }];
@@ -97,7 +97,7 @@
 
 -(void)mapView:(BMKMapView *)mapView annotationView:(BMKAnnotationView *)view didChangeDragState:(BMKAnnotationViewDragState)newState fromOldState:(BMKAnnotationViewDragState)oldState {
     if (newState == BMKAnnotationViewDragStateEnding) {
-        __block LocationViewController *weakSelf = self;
+        __block __weak LocationViewController *weakSelf = self;
         [Global reverseGeo:_pointAnno.coordinate cb:^(BMKReverseGeoCodeResult *result) {
             [weakSelf updateAddress:result];
         }];

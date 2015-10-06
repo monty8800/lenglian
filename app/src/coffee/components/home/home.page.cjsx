@@ -7,6 +7,7 @@ Banner = require 'components/home/banner'
 Request = require 'components/home/request'
 Post = require 'components/home/post'
 GoodsAction = require 'actions/goods/goods'
+GoodsStore = require 'stores/goods/goods' #勿删除，有用，清空goods
 
 Home = React.createClass {
 	mixins: [PureRenderMixin]

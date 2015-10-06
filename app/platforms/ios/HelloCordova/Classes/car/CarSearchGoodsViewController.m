@@ -35,12 +35,22 @@
     UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
     [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
-    [addWarehouseButton setTitle:@"确定" forState:UIControlStateNormal];
+    [addWarehouseButton setTitle:@"搜索" forState:UIControlStateNormal];
     [addWarehouseButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
 }
 -(void)sureToSearch{
     
+}
+
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 3) {
+        if ([params [1] isEqualToString:@"order:car:select:goods:done"]) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            //TODO: 跳转到订单页面
+        }
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

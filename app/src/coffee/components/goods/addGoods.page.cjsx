@@ -131,6 +131,11 @@ AddGoods = React.createClass {
 		else if not Validator.mobile @state.reciverMobile
 			Plugin.toast.err '收货人手机号不正确'
 		else
+			files = []
+			files.push {
+					filed: 'imgurl'
+					path: @state.photo
+				} if @state.photo
 			goodsRoute = ({
 				province: address.provinceName
 				city: address.cityName
@@ -179,12 +184,7 @@ AddGoods = React.createClass {
 				}
 				goodsRoute: goodsRoute or []
 				
-			}, [
-				{
-					filed: 'imgurl'
-					path: @state.photo
-				} if @state.photo
-			]
+			}, files
 
 	getInitialState: ->
 		{

@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		01D42DAFEB5C4DFFA0D0D827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0597205F9D5541F28FAC3AC4 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -646,6 +647,14 @@
 		4CB4C0E51BBFD2590095ABE8 /* bubble */ = {
 			isa = PBXGroup;
 			children = (
+				4C6584121BBE295C005FEB16 /* GoodsBubbleView.h */,
+				4C6584131BBE295C005FEB16 /* GoodsBubbleView.m */,
+				4C6584151BBE2982005FEB16 /* WarehouseBubbleView.h */,
+				4C6584181BBE2995005FEB16 /* CarBubbleView.h */,
+				4C6584191BBE2995005FEB16 /* CarBubbleView.m */,
+				4C6584161BBE2982005FEB16 /* WarehouseBubbleView.m */,
+				4C3D705A1BBD54B80048E3FF /* XeBubbleView.h */,
+				4C3D705B1BBD54B80048E3FF /* XeBubbleView.m */,
 				4CE2FFF21BC102F000935C9F /* LocationBubbleView.h */,
 				4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */,
 			);
@@ -655,6 +664,10 @@
 		4CB4C0E61BBFD28F0095ABE8 /* select_widget */ = {
 			isa = PBXGroup;
 			children = (
+				4C3353E81BBEB18E0020EB06 /* SelectWarehouseWidget.h */,
+				4C3353EB1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.h */,
+				4C3353EC1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m */,
+				4C3353E91BBEB18E0020EB06 /* SelectWarehouseWidget.m */,
 				4CB4C0E11BBF7E3B0095ABE8 /* SelectCarTableViewCell.h */,
 				4CE2FFEB1BC0C81100935C9F /* SelectGoodsWidget.h */,
 				4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */,
@@ -670,6 +683,10 @@
 		4CB4C0E71BBFD2D00095ABE8 /* custom_annotation */ = {
 			isa = PBXGroup;
 			children = (
+				4CD9A9491BBD366D0098C9B7 /* XeAnnotationView.h */,
+				4CD9A94C1BBD49340098C9B7 /* XeAnnotation.h */,
+				4CD9A94D1BBD49340098C9B7 /* XeAnnotation.m */,
+				4CD9A94A1BBD366D0098C9B7 /* XeAnnotationView.m */,
 			);
 			name = custom_annotation;
 			sourceTree = "<group>";
@@ -677,6 +694,10 @@
 		4CB4C0E81BBFD2FF0095ABE8 /* vc */ = {
 			isa = PBXGroup;
 			children = (
+				4C9A184C1BB680710072F940 /* LocationViewController.m */,
+				4CDD997F1BAFA98D008B4AC6 /* NearByViewController.h */,
+				4CDD99801BAFA98D008B4AC6 /* NearByViewController.m */,
+				4C9A184B1BB680710072F940 /* LocationViewController.h */,
 			);
 			name = vc;
 			sourceTree = "<group>";
@@ -684,6 +705,8 @@
 		4CB4C0E91BBFD3490095ABE8 /* select_tab */ = {
 			isa = PBXGroup;
 			children = (
+				4C822F7A1BB1755A00112533 /* SelectTab.h */,
+				4C822F7B1BB1755A00112533 /* SelectTab.m */,
 			);
 			name = select_tab;
 			sourceTree = "<group>";
@@ -691,6 +714,14 @@
 		4CB4C0EA1BBFD3870095ABE8 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				4C65841B1BBE2B3B005FEB16 /* FromToView.h */,
+				4C65841E1BBE2BC1005FEB16 /* FromToTableViewCell.h */,
+				4C65841F1BBE2BC1005FEB16 /* FromToTableViewCell.m */,
+				4CD14AC91BBE9189009FFF0C /* InfoTableViewCell.h */,
+				4CD14ACA1BBE9189009FFF0C /* InfoTableViewCell.m */,
+				4CD14AC61BBE8226009FFF0C /* InfoView.h */,
+				4CD14AC71BBE8226009FFF0C /* InfoView.m */,
+				4C65841C1BBE2B3B005FEB16 /* FromToView.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -741,36 +772,6 @@
 				4CB4C0E71BBFD2D00095ABE8 /* custom_annotation */,
 				4CB4C0E61BBFD28F0095ABE8 /* select_widget */,
 				4CB4C0E51BBFD2590095ABE8 /* bubble */,
-				4C6584151BBE2982005FEB16 /* WarehouseBubbleView.h */,
-				4C6584181BBE2995005FEB16 /* CarBubbleView.h */,
-				4C6584191BBE2995005FEB16 /* CarBubbleView.m */,
-				4C6584161BBE2982005FEB16 /* WarehouseBubbleView.m */,
-				4C3D705A1BBD54B80048E3FF /* XeBubbleView.h */,
-				4C3D705B1BBD54B80048E3FF /* XeBubbleView.m */,
-				4CD9A9491BBD366D0098C9B7 /* XeAnnotationView.h */,
-				4CD9A94C1BBD49340098C9B7 /* XeAnnotation.h */,
-				4CD9A94D1BBD49340098C9B7 /* XeAnnotation.m */,
-				4CD9A94A1BBD366D0098C9B7 /* XeAnnotationView.m */,
-				4C9A184B1BB680710072F940 /* LocationViewController.h */,
-				4C9A184C1BB680710072F940 /* LocationViewController.m */,
-				4C822F7A1BB1755A00112533 /* SelectTab.h */,
-				4C822F7B1BB1755A00112533 /* SelectTab.m */,
-				4CDD997F1BAFA98D008B4AC6 /* NearByViewController.h */,
-				4CDD99801BAFA98D008B4AC6 /* NearByViewController.m */,
-				4C3353E81BBEB18E0020EB06 /* SelectWarehouseWidget.h */,
-				4C3353EB1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.h */,
-				4C3353EC1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m */,
-				4C3353E91BBEB18E0020EB06 /* SelectWarehouseWidget.m */,
-				4C65841B1BBE2B3B005FEB16 /* FromToView.h */,
-				4C65841E1BBE2BC1005FEB16 /* FromToTableViewCell.h */,
-				4C65841F1BBE2BC1005FEB16 /* FromToTableViewCell.m */,
-				4CD14AC91BBE9189009FFF0C /* InfoTableViewCell.h */,
-				4CD14ACA1BBE9189009FFF0C /* InfoTableViewCell.m */,
-				4CD14AC61BBE8226009FFF0C /* InfoView.h */,
-				4CD14AC71BBE8226009FFF0C /* InfoView.m */,
-				4C65841C1BBE2B3B005FEB16 /* FromToView.m */,
-				4C6584121BBE295C005FEB16 /* GoodsBubbleView.h */,
-				4C6584131BBE295C005FEB16 /* GoodsBubbleView.m */,
 			);
 			name = map;
 			sourceTree = "<group>";

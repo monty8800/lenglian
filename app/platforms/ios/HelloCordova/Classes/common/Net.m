@@ -15,7 +15,11 @@
 {
     MKNetworkEngine *engine = [Global sharedInstance].netEngine;
     MKNetworkOperation *op = [[MKNetworkOperation alloc] initWithURLString:api params:nil httpMethod:@"POST"];
+    [op addData:[[NSData alloc] init] forKey:@"dummy-data"];
     for (NSDictionary *file in files) {
+        if ([file isKindOfClass:[NSNull class]]) {
+            return;
+        }
         if ([[file objectForKey:@"path"] length] > 0) {
             [op addFile:[file objectForKey:@"path"] forKey:[file objectForKey:@"filed"]];
         }
