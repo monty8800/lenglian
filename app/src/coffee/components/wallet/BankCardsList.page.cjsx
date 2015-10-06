@@ -38,7 +38,6 @@ BankCardsList = React.createClass {
 			bankCardsList:[]
 		}
 
-
 	componentDidMount: ->
 		WalletStore.addChangeListener @_onChange
 		WalletAction.getBankCardsList()

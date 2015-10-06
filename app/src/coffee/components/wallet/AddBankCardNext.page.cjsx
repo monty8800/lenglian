@@ -2,8 +2,14 @@ require 'components/common/common'
 require 'user-center-style'
 
 React = require 'react/addons'
+PureRenderMixin = React.addons.PureRenderMixin
+LinkedStateMixin = React.addons.LinkedStateMixin
 
 UserStore = require 'stores/user/user'
+WalletStore = require 'stores/wallet/wallet'
+WalletModel = require 'model/wallet'
+WalletAction = require 'actions/wallet/wallet'
+
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
 user = UserStore.getUser()
@@ -12,6 +18,17 @@ user = UserStore.getUser()
 AddBankCardNext = React.createClass {
 	_addBankCardVerify:->
 		Plugin.nav.push ['addBankCardVerify']
+
+	componentDidMount: ->
+		WalletStore.addChangeListener @_onChange
+		console.log DB.get 'transData','||||||||_____++++++'
+
+
+	componentWillUnmount: ->
+		WalletStore.removeChangeListener @_onChange
+
+	_onChange :(mark) ->
+
 
 	render : ->
 		<div>
