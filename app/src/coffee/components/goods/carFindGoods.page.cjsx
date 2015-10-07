@@ -26,9 +26,11 @@ SelectionStore = require 'stores/common/selection'
 
 CarFindGoodsCell = require 'components/goods/carFindGoodsCell'
 
-CarListWidget = require 'components/goods/carListWidget'
+# CarListWidget = require 'components/goods/carListWidget'
 
 OrderStore = require 'stores/order/order'
+
+DB = require 'util/storage'
 
 
 selectionList = [
@@ -67,6 +69,13 @@ CarFindGoods = React.createClass {
 	componentDidMount: ->
 		GoodsStore.addChangeListener @_change
 		SelectionStore.addChangeListener @_change
+		#如果是金价，原生弹窗选择完后调用这个函数
+		window.goBid = (carId, goodsId)->
+			DB.put 'transData', {
+				carId: carId
+				goodsId: goodsId
+			}
+			Plugin.nav.push ['carBidGoods']
 		@_search()
 
 	componentWillUnmount: ->
@@ -136,7 +145,6 @@ CarFindGoods = React.createClass {
 		</div>
 		<CarFindGoodsCell  />
 		<CarFindGoodsCell bid=true />
-		<CarListWidget bid={@state.bid} show={@state.showCarList} goodsId="a8627979d90d48f29ed5e2c1aa17b6d5" />
 		</section>
 }
 
