@@ -9,6 +9,8 @@
 #import "CarListViewController.h"
 #import "AddCarViewController.h"
 #import "CarDetailViewController.h"
+#import "ReleaseCarViewController.h"
+
 @interface CarListViewController ()
 
 @end
@@ -50,6 +52,11 @@
         if ([params[1] isEqualToString:@"carDetail"]) {
             CarDetailViewController *carDetailVC = [CarDetailViewController new];
             [self.navigationController pushViewController:carDetailVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"releaseVehicle"])
+        {
+            ReleaseCarViewController *releaseVC = [ReleaseCarViewController new];
+            [self.navigationController pushViewController:releaseVC animated:YES];
         }
     }
 }

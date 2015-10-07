@@ -28,25 +28,17 @@
     _bgView.alpha = 1;
     [self addSubview:_bgView];
     
-    CGFloat width = ceilf(SCREEN_WIDTH / _pickerCount);
-    for (int i=0; i<pickerCount; i++) {
-        UIDatePicker *datePicer = [[UIDatePicker alloc] initWithFrame:CGRectMake(i * width, 0, width, 216)];
-        datePicer.backgroundColor = [UIColor WY_ColorWithHex:0xffffff alpha:1];
-        datePicer.minimumDate = [NSDate date];
-        datePicer.maximumDate = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * 365 * 2];
-        datePicer.datePickerMode = UIDatePickerModeDate;
-        datePicer.tag = 100 + i;
+    _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 216)];
+    _datePicker.backgroundColor = [UIColor WY_ColorWithHex:0xffffff alpha:1];
+    _datePicker.minimumDate = [NSDate date];
+    _datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * 365 * 2];
+    _datePicker.datePickerMode = UIDatePickerModeDate;
 
-        if (i == 0) {
-            _startDate = datePicer.date;
-        }
-        else
-        {
-            _endDate = datePicer.date;
-        }
-        [datePicer addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
-        [_bgView addSubview:datePicer];
-    }
+    
+    _startDate = _endDate = _datePicker.date;
+    
+//    [_datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+    [_bgView addSubview:_datePicker];
     
     UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, _bgView.bounds.size.height - 60, SCREEN_WIDTH, 60)];
     barView.backgroundColor = [UIColor WY_ColorWithHex:0xffffff alpha:1];
@@ -59,24 +51,39 @@
     [barView addSubview:cancelBtn];
     [cancelBtn addTarget:self action:@selector(clickCancel) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 - btnWidth, 10, btnWidth, 40)];
-    [confirmBtn WY_SetBgColor:0x28b3ec title:@"确定" titleColor:0xffffff corn:2 fontSize:18];
-    [barView addSubview:confirmBtn];
-    [confirmBtn addTarget:self action:@selector(clickConfirm) forControlEvents:UIControlEventTouchUpInside];
+    _confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 - btnWidth, 10, btnWidth, 40)];
+    
+    NSString *btnTitle = pickerCount > 1 ? @"开始时间" : @"确定";
+    [_confirmBtn WY_SetBgColor:0x28b3ec title:btnTitle titleColor:0xffffff corn:2 fontSize:18];
+    [barView addSubview:_confirmBtn];
+    [_confirmBtn addTarget:self action:@selector(clickConfirm:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) clickCancel {
     [self hide];
 }
 
--(void) clickConfirm {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:_startDate, nil];
-    if (_pickerCount > 1) {
-        [arr addObject:_endDate];
+-(void) clickConfirm:(UIButton *) btn {
+    if ([btn.titleLabel.text isEqualToString:@"开始时间"]) {
+        [btn setTitle:@"结束时间" forState:UIControlStateNormal];
+        _startDate = _datePicker.date;
+        _datePicker.minimumDate = _startDate;
     }
-    DDLogDebug(@"select date list %@", arr);
-    [self.delegate selectDate: arr type:_type];
-    [self hide];
+    else if ([btn.titleLabel.text isEqualToString:@"结束时间"])
+    {
+        _endDate = _datePicker.date;
+        [self.delegate selectDate: @[_startDate, _endDate] type:_type];
+        [self hide];
+        [btn setTitle:@"开始时间" forState:UIControlStateNormal];
+        _datePicker.minimumDate = [NSDate date];
+    }
+    else
+    {
+        [self.delegate selectDate:@[_datePicker.date] type:_type];
+        [self hide];
+    }
+    
+    
 }
 
 -(void)show:(NSString *)type {
@@ -98,6 +105,9 @@
         _bgView.alpha = 1;
         _bgView.frame = CGRectMake(0, self.bounds.size.height, SCREEN_WIDTH, 216);
     } completion:^(BOOL finished) {
+        _datePicker.minimumDate = [NSDate date];
+        NSString *btnTitle = _pickerCount > 1 ? @"开始时间" : @"确定";
+        [_confirmBtn setTitle:btnTitle forState:UIControlStateNormal];
         [self removeFromSuperview];
     }];
 }

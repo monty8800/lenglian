@@ -52,7 +52,8 @@ getWarehouseList = (status,pageNow,pageSize)->
 			_warehouseList.push warehouseModel
 
 		WarehouseStore.emitChange 'getMyWarehouseList'
-	,null,true
+	, null
+	, false
 
 window.tryReloadWarehousList = ()->
 	shouldReloadWarehouseList = DB.get 'shouldWarehouseListReload'

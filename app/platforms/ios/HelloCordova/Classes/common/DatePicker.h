@@ -22,6 +22,10 @@
     NSDate *_endDate;
     UIView *_bgView;
     NSString *_type;
+    
+    UIDatePicker *_datePicker;
+    
+    UIButton *_confirmBtn;
 }
 @property (assign, nonatomic) NSInteger pickerCount;
 @property (weak, nonatomic) id<DatePickerDelegate> delegate;

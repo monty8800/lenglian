@@ -210,7 +210,7 @@ Vehicle = React.createClass {
 				</div>
 				<div className="u-arrow-right ll-font g-tab01" onClick={@_goPage.bind this, 'datepicker'}>
 					<span>装货时间</span>
-					<i className="arrow-i">{@state.startTime}-{@state.endTime}</i>
+					<i className="arrow-i">{if @state.startTime then @state.startTime + '到' + @state.endTime else ''}</i>
 				</div>
 			</div>
 			<div className="m-releaseitem">
@@ -239,7 +239,7 @@ Vehicle = React.createClass {
 				</div>
 			</div>
 			<div className="m-releaseitem">
-				<div className="u-voice ll-font">
+				<div>
 					<label htmlFor="remark"><span>备注说明</span> </label>
 					<input type="text" valueLink={@linkState 'remark'} placeholder="选填" id="remark"/>
 				</div>

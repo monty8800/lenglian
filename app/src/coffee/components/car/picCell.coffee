@@ -1,6 +1,8 @@
 React = require 'react/addons'
 Plugin = require 'util/plugin'
 
+UserAction = require 'actions/user/user'
+
 PicCell = React.createClass {
 
 	_selectPic: (type)->
