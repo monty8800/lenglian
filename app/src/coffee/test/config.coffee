@@ -10,13 +10,13 @@ module.exports = {
 	}
 	#TODO 接口地址
 	api: {
-		# server: 'http://192.168.26.177:7080/llmj-app/'
+		server: 'http://192.168.26.177:7080/llmj-app/'
 		# server: 'http://192.168.29.176:8072/'
 		#server: 'http://m.lenglianmajia.com'
 		# server: 'http://192.168.29.190:8072/' #朱舟 
 		# server: 'http://192.168.29.176:8072/' # 盘代军
 		# server: 'http://m.lenglianmajia.com'
-		server: 'http://192.168.29.190:8072/' #朱舟 
+		# server: 'http://192.168.29.190:8072/' #朱舟 
 		# server: 'http://192.168.29.204:8072/'
 
 		#登录
@@ -121,7 +121,8 @@ module.exports = {
 		GET_BANK_CARD_INFO: '/mjUserBankCard/queryBankType.shtml'
 		#查询银行列表
 		GET_BANK_LIST: '/mjUserBankCard/queryBankCardList.shtml'
-		
+		#解绑银行卡
+		REMOVE_BANK_CARD: '/mjUserBankCard/deleteMjUserBankCard.shtml'
 
 
 

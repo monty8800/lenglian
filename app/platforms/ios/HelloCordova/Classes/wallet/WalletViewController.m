@@ -8,6 +8,7 @@
 
 #import "WalletViewController.h"
 #import "BankCardsListViewController.h"
+#import "BillListViewController.h"
 @interface WalletViewController ()
 
 @end
@@ -42,6 +43,19 @@
     BankCardsListViewController *bankCardListVC = [BankCardsListViewController new];
     [self.navigationController pushViewController:bankCardListVC animated:YES];
 }
+
+-(void)commonCommand:(NSArray *)params{
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"billList"]) {
+            BillListViewController *billListVC = [BillListViewController new];
+            [self.navigationController pushViewController:billListVC animated:YES];
+        }
+    }
+}
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

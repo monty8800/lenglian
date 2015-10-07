@@ -24,7 +24,7 @@ AddBankCardVerify = React.createClass {
 	mixins:[PureRenderMixin,LinkedStateMixin]
 
 	_getVCodeForBindBankCar:->
-		WalletAction.bankCardModel _aBankCardModel
+		WalletAction.getVCodeForBindBankCar _aBankCardModel
 
 	_verifyNext:->
 		WalletAction.bindBankCard _aBankCardModel,@state.smsCode

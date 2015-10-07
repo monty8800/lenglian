@@ -25,6 +25,11 @@ WalletAction = {
 			bankCardModel:bankCardModel
 			smsCode:smsCode
 		}
+	removeBankCard:(cardId)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.REMOVE_BANK_CARD
+			cardId:cardId
+		}
 }
 
 module.exports = WalletAction

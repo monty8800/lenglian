@@ -45,7 +45,7 @@ actionType = {
 	VERITY_PHONE_FOR_BANK:null
 	GET_BANK_CARD_INFO:null
 	GET_BANK_LIST:null
-
+	REMOVE_BANK_CARD:null
 
 	PERSONAL_AUTH: null
 	COMPANY_AUTH: null
@@ -238,8 +238,8 @@ api = {
 	GET_BANK_CARD_INFO: '/mjUserBankCard/queryBankType.shtml'
 	#查询银行列表
 	GET_BANK_LIST: '/mjUserBankCard/queryBankCardList.shtml'
-
-
+	#解绑银行卡
+	REMOVE_BANK_CARD: '/mjUserBankCard/deleteMjUserBankCard.shtml'
 
 
 

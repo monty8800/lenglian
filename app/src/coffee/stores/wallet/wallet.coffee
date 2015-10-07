@@ -52,7 +52,7 @@ getBankCardInfo = (cardNo)->
 		aBankCardModel = aBankCardModel.set 'bigPicName',data.bigPicName
 		aBankCardModel = aBankCardModel.set 'smallPicName',data.smallPicName
 		aBankCardModel = aBankCardModel.set 'checkNo',data.checkNo
-		aBankCardModel = aBankCardModel.set 'code',data.code
+		aBankCardModel = aBankCardModel.set 'bankCode',data.code
 		aBankCardModel = aBankCardModel.set 'mainNo',data.mainNo
 		aBankCardModel = aBankCardModel.set 'zfNo',data.zfNo
 

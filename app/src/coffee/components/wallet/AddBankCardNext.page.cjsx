@@ -22,8 +22,8 @@ AddBankCardNext = React.createClass {
 	mixins:[PureRenderMixin,LinkedStateMixin]
 	_addBankCardVerify:->
 		_bankCardInfo = _bankCardInfo.set 'bankBranchName',@state.bankBranchName
-		_bankCardInfo = bankMobile.set 'bankBranchName',@state.bankMobile
-		_bankCardInfo = userIdNumber.set 'bankBranchName',@state.userIdNumber
+		_bankCardInfo = _bankCardInfo.set 'bankMobile',@state.bankMobile
+		_bankCardInfo = _bankCardInfo.set 'userIdNumber',@state.userIdNumber
 		DB.put 'transData',_bankCardInfo
 		Plugin.nav.push ['addBankCardVerify']
 
