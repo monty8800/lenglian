@@ -19,30 +19,30 @@ describe '钱包_相关', ->
 	# 		done() 
 
 
-	it '根据银行卡号查询银行',(done)->
-		request.post config.api.GET_BANK_CARD_INFO, {
-			userId:'4671d0d8c37f47f4bcfa2323222bf102'							#用户id
-			cardNo:'6228480097678508670'							#银行卡号
-		},(data)->
-			should.exists data
-			done()
-
-
-	# it '验证预留手机号码',(done)->
-	# 	request.post config.api.VERITY_PHONE_FOR_BANK, {
-	# 		userId:'7201beba475b49fd8b872e2d1493844a'							#用户id
-	# 		cardName:'YYQ'						#银行卡姓名
-	# 		cardNo:'6217000010062303071'							#银行卡号
-	# 		blankName:'建设银行'						#银行名称 如:中国银行
-	# 		cardType:'借记卡'						#银行卡类型 如:储蓄卡	
-	# 		bankMobile:'153216207721234'						#银行预留手机号
-	# 		userIdNumber:'363241199005251325'					# 用户身份证号
-	# 		bankCode:'5b89d8838bfc0b35d3'						#银行编码
-	# 		zfNo:'105'							#银行在支付公司的编码
-	# 		bankBranchName:'南环路支行'				#银行支行
+	# it '根据银行卡号查询银行',(done)->
+	# 	request.post config.api.GET_BANK_CARD_INFO, {
+	# 		userId:'4671d0d8c37f47f4bcfa2323222bf102'							#用户id
+	# 		cardNo:'6228480097678508670'							#银行卡号
 	# 	},(data)->
 	# 		should.exists data
 	# 		done()
+
+
+	it '验证预留手机号码',(done)->
+		request.post config.api.VERITY_PHONE_FOR_BANK, {
+			userId:'7201beba475b49fd8b872e2d1493844a'							#用户id
+			cardName:'YYQ'						#银行卡姓名
+			cardNo:'6217000010062303071'							#银行卡号
+			blankName:'建设银行'						#银行名称 如:中国银行
+			cardType:'借记卡'						#银行卡类型 如:储蓄卡	
+			bankMobile:'153216207721234'						#银行预留手机号
+			userIdNumber:'363241199005251325'					# 用户身份证号
+			bankCode:'5b89d8838bfc0b35d3'						#银行编码
+			zfNo:'105'							#银行在支付公司的编码
+			bankBranchName:'南环路支行'				#银行支行
+		},(data)->
+			should.exists data
+			done()
 
 	# it '添加企业银行卡', (done)->
 	# 	request.post config.api.ADD_BANK_CARD_COMMPANY, {

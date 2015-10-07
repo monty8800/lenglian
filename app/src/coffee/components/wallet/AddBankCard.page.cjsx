@@ -33,7 +33,9 @@ AddBankCard = React.createClass {
 
 	_onChange :(mark) ->
 		if mark is 'getBankCardInfoSucc'
-			DB.put 'transData',WalletStore.getBankCardInfo()
+			aBankModel = WalletStore.getBankCardInfo()
+			aBankModel = aBankModel.set 'onwerName',@state.bankCardOnwerName
+			DB.put 'transData',aBankModel
 			Plugin.nav.push ['addBankCardNext']
 
 	render : ->
