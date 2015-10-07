@@ -8,6 +8,7 @@
 
 #import "CarSearchGoodsViewController.h"
 #import "CarbidGoodsViewController.h"
+#import "Net.h"
 
 @interface CarSearchGoodsViewController ()
 
@@ -51,6 +52,11 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
             //TODO: 跳转到订单页面
         }
+        else if ([params[1] isEqualToString:@"select:car"])
+        {
+            [SelectGoodsWidget show:self goods:params[2]];
+            _bid = [params[3] boolValue];
+        }
     }
     else if ([params[0] integerValue] == 1)
     {
@@ -59,6 +65,33 @@
             [self.navigationController pushViewController:bidVC animated:YES];
         }
     }
+}
+
+-(void)selectGoods:(NSString *)goodsId car:(NSString *)carId
+{
+    if (_bid) {
+        NSString *js = [NSString stringWithFormat:@"(function(){window.goBid('%@', '%@')})()", carId, goodsId];
+        [self.commandDelegate evalJs: js];
+    }
+    else{
+        NSDictionary *params = @{
+                                 @"userId": [[Global getUser] objectForKey:@"id"],
+                                 @"goodsResourceId": goodsId,
+                                 @"carResourceId": carId
+                                 };
+        [Net post:ORDER_CAR_SELECT_GOODS params:params cb:^(NSDictionary *responseDic) {
+            DDLogDebug(@"goods select car result %@", responseDic);
+            if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+                [[Global sharedInstance] showSuccess:@"抢单成功！"];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            else
+            {
+                [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+            }
+        } loading:YES];
+    }
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

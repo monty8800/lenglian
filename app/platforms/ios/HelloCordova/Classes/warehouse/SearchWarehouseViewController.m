@@ -7,6 +7,7 @@
 //
 
 #import "SearchWarehouseViewController.h"
+#import "Net.h"
 
 @interface SearchWarehouseViewController ()
 
@@ -41,6 +42,37 @@
 -(void)sureToSearch{
     
 }
+
+
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
+    if ([params[0] integerValue] == 3) {
+        if ([params[1] isEqualToString:@"select:goods"]) {
+            [SelectWarehouseWidget show:self warehouseId:params[2]];
+        }
+    }
+}
+
+-(void)selectWarehouse:(NSString *)warehouseId goods:(NSString *)goodsId {
+    NSDictionary *params = @{
+                             @"userId": [[Global getUser] objectForKey:@"id"],
+                             @"warehouseId": warehouseId,
+                             @"orderGoodsId": goodsId
+                             };
+    [Net post:ORDER_GOODS_SELECT_WAREHOUSE params:params cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"goods select warehouse result %@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            [[Global sharedInstance] showSuccess:@"成功选择该仓库"];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+    } loading:YES];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;

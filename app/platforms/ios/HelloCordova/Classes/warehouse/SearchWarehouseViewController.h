@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "SelectWarehouseWidget.h"
 
-@interface SearchWarehouseViewController : BaseViewController
+@interface SearchWarehouseViewController : BaseViewController <SelectWarehouseDelegate>
 
 @end

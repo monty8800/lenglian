@@ -116,8 +116,8 @@ SearchWarehouse = React.createClass {
 		# 	return
 		_selectedWarehouseId = @state.searchResult[index].id
 		console.log _selectedWarehouseId,'____库源ID_'
-		GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
-
+		# GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
+		Plugin.run [3, 'select:goods', _selectedWarehouseId]
 
 	_selectGoods :(index) ->
 		Plugin.toast.show 'select goods'
