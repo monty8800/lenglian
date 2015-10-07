@@ -1,8 +1,8 @@
 gulp = require 'gulp'
 plugins = require('gulp-load-plugins')()
 
-apiServer = 'http://192.168.26.177:7080/llmj-app/'
-# apiServer = 'http://192.168.29.204:8072/' #朱舟
+# apiServer = 'http://192.168.26.177:7080/llmj-app/'
+apiServer = 'http://192.168.29.204:8072/' #朱舟
 
 #webpack
 webpack = require 'webpack'
