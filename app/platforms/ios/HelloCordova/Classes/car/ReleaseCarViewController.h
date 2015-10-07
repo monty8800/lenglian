@@ -7,7 +7,12 @@
 //
 
 #import "BaseViewController.h"
+#import "DatePicker.h"
+#import "ContactsViewController.h"
 
-@interface ReleaseCarViewController : BaseViewController
+@interface ReleaseCarViewController : BaseViewController<DatePickerDelegate, SelectContactDelegate>
+{
+    DatePicker *_datePicker;
+}
 
 @end

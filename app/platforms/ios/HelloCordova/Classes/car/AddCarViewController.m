@@ -7,6 +7,7 @@
 //
 
 #import "AddCarViewController.h"
+#import "Net.h"
 
 @interface AddCarViewController ()
 
@@ -32,6 +33,38 @@
 
 -(void) createUI {
     self.title = @"新增车辆";
+}
+
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
+    if ([params[0] integerValue] == 8) {
+        DDLogDebug(@"show pic selector!");
+        if (_imagePicker == nil) {
+            _imagePicker = [ImagePicker new];
+            _imagePicker.delegate = self;
+        }
+        [_imagePicker show:params[1] vc:self];
+    }
+    else if ([params[0] integerValue] == 7)
+    {
+        [Net postFile:params[1] params:params[2] files:params[3] cb:^(NSDictionary *responseDic) {
+            if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+                [[Global sharedInstance] showSuccess:@"车辆发布成功！"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else
+            {
+                [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+            }
+        }];
+    }
+}
+
+-(void)selectImage:(NSString *)imagePath type:(NSString *)type{
+    NSString *js = [NSString stringWithFormat:@"(function(){window.setAuthPic('%@', '%@')})()", imagePath, type];
+    DDLogDebug(@"image path %@, type: %@, js: %@", imagePath, type, js);
+    [self.commandDelegate evalJs: js];
 }
 
 - (void)didReceiveMemoryWarning {

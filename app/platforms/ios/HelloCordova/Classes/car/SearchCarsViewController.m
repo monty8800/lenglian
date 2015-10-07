@@ -7,6 +7,8 @@
 //
 
 #import "SearchCarsViewController.h"
+#import "Net.h"
+
 
 @interface SearchCarsViewController ()
 
@@ -50,6 +52,29 @@
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"select_goods"]) {
+            [SelectCarWidget show:self carId:params[2]];
+        }
+    }
+}
+
+-(void)selectCar:(NSString *)carId goods:(NSString *)goodsId {
+    NSDictionary *params = @{
+                             @"goodsUserId": [[Global getUser] objectForKey:@"id"],
+                             @"goodsResouseId": goodsId,
+                             @"carResouseId": carId
+                             };
+    [Net post:ORDER_GOODS_SELECT_CAR params:params cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"goods select car result %@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+    } loading:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "SelectCarWidget.h"
 
-@interface SearchCarsViewController : BaseViewController
+@interface SearchCarsViewController : BaseViewController<SelectCarDelegate>
 
 @end
