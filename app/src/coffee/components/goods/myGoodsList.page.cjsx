@@ -140,6 +140,7 @@ GoodsList = React.createClass {
 	
 		
 	render : ->
+		console.log 'state', @state
 		<div>
 			<div className="viewport">
 				<div className="m-tab02">
