@@ -12,7 +12,7 @@ actionType = {
 	RESET_PWD: null
 	RESET_PAY_PWD: null
 	ATTENTION_LIST: null
-	ADDRESS_LIST: null
+	ADDRESS_LIST: null		
 	DEL_ADDRESS: null
 	MSG_LIST: null
 	PAY_PWD: null
