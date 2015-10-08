@@ -25,4 +25,7 @@ public interface ApiUtils {
     // 我要找车--选择此车---货找车--订单提交
     String goods_found_car = SERVER + "goodFoundCarCtl/goodFoundCar.shtml";
 
+    // 我的车辆空闲中
+    String my_car = SERVER + "mjCarinfoCtl/queryMjCarinfoFree.shtml";
+
 }
