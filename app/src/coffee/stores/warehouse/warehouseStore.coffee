@@ -127,7 +127,7 @@ searchWarehouse = (startNo,pageSize)->
 		Plugin.loading.hide()
 		_warehouseSearchResult = data	#搜索仓库 返回的data本身就是数组
 		WarehouseStore.emitChange 'searchWarehouse'
-	,null,true
+	,null
 
 warehouseSearchGoods = (startNo,pageSize)->
 	Http.post Constants.api.WAREHOUSE_SEARCH_GOODS,{
@@ -214,7 +214,6 @@ releaseWarehouse = (warehouseId)->
 		WarehouseStore.emitChange "warehouseReleaseSucc"
 	,(date)->
 		Plugin.err.show date.msg
-	,true
 
 
 WarehouseStore = assign BaseStore, {

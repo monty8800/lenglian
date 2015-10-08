@@ -1,47 +1,50 @@
 //
-//  AddBankCarVerifyViewController.m
+//  ChargeViewController.m
 //  HelloCordova
 //
-//  Created by YYQ on 15/10/6.
+//  Created by YYQ on 15/10/8.
 //
 //
 
-#import "AddBankCarVerifyViewController.h"
-
-@interface AddBankCarVerifyViewController ()
+#import "ChargeViewController.h"
+#import "AddBankCardViewController.h"
+@interface ChargeViewController ()
 
 @end
 
-@implementation AddBankCarVerifyViewController
+@implementation ChargeViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"addBankCardVerify.html";
+        self.startPage = @"charge.html";
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Do any additional  setup after loading the view.
     
     [self createUI];
 }
 
 -(void) createUI {
-    self.title = @"填写校验码";
+    self.title = @"充值";
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.commandDelegate evalJs:@"(function(){window.tryReloadBandCardsList()})()"];
+}
+
 
 -(void)commonCommand:(NSArray *)params{
     [super commonCommand:params];
-    if ([params[0] integerValue] == 2) {
-        if ([params[1] integerValue] > 0) {
-            NSInteger distance = [params[1] integerValue];
-            NSArray *currentControllers = self.navigationController.viewControllers;
-            if (distance < currentControllers.count) {
-                [self.navigationController popToViewController:currentControllers[currentControllers.count - distance - 1] animated:YES];
-            }
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"addBankCard"]) {
+            AddBankCardViewController *addBankCarVC = [AddBankCardViewController new];
+            [self.navigationController pushViewController:addBankCarVC animated:YES];
         }
     }
 }

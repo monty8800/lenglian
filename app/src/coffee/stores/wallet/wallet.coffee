@@ -21,11 +21,18 @@ _billListResult = []
 
 _aBankCardInfo = new BankCardModel
 
+
+window.tryReloadBandCardsList = ->
+	shouldReload = parseInt (DB.get 'shouldBankCardsListReload')
+	if shouldReload is 1
+		getBankCardsList()
+
 getBankCardsList = ->
 	user = UserStore.getUser()
 	Http.post Constants.api.GET_BANK_LIST, {
 		userId:user.id
 	},(data)->
+		_bankCardsList = []	#不用分页  所以请求到结果先清空数组
 		for obj in data
 			aBankCardModel = new BankCardModel
 			aBankCardModel = aBankCardModel.set 'bankBranchName',obj.bankBranchName
@@ -36,6 +43,8 @@ getBankCardsList = ->
 			_bankCardsList.push aBankCardModel
 
 		WalletStore.emitChange "getBankCardsListSucc"
+		DB.remove 'shouldBankCardsListReload'
+
 	,(date)->
 		Plugin.err.show date.msg
 

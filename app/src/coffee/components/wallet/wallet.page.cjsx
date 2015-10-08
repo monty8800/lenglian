@@ -14,6 +14,10 @@ Wallet = React.createClass {
 	_goPage: (page, transData)->
 		DB.put 'transData', transData or {}
 		Plugin.nav.push [page]
+		
+	_toCharge:->
+		Plugin.nav.push ['toCharge']
+
 
 	_showBillCurrentMonth: ->
 		Plugin.nav.push ['billList']
@@ -28,7 +32,7 @@ Wallet = React.createClass {
 		</div>
 		<div className="u-pay-btn">
 			<div className="u-pay-btn">
-				<a href="#" className="btn">充值</a>
+				<a onClick={ @_toCharge } href="#" className="btn">充值</a>
 				<p className="clearfix">
 					<span className="fl" onClick={@_goPage.bind this, 'changePasswd', {type: 'payPwd'}}>修改支付密码</span>
 					<span className="fr" onClick={ @_showBillCurrentMonth }>查看本月账单</span>

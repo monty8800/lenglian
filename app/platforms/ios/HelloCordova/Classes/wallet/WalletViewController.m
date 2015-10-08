@@ -9,6 +9,7 @@
 #import "WalletViewController.h"
 #import "BankCardsListViewController.h"
 #import "BillListViewController.h"
+#import "ChargeViewController.h"
 @interface WalletViewController ()
 
 @end
@@ -50,6 +51,11 @@
         if ([params[1] isEqualToString:@"billList"]) {
             BillListViewController *billListVC = [BillListViewController new];
             [self.navigationController pushViewController:billListVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"toCharge"])
+        {
+            ChargeViewController *chargeVC = [ChargeViewController new];
+            [self.navigationController pushViewController:chargeVC animated:YES];
         }
     }
 }

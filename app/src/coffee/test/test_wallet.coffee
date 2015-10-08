@@ -11,12 +11,12 @@ describe '钱包_相关', ->
 	# 		should.exists data
 	# 		done()     
 
-	# it '查询银行列表',(done)->
-	# 	request.post config.api.GET_BANK_LIST, {
-	# 		userId:'7201beba475b49fd8b872e2d1493844a'							#用户id
-	# 	}, (data)->
-	# 		should.exists data
-	# 		done() 
+	it '查询银行列表',(done)->
+		request.post config.api.GET_BANK_LIST, {
+			userId:'7201beba475b49fd8b872e2d149384a'							#用户id
+		}, (data)->
+			should.exists data
+			done() 
 
 
 	# it '根据银行卡号查询银行',(done)->
