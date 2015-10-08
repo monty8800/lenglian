@@ -17,6 +17,8 @@ UserStore = require 'stores/user/user'
 
 _bankCardsList = []
 
+_billListResult = []
+
 _aBankCardInfo = new BankCardModel
 
 getBankCardsList = ->
@@ -105,11 +107,58 @@ bindBankCard = (aBankCardModel,smsCode)->
 		Plugin.toast.err data.msg
 	,true
 
+getBillList = (type)->
+	user = UserStore.getUser()
+	Http.post Constants.api.GET_WALLET_IN_OUT, {
+		type:type
+		userId:user.id
+	},(data)->
+		_billListResult = data.myPayIncomeOrOut
+		if _billListResult.length < 1
+			if parseInt(type) is 1
+				_billListResult = [
+					{
+						amount:-14
+						createTime: "2015-10-07 06:88:59"
+						type: 1				#,//类型 1:充值 2:提现 3:付款 4：收款
+						userMobile: "假数据"
+					}
+					{
+						amount:-1084
+						createTime: "2015-10-8 19:99:59"
+						type: 4				#,//类型 1:充值 2:提现 3:付款 4：收款
+						userMobile: "有真数据的时候不会显示"
+					}
+				]
+			else 
+				_billListResult = [
+					{
+						amount:-14
+						createTime: "2015-10-07 06:88:59"
+						type: 2				#,//类型 1:充值 2:提现 3:付款 4：收款
+						userMobile: "提现"
+					}
+					{
+						amount:-1084
+						createTime: "2015-10-8 19:99:59"
+						type: 3				#,//类型 1:充值 2:提现 3:付款 4：收款
+						userMobile: "付款"
+					}
+				]
+		WalletStore.emitChange "getBillListSucc"
+	,(data)->
+		Plugin.toast.err data.msg
+
+
+
 WalletStore = assign BaseStore, {
 	getBankCardsList: ->
 		_bankCardsList
 	getBankCardInfo: ->
 		_aBankCardInfo
+	getBillList:->
+		_billListResult
+
 }
 
 
@@ -119,7 +168,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.GET_BANK_CARD_INFO then getBankCardInfo(action.cardNo)
 		when Constants.actionType.VERITY_PHONE_FOR_BANK then getVCodeForBindBankCar(action.bankCardModel)
 		when Constants.actionType.ADD_BANK_CARD_PRIVET then bindBankCard(action.bankCardModel,action.smsCode)
-
+		when Constants.actionType.GET_WALLET_IN_OUT then getBillList(action.type)
 
 module.exports = WalletStore
 

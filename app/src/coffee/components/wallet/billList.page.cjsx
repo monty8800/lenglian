@@ -4,83 +4,83 @@ require 'user-center-style'
 React = require 'react/addons'
 
 UserStore = require 'stores/user/user'
+WalletStore = require 'stores/wallet/wallet'
+WalletModel = require 'model/wallet'
+WalletAction = require 'actions/wallet/wallet'
+
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
+
 user = UserStore.getUser()
 
-BillIn = React.createClass {
+BillList = React.createClass {
+
+	_selectOut:->
+		newState = Object.create @state
+		newState.resultList = []
+		newState.selectIndex = 2
+		@setState newState
+		WalletAction.getBillList 2
+
+	_selectIn:->
+		newState = Object.create @state
+		newState.resultList = []
+		newState.selectIndex = 1
+		@setState newState
+		WalletAction.getBillList 1
+
+
+	getInitialState:->
+		{
+			resultList:[]
+			selectIndex:2
+		}
+
+	componentDidMount: ->
+		WalletStore.addChangeListener @_onChange
+		WalletAction.getBillList @state.selectIndex
+
+	componentWillUnmount: ->
+		WalletStore.removeChangeListener @_onChange
+
+	_onChange :(mark) ->
+		if mark is 'getBillListSucc'
+			newState = Object.create @state
+			newState.resultList = WalletStore.getBillList()
+			@setState newState
+
 	render: ->
+		billItems = @state.resultList.map (bill,index)->
+			<div className="m-billItem">
+				<dl className="clearfix">
+					<dt className="fl">
+						<img src="../images/billPic.jpg"/>
+					</dt>
+					<dd className="fl">
+						<p className="clearfix">
+							<span>{ bill.userMobile }</span>
+							<span className={ if parseInt(bill.type) is 1 or parseInt(bill.type) is 4 then "plus" else "" } >{ bill.amount }</span>
+						</p>
+						<p className="clearfix">
+							<span>{ bill.createTime }</span>
+							<span>{ bill.type }</span>
+						</p>
+					</dd>
+				</dl>
+			</div>
+		,this
+
 		<div>
 			<div className="m-tab01">
 				<ul>
-					<li>支出</li>
-					<li><span className="active">收入</span></li>
+					<li onClick={ @_selectOut }><span className={ if @state.selectIndex is 2 then "active" else ''}>支出</span></li>
+					<li onClick={ @_selectIn }><span className={ if @state.selectIndex is 1 then "active" else ''}>收入</span></li>
 				</ul>
 			</div>
-			<div className="m-billItem">
-				<dl className="clearfix">
-					<dt className="fl">
-						<img src="../images/billPic.jpg"/>
-					</dt>
-					<dd className="fl">
-						<p className="clearfix">
-							<span>给XX司机付款</span>
-							<span className="plus">-10000.00</span>
-						</p>
-						<p className="clearfix">
-							<span>2015-8-5</span>
-							<span>交易结束</span>
-						</p>
-					</dd>
-				</dl>
-			</div>
-			<div className="m-billItem">
-				<dl className="clearfix">
-					<dt className="fl">
-						<img src="../images/billPic.jpg"/>
-					</dt>
-					<dd className="fl">
-						<p className="clearfix">
-							<span>给XX司机付款</span>
-							<span className="plus">-100.00</span>
-						</p>
-						<p className="clearfix">
-							<span>2015-8-5</span>
-							<span>交易结束</span>
-						</p>
-					</dd>
-				</dl>
-			</div>
+			{ billItems }
 		</div>
 }
 
 
-Wallet = React.createClass {
-	_goPage: (page, transData)->
-		DB.put 'transData', transData or {}
-		Plugin.nav.push [page]
+React.render <BillList  />, document.getElementById('content')
 
-	_showBillCurrentMonth: ->
-		Plugin.nav.push ['billList']
-
-	render: ->
-		<section>
-		<div className="m-moneyItem">
-			<div className="g-account">
-				<p>账户余额</p>
-				<p>&yen;<span>{user.balance.toFixed 2}</span></p>
-			</div>	
-		</div>
-		<div className="u-pay-btn">
-			<div className="u-pay-btn">
-				<a href="#" className="btn">充值</a>
-				<p className="clearfix">
-					<span className="fl" onClick={@_goPage.bind this, 'changePasswd', {type: 'payPwd'}}>修改支付密码</span>
-					<span className="fr" onClick={ @_showBillCurrentMonth }>查看本月账单</span>
-				</p>
-			</div>
-		</div>
-		</section>
-}
-
-React.render <Wallet  />, document.getElementById('content')
