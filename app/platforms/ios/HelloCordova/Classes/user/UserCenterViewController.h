@@ -7,11 +7,14 @@
 //
 
 #import "BaseViewController.h"
+#import "ImagePicker.h"
 
-@interface UserCenterViewController : BaseViewController
+@interface UserCenterViewController : BaseViewController<ImagePickerDelegate>
 {
     UIImage *_navBg;
     UIImage *_navBgBlue;
+    
+    ImagePicker *_imagePicker;
 }
 
 @end

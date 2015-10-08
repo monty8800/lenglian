@@ -16,6 +16,7 @@
 #import "MyWarehouseViewController.h"
 #import "CommentViewController.h"
 #import "MyGoodsListViewController.h"
+#import "Net.h"
 
 @interface UserCenterViewController ()
 
@@ -111,8 +112,50 @@
             myGoodsVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:myGoodsVC animated:YES];
         }
+        
+    }
+    else if ([params[0] integerValue] == 8)
+    {
+        DDLogDebug(@"show pic selector!");
+        if (_imagePicker == nil) {
+            _imagePicker = [ImagePicker new];
+            _imagePicker.delegate = self;
+        }
+        [_imagePicker show:params[1] vc:self];
+
     }
 }
+
+-(void)selectImage:(NSString *)imagePath type:(NSString *)type{
+    NSDictionary *user = [Global getUser];
+    NSString *userId = [user objectForKey:@"id"];
+    NSDictionary *params = @{
+                             @"uuid": [Global sharedInstance].uuid,
+                             @"client_type": CLIENT_TYPE,
+                             @"version": [Global sharedInstance].version,
+                             @"data": [NSString stringWithFormat:@"{userId: '%@'}", userId]
+                             };
+    NSArray *files = @[@{
+                           @"path": imagePath,
+                           @"filed": @"file"
+                           }];
+    [Net postFile:SET_AVATAR params: params files:files cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"auth result is %@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            [[Global sharedInstance] showSuccess:@"头像修改成功！"];
+            NSString *js = [NSString stringWithFormat:@"(function(){window.setAuthPic('%@', '%@')})()", imagePath, type];
+            DDLogDebug(@"image path %@, type: %@, js: %@", imagePath, type, js);
+            [self.commandDelegate evalJs: js];
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+    }];
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

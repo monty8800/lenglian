@@ -15,6 +15,8 @@ Auth = require 'util/auth'
 
 Helper = require 'util/helper'
 
+Image = require 'util/image'
+
 AuthStatus = React.createClass {
 	_goAuth: (auth)->
 		user = @props.user
@@ -36,6 +38,8 @@ AuthStatus = React.createClass {
 				Plugin.nav.push ['personal' + auth]
 			else
 				Plugin.nav.push ['company' + auth]
+
+
 	render: ->
 		user = @props.user
 		statusMapper = (status)->
@@ -63,6 +67,12 @@ AuthStatus = React.createClass {
 
 Profile = React.createClass {
 	#TODO: 用户头像
+	_changeAvatar: ->
+		Plugin.run [8, 'avatar']
+
+	_pic404: ->
+		UserAction.clearAuthPic 'avatar'
+
 	render: ->
 		user = this.props.user
 		console.log 'user is', user
@@ -70,7 +80,7 @@ Profile = React.createClass {
 			<div className="g-userPrivate">
 				<dl className="clearfix"> 
 					<dt className="fl">
-						<img src={userPic}/>
+						<img onError={@_pic404} onClick={@_changeAvatar} src={Image.getFullPath(user.avatar, '130x130') or userPic}/>
 					</dt>
 					<dd className="fl">
 						<p className="g-name">{user.name || user.company || user.mobile}</p>
@@ -125,8 +135,8 @@ UserCenter = React.createClass {
 
 	render: ->
 		console.log 'user', @state.user
-		menus = this.state.menus.map (menu)->
-			<Menu items={menu}  />
+		menus = this.state.menus.map (menu, i)->
+			<Menu items={menu} key={i} />
 
 		<div>
 			<Profile user={this.state.user} />

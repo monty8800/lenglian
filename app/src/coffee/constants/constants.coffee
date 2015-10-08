@@ -165,6 +165,9 @@ api = {
 	# 个人中心
 	USER_CENTER: '/userInfo/userCenter.shtml'
 
+	#修改头像
+	SET_AVATAR: '/loginCtl/changHeadPic.shtml'
+
 	#个人认证
 	PERSONAL_AUTH: '/mjPersonInfoAuthCtl/personInfoAuth.shtml'
 	#公司认证
@@ -322,6 +325,8 @@ cache = {
 	USER_INFO: 3 * 60 * 1000 #更新用户信息的间隔
 }
 
+imageServer = 'http://qa-pic.lenglianmajia.com/'
+
 module.exports = 
 	api: api
 	actionType: keymirror actionType
@@ -332,3 +337,4 @@ module.exports =
 	authType: authType
 	orderStatus: orderStatus
 	cache: cache
+	imageServer: imageServer

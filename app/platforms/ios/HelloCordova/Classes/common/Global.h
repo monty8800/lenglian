@@ -56,6 +56,8 @@
 //车找货
 #define ORDER_CAR_SELECT_GOODS [SERVER stringByAppendingString: @"/carFindGoods/orderTrade.shtml"]
 
+//上传头像
+#define SET_AVATAR [SERVER stringByAppendingString: @"/loginCtl/changHeadPic.shtml"]
 
 
 
