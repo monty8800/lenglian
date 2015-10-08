@@ -32,6 +32,13 @@
 -(void) createUI {
     self.title = @"我的银行卡";
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.commandDelegate evalJs:@"(function(){window.tryReloadBandCardsList()})()"];
+}
+
+
 -(void)commonCommand:(NSArray *)params{
     [super commonCommand:params];
     if ([params[0] integerValue] == 1) {

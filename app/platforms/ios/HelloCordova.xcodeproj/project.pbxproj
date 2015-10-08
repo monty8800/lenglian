@@ -94,6 +94,7 @@
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		5B1CBCF61BC36D4D00D94095 /* AddBankCardNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1CBCF91BC36DD100D94095 /* AddBankCarVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5B255FE31BC60F8B000958A8 /* ChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B255FE21BC60F8B000958A8 /* ChargeViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2AA1EC1BC4FB440083175E /* BillListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2AA1EB1BC4FB440083175E /* BillListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -299,6 +300,8 @@
 		5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCardNextViewController.m; path = wallet/AddBankCardNextViewController.m; sourceTree = "<group>"; };
 		5B1CBCF71BC36DD100D94095 /* AddBankCarVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCarVerifyViewController.h; path = wallet/AddBankCarVerifyViewController.h; sourceTree = "<group>"; };
 		5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCarVerifyViewController.m; path = wallet/AddBankCarVerifyViewController.m; sourceTree = "<group>"; };
+		5B255FE11BC60F8B000958A8 /* ChargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChargeViewController.h; path = wallet/ChargeViewController.h; sourceTree = "<group>"; };
+		5B255FE21BC60F8B000958A8 /* ChargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChargeViewController.m; path = wallet/ChargeViewController.m; sourceTree = "<group>"; };
 		5B2AA1EA1BC4FB440083175E /* BillListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BillListViewController.h; path = wallet/BillListViewController.h; sourceTree = "<group>"; };
 		5B2AA1EB1BC4FB440083175E /* BillListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BillListViewController.m; path = wallet/BillListViewController.m; sourceTree = "<group>"; };
 		5B2F62381BB3E7870020AD28 /* WarehouseSearchGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarehouseSearchGoodsViewController.h; sourceTree = "<group>"; };
@@ -587,6 +590,8 @@
 				5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */,
 				5B1CBCF71BC36DD100D94095 /* AddBankCarVerifyViewController.h */,
 				5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */,
+				5B255FE11BC60F8B000958A8 /* ChargeViewController.h */,
+				5B255FE21BC60F8B000958A8 /* ChargeViewController.m */,
 			);
 			name = wallet;
 			sourceTree = "<group>";
@@ -1087,6 +1092,7 @@
 				5B69AE511BBB8AFB00A14101 /* ReleaseWarehouseViewController.m in Sources */,
 				4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */,
 				4C59DE401B5E4FF30063D9CE /* Global.m in Sources */,
+				5B255FE31BC60F8B000958A8 /* ChargeViewController.m in Sources */,
 				4C3353EA1BBEB18E0020EB06 /* SelectWarehouseWidget.m in Sources */,
 				5BEB92681BB64BBE003970B3 /* AddWarehouseViewController.m in Sources */,
 				5B3734051BC2519600807804 /* AddBankCardViewController.m in Sources */,

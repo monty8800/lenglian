@@ -1,4 +1,4 @@
-package com.xebest.llmj.car;
+package com.xebest.llmj.ware;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
@@ -38,10 +38,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 找车
+ * 仓库找货
  * Created by kaisun on 15/9/22.
  */
-public class FoundCarActivity extends BaseCordovaActivity implements CordovaInterface {
+public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -49,46 +49,55 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
 
     private TextView tvTitle;
 
-    private TextView tvNear;
+    private boolean isOnCreate = false;
 
-    private XListView mListView;
+    private TextView tvOk;
 
-    private CarAdapter carAdapter;
+    private String wareHouseId = "";
 
     private Dialog mDialog;
 
+    private XListView mListView;
+
     private List<CarListInfo> carList = new ArrayList<CarListInfo>();
 
-    private String carId = "";
+    private CarAdapter carAdapter;
 
     /**
      * 活跃当前窗口
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, FoundCarActivity.class));
+        context.startActivity(new Intent(context, WareHouseFindGoodsActivity.class));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.found_car);
-
+        isOnCreate = true;
         initView();
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(WareHouseFindGoodsActivity.this, "调用JS", Toast.LENGTH_LONG).show();
+//                mWebView.getWebView().loadUrl("javascript:searchMyCar()");
+            }
+        });
 
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("我要找车");
+        MobclickAgent.onPageEnd("仓库找货");
         MobclickAgent.onPause(this);
     }
 
     protected void initView() {
-        tvNear = (TextView) findViewById(R.id.near);
+        tvOk = (TextView) findViewById(R.id.near);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("我要找车");
+        tvTitle.setText("仓库找货");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -97,25 +106,16 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
                 finish();
             }
         });
-        tvNear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 搜索
-                mWebView.getWebView().loadUrl("javascript:searchMyCar()");
-            }
-        });
     }
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        if (flag.equals("carDetail")) {
-            CarDetailActivity.actionView(FoundCarActivity.this);
-        } else if (flag.equals("carOwnerDetail")) {
-            CarOwnerDetailActivity.actionView(FoundCarActivity.this);
-        } else if (flag.equals("select_goods")) {
-            carId = args.getString(2);
+        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
+        if (flag.equals("select:goods")) {
+            // 选择该仓库
+            wareHouseId = args.getString(2);
             new GoodsFoundCar().execute();
         }
     }
@@ -123,10 +123,13 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("我要找车");
+        MobclickAgent.onPageStart("仓库找货");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "foundCar.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "warehouseSearchGoods.html", this, this, this, this);
+        }
+        isOnCreate = false;
         super.onResume();
     }
 
@@ -152,14 +155,14 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
     }
 
     /**
-     * 货找车
+     * 货物列表
      */
     public class GoodsFoundCar extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Tools.createLoadingDialog(FoundCarActivity.this, "正在加载...");
+            Tools.createLoadingDialog(WareHouseFindGoodsActivity.this, "正在加载...");
         }
 
         @Override
@@ -184,14 +187,13 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
                     List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
                     carList.addAll(list);
                     if (list.size() == 0) {
-                        Tools.showErrorToast(FoundCarActivity.this, "还没发布货源哦");
+                        Tools.showErrorToast(WareHouseFindGoodsActivity.this, "还没发布货源哦");
                         return;
                     }
                     showDialog(list);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }
     }
@@ -263,7 +265,7 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
             Map<String, String> map = new HashMap<String, String>();
             map.put("goodsUserId", Application.getInstance().userId);
             map.put("goodsResouseId", params[0]);
-            map.put("carResouseId", carId);
+            map.put("carResouseId", wareHouseId);
 
             return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
         }
@@ -271,7 +273,6 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.i("info", "-------------result:" + s);
             if (s != null && s != "") {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
@@ -289,6 +290,5 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
         }
 
     }
-
 
 }

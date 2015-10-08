@@ -74,12 +74,13 @@ CarItem = React.createClass {
 									if item?.payType is '3'
 										<span>等待货主付款</span>				
 									else
-										<a href="###" onClick={@_receiver.bind this, 3, item} className="u-btn02">完成订单</a>
-								else if item?.orderState is '3'
-									if item?.payType is '3'
-										<a href="###" onClick={@_receiver.bind this, 3, item} className="u-btn02">完成订单</a>
-									else
 										<span>货物运输中</span>
+										#<a href="###" onClick={@_receiver.bind this, 3, item} className="u-btn02">完成订单</a>
+								else if item?.orderState is '3'
+									#if item?.payType is '3'
+									#<a href="###" onClick={@_receiver.bind this, 3, item} className="u-btn02">完成订单</a>
+									#else
+									<span>货物运输中</span>
 								else if item?.orderState is '4'
 									<a href="###" className="u-btn02">评价货主</a>
 							}

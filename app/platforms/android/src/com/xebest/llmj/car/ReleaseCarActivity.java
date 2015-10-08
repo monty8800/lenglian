@@ -117,6 +117,7 @@ public class ReleaseCarActivity extends BaseCordovaActivity implements CordovaIn
         isOnCreate = false;
         if (mApplication.getContacts() != "") {
             mWebView.getWebView().loadUrl("javascript:updateContact('" + mApplication.getContacts() + "', '" + mApplication.getPhone() + "')");
+            mApplication.setContacts("");
         }
 
         // 更新地址

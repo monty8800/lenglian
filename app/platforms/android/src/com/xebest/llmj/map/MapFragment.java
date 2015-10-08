@@ -504,17 +504,20 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.i("info", "------dsssss-------" + s);
             if (s != null && s != "") {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     String data = jsonObject.getString("data");
                     String str = new JSONObject(data).getString("GoodsResource");
                     List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
+                    carList.addAll(list);
+                    if (list.size() == 0) {
+                        Tools.showErrorToast(getActivity(), "还没发布货源哦");
+                        return;
+                    }
                     carBottomView.setVisibility(View.GONE);
                     goodsBottomView.setVisibility(View.GONE);
                     storeBottomView.setVisibility(View.GONE);
-                    carList.addAll(list);
                     showDialog(list);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -618,7 +621,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.i("info", "-------------result:" + s);
             if (s != null && s != "") {
                 try {
                     JSONObject jsonObject = new JSONObject(s);

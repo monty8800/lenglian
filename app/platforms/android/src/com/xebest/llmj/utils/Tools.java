@@ -179,6 +179,9 @@ public class Tools {
      * @return
      */
     public static void createLoadingDialog(Activity context, String text) {
+        if (text == null || text.equals("") || text.equals("undefined")) {
+            text = "加载中...";
+        }
         View view = context.getLayoutInflater().inflate(R.layout.progress_hud, null);
         TextView msg = (TextView) view.findViewById(R.id.message);
         msg.setText(Html.fromHtml(text));

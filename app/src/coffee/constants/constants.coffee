@@ -12,7 +12,7 @@ actionType = {
 	RESET_PWD: null
 	RESET_PAY_PWD: null
 	ATTENTION_LIST: null
-	ADDRESS_LIST: null
+	ADDRESS_LIST: null		
 	DEL_ADDRESS: null
 	MSG_LIST: null
 	PAY_PWD: null
@@ -140,13 +140,8 @@ api = {
 	hello: 'http://www.baidu.com'
 	#服务器地址
 	server: 'http://192.168.26.177:7080/llmj-app/'
-	# server: 'http://192.168.29.176:8072/'
-	# server: 'http://192.168.29.204:8072/'
 	# server: 'http://192.168.29.204:8072/'
 
-	# server: 'http://192.168.29.204:8072/'
-
-	# server: 'http://192.168.29.204:8072/'
 
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
@@ -154,7 +149,6 @@ api = {
 	LOGIN: '/loginCtl/userLogin.shtml'
 	#注册
 	REGISTER: '/register/registerUser.shtml'
-
 	#找回密码
 	RESET_PWD: '/register/retrievePWD.shtml'
 	#修改密码

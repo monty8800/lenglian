@@ -44,7 +44,9 @@ AddBankCardVerify = React.createClass {
 	_onChange :(mark) ->
 		if mark is 'getVCodeForBindBankCarSucc'
 			console.log '____________get it ________'
-		
+		else if mark is 'bindBankCarSucc'
+			DB.put 'shouldBankCardsListReload',1
+			Plugin.nav.popTo 3
 
 	render : ->
 		<div>

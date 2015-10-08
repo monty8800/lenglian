@@ -52,8 +52,8 @@ OrderDoc = React.createClass {
 		}
 
 	componentDidMount: ->
-		# 浏览器调试(临时)
-		OrderAction.browerTemp(1)
+		# 浏览器调试(临时)	
+		# OrderAction.browerTemp(1)
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->
@@ -81,7 +81,7 @@ OrderDoc = React.createClass {
 						<span className={ if @state.type is '3' then "active" else ""}>已付款</span>
 					</li>
 					<li onClick={@status_04}>
-						<span className={ if @state.type is '4' then "active" else ""}>待评价</span>
+						<span className={ if @state.type is '4' then "active" else ""}>已完成</span>
 					</li>
 				</ul> 
 				{
