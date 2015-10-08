@@ -36,7 +36,6 @@ public class UploadFile {
      *
      * @param url Service net address
      * @param params text content
-     * @param
      * @return String result of Service response
      * @throws IOException
      */
