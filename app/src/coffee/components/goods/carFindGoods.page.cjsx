@@ -68,7 +68,7 @@ CarFindGoods = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	componentDidMount: ->
 		GoodsStore.addChangeListener @_change
-		SelectionStore.addChangeListener @_change
+		# SelectionStore.addChangeListener @_change
 		#如果是金价，原生弹窗选择完后调用这个函数
 		window.goBid = (carId, goodsId)->
 			DB.put 'transData', {
@@ -80,7 +80,7 @@ CarFindGoods = React.createClass {
 
 	componentWillUnmount: ->
 		GoodsStore.removeChangeListener @_change
-		SelectionStore.removeChangeListener @_change
+		# SelectionStore.removeChangeListener @_change
 		GoodsAction.clearGoods()
 
 	_change: (msg)->
@@ -97,6 +97,10 @@ CarFindGoods = React.createClass {
 			@setState newState
 		else if msg is 'do:car:search:goods'
 			@_search()
+		else if msg is 'search:goods:done'
+			@setState {
+				goodsList: GoodsStore.getGoodsList()
+			}
 
 
 	_search: ->
@@ -120,7 +124,7 @@ CarFindGoods = React.createClass {
 			fromArea: null
 			fromAreaId: null
 			startNo: 0
-			pageSize: 10
+			pageSize: 100
 			showCarList: false
 			bid: false
 		}
@@ -132,6 +136,8 @@ CarFindGoods = React.createClass {
 
 	render: ->
 		console.log 'state', @state
+		goodsCells = @state.goodsList?.map (goods, i)->
+			<CarFindGoodsCell goods={goods} key={i} />
 
 		<section>
 		<div className="m-nav03">
@@ -143,8 +149,7 @@ CarFindGoods = React.createClass {
 			</ul>
 			
 		</div>
-		<CarFindGoodsCell  />
-		<CarFindGoodsCell bid=true />
+		{ goodsCells }
 		</section>
 }
 

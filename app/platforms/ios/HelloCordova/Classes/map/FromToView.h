@@ -11,7 +11,7 @@
 
 @interface FromToView : UIView<UITableViewDataSource, UITableViewDelegate>
 {
-    CGFloat _cellHeight;
+
 }
 
 @property (strong, nonatomic) NSArray *addressList;

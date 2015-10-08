@@ -171,9 +171,9 @@
                     
                     //MARK: 起始地
                     NSMutableArray *addressList = [NSMutableArray new];
-                    NSString *fromStr = [NSString stringWithFormat:@"%@%@%@", [dic objectForKey:@"fromProvinceName"], [dic objectForKey:@"fromCityName"], [dic objectForKey:@"fromAreaName"]];
-                    [addressList addObject:@{@"type": @(FROM), @"text": fromStr}];
                     
+                    NSString *toStr = [NSString stringWithFormat:@"%@%@%@", [dic objectForKey:@"toProvinceName"], [dic objectForKey:@"toCityName"], [dic objectForKey:@"toAreaName"]];
+                    [addressList addObject:@{@"type": @(TO), @"text": toStr}];
                    
                     
                     for (NSDictionary *route in [dic objectForKey:@"mjGoodsRoutes"]) {
@@ -181,8 +181,11 @@
                         [addressList addObject:@{@"type": @(PASSBY), @"text": passby}];
                     }
                     
-                    NSString *toStr = [NSString stringWithFormat:@"%@%@%@", [dic objectForKey:@"toProvinceName"], [dic objectForKey:@"toCityName"], [dic objectForKey:@"toAreaName"]];
-                    [addressList addObject:@{@"type": @(TO), @"text": toStr}];
+                    NSString *fromStr = [NSString stringWithFormat:@"%@%@%@", [dic objectForKey:@"fromProvinceName"], [dic objectForKey:@"fromCityName"], [dic objectForKey:@"fromAreaName"]];
+                    [addressList addObject:@{@"type": @(FROM), @"text": fromStr}];
+
+                    
+                    
                     
                     [goodsList addObject:@{
                                            @"data": @{

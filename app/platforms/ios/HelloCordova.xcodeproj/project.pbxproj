@@ -73,6 +73,7 @@
 		4CAB02151BB40093002A0A5C /* CompanyCarAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02141BB40093002A0A5C /* CompanyCarAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB02181BB400EF002A0A5C /* CompanyGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02171BB400EF002A0A5C /* CompanyGoodsAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB021B1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB021A1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CB11F2B1BC64631002280B2 /* UIImage+FromTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB11F2A1BC64631002280B2 /* UIImage+FromTo.m */; settings = {ASSET_TAGS = (); }; };
 		4CB4C0E01BBF6FE50095ABE8 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A184C1BB680710072F940 /* LocationViewController.m */; };
 		4CB4C0E31BBF7E3B0095ABE8 /* SelectCarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CB4C0ED1BBFD50A0095ABE8 /* SelectCarWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4C0EC1BBFD50A0095ABE8 /* SelectCarWidget.m */; settings = {ASSET_TAGS = (); }; };
@@ -259,6 +260,8 @@
 		4CAB02171BB400EF002A0A5C /* CompanyGoodsAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyGoodsAuthViewController.m; path = auth/CompanyGoodsAuthViewController.m; sourceTree = "<group>"; };
 		4CAB02191BB4015F002A0A5C /* CompanyWarehouseAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyWarehouseAuthViewController.h; path = auth/CompanyWarehouseAuthViewController.h; sourceTree = "<group>"; };
 		4CAB021A1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyWarehouseAuthViewController.m; path = auth/CompanyWarehouseAuthViewController.m; sourceTree = "<group>"; };
+		4CB11F291BC64631002280B2 /* UIImage+FromTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+FromTo.h"; path = "map/UIImage+FromTo.h"; sourceTree = "<group>"; };
+		4CB11F2A1BC64631002280B2 /* UIImage+FromTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+FromTo.m"; path = "map/UIImage+FromTo.m"; sourceTree = "<group>"; };
 		4CB4C0E11BBF7E3B0095ABE8 /* SelectCarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectCarTableViewCell.h; path = map/SelectCarTableViewCell.h; sourceTree = "<group>"; };
 		4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectCarTableViewCell.m; path = map/SelectCarTableViewCell.m; sourceTree = "<group>"; };
 		4CB4C0EB1BBFD50A0095ABE8 /* SelectCarWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectCarWidget.h; path = map/SelectCarWidget.h; sourceTree = "<group>"; };
@@ -726,6 +729,8 @@
 				4C65841B1BBE2B3B005FEB16 /* FromToView.h */,
 				4C65841E1BBE2BC1005FEB16 /* FromToTableViewCell.h */,
 				4C65841F1BBE2BC1005FEB16 /* FromToTableViewCell.m */,
+				4CB11F291BC64631002280B2 /* UIImage+FromTo.h */,
+				4CB11F2A1BC64631002280B2 /* UIImage+FromTo.m */,
 				4CD14AC91BBE9189009FFF0C /* InfoTableViewCell.h */,
 				4CD14ACA1BBE9189009FFF0C /* InfoTableViewCell.m */,
 				4CD14AC61BBE8226009FFF0C /* InfoView.h */,
@@ -1069,6 +1074,7 @@
 				4C5C87441B74809300609666 /* HelloViewController.m in Sources */,
 				4C65841A1BBE2995005FEB16 /* CarBubbleView.m in Sources */,
 				4CE0AE5C1BB241E00081DE22 /* AuthViewController.m in Sources */,
+				4CB11F2B1BC64631002280B2 /* UIImage+FromTo.m in Sources */,
 				4CAB02151BB40093002A0A5C /* CompanyCarAuthViewController.m in Sources */,
 				5BEB926C1BB651A0003970B3 /* CommentViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,

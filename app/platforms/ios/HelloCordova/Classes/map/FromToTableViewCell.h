@@ -18,6 +18,10 @@ typedef enum : NSUInteger {
 {
     UIImageView *_iconView;
     UILabel *_addressLabel;
+    
+    UIImage *_imageFrom;
+    UIImage *_imageTo;
+    UIImage *_imagePassby;
 }
 
 @property (strong, nonatomic) NSDictionary *addressDic;

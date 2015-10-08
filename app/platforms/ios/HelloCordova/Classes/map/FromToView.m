@@ -27,7 +27,6 @@
     [_tabView registerClass:[FromToTableViewCell class] forCellReuseIdentifier:@"address_cell"];
     [self addSubview:_tabView];
     
-    _cellHeight = [UIImage imageNamed:@"address_passby"].size.height;
 }
 
 

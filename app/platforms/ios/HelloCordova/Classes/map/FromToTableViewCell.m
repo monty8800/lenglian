@@ -8,6 +8,7 @@
 
 #import "FromToTableViewCell.h"
 #import "Global.h"
+#import "UIImage+FromTo.h"
 
 
 
@@ -29,8 +30,18 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    _iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 17, 27)];
+    
+    _imageFrom = [UIImage imageNamed:@"from_green"];
+    _imageFrom = [_imageFrom addLine:TOP length:27-_imageFrom.size.height color:[UIColor WY_ColorWithHex:0x11cd6e]];
+    _imageTo = [UIImage imageNamed:@"to_red"];
+    _imageTo = [_imageTo addLine:BOTTOM length:27-_imageTo.size.height color:[UIColor WY_ColorWithHex:0xeb4f38]];
+    _imagePassby = [UIImage imageNamed:@"passby_blue"];
+    _imagePassby = [_imagePassby addLine:BOTH length:27-_imagePassby.size.height color:[UIColor WY_ColorWithHex:0x9dd5fd]];
+    
+    _iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _imagePassby.size.width, 27)];
     [self.contentView addSubview:_iconView];
+    
+
     
     _addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 7, self.bounds.size.width, 14)];
     _addressLabel.font = [UIFont systemFontOfSize:14];
@@ -45,19 +56,20 @@
     switch ([[_addressDic objectForKey:@"type"] integerValue]) {
         case FROM:
         {
-            icon = [UIImage imageNamed:@"address_start"];
+            icon = _imageFrom;
+            
         }
             break;
         
         case TO:
         {
-            icon = [UIImage imageNamed:@"address_to"];
+            icon = _imageTo;
         }
             break;
             
         case PASSBY:
         {
-            icon = [UIImage imageNamed:@"address_passby"];
+            icon = _imagePassby;
         }
             break;
         

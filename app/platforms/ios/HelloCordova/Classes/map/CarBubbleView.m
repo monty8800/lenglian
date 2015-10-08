@@ -44,12 +44,13 @@
     NSString *toArea = [data objectForKey:@"toAreaName"];
     
     _fromToView.addressList = @[
-                                @{@"type": @(FROM),
-                                  @"text": [NSString stringWithFormat:@"%@%@%@", fromProvince, fromCity, fromArea]
-                                  },
                                 @{@"type": @(TO),
                                   @"text": [NSString stringWithFormat:@"%@%@%@", toProvince, toCity, toArea]
                                   },
+                                @{@"type": @(FROM),
+                                  @"text": [NSString stringWithFormat:@"%@%@%@", fromProvince, fromCity, fromArea]
+                                  },
+                                
                                 ];
     NSString *carType = @"";
     switch ([[data objectForKey:@"carType"] integerValue]) {
