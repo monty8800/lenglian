@@ -249,7 +249,7 @@ _orderFinish = (orderNo, version, carPersonUserId)->
 	console.log '------orderNo:', orderNo
 	Http.post Constants.api.order_state_change, {
 		userId: _user?.id
-		orderNo: orderNo
+		orderNo: orderNo			
 		version: version
 		carPersonUserId: carPersonUserId
 	}, (data)->

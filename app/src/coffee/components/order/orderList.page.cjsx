@@ -45,7 +45,7 @@ OrderDoc = React.createClass {
 		OrderAction.getOrderList(Constants.orderStatus.st_04, 1)
 
 	getInitialState: ->
-		{	
+		{				
 			orderType: ''
 			type: Constants.orderStatus.st_01
 			orderList: OrderStore.getOrderList().toJS()

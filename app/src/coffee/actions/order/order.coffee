@@ -63,7 +63,7 @@ OrderAction = {
 			carPersonUserId: carPersonUserId
 			orderNo: orderNo
 			version: version
-			index: index
+			index: index			
 		}	
 	carOwnerOrderDetail: (carPersonUserId, orderNo, goodsPersonUserId)->
 		Dispatcher.dispatch {
