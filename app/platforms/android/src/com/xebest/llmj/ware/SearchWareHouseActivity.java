@@ -287,7 +287,6 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
             }
             Tools.dismissLoading();
         }
-
     }
 
 }

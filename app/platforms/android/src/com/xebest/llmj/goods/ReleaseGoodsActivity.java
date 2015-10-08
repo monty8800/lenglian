@@ -1,4 +1,4 @@
-package com.xebest.llmj.ware;
+package com.xebest.llmj.goods;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,16 +24,16 @@ import android.widget.Toast;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
-import com.xebest.llmj.adapter.CarAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
-import com.xebest.llmj.application.LocationActivity;
+import com.xebest.llmj.car.AddCarActivity;
+import com.xebest.llmj.car.SelectBirthday;
+import com.xebest.llmj.center.SelectAddressActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
-import com.xebest.llmj.model.CarListInfo;
 import com.xebest.llmj.sort.ContactListActivity;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
-import com.xebest.llmj.widget.XListView;
+import com.xebest.llmj.widget.DateCallBack;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -47,17 +47,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
- * 新增仓库
+ * 发布货源
  * Created by kaisun on 15/9/22.
  */
-public class AddWarehouseActivity extends BaseCordovaActivity implements CordovaInterface {
+public class ReleaseGoodsActivity extends BaseCordovaActivity implements CordovaInterface, DateCallBack {
 
     private XEWebView mWebView;
 
@@ -65,19 +62,11 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
 
     private TextView tvTitle;
 
+    private TextView addCar;
+
     private boolean isOnCreate = false;
 
-    private TextView tvOk;
-
-    private String wareHouseId = "";
-
-    private Dialog mDialog;
-
-    private XListView mListView;
-
-    private List<CarListInfo> carList = new ArrayList<CarListInfo>();
-
-    private CarAdapter carAdapter;
+    private Application mApplication;
 
     private String localTempImgDir = "tempPic";
 
@@ -87,58 +76,63 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
 
     public final int IMAGE_CODE = 10002;
 
-    private List<String> paths = new ArrayList<String>();
+    private Dialog mDialog;
 
     private String resource = "";
 
-    private Application mApplication;
+    private SelectBirthday selectBirthday;
+
+    private String startDate = "";
+    private String endDate = "";
 
     /**
      * 活跃当前窗口
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, AddWarehouseActivity.class));
+        context.startActivity(new Intent(context, ReleaseGoodsActivity.class));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.found_car);
+        setContentView(R.layout.my_ware);
         isOnCreate = true;
         initView();
-        tvOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mWebView.getWebView().loadUrl("javascript:addWarehouseBtnClick()");
-            }
-        });
+
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("新增仓库");
+        MobclickAgent.onPageEnd("发布货源");
         MobclickAgent.onPause(this);
     }
 
     protected void initView() {
-        tvOk = (TextView) findViewById(R.id.near);
-        tvOk.setText("完成");
+        mApplication = (Application) getApplicationContext();
+        addCar = (TextView) findViewById(R.id.add);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("新增仓库");
+        tvTitle.setText("发布货源");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
-        mApplication = (Application) getApplicationContext();
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        addCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddCarActivity.actionView(ReleaseGoodsActivity.this);
+            }
+        });
     }
 
     private String type = "";
+
+    private String timeType = "";
 
     String url;
     Map<String, Object> content;
@@ -148,16 +142,26 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Log.i("info", "---------" + args.toString());
-        if (flag.equalsIgnoreCase("addWarehouse")) {
-            // 新增仓库图片回显
-            resource = flag;
-            showWindow();
-        } else if (flag.equalsIgnoreCase("getContectForAddWarehouse")) {
+        if (flag.equalsIgnoreCase("selectAddress")) {
+            SelectAddressActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("select:contacts:sender")) {
             type = flag;
             ContactListActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("locationView")) {
-            LocationActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("select:contacts:reciver")) {
+            type = flag;
+            ContactListActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("select:goods:photo")) {
+            showWindow();
+        } else if (flag.equalsIgnoreCase("select:time:install")) {
+            selectBirthday = new SelectBirthday(ReleaseGoodsActivity.this, "开始时间");
+            selectBirthday.showAtLocation(ReleaseGoodsActivity.this.findViewById(R.id.root),
+                    Gravity.BOTTOM, 0, 0);
+            timeType = "install";
+        } else if (flag.equalsIgnoreCase("select:time:arrive")) {
+            selectBirthday = new SelectBirthday(ReleaseGoodsActivity.this, "开始时间");
+            selectBirthday.showAtLocation(ReleaseGoodsActivity.this.findViewById(R.id.root),
+                    Gravity.BOTTOM, 0, 0);
+            timeType = "arrive";
         } else if (args.getString(0).equals("7")) {
             Log.i("info", "----------------source:" + args.toString());
             url = args.getString(1);
@@ -172,24 +176,19 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             Log.i("info", "--------------client_type:" + client_type);
             Log.i("info", "--------------uuid:" + uuid);
             Log.i("info", "--------------version:" + version);
-            JSONObject jb = files.getJSONObject(0);
-            Log.i("info", "--------------files:" + jb);
-
-            String a = jb.getString("filed");
-            Log.i("info", "--------------filed:" + a);
+            driving = new HashMap<String, File>();
+            if (files.length() != 0) {
+                JSONObject jb = files.getJSONObject(0);
+                String a = jb.getString("filed");
+                Log.i("info", "--------------filed:" + a);
+                driving.put("file", new File(files.getJSONObject(0).getString("path")));
+            }
 
             content = new HashMap<String, Object>();
             content.put("client_type", client_type);
             content.put("uuid", uuid);
             content.put("version", version);
             content.put("data", ttData);
-
-            driving = new HashMap<String, File>();
-
-            driving.put("file", new File(files.getJSONObject(0).getString("path")));
-
-            Log.i("info", "--------------content:" + content);
-            Log.i("info", "--------------content:");
 
             new RequestTask().execute();
         }
@@ -198,11 +197,11 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("新增仓库");
+        MobclickAgent.onPageStart("发布货源");
         // 统计时长
         MobclickAgent.onResume(this);
         if (isOnCreate) {
-            mWebView.init(this, ApiUtils.API_COMMON_URL + "addWarehouse.html", this, this, this, this);
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "addGoods.html", this, this, this, this);
         }
         isOnCreate = false;
 
@@ -211,28 +210,14 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             mApplication.setContacts("");
         }
 
-        SharedPreferences sp = getSharedPreferences("location", 0);
-        if (sp.getString("mLatitude", "") != "") {
-            String mLatitude = sp.getString("mLatitude", "");
-            String mLontitud = sp.getString("mLontitud", "");
-            String mProvince = sp.getString("mProvince", "");
-            String mCity = sp.getString("mCity", "");
-            String mArea = sp.getString("mArea", "");
-            String mStreet = sp.getString("mStreet", "");
-            String mStreetNumber = sp.getString("mStreetNumber", "");
-            mWebView.getWebView().loadUrl("javascript:showAddressFromMap('" + mProvince + "', '" + mCity + "', '" + mArea + "', '" + mStreet + "', '" + mStreetNumber + "', '" + mLatitude + "', '" + mLontitud + "')");
-        }
-        SharedPreferences.Editor editor = getSharedPreferences("location", 0).edit();
-        editor.putString("mLatitude", "");
-        editor.putString("mLontitud", "");
-        editor.putString("mProvince", "");
-        editor.putString("mCity", "");
-        editor.putString("mArea", "");
-        editor.putString("mStreet", "");
-        editor.putString("mStreetNumber", "");
-        editor.commit();
+        mWebView.getWebView().loadUrl("javascript:updateGoods()");
 
         super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -288,10 +273,10 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
                                 intent.putExtra(MediaStore.EXTRA_OUTPUT, u);
                                 startActivityForResult(intent, GET_IMAGE_VIA_CAMERA);
                             } catch (ActivityNotFoundException e) {
-                                Toast.makeText(AddWarehouseActivity.this, "没有找到储存目录", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ReleaseGoodsActivity.this, "没有找到储存目录", Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Toast.makeText(AddWarehouseActivity.this, "没有储存卡", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ReleaseGoodsActivity.this, "没有储存卡", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -318,7 +303,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
                     FileOutputStream out = null;
                     try {
                         out = new FileOutputStream(ff);
-                        paths.add(pat);
+//                        paths.add(pat);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -335,7 +320,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
                     }
 
                     // 通知js更新图片内容
-                    mWebView.getWebView().loadUrl("javascript:(function(){showAddWarehouseImage('"+ pat +"', '"+ resource +"')})()");
+                    mWebView.getWebView().loadUrl("javascript:(function(){setGoodsPic('"+ pat +"', '"+ resource +"')})()");
                     Log.i("info", "-----------resource:" + resource);
                     Log.i("info", "-----------img:" + pat);
 
@@ -366,7 +351,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
                         FileOutputStream fOut = null;
                         try {
                             fOut = new FileOutputStream(f);
-                            paths.add(temp);
+//                            paths.add(temp);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -383,7 +368,9 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
                         }
 
                         // 通知js更新图片内容
-                        mWebView.getWebView().loadUrl("javascript:showAddWarehouseImage('" + temp + "', '" + resource + "', '" + System.currentTimeMillis() + "')");
+                        mWebView.getWebView().loadUrl("javascript:setGoodsPic('" + temp + "', '" + resource + "', '" + System.currentTimeMillis() + "')");
+//                        mWebView.getWebView().loadUrl("javascript:setAuthPic('"+ temp + "', '"+ resource + "')");
+//                        mWebView.getWebView().loadUrl("javascript:(function(){setAuthPic('"+ temp +"', '"+ resource +"')})()");
                         Log.i("info", "-----------resource:" + resource);
                         Log.i("info", "-----------temp:" + temp);
 
@@ -402,13 +389,32 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
         super.onConfigurationChanged(config);
     }
 
+    @Override
+    public void callBack(int flag, String date) {
+        if (flag == 0) {
+        } else if (flag == 1) {
+            startDate = date;
+            selectBirthday = new SelectBirthday(ReleaseGoodsActivity.this, "结束时间");
+            selectBirthday.showAtLocation(ReleaseGoodsActivity.this.findViewById(R.id.root),
+                    Gravity.BOTTOM, 0, 0);
+        } else if (flag == 2) {
+            endDate = date;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mWebView.getWebView().loadUrl("javascript:updateTime('" + startDate + "', '" +  endDate + "', '" + timeType + "')");
+                }
+            });
+        }
+    }
+
     boolean success = false;
     public class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Tools.createLoadingDialog(AddWarehouseActivity.this, "提交中...");
+            Tools.createLoadingDialog(ReleaseGoodsActivity.this, "提交中...");
         }
 
         @Override
@@ -417,14 +423,6 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
                 String result = UploadFile.post(url, content, driving, null, null);
                 JSONObject jsonObject = new JSONObject(result);
                 Log.i("info", "----------------result" + result);
-                String msg = jsonObject.getString("msg");
-                String temp = URLEncoder.encode(msg, "UTF-8");
-                String temp2 = URLEncoder.encode(msg, "gbk");
-                String temp3 = URLEncoder.encode(msg, "gb2312");
-                Log.i("info", "--------msg:" + msg);
-                Log.i("info", "--------temp:" + temp);
-                Log.i("info", "--------temp2:" + temp2);
-                Log.i("info", "--------temp3:" + temp3);
                 if (jsonObject.getString("code").equals("0000")) {
                     // 认证成功
                     success = true;
@@ -445,13 +443,12 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
 
             Tools.dismissLoading();
             if (success) {
-                // TODO 调用js方法更新User
                 mWebView.getWebView().loadUrl("javascript:authDone()");
-                Tools.showSuccessToast(AddWarehouseActivity.this, "添加成功!");
+                Tools.showSuccessToast(ReleaseGoodsActivity.this, "添加成功!");
                 finish();
-                MainActivity.actionView(AddWarehouseActivity.this, 3);
+                MainActivity.actionView(ReleaseGoodsActivity.this, 3);
             } else {
-                Tools.showErrorToast(AddWarehouseActivity.this, "添加失败!");
+                Tools.showErrorToast(ReleaseGoodsActivity.this, "添加失败!");
             }
         }
     }

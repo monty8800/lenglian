@@ -90,6 +90,9 @@ public class Application extends android.app.Application {
         activities.add(activity);
     }
 
+    public void removeActivity (Activity activity) {
+        activities.remove(activity);
+    }
     /**
      * 版本号
      * @return

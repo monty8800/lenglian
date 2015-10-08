@@ -16,6 +16,7 @@ import com.xebest.llmj.car.FoundCarActivity;
 import com.xebest.llmj.car.ReleaseCarActivity;
 import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.goods.CarFindGoodsActivity;
+import com.xebest.llmj.goods.ReleaseGoodsActivity;
 import com.xebest.llmj.ware.ReleaseWarehouseActivity;
 import com.xebest.llmj.ware.SearchWareHouseActivity;
 import com.xebest.llmj.ware.WareHouseFindGoodsActivity;
@@ -77,6 +78,8 @@ public class HomeFragment extends XEFragment implements CordovaInterface {
             WareHouseFindGoodsActivity.actionView(getActivity());
         } else if (flag.equals("releaseWarehouse")) {
             ReleaseWarehouseActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("addGoods")) {
+            ReleaseGoodsActivity.actionView(getActivity());
         }
     }
 

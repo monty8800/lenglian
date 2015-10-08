@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -110,6 +109,7 @@ public class ReleaseWarehouseActivity extends BaseCordovaActivity implements Cor
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
+
     }
 
     @Override
@@ -144,50 +144,6 @@ public class ReleaseWarehouseActivity extends BaseCordovaActivity implements Cor
     public Object onMessage(String id, Object data) {
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
         return super.onMessage(id, data);
-    }
-
-    /**
-     * 货物列表
-     */
-    public class GoodsFoundCar extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Tools.createLoadingDialog(ReleaseWarehouseActivity.this, "正在加载...");
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("userId", Application.getInstance().userId);
-            map.put("resourceStatus", "1");
-            map.put("pageNow", "1");
-            map.put("pageSize", "2");
-            return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Tools.dismissLoading();
-            if (s != null && s != "") {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    String data = jsonObject.getString("data");
-                    String str = new JSONObject(data).getString("GoodsResource");
-                    List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
-                    carList.addAll(list);
-                    if (list.size() == 0) {
-                        Tools.showErrorToast(ReleaseWarehouseActivity.this, "还没发布货源哦");
-                        return;
-                    }
-                    showDialog(list);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     /**

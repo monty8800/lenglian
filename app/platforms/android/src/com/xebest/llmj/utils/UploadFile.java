@@ -51,7 +51,8 @@ public class UploadFile {
 //        url = "http://192.168.29.176:8072/mjPersonInfoAuthCtl/personInfoAuth.shtml";
 //        url = "http://192.168.27.188:8072/enterprise/enterpriseAuthentication.shtml";
 //        url = "http://m.lenglianmajia.com/mjPersonInfoAuthCtl/personInfoAuth.shtml";
-//        url = "http://192.168.29.176:8072/mjCarinfoCtl/addMjCarinfo.shtml";
+//        url = "http://192.168.149.177:8072/mjCarinfoCtl/addMjCarinfo.shtml";
+//        url = "http://192.168.29.149:8072/mjWarehouseCtl/addMjWarehouse.shtml";
         URL uri = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
         conn.setReadTimeout(10 * 1000); // 缓存的最长时间
@@ -60,7 +61,7 @@ public class UploadFile {
         conn.setUseCaches(false); // 不允许使用缓存
         conn.setRequestMethod("POST");
         conn.setRequestProperty("connection", "keep-alive");
-        conn.setRequestProperty("Charsert", "UTF-8");
+        conn.setRequestProperty("charset", "UTF-8");
         conn.setRequestProperty("Content-Type", MULTIPART_FROM_DATA + ";boundary=" + BOUNDARY);
 
 
@@ -79,7 +80,7 @@ public class UploadFile {
         }
 
 
-                        DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
+        DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
         outStream.write(sb.toString().getBytes());
         // 发送文件数据
         if (file1 != null)

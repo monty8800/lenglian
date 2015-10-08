@@ -20,6 +20,7 @@
     <preference name="BackgroundColor" value="ff0xf2f5f5"/>
     <preference name="Orientation" value="portrait" />
     <platform name="android">
+        <preference name="AndroidLaunchMode" value="standard"/>
         <allow-intent href="market:*" />
         <!-- ShowTitle (boolean, defaults to false): Show the title at the top of the screen. -->
         <preference name="ShowTitle" value="true"/>

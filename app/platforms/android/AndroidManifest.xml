@@ -59,5 +59,6 @@
         <activity android:name=".ware.WareHouseFindGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".ware.ReleaseWarehouseActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".ware.AddWarehouseActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:launchMode="standard" android:name=".goods.ReleaseGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

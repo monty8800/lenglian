@@ -100,6 +100,8 @@ updateGoods = ->
 	DB.put 'goods', _goods.toJS()
 	GoodsStore.emitChange 'goods:update'
 
+window.updateGoods = updateGoods
+
 window.updateTime = (start, end, type)->
 	console.log 'update time', start, end, type
 	GoodsStore.emitChange {
