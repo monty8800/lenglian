@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
@@ -77,7 +76,12 @@ public class ReleaseWarehouseActivity extends BaseCordovaActivity implements Cor
         setContentView(R.layout.found_car);
         isOnCreate = true;
         initView();
-
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddWarehouseActivity.actionView(ReleaseWarehouseActivity.this);
+            }
+        });
     }
 
     public void onPause() {
@@ -89,7 +93,7 @@ public class ReleaseWarehouseActivity extends BaseCordovaActivity implements Cor
 
     protected void initView() {
         tvOk = (TextView) findViewById(R.id.near);
-        tvOk.setVisibility(View.GONE);
+        tvOk.setText("新增仓库");
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("发布库源");
         mWebView = (XEWebView) findViewById(R.id.wb);
@@ -106,8 +110,6 @@ public class ReleaseWarehouseActivity extends BaseCordovaActivity implements Cor
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
-
     }
 
     @Override
