@@ -24,6 +24,7 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.CarAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.application.LocationActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.model.CarListInfo;
 import com.xebest.llmj.sort.ContactListActivity;
@@ -101,7 +102,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AddWarehouseActivity.this, "push data to server", Toast.LENGTH_LONG).show();
+                mWebView.getWebView().loadUrl("javascript:addWarehouseBtnClick()");
             }
         });
     }
@@ -129,6 +130,8 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
         });
     }
 
+    private String type = "";
+
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
@@ -139,7 +142,10 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             resource = flag;
             showWindow();
         } else if (flag.equalsIgnoreCase("getContectForAddWarehouse")) {
+            type = flag;
             ContactListActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("locationView")) {
+            LocationActivity.actionView(this);
         }
     }
 
@@ -154,9 +160,9 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
         }
         isOnCreate = false;
 
-        Toast.makeText(this, "" + mApplication.getContacts(), Toast.LENGTH_LONG).show();
         if (mApplication.getContacts() != "") {
-            mWebView.getWebView().loadUrl("javascript:updateContact('" + mApplication.getContacts() + "', '" + mApplication.getPhone() + "')");
+            mWebView.getWebView().loadUrl("javascript:updateContact('" + mApplication.getContacts() + "', '" + mApplication.getPhone() + "', '" + type + "')");
+            mApplication.setContacts("");
         }
 
         super.onResume();
