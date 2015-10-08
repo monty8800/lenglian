@@ -124,6 +124,7 @@ whoYouAre = (who)->
 		switch parseInt(who)
 			when 1 then '(个人)'
 			when 2 then '(企业)'
+			else '(未认证)'
 	else
 		''
 	

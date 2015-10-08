@@ -17,18 +17,14 @@ WarehouseAction = {
 			actionType: Constants.actionType.WAREHOUSE_DETAIL
 			warehouseId: warehouseId
 		}
-	searchWarehouse:(startNo,pageSize) ->
-		Dispatcher.dispatch {
-			actionType: Constants.actionType.SEARCH_WAREHOUSE
-			startNo:startNo
-			pageSize:pageSize
-		}
-	warehouseSearchGoods:(startNo,pageSize)->
-		Dispatcher.dispatch {
-			actionType: Constants.actionType.WAREHOUSE_SEARCH_GOODS
-			startNo:startNo
-			pageSize:pageSize
-		}
+	searchWarehouse:(params) ->
+		params.actionType = Constants.actionType.SEARCH_WAREHOUSE
+		Dispatcher.dispatch params 
+
+	warehouseSearchGoods:(params)->
+		params.actionType = Constants.actionType.WAREHOUSE_SEARCH_GOODS
+		Dispatcher.dispatch params
+		
 	postAddWarehouse:(params,url)->
 		Dispatcher.dispatch {
 			actionType:Constants.actionType.WAREHOUSE_ADD

@@ -3,7 +3,8 @@ require 'index-style'
 require 'majia-style'
 require 'user-center-style'
 
-
+ImageHelper = require 'util/image'
+Helper = require 'util/helper'
 React = require 'react/addons'
 
 headerImg = require 'user-01.jpg'
@@ -31,27 +32,32 @@ selectionList = [
 		]
 	}
 	{
-		key: 'needWarehouseType'
+		key: 'coldStoreFlag'
 		value: '需要仓库地'
 		options: [
-			{key: '1', value: '一口价'}
-			{key: '2', value: '竞价'}
+			{key: '1', value: '不需要'}
+			{key: '2', value: '需要'}
+			{key: '3', value: '目的地需要'}
+			{key: '4', value: '起始地需要'}
 		]
 	}
 	{
 		key: 'releaseTime'
 		value: '发布时间'
 		options: [
-			{key: '1', value: '可开发票'}
-			{key: '2', value: '不可开发票'}
+			{key: '1', value: '一天内'}
+			{key: '2', value: '三天内'}
+			{key: '3', value: '五天内'}
+			{key: '4', value: '一周内'}
+			{key: '5', value: '两周内'}
 		]
 	}
 	{
-		key: 'invoiceType'
+		key: 'isInvoice'
 		value: '需要发票'
 		options: [
-			{key: '1', value: '可开发票'}
-			{key: '2', value: '不可开发票'}
+			{key: '1', value: '不需要'}
+			{key: '2', value: '需要'}
 		]
 	}
 ]
@@ -59,18 +65,17 @@ selectionList = [
 SearchResultList = React.createClass {
 
 	render: ->
-		console.log "*****____++++" + @props.list.length
 		resultList = @props.list
 		items = resultList.map (aResult,i) ->
 			<div className="m-item01 m-item03">
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
-							<img src={ aResult.userImgUrl }/>
+							<img src={ ImageHelper.getFullPath aResult.userImgUrl,'100x100' }/>
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
-								<span>{ aResult.name }</span><span className="g-dirname-single">(个体)</span>
+								<span>{ aResult.name }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper aResult.certificAtion }</span>
 							</div>
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
@@ -90,8 +95,7 @@ SearchResultList = React.createClass {
 					</div>
 				</div>
 				<div className="g-item g-pad ll-font">
-					<p dangerouslySetInnerHTML={{__html:"价格类型 : 竞价"}}/> 
-					<span>( 柠静  4999元 )</span>
+					<p dangerouslySetInnerHTML={{__html:'价格类型 : ' + Helper.priceTypeMapper aResult.priceType }} /> 
 				</div>
 				<div className="g-item g-item-des">
 					<p>车辆描述 : <span>10米</span><span>高栏</span></p>
@@ -104,52 +108,55 @@ SearchResultList = React.createClass {
 }
 
 WarehouseSearchGoods = React.createClass {
-	getInitialState: ->
-		{
-			searchResult:[]
-			showGoodsTypeSelect:0
-			showTargetLocationSelect:0
-			showPostTimeSelect:0
-			showInvoiceSelect:0
+
+	_doWarehouseSearchGoods:->
+		console.log 'do search warehouse - goods'
+		WarehouseAction.warehouseSearchGoods {
+			startNo: @state.startNo
+			pageSize: @state.pageSize
+			# goodsType: @state.goodsType
+			# coldStoreFlag: @state.coldStoreFlag
+			# releaseTime: @state.releaseTime
+			# isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
 		}
+
+	getInitialState: ->
+		initState = {
+			searchResult:[]
+			resultCount:-1
+			startNo: 0
+			pageSize: 10
+		}
+
+		for selection in selectionList
+			initState[selection.key] = (option.key for option in selection.options)
+		console.log 'initState', initState
+		return initState
+
+
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
 		SelectionStore.addChangeListener @_onChange
-		WarehouseAction.warehouseSearchGoods '0','10'
+		@_doWarehouseSearchGoods()
 
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
 		SelectionStore.removeChangeListener @_onChange
 		
-	_onChange: ->
-		@setState { 
-			searchResult:WarehouseStore.getWarehouseSearchGoodsResult()
-			showGoodsTypeSelect:0
-			showTargetLocationSelect:0
-			showPostTimeSelect:0
-			showInvoiceSelect:0
-		}
-
-	goodsTypeCkick: ->
-		newState = Object.create @state
-		if @state.showGoodsTypeSelect is 1 then newState.showGoodsTypeSelect = 0 else newState.showGoodsTypeSelect = 1
-		@setState newState
-
-	targetLocationCkick: ->
-		newState = Object.create @state
-		if @state.showTargetLocationSelect is 1 then newState.showTargetLocationSelect = 0 else newState.showTargetLocationSelect = 1
-		@setState newState
-
-	postTimeCkick:->
-		newState = Object.create @state
-		if @state.showPostTimeSelect is 1 then newState.showPostTimeSelect = 0 else newState.showPostTimeSelect = 1
-		@setState newState
-
-	invoiceCkick:->
-		newState = Object.create @state
-		if @state.showInvoiceSelect is 1 then newState.showInvoiceSelect = 0 else newState.showInvoiceSelect = 1
-		@setState newState
-
+	_onChange:(msg) ->
+		console.log 'event change (((()))))', msg
+		if msg.type
+			newState = Object.create @state
+			newState[msg.type] = msg.list
+			console.log 'newState', newState
+			@setState newState
+		else if msg is 'do:warehouse:search:goods'
+			@_doWarehouseSearchGoods()
+		else if msg is 'warehouseSearchGoodsSucc'
+			newState = Object.create @state
+			newState.searchResult = WarehouseStore.getWarehouseSearchGoodsResult()
+			newState.resultCount = newState.searchResult.resultCount
+			@setState newState
 
 	render: ->
 		<div>
@@ -161,7 +168,10 @@ WarehouseSearchGoods = React.createClass {
 					}
 				</ul>			
 			</div>
-
+			<div style={{display: if @state.resultCount is 0 then 'block' else 'none'}} className="m-searchNoresult">
+				<div className="g-bgPic"></div>
+				<p className="g-txt">很抱歉，没能找到您要的结果</p>
+			</div>
 			<SearchResultList list={ @state.searchResult } />
 		</div>
 }

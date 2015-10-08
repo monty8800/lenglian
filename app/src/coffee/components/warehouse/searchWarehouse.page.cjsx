@@ -1,6 +1,7 @@
 require 'components/common/common'
 require 'index-style'
 require 'majia-style'
+ImageHelper = require 'util/image'
 
 React = require 'react/addons'
 
@@ -23,8 +24,18 @@ _selectedWarehouseId = ''
 
 selectionList = [
 	{
-		key: 'goodsType'
-		value: '货物类型 仓库'
+		key: 'wareHouseType'
+		value: '仓库类型'
+		options: [
+			{key: '1', value: '驶入式'}
+			{key: '2', value: '横梁式'}
+			{key: '3', value: '平推式'}
+			{key: '4', value: '自动立体货架式'}
+		]
+	}
+	{
+		key: 'warehouseTempreatureType'
+		value: '库温类型'
 		options: [
 			{key: '1', value: '常温'}
 			{key: '2', value: '冷藏'}
@@ -34,23 +45,7 @@ selectionList = [
 		]
 	}
 	{
-		key: 'needWarehouseType'
-		value: '需要仓库地'
-		options: [
-			{key: '1', value: '一口价'}
-			{key: '2', value: '竞价'}
-		]
-	}
-	{
-		key: 'releaseTime'
-		value: '发布时间'
-		options: [
-			{key: '1', value: '可开发票'}
-			{key: '2', value: '不可开发票'}
-		]
-	}
-	{
-		key: 'invoiceType'
+		key: 'isInvoice'
 		value: '需要发票'
 		options: [
 			{key: '1', value: '可开发票'}
@@ -60,55 +55,61 @@ selectionList = [
 ]
 
 SearchWarehouse = React.createClass {
+	_doSearchWarehouse: ->
+		WarehouseAction.searchWarehouse {
+			startNo: @state.startNo
+			pageSize: @state.pageSize
+			warehouseTempreatureType: @state.warehouseTempreatureType
+			wareHouseType: @state.wareHouseType
+			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
+		}
 	getInitialState: ->
-		{
+		initState = {
 			searchResult:[]
 			userGoodsSource:[]
 			showGoodsListMenu:0
+			startNo: 0
+			pageSize: 10
+			resultCount:-1
 		}
+
+		for selection in selectionList
+			initState[selection.key] = (option.key for option in selection.options)
+		console.log 'initState', initState
+		return initState
+
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
 		GoodsStore.addChangeListener @_onChange
-		WarehouseAction.searchWarehouse '0','10'
+		@_doSearchWarehouse()
 		
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
 		GoodsStore.removeChangeListener @_onChange
 
 	_onChange: (mark)->
-		console.log "#!!!!!!!!!!  " + WarehouseStore.getWarehouseSearchResult()
-		if mark is "searchWarehouse"
+		if mark is 'searchWarehouseSucc'
 			newState = Object.create @state
 			newState.searchResult = WarehouseStore.getWarehouseSearchResult()
+			newState.resultCount = newState.searchResult
 			@setState newState
 		else if mark is "getUserGoodsListSucc"
-			console.log  'imposible ________'
 			newState = Object.create @state
 			newState.showGoodsListMenu = 1
 			newState.userGoodsSource = GoodsStore.getMyGoodsList()
 			@setState newState
-
 		else if mark is 'goods_bind_warehouse_order_succ'
 			Plugin.toast.show 'bind success'
+
+		else if mark is 'do:search:warehouse'
+			@_doSearchWarehouse()
+
+		else if mark.type
+			newState = Object.create @state
+			newState[mark.type] = mark.list
+			console.log '__selection_newState', newState
+			@setState newState
 		
-
-
-	# typeChooseCkick: ->
-	# 	newState = Object.create @state
-	# 	if @state.showTypeSelect is 1 then newState.showTypeSelect = 0 else newState.showTypeSelect = 1
-	# 	@setState newState
-	# 	console.log @state.showTypeSelect + "__ \\\\\\\\\\"
-
-	# tempreatureSelectCkick: ->
-	# 	newState = Object.create @state
-	# 	if @state.showTempreatureSelect is 1 then newState.showTempreatureSelect = 0 else newState.showTempreatureSelect = 1
-	# 	@setState newState
-
-	# invoiceSelectCkick:->
-	# 	newState = Object.create @state
-	# 	if @state.showInvoiceSelect is 1 then newState.showInvoiceSelect = 0 else newState.showInvoiceSelect = 1
-	# 	@setState newState
-
 
 	_selectWarehouse :(index) ->
 		# if @state.userGoodsSource.length < 1
@@ -206,6 +207,10 @@ SearchWarehouse = React.createClass {
 							<Selection selectionMap=s  key={i} />
 					}
 				</ul>			
+			</div>
+			<div style={{display: if @state.resultCount is 0 then 'block' else 'none'}} className="m-searchNoresult">
+				<div className="g-bgPic"></div>
+				<p className="g-txt">很抱歉，没能找到您要的结果</p>
 			</div>
 			{ searchResultList }
 			<div className={ if @state.showGoodsListMenu is 1 then "u-pop-box u-show" else "u-pop-box" }>

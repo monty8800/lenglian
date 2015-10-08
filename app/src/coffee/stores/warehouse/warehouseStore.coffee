@@ -65,6 +65,13 @@ window.addWarehouseSucc = ()->
 	#  1  应该刷新仓库列表 刷新后del
 	DB.put 'shouldWarehouseListReload',1
 
+window.doWarehouseSearchGoods = ->
+	WarehouseStore.emitChange 'do:warehouse:search:goods'
+
+window.doSearchWarehouse = ->
+	WarehouseStore.emitChange 'do:search:warehouse'
+
+
 
 getDetail = (warehouseId) ->
 	user = UserStore.getUser()
@@ -118,24 +125,17 @@ getDetail = (warehouseId) ->
 		WarehouseStore.emitChange 'getDetailWithId'
 
 
-searchWarehouse = (startNo,pageSize)->
-	console.log '搜索获取仓库  star+++tNo='+startNo+' pageSize='+pageSize
-	Http.post Constants.api.SEARCH_WAREHOUSE,{
-		startNo:startNo
-		pageSize:pageSize
-	},(data)->
+searchWarehouse = (params)->
+	Http.post Constants.api.SEARCH_WAREHOUSE,params,(data)->
 		Plugin.loading.hide()
 		_warehouseSearchResult = data	#搜索仓库 返回的data本身就是数组
-		WarehouseStore.emitChange 'searchWarehouse'
+		WarehouseStore.emitChange 'searchWarehouseSucc'
 	,null
 
-warehouseSearchGoods = (startNo,pageSize)->
-	Http.post Constants.api.WAREHOUSE_SEARCH_GOODS,{
-		startNo:startNo
-		pageSize:pageSize
-	},(data)->
+warehouseSearchGoods = (params)->
+	Http.post Constants.api.WAREHOUSE_SEARCH_GOODS,params,(data)->
 		_warehouseSearchGoodsResult = data.goods
-		WarehouseStore.emitChange 'warehouseSearchGoods'
+		WarehouseStore.emitChange 'warehouseSearchGoodsSucc'
 
 
 postAddWarehouse = (params,fileUrl) ->
@@ -234,8 +234,8 @@ Dispatcher.register (action)->
 	switch action.actionType
 		when Constants.actionType.GET_WAREHOUSE then getWarehouseList(action.status,action.pageNow,action.pageSize)
 		when Constants.actionType.WAREHOUSE_DETAIL then getDetail(action.warehouseId)
-		when Constants.actionType.SEARCH_WAREHOUSE then searchWarehouse(action.startNo,action.pageSize)
-		when Constants.actionType.WAREHOUSE_SEARCH_GOODS then warehouseSearchGoods(action.startNo,action.pageSize)
+		when Constants.actionType.SEARCH_WAREHOUSE then searchWarehouse(action)
+		when Constants.actionType.WAREHOUSE_SEARCH_GOODS then warehouseSearchGoods(action)
 		when Constants.actionType.WAREHOUSE_ADD then postAddWarehouse(action.params,action.fileUrl)
 		when Constants.actionType.DELETE_WAREHOUSE then deleteWarehouseRequest(action.warehouseId)
 		when Constants.actionType.RELEASE_WAREHOUSE then releaseWarehouse(action.warehouseId)
