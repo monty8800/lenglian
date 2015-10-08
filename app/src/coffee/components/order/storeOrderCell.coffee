@@ -21,7 +21,6 @@ StoreCell = React.createClass {
 						</div>
 						<div className="g-dirver-btn">
 							{
-								console.log '------------orderType:', item.orderType
 								if item?.orderState is '1'
 									if item?.orderType is 'WG'
 										<span>等待货主确认</span>
