@@ -128,6 +128,18 @@ Order = Immutable.Record {
 	warehouseServices: null
 	warehouseSourceMobile: null
 	warehouseSourceMode: null
+
+	# 车主订单详情
+	loadingEdate: null # 装货结束时间
+	loadingSdate: null # 装货开始时间
+	arrivalSdate: null # 到货开始时间
+	arrivalEdate: null # 到货结束时间
+	receiver: null
+	certification: 0
+	goodScore: 0
+	wishlst: null
+	createTime: null
+
 }
 
 module.exports = Order

@@ -21,10 +21,13 @@ carCategory = (status) ->
 		else '未知'	
 
 payType = (type) ->
-	switch parseInt(type)
-		when 1 then '货到付款（线下）'
-		when 2 then '回单付款（线下）'
-		when 3 then '预付款（线上）'
+	if type?
+		switch parseInt(type)
+			when 1 then '货到付款（线下）'
+			when 2 then '回单付款（线下）'
+			when 3 then '预付款（线上）'
+	else
+		''
 
 priceType = (type) ->
 	switch parseInt(type)
@@ -37,6 +40,15 @@ invoiceStatus = (status) ->
 			'可以开发票'
 		when 2
 			'不可以开发票'
+
+isInvoince = (status) ->
+	switch parseInt(status)
+		when 1
+			'需要发票'
+		when 2
+			'不需要发票'
+		else
+			''
 
 authStatus = (status)->
 	switch parseInt(status)
@@ -96,13 +108,24 @@ packType = (type) ->
 		when 1 then '硬纸壳'		
 
 subStr = (start,length,str)->
-	if str.length > length
-		str.substring start,length
+	if str?
+		if str.length > length
+			str.substring start,length
+		else
+			str
 	else
-		str
+		''
 
 hideName = (name)->
 	name[0] + '**'
+
+whoYouAre = (who)->
+	if who?
+		switch parseInt(who)
+			when 1 then '(个人)'
+			when 2 then '(企业)'
+	else
+		''
 	
 
 module.exports = 
@@ -120,3 +143,5 @@ module.exports =
 	packType:packType 					#货物打包类型
 	subStr:subStr
 	hideName: hideName
+	isInvoinceMap: isInvoince
+	whoYouAreMapper: whoYouAre

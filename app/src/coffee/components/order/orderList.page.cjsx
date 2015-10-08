@@ -45,14 +45,15 @@ OrderDoc = React.createClass {
 		OrderAction.getOrderList(Constants.orderStatus.st_04, 1)
 
 	getInitialState: ->
-		{	
+		{				
 			orderType: ''
 			type: Constants.orderStatus.st_01
 			orderList: OrderStore.getOrderList().toJS()
 		}
 
 	componentDidMount: ->
-		OrderAction.browerTemp(2)
+		# 浏览器调试(临时)
+		OrderAction.browerTemp(1)
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->

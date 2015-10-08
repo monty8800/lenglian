@@ -100,9 +100,11 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'priceType', order.priceType
 				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + order.goodsType
 				tempOrder = tempOrder.set 'payType', order.payType
+				tempOrder = tempOrder.set 'price', order.price
 				tempOrder = tempOrder.set 'carPersonUserId', order.carPersonUserId
 				tempOrder = tempOrder.set 'goodSsourceId', order.goodSsourceId
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
+				tempOrder = tempOrder.set 'version', order.version
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['car']
 	, (err)->
@@ -169,6 +171,106 @@ carBidGoods = (params)->
 		console.log 'car bid goods result ', data
 		OrderStore.emitChange 'car:bid:goods:done'
 
+# 车主确认订单
+_carOwnerConfirmOrder = (carPersonUserId, orderNo, version, index)->
+	Plugin.loading.show '正在确认...'
+	Http.post Constants.api.car_owner_confirm_order, {
+		carPersonUserId: carPersonUserId
+		orderNo: orderNo
+		version: version
+	}, (data)->
+		Plugin.loading.hide()
+		Plugin.toast.success '接受订单成功'
+		OrderStore.emitChange ['car_owner_confirm_order_success', index]
+	, (data)->
+		Plugin.loading.hide()
+		Plugin.toast.err data.msg
+
+# 车主取消订单
+_carOwnerCancelOrder = (carPersonUserId, orderNo, version, index)->
+	Plugin.loading.show '正在取消...'
+	Http.post Constants.api.car_owner_cancel_order, {
+		carPersonUserId: carPersonUserId
+		orderNo: orderNo
+		version: version
+	}, (data)->
+		Plugin.loading.hide()
+		Plugin.toast.success '取消成功'
+		OrderStore.emitChange ['car_owner_cancel_order_success', index]
+	, (data)->
+		Plugin.loading.hide()
+		Plugin.toast.err data.msg
+
+carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
+	Http.post Constants.api.car_owner_order_detail, {
+		carPersonUserId: carPersonUserId
+		orderNo: orderNo
+		goodsPersonUserId: goodsPersonUserId
+		userId: _user?.id
+	}, (data)->
+		temp = data.ownerOrder
+		_orderDetail = _orderDetail.set 'orderNo', temp.orderNo
+		_orderDetail = _orderDetail.set 'orderState', temp.orderState
+		_orderDetail = _orderDetail.set 'orderType', temp.orderType
+		_orderDetail = _orderDetail.set 'goodsPersonHeadPic', temp.goodsPersonHeadPic
+		_orderDetail = _orderDetail.set 'carPersonName', temp.carPersonName
+		_orderDetail = _orderDetail.set 'goodsPersonScore', temp.goodsPersonScore
+		_orderDetail = _orderDetail.set 'destination', temp.destination
+		_orderDetail = _orderDetail.set 'setOut', temp.setOut
+		_orderDetail = _orderDetail.set 'priceType', temp.priceType
+		_orderDetail = _orderDetail.set 'goodsDesc', temp.goodsName + temp.goodsType
+		_orderDetail = _orderDetail.set 'payType', temp.payType
+		_orderDetail = _orderDetail.set 'price', temp.price
+		_orderDetail = _orderDetail.set 'carPersonUserId', temp.carPersonUserId
+		_orderDetail = _orderDetail.set 'goodSsourceId', temp.goodSsourceId
+		_orderDetail = _orderDetail.set 'goodsPersonUserId', temp.goodsPersonUserId
+		_orderDetail = _orderDetail.set 'loadingEdate', temp.loadingEdate
+		_orderDetail = _orderDetail.set 'loadingSdate', temp.loadingSdate
+		_orderDetail = _orderDetail.set 'arrivalSdate', temp.arrivalSdate
+		_orderDetail = _orderDetail.set 'arrivalEdate', temp.arrivalEdate
+		_orderDetail = _orderDetail.set 'goodsName', temp.goodsName
+		_orderDetail = _orderDetail.set 'goodsPackingType', temp.goodsPackingType
+		_orderDetail = _orderDetail.set 'goodsType', temp.goodsType
+		_orderDetail = _orderDetail.set 'goodsWeight', temp.goodsWeight
+		_orderDetail = _orderDetail.set 'shipper', temp.shipper
+		_orderDetail = _orderDetail.set 'receiver', temp.receiver
+		_orderDetail = _orderDetail.set 'isInvoice', temp.isInvoice
+		_orderDetail = _orderDetail.set 'goodsPersonName', temp.goodsPersonName
+		_orderDetail = _orderDetail.set 'certification', data.certification
+		_orderDetail = _orderDetail.set 'goodScore', data.goodScore
+		_orderDetail = _orderDetail.set 'wishlst', data.wishlst			
+		_orderDetail = _orderDetail.set 'createTime', temp.createTime
+		OrderStore.emitChange ['car_owner_order_detail']
+	, (data)->
+		Plugin.toast.err data.msg
+
+# 完成订单
+_orderFinish = (orderNo, version, carPersonUserId)->
+	console.log '------orderNo:', orderNo
+	Http.post Constants.api.order_state_change, {
+		userId: _user?.id
+		orderNo: orderNo			
+		version: version
+		carPersonUserId: carPersonUserId
+	}, (data)->
+		Plugin.toast.success '确认订单成功'
+		OrderStore.emitChange ['car_owner_cancel_order_success', index]
+	, (err)->
+		Plugin.toast.err err.msg
+
+# 关注取消关注
+_attention = (params)->
+	Plugin.loading.show '正在确认...'
+	Http.post Constants.api.attention, params, (data)->
+		if params.type is 1
+			OrderStore.emitChange ['attention_success']
+		else 
+			OrderStore.emitChange ['nattention_success']
+		Plugin.loading.hide()
+	, (data)->
+		Plugin.loading.hide()
+		Plugin.toast.err data.msg
+
 OrderStore = assign BaseStore, {
 	getOrderList: ->
 		_orderList
@@ -189,6 +291,11 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ORDER_CAR_BID_GOODS then carBidGoods(action.params)
 		when Constants.actionType.BROWSER_TEMP then browser_temp(action.params)
 		when Constants.actionType.GET_BIDDING_LIST then getBinddingList(action.goodsResourceId)
+		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER then _carOwnerConfirmOrder(action.carPersonUserId, action.orderNo, action.version, action.index) 
+		when Constants.actionType.CAR_OWNER_CANCEL_ORDER then _carOwnerCancelOrder(action.carPersonUserId, action.orderNo, action.version, action.index)
+		when Constants.actionType.CAR_OWNER_ORDER_DETAIL then carOwnerOrderDetail(action.carPersonUserId, action.orderNo, action.goodsPersonUserId)
+		when Constants.actionType.ORDER_FINISH then _orderFinish(action.orderNo, action.version, action.carPersonUserId)
+		when Constants.actionType.ATTENTION then _attention(action.params)
 
 module.exports = OrderStore
 		

@@ -3,18 +3,53 @@ require 'components/common/common'
 React = require 'react'
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
+OrderAction = require 'actions/order/order'
+OrderStore = require 'stores/order/order'
+DB = require 'util/storage'
 
 DRIVER_LOGO = require 'user-01.jpg'
 
 CarItem = React.createClass {
 
 	# 接受
-	_receiver: ->
-		Plugin.toast.show '接受'
+	_receiver: (type, item, i)->
+		if type is 1 # 接受
+			OrderAction.carOwnercomfitOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
+			window.event.returnValue = false
+		else if type is 2 # 取消
+			OrderAction.carOwnerCancelOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
+			window.event.returnValue = false
+		else if type is 3 # 完成订单
+			OrderAction.carOwnerOrderFinish(item.orderNo, item.version, item?.carPersonUserId)
+			window.event.returnValue = false
+
+	_detail: (item)->
+		DB.put 'car_owner_order_detail', [item?.carPersonUserId, item?.orderNo, item?.goodsPersonUserId]
+		Plugin.nav.push ['carOwnerOrderDetail']
+
+	componentDidMount: ->			
+		OrderStore.addChangeListener @resultCallBack
+
+	componentWillNotMount: ->
+		OrderStore.removeChangeListener @resultCallBack
+
+	resultCallBack: (params)->
+		if params[0] is 'car_owner_confirm_order_success'
+			# 车主确认订单成功
+			orderList = @props.items.splice params[1], 1
+			newState = Object.create @state
+			newState.orderList = orderList
+			@setState newState
+		else if params[0] is 'car_owner_cancel_order_success'
+			#车主取消订单成功
+			orderList = @props.items.splice params[1], 1
+			newState = Object.create @state
+			newState.orderList = orderList
+			@setState newState
 
 	render: ->
 		items = @props.items.map (item, i)->
-			<div className="m-item01" key={i}>
+			<div className="m-item01" key={i} onClick={@_detail.bind this, item}>
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
@@ -32,18 +67,21 @@ CarItem = React.createClass {
 									if item?.orderType is 'CG'
 										<span>等待货主确认</span>
 									else if item?.orderType is 'GC'
-										<a href="###" onClick={@_receiver} className="u-btn02">接受</a>
-										<a href="###" onClick={@_receiver} className="u-btn02">取消</a>
+										<a href="###" onClick={@_receiver.bind this, 1, item, i} className="u-btn02">接受</a>
+										<a href="###" onClick={@_receiver.bind this, 2, item, i} className="u-btn02">取消</a>
 								else if item?.orderState is '2'
 									# 1：货到付款（线下）2：回单付款（线下） 3：预付款（线上）
 									if item?.payType is '3'
-										<span>等待货主付款</span>
+										<span>等待货主付款</span>				
 									else
-										<a href="###"onClick={@_receiver} className="u-btn02">完成订单</a>
+										<a href="###" onClick={@_receiver.bind this, 3, item} className="u-btn02">完成订单</a>
 								else if item?.orderState is '3'
-									<span>货物运输中</span>
+									if item?.payType is '3'
+										<a href="###" onClick={@_receiver.bind this, 3, item} className="u-btn02">完成订单</a>
+									else
+										<span>货物运输中</span>
 								else if item?.orderState is '4'
-									<a href="###"onClick={@_receiver} className="u-btn02">评价货主</a>
+									<a href="###" className="u-btn02">评价货主</a>
 							}
 						</div>
 					</div>

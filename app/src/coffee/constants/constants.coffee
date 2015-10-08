@@ -12,7 +12,7 @@ actionType = {
 	RESET_PWD: null
 	RESET_PAY_PWD: null
 	ATTENTION_LIST: null
-	ADDRESS_LIST: null
+	ADDRESS_LIST: null		
 	DEL_ADDRESS: null
 	MSG_LIST: null
 	PAY_PWD: null
@@ -126,16 +126,22 @@ actionType = {
 	BROWSER_TEMP: null
 	
 	GET_BIDDING_LIST: null
+	CAR_OWNER_CONFIRM_ORDER: null
+	CAR_OWNER_CANCEL_ORDER: null
+	CAR_OWNER_ORDER_DETAIL: null
+	ORDER_FINISH: null
+	ATTENTION: null
 
 }
-
-
+						
+								
 api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
 	server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
+	server: 'http://192.168.29.204:8072/'
 	# server: 'http://192.168.29.204:8072/'
 
 	# server: 'http://192.168.29.204:8072/'
@@ -219,7 +225,7 @@ api = {
 	GOODS_BIND_WAREHOUSE_ORDER:'/mjOrderWarhouse/addGoodsFoundWarhouseOrder.shtml'
 
 
-#货
+
 	# 查询我的货源
 	GET_GOODS_LIST: '/mjGoodsResource/queryMjGoodsResourceList.shtml'
 	#查询货源详情
@@ -283,6 +289,17 @@ api = {
 	car_free_list: '/mjCarinfoCtl/queryMjCarinfoFree.shtml'
 	# 关注
 	attention: '/userInfo/addDeleteMjWishlst.shtml'
+	# 车主确认订单
+	car_owner_confirm_order: '/ownerOrderCtl/ownerConfirmOrder.shtml'
+	# 车主取消订单
+	car_owner_cancel_order: '/ownerOrderCtl/ownerCancelOrder.shtml'
+	# 车主订单详情
+	car_owner_order_detail: '/ownerOrderCtl/ownerOrderDetail.shtml'
+	# 完成订单
+	order_finish: '/orderGoods/orderFinish.shtml'
+	# 车主订单状态改变
+	order_state_change: '/ownerOrderCtl/ownerOrderState.shtml'
+
 }
 
 smsType = {

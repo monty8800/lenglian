@@ -47,6 +47,43 @@ OrderAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.GET_BIDDING_LIST
 			goodsResourceId: goodsResourceId
+		}
+
+	carOwnercomfitOrder: (carPersonUserId, orderNo, version, index)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CAR_OWNER_CONFIRM_ORDER
+			carPersonUserId: carPersonUserId
+			orderNo: orderNo
+			version: version
+			index: index
+		}		
+	carOwnerCancelOrder: (carPersonUserId, orderNo, version, index)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CAR_OWNER_CANCEL_ORDER
+			carPersonUserId: carPersonUserId
+			orderNo: orderNo
+			version: version
+			index: index			
+		}	
+	carOwnerOrderDetail: (carPersonUserId, orderNo, goodsPersonUserId)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CAR_OWNER_ORDER_DETAIL
+			carPersonUserId: carPersonUserId
+			orderNo: orderNo
+			goodsPersonUserId: goodsPersonUserId
+		}
+	carOwnerOrderFinish: (orderNo, version, carPersonUserId)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_FINISH
+			orderNo: orderNo
+			version: version
+			carPersonUserId: carPersonUserId
+		}
+
+	attention: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ATTENTION
+			params: params
 		}		
 
 }
