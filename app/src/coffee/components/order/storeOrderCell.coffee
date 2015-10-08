@@ -29,9 +29,15 @@ StoreCell = React.createClass {
 										<a href="###" onClick={@_receiver} className="u-btn02">接受</a>
 										<a href="###" onClick={@_receiver} className="u-btn02">取消</a>
 								else if item?.orderState is '2'
-									<span>等待货主付款</span>
+									if item?.payType is '3'
+										<span>等待货主付款</span>
+									else
+										<a href="###" onClick={@_receiver} className="u-btn02">完成订单</a>
 								else if item?.orderState is '3'
-									<span>货物存储中</span>
+									if item?.payType is '3'
+										<a href="###" onClick={@_receiver.bind this, 3, item} className="u-btn02">完成订单</a>
+									else
+										<span>货物存储中</span>
 								else if item?.orderState is '4'
 									<a href="###" onClick={@_receiver} className="u-btn02">评价货主</a>
 							}

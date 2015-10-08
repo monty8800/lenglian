@@ -15,6 +15,7 @@ CarAction = require 'actions/car/car'
 AddressStore = require 'stores/address/address'
 Selection = require 'components/car/addCarSelection'
 
+
 # 数据源
 selList = [
 	{
@@ -41,6 +42,10 @@ selList = [
 			{key: 5, value: '后八轮'}
 			{key: 6, value: '五桥'}
 			{key: 7, value: '六桥'}
+
+
+
+
 			{key: 8, value: '半挂'}
 		]
 	}
@@ -92,8 +97,10 @@ AddCar = React.createClass {
 	componentDidMount: ->
 		CarStore.addChangeListener @resultCallBack
 
+
 	componentWillUnMount: ->
 		CarStore.removeChangeListener @resultCallBack
+
 
 	resultCallBack: (result)->
 		if result is 'setAuthPic:done'
@@ -179,17 +186,17 @@ AddCar = React.createClass {
 				vehicle: @state.vehicle # 车辆长度
 			}, [
 				{
-					filed: 'carPic'
+					filed: 'imgUrl'
 					path: @state.user.carPic
 					name: 'carPic.jpg'
 				}
 				{
-					filed: 'license'
+					filed: 'drivingImg'
 					path: @state.user.license
 					name: 'license.jpg'
 				}
 				{
-					filed: 'transLicensePic'
+					filed: 'transportImg'
 					path: @state.user.transLicensePic
 					name: 'transLicensePic.jpg'
 				}
@@ -217,7 +224,7 @@ AddCar = React.createClass {
 				type: 'transLicensePic'
 			}
 		].map (cell, i)->
-			<PicCell key={i} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
+			<PicCell key={i}  type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
 		, this
 
 		<div>

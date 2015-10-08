@@ -93,6 +93,7 @@
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		5B1CBCF61BC36D4D00D94095 /* AddBankCardNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1CBCF91BC36DD100D94095 /* AddBankCarVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5B2AA1EC1BC4FB440083175E /* BillListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2AA1EB1BC4FB440083175E /* BillListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F623C1BB3EBA10020AD28 /* MyWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B3733D91BC1066100807804 /* GoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3733D81BC1066100807804 /* GoodsDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -295,6 +296,8 @@
 		5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCardNextViewController.m; path = wallet/AddBankCardNextViewController.m; sourceTree = "<group>"; };
 		5B1CBCF71BC36DD100D94095 /* AddBankCarVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCarVerifyViewController.h; path = wallet/AddBankCarVerifyViewController.h; sourceTree = "<group>"; };
 		5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCarVerifyViewController.m; path = wallet/AddBankCarVerifyViewController.m; sourceTree = "<group>"; };
+		5B2AA1EA1BC4FB440083175E /* BillListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BillListViewController.h; path = wallet/BillListViewController.h; sourceTree = "<group>"; };
+		5B2AA1EB1BC4FB440083175E /* BillListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BillListViewController.m; path = wallet/BillListViewController.m; sourceTree = "<group>"; };
 		5B2F62381BB3E7870020AD28 /* WarehouseSearchGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarehouseSearchGoodsViewController.h; sourceTree = "<group>"; };
 		5B2F62391BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WarehouseSearchGoodsViewController.m; sourceTree = "<group>"; };
 		5B2F623B1BB3EBA10020AD28 /* MyWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWarehouseViewController.h; sourceTree = "<group>"; };
@@ -569,6 +572,8 @@
 		4C822F4D1BB0F47500112533 /* wallet */ = {
 			isa = PBXGroup;
 			children = (
+				5B2AA1EA1BC4FB440083175E /* BillListViewController.h */,
+				5B2AA1EB1BC4FB440083175E /* BillListViewController.m */,
 				4C822F4E1BB0F48D00112533 /* WalletViewController.h */,
 				4C822F4F1BB0F48D00112533 /* WalletViewController.m */,
 				5B3734001BC24C7C00807804 /* BankCardsListViewController.h */,
@@ -1092,6 +1097,7 @@
 				4C3353ED1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m in Sources */,
 				4C6584141BBE295C005FEB16 /* GoodsBubbleView.m in Sources */,
 				4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */,
+				5B2AA1EC1BC4FB440083175E /* BillListViewController.m in Sources */,
 				4CB4C0E31BBF7E3B0095ABE8 /* SelectCarTableViewCell.m in Sources */,
 				4C5992A81BBCD3BE00CA5039 /* Contacts.m in Sources */,
 				4C5992A51BBCD0D900CA5039 /* ContactsViewController.m in Sources */,

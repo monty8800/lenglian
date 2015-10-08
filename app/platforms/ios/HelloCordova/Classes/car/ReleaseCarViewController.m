@@ -9,6 +9,7 @@
 #import "ReleaseCarViewController.h"
 #import "SelectAddressViewController.h"
 
+
 @interface ReleaseCarViewController ()
 
 @end
@@ -52,8 +53,44 @@
             SelectAddressViewController *selectAddressVC = [SelectAddressViewController new];
             [self.navigationController pushViewController:selectAddressVC animated:YES];
         }
+        else if ([params[1] isEqualToString:@"datepicker"])
+        {
+            if (_datePicker == nil) {
+                _datePicker = [DatePicker new];
+                _datePicker.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                _datePicker.pickerCount = 2;
+                _datePicker.delegate = self;
+            }
+            [_datePicker show:@"install"];
+
+        }
+        else if ([params[1] isEqualToString:@"contact_list"])
+        {
+            ContactsViewController *contactsVC = [ContactsViewController new];
+            contactsVC.type = params[1];
+            contactsVC.delegate = self;
+            [self.navigationController pushViewController:contactsVC animated:YES];
+        }
     }
 }
+
+-(void)select:(NSDictionary *)contact type:(NSString *)type {
+    NSString *name = [contact objectForKey:@"name"];
+    NSString *mobile = [contact objectForKey:@"mobile"];
+    NSString *js = [NSString stringWithFormat:@"(function(){window.updateContact('%@','%@')})()", name, mobile];
+    [self.commandDelegate evalJs:js];
+}
+
+-(void)selectDate:(NSArray *)dateList type:(NSString *)type {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    NSString *start = [formatter stringFromDate:dateList[0]];
+    NSString *end = [formatter stringFromDate:dateList[1]];
+    NSString *js = [NSString stringWithFormat:@"(function(){window.updateDate('%@','%@')})()", start, end];
+    DDLogDebug(@"js is %@" ,js);
+    [self.commandDelegate evalJs:js];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

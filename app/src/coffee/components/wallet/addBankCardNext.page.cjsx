@@ -9,40 +9,58 @@ UserStore = require 'stores/user/user'
 WalletStore = require 'stores/wallet/wallet'
 WalletModel = require 'model/wallet'
 WalletAction = require 'actions/wallet/wallet'
+BankCardModel = require 'model/bankCard'
 
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
 user = UserStore.getUser()
 
+DBBankModel = DB.get 'transData'
+_bankCardInfo = new BankCardModel DBBankModel
 
 AddBankCardNext = React.createClass {
+	mixins:[PureRenderMixin,LinkedStateMixin]
 	_addBankCardVerify:->
+		_bankCardInfo = _bankCardInfo.set 'bankBranchName',@state.bankBranchName
+		_bankCardInfo = _bankCardInfo.set 'bankMobile',@state.bankMobile
+		_bankCardInfo = _bankCardInfo.set 'userIdNumber',@state.userIdNumber
+		DB.put 'transData',_bankCardInfo
 		Plugin.nav.push ['addBankCardVerify']
+
+	getInitialState: ->
+		{
+			bankName: _bankCardInfo.bankName
+			cardType: _bankCardInfo.cardType
+			bankBranchName:''
+			bankMobile:''
+			userIdNumber:''
+		}
 
 	componentDidMount: ->
 		WalletStore.addChangeListener @_onChange
-		console.log DB.get 'transData','||||||||_____++++++'
-
 
 	componentWillUnmount: ->
 		WalletStore.removeChangeListener @_onChange
 
 	_onChange :(mark) ->
 
-
 	render : ->
 		<div>
 			<div className="m-releaseitem">
 				<div>
-					<span>卡类型: </span><span>中国建设银行卡</span><span>储蓄卡</span>
+					<span>卡类型: </span><span>{ @state.bankName }</span><span>{ @state.cardType }</span>
 				</div>
 				<div>
 					<label htmlFor="packType"><span>开户行:</span></label>
-					<input type="text" placeholder="请输入开户行" id="packType"/>
+					<input valueLink={@linkState 'bankBranchName'} type="text" placeholder="请输入开户行" id="packType"/>
 				</div>
 				<div>
 					<label htmlFor="packType"><span>手机号:</span></label>
-					<input type="text" placeholder="银行预留手机号码" id="packType"/>
+					<input valueLink={@linkState 'bankMobile'} type="text" placeholder="银行预留手机号码" id="packType"/>
+				</div>
+				<div>
+					<label htmlFor="packType"><span>身份证号:</span></label>
+					<input valueLink={@linkState 'userIdNumber'} type="text" placeholder="持卡人身份证号码" id="packType"/>
 				</div>
 			</div>
 			<div className="u-pay-btn">

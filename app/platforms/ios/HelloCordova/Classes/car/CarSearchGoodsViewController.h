@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "SelectGoodsWidget.h"
 
-@interface CarSearchGoodsViewController : BaseViewController
+@interface CarSearchGoodsViewController : BaseViewController<SelectGoodsDelegate>
+{
+    BOOL _bid;
+}
 
 @end

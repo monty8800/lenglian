@@ -72,10 +72,12 @@ OrderAction = {
 			orderNo: orderNo
 			goodsPersonUserId: goodsPersonUserId
 		}
-	carOwnerOrderFinish: (orderNo)->
+	carOwnerOrderFinish: (orderNo, version, carPersonUserId)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.ORDER_FINISH
 			orderNo: orderNo
+			version: version
+			carPersonUserId: carPersonUserId
 		}
 
 	attention: (params)->

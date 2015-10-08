@@ -121,7 +121,8 @@ module.exports = {
 		GET_BANK_CARD_INFO: '/mjUserBankCard/queryBankType.shtml'
 		#查询银行列表
 		GET_BANK_LIST: '/mjUserBankCard/queryBankCardList.shtml'
-		
+		#解绑银行卡
+		REMOVE_BANK_CARD: '/mjUserBankCard/deleteMjUserBankCard.shtml'
 
 
 

@@ -114,7 +114,7 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请输入终点'
 		else if not @state.type
 			Plugin.toast.err '请选择货物类型'
-		else if not @state.weight and not @state.cube
+		else if not @state.weight
 			Plugin.toast.err '请填写货物重量'
 		else if not @state.installMinTime or not @state.installMaxTime
 			Plugin.toast.err '请填写装车时间'
@@ -189,7 +189,7 @@ AddGoods = React.createClass {
 	getInitialState: ->
 		{
 			name: null #货物名称
-			type: null #货物类型 1常温，2冷藏，3冷冻，4急冻， 5深冷
+			type: 1 #货物类型 1常温，2冷藏，3冷冻，4急冻， 5深冷
 			weight: '' #货物重量
 			cube: ''   #货物体积
 			packType: ''  #包装类型

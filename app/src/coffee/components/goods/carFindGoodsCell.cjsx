@@ -25,7 +25,10 @@ CarFindGoodsCell = React.createClass {
 		console.log 'event change ', msg
 
 	_showWidget: ->
-		GoodsAction.changeWidgetStatus(true, @props.bid)
+		#js，改用原生的弹窗就用不到了
+		# GoodsAction.changeWidgetStatus(true, @props.bid)
+		#goodsid，是否是竞价
+		Plugin.run [3, 'select:car', 'a8627979d90d48f29ed5e2c1aa17b6d5', if @props.bid then true else false]
 
 	render: ->
 		console.log 'state---', @state

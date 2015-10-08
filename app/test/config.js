@@ -53,6 +53,7 @@
       VERITY_PHONE_FOR_BANK: '/mjUserBankCard/validateMjUserBankCard.shtml',
       GET_BANK_CARD_INFO: '/mjUserBankCard/queryBankType.shtml',
       GET_BANK_LIST: '/mjUserBankCard/queryBankCardList.shtml',
+      REMOVE_BANK_CARD: '/mjUserBankCard/deleteMjUserBankCard.shtml',
       attention_list: '/userInfo/queryMjWishlstList.shtml',
       my_car_list: '/mjCarinfoCtl/queryMjCarinfo.shtml',
       add_car: '/mjCarinfoCtl/addMjCarinfo.shtml',

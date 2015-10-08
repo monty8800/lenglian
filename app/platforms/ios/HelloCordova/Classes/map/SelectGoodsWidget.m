@@ -200,8 +200,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = @"select_car_cell";
-    SelectGoodsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    SelectGoodsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SELECT_GOODS_CELL];
     cell.infoList = [_dataList[indexPath.row] objectForKey:@"infoList"];
     return cell;
 }

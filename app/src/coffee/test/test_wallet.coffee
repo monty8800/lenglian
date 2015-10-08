@@ -19,13 +19,13 @@ describe '钱包_相关', ->
 	# 		done() 
 
 
-	it '根据银行卡号查询银行',(done)->
-		request.post config.api.GET_BANK_CARD_INFO, {
-			userId:'4671d0d8c37f47f4bcfa2323222bf102'							#用户id
-			cardNo:'6228480097678508670'							#银行卡号
-		},(data)->
-			should.exists data
-			done()
+	# it '根据银行卡号查询银行',(done)->
+	# 	request.post config.api.GET_BANK_CARD_INFO, {
+	# 		userId:'4671d0d8c37f47f4bcfa2323222bf102'							#用户id
+	# 		cardNo:'6228480097678508670'							#银行卡号
+	# 	},(data)->
+	# 		should.exists data
+	# 		done()
 
 
 	# it '验证预留手机号码',(done)->
@@ -97,6 +97,17 @@ describe '钱包_相关', ->
 	# 	}, (data) ->
 	# 		should.exists data
 	# 		done()
+
+	# it '解绑银行卡', (done)->
+	# 	request.post config.api.REMOVE_BANK_CARD, {
+	# 		id:'7201beba475b49fd8b872e2d1493844a'						# 不知道是什么ID
+	# 		userId:'7201beba475b49fd8b872e2d1493844a'								#用户id
+			
+	# 	}, (data) ->
+	# 		should.exists data
+	# 		done()
+
+
 
 
 

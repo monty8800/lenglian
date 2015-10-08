@@ -20,7 +20,7 @@ CarItem = React.createClass {
 			OrderAction.carOwnerCancelOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
 			window.event.returnValue = false
 		else if type is 3 # 完成订单
-			OrderAction.carOwnerOrderFinish(item.orderNo)
+			OrderAction.carOwnerOrderFinish(item.orderNo, item.version, item?.carPersonUserId)
 			window.event.returnValue = false
 
 	_detail: (item)->

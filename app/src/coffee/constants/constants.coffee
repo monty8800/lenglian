@@ -19,6 +19,7 @@ actionType = {
 	GET_WAREHOUSE:null
 	DELETE_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
+	WAREHOUSE_ADD:null
 	RELEASE_WAREHOUSE:null
 	CHANGE_PWD: null
 	LOGOUT: null
@@ -44,7 +45,7 @@ actionType = {
 	VERITY_PHONE_FOR_BANK:null
 	GET_BANK_CARD_INFO:null
 	GET_BANK_LIST:null
-
+	REMOVE_BANK_CARD:null
 
 	PERSONAL_AUTH: null
 	COMPANY_AUTH: null
@@ -138,9 +139,15 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	# server: 'http://192.168.26.177:7080/llmj-app/'
+	server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
 	server: 'http://192.168.29.204:8072/'
+	# server: 'http://192.168.29.204:8072/'
+
+	# server: 'http://192.168.29.204:8072/'
+
+	# server: 'http://192.168.29.204:8072/'
+
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
 	#登录
@@ -237,8 +244,8 @@ api = {
 	GET_BANK_CARD_INFO: '/mjUserBankCard/queryBankType.shtml'
 	#查询银行列表
 	GET_BANK_LIST: '/mjUserBankCard/queryBankCardList.shtml'
-
-
+	#解绑银行卡
+	REMOVE_BANK_CARD: '/mjUserBankCard/deleteMjUserBankCard.shtml'
 
 
 
@@ -290,6 +297,8 @@ api = {
 	car_owner_order_detail: '/ownerOrderCtl/ownerOrderDetail.shtml'
 	# 完成订单
 	order_finish: '/orderGoods/orderFinish.shtml'
+	# 车主订单状态改变
+	order_state_change: '/ownerOrderCtl/ownerOrderState.shtml'
 
 }
 

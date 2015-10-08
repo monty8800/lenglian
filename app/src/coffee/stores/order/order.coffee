@@ -245,11 +245,13 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 		Plugin.toast.err data.msg
 
 # 完成订单
-_orderFinish = (orderNo)->
+_orderFinish = (orderNo, version, carPersonUserId)->
 	console.log '------orderNo:', orderNo
-	Http.post Constants.api.order_finish, {
+	Http.post Constants.api.order_state_change, {
 		userId: _user?.id
 		orderNo: orderNo
+		version: version
+		carPersonUserId: carPersonUserId
 	}, (data)->
 		Plugin.toast.success '确认订单成功'
 		OrderStore.emitChange ['car_owner_cancel_order_success', index]
@@ -292,7 +294,7 @@ Dispatcher.register (action) ->
 		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER then _carOwnerConfirmOrder(action.carPersonUserId, action.orderNo, action.version, action.index) 
 		when Constants.actionType.CAR_OWNER_CANCEL_ORDER then _carOwnerCancelOrder(action.carPersonUserId, action.orderNo, action.version, action.index)
 		when Constants.actionType.CAR_OWNER_ORDER_DETAIL then carOwnerOrderDetail(action.carPersonUserId, action.orderNo, action.goodsPersonUserId)
-		when Constants.actionType.ORDER_FINISH then _orderFinish(action.orderNo)
+		when Constants.actionType.ORDER_FINISH then _orderFinish(action.orderNo, action.version, action.carPersonUserId)
 		when Constants.actionType.ATTENTION then _attention(action.params)
 
 module.exports = OrderStore
