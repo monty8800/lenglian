@@ -66,7 +66,7 @@
 //效果图与实际屏幕比例
 #define REALSCREEN_MULTIPBY  (SCREEN_WIDTH / 320)
 
-#define UPDATE_FOLDER [[CDVViewController applicationDocumentsDirectory] stringByAppendingPathComponent:@"update"]  //存放www的升级目录
+#define UPDATE_FOLDER [[CDVViewController applicationDocumentsDirectory] stringByAppendingPathComponent:@"update"]  //存放www的升级目录11
 
 #define AUTH_PIC_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 

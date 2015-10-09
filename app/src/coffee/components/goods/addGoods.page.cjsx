@@ -203,7 +203,7 @@ AddGoods = React.createClass {
 			price: null
 			payType: 1 #支付方式 1货到付款， 2回单付款， 3预付款
 			prePay: null #预付款
-			invoice: 1 #是否需要发票 1需要 2不需要
+			invoice: 2 #是否需要发票 1需要 2不需要
 
 			sender: null #发货人
 			senderMobile: null #发货人电话
@@ -294,7 +294,7 @@ AddGoods = React.createClass {
 						</div>
 						<div>
 							<label className="label-checkbox">
-								<input value="2" type="radio" name="xe-checkbox01" /><span className="item-media ll-font"></span><span>竞价</span>
+								<input onChange={@_selectPriceType} value="2" type="radio" name="xe-checkbox01" /><span className="item-media ll-font"></span><span>竞价</span>
 							</label>
 							<input type="number" valueLink={@linkState 'price'} placeholder="请输入基础价" className="price"/>
 						</div>					
@@ -333,10 +333,10 @@ AddGoods = React.createClass {
 				<span>需要发票</span>
 				<div className="radio-box">
 					<label className="label-checkbox">
-						<input defaultChecked=true value="1" onChange={@_selectInvoice} type="radio" name="xe-checkbox03" /><span className="item-media ll-font"></span><span>否</span>
+						<input defaultChecked=true value="2" onChange={@_selectInvoice} type="radio" name="xe-checkbox03" /><span className="item-media ll-font"></span><span>否</span>
 					</label>
 					<label className="label-checkbox">
-						<input value="2" onChange={@_selectInvoice} type="radio" name="xe-checkbox03" /><span className="item-media ll-font"></span><span>是</span>
+						<input value="1" onChange={@_selectInvoice} type="radio" name="xe-checkbox03" /><span className="item-media ll-font"></span><span>是</span>
 					</label>
 				</div>
 			</div>

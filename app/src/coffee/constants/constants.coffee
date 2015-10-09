@@ -121,6 +121,8 @@ actionType = {
 
 	GET_BID_LIST: null
 
+	GET_BID_GOODS_DETAIL: null
+
 	ADD_CAR_SELECTION: null
 
 	BROWSER_TEMP: null
@@ -184,6 +186,9 @@ api = {
 
 	#添加货源
 	ADD_GOODS: '/mjGoodsResource/addGoodsResource.shtml'
+
+	#竞价页面数据
+	BID_GOODS_DETAIL: '/carFindGoods/orderBidDetail.shtml'
 
 
 #YYQ

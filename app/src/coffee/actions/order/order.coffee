@@ -32,6 +32,12 @@ OrderAction = {
 			params: params
 		}
 
+	getBidGoodsDetail: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.GET_BID_GOODS_DETAIL
+			params: params
+		}
+
 	carBidGoods: (params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.ORDER_CAR_BID_GOODS

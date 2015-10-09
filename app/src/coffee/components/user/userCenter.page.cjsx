@@ -5,7 +5,7 @@ React = require 'react/addons'
 
 PureRenderMixin = React.addons.PureRenderMixin
 
-userPic = require 'userPic.jpg'
+
 
 UserStore = require 'stores/user/user'
 UserAction = require 'actions/user/user'
@@ -80,7 +80,7 @@ Profile = React.createClass {
 			<div className="g-userPrivate">
 				<dl className="clearfix"> 
 					<dt className="fl">
-						<img onError={@_pic404} onClick={@_changeAvatar} src={Image.getFullPath(user.avatar, '130x130') or userPic}/>
+						<img onError={@_pic404} onClick={@_changeAvatar} src={Image.getFullPath(user.avatar, '130x130') or Image.avatar}/>
 					</dt>
 					<dd className="fl">
 						<p className="g-name">{user.name || user.company || user.mobile}</p>

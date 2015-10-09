@@ -10,10 +10,14 @@ Immutable = require 'immutable'
 Plugin = require 'util/plugin'
 UserStore = require 'stores/user/user'
 OrderAction = require 'actions/order/order'
+Goods = require 'model/goods'
+
 _user = UserStore.getUser()
 
 _orderList = Immutable.List()
 _orderDetail = new OrderModel
+
+_bidGoods = new Goods
 
 _bidList = Immutable.List()
 
@@ -170,6 +174,14 @@ carBidGoods = (params)->
 	Http.post Constants.api.DRIVER_BID_FOR_GOODS, params, (data)->
 		console.log 'car bid goods result ', data
 		OrderStore.emitChange 'car:bid:goods:done'
+	, (data)->
+		if data.code is '0002'
+			Plugin.toast.err '已经竞价3次，不能继续竞价了！'
+		else if data.code is '0001'
+			Plugin.toast.err '已经有5个车源参与竞价，不能继续竞价了！'
+		else
+			Plugin.toast.err data.msg
+	, true
 
 # 车主确认订单
 _carOwnerConfirmOrder = (carPersonUserId, orderNo, version, index)->
@@ -271,6 +283,15 @@ _attention = (params)->
 		Plugin.loading.hide()
 		Plugin.toast.err data.msg
 
+getBidGoodsDetail = (params)->
+	Http.post Constants.api.BID_GOODS_DETAIL, params, (data)->
+		data.type = data.goodsType
+		data.installMinTime = data.installStime
+		data.installMaxTime = data.installEtime
+		_bidGoods = new Goods data
+		console.log  'bid goods', _bidGoods
+		OrderStore.emitChange 'bid:goods:detail:done'
+
 OrderStore = assign BaseStore, {
 	getOrderList: ->
 		_orderList
@@ -280,6 +301,9 @@ OrderStore = assign BaseStore, {
 
 	getBidList: ->
 		_bidList
+
+	getBidGoods: ->
+		_bidGoods
 }
 
 Dispatcher.register (action) ->
@@ -296,6 +320,7 @@ Dispatcher.register (action) ->
 		when Constants.actionType.CAR_OWNER_ORDER_DETAIL then carOwnerOrderDetail(action.carPersonUserId, action.orderNo, action.goodsPersonUserId)
 		when Constants.actionType.ORDER_FINISH then _orderFinish(action.orderNo, action.version, action.carPersonUserId)
 		when Constants.actionType.ATTENTION then _attention(action.params)
+		when Constants.actionType.GET_BID_GOODS_DETAIL then getBidGoodsDetail(action.params)
 
 module.exports = OrderStore
 		

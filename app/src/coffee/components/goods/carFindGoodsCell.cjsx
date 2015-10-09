@@ -13,6 +13,7 @@ avatar = require 'user-01'
 
 moment = require 'moment'
 
+Image = require 'util/image'
 
 CarFindGoodsCell = React.createClass {
 	mixins: [PureRenderMixin]
@@ -27,11 +28,12 @@ CarFindGoodsCell = React.createClass {
 		console.log 'goods---', @props.goods.get 'certificAtion'
 		installStime = @props.goods.get('installStime')
 		installEtime = @props.goods.get('installEtime')
+		userAvatar = @props.goods.get 'userImgUrl'
 		<div className="m-item01 m-item03">
 			<div className="g-item-dirver">
 				<div className="g-dirver">					
 					<div className="g-dirver-pic">
-						<img src={avatar} />
+						<img src={Image.getFullPath(userAvatar, '130x130') or avatar} />
 					</div>
 					<div className="g-dirver-msg">
 						<div className="g-dirver-name">
