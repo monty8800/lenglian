@@ -8,6 +8,7 @@
 
 #import "XeBubbleView.h"
 #import "FromToView.h"
+#import "InfoView.h"
 
 @interface GoodsBubbleView : XeBubbleView
 {
@@ -15,6 +16,7 @@
     UILabel *_nameLabel;
     NSMutableArray *_starList;
     FromToView *_fromToView;
+    InfoView *_infoView;
 }
 
 

@@ -14,6 +14,7 @@
 #import "CarBubbleView.h"
 #import "GoodsBubbleView.h"
 #import "WarehouseBubbleView.h"
+#import "CarbidGoodsViewController.h"
 
 @interface NearByViewController ()
 
@@ -320,21 +321,31 @@
 
 -(void)selectGoods:(NSString *)goodsId car:(NSString *)carId
 {
-    NSDictionary *params = @{
-                             @"goodsUserId": [[Global getUser] objectForKey:@"id"],
-                             @"goodsResouseId": goodsId,
-                             @"carResouseId": carId
-                             };
-    [Net post:ORDER_CAR_SELECT_GOODS params:params cb:^(NSDictionary *responseDic) {
-        DDLogDebug(@"goods select car result %@", responseDic);
-        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
-            
-        }
-        else
-        {
-            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
-        }
-    } loading:YES];
+    if (_bid == YES) {
+        CarbidGoodsViewController *bidVC = [CarbidGoodsViewController new];
+        bidVC.carId = carId;
+        bidVC.goodsId = goodsId;
+        [self.navigationController pushViewController:bidVC animated:YES];
+    }
+    else
+    {
+        NSDictionary *params = @{
+                                 @"userId": [[Global getUser] objectForKey:@"id"],
+                                 @"goodsResourceId": goodsId,
+                                 @"carResourceId": carId
+                                 };
+        [Net post:ORDER_CAR_SELECT_GOODS params:params cb:^(NSDictionary *responseDic) {
+            DDLogDebug(@"goods select car result %@", responseDic);
+            if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+                [[Global sharedInstance] showSuccess:@"抢单成功！"];
+            }
+            else
+            {
+                [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+            }
+        } loading:YES];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {

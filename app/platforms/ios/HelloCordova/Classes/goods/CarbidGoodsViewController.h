@@ -9,5 +9,7 @@
 #import "BaseViewController.h"
 
 @interface CarbidGoodsViewController : BaseViewController
+@property (strong, nonatomic) NSString *carId;
+@property (strong, nonatomic) NSString *goodsId;
 
 @end

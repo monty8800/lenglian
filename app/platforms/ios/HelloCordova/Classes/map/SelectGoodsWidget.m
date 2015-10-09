@@ -30,8 +30,9 @@
 
 -(void) createUI {
     self.backgroundColor = [UIColor WY_ColorWithHex:0x000000 alpha:0.3];
-    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.center.y - 110, SCREEN_WIDTH-40, 260) style:UITableViewStylePlain];
+    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.center.y - 110, SCREEN_WIDTH-40, 280) style:UITableViewStylePlain];
     _tabView.center = self.center;
+    _tabView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     _tabView.dataSource = self;
     _tabView.delegate = self;
     _tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -71,7 +72,7 @@
     _closeBtn.alpha = 0;
     _tabView.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:0 animations:^{
-        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 260);
+        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 280);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.3 animations:^{
             _closeBtn.alpha = 1;
@@ -196,7 +197,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 130;
+    return 90;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
