@@ -24,7 +24,7 @@ Selection = React.createClass {
 			newState.text = (option.value for option in @props.selectionMap.options when option.key in newState.checkedList[0..3]).join ','
 		newState.text = '全部' if newState.text?.length < 1
 		@setState newState
-		SelectionAction.updateSelection @props.selectionMap.key, newState.checkedList
+		SelectionAction.updateSelection @props.selectionMap.key, if newState.all then '' else newState.checkedList
 
 	_handleAll: (e)->
 		console.log 'all event---', e

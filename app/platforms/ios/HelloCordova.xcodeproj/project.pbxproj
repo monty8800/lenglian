@@ -102,6 +102,7 @@
 		5B3733FB1BC2242600807804 /* CarSearchGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3733FA1BC2242600807804 /* CarSearchGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B3734021BC24C7C00807804 /* BankCardsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3734011BC24C7C00807804 /* BankCardsListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B3734051BC2519600807804 /* AddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3734041BC2519600807804 /* AddBankCardViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5B66400B1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B66400A1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B69AE511BBB8AFB00A14101 /* ReleaseWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B69AE841BBD116000A14101 /* AddCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69AE831BBD116000A14101 /* AddCarViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5BDFC3841BBFBDD000712DBB /* CarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDFC3831BBFBDD000712DBB /* CarDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -316,6 +317,8 @@
 		5B3734011BC24C7C00807804 /* BankCardsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BankCardsListViewController.m; path = wallet/BankCardsListViewController.m; sourceTree = "<group>"; };
 		5B3734031BC2519600807804 /* AddBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCardViewController.h; path = wallet/AddBankCardViewController.h; sourceTree = "<group>"; };
 		5B3734041BC2519600807804 /* AddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCardViewController.m; path = wallet/AddBankCardViewController.m; sourceTree = "<group>"; };
+		5B6640091BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWarehouseDetailViewController.h; sourceTree = "<group>"; };
+		5B66400A1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWarehouseDetailViewController.m; sourceTree = "<group>"; };
 		5B69AE4F1BBB8AFB00A14101 /* ReleaseWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleaseWarehouseViewController.h; sourceTree = "<group>"; };
 		5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReleaseWarehouseViewController.m; sourceTree = "<group>"; };
 		5B69AE821BBD116000A14101 /* AddCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddCarViewController.h; path = car/AddCarViewController.h; sourceTree = "<group>"; };
@@ -842,6 +845,8 @@
 				5BEAC0D51BBA361100D9753C /* WarehouseDetailViewController.m */,
 				5B69AE4F1BBB8AFB00A14101 /* ReleaseWarehouseViewController.h */,
 				5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */,
+				5B6640091BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.h */,
+				5B66400A1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m */,
 			);
 			path = warehouse;
 			sourceTree = "<group>";
@@ -1072,6 +1077,7 @@
 				4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */,
 				4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */,
 				5B3734021BC24C7C00807804 /* BankCardsListViewController.m in Sources */,
+				5B66400B1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m in Sources */,
 				4C59DE461B5E519C0063D9CE /* BaseViewController.m in Sources */,
 				4CAB02121BB40002002A0A5C /* PersonalWarehouseAuthViewController.m in Sources */,
 				4C5D3F8E1BB0222E00BBD5A6 /* MoreViewController.m in Sources */,

@@ -1,6 +1,8 @@
 Immutable = require 'immutable'
 
 Warehouse = Immutable.Record {
+	userName:null		#仓库主
+	userHeaderImageUrl:null	#仓库主头像
 	id:null 			#仓库ID
 	name:null 			#仓库名称
 	address:null 		#仓库完整地址
@@ -23,6 +25,9 @@ Warehouse = Immutable.Record {
 	remark:null			#仓库备注
 	updateTime:null		#信息更新时间
 	warehouseProperty:[]	#仓库各种属性的数组 
+	certification:null	# 1个人 2公司 0未认证
+	score:null			#评价分数
+	wishlst:0			#是否收藏
 
 	# volume:0  			# 容量 单位 m³
 	# acreageTotal:0  	#总面积 单位 ㎡

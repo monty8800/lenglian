@@ -14,7 +14,7 @@ Plugin = require 'util/plugin'
 UserStore = require 'stores/user/user'
 
 _warehouse = new WarehouseModel
-
+_searchWarehouseDetail = new WarehouseModel
 _warehouseList = []
 
 # 搜索仓库结果
@@ -124,6 +124,52 @@ getDetail = (warehouseId) ->
 		
 		WarehouseStore.emitChange 'getDetailWithId'
 
+getSearchWarehouseDetail = (warehouseId,focusid) ->
+	user = UserStore.getUser()
+	Http.post Constants.api.WAREHOUSE_DETAIL,{
+		userId:user.id
+		warehouseId:warehouseId
+		focusid:focusid
+	},(data)->
+		warehouseLoad = data.warehouseLoad
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'id', warehouseLoad?.id 			#仓库ID
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'name', warehouseLoad?.name			#仓库名称
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'address', warehouseLoad?.address		#仓库名称
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'provinceName', warehouseLoad?.provinceName 	#地址 省
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'provinceId', warehouseLoad?.provinceId		#省 ID
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'cityName', warehouseLoad?.cityName 		#地址 市
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'cityId', warehouseLoad?.cityId			#市ID
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'areaName', warehouseLoad?.areaName		#地址 区
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'areaId', warehouseLoad?.areaId			#区ID
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'street', warehouseLoad?.street			#地址 街道
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'status', warehouseLoad?.status  			# 0-空闲中  1-已发布 2-使用中
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'styleType', warehouseLoad?.styleType		#  驶入式、横梁式、平推式、自动立体货架式
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'imageUrl', warehouseLoad?.imageUrl			#图片
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'invoice', warehouseLoad?.isinvoice			# 0-不提供发票 1-提供发票
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'contact', warehouseLoad?.contacts  		#联系人姓名
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'contactTel', warehouseLoad?.phone 	#联系人电话
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'latitude', warehouseLoad?.latitude		#坐标 纬度
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'longitude', warehouseLoad?.longitude	#坐标 经度
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'remark', warehouseLoad?.remark			#仓库备注
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'updateTime', warehouseLoad?.updateTime		#信息更新时间
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'certification', data?.certification		#信息更新时间
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'score', data?.goodScore
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'userName', data?.name
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'wishlst', data?.wishlst
+		console.log _searchWarehouseDetail.wishlst + 'oooooooooooooo'
+		propertyArr = warehouseLoad?.warehouseProperty or []
+		tempArr = []
+		for prop in propertyArr
+			propertyModel = new WarehousePropertyModel
+			propertyModel = propertyModel.set 'type',prop.type
+			propertyModel = propertyModel.set 'attribute',prop.attribute
+			propertyModel = propertyModel.set 'value',prop.value
+			propertyModel = propertyModel.set 'typeName',prop.typeName
+			propertyModel = propertyModel.set 'attributeName',prop.attributeName
+			tempArr.push propertyModel
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'warehouseProperty', tempArr	#仓库各种属性的数组 
+		
+		WarehouseStore.emitChange 'getSearchWarehouseDetailSucc'
 
 searchWarehouse = (params)->
 	Http.post Constants.api.SEARCH_WAREHOUSE,params,(data)->
@@ -188,7 +234,7 @@ deleteWarehouseRequest = (warehouseId)->
 		console.log '仓库删除成功'
 		DB.put 'shouldWarehouseListReload',1
 		Plugin.nav.pop()
-	,(date)->
+	,(data)->
 		Plugin.loading.hide()
 		Plugin.err.show data.msg
 		console.log '仓库删除失败'
@@ -212,8 +258,20 @@ releaseWarehouse = (warehouseId)->
 	},(data)->
 		Plugin.toast.show '发布成功'
 		WarehouseStore.emitChange "warehouseReleaseSucc"
-	,(date)->
-		Plugin.err.show date.msg
+	,(data)->
+		Plugin.toast.err data.msg
+
+handleFallow = (focusid,focustype,type)->
+	user = UserStore.getUser()
+	Http.post Constants.api.attention, {
+		focusid:focusid
+		userId:user.id
+		focustype:focustype
+		type:type
+	},(data)->
+		WarehouseStore.emitChange "fallowOrUnFallowHandleSucc"
+	,(data)->
+		Plugin.toast.err data.msg
 
 
 WarehouseStore = assign BaseStore, {
@@ -223,6 +281,8 @@ WarehouseStore = assign BaseStore, {
 		_showType
 	getDetail: ()->
 		_warehouse
+	getSearchWarehouseDetail:()->
+		_searchWarehouseDetail
 	getWarehouseSearchResult: ()->
 		_warehouseSearchResult
 	getWarehouseSearchGoodsResult: ()->
@@ -239,4 +299,8 @@ Dispatcher.register (action)->
 		when Constants.actionType.WAREHOUSE_ADD then postAddWarehouse(action.params,action.fileUrl)
 		when Constants.actionType.DELETE_WAREHOUSE then deleteWarehouseRequest(action.warehouseId)
 		when Constants.actionType.RELEASE_WAREHOUSE then releaseWarehouse(action.warehouseId)
+		when Constants.actionType.WAREHOUSE_SEARCH_DETAIL then getSearchWarehouseDetail(action.warehouseId,action.focusid)
+		when Constants.actionType.attention then handleFallow(action.focusid,action.focustype,action.type)
+
+
 module.exports = WarehouseStore

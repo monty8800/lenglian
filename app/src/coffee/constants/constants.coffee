@@ -19,6 +19,7 @@ actionType = {
 	GET_WAREHOUSE:null
 	DELETE_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
+	WAREHOUSE_SEARCH_DETAIL:null
 	WAREHOUSE_ADD:null
 	RELEASE_WAREHOUSE:null
 	CHANGE_PWD: null
@@ -141,9 +142,9 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
-	# server: 'http://192.168.29.204:8072/'
+	server: 'http://192.168.29.204:8072/'
 
 
 	#短信验证码
@@ -200,6 +201,8 @@ api = {
 	UPDATE_WAREHOUSE:'/mjWarehouseCtl/updateMjWarehouse.shtml'
 	#我的仓库详情
 	WAREHOUSE_DETAIL: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
+	#通过搜索进入仓库详情
+	WAREHOUSE_SEARCH_DETAIL: '/mjWarehouseCtl/queryMjWarehouseLoad.shtml'
 	#添加仓库
 	WAREHOUSE_ADD: '/mjWarehouseCtl/addMjWarehouse.shtml'
 	#发布库源

@@ -17,6 +17,13 @@ WarehouseAction = {
 			actionType: Constants.actionType.WAREHOUSE_DETAIL
 			warehouseId: warehouseId
 		}
+	getSearchWarehouseDetail:(warehouseId,focusid) ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.WAREHOUSE_SEARCH_DETAIL
+			warehouseId: warehouseId
+			focusid:focusid
+		}
+
 	searchWarehouse:(params) ->
 		params.actionType = Constants.actionType.SEARCH_WAREHOUSE
 		Dispatcher.dispatch params 
@@ -40,6 +47,14 @@ WarehouseAction = {
 		Dispatcher.dispatch {
 			actionType:Constants.actionType.RELEASE_WAREHOUSE
 			warehouseId:warehouseId
+		}
+
+	handleFallow:(focusid,focustype,type)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.attention
+			focusid:focusid
+			focustype:focustype
+			type:type
 		}
 }
 

@@ -1,5 +1,6 @@
 require 'components/common/common'
 require 'user-center-style'
+require 'majia-style'
 
 React = require 'react/addons'
 
@@ -11,7 +12,9 @@ PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
 
-_warehouseId = DB.get('transData')
+_transData = DB.get('transData')
+_toShowOrder = _transData.order
+
 warehouseStatus = '' #状态
 warehouseType = []	#类型
 warehousePrice = [] #价格
@@ -40,18 +43,19 @@ WarehouseDetail = React.createClass {
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
-		WarehouseAction.getDetail _warehouseId
+		WarehouseAction.getDetail _transData.warehouseId
 
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
 
-	_onChange: ->
-		console.log '~~~~  ~~~  result data + ' + WarehouseStore.getDetail()
-		detailResult = WarehouseStore.getDetail()
-		conf aProperty for aProperty in detailResult.warehouseProperty
-		@setState { 
-			warehouseDetail:detailResult
-		}
+	_onChange: (mark) ->
+		if mark is 'getDetailWithId'
+			console.log '~~~~  ~~~  result data + ' + WarehouseStore.getDetail()
+			detailResult = WarehouseStore.getDetail()
+			conf aProperty for aProperty in detailResult.warehouseProperty
+			@setState { 
+				warehouseDetail:detailResult
+			}
 	render :->
 		warehouseAreaList = warehouseArea.map (aArea,i) ->
 			<p>
@@ -123,21 +127,6 @@ WarehouseDetail = React.createClass {
 					<span>备注说明:</span>
 					<span>{ @state.warehouseDetail.remark }</span>
 				</p>		
-			</div>
-
-			<div className="m-releaseitem">
-				<div className="u-personIcon ll-font">
-					<span>联系人</span>
-					<span>林夕</span>
-				</div>
-				<div>
-					<span>联系手机</span>
-					<span>13412356854</span>
-				</div>
-				<div className="u-voice ll-font">
-					<label for="remark"><span>备注说明</span> </label>
-					<input type="text" placeholder="选填" id="remark"/>
-				</div>
 			</div>
 
 			<div className="m-detail-bottom">

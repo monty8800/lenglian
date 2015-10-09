@@ -8,7 +8,7 @@
 
 #import "SearchWarehouseViewController.h"
 #import "Net.h"
-
+#import "SearchWarehouseDetailViewController.h"
 @interface SearchWarehouseViewController ()
 
 @end
@@ -51,6 +51,11 @@
     if ([params[0] integerValue] == 3) {
         if ([params[1] isEqualToString:@"select:goods"]) {
             [SelectWarehouseWidget show:self warehouseId:params[2]];
+        }
+    }else if ([params[0] integerValue] == 1){
+        if ([params[1] isEqualToString:@"searchWarehouseDetail"]) {
+            SearchWarehouseDetailViewController *searchWarehouseDetailVC = [SearchWarehouseDetailViewController new];
+            [self.navigationController pushViewController:searchWarehouseDetailVC animated:YES];
         }
     }
 }

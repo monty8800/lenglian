@@ -95,7 +95,7 @@ SearchWarehouse = React.createClass {
 		if mark is 'searchWarehouseSucc'
 			newState = Object.create @state
 			newState.searchResult = WarehouseStore.getWarehouseSearchResult()
-			newState.resultCount = newState.searchResult
+			newState.resultCount = newState.searchResult.length
 			@setState newState
 		else if mark is "getUserGoodsListSucc"
 			newState = Object.create @state
@@ -114,6 +114,10 @@ SearchWarehouse = React.createClass {
 			console.log '__selection_newState', newState
 			@setState newState
 		
+
+	_resultItemClick:(aResult)->
+		DB.put 'transData',{warehouseId:aResult.warehouseId,focusid:aResult.userId}
+		Plugin.nav.push ['searchWarehouseDetail']
 
 	_selectWarehouse :(index) ->
 		# if @state.userGoodsSource.length < 1
@@ -137,7 +141,7 @@ SearchWarehouse = React.createClass {
 
 	render: ->
 		searchResultList = @state.searchResult.map (aResult, i)->
-			<div className="m-item01 m-item03">
+			<div className="m-item01 m-item03" onClick={ @_resultItemClick.bind this,aResult } >
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">

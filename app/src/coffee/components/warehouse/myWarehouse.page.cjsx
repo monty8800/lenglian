@@ -19,7 +19,7 @@ showType = '1' 		# 1-空闲中  2-已发布 3-使用中
 
 WarehouseItem = React.createClass {
 	goToDetail: (index)->
-		DB.put 'transData', @props.list[index].id
+		DB.put 'transData', {warehouseId:@props.list[index].id,isMine:1}
 		Plugin.nav.push ['warehouseDetail']
 
 	render: ->

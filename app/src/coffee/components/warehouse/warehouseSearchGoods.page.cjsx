@@ -53,11 +53,15 @@ selectionList = [
 ]
 
 SearchResultList = React.createClass {
+	_resultItemClick:(index)->
+		resultItem = @props.list[index]
+		DB.put 'transData',resultItem.id,#_transData
+		Plugin.nav.push ['searchGoodsDetail']
 
 	render: ->
 		resultList = @props.list
 		items = resultList.map (aResult,i) ->
-			<div className="m-item01 m-item03">
+			<div className="m-item01 m-item03" onClick={ @_resultItemClick.bind this,i } >
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
@@ -78,9 +82,10 @@ SearchResultList = React.createClass {
 					<div className="g-adr-start ll-font">
 						<p dangerouslySetInnerHTML={{__html: 
 							if aResult.toProvinceName is aResult.toCityName
-								aResult.toProvinceName + aResult.toAreaName + aResult.street 
+								aResult.toProvinceName + aResult.toAreaName
 							else
-								aResult.toProvinceName + aResult.toCityName + aResult.toAreaName + aResult.street 
+								aResult.toProvinceName + aResult.toCityName + aResult.toAreaName
+
 						}}/>
 					</div>
 				</div>
@@ -162,8 +167,9 @@ WarehouseSearchGoods = React.createClass {
 		else if msg is 'warehouseSearchGoodsSucc'
 			newState = Object.create @state
 			newState.searchResult = WarehouseStore.getWarehouseSearchGoodsResult()
-			newState.resultCount = newState.searchResult.resultCount
+			newState.resultCount = newState.searchResult.length
 			@setState newState
+
 
 	render: ->
 		<div>

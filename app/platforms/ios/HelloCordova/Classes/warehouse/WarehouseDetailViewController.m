@@ -32,7 +32,7 @@
 -(void) createUI {
     self.title = @"仓库详情";
     UIButton *editWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [editWarehouseButton setFrame:CGRectMake(0, 0, 80, 44)];
+    [editWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
     [editWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
     [editWarehouseButton setTitle:@"编辑" forState:UIControlStateNormal];
     [editWarehouseButton addTarget:self action:@selector(editWarehouse) forControlEvents:UIControlEventTouchUpInside];
