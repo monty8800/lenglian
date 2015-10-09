@@ -26,6 +26,8 @@ public interface ApiUtils {
     String goods_found_car = SERVER + "goodFoundCarCtl/goodFoundCar.shtml";
 
     // 我的车辆空闲中
-    String my_car = SERVER + "mjCarinfoCtl/queryMjCarinfoFree.shtml";
+    String my_car_freedom = SERVER + "mjCarinfoCtl/queryMjCarinfoFree.shtml";
+
+    String my_car = SERVER + "mjCarinfoCtl/queryMjCarinfo.shtml";
 
 }

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -28,6 +29,9 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
@@ -43,13 +47,16 @@ import com.xebest.llmj.model.StoreDetailInfo;
 import com.xebest.llmj.utils.Helper;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
+import com.xebest.llmj.widget.CircleImageView;
 import com.xebest.llmj.widget.XListView;
 import com.xebest.llmj.widget.XListView.IXListViewListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,6 +128,20 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
 
     private MainActivity mainActivity;
 
+    DisplayImageOptions options;
+
+
+    // 货源信息
+    private TextView userName;
+    private RatingBar rate;
+    private TextView destination;
+    private TextView start_point;
+    private TextView priceType;
+    private TextView goods_des;
+    private TextView start_time;
+    private TextView store_time;
+    private CircleImageView userLogo;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -176,8 +197,33 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         carBtn.setOnClickListener(this);
         storeBtn.setOnClickListener(this);
 
+        userName = (TextView) view.findViewById(R.id.userName);
+        rate = (RatingBar) view.findViewById(R.id.rate);
+        destination = (TextView) view.findViewById(R.id.destination);
+        start_point = (TextView) view.findViewById(R.id.start_point);
+        priceType = (TextView) view.findViewById(R.id.price_type);
+        goods_des = (TextView) view.findViewById(R.id.goods_des);
+        start_time = (TextView) view.findViewById(R.id.start_time);
+        store_time = (TextView) view.findViewById(R.id.store_time);
+        userLogo = (CircleImageView) view.findViewById(R.id.user_logo);
+
+        format = new SimpleDateFormat("yyyy-MM-dd");
+
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.icon_def)
+                .showImageForEmptyUri(R.drawable.icon_def)
+                .showImageOnFail(R.drawable.icon_def)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(20))
+                .build();
+
         return view;
     }
+
+    SimpleDateFormat format;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -190,7 +236,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 String title = marker.getTitle();
                 String id = list.get(Integer.parseInt(title)).getId();
                 if (status == 1) {
-                    goodsId = id;                    goodsBottomView.setVisibility(View.VISIBLE);
+                    goodsId = id;
+                    goodsBottomView.setVisibility(View.VISIBLE);
                 } else if (status == 2) {
                     carId = id;
                     carBottomView.setVisibility(View.VISIBLE);
@@ -202,6 +249,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 return false;
             }
         });
+
 
     }
 
@@ -463,7 +511,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                             list.get(0).getToAreaName());
                     carStartPoint.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() +
                             list.get(0).getFromAreaName());
-                    carDes.setText("车辆描述：" + list.get(0).getVehicle() + "米 " + Helper.getCarType(list.get(0).getCarType()));
+                    carDes.setText("车辆描述：" + Helper.getCarVehicle(list.get(0).getVehicle()) + " " + Helper.getCarType(list.get(0).getCarType()));
                 } else if (status == 3) { // 库
                     List<StoreDetailInfo> list = JSON.parseArray(data, StoreDetailInfo.class);
                     if (list.size() == 0) return;
@@ -476,6 +524,27 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     JSONObject jsonObject1 = new JSONObject(data);
                     List<GoodsDetailInfo> list = JSON.parseArray(jsonObject1.getString("goods"), GoodsDetailInfo.class);
                     if (list.size() == 0) return;
+                    userName.setText(list.get(0).getUserName() + Helper.whoAreYou(list.get(0).getCertificAtion()));
+                    ImageLoader.getInstance().displayImage(list.get(0).getUserImgUrl(), userLogo, options);
+                    destination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() + list.get(0).getToAreaName());
+                    start_point.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() + list.get(0).getFromAreaName());
+                    priceType.setText("价格类型：" + Helper.getPriceType(list.get(0).getPriceType()));
+                    goods_des.setText("货物描述：" + list.get(0).getName() + " " + list.get(0).getWeight() + "吨");
+                    int score = Integer.parseInt(list.get(0).getUserScore());
+                    if (score == 0) {
+                        rate.setVisibility(View.GONE);
+                    } else {
+                        float curScore = score / 2;
+                        int ma = Math.round(score / 2);
+                        rate.setNumStars(ma);
+                        rate.setRating(curScore);
+                        rate.setVisibility(View.VISIBLE);
+                    }
+                    long time = Long.valueOf(list.get(0).getInstallStime());
+                    Date d1=new Date(time);
+                    long time1 = Long.valueOf(list.get(0).getInstallStime());
+                    Date d2=new Date(time1);
+                    start_time.setText("装货时间：" + format.format(d1) + "到" + format.format(d2));
 
                 }
             } catch (Exception e) {

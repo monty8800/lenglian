@@ -16,10 +16,11 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
+import com.xebest.llmj.adapter.MyCarAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
-import com.xebest.llmj.model.CarListInfo;
+import com.xebest.llmj.model.Car;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
 import com.xebest.llmj.widget.XListView;
@@ -32,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +56,10 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
     private Dialog mDialog;
 
     private XListView mListView;
+
+    private List<Car> carList = new ArrayList<Car>();
+
+    private MyCarAdapter myCarAdapter;
 
     /**
      * 活跃当前窗口
@@ -161,6 +167,9 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
         protected String doInBackground(String... params) {
             Map<String, String> map = new HashMap<String, String>();
             map.put("userId", Application.getInstance().userId);
+            map.put("pageNow", "0");
+            map.put("pageSize", "10");
+            map.put("status", "2");
             return UploadFile.postWithJsonString(ApiUtils.my_car, new Gson().toJson(map));
         }
 
@@ -173,14 +182,14 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     String data = jsonObject.getString("data");
-                    String str = new JSONObject(data).getString("GoodsResource");
-                    List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
-//                    carList.addAll(list);
+                    String str = new JSONObject(data).getString("myCarInfo");
+                    List<Car> list = JSON.parseArray(str, Car.class);
+                    carList.addAll(list);
                     if (list.size() == 0) {
-                        Tools.showErrorToast(CarFindGoodsActivity.this, "还没发布货源哦");
+                        Tools.showErrorToast(CarFindGoodsActivity.this, "没有求货种的车辆哦");
                         return;
                     }
-//                    showDialog(list);
+                    showDialog(list);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -192,7 +201,7 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
     /**
      * 货源、车源、库源列表
      */
-    public void showDialog(final List<CarListInfo> list) {
+    public void showDialog(final List<Car> list) {
         mDialog = Tools.getCustomDialog(getActivity(), R.layout.near_lv_dialog,
                 new Tools.BindEventView() {
                     @Override
@@ -218,11 +227,11 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
                                 } else {
                                     mListView.setPullLoadEnable(true);
                                 }
-//                                carAdapter = new CarAdapter(getActivity());
-//                                mListView.setAdapter(carAdapter);
+                                myCarAdapter = new MyCarAdapter(getActivity());
+                                mListView.setAdapter(myCarAdapter);
                                 // 车
-//                                carAdapter.addData(list);
-//                                carAdapter.notifyDataSetChanged();
+                                myCarAdapter.addData(list);
+                                myCarAdapter.notifyDataSetChanged();
 
                                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
