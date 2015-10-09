@@ -13,7 +13,7 @@ avatar = require 'user-01'
 
 moment = require 'moment'
 
-Image = require 'util/image'
+XeImage = require 'components/common/xeImage'
 
 CarFindGoodsCell = React.createClass {
 	mixins: [PureRenderMixin]
@@ -33,7 +33,7 @@ CarFindGoodsCell = React.createClass {
 			<div className="g-item-dirver">
 				<div className="g-dirver">					
 					<div className="g-dirver-pic">
-						<img src={Image.getFullPath(userAvatar, '130x130') or avatar} />
+						<XeImage src={userAvatar} size='130x130' type='avatar' />
 					</div>
 					<div className="g-dirver-msg">
 						<div className="g-dirver-name">
