@@ -121,6 +121,8 @@ actionType = {
 
 	GET_BID_LIST: null
 
+	GET_BID_GOODS_DETAIL: null
+
 	ADD_CAR_SELECTION: null
 
 	BROWSER_TEMP: null
@@ -140,6 +142,7 @@ api = {
 	hello: 'http://www.baidu.com'
 	#服务器地址
 	server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.29.176:8072/'
 	# server: 'http://192.168.29.204:8072/'
 
 
@@ -183,6 +186,9 @@ api = {
 
 	#添加货源
 	ADD_GOODS: '/mjGoodsResource/addGoodsResource.shtml'
+
+	#竞价页面数据
+	BID_GOODS_DETAIL: '/carFindGoods/orderBidDetail.shtml'
 
 
 #YYQ

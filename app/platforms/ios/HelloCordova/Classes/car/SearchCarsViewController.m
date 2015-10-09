@@ -42,7 +42,7 @@
     UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
     [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
-    [addWarehouseButton setTitle:@"确定" forState:UIControlStateNormal];
+    [addWarehouseButton setTitle:@"搜索" forState:UIControlStateNormal];
     [addWarehouseButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
 }

@@ -34,12 +34,21 @@ CarBidGoods = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	componentDidMount: ->
 		OrderStore.addChangeListener @_change
+		OrderAction.getBidGoodsDetail {
+			userId: UserStore.getUser()?.id
+			goodsResourceId: transData.goodsId
+		}
 
 	componentWillUnmount: ->
 		OrderStore.removeChangeListener @_change
 
 	_change: (msg)->
 		console.log 'event change ', msg
+		if msg is 'bid:goods:detail:done'
+			@setState {
+				goods: OrderStore.getBidGoods()
+			}
+		
 
 	_showBidList: ->
 		newState = Object.create @state
@@ -65,17 +74,20 @@ CarBidGoods = React.createClass {
 			carId: transData.carId
 			goodsId: transData.goodsId
 			price: null
+			goods: OrderStore.getBidGoods()
 		}
 
 	render: ->
 		console.log 'state', @state
 		cls = 'll-font u-arrow-right'
 		cls += ' active' if @state.showBidList
+		from = @state.goods.fromProvinceName + @state.goods.fromCityName + @state.goods.fromAreaName
+		to = @state.goods.toProvinceName + @state.goods.toCityName + @state.goods.toAreaName
 
 		<section>
 		<div className="m-item01 m-item03">
-			<FromTo />
-			<InfoList />
+			<FromTo from={from} to={to} />
+			<InfoList goods={@state.goods} />
 		</div>
 
 		<div className="m-nav03">

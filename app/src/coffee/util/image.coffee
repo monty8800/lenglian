@@ -15,4 +15,6 @@ getFullPath = (image, size)->
 	 
 module.exports = {
 	getFullPath: getFullPath
+	avatar: require 'avatar'
+	default: require 'default'
 }

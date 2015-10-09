@@ -12,7 +12,7 @@ postFile = (api, params, files, cb, err)->
 	if Constants.inBrowser
 		uuid = UUID.v4()
 		version = '1.0'
-		client_type = '1'
+		client_type = '2'
 
 	#没有就从本地取
 	uuid = window.uuid or DB.get 'uuid'
@@ -86,7 +86,7 @@ post = (api, params, cb, err, showLoading, key, iv)->
 	if Constants.inBrowser
 		uuid = UUID.v4()
 		version = '1.0'
-		client_type = '1'
+		client_type = '2'
 
 	#没有就从本地取
 	uuid = window.uuid or DB.get 'uuid'
