@@ -3,7 +3,7 @@ require 'index-style'
 require 'majia-style'
 require 'user-center-style'
 
-ImageHelper = require 'util/image'
+XeImage = require 'components/common/xeImage'
 Helper = require 'util/helper'
 React = require 'react/addons'
 
@@ -32,16 +32,6 @@ selectionList = [
 		]
 	}
 	{
-		key: 'coldStoreFlag'
-		value: '需要仓库地'
-		options: [
-			{key: '1', value: '不需要'}
-			{key: '2', value: '需要'}
-			{key: '3', value: '目的地需要'}
-			{key: '4', value: '起始地需要'}
-		]
-	}
-	{
 		key: 'releaseTime'
 		value: '发布时间'
 		options: [
@@ -56,8 +46,8 @@ selectionList = [
 		key: 'isInvoice'
 		value: '需要发票'
 		options: [
-			{key: '1', value: '不需要'}
-			{key: '2', value: '需要'}
+			{key: '1', value: '提供发票'}
+			{key: '2', value: '不提供发票'}
 		]
 	}
 ]
@@ -71,7 +61,7 @@ SearchResultList = React.createClass {
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
-							<img src={ ImageHelper.getFullPath aResult.userImgUrl,'100x100' }/>
+							<XeImage src={ aResult.userImgUrl } size='100x100' type='avatar' />
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
@@ -111,15 +101,32 @@ WarehouseSearchGoods = React.createClass {
 
 	_doWarehouseSearchGoods:->
 		console.log 'do search warehouse - goods'
+		currentTimestamp = Math.round(new Date().getTime()/1000)
+		beginTimestamp = ''
+		if @state.releaseTime.length > 0 and @state.releaseTime instanceof Array	
+			tmp = @state.releaseTime
+			max = parseInt tmp[0]
+			for obj,i in tmp
+				if max < parseInt tmp[i]
+					max = parseInt tmp[i]
+			switch max
+				when 1 then beginTimestamp = currentTimestamp - 1 * 24 * 60 * 60
+				when 2 then beginTimestamp = currentTimestamp - 3 * 24 * 60 * 60
+				when 3 then beginTimestamp = currentTimestamp - 5 * 24 * 60 * 60
+				when 4 then beginTimestamp = currentTimestamp - 7 * 24 * 60 * 60
+				when 5 then beginTimestamp = currentTimestamp - 14 * 24 * 60 * 60
+
+		
 		WarehouseAction.warehouseSearchGoods {
 			startNo: @state.startNo
 			pageSize: @state.pageSize
-			# goodsType: @state.goodsType
-			# coldStoreFlag: @state.coldStoreFlag
-			# releaseTime: @state.releaseTime
-			# isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
+			goodsType: @state.goodsType
+			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
+			beginTime: beginTimestamp
+			endTime: if parseInt(beginTimestamp) > 0 then currentTimestamp else ''
 		}
-
+		# # alert Moment().unix();
+		# endTime:Math.round(new Date().getTime()/1000)
 	getInitialState: ->
 		initState = {
 			searchResult:[]
@@ -129,7 +136,7 @@ WarehouseSearchGoods = React.createClass {
 		}
 
 		for selection in selectionList
-			initState[selection.key] = (option.key for option in selection.options)
+			initState[selection.key] = ''	#(option.key for option in selection.options)
 		console.log 'initState', initState
 		return initState
 

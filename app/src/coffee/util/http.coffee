@@ -10,9 +10,9 @@ postFile = (api, params, files, cb, err)->
 
 	#浏览器中调试，生成假的数据
 	if Constants.inBrowser
-		uuid = UUID.v4()
-		version = '1.0'
-		client_type = '2'
+		window.uuid = UUID.v4()
+		window.version = '1.0'
+		window.client_type = '2'
 
 	#没有就从本地取
 	uuid = window.uuid or DB.get 'uuid'
@@ -84,9 +84,9 @@ post = (api, params, cb, err, showLoading, key, iv)->
 
 	#浏览器中调试，生成假的数据
 	if Constants.inBrowser
-		uuid = UUID.v4()
-		version = '1.0'
-		client_type = '2'
+		window.uuid = UUID.v4()
+		window.version = '1.0'
+		window.client_type = '2'
 
 	#没有就从本地取
 	uuid = window.uuid or DB.get 'uuid'

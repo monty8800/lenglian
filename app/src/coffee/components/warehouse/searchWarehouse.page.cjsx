@@ -4,12 +4,13 @@ require 'majia-style'
 ImageHelper = require 'util/image'
 
 React = require 'react/addons'
-
+Moment = require 'moment'
 headerImg = require 'user-01.jpg'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
 GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
+XeImage = require 'components/common/xeImage'
 
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
@@ -34,7 +35,7 @@ selectionList = [
 		]
 	}
 	{
-		key: 'warehouseTempreatureType'
+		key: 'cuvinType'
 		value: '库温类型'
 		options: [
 			{key: '1', value: '常温'}
@@ -48,8 +49,8 @@ selectionList = [
 		key: 'isInvoice'
 		value: '需要发票'
 		options: [
-			{key: '1', value: '可开发票'}
-			{key: '2', value: '不可开发票'}
+			{key: '1', value: '提供发票'}
+			{key: '2', value: '不提供发票'}
 		]
 	}
 ]
@@ -59,7 +60,7 @@ SearchWarehouse = React.createClass {
 		WarehouseAction.searchWarehouse {
 			startNo: @state.startNo
 			pageSize: @state.pageSize
-			warehouseTempreatureType: @state.warehouseTempreatureType
+			cuvinType: @state.cuvinType
 			wareHouseType: @state.wareHouseType
 			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
 		}
@@ -74,18 +75,21 @@ SearchWarehouse = React.createClass {
 		}
 
 		for selection in selectionList
-			initState[selection.key] = (option.key for option in selection.options)
+			initState[selection.key] = '' #(option.key for option in selection.options)
 		console.log 'initState', initState
+
 		return initState
 
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
 		GoodsStore.addChangeListener @_onChange
+		SelectionStore.addChangeListener @_onChange
 		@_doSearchWarehouse()
 		
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
 		GoodsStore.removeChangeListener @_onChange
+		SelectionStore.removeChangeListener @_onChange
 
 	_onChange: (mark)->
 		if mark is 'searchWarehouseSucc'
@@ -137,7 +141,7 @@ SearchWarehouse = React.createClass {
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
-							<img src={ headerImg }/>
+							<XeImage src={ aResult.userImgUrl } size='100x100' type='avatar'/>
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
@@ -154,9 +158,9 @@ SearchWarehouse = React.createClass {
 					<div className="g-adr-store ll-font">
 						{ 
 							if aResult.provinceName is aResult.cityName
-								aResult.provinceName + aResult.areaName + aResult.street 
+								aResult.provinceName + aResult.areaName
 							else
-								aResult.provinceName + aResult.cityName + aResult.areaName + aResult.street 
+								aResult.provinceName + aResult.cityName + aResult.areaName 
 						}
 					</div>
 				</div>

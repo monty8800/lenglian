@@ -37,6 +37,8 @@ Selection = React.createClass {
 		newState.text = '全部'
 		
 		@setState newState
+		SelectionAction.updateSelection @props.selectionMap.key, ''
+
 
 	_open: ->
 		newState = Object.create @state
