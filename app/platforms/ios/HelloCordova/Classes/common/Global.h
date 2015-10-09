@@ -19,7 +19,11 @@
 #import <BaiduMapAPI/BMapKit.h>
 #import <MKNetworkKit.h>
 
+
+
 #pragma mark- api
+
+#define IMG_SERVER @"http://qa-pic.lenglianmajia.com/"
 
 #define SERVER @"http://192.168.26.177:7080/llmj-app/"
 //#define SERVER @"http://192.168.29.204:8072/"
@@ -121,5 +125,6 @@ typedef void(^GeoCB) (BMKGeoCodeResult *result);
 
 +(NSDictionary *) getUser;
 
++(NSString *) goodsType:(NSInteger) type;
 
 @end

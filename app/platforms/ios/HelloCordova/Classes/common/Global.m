@@ -233,6 +233,34 @@
     [Loading show:message isForce:force];
 }
 
++(NSString *)goodsType:(NSInteger)type {
+    NSString *result;
+    switch (type) {
+        case 1:
+            result = @"常温";
+            break;
+            
+        case 2:
+            result = @"冷藏";
+            break;
+            
+        case 3:
+            result = @"冷冻";
+            break;
+            
+        case 4:
+            result = @"急冻";
+            break;
+            
+        case 5:
+            result = @"深冷";
+            break;
+            
+        default:
+            break;
+    }
+    return result;
+}
 
 -(void)hide {
     DDLogDebug(@"hide loading");

@@ -32,11 +32,28 @@ transData = DB.get 'transData'
 
 CarBidGoods = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
+
 	componentDidMount: ->
+		console.log 'componentDidMount++++++'
 		OrderStore.addChangeListener @_change
+		getBidGoods = (carId, goodsId)->
+			transData = {
+				carId: carId
+				goodsId: goodsId
+			}
+			@setState {
+				carId: carId
+				goodsId: goodsId
+			}
+			@_getGoodsDetail()
+		window.getBidGoods = getBidGoods.bind this
+		@_getGoodsDetail() if transData?.goodsId
+
+	_getGoodsDetail: ->
+		console.log 'get bid goods detail--'
 		OrderAction.getBidGoodsDetail {
 			userId: UserStore.getUser()?.id
-			goodsResourceId: transData.goodsId
+			goodsResourceId: transData?.goodsId
 		}
 
 	componentWillUnmount: ->
@@ -71,8 +88,8 @@ CarBidGoods = React.createClass {
 	getInitialState: ->
 		{
 			showBidList: false
-			carId: transData.carId
-			goodsId: transData.goodsId
+			carId: transData?.carId
+			goodsId: transData?.goodsId
 			price: null
 			goods: OrderStore.getBidGoods()
 		}
@@ -109,7 +126,10 @@ CarBidGoods = React.createClass {
 			<span onClick={@_showBidList} className={cls}>查看全部出价</span>
 		</div>
 
-		<BidList show={@state.showBidList} goodsId={@state.goodsId} />
+		{
+			if @state.goodsId
+				<BidList show={@state.showBidList} goodsId={@state.goodsId} />
+		}
 		</section>
 }
 

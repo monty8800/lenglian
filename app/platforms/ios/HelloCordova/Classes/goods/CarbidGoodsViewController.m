@@ -30,6 +30,16 @@
 
 -(void) createUI {
     self.title = @"竞价";
+    }
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    [super webViewDidFinishLoad:webView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (_carId != nil && _goodsId != nil) {
+            NSString *js = [NSString stringWithFormat:@"(function(){window.getBidGoods('%@', '%@')})()", _carId, _goodsId];
+            [self.commandDelegate evalJs:js];
+        }
+    });
 }
 
 -(void)commonCommand:(NSArray *)params {

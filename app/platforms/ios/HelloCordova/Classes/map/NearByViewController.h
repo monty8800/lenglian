@@ -13,6 +13,7 @@
 #import "SelectCarWidget.h"
 #import "SelectGoodsWidget.h"
 
+
 @interface NearByViewController : UIViewController <SelectTabProtocl, BMKMapViewDelegate, SelectWarehouseDelegate, SelectCarDelegate, SelectGoodsDelegate>
 {
     BMKMapView *_mapView;
@@ -25,5 +26,6 @@
 
 @property (assign, nonatomic) NSInteger tabIndex;
 @property (strong, nonatomic) SelectTab *tab;
+@property (assign, nonatomic) BOOL bid;
 
 @end
