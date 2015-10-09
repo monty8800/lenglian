@@ -258,6 +258,7 @@ dependencies {
     compile files('libs/Volley.jar')
     compile files('libs/gson-2.2.1.jar')
     compile files('libs/fastjson-1.1.34.android.jar')
+    compile files('libs/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar')
 }
 
 def promptForReleaseKeyPassword() {
