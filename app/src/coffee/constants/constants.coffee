@@ -47,6 +47,7 @@ actionType = {
 	GET_BANK_CARD_INFO:null
 	GET_BANK_LIST:null
 	REMOVE_BANK_CARD:null
+	DELETE_GOODS:null
 
 	PERSONAL_AUTH: null
 	COMPANY_AUTH: null
@@ -142,9 +143,9 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	# server: 'http://192.168.26.177:7080/llmj-app/'
+	server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
-	server: 'http://192.168.29.204:8072/'
+	# server: 'http://192.168.29.204:8072/'
 
 
 	#短信验证码
@@ -253,7 +254,9 @@ api = {
 	#解绑银行卡
 	REMOVE_BANK_CARD: '/mjUserBankCard/deleteMjUserBankCard.shtml'
 
-
+#货相关
+	#删除货源
+	DELETE_GOODS: 'mjGoodsResource/delGoodsResource.shtml'
 
 	# 关注列表
 	attention_list: '/userInfo/queryMjWishlstList.shtml'

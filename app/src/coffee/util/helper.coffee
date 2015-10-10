@@ -72,18 +72,14 @@ warehouseStatus = (status) ->
 
 goodsStatus = (status)->
 	switch parseInt(status)
-		when 0
-			'全部'
 		when 1
-			'求车中'
+			'求车(库)中'
 		when 2
-			'求库中'
-		when 3
 			'有人响应'
-		when 4
+		when 3
 			'已成交'
-		when 5
-			'待评价'
+		else
+			''
 
 
 goodsType = (type)->
@@ -128,7 +124,31 @@ whoYouAre = (who)->
 	else
 		''
 
-		
+stars = (score)->
+	switch parseInt(score)
+		when 0
+			''
+		when 1
+			'&#xe609;'		#半颗星
+		when 2
+			'&#xe609;'			#一颗
+		when 3
+			'&#xe609;&#xe609;'		#一颗半
+		when 4
+			'&#xe609;&#xe609;'			#两颗
+		when 5
+			'&#xe609;&#xe609;&#xe609;'		#两颗半
+		when 6
+			'&#xe609;&#xe609;&#xe609;'			#三颗
+		when 7
+			'&#xe609;&#xe609;&#xe609;&#xe609;'		#三颗半
+		when 8
+			'&#xe609;&#xe609;&#xe609;&#xe609;'			#四颗
+		when 9
+			'&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;'		#四颗半
+		when 10
+			'&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;'			#五颗
+
 	
 
 module.exports = 
@@ -148,3 +168,4 @@ module.exports =
 	hideName: hideName
 	isInvoinceMap: isInvoince
 	whoYouAreMapper: whoYouAre
+	stars:stars

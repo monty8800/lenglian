@@ -6,12 +6,12 @@ Immutable = require 'immutable'
 
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
-GoodsImage = require 'user-01.jpg'
 
 Helper = require 'util/helper'
 Plugin = require 'util/plugin'
 Validator = require 'util/validator'
 Constants = require 'constants/constants'
+XeImage = require 'components/common/xeImage'
 
 GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
@@ -33,7 +33,7 @@ GoodsListItem = React.createClass {
 						货物名称: <span>{ item.name }</span>				
 					</h5>
 					<div className="u-item-btn">
-						<span href="#">{ Helper.goodsStatus item.status }</span>
+						<span href="#">{ Helper.goodsStatus item.resourceStatus }</span>
 					</div>
 						
 				</div>			
@@ -58,7 +58,7 @@ GoodsListItem = React.createClass {
 				<div className="g-itemList">
 					<dl className="clearfix">
 						<dt className=" fl">
-							<img src= { GoodsImage }/>
+							<XeImage src={ item.imageUrl } size='100x100' />
 						</dt>
 						<dd className=" fl">
 							<p>货物种类: <span>冷鲜肉</span></p>

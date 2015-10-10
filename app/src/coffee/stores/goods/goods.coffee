@@ -139,7 +139,6 @@ getUserGoodsList = (pageNow,pageSize,status)->
 		resourceStatus:status
 	}
 	Http.post Constants.api.GET_GOODS_LIST,params,(data)->
-		console.log data,'{{{{{[[[[[[[[[]]]]]]]]]]]]}}}}}}}'
 		if pageNow is '1'
 			_myGoodsList = []
 		for goodsObj in data.GoodsResource
@@ -157,12 +156,13 @@ getUserGoodsList = (pageNow,pageSize,status)->
 			aGoodsModel = aGoodsModel.set 'weight',goodsObj.weight
 			aGoodsModel = aGoodsModel.set 'packType',goodsObj.packType
 			aGoodsModel = aGoodsModel.set 'type',goodsObj.type
-			aGoodsModel = aGoodsModel.set 'status',goodsObj.status
 			aGoodsModel = aGoodsModel.set 'imageUrl',goodsObj.imageUrl
+			aGoodsModel = aGoodsModel.set 'resourceStatus',goodsObj.resourceStatus
+
 			_myGoodsList.push aGoodsModel	
 		GoodsStore.emitChange 'getUserGoodsListSucc'
 	,(data)->
-		Plugin.toast.show 'faile'
+		Plugin.toast.err data.msg
 
 getGoodsDetail = (goodsId)->
 	console.log  goodsId,'---------------'
@@ -190,7 +190,6 @@ getGoodsDetail = (goodsId)->
 		_goodsDetail = _goodsDetail.set 'weight',resource.weight
 		_goodsDetail = _goodsDetail.set 'packType',resource.packType
 		_goodsDetail = _goodsDetail.set 'type',resource.type
-		_goodsDetail = _goodsDetail.set 'status',resource.status
 		_goodsDetail = _goodsDetail.set 'imageUrl',resource.imageUrl
 		_goodsDetail = _goodsDetail.set 'installStime',resource.installStime
 		_goodsDetail = _goodsDetail.set 'installEtime',resource.installEtime
@@ -204,11 +203,11 @@ getGoodsDetail = (goodsId)->
 		_goodsDetail = _goodsDetail.set 'mjGoodsRoutes',resource.mjGoodsRoutes
 		_goodsDetail = _goodsDetail.set 'priceType',resource.priceType
 		_goodsDetail = _goodsDetail.set 'invoice',resource.isinvoice
+		_goodsDetail = _goodsDetail.set 'resourceStatus',resource.resourceStatus
 		
 		GoodsStore.emitChange 'getGoodsDetailSucc'
-		Plugin.toast.show 'success'
 	,(data)->
-		console.log 'faile'
+		Plugin.toast.err data.msg
 
 bindWarehouseOrder = (warehouseId,goodsId)->
 	user = UserStore.getUser()
@@ -275,6 +274,18 @@ changeWidget = (show, bid)->
 window.doCarSearchGoods = ->
 	GoodsStore.emitChange 'do:car:search:goods'
 
+deleteGoodsWithID = (goodsId) ->
+	user = UserStore.getUser()
+	params = {
+		userId:user.id
+		id:goodsId
+	}
+	Http.post Constants.api.DELETE_GOODS,params,(data)->
+
+		GoodsStore.emitChange 'deleteGoodsSucc'
+	,(data)->
+		Plugin.toast.err data.msg
+
 
 Dispatcher.register (action) ->
 	switch action.actionType
@@ -290,6 +301,6 @@ Dispatcher.register (action) ->
 
 		when Constants.actionType.SEARCH_GOODS then searchGoods(action.params)
 		when Constants.actionType.CHANGE_WIDGET_STATUS then changeWidget(action.show, action.bid)
-
+		when Constants.actionType.DELETE_GOODS then deleteGoodsWithID(action.goodsId)
 
 module.exports = GoodsStore

@@ -6,17 +6,20 @@ Immutable = require 'immutable'
 
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
-GoodsImage = require 'user-01.jpg'
+XeImage = require 'components/common/xeImage'
 
 Helper = require 'util/helper'
 Plugin = require 'util/plugin'
 Validator = require 'util/validator'
 Constants = require 'constants/constants'
+Moment = require 'moment'
 
 GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
 Goods = require 'model/goods'
 DB = require 'util/storage'
+
+				# <p>装货时间 : </p>
 
 GoodsRoutes = React.createClass {
 	render : ->
@@ -53,6 +56,9 @@ GoodsDetail = React.createClass {
 			newState.goodsDetail = GoodsStore.getGoodsDetail()
 			@setState newState
 
+	_deleteCurrentGoods: ->
+		GoodsAction.deleteGoods @state.goodsDetail.goodsId
+
 
 	render : ->
 		<div>
@@ -84,13 +90,13 @@ GoodsDetail = React.createClass {
 				<div className="g-detail-time01">
 					<span className="fl">装货时间:</span>
 					<span className="fr">
-						{ @state.goodsDetail.installStime } 到 { @state.goodsDetail.installEtime}
+						{ Moment(@state.goodsDetail.installStime).format('YYYY-MM-DD') } 到 { Moment(@state.goodsDetail.installEtime).format('YYYY-MM-DD') }
 					</span>
 				</div>
 				<div className="g-detail-time01">
 					<span className="fl">到货时间:</span>
 					<span className="fr">
-						{ @state.goodsDetail.arrivalStime} 到 { @state.goodsDetail.arrivalEtime}
+						{ Moment(@state.goodsDetail.installStime).format('YYYY-MM-DD') } 到 { Moment(@state.goodsDetail.arrivalEtime).format('YYYY-MM-DD') }
 					</span>
 				</div>
 			</div>
@@ -100,7 +106,7 @@ GoodsDetail = React.createClass {
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<img src="../images/product-01.jpg"/>
+						<XeImage src={ @state.goodsDetail.imageUrl } size='100x100' />
 					</div>
 					<div className="g-pro-text fl">
 						<p>货物种类: <span>冷鲜肉</span></p>
@@ -134,7 +140,12 @@ GoodsDetail = React.createClass {
 			</div>
 			<div className="m-detail-bottom">
 				<div className="g-pay-btn">
-					<a href="#" className="u-btn02">删除货源</a>
+					{
+						if parseInt(@state.goodsDetail.resourceStatus) is 1
+							<a onClick={ @_deleteCurrentGoods } className="u-btn02">删除货源</a>
+						else
+							<a disabled='disabled' className="u-btn02">删除货源</a>
+					}
 				</div>
 			</div>	
 		</div>

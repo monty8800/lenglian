@@ -4,7 +4,7 @@ require 'index-style'
 require 'majia-style'
 
 React = require 'react/addons'
-
+Helper = require 'util/helper'
 CommentStore = require 'stores/order/commentStore'
 CommentAction = require 'actions/order/commentAction'
 PureRenderMixin = React.addons.PureRenderMixin
@@ -13,16 +13,17 @@ headerImg = require 'user-01.jpg'
 
 
 CommentItem = React.createClass {
-
+	# <div dangerouslySetInnerHTML={{__html: starArr[parseInt item.score / 2]}}/>
+	# starArr = [
+	# 	''
+	# 	'&#xe609;'
+	# 	'&#xe609;&#xe609;'
+	# 	'&#xe609;&#xe609;&#xe609;'
+	# 	'&#xe609;&#xe609;&#xe609;&#xe609;'
+	# 	'&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;'
+	# ]
 	render: ->
-		starArr = [
-			''
-			'&#xe609;'
-			'&#xe609;&#xe609;'
-			'&#xe609;&#xe609;&#xe609;'
-			'&#xe609;&#xe609;&#xe609;&#xe609;'
-			'&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;'
-		]
+
 		resultList = @props.list
 		items = resultList.map (item,i) ->
 			<div>
@@ -33,7 +34,7 @@ CommentItem = React.createClass {
 					</div>
 					<div className="item-msg">
 						<div className="item-star ll-font">
-							<div dangerouslySetInnerHTML={{__html: starArr[parseInt item.score / 2]}}/>
+							<div dangerouslySetInnerHTML={{__html: Helper.stars item.score }} />
 						</div>
 						<div className="item-text">{ item.content }</div>
 						<div className="item-status">

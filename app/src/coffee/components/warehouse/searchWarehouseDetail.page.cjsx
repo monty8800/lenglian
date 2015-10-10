@@ -79,7 +79,7 @@ WarehouseDetail = React.createClass {
 							<div className="g-dirver-name">
 								<span>{ @state.warehouseDetail.userName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper @state.warehouseDetail.certification }</span>
 							</div>
-							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+							<div className="g-dirver-dis ll-font" dangerouslySetInnerHTML={{__html: Helper.stars @state.warehouseDetail.score}}/>
 						</div>
 						<ul className="g-driver-contact" onClick={ @_fallowButtonClick }>
 							<li className={ if @state.isFallow then "ll-font" else "ll-font active" } >关注</li>
@@ -127,7 +127,7 @@ WarehouseDetail = React.createClass {
 				</p>	
 				<p>
 					<span>发票:</span>
-					<span>{ Helper.invoiceStatus @state.warehouseDetail.isinvoice}</span>
+					<span>{ Helper.invoiceStatus @state.warehouseDetail.invoice}</span>
 				</p>	
 				<p>
 					<span>备注说明:</span>
