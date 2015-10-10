@@ -64,7 +64,7 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'toCountyName', order.toCountyName
 				tempOrder = tempOrder.set 'toProvinceName', order.toProvinceName
 				tempOrder = tempOrder.set 'priceType', order.priceType
-				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + order.goodsType
+				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + ' ' + order.goodsType
 				tempOrder = tempOrder.set 'payType', order.payType
 				tempOrder = tempOrder.set 'orderNo', order.orderNo
 				tempOrder = tempOrder.set 'orderType', order.orderType
@@ -169,6 +169,7 @@ getBidList = (params)->
 		console.log 'get bind list result', data
 		_bidList = Immutable.List data
 		OrderStore.emitChange 'get:bid:list:done'
+		OrderStore.emit 'request:bid:list', 'get:bid:list:done'
 
 carBidGoods = (params)->
 	Http.post Constants.api.DRIVER_BID_FOR_GOODS, params, (data)->

@@ -8,6 +8,7 @@
 
 #import "OrderListViewController.h"
 #import "AppDelegate.h"
+#import "CarOrderDetailViewController.h"
 
 @interface OrderListViewController ()
 @property (assign,nonatomic)NSInteger showOrderType;
@@ -54,6 +55,20 @@
     }
     appdelegate.orderVCLoaded = YES;
 }
+
+
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"carOwnerOrderDetail"]) {
+            CarOrderDetailViewController *carOrderVC = [CarOrderDetailViewController new];
+            [self.navigationController pushViewController:carOrderVC animated:YES];
+        }
+        
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
