@@ -74,6 +74,7 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'acceptMode', order.acceptMode
 				tempOrder = tempOrder.set 'price', order.price
 				tempOrder = tempOrder.set 'goodsSourceId', order.goodsSourceId
+				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['goods']
 	, (err) ->
@@ -276,8 +277,10 @@ _attention = (params)->
 	Http.post Constants.api.attention, params, (data)->
 		if params.type is 1
 			OrderStore.emitChange ['attention_success']
+			Plugin.toast.success '关注成功'
 		else 
 			OrderStore.emitChange ['nattention_success']
+			Plugin.toast.success '取消关注成功'
 		Plugin.loading.hide()
 	, (data)->
 		Plugin.loading.hide()

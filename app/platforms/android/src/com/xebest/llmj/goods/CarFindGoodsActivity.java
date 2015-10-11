@@ -16,11 +16,13 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
+import com.xebest.llmj.adapter.GoodsAdapter;
 import com.xebest.llmj.adapter.MyCarAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.model.Car;
+import com.xebest.llmj.model.Goods;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
 import com.xebest.llmj.widget.XListView;
@@ -60,6 +62,10 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
     private List<Car> carList = new ArrayList<Car>();
 
     private MyCarAdapter myCarAdapter;
+
+    private String goodsId = "";
+
+    private boolean isBidding = false;
 
     /**
      * 活跃当前窗口
@@ -112,8 +118,12 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
         String flag = args.getString(1);
         Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
         if (flag.equalsIgnoreCase("select:car")) {
-            String id = args.getString(2);
-            new GoodsFoundCar().execute();
+            // true 抢单  false竞价
+            isBidding = args.getBoolean(3);
+            goodsId = args.getString(2);
+            new CarResourceTask().execute();
+        } else if (flag.equals("carBidGoods")) {
+            BiddingActivity.actionView(CarFindGoodsActivity.this, "", "");
         }
 
     }
@@ -153,55 +163,49 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
     }
 
     /**
-     * 货找车
+     * 抢单列表
      */
-    public class GoodsFoundCar extends AsyncTask<String, Void, String> {
+    private class CarResourceTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Tools.createLoadingDialog(CarFindGoodsActivity.this, "正在加载...");
+            Tools.createLoadingDialog(getActivity(), "加载中...");
         }
 
         @Override
         protected String doInBackground(String... params) {
             Map<String, String> map = new HashMap<String, String>();
             map.put("userId", Application.getInstance().userId);
-            map.put("pageNow", "0");
-            map.put("pageSize", "10");
-            map.put("status", "2");
-            return UploadFile.postWithJsonString(ApiUtils.my_car, new Gson().toJson(map));
+            map.put("goodsResourceId", goodsId);
+            return UploadFile.postWithJsonString(ApiUtils.car_resource, new Gson().toJson(map));
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.i("info", "---------sss:" + s);
-            Tools.dismissLoading();
-            if (s != null && s != "") {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    String data = jsonObject.getString("data");
-                    String str = new JSONObject(data).getString("myCarInfo");
-                    List<Car> list = JSON.parseArray(str, Car.class);
-                    carList.addAll(list);
-                    if (list.size() == 0) {
-                        Tools.showErrorToast(CarFindGoodsActivity.this, "没有求货种的车辆哦");
-                        return;
-                    }
-                    showDialog(list);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+            if (s == null || s.equals("")) {
+                return;
             }
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                String data = jsonObject.getString("data");
+                List<Goods> list = JSON.parseArray(data, Goods.class);
+                Log.i("info", "--------list:" + list.size());
+                if (list.size() == 0) {
+                    Tools.showSuccessToast(CarFindGoodsActivity.this, "没有可选择的车辆哦");
+                } else {
+                    showDialogGoods(list);
+                }
+                Tools.dismissLoading();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
-    /**
-     * 货源、车源、库源列表
-     */
-    public void showDialog(final List<Car> list) {
+    public void showDialogGoods(final List<Goods> list) {
         mDialog = Tools.getCustomDialog(getActivity(), R.layout.near_lv_dialog,
                 new Tools.BindEventView() {
                     @Override
@@ -227,21 +231,26 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
                                 } else {
                                     mListView.setPullLoadEnable(true);
                                 }
-                                myCarAdapter = new MyCarAdapter(getActivity());
-                                mListView.setAdapter(myCarAdapter);
+
+                                // 货
+                                GoodsAdapter adapter = new GoodsAdapter(getActivity());
+                                mListView.setAdapter(adapter);
                                 // 车
-                                myCarAdapter.addData(list);
-                                myCarAdapter.notifyDataSetChanged();
+                                adapter.addData(list);
+                                adapter.notifyDataSetChanged();
 
                                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                                        String goodsId = carList.get(position - 1).getId();
-//                                        new CarFoundGoodsTask().execute(goodsId);
+                                        String carId = list.get(position - 1).getId();
                                         mDialog.dismiss();
+                                        if (isBidding) {
+                                            mWebView.getWebView().loadUrl("javascript:goBid('" + carId + "', '" + goodsId + "')");
+                                        } else {
+                                            new GoodsFindCarTask().execute(carId);
+                                        }
                                     }
                                 });
-
                             }
                         });
 
@@ -249,5 +258,45 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
                 });
     }
 
+    /**
+     * 货找车提交订单
+     */
+    private class GoodsFindCarTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Tools.createLoadingDialog(getActivity(), "提交中...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("userId", Application.getInstance().userId);
+            map.put("goodsResourceId", goodsId);
+            map.put("carResourceId", params[0]);
+            return UploadFile.postWithJsonString(ApiUtils.order_trade, new Gson().toJson(map));
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s != null && !s.equals("")) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String code = jsonObject.getString("code");
+                    if (code.equals("0000")) {
+                        Tools.showSuccessToast(getActivity(), "下单成功");
+                    } else {
+                        Tools.showErrorToast(getActivity(), jsonObject.getString("msg"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Tools.dismissLoading();
+            }
+        }
+
+    }
 
 }

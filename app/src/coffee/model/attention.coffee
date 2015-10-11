@@ -6,6 +6,7 @@ Attention = Immutable.Record {
 	imgurl: '' # 头像
 	focusid: '' # 被关注人的Id
 	id: ''
+	wishlist: null
 }
 
 module.exports = Attention

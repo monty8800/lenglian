@@ -47,7 +47,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,7 +141,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
 
     String url;
     Map<String, Object> content;
-    Map<String, File> driving;
+    Map<String, File> driving = null;
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -184,9 +183,13 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             content.put("version", version);
             content.put("data", ttData);
 
-            driving = new HashMap<String, File>();
 
-            driving.put("file", new File(files.getJSONObject(0).getString("path")));
+
+            String path = files.getJSONObject(0).getString("path");
+            if (!path.equals("") && path != null) {
+                driving = new HashMap<String, File>();
+                driving.put("file", new File(files.getJSONObject(0).getString("path")));
+            }
 
             Log.i("info", "--------------content:" + content);
             Log.i("info", "--------------content:");
@@ -403,6 +406,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
     }
 
     boolean success = false;
+    String msg = "";
     public class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -417,14 +421,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
                 String result = UploadFile.post(url, content, driving, null, null);
                 JSONObject jsonObject = new JSONObject(result);
                 Log.i("info", "----------------result" + result);
-                String msg = jsonObject.getString("msg");
-                String temp = URLEncoder.encode(msg, "UTF-8");
-                String temp2 = URLEncoder.encode(msg, "gbk");
-                String temp3 = URLEncoder.encode(msg, "gb2312");
-                Log.i("info", "--------msg:" + msg);
-                Log.i("info", "--------temp:" + temp);
-                Log.i("info", "--------temp2:" + temp2);
-                Log.i("info", "--------temp3:" + temp3);
+                msg = jsonObject.getString("msg");
                 if (jsonObject.getString("code").equals("0000")) {
                     // 认证成功
                     success = true;
@@ -451,7 +448,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
                 finish();
                 MainActivity.actionView(AddWarehouseActivity.this, 3);
             } else {
-                Tools.showErrorToast(AddWarehouseActivity.this, "添加失败!");
+                Tools.showErrorToast(AddWarehouseActivity.this, msg);
             }
         }
     }

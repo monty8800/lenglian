@@ -13,6 +13,10 @@ Plugin = require 'util/plugin'
 Goods = require 'model/goods'
 Address = require 'model/address'
 
+UserStore = require 'stores/user/user'
+
+_user = UserStore.getUser()
+
 localGoods = DB.get 'goods'
 
 _goods = new Goods localGoods
@@ -133,7 +137,8 @@ getUserGoodsList = (pageNow,pageSize,status)->
 	user = UserStore.getUser()
 	params = {
 		#TODO:
-		userId:'50819ab3c0954f828d0851da576cbc31'  #user.id
+		# userId:'50819ab3c0954f828d0851da576cbc31'  #user.id
+		userId: _user?.id
 		pageNow:pageNow
 		pageSize:pageSize
 		resourceStatus:status
@@ -169,7 +174,8 @@ getGoodsDetail = (goodsId)->
 	user = UserStore.getUser()
 	params = {
 		#TODO:
-		userId:'50819ab3c0954f828d0851da576cbc31'  #user.id
+		# userId:'50819ab3c0954f828d0851da576cbc31'  #user.id
+		userId: _user?.id
 		id:goodsId
 		resourceStatus:''
 	}

@@ -6,14 +6,14 @@ PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
+XeImage = require 'util/image'
 DB = require 'util/storage'
-
 ScreenMenu = require 'components/car/screen'
-
 DRIVER_LOGO = require 'user-01.jpg'
-
 CarStore = require 'stores/car/car'
 CarAction = require 'actions/car/car'
+XeImage = require 'components/common/xeImage'
+avatar = require 'user-01'
 
 CarItem = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -32,14 +32,14 @@ CarItem = React.createClass {
 
 	# 车主详情
 	_goPage: (item)->
-		console.log '-----------item:', item.toJS()
-		DB.put 'fdcar_to_card', item.toJS()
+		DB.put 'fdcar_to_card', item.carId
+		DB.put 'fdcar_to_userId', item.userId
 		Plugin.nav.push ['carOwnerDetail']
 
 	# 选择此车
-	select: (carId)->
+	select: (carId, i)->
 		console.log '-------select_car', carId
-		Plugin.nav.push ['select_goods', carId]
+		Plugin.nav.push ['select_goods', carId, i]
 
 	render: ->
 		items = @props.items.map (item, i)->
@@ -47,7 +47,7 @@ CarItem = React.createClass {
 				<div className="g-item-dirver">
 					<div className="g-dirver">								
 						<div onClick={@_goPage.bind this, item} className="g-dirver-pic">
-							<img src={ DRIVER_LOGO } />
+							<XeImage src={item?.drivingImg} size='130x130' type='avatar' />
 						</div>       
 						<div className="g-dirver-msg">  
 							<div className="g-dirver-name">
@@ -56,7 +56,7 @@ CarItem = React.createClass {
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
 						<div className="g-dirver-btn">
-							<a href="###" onClick={@select.bind this, item.id} className="u-btn02">选择此车</a>
+							<a href="###" onClick={@select.bind this, item.id, i} className="u-btn02">选择此车</a>
 						</div>
 					</div>  
 				</div>   
@@ -69,7 +69,7 @@ CarItem = React.createClass {
 					</div>   	
 				</div>
 				<div className="g-item g-item-des">
-					<p>车辆描述 : <span>{Helper.carTypeMapper item.carType}{item.vehicle}米</span></p>
+					<p>车辆描述 : <span>{Helper.carTypeMapper item.carType}{Helper.carVehicle item.vehicle}</span></p>
 				</div>
 			</div>   
 		, this		
@@ -97,6 +97,10 @@ FoundCar = React.createClass {
 			@setState {
 				carList: CarStore.getCar()
 			}
+		else if params[0] is 'submit_success'
+			newState = Object.create @state
+			newState.carList = @state.carList.splice params[1], 1
+			@setState newState
 
 	render: ->
 		<section>

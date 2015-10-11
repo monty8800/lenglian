@@ -106,6 +106,8 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
         });
     }
 
+    private int index = -1;
+
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
@@ -116,6 +118,7 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
             CarOwnerDetailActivity.actionView(FoundCarActivity.this);
         } else if (flag.equals("select_goods")) {
             carId = args.getString(2);
+            index = args.getInt(3);
             new GoodsFoundCar().execute();
         }
     }
@@ -278,6 +281,7 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
                     String code = jsonObject.getString("code");
                     if (code.equals("0000")) {
                         Tools.showSuccessToast(getActivity(), "下单成功");
+                        mWebView.getWebView().loadUrl("javascript:submitSuccess('" + index + "')");
                     } else {
                         Tools.showErrorToast(getActivity(), jsonObject.getString("msg"));
                     }

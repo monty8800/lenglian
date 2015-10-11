@@ -142,11 +142,12 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	# server: 'http://192.168.26.177:7080/llmj-app/'
-	# server: 'http://192.168.29.176:8072/'
-	server: 'http://192.168.29.204:8072/'
+	server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.29.176:8072/'			
+	# server: 'http://192.168.29.204:8072/'
+	# server: 'http://192.168.29.149:8072/'
 
-
+			
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
 	#登录
@@ -334,6 +335,8 @@ cache = {
 	USER_INFO: 3 * 60 * 1000 #更新用户信息的间隔
 }
 
+carPicSize = '200x200'
+
 imageServer = 'http://qa-pic.lenglianmajia.com/'
 
 module.exports = 
@@ -347,3 +350,4 @@ module.exports =
 	orderStatus: orderStatus
 	cache: cache
 	imageServer: imageServer
+	carPicSize: carPicSize

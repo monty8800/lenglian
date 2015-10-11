@@ -3,6 +3,7 @@ package com.xebest.llmj.center;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.application.LocationActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
@@ -22,10 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 我的钱包
+ * 编辑地址
  * Created by kaisun on 15/9/22.
  */
-public class WalletActivity extends BaseCordovaActivity implements CordovaInterface {
+public class ModifyAddress extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -35,20 +37,31 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
 
     private TextView bank;
 
+    private boolean isOncreate = false;
+
+    private static int who = -1;
+
     /**
      * 活跃当前窗口
      * @param context
      */
-    public static void actionView(Context context) {
-        context.startActivity(new Intent(context, WalletActivity.class));
+    public static void actionView(Context context, int flag) {
+        who = flag;
+        context.startActivity(new Intent(context, ModifyAddress.class));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallet);
-
+        isOncreate = true;
         initView();
+
+        if (who == 1) {
+            tvTitle.setText("编辑地址");
+        } else if (who == 2) {
+            tvTitle.setText("新增地址");
+        }
 
     }
 
@@ -57,19 +70,19 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
         Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
-        if (flag.equalsIgnoreCase("changePasswd")) {
-            ChangePwdActivity.actionView(WalletActivity.this);
-        } else if (flag.equalsIgnoreCase("billList")) {
-            BillListActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("toCharge")) {
-            ChargeActivity.actionView(this);
+        if (flag.equalsIgnoreCase("location")) {
+            LocationActivity.actionView(this);
+        } else if (flag.equals("modify_success") || flag.equals("add_success")) {
+            AddressActivity.isUpdate = true;
+            finish();
         }
     }
 
     protected void initView() {
         bank = (TextView) findViewById(R.id.add);
+        bank.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("我的钱包");
+        tvTitle.setText("编辑地址");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -78,28 +91,47 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
                 finish();
             }
         });
-        bank.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyBankActivity.actionView(WalletActivity.this);
-            }
-        });
+
     }
 
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("我的钱包");
+        MobclickAgent.onPageStart("编辑地址");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "wallet.html", this, this, this, this);
+        if (isOncreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "modifyAddress.html", this, this, this, this);
+        }
+        isOncreate = false;
+
+        SharedPreferences sp = getSharedPreferences("location", 0);
+        if (sp.getString("mLatitude", "") != "") {
+            String mLatitude = sp.getString("mLatitude", "");
+            String mLontitud = sp.getString("mLontitud", "");
+            String mProvince = sp.getString("mProvince", "");
+            String mCity = sp.getString("mCity", "");
+            String mArea = sp.getString("mArea", "");
+            String mStreet = sp.getString("mStreet", "");
+            String mStreetNumber = sp.getString("mStreetNumber", "");
+            mWebView.getWebView().loadUrl("javascript:(function(){window.updateAddress({provinceName:'" + mProvince + "', cityName:'" + mCity + "', areaName:'" + mArea + "', street: '" + mStreet + "', lati:'" + mLatitude + "', longi:'" + mLontitud + "'})})()");
+        }
+        SharedPreferences.Editor editor = getSharedPreferences("location", 0).edit();
+        editor.putString("mLatitude", "");
+        editor.putString("mLontitud", "");
+        editor.putString("mProvince", "");
+        editor.putString("mCity", "");
+        editor.putString("mArea", "");
+        editor.putString("mStreet", "");
+        editor.putString("mStreetNumber", "");
+        editor.commit();
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("我的钱包");
+        MobclickAgent.onPageEnd("编辑地址");
         MobclickAgent.onPause(this);
     }
 

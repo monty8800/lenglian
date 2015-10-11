@@ -1,6 +1,5 @@
 require 'components/common/common'
 
-
 React = require 'react/addons'
 
 PureRenderMixin = React.addons.PureRenderMixin

@@ -41,7 +41,6 @@ window.authDone = ->
 	UserStore.emitChange 'auth:done'
 
 
-
 clearAuthPic = (type)->
 	console.log 'clear auth pic ', type
 	_user = _user.set type, null

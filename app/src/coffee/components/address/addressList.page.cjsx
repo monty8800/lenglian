@@ -65,7 +65,7 @@ Address = React.createClass {
 					@setState {
 						addressList: list
 					}	
-					Plugin.alert '删除成功!'
+					Plugin.toast.success '删除成功'
 				else 
 					console.log who			
 

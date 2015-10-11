@@ -60,5 +60,18 @@
         <activity android:name=".ware.ReleaseWarehouseActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".ware.AddWarehouseActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:launchMode="standard" android:name=".goods.ReleaseGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.BiddingActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.MyGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.BillListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.MyBankActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AddBankActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AddBankNextActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AddBankVerifyActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ChargeActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ModifyAddress" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.CarOrderDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.GoodsDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.MyWarehouseActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.DoCommentActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

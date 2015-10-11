@@ -14,8 +14,11 @@ import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
+import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Created by kaisun on 15/9/22.
@@ -57,6 +60,15 @@ public class ChangePwdActivity extends BaseCordovaActivity implements CordovaInt
                 finish();
             }
         });
+    }
+
+    @Override
+    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        super.jsCallNative(args, callbackContext);
+        String flag = args.getString(0);
+        if (flag.equals("2")) {
+            finish();;
+        }
     }
 
     @Override

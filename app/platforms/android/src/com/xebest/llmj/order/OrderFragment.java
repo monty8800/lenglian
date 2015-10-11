@@ -16,8 +16,11 @@ import com.xebest.llmj.application.Application;
 import com.xebest.plugin.XEFragment;
 import com.xebest.plugin.XEWebView;
 
+import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Created by kaisun on 15/9/21.
@@ -45,6 +48,17 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mWebView.init(getActivity(), ApiUtils.API_COMMON_URL + "orderList.html", this, this, this, this);
+    }
+
+    @Override
+    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        super.jsCallNative(args, callbackContext);
+        String flag = args.getString(1);
+        if (flag.equals("carOwnerOrderDetail")) {
+            CarOrderDetailActivity.actionView(getActivity());
+        } else if (flag.equals("doComment")) {
+            DoCommentActivity.actionView(getActivity());
+        }
     }
 
     public void reload() {

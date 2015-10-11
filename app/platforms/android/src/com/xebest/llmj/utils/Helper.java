@@ -127,7 +127,6 @@ public class Helper {
     /**
      * 车辆长度
      * @param status 3.8米、4.2、4.8、5.8、6.2、6.8、7.4、7.8、8.6、9.6、13~15、15米以上
-
      * @return
      */
     public static String getCarVehicle(String status) {
@@ -173,5 +172,10 @@ public class Helper {
         }
         return "未知";
     }
+
+    /**
+     * 15810129806
+     * 123456a
+     */
 
 }

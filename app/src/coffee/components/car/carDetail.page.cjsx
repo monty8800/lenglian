@@ -4,7 +4,9 @@ require 'user-center-style'
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
+Constants = require 'constants/constants'
 Validator = require 'util/validator'
+Image = require 'util/image'
 
 CarPic01 = require 'car-02.jpg'
 CarPic02 = require 'car-03.jpg'
@@ -95,13 +97,13 @@ Detail = React.createClass {
 				<div className="g-itemList">
 					<dl className="clearfix">
 						<dt className=" fl">
-							<img src={ CarPic01 }/>
+							<img src={Image.getFullPath detail?.carPic, Constants.carPicSize}/>
 						</dt>
 						<dd className=" fl">
 							<p>车辆类别: <span>{ Helper.carCategoryMapper detail.category }</span></p>
-							<p>可载货重: <span>{ detail?.heavy }</span></p>
+							<p>可载货重: <span>{ Helper.goodsWeight detail?.heavy }</span></p>
 							<p>可载泡货: <span>{ detail?.bulky }</span></p>
-							<p>车辆长度: <span>{ detail?.carVehicle }</span></p>
+							<p>车辆长度: <span>{ Helper.carVehicle detail?.carVehicle }</span></p>
 						</dd>
 					</dl>			
 				</div>
@@ -119,10 +121,10 @@ Detail = React.createClass {
 			<div className="g-uploadPic">
 				<ul className="clearfix">
 					<li>
-						<img src={ CarPic02 }/>
+						<img src={Image.getFullPath detail?.drivingImg, Constants.carPicSize}/>
 					</li>
 					<li>
-						<img src={ CarPic03 }/>
+						<img src={Image.getFullPath detail?.transportImg, Constants.carPicSize}/>
 					</li>
 				</ul>
 			</div>

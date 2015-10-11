@@ -12,16 +12,24 @@ DRIVER_LOGO = require 'user-01.jpg'
 CarItem = React.createClass {
 
 	# 接受
-	_receiver: (type, item, i)->
+	_receiver: (type, item, i, e)->
 		if type is 1 # 接受
 			OrderAction.carOwnercomfitOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
-			window.event.returnValue = false
+			e.stopPropagation()
 		else if type is 2 # 取消
 			OrderAction.carOwnerCancelOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
-			window.event.returnValue = false
-		else if type is 3 # 完成订单
-			OrderAction.carOwnerOrderFinish(item.orderNo, item.version, item?.carPersonUserId)
-			window.event.returnValue = false
+			e.stopPropagation()
+
+	comment: (targetId, orderNo, e)->
+		DB.put 'transData', {
+			userRole: '2'
+			targetId: targetId
+			targetRole: '1'
+			orderNo: orderNo
+		}
+		Plugin.nav.push ['doComment']
+		e.stopPropagation()
+		
 
 	_detail: (item)->
 		DB.put 'car_owner_order_detail', [item?.carPersonUserId, item?.orderNo, item?.goodsPersonUserId]
@@ -68,21 +76,17 @@ CarItem = React.createClass {
 										<span>等待货主确认</span>
 									else if item?.orderType is 'GC'
 										<a href="###" onClick={@_receiver.bind this, 1, item, i} className="u-btn02">接受</a>
-										<a href="###" onClick={@_receiver.bind this, 2, item, i} className="u-btn02">取消</a>
+										#<a href="###" onClick={@_receiver.bind this, 2, item, i} className="u-btn02">取消</a>
 								else if item?.orderState is '2'
 									# 1：货到付款（线下）2：回单付款（线下） 3：预付款（线上）
 									if item?.payType is '3'
 										<span>等待货主付款</span>				
 									else
 										<span>货物运输中</span>
-										#<a href="###" onClick={@_receiver.bind this, 3, item} className="u-btn02">完成订单</a>
 								else if item?.orderState is '3'
-									#if item?.payType is '3'
-									#<a href="###" onClick={@_receiver.bind this, 3, item} className="u-btn02">完成订单</a>
-									#else
 									<span>货物运输中</span>
 								else if item?.orderState is '4'
-									<a href="###" className="u-btn02">评价货主</a>
+									<a href="###" onClick={@comment.bind this, item?.goodsPersonUserId, item?.orderNo} className="u-btn02">评价货主</a>
 							}
 						</div>
 					</div>
