@@ -79,7 +79,7 @@ GoodsListItem = React.createClass {
 GoodsList = React.createClass {
 	getInitialState:->
 		{
-			showType:0  # 1 货源状态  2 价格类型  3 发布日期
+			showType:0  		# 1 货源状态  2 价格类型  3 发布日期
 			shouldShowMenu:0 # 1 货源菜单  2 价格菜单  3 发布日期菜单
 			selectedMenu1: 0 # 按资源状态 1 全部 2 求车种 3 有人响应 4 已成交
 			selectedMenu2: 0 # 按价格类型 1 高价 2 中价  3 低价
@@ -89,7 +89,7 @@ GoodsList = React.createClass {
 
 	componentDidMount: ->
 		GoodsStore.addChangeListener @_onChange
-		GoodsAction.getGoodsList '1','10',''		#pageNow pageSize status   userId在store中传
+		GoodsAction.getGoodsList 1,10,''		#pageNow pageSize status   userId在store中传
 	componentWillUnmount: ->
 		GoodsStore.removeChangeListener @_onChange
 

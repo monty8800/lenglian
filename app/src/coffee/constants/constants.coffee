@@ -37,6 +37,7 @@ actionType = {
 	GET_BID_ORDER_LIST:null
 	GET_GOODS_LIST:null
 	GET_GOODS_DETAIL:null
+	GET_SEARCH_GOODS_DETAIL:null
 
 	GOODS_BIND_WAREHOUSE_ORDER:null
 
@@ -143,9 +144,9 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-	server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
-	# server: 'http://192.168.29.204:8072/'
+	server: 'http://192.168.29.204:8072/'
 
 
 	#短信验证码
@@ -237,6 +238,8 @@ api = {
 	GET_GOODS_LIST: '/mjGoodsResource/queryMjGoodsResourceList.shtml'
 	#查询货源详情
 	GET_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
+	#搜索货源时进入货源详情
+	GET_SEARCH_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
 
 #支付相关 钱包
 	#我的收入和支出

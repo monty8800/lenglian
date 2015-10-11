@@ -6,18 +6,21 @@ require 'user-center-style'
 XeImage = require 'components/common/xeImage'
 Helper = require 'util/helper'
 React = require 'react/addons'
-
+Auth = require 'util/auth'
 headerImg = require 'user-01.jpg'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
 
 Selection = require 'components/common/selection'
 SelectionStore = require 'stores/common/selection'
+UserStore = require 'stores/user/user'
 
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 
 Plugin = require 'util/plugin'
+
+_selectedGoodsId = ''
 
 selectionList = [
 	{
@@ -53,15 +56,33 @@ selectionList = [
 ]
 
 SearchResultList = React.createClass {
-	_resultItemClick:(index)->
-		resultItem = @props.list[index]
-		DB.put 'transData',resultItem.id,#_transData
-		Plugin.nav.push ['searchGoodsDetail']
+	_resultItemClick:(aResult)->
+		Auth.needLogin ->
+			DB.put 'transData',{goodsId:aResult.id,focusid:aResult.userId}
+			Plugin.nav.push ['searchGoodsDetail']
+
+	_bindGoodsCreateOrder:(aResult)->
+		Auth.needLogin ->
+			user = UserStore.getUser()
+			if user.warehouseStatus is 1
+				# if @state.userGoodsSource.length < 1
+				# 	Plugin.toast.show '没有货源适合这个仓库'
+				# 	return
+
+#TODO:仓库找货  在弹出我的仓库列表的弹窗前 先判断有没有仓库
+
+				_selectedGoodsId = aResult.id
+				console.log _selectedGoodsId,'____仓库找货 货源ID_'
+				# # GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
+				Plugin.run [3, 'select:warehouse', _selectedGoodsId]
+			else 
+				Plugin.toast.show '未认证仓库 先认证'
+		e.stopPropagation()
 
 	render: ->
 		resultList = @props.list
 		items = resultList.map (aResult,i) ->
-			<div className="m-item01 m-item03" onClick={ @_resultItemClick.bind this,i } >
+			<div className="m-item01 m-item03" onClick={ @_resultItemClick.bind this,aResult } >
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
@@ -74,7 +95,7 @@ SearchResultList = React.createClass {
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
 						<div className="g-dirver-btn">
-							<a href="#" className="u-btn03">抢单</a>
+							<a onClick={ @_bindGoodsCreateOrder.bind aResult } className="u-btn03">抢单</a>
 						</div>
 					</div>
 				</div>

@@ -13,12 +13,14 @@ Plugin = require 'util/plugin'
 Validator = require 'util/validator'
 Constants = require 'constants/constants'
 Moment = require 'moment'
-
 GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
 Goods = require 'model/goods'
 DB = require 'util/storage'
 
+
+_transData = DB.get 'transData'
+_toShowOrder = _transData.order
 
 GoodsRoutes = React.createClass {
 	render : ->
@@ -39,33 +41,59 @@ GoodsDetail = React.createClass {
 			goodsDetail:{
 				mjGoodsRoutes:[]
 			}
+			isFallow:false
 		}
 
 	componentDidMount: ->
 		GoodsStore.addChangeListener @_onChange
-		goodsId = DB.get 'transData'
-		GoodsAction.getGoodsDetail goodsId
+		GoodsAction.getSearchGoodsDetail _transData.goodsId,_transData.focusid
+
 	componentWillUnmount: ->
 		GoodsStore.removeChangeListener @_onChange
 
 # mjGoodsRoutes
 	_onChange: (mark)->
-		if mark is 'getGoodsDetailSucc'
+		if mark is 'getSearchGoodsDetailSucc'
 			newState = Object.create @state
-			newState.goodsDetail = GoodsStore.getGoodsDetail()
+			newState.goodsDetail = GoodsStore.getSearchGoodsDetail()
+			newState.isFallow = newState.goodsDetail.wishlst
 			@setState newState
-		else if mark is 'deleteGoodsSucc'
-			Plugin.toast.success '删除成功'
-			DB.put 'shouldGoodsListReload',1
-			Plugin.nav.pop()
+		else if mark is 'fallowOrUnFallowHandleSucc'
+			newState = Object.create @state
+			newState.isFallow = !@state.isFallow
+			@setState newState
 
-	_deleteCurrentGoods: ->
-		GoodsAction.deleteGoods @state.goodsDetail.id
+	_fallowButtonClick:->
+		#       (1)focusid 		(2)focustype 关注类型 1:司机 2：货主 3：仓库		(3) 2取消 1添加
+		type = if @state.isFallow then 2 else 1
+		GoodsAction.handleFallow _transData.focusid,2,type
 
 
 	render : ->
 		<div>
+			<div style={{display: if _toShowOrder then 'block' else 'none'}} className="m-orderdetail clearfix">
+				<p className="fl">订单号：<span>{ _toShowOrder?.orderId }</span></p>
+				<p className="fr">等待货主付款</p>
+			</div>
 			<div className="m-item01">
+				<div className="g-detail-dirver">
+					<div className="g-detail">					
+						<div className="g-dirver-pic">
+							<XeImage src={ @state.goodsDetail.userHeaderImageUrl } size='100x100' type='avatar'/>
+						</div>
+						<div className="g-dirver-msg">
+							<div className="g-dirver-name">
+								<span>{ @state.goodsDetail.userName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper @state.goodsDetail.certification  }</span>
+							</div>
+							<div className="g-dirver-dis ll-font">
+								<div dangerouslySetInnerHTML={{ __html:Helper.stars @state.goodsDetail.stars }} />
+							</div>
+						</div>
+						<ul className="g-driver-contact" onClick={ @_fallowButtonClick }>
+							<li className={ if @state.isFallow then "ll-font noborder" else "ll-font active noborder" }>关注</li>
+						</ul>
+					</div>
+				</div>
 				<div className="g-item g-adr-detail ll-font nopadding">			
 					<div className="g-adr-start ll-font g-adr-start-line">
 						{
@@ -119,7 +147,8 @@ GoodsDetail = React.createClass {
 					</div>
 				</div>
 			</div>
-			<div className="m-detail-info">			
+
+			<div className="m-detail-info m-nomargin">			
 				<p>
 					<span>发货人:</span>
 					<span className="ll-font g-info-name">{ @state.goodsDetail.sender }</span>
@@ -141,16 +170,6 @@ GoodsDetail = React.createClass {
 					<span>{ Helper.invoiceStatus @state.goodsDetail.invoice }</span>
 				</p>			
 			</div>
-			<div className="m-detail-bottom">
-				<div className="g-pay-btn">
-					{
-						if parseInt(@state.goodsDetail.resourceStatus) is 1
-							<a onClick={ @_deleteCurrentGoods } className="u-btn02">删除货源</a>
-						else
-							<a disabled='disabled' className="u-btn02">删除货源</a>
-					}
-				</div>
-			</div>	
 		</div>
 }
 

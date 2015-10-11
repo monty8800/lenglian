@@ -7,6 +7,7 @@
 //
 
 #import "WarehouseSearchGoodsViewController.h"
+#import "SearchGoodsDetailViewController.h"
 
 @interface WarehouseSearchGoodsViewController ()
 
@@ -47,7 +48,23 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
 }
-
+-(void)commonCommand:(NSArray *)params{
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"searchGoodsDetail"]) {
+            SearchGoodsDetailViewController *searchGoodsVC = [SearchGoodsDetailViewController new];
+            [self.navigationController pushViewController:searchGoodsVC animated:YES];
+        }
+    }
+    else if ([params[0] integerValue] == 3) {
+        if ([params[1] isEqualToString:@"select:warehouse"]) {
+            [SelectGoodsWidget show:self goods:params[2]];
+        }
+    }
+}
+-(void) selectGoods:(NSString *) goodsId car:(NSString *) carId{
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -17,6 +17,7 @@ localGoods = DB.get 'goods'
 
 _goods = new Goods localGoods
 _goodsDetail = new Goods
+_searchGoodsDetail = new Goods
 _myGoodsList = []
 
 _goodsList = Immutable.List()
@@ -43,9 +44,10 @@ GoodsStore = assign BaseStore, {
 	getGoodsDetail:->
 		_goodsDetail
 
-
 	getGoodsList: ->
 		_goodsList
+	getSearchGoodsDetail:->
+		_searchGoodsDetail
 
 }
 
@@ -132,14 +134,14 @@ addGoods = (params, files)->
 getUserGoodsList = (pageNow,pageSize,status)->
 	user = UserStore.getUser()
 	params = {
-		#TODO:
-		userId:'50819ab3c0954f828d0851da576cbc31'  #user.id
+		userId:user.id #'50819ab3c0954f828d0851da576cbc31'  #
 		pageNow:pageNow
 		pageSize:pageSize
 		resourceStatus:status
 	}
 	Http.post Constants.api.GET_GOODS_LIST,params,(data)->
-		if pageNow is '1'
+		DB.remove 'shouldReloadGoodsList'
+		if pageNow is 1
 			_myGoodsList = []
 		for goodsObj in data.GoodsResource
 			aGoodsModel = new Goods
@@ -169,7 +171,7 @@ getGoodsDetail = (goodsId)->
 	user = UserStore.getUser()
 	params = {
 		#TODO:
-		userId:'50819ab3c0954f828d0851da576cbc31'  #user.id
+		userId:user.id #'50819ab3c0954f828d0851da576cbc31'  #
 		id:goodsId
 		resourceStatus:''
 	}
@@ -179,6 +181,7 @@ getGoodsDetail = (goodsId)->
 			Plugin.toast.show 'kong'
 			return
 		_goodsDetail = _goodsDetail.set 'name',resource.name
+		_goodsDetail = _goodsDetail.set 'id',resource.id
 		_goodsDetail = _goodsDetail.set 'fromProvinceName',resource.fromProvinceName
 		_goodsDetail = _goodsDetail.set 'fromCityName',resource.fromCityName
 		_goodsDetail = _goodsDetail.set 'fromAreaName',resource.fromAreaName
@@ -281,11 +284,76 @@ deleteGoodsWithID = (goodsId) ->
 		id:goodsId
 	}
 	Http.post Constants.api.DELETE_GOODS,params,(data)->
-
+		DB.put 'shouldReloadGoodsList',1
 		GoodsStore.emitChange 'deleteGoodsSucc'
 	,(data)->
 		Plugin.toast.err data.msg
 
+window.tryReloadGoodsList = ->
+	shouldReloadGoodsList = DB.get 'shouldReloadGoodsList'
+	if shouldReloadGoodsList is 1
+		getUserGoodsList 1,10,''
+
+getSearchGoodsDetail = (goodsId,focusid)->
+	user = UserStore.getUser()
+	params = {
+		userId:user.id
+		id:goodsId
+		focusid:focusid
+	}
+	Http.post Constants.api.GET_SEARCH_GOODS_DETAIL,params,(data)->
+		resource = data.mjGoodsResource
+		if !resource
+			Plugin.toast.show 'kong'
+			return
+		_searchGoodsDetail = _searchGoodsDetail.set 'userName',data.name	
+		_searchGoodsDetail = _searchGoodsDetail.set 'certification',data.certification
+		_searchGoodsDetail = _searchGoodsDetail.set 'stars',data.goodScore
+		_searchGoodsDetail = _searchGoodsDetail.set 'userHeaderImageUrl',data.imgurl
+		_searchGoodsDetail = _searchGoodsDetail.set 'wishlst',data.wishlst
+		_searchGoodsDetail = _searchGoodsDetail.set 'name',resource.name
+		_searchGoodsDetail = _searchGoodsDetail.set 'id',resource.id
+		_searchGoodsDetail = _searchGoodsDetail.set 'fromProvinceName',resource.fromProvinceName
+		_searchGoodsDetail = _searchGoodsDetail.set 'fromCityName',resource.fromCityName
+		_searchGoodsDetail = _searchGoodsDetail.set 'fromAreaName',resource.fromAreaName
+		_searchGoodsDetail = _searchGoodsDetail.set 'fromStreet',resource.fromStreet
+		_searchGoodsDetail = _searchGoodsDetail.set 'toProvinceName',resource.toProvinceName
+		_searchGoodsDetail = _searchGoodsDetail.set 'toCityName',resource.toCityName
+		_searchGoodsDetail = _searchGoodsDetail.set 'toAreaName',resource.toAreaName
+		_searchGoodsDetail = _searchGoodsDetail.set 'toStreet',resource.toStreet
+		_searchGoodsDetail = _searchGoodsDetail.set 'weight',resource.weight
+		_searchGoodsDetail = _searchGoodsDetail.set 'packType',resource.packType
+		_searchGoodsDetail = _searchGoodsDetail.set 'type',resource.type
+		_searchGoodsDetail = _searchGoodsDetail.set 'imageUrl',resource.imageUrl
+		_searchGoodsDetail = _searchGoodsDetail.set 'installStime',resource.installStime
+		_searchGoodsDetail = _searchGoodsDetail.set 'installEtime',resource.installEtime
+		_searchGoodsDetail = _searchGoodsDetail.set 'arrivalStime',resource.arrivalStime
+		_searchGoodsDetail = _searchGoodsDetail.set 'arrivalEtime',resource.arrivalEtime
+		_searchGoodsDetail = _searchGoodsDetail.set 'sender',resource.contacts
+		_searchGoodsDetail = _searchGoodsDetail.set 'senderMobile',resource.phone
+		_searchGoodsDetail = _searchGoodsDetail.set 'receiver',resource.receiver
+		_searchGoodsDetail = _searchGoodsDetail.set 'receiverMobile',resource.receiverMobile
+		_searchGoodsDetail = _searchGoodsDetail.set 'remark',resource.remark
+		_searchGoodsDetail = _searchGoodsDetail.set 'mjGoodsRoutes',resource.mjGoodsRoutes
+		_searchGoodsDetail = _searchGoodsDetail.set 'priceType',resource.priceType
+		_searchGoodsDetail = _searchGoodsDetail.set 'invoice',resource.isinvoice
+		_searchGoodsDetail = _searchGoodsDetail.set 'resourceStatus',resource.resourceStatus
+
+
+		GoodsStore.emitChange 'getSearchGoodsDetailSucc'
+	,(data)->
+		Plugin.toast.err data.msg
+handleFallow = (focusid,focustype,type)->
+	user = UserStore.getUser()
+	Http.post Constants.api.attention, {
+		focusid:focusid
+		userId:user.id
+		focustype:focustype
+		type:type
+	},(data)->
+		GoodsStore.emitChange "fallowOrUnFallowHandleSucc"
+	,(data)->
+		Plugin.toast.err data.msg
 
 Dispatcher.register (action) ->
 	switch action.actionType
@@ -302,5 +370,7 @@ Dispatcher.register (action) ->
 		when Constants.actionType.SEARCH_GOODS then searchGoods(action.params)
 		when Constants.actionType.CHANGE_WIDGET_STATUS then changeWidget(action.show, action.bid)
 		when Constants.actionType.DELETE_GOODS then deleteGoodsWithID(action.goodsId)
-
+		when Constants.actionType.GET_SEARCH_GOODS_DETAIL then getSearchGoodsDetail(action.goodsId,action.focusid)
+		when Constants.actionType.attention then handleFallow(action.focusid,action.focustype,action.type)
+			
 module.exports = GoodsStore

@@ -93,6 +93,7 @@
 		4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */; settings = {ASSET_TAGS = (); }; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
+		5B1C0B691BCA553300DA196C /* SearchGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1CBCF61BC36D4D00D94095 /* AddBankCardNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1CBCF91BC36DD100D94095 /* AddBankCarVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B255FE31BC60F8B000958A8 /* ChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B255FE21BC60F8B000958A8 /* ChargeViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -300,6 +301,8 @@
 		4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationBubbleView.m; path = map/LocationBubbleView.m; sourceTree = "<group>"; };
 		555391413AAD4C94B9C1B273 /* XEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEViewController.m; path = "com.xebest.xe-plugin/XEViewController.m"; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		5B1C0B671BCA553300DA196C /* SearchGoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGoodsDetailViewController.h; sourceTree = "<group>"; };
+		5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGoodsDetailViewController.m; sourceTree = "<group>"; };
 		5B1CBCF41BC36D4D00D94095 /* AddBankCardNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCardNextViewController.h; path = wallet/AddBankCardNextViewController.h; sourceTree = "<group>"; };
 		5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCardNextViewController.m; path = wallet/AddBankCardNextViewController.m; sourceTree = "<group>"; };
 		5B1CBCF71BC36DD100D94095 /* AddBankCarVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCarVerifyViewController.h; path = wallet/AddBankCarVerifyViewController.h; sourceTree = "<group>"; };
@@ -852,6 +855,8 @@
 				5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */,
 				5B6640091BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.h */,
 				5B66400A1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m */,
+				5B1C0B671BCA553300DA196C /* SearchGoodsDetailViewController.h */,
+				5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */,
 			);
 			path = warehouse;
 			sourceTree = "<group>";
@@ -1095,6 +1100,7 @@
 				4CD9A94E1BBD49340098C9B7 /* XeAnnotation.m in Sources */,
 				4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */,
 				4C822F6A1BB136C000112533 /* FollowListViewController.m in Sources */,
+				5B1C0B691BCA553300DA196C /* SearchGoodsDetailViewController.m in Sources */,
 				5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */,
 				4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */,
 				4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */,
