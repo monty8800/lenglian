@@ -75,22 +75,23 @@ OrderDetail = React.createClass {
 						if @state.order?.orderState is '1'
 							if @state.order?.orderType is 'CG'
 								<p className="fr">等待货主确认</p>
-							else if @state.order?.orderType is 'GC'
-								<a href="###" className="u-btn02">接受</a>
-								<a href="###" className="u-btn02">取消</a>
+							#else if @state.order?.orderType is 'GC'
+								#<a href="###" className="u-btn02">接受</a>
+								#<a href="###" className="u-btn02">取消</a>
 						else if @state.order?.orderState is '2'
 							# 1：货到付款（线下）2：回单付款（线下） 3：预付款（线上）
 							if @state.order?.payType is '3'
 								<p className="fr">等待货主付款</p>
 							else
-								<a href="###" onClick={@_receiver.bind this, 3} className="u-btn02">完成订单</a>
+								<span>货物运输中</span>
 						else if @state.order?.orderState is '3'
-							if @state.order?.payType is '3'
-								<a href="###" onClick={@_receiver.bind this, 3} className="u-btn02">完成订单</a>
-							else
-								<p className="fr">货物运输中</p>
+							# if @state.order?.payType is '3'
+							# 	<a href="###" className="u-btn02">完成订单</a>
+							# else
+							<p className="fr">货物运输中</p>
 						else if @state.order?.orderState is '4'
-							<a href="###" onClick={@_comment} className="u-btn02">评价货主</a>
+							<p className="fr">待评价</p>
+							# <a href="###" onClick={@_comment} className="u-btn02">评价货主</a>
 					}
 			</div>
 			<div className="m-item01">
@@ -150,7 +151,7 @@ OrderDetail = React.createClass {
 					</div>
 				</div>
 			</div>
-			<div className="m-detail-info m-nomargin">
+			<div className={if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' || @state.order?.orderState is '4' then 'm-detail-info' else 'm-detail-info m-nomargin'} >
 				<p>
 					<span>发货人:</span>
 					<span className="ll-font g-info-name">{@state.order?.shipper}</span>
@@ -176,6 +177,18 @@ OrderDetail = React.createClass {
 					<span>{Helper.subStr 0, 10, @state.order?.createTime}</span>
 				</p>			
 			</div>	
+			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' || @state.order?.orderState is '4' then 'block' else 'none'}}>
+				<div className="g-pay-btn">
+					{
+						if @state.order?.orderState is '1'
+							if @state.order?.orderType is 'GC'
+								<a href="#" className="u-btn02">确定</a>
+								<a href="#" className="u-btn02">取消</a>
+						else if @state.order?.orderState is '4'
+							<a href="###" onClick={@_comment} className="u-btn02">评价货主</a>
+					}
+				</div>
+			</div>
 		</div>
 }
 

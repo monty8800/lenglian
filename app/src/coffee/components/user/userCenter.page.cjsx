@@ -5,8 +5,6 @@ React = require 'react/addons'
 
 PureRenderMixin = React.addons.PureRenderMixin
 
-
-
 UserStore = require 'stores/user/user'
 UserAction = require 'actions/user/user'
 Plugin = require 'util/plugin'
@@ -38,7 +36,6 @@ AuthStatus = React.createClass {
 				Plugin.nav.push ['personal' + auth]
 			else
 				Plugin.nav.push ['company' + auth]
-
 
 	render: ->
 		user = @props.user

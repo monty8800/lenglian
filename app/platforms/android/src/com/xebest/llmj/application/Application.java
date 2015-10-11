@@ -30,6 +30,8 @@ public class Application extends android.app.Application {
 
     private List<Activity> activities = new ArrayList<Activity>();
 
+    private List<Activity> removeActivity = new ArrayList<Activity>();
+
     public static String UUID;
 
     public int VERSIONCODE;
@@ -96,6 +98,16 @@ public class Application extends android.app.Application {
 
     public void addActivity(Activity activity) {
         activities.add(activity);
+    }
+
+    public void addRemoveActivity(Activity activity) {
+        removeActivity.add(activity);
+    }
+
+    public void removeActivity() {
+       for (Activity activity : removeActivity) {
+           activity.finish();
+       }
     }
 
     /**

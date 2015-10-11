@@ -1,12 +1,25 @@
 package com.xebest.llmj.center;
 
+import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -20,6 +33,9 @@ import com.xebest.llmj.auth.PersonalCarAuthActivity;
 import com.xebest.llmj.auth.PersonalGoodsAuthActivity;
 import com.xebest.llmj.auth.PersonalWareHouseAuthActivity;
 import com.xebest.llmj.car.MyCarActivity;
+import com.xebest.llmj.goods.MyGoodsActivity;
+import com.xebest.llmj.utils.Tools;
+import com.xebest.llmj.ware.MyWarehouseActivity;
 import com.xebest.plugin.XEFragment;
 import com.xebest.plugin.XEWebView;
 
@@ -29,6 +45,13 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kaisun on 15/9/21.
@@ -135,6 +158,15 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
         // 公司仓库认证
         else if (flag.equalsIgnoreCase("companyWarehouseAuth")) {
             CompanyWareHouseAuthActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("myGoods")) {
+            MyGoodsActivity.actionView(getActivity());
+        } else if (flag.equals("wallet")) {
+            WalletActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("avatar")) {
+            resource = flag;
+            showWindow();
+        } else if (flag.equalsIgnoreCase("myWarehouse")) {
+            MyWarehouseActivity.actionView(getActivity());
         }
     }
 
@@ -151,7 +183,169 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
     @Override
     public Object onMessage(String id, Object data) {
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getActivity().getApplicationContext()).VERSIONCODE + "';client_type='3';})();");
-        return null;
+        return super.onMessage(id, data);
+    }
+
+    private Dialog mDialog;
+
+    private String localTempImgDir = "tempPic";
+
+    private String localTempImgFileName = "p_0923.jpg";
+
+    public final int GET_IMAGE_VIA_CAMERA = 10001;
+
+    public final int IMAGE_CODE = 10002;
+
+    private List<String> paths = new ArrayList<String>();
+
+    private String resource = "";
+
+    public void showWindow() {
+        mDialog = Tools.getCustomDialog(getActivity(), R.layout.choose_cg, new Tools.BindEventView() {
+            @Override
+            public void bindEvent(View view) {
+                TextView tvCamera = (TextView) view.findViewById(R.id.camera);
+                TextView tvGallery = (TextView) view.findViewById(R.id.grally);
+                tvGallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                        Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
+                        getAlbum.setType("image/*");
+                        startActivityForResult(getAlbum, IMAGE_CODE);
+                    }
+                });
+                tvCamera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                        String status = Environment.getExternalStorageState();
+                        if (status.equals(Environment.MEDIA_MOUNTED)) {
+                            localTempImgFileName = System.currentTimeMillis() + ".jpg";
+                            try {
+                                File dir = new File(Environment.getExternalStorageDirectory() + "/" + localTempImgDir);
+                                if (!dir.exists()) dir.mkdirs();
+                                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                File f = new File(dir, localTempImgFileName);//localTempImgDir和localTempImageFileName是自己定义的名字
+                                Uri u = Uri.fromFile(f);
+                                intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, u);
+                                startActivityForResult(intent, GET_IMAGE_VIA_CAMERA);
+                            } catch (ActivityNotFoundException e) {
+                                Toast.makeText(getActivity(), "没有找到储存目录", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "没有储存卡", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        if(resultCode == getActivity().RESULT_OK ) {
+            switch(requestCode) {
+                case GET_IMAGE_VIA_CAMERA:
+
+                    String pat = Environment.getExternalStorageDirectory()
+                            + "/" + localTempImgDir + "/" + localTempImgFileName;
+
+                    Bitmap bitmap = BitmapFactory.decodeFile(pat);
+                    // 压缩过后的图片
+                    Bitmap bitmap2 = Tools.getimage(pat);
+
+                    // 将压缩过后的图片存放到该目录下
+                    File ff = new File(pat);
+                    FileOutputStream out = null;
+                    try {
+                        out = new FileOutputStream(ff);
+                        paths.add(pat);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    bitmap2.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    try {
+                        out.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        out.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // 通知js更新图片内容
+                    mWebView.getWebView().loadUrl("javascript:(function(){setAuthPic('"+ pat +"', '"+ resource +"')})()");
+                    Log.i("info", "-----------resource:" + resource);
+                    Log.i("info", "-----------img:" + pat);
+
+                    break;
+                case IMAGE_CODE:
+                    Bitmap bm = null;
+                    //  外界的程序访问ContentProvider所提供数据 可以通过ContentResolver接口
+                    ContentResolver resolver = getActivity().getContentResolver();
+                    try {
+                        //获得图片的uri
+                        Uri originalUri = intent.getData();
+                        //显得到bitmap图片
+                        bm = MediaStore.Images.Media.getBitmap(resolver, originalUri);
+                        String[] proj = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = getActivity().managedQuery(originalUri, proj, null, null, null);
+                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        cursor.moveToFirst();
+                        String path = cursor.getString(column_index);
+
+                        // 压缩过后的图片
+                        Bitmap bitmap1 = Tools.getimage(path);
+
+                        int index = path.lastIndexOf("/");
+                        String name = path.substring(index, path.length());
+                        // 将压缩过后的图片存放到该目录下
+                        String temp = Environment.getExternalStorageDirectory() + name;
+                        File f = new File(temp);
+                        FileOutputStream fOut = null;
+                        try {
+                            fOut = new FileOutputStream(f);
+                            paths.add(temp);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+                        try {
+                            fOut.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            fOut.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        // 通知js更新图片内容
+                        mWebView.getWebView().loadUrl("javascript:setAuthPic('" + temp + "', '" + resource + "', '" + System.currentTimeMillis() + "')");
+//                        mWebView.getWebView().loadUrl("javascript:setAuthPic('"+ temp + "', '"+ resource + "')");
+//                        mWebView.getWebView().loadUrl("javascript:(function(){setAuthPic('"+ temp +"', '"+ resource +"')})()");
+                        Log.i("info", "-----------resource:" + resource);
+                        Log.i("info", "-----------temp:" + temp);
+
+
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, intent);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
     }
 
 

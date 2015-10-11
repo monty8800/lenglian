@@ -36,11 +36,14 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.CarAdapter;
+import com.xebest.llmj.adapter.GoodsAdapter;
 import com.xebest.llmj.adapter.StoreAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.goods.BiddingActivity;
 import com.xebest.llmj.model.CarDetailInfo;
 import com.xebest.llmj.model.CarListInfo;
+import com.xebest.llmj.model.Goods;
 import com.xebest.llmj.model.GoodsDetailInfo;
 import com.xebest.llmj.model.NearInfo;
 import com.xebest.llmj.model.StoreDetailInfo;
@@ -141,6 +144,9 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     private TextView start_time;
     private TextView store_time;
     private CircleImageView userLogo;
+
+    // 价格类型 1：一口价 2：竞价
+    private String mPriceType = "";
 
     @Override
     public void onAttach(Activity activity) {
@@ -250,7 +256,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             }
         });
 
-
     }
 
     @Override
@@ -350,6 +355,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 storeBottomView.setVisibility(View.GONE);
                 break;
             case R.id.select_goods: // 抢单
+                new CarResourceTask().execute();
                 break;
             case R.id.select_driver: // 选择司机
                 new SelectDriverTask().execute();
@@ -420,6 +426,10 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             if (s == "" || s == null) return;
             try {
                 JSONObject jsonObject = new JSONObject(s);
+                if (!jsonObject.getString("code").equals("0000")) {
+                    Tools.showErrorToast(getActivity(), jsonObject.getString("msg"));
+                    return;
+                }
                 String data = jsonObject.getString("data");
                 list = JSON.parseArray(data, NearInfo.class);
                 Log.i("info", "----------list:" + list.size());
@@ -432,19 +442,17 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             for (int i = 0; i < list.size(); i++) {
                 // 开始添加覆盖物
                 LatLng llA = new LatLng(Double.parseDouble(list.get(i).getLat()), Double.parseDouble(list.get(i).getLng()));
-                OverlayOptions ooA;
-                if (list.get(i).getColdStoreFlag() != null && list.get(i).getColdStoreFlag().equals("true")) {
-                    ooA = new MarkerOptions().position(llA).icon(goodsCold)
-                            .zIndex(9).draggable(true);
-                } else {
+                OverlayOptions ooA = null;
+                if (list.get(i).getColdStoreFlag() == null || list.get(i).getColdStoreFlag().equals("1")) {
                     ooA = new MarkerOptions().position(llA).icon(goods)
                             .zIndex(9).draggable(true);
+                } else if (list.get(i).getColdStoreFlag() != null && list.get(i).getColdStoreFlag().equals("2")) {
+                    ooA = new MarkerOptions().position(llA).icon(goodsCold)
+                            .zIndex(9).draggable(true);
                 }
-
                 Marker marker = (Marker) (mMapView.getMap().addOverlay(ooA));
                 marker.setTitle(i + "");
             }
-
 
         }
 
@@ -524,8 +532,21 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     JSONObject jsonObject1 = new JSONObject(data);
                     List<GoodsDetailInfo> list = JSON.parseArray(jsonObject1.getString("goods"), GoodsDetailInfo.class);
                     if (list.size() == 0) return;
+                    mPriceType = list.get(0).getPriceType();
+                    if (mPriceType.equals("1")) {
+                        goodsBtn.setText("抢单");
+                    } else if (mPriceType.equals("2")) {
+                        goodsBtn.setText("竞价");
+                    }
                     userName.setText(list.get(0).getUserName() + Helper.whoAreYou(list.get(0).getCertificAtion()));
-                    ImageLoader.getInstance().displayImage(list.get(0).getUserImgUrl(), userLogo, options);
+                    if (list.get(0).getUserImgUrl() != null && list.get(0).getUserImgUrl().contains("|")) {
+                        String imgUrl = list.get(0).getUserImgUrl();
+                        Log.i("info", "-----------imgUrl:" + imgUrl);
+                        int ind = imgUrl.lastIndexOf("|");
+                        String im = imgUrl.substring(0, ind);
+                        Log.i("info", "---------realUrl:" + im);
+                        ImageLoader.getInstance().displayImage(ApiUtils.API_PIC + im, userLogo, options);
+                    }
                     destination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() + list.get(0).getToAreaName());
                     start_point.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() + list.get(0).getFromAreaName());
                     priceType.setText("价格类型：" + Helper.getPriceType(list.get(0).getPriceType()));
@@ -545,12 +566,11 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     long time1 = Long.valueOf(list.get(0).getInstallStime());
                     Date d2=new Date(time1);
                     start_time.setText("装货时间：" + format.format(d1) + "到" + format.format(d2));
-
+                    store_time.setVisibility(View.GONE);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
 
     }
@@ -682,6 +702,10 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 map.put("warehouseId", storeId);
                 map.put("orderGoodsId", params[0]);
                 url = ApiUtils.store_found_goods;
+            } else if (status == 1) {
+                url = ApiUtils.goods_found_car;
+                map.put("goodsResouseId", goodsId);
+                map.put("carResouseId", params[0]);
             }
 
             return UploadFile.postWithJsonString(url, new Gson().toJson(map));
@@ -747,6 +771,145 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             }
             Tools.dismissLoading();
         }
+    }
+
+    /**
+     * 抢单列表
+     */
+    private class CarResourceTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Tools.createLoadingDialog(getActivity(), "加载中...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("userId", Application.getInstance().userId);
+            map.put("goodsResourceId", goodsId);
+            return UploadFile.postWithJsonString(ApiUtils.car_resource, new Gson().toJson(map));
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("info", "-------ssss:" + s);
+            if (s == null || s.equals("")) {
+                return;
+            }
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                String data = jsonObject.getString("data");
+                List<Goods> list = JSON.parseArray(data, Goods.class);
+                Log.i("info", "--------list:" + list.size());
+                if (list.size() == 0) return;
+                showDialogGoods(list);
+                goodsBottomView.setVisibility(View.GONE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Tools.dismissLoading();
+        }
+    }
+
+    public void showDialogGoods(final List<Goods> list) {
+        mDialog = Tools.getCustomDialog(getActivity(), R.layout.near_lv_dialog,
+                new Tools.BindEventView() {
+                    @Override
+                    public void bindEvent(final View view) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mListView = (XListView) view.findViewById(R.id.xlv);
+                                mListView.setPullRefreshEnable(false);
+                                mListView.setXListViewListener(new IXListViewListener() {
+                                    @Override
+                                    public void onRefresh() {
+
+                                    }
+
+                                    @Override
+                                    public void onLoadMore() {
+
+                                    }
+                                });
+                                if (list.size() < 10) {
+                                    mListView.setPullLoadEnable(false);
+                                } else {
+                                    mListView.setPullLoadEnable(true);
+                                }
+
+                                // 货
+                                GoodsAdapter adapter = new GoodsAdapter(getActivity());
+                                mListView.setAdapter(adapter);
+                                // 车
+                                adapter.addData(list);
+                                adapter.notifyDataSetChanged();
+
+                                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        String carId = list.get(position - 1).getId();
+                                        if (mPriceType.equals("1")) {
+                                            new GoodsFindCarTask().execute(carId);
+                                        } else if (mPriceType.equals("2")) {
+                                            // 竞价列表
+                                            BiddingActivity.actionView(getActivity(), goodsId, carId);
+                                        }
+                                        carBottomView.setVisibility(View.GONE);
+                                        storeBottomView.setVisibility(View.GONE);
+                                        mDialog.dismiss();
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                });
+    }
+
+    /**
+     * 货找车提交订单
+     */
+    private class GoodsFindCarTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Tools.createLoadingDialog(getActivity(), "加载中...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("userId", Application.getInstance().userId);
+            map.put("goodsResouseId", goodsId);
+            map.put("carResouseId", params[0]);
+            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s != null && !s.equals("")) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String code = jsonObject.getString("code");
+                    if (code.equals("0000")) {
+                        Tools.showSuccessToast(getActivity(), "下单成功");
+                    } else {
+                        Tools.showErrorToast(getActivity(), jsonObject.getString("msg"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Tools.dismissLoading();
+            }
+        }
+
     }
 
 }

@@ -179,7 +179,7 @@ public class Tools {
      * @return
      */
     public static void createLoadingDialog(Activity context, String text) {
-        if (text == null || text.equals("") || text.equals("undefined")) {
+        if (text == null || text.equals("") || text.equals("undefined") || text.equals("null")) {
             text = "加载中...";
         }
         View view = context.getLayoutInflater().inflate(R.layout.progress_hud, null);

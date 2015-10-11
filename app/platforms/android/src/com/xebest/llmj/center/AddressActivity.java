@@ -14,8 +14,11 @@ import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
+import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Created by kaisun on 15/9/22.
@@ -28,6 +31,12 @@ public class AddressActivity extends BaseCordovaActivity implements CordovaInter
 
     private TextView tvTitle;
 
+    private TextView addAdd;
+
+    private boolean isOnCreate = false;
+
+    public static boolean isUpdate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -39,13 +48,15 @@ public class AddressActivity extends BaseCordovaActivity implements CordovaInter
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cwebview);
-
+        setContentView(R.layout.cwebview2);
+        isOnCreate = true;
         initView();
 
     }
 
     protected void initView() {
+        addAdd = (TextView) findViewById(R.id.sure);
+        addAdd.setText("新增地址");
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("我的地址");
         mWebView = (XEWebView) findViewById(R.id.wb);
@@ -56,6 +67,24 @@ public class AddressActivity extends BaseCordovaActivity implements CordovaInter
                 finish();
             }
         });
+        addAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ModifyAddress.actionView(AddressActivity.this, 2);
+            }
+        });
+
+    }
+
+    @Override
+    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        super.jsCallNative(args, callbackContext);
+        String flag = args.getString(1);
+        if (flag.equalsIgnoreCase("modifyAddress")) {
+            ModifyAddress.actionView(this, 1);
+        } else if (flag.equals("add_success")) {
+            finish();
+        }
     }
 
     @Override
@@ -64,7 +93,15 @@ public class AddressActivity extends BaseCordovaActivity implements CordovaInter
         MobclickAgent.onPageStart("我的地址");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "addressList.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "addressList.html", this, this, this, this);
+        }
+        isOnCreate = false;
+
+        if (isUpdate) {
+            mWebView.getWebView().loadUrl("javascript:reloadAddress()");
+        }
+        isUpdate = false;
 
         super.onResume();
     }

@@ -131,10 +131,9 @@ CarAction = {
 			actionType: Constants.actionType.MODIFY_CAR
 			param: param
 		}
-	carOwnerDetail: (userId,carId)->
+	carOwnerDetail: (carId)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CAR_OWNER_DETAIL
-			userId: userId
 			carId: carId
 		}
 	attentionDetail: (params)->

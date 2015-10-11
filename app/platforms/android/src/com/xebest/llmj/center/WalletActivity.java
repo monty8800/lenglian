@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -32,6 +33,8 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
 
     private TextView tvTitle;
 
+    private TextView bank;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -43,7 +46,7 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cwebview);
+        setContentView(R.layout.wallet);
 
         initView();
 
@@ -52,12 +55,19 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        if (args.toString().contains("changePasswd")) {
+        String flag = args.getString(1);
+        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
+        if (flag.equalsIgnoreCase("changePasswd")) {
             ChangePwdActivity.actionView(WalletActivity.this);
+        } else if (flag.equalsIgnoreCase("billList")) {
+            BillListActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("toCharge")) {
+            ChargeActivity.actionView(this);
         }
     }
 
     protected void initView() {
+        bank = (TextView) findViewById(R.id.add);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("我的钱包");
         mWebView = (XEWebView) findViewById(R.id.wb);
@@ -68,12 +78,18 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
                 finish();
             }
         });
+        bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyBankActivity.actionView(WalletActivity.this);
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("我的地址");
+        MobclickAgent.onPageStart("我的钱包");
         // 统计时长
         MobclickAgent.onResume(this);
         mWebView.init(this, ApiUtils.API_COMMON_URL + "wallet.html", this, this, this, this);
@@ -83,7 +99,7 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("我的地址");
+        MobclickAgent.onPageEnd("我的钱包");
         MobclickAgent.onPause(this);
     }
 
@@ -105,7 +121,7 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
     @Override
     public Object onMessage(String id, Object data) {
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
-        return null;
+        return super.onMessage(id, data);
     }
 
 }

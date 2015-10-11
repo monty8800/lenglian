@@ -13,6 +13,10 @@ Plugin = require 'util/plugin'
 Goods = require 'model/goods'
 Address = require 'model/address'
 
+UserStore = require 'stores/user/user'
+
+_user = UserStore.getUser()
+
 localGoods = DB.get 'goods'
 
 _goods = new Goods localGoods
@@ -132,9 +136,8 @@ addGoods = (params, files)->
 
 
 getUserGoodsList = (pageNow,pageSize,status)->
-	user = UserStore.getUser()
 	params = {
-		userId:user.id #'50819ab3c0954f828d0851da576cbc31'  #
+		userId: _user?.id
 		pageNow:pageNow
 		pageSize:pageSize
 		resourceStatus:status
@@ -167,11 +170,9 @@ getUserGoodsList = (pageNow,pageSize,status)->
 		Plugin.toast.err data.msg
 
 getGoodsDetail = (goodsId)->
-	console.log  goodsId,'---------------'
-	user = UserStore.getUser()
 	params = {
 		#TODO:
-		userId:user.id #'50819ab3c0954f828d0851da576cbc31'  #
+		userId: _user?.id
 		id:goodsId
 		resourceStatus:''
 	}

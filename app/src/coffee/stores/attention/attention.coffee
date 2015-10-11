@@ -22,6 +22,8 @@ AttentionList = (status)->
 	Http.post Constants.api.attention_list, {
 		userId: _user?.id,
 		focustype: status # 1:司机 2：货主 3：仓库
+		pageNo: 0
+		pageSize: 10
 	}, (data) ->
 		console.log '---- ', data
 		AttList = AttList.clear() 
@@ -35,6 +37,7 @@ AttentionList = (status)->
 				tempAtt = tempAtt.set 'imgurl', att.imgurl
 				tempAtt = tempAtt.set 'focusid', att.focusid
 				tempAtt = tempAtt.set 'id', att.id
+				tempAtt = tempAtt.set 'wishlist', att.wishlist
 				AttList = AttList.push tempAtt
 		AttStore.emitChange()
 	, (data) ->

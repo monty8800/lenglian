@@ -64,7 +64,7 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'toCountyName', order.toCountyName
 				tempOrder = tempOrder.set 'toProvinceName', order.toProvinceName
 				tempOrder = tempOrder.set 'priceType', order.priceType
-				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + order.goodsType
+				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + ' ' + order.goodsType
 				tempOrder = tempOrder.set 'payType', order.payType
 				tempOrder = tempOrder.set 'orderNo', order.orderNo
 				tempOrder = tempOrder.set 'orderType', order.orderType
@@ -74,6 +74,7 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'acceptMode', order.acceptMode
 				tempOrder = tempOrder.set 'price', order.price
 				tempOrder = tempOrder.set 'goodsSourceId', order.goodsSourceId
+				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['goods']
 	, (err) ->
@@ -169,6 +170,7 @@ getBidList = (params)->
 		console.log 'get bind list result', data
 		_bidList = Immutable.List data
 		OrderStore.emitChange 'get:bid:list:done'
+		OrderStore.emit 'request:bid:list', 'get:bid:list:done'
 
 carBidGoods = (params)->
 	Http.post Constants.api.DRIVER_BID_FOR_GOODS, params, (data)->
@@ -276,8 +278,10 @@ _attention = (params)->
 	Http.post Constants.api.attention, params, (data)->
 		if params.type is 1
 			OrderStore.emitChange ['attention_success']
+			Plugin.toast.success '关注成功'
 		else 
 			OrderStore.emitChange ['nattention_success']
+			Plugin.toast.success '取消关注成功'
 		Plugin.loading.hide()
 	, (data)->
 		Plugin.loading.hide()

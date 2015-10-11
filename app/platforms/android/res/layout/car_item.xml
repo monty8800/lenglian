@@ -17,10 +17,10 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/user_logo"/>
+                    android:background="@drawable/icon_zh_new"/>
                 <TextView
                     android:id="@+id/car_destination"
                     android:layout_width="wrap_content"
@@ -32,13 +32,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:orientation="horizontal">
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/user_logo"/>
+                    android:background="@drawable/icon_qi_new"/>
                 <TextView
                     android:id="@+id/car_start_point"
                     android:layout_width="wrap_content"

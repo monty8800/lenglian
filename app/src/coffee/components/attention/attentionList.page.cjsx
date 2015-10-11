@@ -12,11 +12,11 @@ DRIVER_LOGO = require 'user-01.jpg'
 Item = React.createClass {
 	render: ->
 		items = @props.items.map (item, i) ->
-			<div>
+			<div key={i}>
 				<div className="m-focus-item">
 					<div className="item-pic"><img src={ DRIVER_LOGO } /></div>
-					<div className="item-name">司机: { item?.companyName || item?.userName }</div>
-					<div className="item-btn item-btn-color01 ll-font"></div>
+					<div className="item-name">司机: {item?.userName}</div>
+					<div className={if item?.wishlist is '1' then "item-btn item-btn-color03 ll-font" else if item?.wishlist is '2' then 'item-btn item-btn-color01 ll-font'}></div>
 				</div>
 			</div>
 		<div>{ items }</div>

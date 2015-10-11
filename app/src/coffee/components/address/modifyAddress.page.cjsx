@@ -83,10 +83,13 @@ Address = React.createClass {
 			}
 		else if arg is 'address:edit:success'
 			Plugin.toast.success '修改地址成功！'
+			Plugin.nav.push ['modify_success']
 			Plugin.nav.pop()
 		else if arg is 'address:new:success'
 			Plugin.toast.success '添加地址成功！'
+			Plugin.nav.push ['add_success']
 			Plugin.nav.pop()
+
 	render: ->
 		<div>
 			<div className="m-adr-ed">

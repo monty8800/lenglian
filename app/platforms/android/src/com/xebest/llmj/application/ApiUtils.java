@@ -13,6 +13,8 @@ public interface ApiUtils {
 
     String SERVER_Z = "http://192.168.29.204:8072/";
 
+    String SERVER_P = "http://192.168.29.149:8072/";
+
     // 查询货源列表
     String STORE_LIST = SERVER + "mjGoodsResource/queryMjGoodsResourceList.shtml";
 
@@ -29,5 +31,11 @@ public interface ApiUtils {
     String my_car_freedom = SERVER + "mjCarinfoCtl/queryMjCarinfoFree.shtml";
 
     String my_car = SERVER + "mjCarinfoCtl/queryMjCarinfo.shtml";
+
+    String car_resource = SERVER + "/carFindGoods/listCarResources.shtml";
+
+    String order_trade = SERVER + "/carFindGoods/orderTrade.shtml";
+
+    String API_PIC = "http://qa-pic.lenglianmajia.com/head/130/130/";
 
 }

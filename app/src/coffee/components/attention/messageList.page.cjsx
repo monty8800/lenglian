@@ -22,13 +22,13 @@ Message = React.createClass {
 		newState = Object.create @state
 		newState.type = '1'
 		@setState newState
-		MessageAction?.msgList('1')
+		MessageAction?.msgList('2')
 
 	attGoodsOwner: ->
 		newState = Object.create @state
 		newState.type = '2'
 		@setState newState
-		MessageAction?.msgList('2')
+		MessageAction?.msgList('1')
 
 	attStoreOwner: ->
 		newState = Object.create @state
@@ -45,7 +45,7 @@ Message = React.createClass {
 
 	componentDidMount: ->
 		MessageStore.addChangeListener @resultCallBack
-		MessageAction?.msgList('1')
+		MessageAction?.msgList('2')
 
 	componentWillUnMount: ->
 		MessageStore.removeChangeListener @resultCallBack

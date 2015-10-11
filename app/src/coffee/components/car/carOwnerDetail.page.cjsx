@@ -4,6 +4,7 @@ require 'index-style'
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
+Constants = require 'constants/constants'
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
 
@@ -16,7 +17,10 @@ _user = UserStore.getUser()
 DRIVER_LOGO = require 'user-01.jpg'
 CarPic03 = require 'car-04.jpg'
 
-CarInfo = DB.get 'fdcar_to_card'	
+dUserId = DB.get 'fdcar_to_userId'
+XeImage = require 'components/common/xeImage'
+Image = require 'util/image'
+avatar = require 'user-01'
 
 Detail = React.createClass {
 
@@ -24,14 +28,14 @@ Detail = React.createClass {
 	attention: ->
 		if @state.wishlst is true
 			CarAction.attentionDetail({
-				focusid: CarInfo.userId
+				focusid: dUserId
 				focustype: 1
 				userId: _user?.id
 				type: 2
 			})
 		else if @state.wishlst is false
 			CarAction.attentionDetail({
-				focusid: CarInfo.userId
+				focusid: dUserId
 				focustype: 1
 				userId: _user?.id
 				type: 1
@@ -44,8 +48,9 @@ Detail = React.createClass {
 		}
 
 	componentDidMount: ->
+		carId = DB.get 'fdcar_to_card'	
 		CarStore.addChangeListener @_onChange
-		CarAction.carOwnerDetail(CarInfo.userId, CarInfo.carId)
+		CarAction.carOwnerDetail(carId)
 
 	componentWillUnMount: ->
 		CarStore.removeChangeListener @_onChange
@@ -74,8 +79,8 @@ Detail = React.createClass {
 				<div className="g-detail-dirver g-det-pad0">
 					<div className="g-detail">					
 						<div className="g-dirver-pic">
-							<img src={DRIVER_LOGO} />
-						</div>
+							<XeImage src={detail?.userImgUrl} size='130x130' type='avatar' />
+						</div>	
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
 								<span>{detail.name}</span><span className="g-dirname-single">{if detail.certificationis is '1' then '(个体)' else if detail.certificationis is '2' then '(企业 )'}</span>
@@ -91,17 +96,17 @@ Detail = React.createClass {
 			<div className="m-item01">
 				<div className="g-pro-p">
 					<p className="g-pro-name">车牌号码: <span>{detail?.carNo}</span></p>
-					<p className="g-pro-name">车辆类型: <span>{Helper.carTypeMapper detail?.status}</span></p>
+					<p className="g-pro-name">车辆类型: <span>{Helper.carTypeMapper detail?.carType}</span></p>
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<img src={CarPic03} />
+						<img src={Image.getFullPath detail?.carPic, Constants.carPicSize} />
 					</div>
 					<div className="g-pro-text fl">
-						<p>车辆类别: <span>{Helper.carCategoryMapper detail.category}</span></p>
-						<p>可载货重: <span>{detail?.heavy}</span></p>
+						<p>车辆类别: <span>{Helper.carCategoryMapper detail?.category}</span></p>
+						<p>可载货重: <span>{Helper.goodsWeight detail?.heavy}</span></p>
 						<p>可载泡货: <span>{detail?.bulky}</span></p>
-						<p>车辆长度: <span>{detail?.carVehicle}</span></p>
+						<p>车辆长度: <span>{Helper.carVehicle detail?.carVehicle}</span></p>
 					</div>
 				</div>
 			</div>

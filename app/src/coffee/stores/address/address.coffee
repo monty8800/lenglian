@@ -8,6 +8,7 @@ AddressModel = require 'model/address'
 Constants = require 'constants/constants'
 Immutable = require 'immutable'
 Plugin = require 'util/plugin'
+AddressAction = require 'actions/address/address'
 
 UserStore = require 'stores/user/user'
 
@@ -112,6 +113,9 @@ updateStore = ->
 
 
 window.updateAddress = updateAddress
+
+window.reloadAddress = ->
+	AddressAction.addressList()
 
 
 window.updateAdd = (lat, lon)->	

@@ -81,12 +81,25 @@ window.searchMyCar = ->
 	CarAction.closeCarInvoince()
 	CarAction.closeCarLen()
 
+window.submitSuccess = (index)->
+	console.log '---------index:', index
+	CarStore.emitChange ['submit_success', index]
+
 # 我要找车
 carItemInfo = (param)->
-	console.log '-------para:', param
+	ncarLenList = []
+	for veh in _carLenList
+		do (veh) ->
+			ncarLenList.push veh + 1
+
+	nCarHeaList = []
+	for hea in _carHeaList
+		do (hea) ->
+			nCarHeaList.push hea + 1
+
 	params = {
 		userId: _user?.id
-		startNo: 1
+		startNo: 0
 		pageSize: 10
 		fromProvinceId: ''
 		fromCityId: ''
@@ -94,16 +107,14 @@ carItemInfo = (param)->
 		toProvinceId: ''
 		toCityId: ''
 		toAreaId: ''
-		vehicle: _carLenList
-		heavy: _carHeaList
+		vehicle: ncarLenList
+		heavy: nCarHeaList
 		isInvoice: _isInvoice
 		carType: ''
 		id: ''
 	}
 	Http.post Constants.api.found_car, params, (result) ->
 		console.log '我要找车--', result.length
-		if result.length is 0
-			Plugin.toast.err '没有相关数据呢!'
 		_foundCarList = _foundCarList.clear() 
 		for car in result
 			do (car) ->
@@ -115,6 +126,7 @@ carItemInfo = (param)->
 				tempCar = tempCar.set 'remark', car.carScore
 				tempCar = tempCar.set 'carType', car.carType
 				tempCar = tempCar.set 'vehicle', car.vehicle
+				tempCar = tempCar.set 'carId', car.carId
 				tempCar = tempCar.set 'startPoint', car.fromProvinceName + 
 						car.fromCityName + car.fromAreaName
 				tempCar = tempCar.set 'destination', car.toProvinceName + 
@@ -137,8 +149,6 @@ carListInfo = (status)->
 	Http.post Constants.api.my_car_list, params, (data)->
 		tempList = data.myCarInfo; 
 		_carList = _carList.clear() 
-		if tempList.length is 0
-			Plugin.toast.err '没有相关数据呢!'
 		for car in tempList
 			do (car) ->
 				tempCar = new Car
@@ -149,6 +159,7 @@ carListInfo = (status)->
 				tempCar = tempCar.set 'carType', car.category
 				tempCar = tempCar.set 'carVehicle', car.vehicle
 				tempCar = tempCar.set 'carId', car.id
+				tempCar = tempCar.set 'status', car.status
 				_carList = _carList.push tempCar
 		CarStore.emitChange ['my_car_list']
   
@@ -175,12 +186,10 @@ carDetail = (carId)->
 			CarStore.emitChange ['car_detail']
 
 # 车主详情
-_carOwnerDetail = (userId, carId)->
+_carOwnerDetail = (carId)->
 	Http.post Constants.api.car_detail, {
 			carId: carId
-			userId: userId # 找车列表车主的Id
-			# carId: 'b6be54c8d6e348f7b8559b6ef10376e6'
-			# userId: '50819ab3c0954f828d0851da576cbc31'
+			userId: _user?.id # 找车列表车主的Id
 		}, (data) ->
 			td = data.carInfoLoad;
 			_carDetail = _carDetail.set 'id', td.id
@@ -192,9 +201,9 @@ _carOwnerDetail = (userId, carId)->
 			_carDetail = _carDetail.set 'heavy', td.heavy
 			_carDetail = _carDetail.set 'bulky', td.bulky
 			_carDetail = _carDetail.set 'carVehicle', td.vehicle
-			_carDetail = _carDetail.set 'name', td.driver
+			_carDetail = _carDetail.set 'name', data.name
 			_carDetail = _carDetail.set 'mobile', td.phone
-			_carDetail = _carDetail.set 'drivingImg', td.drivingImg
+			_carDetail = _carDetail.set 'drivingImg', data.imgurl
 			_carDetail = _carDetail.set 'transportImg', td.transportImg
 			_carDetail = _carDetail.set 'wishlst', data.wishlst
 			_carDetail = _carDetail.set 'goodScore', data.goodScore
@@ -256,7 +265,6 @@ _unCheckedLenAll = ->
 	CarStore.emitChange ['unchecked_len_all']	
 
 _checkedLenST = (params, p2)->
-
 	_carLenListTemp.push p2
 	index = _carLenListAll.indexOf p2
 	_carLenList.push index
@@ -437,7 +445,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.NOTNEEDINV then _notNeedInv(action.type)
 		when Constants.actionType.DEL_CAR then _carDel(action.carId)
 		when Constants.actionType.MODIFY_CAR then _modifyCar(action.param)
-		when Constants.actionType.CAR_OWNER_DETAIL then _carOwnerDetail(action.userId,action.carId)
+		when Constants.actionType.CAR_OWNER_DETAIL then _carOwnerDetail(action.carId)
 		when Constants.actionType.ATTENTION_DETAIL then _attentionDetail(action.params)
 		when Constants.actionType.UPDATE_INV_STATUS then _updateInvStatus(action.params)
 		when Constants.actionType.ORDER_SELECT_CAR_LIST then orderSelectCarList(action.params)

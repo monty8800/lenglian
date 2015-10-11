@@ -32,6 +32,8 @@ Car = Immutable.Record {
 	goodScore: null
 	certification: null
 
+	type: null
+
 }
 
 module.exports = Car

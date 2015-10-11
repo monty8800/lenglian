@@ -56,11 +56,6 @@ BidList = React.createClass {
 
 		<div className="m-pri-more" style={{display: if @props.show then 'block' else 'none'}}>
 			<ul>
-				<li>
-					<div><img src={avatar} /></div>
-					<p><span>我是死数据</span><span>出价:4000元</span></p>
-					<p>2015-10-01  10:02:00</p>
-				</li>
 				{bidCells}
 			</ul>
 		</div>

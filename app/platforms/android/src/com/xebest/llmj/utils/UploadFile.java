@@ -175,9 +175,13 @@ public class UploadFile {
                 sb2.append((char) ch);
             }
         }
+
+        String result = new String(sb2.toString().getBytes("ISO-8859-1"), "UTF-8");
+        Log.i("info", "-----------http--result:" + result);
+
         outStream.close();
         conn.disconnect();
-        return sb2.toString();
+        return result;
     }
 
     public static String postWithJsonString(String api, String jsonStr) {
