@@ -142,7 +142,6 @@ carVehicle = (status) ->
 			when 12 then "15米以上"
 	else
 		''
-=======
 stars = (score)->
 	switch parseInt(score)
 		when 0
