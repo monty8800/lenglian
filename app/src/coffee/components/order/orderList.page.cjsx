@@ -53,7 +53,7 @@ OrderDoc = React.createClass {
 
 	componentDidMount: ->
 		# 浏览器调试(临时)	
-		# OrderAction.browerTemp(1)
+		OrderAction.browerTemp(0)
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->
@@ -89,7 +89,9 @@ OrderDoc = React.createClass {
 						when 'car'
 							<CarItem items=@state.orderList />
 						when 'goods'
-						 	<GoodsItem items=@state.orderList />
+							goodsOrderList = @state.orderList.map (order, i)->
+								<GoodsItem order={order} key={i} />
+							<div>{goodsOrderList}</div>
 						when 'store'
 							<StoreItem items=@state.orderList />	
 				}

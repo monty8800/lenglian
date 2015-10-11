@@ -55,6 +55,12 @@ GoodsAction = {
 			show: show
 			bid: bid
 		}
+
+	deleteGoods:(goodsId)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.DELETE_GOODS
+			goodsId: goodsId
+		}
 }
 
 module.exports = GoodsAction

@@ -127,6 +127,9 @@ module.exports = {
 		#解绑银行卡
 		REMOVE_BANK_CARD: '/mjUserBankCard/deleteMjUserBankCard.shtml'
 
+#货相关
+		#删除货源
+		DELETE_GOODS: 'mjGoodsResource/delGoodsResource.shtml'
 
 
 		# 关注列表

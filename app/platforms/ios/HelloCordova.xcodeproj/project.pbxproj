@@ -75,6 +75,7 @@
 		4CAB021B1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB021A1BB4015F002A0A5C /* CompanyWarehouseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CB11F2B1BC64631002280B2 /* UIImage+FromTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB11F2A1BC64631002280B2 /* UIImage+FromTo.m */; settings = {ASSET_TAGS = (); }; };
 		4CB11F3F1BC7A48E002280B2 /* UIImageView+XE.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB11F3E1BC7A48E002280B2 /* UIImageView+XE.m */; settings = {ASSET_TAGS = (); }; };
+		4CB11F4B1BC806DC002280B2 /* CarOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB11F4A1BC806DC002280B2 /* CarOrderDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CB4C0E01BBF6FE50095ABE8 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A184C1BB680710072F940 /* LocationViewController.m */; };
 		4CB4C0E31BBF7E3B0095ABE8 /* SelectCarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CB4C0ED1BBFD50A0095ABE8 /* SelectCarWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4C0EC1BBFD50A0095ABE8 /* SelectCarWidget.m */; settings = {ASSET_TAGS = (); }; };
@@ -267,6 +268,8 @@
 		4CB11F2A1BC64631002280B2 /* UIImage+FromTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+FromTo.m"; path = "map/UIImage+FromTo.m"; sourceTree = "<group>"; };
 		4CB11F3D1BC7A48E002280B2 /* UIImageView+XE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+XE.h"; path = "common/UIImageView+XE.h"; sourceTree = "<group>"; };
 		4CB11F3E1BC7A48E002280B2 /* UIImageView+XE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+XE.m"; path = "common/UIImageView+XE.m"; sourceTree = "<group>"; };
+		4CB11F491BC806DC002280B2 /* CarOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarOrderDetailViewController.h; path = order/CarOrderDetailViewController.h; sourceTree = "<group>"; };
+		4CB11F4A1BC806DC002280B2 /* CarOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarOrderDetailViewController.m; path = order/CarOrderDetailViewController.m; sourceTree = "<group>"; };
 		4CB4C0E11BBF7E3B0095ABE8 /* SelectCarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectCarTableViewCell.h; path = map/SelectCarTableViewCell.h; sourceTree = "<group>"; };
 		4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectCarTableViewCell.m; path = map/SelectCarTableViewCell.m; sourceTree = "<group>"; };
 		4CB4C0EB1BBFD50A0095ABE8 /* SelectCarWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectCarWidget.h; path = map/SelectCarWidget.h; sourceTree = "<group>"; };
@@ -786,6 +789,8 @@
 			children = (
 				4CDD997C1BAFA7A0008B4AC6 /* OrderListViewController.h */,
 				4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */,
+				4CB11F491BC806DC002280B2 /* CarOrderDetailViewController.h */,
+				4CB11F4A1BC806DC002280B2 /* CarOrderDetailViewController.m */,
 			);
 			name = order;
 			sourceTree = "<group>";
@@ -897,6 +902,7 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				46784D3F004139CECED40842 /* Copy Pods Resources */,
 				4C59DE4D1B5E81290063D9CE /* ShellScript */,
+				AC1CE0DC8E4E1C1D0B0DFE96 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1052,6 +1058,21 @@
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
 		};
+		AC1CE0DC8E4E1C1D0B0DFE96 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1100,6 +1121,7 @@
 				4C134C281BB8EC4200490AF5 /* ModifyAddressViewController.m in Sources */,
 				4C822F661BB135E500112533 /* AddressListViewController.m in Sources */,
 				4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */,
+				4CB11F4B1BC806DC002280B2 /* CarOrderDetailViewController.m in Sources */,
 				4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */,
 				5B69AE511BBB8AFB00A14101 /* ReleaseWarehouseViewController.m in Sources */,
 				4C822F501BB0F48D00112533 /* WalletViewController.m in Sources */,

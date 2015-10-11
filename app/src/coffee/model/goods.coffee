@@ -3,8 +3,9 @@ Immutable = require 'immutable'
 Address = require 'model/address'
 
 Goods = Immutable.Record {
-	id: null #货源id
-	name: null #货物名称
+	id: null #货id
+	goodsResourceId:null	#货源ID
+	name: null 				#货物名称
 	fromProvinceName:null	#起点 省
 	fromCityName:null		#起点 市
 	fromAreaName:null 		#起点 区
@@ -22,9 +23,7 @@ Goods = Immutable.Record {
 	weight: '' 				#货物重量
 	packType: '' 			 #包装类型
 	imageUrl:null			#图片地址
-	photo: null  			#货物图片
-
-	arrivalEtime:null		
+	photo: null  			#货物图片	
 
 	installMinTime: null		#最早装车时间
 	installMaxTime: null  		#最晚装车时间
@@ -37,10 +36,10 @@ Goods = Immutable.Record {
 	arrivalEtime:null			#到货结束时间
 
 	refrigeration: 1 			#需要冷库 1不需要，2需要，3目的地需要，4起始地需要
-	status:null					#货源状态 0 全部 1-求车中 2-求库中 3-有人响应 4-已成交 5-待评价
+	resourceStatus:null			#货源状态 1-求车(库)中 2-有人响应 3-已成交
 	priceType:1 				#价格类型 1一口价， 2竞价
 	price: null
-	payType:1				#支付方式 1货到付款， 2回单付款， 3预付款
+	payType:1					#支付方式 1货到付款， 2回单付款， 3预付款
 	prePay: null 				#预付款
 	invoice:1 					#是否需要发票 1需要 2不需要
 

@@ -2,7 +2,7 @@ require 'components/common/common'
 require 'index-style'
 require 'majia-style'
 ImageHelper = require 'util/image'
-
+Auth = require 'util/auth'
 React = require 'react/addons'
 Moment = require 'moment'
 headerImg = require 'user-01.jpg'
@@ -11,6 +11,7 @@ WarehouseAction = require 'actions/warehouse/warehouseAction'
 GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
 XeImage = require 'components/common/xeImage'
+UserStore = require 'stores/user/user'
 
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
@@ -114,24 +115,36 @@ SearchWarehouse = React.createClass {
 			console.log '__selection_newState', newState
 			@setState newState
 		
-
 	_resultItemClick:(aResult)->
-		DB.put 'transData',{warehouseId:aResult.warehouseId,focusid:aResult.userId}
-		Plugin.nav.push ['searchWarehouseDetail']
+		Auth.needLogin ->
+			DB.put 'transData',{warehouseId:aResult.warehouseId,focusid:aResult.userId}
+			Plugin.nav.push ['searchWarehouseDetail']
 
-	_selectWarehouse :(index) ->
-		# if @state.userGoodsSource.length < 1
-		# 	Plugin.toast.show '没有货源适合这个仓库'
-		# 	return
-		_selectedWarehouseId = @state.searchResult[index].id
-		console.log _selectedWarehouseId,'____库源ID_'
-		# GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
-		Plugin.run [3, 'select:goods', _selectedWarehouseId]
+	_selectWarehouse :(aResult,e) ->
+		Auth.needLogin ->
+			user = UserStore.getUser()
+			if user.goodsStatus is 1
+				console.log '\\\\\\\\\\ ',
+				# if @state.userGoodsSource.length < 1
+				# 	Plugin.toast.show '没有货源适合这个仓库'
+				# 	return
+
+#TODO:弹出选择货物的弹窗前 先判断有没有货 
+
+				_selectedWarehouseId = aResult.id
+				console.log _selectedWarehouseId,'____库源ID_'
+				# # GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
+
+				Plugin.run [3, 'select:goods', _selectedWarehouseId]
+			else 
+				Plugin.toast.show '未认证货主 先认证'
+		e.stopPropagation()
 
 	_selectGoods :(index) ->
 		Plugin.toast.show 'select goods'
 		goodsId = @state.userGoodsSource[index].id
 		console.log goodsId,'____货源ID_'
+#TODO:
 		_selectedWarehouseId = '295dd8ab5f6442afae2542175efdba1e'
 		GoodsAction.bindWarehouseOrder _selectedWarehouseId,goodsId
 		_selectedWarehouseId = ''
@@ -154,7 +167,7 @@ SearchWarehouse = React.createClass {
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
 						<div className="g-dirver-btn">
-							<a onClick={ @_selectWarehouse.bind this,i } className="u-btn02">选择该仓库</a>
+							<a onClick={ @_selectWarehouse.bind this,aResult } className="u-btn02">选择该仓库</a>
 						</div>
 					</div>
 				</div>
