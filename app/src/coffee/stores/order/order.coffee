@@ -12,7 +12,6 @@ UserStore = require 'stores/user/user'
 OrderAction = require 'actions/order/order'
 Goods = require 'model/goods'
 
-_user = UserStore.getUser()
 
 _orderList = Immutable.List()
 _orderDetail = new OrderModel
@@ -47,7 +46,7 @@ getOrderList = (status, currentPage)->
 getGoodsOrderList = (status, currentPage)->
 	console.log 'getGoodsOrderList'
 	Http.post Constants.api.goods_order_list, {
-		userId: _user?.id
+		userId: UserStore.getUser()?.id
 		pageNo: currentPage
 		pageSize: Constants.orderStatus.PAGESIZE
 		state: status # 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消 空表示查询所有订单
@@ -84,7 +83,7 @@ getGoodsOrderList = (status, currentPage)->
 getCarOwnerOrderList = (status, currentPage)->
 	console.log 'getCarOwnerOrderList'
 	Http.post Constants.api.carowner_order_list, {
-		carPersonUserId: _user?.id # 用户id
+		carPersonUserId: UserStore.getUser()?.id # 用户id
 		pageNow: currentPage # 当前页码
 		pageSize: Constants.orderStatus.PAGESIZE
 		orderState: status # 全部空 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消
@@ -119,7 +118,7 @@ getCarOwnerOrderList = (status, currentPage)->
 getStoreOrderList = (status, currentPage)->
 	console.log 'getStoreOrderList'
 	Http.post Constants.api.store_order_List, {
-		userId: _user?.id
+		userId: UserStore.getUser()?.id
 		orderState: status
 		pageNow: currentPage
 		pageSize: Constants.orderStatus.PAGESIZE
@@ -147,7 +146,7 @@ getStoreOrderList = (status, currentPage)->
 # 竞价列表
 getBinddingList = (goodsResourceId) ->
 	Http.post Constants.api.GET_BID_ORDER_LIST, {
-		userId: _user?.id
+		userId: UserStore.getUser()?.id
 		goodsResourceId: goodsResourceId
 	}, (data)->
 		OrderStore.emitChange ['bindding_list']
@@ -185,6 +184,36 @@ carBidGoods = (params)->
 			Plugin.toast.err data.msg
 	, true
 
+selectBidCar = (params, orderId)->
+	Http.post Constants.api.SELECT_BID_CAR, params, (data)->
+		Plugin.toast.success '接受订单成功！'
+		console.log 'select bid car', data
+		console.log '_orderList before', _orderList
+		_orderList = _orderList.filterNot (order)->
+			console.log order.get('orderNo'), orderId
+			order.get('orderNo') is orderId
+
+		console.log '_orderList after', _orderList
+		OrderStore.emitChange ['goods']
+
+goodsAgree = (params, orderId)->
+	Http.post Constants.api.ORDER_GOODS_AGREE, params, (data)->
+		Plugin.toast.success '接受订单成功！'
+		console.log 'goods agree', data
+		console.log '_orderList before', _orderList
+		_orderList = _orderList.filterNot (order)->
+			order.get('orderNo') is orderId
+		console.log '_orderList after', _orderList
+		OrderStore.emitChange ['goods']
+
+orderGoodsFinish = (params, orderId)->
+	Http.post Constants.api.order_finish, params, (data)->
+		Plugin.toast.success '订单已完成！'
+		console.log 'order finish', data
+		_orderList = _orderList.filterNot (order)->
+			order.get('orderNo') is orderId
+		OrderStore.emitChange ['goods']
+
 # 车主确认订单
 _carOwnerConfirmOrder = (carPersonUserId, orderNo, version, index)->
 	Plugin.loading.show '正在确认...'
@@ -220,7 +249,7 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 		carPersonUserId: carPersonUserId
 		orderNo: orderNo
 		goodsPersonUserId: goodsPersonUserId
-		userId: _user?.id
+		userId: UserStore.getUser()?.id
 	}, (data)->
 		temp = data.ownerOrder
 		_orderDetail = _orderDetail.set 'orderNo', temp.orderNo
@@ -262,7 +291,7 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 _orderFinish = (orderNo, version, carPersonUserId)->
 	console.log '------orderNo:', orderNo
 	Http.post Constants.api.order_state_change, {
-		userId: _user?.id
+		userId: UserStore.getUser()?.id
 		orderNo: orderNo			
 		version: version
 		carPersonUserId: carPersonUserId
@@ -296,6 +325,14 @@ getBidGoodsDetail = (params)->
 		console.log  'bid goods', _bidGoods
 		OrderStore.emitChange 'bid:goods:detail:done'
 
+orderGoodsDetail = (params)->
+	Http.post Constants.api.goods_order_detail, params, (data)->
+		console.log 'goods order detail', data
+		OrderStore.emitChange {
+			msg: 'goods:order:detail:done'
+			detail: Immutable.Map data
+		}
+
 OrderStore = assign BaseStore, {
 	getOrderList: ->
 		_orderList
@@ -325,6 +362,10 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ORDER_FINISH then _orderFinish(action.orderNo, action.version, action.carPersonUserId)
 		when Constants.actionType.ATTENTION then _attention(action.params)
 		when Constants.actionType.GET_BID_GOODS_DETAIL then getBidGoodsDetail(action.params)
+		when Constants.actionType.ORDER_SELECT_BID_CAR then selectBidCar(action.params, action.orderId)
+		when Constants.actionType.ORDER_GOODS_AGREE then goodsAgree(action.params, action.orderId)
+		when Constants.actionType.ORDER_GOODS_FINISH then orderGoodsFinish(action.params, action.orderId)
+		when Constants.actionType.ORDER_GOODS_DETAIL then orderGoodsDetail(action.params)
 
 module.exports = OrderStore
 		

@@ -12,8 +12,12 @@ OrderStore = require 'stores/order/order'
 
 #为了优化性能，这里发请求前注册监听，收到后销毁监听，因为列表可能很大，一直监听对性能伤害大
 OrderBidDriverList = React.createClass {
-	_select: ->
+	_select: (bid)->
 		console.log 'select this!'
+		OrderAction.selectBidCar {
+			userId: UserStore.getUser()?.id
+			goodsBidId: bid.id
+		}, @props.order.orderNo
 
 	_getBidList: ->
 		console.log 'get bid list---'
@@ -52,7 +56,7 @@ OrderBidDriverList = React.createClass {
 					<div className="g-order-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 				</div>
 				<div className="g-order-btn">
-					<a onClick={@_select} className="u-btn02">选择该司机</a>
+					<a onClick={@_select.bind this, bid} className="u-btn02">选择该司机</a>
 				</div>
 			</div>
 		, this

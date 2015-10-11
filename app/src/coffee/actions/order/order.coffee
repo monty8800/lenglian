@@ -55,6 +55,20 @@ OrderAction = {
 			goodsResourceId: goodsResourceId
 		}
 
+	selectBidCar: (params, orderId)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_SELECT_BID_CAR
+			params: params
+			orderId: orderId
+		}
+
+	goodsAgree: (params, orderId)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_GOODS_AGREE
+			params: params
+			orderId: orderId
+		}
+
 	carOwnercomfitOrder: (carPersonUserId, orderNo, version, index)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CAR_OWNER_CONFIRM_ORDER
@@ -90,8 +104,20 @@ OrderAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.ATTENTION
 			params: params
-		}		
+		}
 
+	goodsOrderDone: (params, orderId)->	
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_GOODS_FINISH
+			params: params
+			orderId: orderId
+		}
+
+	goodsOrderDetail: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_GOODS_DETAIL
+			params: params
+		}
 }
 
 module.exports = OrderAction

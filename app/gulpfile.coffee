@@ -4,6 +4,8 @@ plugins = require('gulp-load-plugins')()
 apiServer = 'http://192.168.26.177:7080/llmj-app/'
 # apiServer = 'http://192.168.29.204:8072/' #朱舟
 # apiServer = 'http://192.168.29.149:8072/' #潘代军
+# apiServer = 'http://192.168.27.160:8080/llmj-app/' #高
+
 
 #webpack
 webpack = require 'webpack'

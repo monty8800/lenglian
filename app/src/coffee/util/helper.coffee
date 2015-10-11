@@ -124,7 +124,7 @@ whoYouAre = (who)->
 	else
 		''
 
-<<<<<<< HEAD
+
 carVehicle = (status) ->
 	if status?
 		switch parseInt(status)

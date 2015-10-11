@@ -2,6 +2,7 @@
 require 'components/common/common'
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
 Constants = require 'constants/constants'
@@ -61,6 +62,7 @@ OrderDoc = React.createClass {
 
 	resultCallBack: (params)->
 		# type: 'car'司机订单  'goods'货主订单  'store'仓库订单
+		console.log 'params in order list', params
 		if params[0] is 'car' || params[0] is 'goods' || params[0] is 'store'
 			newState = Object.create @state
 			newState.orderType = params[0]
@@ -68,6 +70,7 @@ OrderDoc = React.createClass {
 			@setState newState
 
 	render: ->
+		console.log '___state', @state
 		<div>
 			<div className="m-tab01">
 				<ul>
@@ -90,8 +93,12 @@ OrderDoc = React.createClass {
 							<CarItem items=@state.orderList />
 						when 'goods'
 							goodsOrderList = @state.orderList.map (order, i)->
-								<GoodsItem order={order} key={i} />
-							<div>{goodsOrderList}</div>
+								<GoodsItem order={order} key={order.orderNo} />
+							<div>
+							
+							{goodsOrderList}
+							
+							</div>
 						when 'store'
 							<StoreItem items=@state.orderList />	
 				}
