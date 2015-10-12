@@ -59,7 +59,6 @@ WarehouseDetail = React.createClass {
 			detailResult = WarehouseStore.getDetail()
 			conf aProperty for aProperty in detailResult.warehouseProperty
 			newState = Object.create @state
-			newState.isEditing = true
 			newState.warehouseDetail = detailResult
 			newState.remark = detailResult.remark
 			newState.phone = detailResult.contactTel

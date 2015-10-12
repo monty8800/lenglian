@@ -15,7 +15,7 @@ XeImage = require 'components/common/xeImage'
 
 _transData = DB.get('transData')
 _isMine = _transData.isMine is 1
-_toShowOrder = _transData.order
+
 
 warehouseStatus = '' #状态
 warehouseType = []	#类型
@@ -65,9 +65,9 @@ WarehouseDetail = React.createClass {
 
 	render: ->
 		<div>
-			<div style={{display: if _toShowOrder then 'block' else 'none'}} className="m-orderdetail clearfix">
-				<p className="fl">订单号：<span>{ _toShowOrder?.orderId }</span></p>
-				<p className="fr">等待货主付款</p>
+			<div style={{display: if _transData?.orderId then 'block' else 'none'}} className="m-orderdetail clearfix">
+				<p className="fl">订单号：<span>{ _transData?.orderId }</span></p>
+				<p className="fr">{ _transData?.orderStatus }</p>
 			</div>
 			<div style={{display: if _isMine then 'none' else 'block'}} className="m-item01">
 				<div className="g-detail-dirver g-det-pad0">
