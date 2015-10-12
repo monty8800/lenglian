@@ -26,11 +26,16 @@
     // Do any additional setup after loading the view.
     [self createUI];
 }
-
+//
 -(void)createUI{
     self.title = @"我的货源";
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    [self.commandDelegate evalJs:@"(function(){window.tryReloadGoodsList()})()"];
+    
+}
 -(void)commonCommand:(NSArray *)params{
     [super commonCommand:params];
     if ([params[0] integerValue] == 1) {

@@ -3,7 +3,7 @@ require 'user-center-style'
 require 'majia-style'
 
 React = require 'react/addons'
-
+XeImage = require 'components/common/xeImage'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
 UserStore = require 'stores/user/user'
@@ -74,7 +74,7 @@ WarehouseDetail = React.createClass {
 				<div className="g-itemList">
 					<dl className="clearfix">
 						<dt className=" fl">
-							<img src="../images/product-01.jpg"/>
+							<XeImage src={ @state.warehouseDetail.imageUrl } size='100x100' />
 						</dt>
 						<dd className=" fl">
 							<p>仓库状态: 

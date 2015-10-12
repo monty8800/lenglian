@@ -37,6 +37,7 @@ actionType = {
 	GET_BID_ORDER_LIST:null
 	GET_GOODS_LIST:null
 	GET_GOODS_DETAIL:null
+	GET_SEARCH_GOODS_DETAIL:null
 
 	GOODS_BIND_WAREHOUSE_ORDER:null
 
@@ -135,6 +136,10 @@ actionType = {
 	CAR_OWNER_ORDER_DETAIL: null
 	ORDER_FINISH: null
 	ATTENTION: null
+	ORDER_SELECT_BID_CAR: null
+	ORDER_GOODS_AGREE: null
+	ORDER_GOODS_FINISH: null
+	ORDER_GOODS_DETAIL: null
 
 }
 						
@@ -143,11 +148,21 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
+
+	
 	server: 'http://192.168.26.177:7080/llmj-app/'
-	# server: 'http://192.168.29.176:8072/'			
-	# server: 'http://192.168.29.204:8072/'
+
+	#注意！⚠️浏览器里请去gulpfile里面改接口地址，这里改不起作用
+
+	# server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.29.176:8072/'
+
+	# server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.149:8072/'
-			
+
+	# server: 'http://192.168.29.204:8072/'
+	# server:'http://192.168.27.160:8080/llmj-app/' #高
+
 	#短信验证码
 	SMS_CODE: '/register/sendMobileMsg.shtml'
 	#登录
@@ -191,6 +206,12 @@ api = {
 
 	#竞价页面数据
 	BID_GOODS_DETAIL: '/carFindGoods/orderBidDetail.shtml'
+
+	#选择竞价司机
+	SELECT_BID_CAR: '/orderGoods/selectBidCar.shtml'
+
+	#货主接受订单
+	ORDER_GOODS_AGREE: '/orderGoods/accept.shtml'
 
 
 #YYQ
@@ -237,6 +258,8 @@ api = {
 	GET_GOODS_LIST: '/mjGoodsResource/queryMjGoodsResourceList.shtml'
 	#查询货源详情
 	GET_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
+	#搜索货源时进入货源详情
+	GET_SEARCH_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
 
 #支付相关 钱包
 	#我的收入和支出

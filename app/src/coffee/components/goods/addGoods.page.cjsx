@@ -179,8 +179,8 @@ AddGoods = React.createClass {
 					priceType: @state.priceType
 					price: @state.price
 					isinvoice: @state.invoice
-					reciver: @state.reciver
-					reciverMobile: @state.reciverMobile
+					receiver: @state.reciver
+					receiverMobile: @state.reciverMobile
 				}
 				goodsRoute: goodsRoute or []
 				

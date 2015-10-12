@@ -4,6 +4,7 @@ Address = require 'model/address'
 
 Goods = Immutable.Record {
 	id: null #货id
+	userHeaderImageUrl:null	#用户头像
 	goodsResourceId:null	#货源ID
 	name: null 				#货物名称
 	fromProvinceName:null	#起点 省
@@ -49,7 +50,8 @@ Goods = Immutable.Record {
 	receiverMobile: null 		#收货人电话
 	mjGoodsRoutes:[]			#途经地
 	remark: null 				#备注
-
+	wishlst:false				#是否被关注
+	stars:0						#评价 星级
 
 	cube: ''   				#货物体积
 

@@ -11,6 +11,8 @@ Plugin = require 'util/plugin'
 OrderDriverCell = require 'components/order/orderDriverCell'
 OrderBidDriverList = require 'components/order/orderBidDriverList'
 
+DB = require 'util/storage'
+
 GoodsCell = React.createClass {
 
 	getInitialState: ->
@@ -26,6 +28,12 @@ GoodsCell = React.createClass {
 				showBidList: not @state.showBidList
 			}
 
+	_goDetail: ->
+		DB.put 'transData', {
+			orderNo: @props.order?.orderNo
+		}
+		Plugin.nav.push ['goodsOrderDetail']
+
 	render: ->
 		console.log 'order----', @props.order, @state
 
@@ -40,7 +48,7 @@ GoodsCell = React.createClass {
 				if parseInt(@props.order.priceType) is 1
 					<OrderDriverCell order={@props.order} />
 			}
-			<div className="g-item">
+			<div onClick={@_goDetail} className="g-item">
 				<div className="g-adr-start ll-font g-adr-start-line">
 					{@props.order.fromProvinceName + @props.order.fromCityName + @props.order.fromCountyName}
 				</div>
@@ -56,7 +64,7 @@ GoodsCell = React.createClass {
 
 			<OrderBidDriverList order={@props.order} show={@state.showBidList} />
 
-			<div className="g-item g-item-des">
+			<div onClick={@_goDetail} className="g-item g-item-des">
 				<p>货物描述 : <span>{@props.order.goodsDesc}</span><span>{@props.order.goodsWeight + '吨'}</span></p>
 				<p>支付方式 : <span>{Helper.payTypeMapper @props.order.payType}</span><span>{@props.order.price + '元'}</span></p>
 			</div>

@@ -61,6 +61,20 @@ GoodsAction = {
 			actionType: Constants.actionType.DELETE_GOODS
 			goodsId: goodsId
 		}
+	getSearchGoodsDetail: (goodsId,focusid)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.GET_SEARCH_GOODS_DETAIL
+			goodsId:goodsId
+			focusid:focusid
+		}
+		
+	handleFallow:(focusid,focustype,type)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.attention
+			focusid:focusid
+			focustype:focustype
+			type:type
+		}
 }
 
 module.exports = GoodsAction

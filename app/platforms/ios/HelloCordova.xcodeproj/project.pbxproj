@@ -76,6 +76,8 @@
 		4CB11F2B1BC64631002280B2 /* UIImage+FromTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB11F2A1BC64631002280B2 /* UIImage+FromTo.m */; settings = {ASSET_TAGS = (); }; };
 		4CB11F3F1BC7A48E002280B2 /* UIImageView+XE.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB11F3E1BC7A48E002280B2 /* UIImageView+XE.m */; settings = {ASSET_TAGS = (); }; };
 		4CB11F4B1BC806DC002280B2 /* CarOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB11F4A1BC806DC002280B2 /* CarOrderDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CB11F581BCA7D4F002280B2 /* OrderPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB11F571BCA7D4F002280B2 /* OrderPayViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CB11F5E1BCAA355002280B2 /* GoodsOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB11F5D1BCAA355002280B2 /* GoodsOrderDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CB4C0E01BBF6FE50095ABE8 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A184C1BB680710072F940 /* LocationViewController.m */; };
 		4CB4C0E31BBF7E3B0095ABE8 /* SelectCarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CB4C0ED1BBFD50A0095ABE8 /* SelectCarWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4C0EC1BBFD50A0095ABE8 /* SelectCarWidget.m */; settings = {ASSET_TAGS = (); }; };
@@ -94,6 +96,7 @@
 		4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */; settings = {ASSET_TAGS = (); }; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
+		5B1C0B691BCA553300DA196C /* SearchGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1CBCF61BC36D4D00D94095 /* AddBankCardNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1CBCF91BC36DD100D94095 /* AddBankCarVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B255FE31BC60F8B000958A8 /* ChargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B255FE21BC60F8B000958A8 /* ChargeViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -270,6 +273,10 @@
 		4CB11F3E1BC7A48E002280B2 /* UIImageView+XE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+XE.m"; path = "common/UIImageView+XE.m"; sourceTree = "<group>"; };
 		4CB11F491BC806DC002280B2 /* CarOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarOrderDetailViewController.h; path = order/CarOrderDetailViewController.h; sourceTree = "<group>"; };
 		4CB11F4A1BC806DC002280B2 /* CarOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarOrderDetailViewController.m; path = order/CarOrderDetailViewController.m; sourceTree = "<group>"; };
+		4CB11F561BCA7D4F002280B2 /* OrderPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderPayViewController.h; path = order/OrderPayViewController.h; sourceTree = "<group>"; };
+		4CB11F571BCA7D4F002280B2 /* OrderPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderPayViewController.m; path = order/OrderPayViewController.m; sourceTree = "<group>"; };
+		4CB11F5C1BCAA355002280B2 /* GoodsOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoodsOrderDetailViewController.h; path = order/GoodsOrderDetailViewController.h; sourceTree = "<group>"; };
+		4CB11F5D1BCAA355002280B2 /* GoodsOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoodsOrderDetailViewController.m; path = order/GoodsOrderDetailViewController.m; sourceTree = "<group>"; };
 		4CB4C0E11BBF7E3B0095ABE8 /* SelectCarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectCarTableViewCell.h; path = map/SelectCarTableViewCell.h; sourceTree = "<group>"; };
 		4CB4C0E21BBF7E3B0095ABE8 /* SelectCarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectCarTableViewCell.m; path = map/SelectCarTableViewCell.m; sourceTree = "<group>"; };
 		4CB4C0EB1BBFD50A0095ABE8 /* SelectCarWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectCarWidget.h; path = map/SelectCarWidget.h; sourceTree = "<group>"; };
@@ -303,6 +310,8 @@
 		4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationBubbleView.m; path = map/LocationBubbleView.m; sourceTree = "<group>"; };
 		555391413AAD4C94B9C1B273 /* XEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEViewController.m; path = "com.xebest.xe-plugin/XEViewController.m"; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		5B1C0B671BCA553300DA196C /* SearchGoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGoodsDetailViewController.h; sourceTree = "<group>"; };
+		5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGoodsDetailViewController.m; sourceTree = "<group>"; };
 		5B1CBCF41BC36D4D00D94095 /* AddBankCardNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCardNextViewController.h; path = wallet/AddBankCardNextViewController.h; sourceTree = "<group>"; };
 		5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCardNextViewController.m; path = wallet/AddBankCardNextViewController.m; sourceTree = "<group>"; };
 		5B1CBCF71BC36DD100D94095 /* AddBankCarVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCarVerifyViewController.h; path = wallet/AddBankCarVerifyViewController.h; sourceTree = "<group>"; };
@@ -789,6 +798,10 @@
 			children = (
 				4CDD997C1BAFA7A0008B4AC6 /* OrderListViewController.h */,
 				4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */,
+				4CB11F5C1BCAA355002280B2 /* GoodsOrderDetailViewController.h */,
+				4CB11F5D1BCAA355002280B2 /* GoodsOrderDetailViewController.m */,
+				4CB11F561BCA7D4F002280B2 /* OrderPayViewController.h */,
+				4CB11F571BCA7D4F002280B2 /* OrderPayViewController.m */,
 				4CB11F491BC806DC002280B2 /* CarOrderDetailViewController.h */,
 				4CB11F4A1BC806DC002280B2 /* CarOrderDetailViewController.m */,
 			);
@@ -857,6 +870,8 @@
 				5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */,
 				5B6640091BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.h */,
 				5B66400A1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m */,
+				5B1C0B671BCA553300DA196C /* SearchGoodsDetailViewController.h */,
+				5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */,
 			);
 			path = warehouse;
 			sourceTree = "<group>";
@@ -902,7 +917,6 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				46784D3F004139CECED40842 /* Copy Pods Resources */,
 				4C59DE4D1B5E81290063D9CE /* ShellScript */,
-				AC1CE0DC8E4E1C1D0B0DFE96 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1058,21 +1072,6 @@
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
 		};
-		AC1CE0DC8E4E1C1D0B0DFE96 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1081,6 +1080,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CB4C0E01BBF6FE50095ABE8 /* LocationViewController.m in Sources */,
+				4CB11F581BCA7D4F002280B2 /* OrderPayViewController.m in Sources */,
 				4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */,
 				5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */,
 				5B3733FB1BC2242600807804 /* CarSearchGoodsViewController.m in Sources */,
@@ -1100,6 +1100,7 @@
 				4CD9A94E1BBD49340098C9B7 /* XeAnnotation.m in Sources */,
 				4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */,
 				4C822F6A1BB136C000112533 /* FollowListViewController.m in Sources */,
+				5B1C0B691BCA553300DA196C /* SearchGoodsDetailViewController.m in Sources */,
 				5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */,
 				4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */,
 				4CDD997E1BAFA7A0008B4AC6 /* OrderListViewController.m in Sources */,
@@ -1137,6 +1138,7 @@
 				4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */,
 				5BEAC0D61BBA361100D9753C /* WarehouseDetailViewController.m in Sources */,
 				4CD14ACB1BBE9189009FFF0C /* InfoTableViewCell.m in Sources */,
+				4CB11F5E1BCAA355002280B2 /* GoodsOrderDetailViewController.m in Sources */,
 				98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */,
 				4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */,
 				4C6584201BBE2BC1005FEB16 /* FromToTableViewCell.m in Sources */,
