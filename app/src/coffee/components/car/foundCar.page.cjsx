@@ -32,21 +32,21 @@ CarItem = React.createClass {
 
 	# 车主详情
 	_goPage: (item)->
-		DB.put 'fdcar_to_card', item.carId
-		DB.put 'fdcar_to_userId', item.userId
+		DB.put 'transData', [item.carId, item.userId]
 		Plugin.nav.push ['carOwnerDetail']
 
 	# 选择此车
-	select: (carId, i)->
+	select: (carId, i, e)->
 		console.log '-------select_car', carId
 		Plugin.nav.push ['select_goods', carId, i]
+		e.stopPropagation()
 
 	render: ->
 		items = @props.items.map (item, i)->
-			<div className="m-item01 m-item03" key={ i }>
+			<div onClick={@_goPage.bind this, item} className="m-item01 m-item03" key={ i }>
 				<div className="g-item-dirver">
 					<div className="g-dirver">								
-						<div onClick={@_goPage.bind this, item} className="g-dirver-pic">
+						<div className="g-dirver-pic">
 							<XeImage src={item?.drivingImg} size='130x130' type='avatar' />
 						</div>       
 						<div className="g-dirver-msg">  

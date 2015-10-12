@@ -166,7 +166,6 @@ stars = (score)->
 		when 10
 			'&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;'			#五颗
 
-	
 goodsWeight = (index) ->
 	if index?
 		switch parseInt(index)

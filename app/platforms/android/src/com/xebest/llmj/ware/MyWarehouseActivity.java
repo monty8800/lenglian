@@ -13,7 +13,6 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
-import com.xebest.llmj.goods.GoodsDetailActivity;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -64,8 +63,6 @@ public class MyWarehouseActivity extends BaseCordovaActivity implements CordovaI
 
     protected void initView() {
         addCar = (TextView) findViewById(R.id.add);
-        addCar.setText("搜索");
-        addCar.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("我的仓库");
         mWebView = (XEWebView) findViewById(R.id.wb);
@@ -79,7 +76,8 @@ public class MyWarehouseActivity extends BaseCordovaActivity implements CordovaI
         addCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWebView.getWebView().loadUrl("javascript:doCarSearchGoods()");
+                // 新增仓库
+                AddWarehouseActivity.actionView(MyWarehouseActivity.this);
             }
         });
     }
@@ -89,8 +87,8 @@ public class MyWarehouseActivity extends BaseCordovaActivity implements CordovaI
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
         Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
-        if (flag.equals("goodsDetail")) {
-            GoodsDetailActivity.actionView(MyWarehouseActivity.this);
+        if (flag.equals("warehouseDetail")) {
+            WarehouseDetailActivity.actionView(MyWarehouseActivity.this);
         }
 
     }

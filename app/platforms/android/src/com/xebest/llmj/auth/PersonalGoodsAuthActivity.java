@@ -106,7 +106,7 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
 
     String url;
     Map<String, Object> content;
-    Map<String, File> idCard;
+    Map<String, File> idCard = null;
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -155,9 +155,11 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
             content.put("version", version);
             content.put("data", ttData);
 
-            idCard = new HashMap<String, File>();
-
-            idCard.put("idcardImg", new File(files.getJSONObject(0).getString("path")));
+            String path = files.getJSONObject(0).getString("path");
+            if (path != null && !path.equals("")) {
+                idCard = new HashMap<String, File>();
+                idCard.put("idcardImg", new File(path));
+            }
 
             Log.i("info", "--------------content:" + content);
             Log.i("info", "--------------content:");
@@ -168,6 +170,7 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
     }
 
     boolean success = false;
+    String msg = "";
     public class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -182,6 +185,7 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
                 String result = UploadFile.post(url, content, idCard, null, null);
                 JSONObject jsonObject = new JSONObject(result);
                 Log.i("info", "----------------result" + result);
+                msg = jsonObject.getString("msg");
                 if (jsonObject.getString("code").equals("0000")) {
                     // 认证成功
                     success = true;
@@ -208,7 +212,7 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
                 finish();
                 MainActivity.actionView(PersonalGoodsAuthActivity.this, 3);
             } else {
-                Tools.showErrorToast(PersonalGoodsAuthActivity.this, "认证失败!");
+                Tools.showErrorToast(PersonalGoodsAuthActivity.this, msg);
             }
         }
     }

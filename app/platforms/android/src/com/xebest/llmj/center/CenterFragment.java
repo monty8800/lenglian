@@ -167,6 +167,8 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
             showWindow();
         } else if (flag.equalsIgnoreCase("myWarehouse")) {
             MyWarehouseActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("myComment")) {
+            MyCommentActivity.actionView(getActivity());
         }
     }
 

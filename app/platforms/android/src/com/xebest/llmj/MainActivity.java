@@ -86,7 +86,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private static int mCurrentItem = 0;
 
-    public int mOrderStatus = 0;
+    public int mOrderStatus = -1;
 
     public static void actionView(Context context, int index) {
         mCurrentItem = index;
@@ -166,31 +166,23 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setViewState(1);
                 break;
             case R.id.rl_order:
-                showPopMenu(orderView);
+                if (mOrderStatus == -1) {
+                    showPopMenu(orderView);
+                } else {
+                    orderStatus(mOrderStatus);
+                }
                 break;
             case R.id.rl_center:
                 setViewState(3);
                 break;
             case R.id.tv_goods: // 货主订单
-                mOrderStatus = 0;
-                setViewState(2);
-                tvGoods.setTextColor(Color.parseColor("#00a2f2"));
-                popupWindow.dismiss();
-                orderFragment.reload();
+                orderStatus(0);
                 break;
             case R.id.tv_driver: // 司机订单
-                mOrderStatus = 1;
-                setViewState(2);
-                popupWindow.dismiss();
-                tvDriver.setTextColor(Color.parseColor("#00a2f2"));
-                orderFragment.reload();
+                orderStatus(1);
                 break;
             case R.id.tv_store: // 仓库订单
-                mOrderStatus = 2;
-                popupWindow.dismiss();
-                setViewState(2);
-                tvStore.setTextColor(Color.parseColor("#00a2f2"));
-                orderFragment.reload();
+                orderStatus(2);
                 break;
         }
     }
@@ -211,6 +203,29 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setViewState(3);
                 break;
             default:
+                break;
+        }
+    }
+
+    public void orderStatus(int status) {
+        switch (status) {
+            case 0:
+                mOrderStatus = 0;
+                setViewState(2);
+                popupWindow.dismiss();
+                orderFragment.reload();
+                break;
+            case 1:
+                mOrderStatus = 1;
+                setViewState(2);
+                popupWindow.dismiss();
+                orderFragment.reload();
+                break;
+            case 2:
+                mOrderStatus = 2;
+                popupWindow.dismiss();
+                setViewState(2);
+                orderFragment.reload();
                 break;
         }
     }

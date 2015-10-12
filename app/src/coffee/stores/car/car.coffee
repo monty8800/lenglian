@@ -56,13 +56,15 @@ window.updateAddress = (flag)->
 
 # 更新装货时间
 window.updateDate = (startDate, endDate)->
-	console.log '--------', endDate
+	console.log '--------', 
 	CarStore.emitChange ['updateDate', startDate, endDate]
 
 # 更新我的车辆列表
 window.updateMyCarList = ->
-	CarAction.carList('1')
-	Plugin.toast.show 'update'
+	console.log '##############'
+	status = DB.get 'callBackRefresh'
+	console.log '##############：', status
+	CarAction.carList(status)
 
 # 编辑车辆
 window.editorCar = ->
@@ -181,15 +183,20 @@ carDetail = (carId)->
 			_carDetail = _carDetail.set 'carVehicle', td.vehicle
 			_carDetail = _carDetail.set 'name', td.driver
 			_carDetail = _carDetail.set 'mobile', td.phone
+			_carDetail = _carDetail.set 'status', td.status
 			_carDetail = _carDetail.set 'drivingImg', td.drivingImg
 			_carDetail = _carDetail.set 'transportImg', td.transportImg
+			_carDetail = _carDetail.set 'goodsSourceId', td.goodsSourceId
+			if td.status is 1
+				# 车辆详情是否显示编辑按钮
+				Plugin.nav.push ['carInfoEnable']
 			CarStore.emitChange ['car_detail']
 
 # 车主详情
-_carOwnerDetail = (carId)->
+_carOwnerDetail = (carId, targetUserId)->
 	Http.post Constants.api.car_detail, {
 			carId: carId
-			userId: _user?.id # 找车列表车主的Id
+			userId: targetUserId # 找车列表车主的Id
 		}, (data) ->
 			td = data.carInfoLoad;
 			_carDetail = _carDetail.set 'id', td.id
@@ -340,15 +347,13 @@ _notNeedInv = (type)->
 		console.log '-------_notNeedInv:', _isInvoice
 
 # 删除车辆
-_carDel = (carId)->
+_carDel = (carId, status)->
 	Plugin.loading.show '正在删除...'
-	console.log '-------delCar:', carId
 	Http.post Constants.api.detail_car, {
 		userId: _user?.id
 		carId: carId
 	}, (data)->				
 		Plugin.loading.hide()
-		console.log '--------delSuccess:', data
 		Plugin.toast.err '删除成功'
 		Plugin.nav.push ['del_success']
 	, (data)->
@@ -358,9 +363,8 @@ _carDel = (carId)->
 # 编辑车辆
 _modifyCar = (params)->
 	Http.post Constants.api.modify_car, params, (data)->
-		 console.log '------success'
-		 Plugin.toast.err '编辑成功'
-		 Plugin.nav.push ['modify_success']
+		Plugin.toast.err '编辑成功'
+		Plugin.nav.push ['modify_success']
 	, (data)->
 		Plugin.toast.err data.msg
 
@@ -443,9 +447,9 @@ Dispatcher.register (action)->
 		when Constants.actionType.CLOSE_INVOINCE then _close_car_invoince()
 		when Constants.actionType.NEEDINV then _needInv(action.type)
 		when Constants.actionType.NOTNEEDINV then _notNeedInv(action.type)
-		when Constants.actionType.DEL_CAR then _carDel(action.carId)
+		when Constants.actionType.DEL_CAR then _carDel(action.carId, action.status)
 		when Constants.actionType.MODIFY_CAR then _modifyCar(action.param)
-		when Constants.actionType.CAR_OWNER_DETAIL then _carOwnerDetail(action.carId)
+		when Constants.actionType.CAR_OWNER_DETAIL then _carOwnerDetail(action.carId, action.targetUserId)
 		when Constants.actionType.ATTENTION_DETAIL then _attentionDetail(action.params)
 		when Constants.actionType.UPDATE_INV_STATUS then _updateInvStatus(action.params)
 		when Constants.actionType.ORDER_SELECT_CAR_LIST then orderSelectCarList(action.params)

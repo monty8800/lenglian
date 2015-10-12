@@ -106,9 +106,9 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
 
     String url;
     Map<String, Object> content;
-    Map<String, File> driving;
-    Map<String, File> idCard;
-    Map<String, File> operate;
+    Map<String, File> driving = null;
+    Map<String, File> idCard = null;
+    Map<String, File> operate = null;
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -161,14 +161,23 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
             content.put("version", version);
             content.put("data", ttData);
 
-            driving = new HashMap<String, File>();
-            idCard = new HashMap<String, File>();
-            operate = new HashMap<String, File>();
+            String pathB = files.getJSONObject(0).getString("path");
+            if (pathB != null && !pathB.equals("")) {
+                driving = new HashMap<String, File>();
+                driving.put("businessLicenseImg", new File(pathB));
+            }
 
-            driving.put("businessLicenseImg", new File(files.getJSONObject(0).getString("path")));
-            idCard.put("transportImg", new File(files.getJSONObject(1).getString("path")));
-            operate.put("doorImg", new File(files.getJSONObject(2).getString("path")));
+            String pathT = files.getJSONObject(1).getString("path");
+            if (pathT != null && !pathT.equals("")) {
+                idCard = new HashMap<String, File>();
+                idCard.put("transportImg", new File(pathT));
+            }
 
+            String pathD = files.getJSONObject(2).getString("path");
+            if (pathD != null && !pathD.equals("")) {
+                operate = new HashMap<String, File>();
+                operate.put("doorImg", new File(pathD));
+            }
 
             Log.i("info", "--------------content:" + content);
             Log.i("info", "--------------content:");
@@ -179,6 +188,7 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
     }
 
     boolean success = false;
+    String msg = "";
     public class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -193,6 +203,7 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
                 String result = UploadFile.post(url, content, driving, idCard, operate );
                 JSONObject jsonObject = new JSONObject(result);
                 Log.i("info", "----------------result" + result);
+                msg = jsonObject.getString("msg");
                 if (jsonObject.getString("code").equals("0000")) {
                     // 认证成功
                     success = true;
@@ -213,13 +224,13 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
 
             Tools.dismissLoading();
             if (success) {
-                // TODO 调用js方法更新User
+                // 调用js方法更新User
                 mWebView.getWebView().loadUrl("javascript:authDone()");
                 Tools.showSuccessToast(CompanyCarAuthActivity.this, "认证成功!");
                 finish();
                 MainActivity.actionView(CompanyCarAuthActivity.this, 3);
             } else {
-                Tools.showErrorToast(CompanyCarAuthActivity.this, "认证失败!");
+                Tools.showErrorToast(CompanyCarAuthActivity.this, msg);
             }
         }
     }

@@ -33,6 +33,7 @@ Car = Immutable.Record {
 	certification: null
 
 	type: null
+	goodsSourceId: null
 
 }
 

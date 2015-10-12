@@ -1,6 +1,5 @@
 package com.xebest.llmj.map;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -29,11 +28,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.google.gson.Gson;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.umeng.analytics.MobclickAgent;
-import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.CarAdapter;
 import com.xebest.llmj.adapter.GoodsAdapter;
@@ -48,6 +43,7 @@ import com.xebest.llmj.model.GoodsDetailInfo;
 import com.xebest.llmj.model.NearInfo;
 import com.xebest.llmj.model.StoreDetailInfo;
 import com.xebest.llmj.utils.Helper;
+import com.xebest.llmj.utils.ImageLoader;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
 import com.xebest.llmj.widget.CircleImageView;
@@ -129,11 +125,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     private BitmapDescriptor goods = BitmapDescriptorFactory
             .fromResource(R.drawable.near_goods);
 
-    private MainActivity mainActivity;
-
-    DisplayImageOptions options;
-
-
     // 货源信息
     private TextView userName;
     private RatingBar rate;
@@ -147,12 +138,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
 
     // 价格类型 1：一口价 2：竞价
     private String mPriceType = "";
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mainActivity = (MainActivity) activity;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -213,19 +198,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         store_time = (TextView) view.findViewById(R.id.store_time);
         userLogo = (CircleImageView) view.findViewById(R.id.user_logo);
 
-        format = new SimpleDateFormat("yyyy-MM-dd");
-
-
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.icon_def)
-                .showImageForEmptyUri(R.drawable.icon_def)
-                .showImageOnFail(R.drawable.icon_def)
-                .cacheInMemory(true)
-                .cacheOnDisc(true)
-                .considerExifParams(true)
-                .displayer(new RoundedBitmapDisplayer(20))
-                .build();
-
         return view;
     }
 
@@ -255,6 +227,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 return false;
             }
         });
+
+        format = new SimpleDateFormat("yyyy-MM-dd");
 
     }
 
@@ -545,7 +519,9 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                         int ind = imgUrl.lastIndexOf("|");
                         String im = imgUrl.substring(0, ind);
                         Log.i("info", "---------realUrl:" + im);
-                        ImageLoader.getInstance().displayImage(ApiUtils.API_PIC + im, userLogo, options);
+                        ImageLoader loader = new ImageLoader(getActivity(), R.drawable.icon_def);
+                        loader.DisplayImage(ApiUtils.API_PIC + im, userLogo);
+//                        ImageLoader.getInstance().displayImage(ApiUtils.API_PIC + im, userLogo, Application.getInstance().options);
                     }
                     destination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() + list.get(0).getToAreaName());
                     start_point.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() + list.get(0).getFromAreaName());

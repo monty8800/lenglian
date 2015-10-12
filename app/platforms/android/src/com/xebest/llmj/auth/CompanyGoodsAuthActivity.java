@@ -106,7 +106,7 @@ public class CompanyGoodsAuthActivity extends BaseCordovaActivity implements Cor
 
     String url;
     Map<String, Object> content;
-    Map<String, File> driving;
+    Map<String, File> driving = null;
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -148,10 +148,11 @@ public class CompanyGoodsAuthActivity extends BaseCordovaActivity implements Cor
             content.put("version", version);
             content.put("data", ttData);
 
-            driving = new HashMap<String, File>();
-
-            driving.put("businessLicenseImg", new File(files.getJSONObject(0).getString("path")));
-
+            String path = files.getJSONObject(0).getString("path");
+            if (path != null && !path.equals("")) {
+                driving = new HashMap<String, File>();
+                driving.put("businessLicenseImg", new File(path));
+            }
 
             Log.i("info", "--------------content:" + content);
             Log.i("info", "--------------content:");
@@ -162,6 +163,7 @@ public class CompanyGoodsAuthActivity extends BaseCordovaActivity implements Cor
     }
 
     boolean success = false;
+    String msg = "";
     public class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -176,6 +178,7 @@ public class CompanyGoodsAuthActivity extends BaseCordovaActivity implements Cor
                 String result = UploadFile.post(url, content, driving, null, null );
                 JSONObject jsonObject = new JSONObject(result);
                 Log.i("info", "----------------result" + result);
+                msg = jsonObject.getString("msg");
                 if (jsonObject.getString("code").equals("0000")) {
                     // 认证成功
                     success = true;
@@ -202,7 +205,7 @@ public class CompanyGoodsAuthActivity extends BaseCordovaActivity implements Cor
                 finish();
                 MainActivity.actionView(CompanyGoodsAuthActivity.this, 3);
             } else {
-                Tools.showErrorToast(CompanyGoodsAuthActivity.this, "认证失败!");
+                Tools.showErrorToast(CompanyGoodsAuthActivity.this, msg);
             }
         }
     }

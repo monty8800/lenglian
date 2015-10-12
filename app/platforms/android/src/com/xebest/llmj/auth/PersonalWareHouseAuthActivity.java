@@ -106,7 +106,7 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
 
     String url;
     Map<String, Object> content;
-    Map<String, File> operate;
+    Map<String, File> operate = null;
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -155,10 +155,11 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
             content.put("version", version);
             content.put("data", ttData);
 
-            operate = new HashMap<String, File>();
-
-            operate.put("idcardImg", new File(files.getJSONObject(0).getString("path")));
-
+            String path = files.getJSONObject(0).getString("path");
+            if (path != null && !path.equals("")) {
+                operate = new HashMap<String, File>();
+                operate.put("idcardImg", new File(path));
+            }
 
             Log.i("info", "--------------content:" + content);
             Log.i("info", "--------------content:");
@@ -169,6 +170,7 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
     }
 
     boolean success = false;
+    String msg = "";
     public class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -183,6 +185,7 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
                 String result = UploadFile.post(url, content, operate, null, null );
                 JSONObject jsonObject = new JSONObject(result);
                 Log.i("info", "----------------result" + result);
+                msg = jsonObject.getString("msg");
                 if (jsonObject.getString("code").equals("0000")) {
                     // 认证成功
                     success = true;
@@ -209,7 +212,7 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
                 finish();
                 MainActivity.actionView(PersonalWareHouseAuthActivity.this, 3);
             } else {
-                Tools.showErrorToast(PersonalWareHouseAuthActivity.this, "认证失败!");
+                Tools.showErrorToast(PersonalWareHouseAuthActivity.this, msg);
             }
         }
     }
