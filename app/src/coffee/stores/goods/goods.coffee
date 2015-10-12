@@ -213,17 +213,17 @@ getGoodsDetail = (goodsId)->
 	,(data)->
 		Plugin.toast.err data.msg
 
-bindWarehouseOrder = (warehouseId,goodsId)->
-	user = UserStore.getUser()
-	params = {
-		#TODO:
-		userId:user.id
-		warehouseId:warehouseId
-		orderGoodsId:goodsId
-	}
-	console.log "____",warehouseId,'+++',goodsId
-	Http.post Constants.api.GOODS_BIND_WAREHOUSE_ORDER,params,(data)->
-		GoodsStore.emitChange 'goods_bind_warehouse_order_succ'
+# bindWarehouseOrder = (warehouseId,goodsId)->
+# 	user = UserStore.getUser()
+# 	params = {
+# 		#TODO:
+# 		userId:user.id
+# 		warehouseId:warehouseId
+# 		orderGoodsId:goodsId
+# 	}
+# 	console.log "____",warehouseId,'+++',goodsId
+# 	Http.post Constants.api.GOODS_BIND_WAREHOUSE_ORDER,params,(data)->
+# 		GoodsStore.emitChange 'goods_bind_warehouse_order_succ'
 
 
 
@@ -233,35 +233,8 @@ searchGoods = (params)->
 		_goodsList = Immutable.List() if params.startNo is 0
 		_goodsList = _goodsList.merge data.goods
 		GoodsStore.emitChange 'search:goods:done'
-		# for goods in data.goods
-		# 	newGoods = new Goods {
-		# 		id: goods.id #货源id
-		# 		name: goods.name #货物名称
-		# 		type: null #货物类型 1常温，2冷藏，3冷冻，4急冻， 5深冷
-		# 		weight: '' #货物重量
-		# 		cube: ''   #货物体积
-		# 		packType: ''  #包装类型
-		# 		photo: null  #货物图片
-		# 		installMinTime: null #最早装车时间
-		# 		installMaxTime: null  #最晚装车时间
-		# 		arriveMinTime: null  #最早到货时间
-		# 		arriveMaxTime: null #最迟到货时间
-		# 		refrigeration: 1 #需要冷库 1不需要，2需要，3目的地需要，4起始地需要
-		# 		priceType: 1 #价格类型 1一口价， 2竞价
-		# 		price: null
-		# 		payType: 1 #支付方式 1货到付款， 2回单付款， 3预付款
-		# 		prePay: null #预付款
-		# 		invoice: 1 #是否需要发票 1需要 2不需要
-
-		# 		sender: null #发货人
-		# 		senderMobile: null #发货人电话
-		# 		reciver: null #收货人
-		# 		reciverMobile: null #收货人电话
-
-		# 		remark: null #备注
 
 
-		# 	}
 changeWidget = (show, bid)->
 	GoodsStore.emitChange {
 		msg: 'change:widget:status'
@@ -336,10 +309,10 @@ getSearchGoodsDetail = (goodsId,focusid)->
 		_searchGoodsDetail = _searchGoodsDetail.set 'invoice',resource.isinvoice
 		_searchGoodsDetail = _searchGoodsDetail.set 'resourceStatus',resource.resourceStatus
 
-
 		GoodsStore.emitChange 'getSearchGoodsDetailSucc'
 	,(data)->
 		Plugin.toast.err data.msg
+
 handleFallow = (focusid,focustype,type)->
 	user = UserStore.getUser()
 	Http.post Constants.api.attention, {
@@ -362,7 +335,7 @@ Dispatcher.register (action) ->
 
 		when Constants.actionType.GET_GOODS_LIST then getUserGoodsList(action.pageNow,action.pageSize,action.status)
 		when Constants.actionType.GET_GOODS_DETAIL then getGoodsDetail(action.goodsId)
-		when Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER then bindWarehouseOrder(action.warehouseId,action.goodsId)
+		# when Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER then bindWarehouseOrder(action.warehouseId,action.goodsId)
 
 		when Constants.actionType.SEARCH_GOODS then searchGoods(action.params)
 		when Constants.actionType.CHANGE_WIDGET_STATUS then changeWidget(action.show, action.bid)

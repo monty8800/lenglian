@@ -9,7 +9,8 @@
 #import "OrderListViewController.h"
 #import "AppDelegate.h"
 #import "CarOrderDetailViewController.h"
-
+#import "WarehouseOrderDetailViewController.h"
+#import "GoodsOrderDetailViewController.h"
 @interface OrderListViewController ()
 @property (assign,nonatomic)NSInteger showOrderType;
 @property (assign,nonatomic)BOOL isLoaded;
@@ -63,7 +64,20 @@
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"carOwnerOrderDetail"]) {
             CarOrderDetailViewController *carOrderVC = [CarOrderDetailViewController new];
+            carOrderVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:carOrderVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"warehouseOrderDetail"])
+        {
+            WarehouseOrderDetailViewController *warehouseOrderDetailVC = [WarehouseOrderDetailViewController new];
+            warehouseOrderDetailVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:warehouseOrderDetailVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"goodsOrderDetail"])
+        {
+            GoodsOrderDetailViewController *goodsOrderDetailVC = [GoodsOrderDetailViewController new];
+            goodsOrderDetailVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:goodsOrderDetailVC animated:YES];
         }
         
     }

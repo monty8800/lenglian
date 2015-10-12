@@ -3,11 +3,31 @@ React = require 'react'
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
 DRIVER_LOGO = require 'user-01.jpg'
+DB = require 'util/storage'
 
 StoreCell = React.createClass {
+
+	componentDidMount: ->			
+		OrderStore.addChangeListener @_onChange
+
+	componentWillNotMount: ->
+		OrderStore.removeChangeListener @_onChange
+
+	_onChange: (mark)->
+		if mark is ''
+			newState = Object.create @state
+			newState.orderList = orderList
+			@setState newState
+
+	_toWarehouseDetail:(item)->
+		console.log item,'++++++____++++++'
+		DB.put 'transData',item
+		Plugin.nav.push ['warehouseOrderDetail']
+
+
 	render: ->
 		items = @props.items.map (item, i)->	
-			<div className="m-item01 m-item05" key={i}>
+			<div onClick={@_toWarehouseDetail.bind this, item} className="m-item01 m-item05" key={i}>
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
@@ -26,7 +46,6 @@ StoreCell = React.createClass {
 										<span>等待货主确认</span>
 									else if item?.orderType is 'GW'
 										<a href="###" onClick={@_receiver} className="u-btn02">接受</a>
-										<a href="###" onClick={@_receiver} className="u-btn02">取消</a>
 								else if item?.orderState is '2'
 									if item?.payType is '3'
 										<span>等待货主付款</span>
@@ -55,6 +74,7 @@ StoreCell = React.createClass {
 					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}</span></p>
 				</div>
 			</div>
+		, this
 		<div>{items}</div>
 }
 

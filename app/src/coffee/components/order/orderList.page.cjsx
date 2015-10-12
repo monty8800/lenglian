@@ -100,7 +100,8 @@ OrderDoc = React.createClass {
 							
 							</div>
 						when 'store'
-							<StoreItem items=@state.orderList />	
+							<StoreItem items=@state.orderList />
+								
 				}
 			</div>
 		</div>

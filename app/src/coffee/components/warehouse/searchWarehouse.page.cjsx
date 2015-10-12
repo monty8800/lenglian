@@ -69,7 +69,6 @@ SearchWarehouse = React.createClass {
 		initState = {
 			searchResult:[]
 			userGoodsSource:[]
-			showGoodsListMenu:0
 			startNo: 0
 			pageSize: 10
 			resultCount:-1
@@ -98,13 +97,6 @@ SearchWarehouse = React.createClass {
 			newState.searchResult = WarehouseStore.getWarehouseSearchResult()
 			newState.resultCount = newState.searchResult.length
 			@setState newState
-		else if mark is "getUserGoodsListSucc"
-			newState = Object.create @state
-			newState.showGoodsListMenu = 1
-			newState.userGoodsSource = GoodsStore.getMyGoodsList()
-			@setState newState
-		else if mark is 'goods_bind_warehouse_order_succ'
-			Plugin.toast.show 'bind success'
 
 		else if mark is 'do:search:warehouse'
 			@_doSearchWarehouse()
@@ -124,33 +116,12 @@ SearchWarehouse = React.createClass {
 		Auth.needLogin ->
 			user = UserStore.getUser()
 			if user.goodsStatus is 1
-				console.log '\\\\\\\\\\ ',
-				# if @state.userGoodsSource.length < 1
-				# 	Plugin.toast.show '没有货源适合这个仓库'
-				# 	return
-
 #TODO:弹出选择货物的弹窗前 先判断有没有货 
-
 				_selectedWarehouseId = aResult.id
-				console.log _selectedWarehouseId,'____库源ID_'
-				# # GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
-
 				Plugin.run [3, 'select:goods', _selectedWarehouseId]
 			else 
 				Plugin.toast.show '未认证货主 先认证'
 		e.stopPropagation()
-
-	_selectGoods :(index) ->
-		Plugin.toast.show 'select goods'
-		goodsId = @state.userGoodsSource[index].id
-		console.log goodsId,'____货源ID_'
-#TODO:
-		_selectedWarehouseId = '295dd8ab5f6442afae2542175efdba1e'
-		GoodsAction.bindWarehouseOrder _selectedWarehouseId,goodsId
-		_selectedWarehouseId = ''
-		newState = Object.create @state
-		newState.showGoodsListMenu = 0 
-		@setState newState
 
 	render: ->
 		searchResultList = @state.searchResult.map (aResult, i)->
@@ -193,33 +164,6 @@ SearchWarehouse = React.createClass {
 			</div>
 		, this
 
-		goodsLists = @state.userGoodsSource.map (aResult, i)->
-			<div className="u-content" onClick={@_selectGoods.bind this,i}>
-				<div className="u-content-item ll-font">
-					<div className="u-address">
-						<div className="g-adr-start ll-font g-adr-start-line">
-							{
-								if aResult.toProvinceName is aResult.toCityName
-									aResult.toCityName + aResult.toAreaName + aResult.toStreet
-								else
-									aResult.toProvinceName + aResult.toCityName + aResult.toAreaName + aResult.toStreet
-							}
-						</div>
-						<div className="g-adr-end ll-font g-adr-end-line">
-							{
-								if aResult.fromProvinceName is aResult.fromCityName
-									aResult.fromCityName + aResult.fromAreaName + aResult.fromStreet
-								else
-									aResult.fromProvinceName + aResult.fromCityName + aResult.fromAreaName + aResult.fromStreet
-							}
-						</div>
-					</div>
-					<p>价格类型:一口价 4000元</p>
-					<p>货物描述:小鲜肉 1吨 冷鲜肉</p>
-				</div>
-			</div>
-		,this
-
 		<div>
 			<div className="m-nav03">
 				<ul>
@@ -234,10 +178,7 @@ SearchWarehouse = React.createClass {
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
 			</div>
 			{ searchResultList }
-			<div className={ if @state.showGoodsListMenu is 1 then "u-pop-box u-show" else "u-pop-box" }>
-				{ goodsLists }
-			</div>
-			<div className={ if @state.showGoodsListMenu is 1 then "u-mask-grid show" else "u-mask-grid" }></div>
+			
 
 		</div>
 }

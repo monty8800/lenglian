@@ -36,12 +36,12 @@ GoodsAction = {
 			actionType:Constants.actionType.GET_GOODS_DETAIL
 			goodsId:goodsId
 		}
-	bindWarehouseOrder:(warehouseId,goodsId) ->
-		Dispatcher.dispatch {
-			actionType:Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER
-			warehouseId:warehouseId
-			goodsId:goodsId
-		}
+	# bindWarehouseOrder:(warehouseId,goodsId) ->
+	# 	Dispatcher.dispatch {
+	# 		actionType:Constants.actionType.GOODS_BIND_WAREHOUSE_ORDER
+	# 		warehouseId:warehouseId
+	# 		goodsId:goodsId
+	# 	}
 
 	searchGoods: (params)->
 		Dispatcher.dispatch {

@@ -20,7 +20,7 @@ DB = require 'util/storage'
 
 
 _transData = DB.get 'transData'
-_toShowOrder = _transData.order
+
 
 GoodsRoutes = React.createClass {
 	render : ->
@@ -71,9 +71,9 @@ GoodsDetail = React.createClass {
 
 	render : ->
 		<div>
-			<div style={{display: if _toShowOrder then 'block' else 'none'}} className="m-orderdetail clearfix">
-				<p className="fl">订单号：<span>{ _toShowOrder?.orderId }</span></p>
-				<p className="fr">等待货主付款</p>
+			<div style={{display: if _transData?.orderId then 'block' else 'none'}} className="m-orderdetail clearfix">
+				<p className="fl">订单号：<span>{ _transData?.orderId }</span></p>
+				<p className="fr">{ _transData?.orderStatus }</p>
 			</div>
 			<div className="m-item01">
 				<div className="g-detail-dirver">
