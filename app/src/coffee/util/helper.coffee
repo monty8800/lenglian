@@ -17,7 +17,7 @@ carCategory = (status) ->
 		when '5' then '后八轮'
 		when '6' then '五桥'
 		when '7' then '六桥'
-		when '8' then '半挂'
+		when '8' then '半挂'	
 		else '未知'	
 
 payType = (type) ->
@@ -124,7 +124,6 @@ whoYouAre = (who)->
 	else
 		''
 
-<<<<<<< HEAD
 carVehicle = (status) ->
 	if status?
 		switch parseInt(status)
