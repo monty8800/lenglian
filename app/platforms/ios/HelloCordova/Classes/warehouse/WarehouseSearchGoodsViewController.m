@@ -8,6 +8,7 @@
 
 #import "WarehouseSearchGoodsViewController.h"
 #import "SearchGoodsDetailViewController.h"
+#import "Net.h"
 
 @interface WarehouseSearchGoodsViewController ()
 
@@ -58,13 +59,31 @@
     }
     else if ([params[0] integerValue] == 3) {
         if ([params[1] isEqualToString:@"select:warehouse"]) {
-            [SelectGoodsWidget show:self goods:params[2]];
+            [SelectGoodsWidget show:self goods:params[2] type:Warehouses];
         }
     }
 }
--(void) selectGoods:(NSString *) goodsId car:(NSString *) carId{
-    
+
+
+-(void)selectGoods:(NSString *)goodsId warehouse:(NSString *)warehouseId
+{
+    NSDictionary *params = @{
+                             @"userId": [[Global getUser] objectForKey:@"id"],
+                             @"warehouseId": warehouseId,
+                             @"orderGoodsId": goodsId
+                             };
+    [Net post:ORDER_WAREHOUSE_SELECT_GOODS params:params cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"goods select car result %@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            [[Global sharedInstance] showSuccess:@"抢单成功！"];
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+    } loading:YES];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

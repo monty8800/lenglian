@@ -141,6 +141,8 @@ actionType = {
 	ORDER_GOODS_FINISH: null
 	ORDER_GOODS_DETAIL: null
 
+	FOLLOW: null
+
 }
 						
 								

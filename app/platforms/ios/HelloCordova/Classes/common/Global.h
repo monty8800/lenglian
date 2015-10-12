@@ -28,7 +28,7 @@
 
 #define SERVER @"http://192.168.26.177:7080/llmj-app/"
 //#define SERVER @"http://192.168.29.149:8072/"
-//#define SERVER @"http://192.168.29.204:8072/"
+//#define SERVER @"http://192.168.29.210:8072/"
 
 
 //附近
@@ -52,6 +52,8 @@
 #define MY_GOODS [SERVER stringByAppendingString: @"/mjGoodsResource/queryMjGoodsResourceList.shtml"]
 //我的车源列表
 #define MY_CARS [SERVER stringByAppendingString: @"/carFindGoods/listCarResources.shtml"]
+//我的仓库列表
+#define MY_WAREHOUSE [SERVER stringByAppendingString: @"mjWarehouseCtl/queryMjWarehouse.shtml"]
 
 
 //订单
@@ -62,6 +64,9 @@
 
 //车找货
 #define ORDER_CAR_SELECT_GOODS [SERVER stringByAppendingString: @"/carFindGoods/orderTrade.shtml"]
+
+//库找货
+#define ORDER_WAREHOUSE_SELECT_GOODS [SERVER stringByAppendingString: @"mjOrderWarhouse/addWarhouseFoundGoodsOrder.shtml"]
 
 //上传头像
 #define SET_AVATAR [SERVER stringByAppendingString: @"/loginCtl/changHeadPic.shtml"]

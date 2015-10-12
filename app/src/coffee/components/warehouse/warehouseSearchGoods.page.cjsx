@@ -62,6 +62,7 @@ SearchResultList = React.createClass {
 			Plugin.nav.push ['searchGoodsDetail']
 
 	_bindGoodsCreateOrder:(aResult)->
+		console.log 'select ', aResult
 		Auth.needLogin ->
 			user = UserStore.getUser()
 			if user.warehouseStatus is 1
@@ -95,7 +96,7 @@ SearchResultList = React.createClass {
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
 						<div className="g-dirver-btn">
-							<a onClick={ @_bindGoodsCreateOrder.bind aResult } className="u-btn03">抢单</a>
+							<a onClick={ @_bindGoodsCreateOrder.bind this, aResult } className="u-btn03">抢单</a>
 						</div>
 					</div>
 				</div>

@@ -43,6 +43,14 @@ AttentionList = (status)->
 	, (data) ->
 		console.log 'err'
 
+follow = (params)->
+	Http.post Constants.api.attention, params, (data)->
+		msg = if parseInt(params.type) is 1 then '关注成功！' else '已取消关注!'
+		Plugin.toast.success msg
+	AttStore.emitChange {
+		msg: 'follow:done'
+		followed: parseInt(params.type) is 1
+	}
 
 AttStore = assign BaseStore, {
 	getAttList: ->
@@ -53,5 +61,6 @@ AttStore = assign BaseStore, {
 Dispatcher.register (action) ->
 	switch action.actionType
 		when Constants.actionType.ATTENTION_LIST then AttentionList(action.status)
+		when Constants.actionType.FOLLOW then follow(action.params)
 
 module.exports = AttStore

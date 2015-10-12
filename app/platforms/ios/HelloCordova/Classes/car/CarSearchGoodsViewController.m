@@ -54,7 +54,7 @@
         }
         else if ([params[1] isEqualToString:@"select:car"])
         {
-            [SelectGoodsWidget show:self goods:params[2]];
+            [SelectGoodsWidget show:self goods:params[2] type:Cars];
             _bid = [params[3] boolValue];
         }
     }
