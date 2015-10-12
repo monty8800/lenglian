@@ -23,19 +23,19 @@ transData = DB.get 'transData'
 FollowAction = require 'actions/attention/attention'
 FollowStore = require 'stores/attention/attention'
 
+Plugin = require 'util/plugin'
+
 #TODO:  少是否关注字段
 
 GoodsOrderDetail = React.createClass {
-	# _statusText: ->
-	# 	switch parseInt(@state.detail)
-	# 		when 
+
 	_confirm: ->
-		console.log 'click recive!'
-		switch parseInt(@state.detail?.orderState)
+		console.log 'click _confirm!'
+		switch parseInt(@state.detail?.get 'orderState')
 			when 1
 				@_agree()
 			when 2
-				if parseInt(@state.detail?.payType) is 3
+				if parseInt(@state.detail?.get 'payType') is 3
 					@_goPay()
 				else
 					@_orderDone()
@@ -45,30 +45,45 @@ GoodsOrderDetail = React.createClass {
 			when 4
 				@_goComment()
 
+	_cancel: ->
+		console.log 'cancel order', @state.detail
+
 	_agree: ->
 		OrderAction.goodsAgree {
 			userId: UserStore.getUser()?.id
-			orderNo: @state.detail?.orderNo
-		}, @state.detail?.orderNo
+			orderNo: @state.detail?.get 'orderNo'
+		}, @state.detail?.get 'orderNo'
 
 
 	_goPay: ->
 		DB.put 'transData', {
-			orderNo: @state.detail?.orderNo
+			orderNo: @state.detail?.get 'orderNo'
 		}
 		Plugin.nav.push ['orderPay']
 
 	_orderDone: ->
+		detail = @state.detail
 		Plugin.alert '确认完成订单?', '提醒', (index)->
 			console.log 'click index', index
 			if index is 1
 				OrderAction.goodsOrderDone {
 					userId: UserStore.getUser()?.id
-					orderNo: @state.detail?.orderNo
-				}, @state.detail?.orderNo
+					orderNo: detail.get 'orderNo'
+				}, detail.get 'orderNo'
 		, ['完成订单', '取消']
 
 	_goComment: ->
+		rateFlag = @state.detail?.get 'rateFlag'
+		console.log 'go comment', rateFlag
+		if not rateFlag
+			return
+		DB.put 'transData', {
+			userRole: '1'
+			targetId: @state.targetId
+			targetRole: if @state.isGC then 2 else 3
+			orderNo: @state.detail.get 'orderNo'
+		}
+
 		Plugin.nav.push ['doComment']
 
 	_call: (mobile)->
@@ -95,7 +110,7 @@ GoodsOrderDetail = React.createClass {
 	resultCallBack: (params)->
 		console.log 'event change', params
 		if params.msg is 'goods:order:detail:done'
-			isGC = params.detail.get('orderType') is 'GC'
+			isGC = params.detail.get('orderType') in ['GC', 'CG']
 			@setState {
 				detail: params.detail
 				isGC: isGC
@@ -118,10 +133,36 @@ GoodsOrderDetail = React.createClass {
 		}
 
 	render : ->
+		_statusText = null
+		_btnText = null
+		switch parseInt(@state.detail?.get 'orderState')
+			when 1
+				_statusText =  '洽谈中'
+				_btnText = '接受'
+			when 2
+				_statusText = '等待货主付款'
+				if parseInt(@state.detail?.get 'payType') is 3
+					_btnText = '确认付款'
+				else
+					_btnText = "订单完成"
+			when 3
+				_statusText = '已付款'
+				_btnText = '订单完成'
+			when 4
+				_statusText = '已付款'
+				if @state.detail?.get('orderType') in ['GC', 'CG'] 
+					_btnText = '评价司机'
+				else
+					_btnText = '评价仓库'
+			when 5
+				_statusText = '已取消'
+				_btnText = '重新发布'
+
+		console.log 'state', @state
 		<section>
 		<div className="m-orderdetail clearfix">
 			<p className="fl">订单号：<span>{@state.detail?.get 'orderNo'}</span></p>
-			<p className="fr">等待货主付款</p>
+			<p className="fr">{_statusText}</p>
 		</div>
 
 		<div className="m-item01">
@@ -208,14 +249,20 @@ GoodsOrderDetail = React.createClass {
 			</p>
 			<p>
 				<span>发布时间:</span>
-				<span>{@state.detail?.get('createTime')}</span>
+				<span>{Moment(@state.detail?.get('createTime')).format('YYYY-MM-DD')}</span>
 			</p>			
 		</div>
-		<div className="m-detail-bottom">
-			<div className="g-pay-btn">
-				<a onClick={@_confirm} className="u-btn02">确认付款</a>
-			</div>
-		</div>
+		{
+			if parseInt(@state.detail?.orderState) isnt 1 or parseInt(@state.detail?.acceptMode) is 1
+				<div className="m-detail-bottom">
+					<div className="g-cancle-btn">
+						<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
+					</div>
+					<div className="g-pay-btn">
+						<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
+					</div>
+				</div>
+		}
 		</section>
 }
 

@@ -22,6 +22,9 @@ _bidList = Immutable.List()
 # 0 货主订单  1 司机订单  2 仓库订单   
 _page = -1
 
+paths = window.location.href.split('/')
+_htmlPage = paths[paths.length-1]
+
 window.comeFromFlag = (page)->			
 	# 禁止多次相同请求
 	if _page is page 
@@ -71,6 +74,8 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'userName', order.userName
 				tempOrder = tempOrder.set 'acceptMode', order.acceptMode
 				tempOrder = tempOrder.set 'price', order.price
+				tempOrder = tempOrder.set 'userId', order.userId
+				tempOrder = tempOrder.set 'rateFlag', order.rateFlag
 				tempOrder = tempOrder.set 'goodsSourceId', order.goodsSourceId
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
@@ -203,7 +208,10 @@ goodsAgree = (params, orderId)->
 		_orderList = _orderList.filterNot (order)->
 			order.get('orderNo') is orderId
 		console.log '_orderList after', _orderList
-		OrderStore.emitChange ['goods']
+		if _htmlPage is 'orderList.html'
+			OrderStore.emitChange ['goods']
+		else
+			Plugin.nav.pop()
 
 orderGoodsFinish = (params, orderId)->
 	Http.post Constants.api.order_finish, params, (data)->
@@ -211,7 +219,10 @@ orderGoodsFinish = (params, orderId)->
 		console.log 'order finish', data
 		_orderList = _orderList.filterNot (order)->
 			order.get('orderNo') is orderId
-		OrderStore.emitChange ['goods']
+		if _htmlPage is 'orderList.html'
+			OrderStore.emitChange ['goods']
+		else
+			Plugin.nav.pop()
 
 # 车主确认订单
 _carOwnerConfirmOrder = (carPersonUserId, orderNo, version, index)->
@@ -335,6 +346,14 @@ orderGoodsDetail = (params)->
 			msg: 'goods:order:detail:done'
 			detail: Immutable.Map data
 		}
+
+updateStore = ->
+	switch _page
+		when 0 then OrderStore.emitChange ['goods']
+		when 1 then OrderStore.emitChange ['car']
+		when 2 then OrderStore.emitChange ['store']
+
+window.updateStore = updateStore
 
 OrderStore = assign BaseStore, {
 	getOrderList: ->
