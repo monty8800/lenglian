@@ -35,6 +35,7 @@ Car = Immutable.Record {
 	type: null
 	goodsSourceId: null
 
+
 }
 
 module.exports = Car

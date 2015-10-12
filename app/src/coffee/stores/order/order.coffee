@@ -12,7 +12,6 @@ UserStore = require 'stores/user/user'
 OrderAction = require 'actions/order/order'
 Goods = require 'model/goods'
 
-
 _orderList = Immutable.List()
 _orderDetail = new OrderModel
 
@@ -282,7 +281,10 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 		_orderDetail = _orderDetail.set 'goodsPersonName', temp.goodsPersonName
 		_orderDetail = _orderDetail.set 'certification', data.certification
 		_orderDetail = _orderDetail.set 'goodScore', data.goodScore
-		_orderDetail = _orderDetail.set 'wishlst', data.wishlst			
+		_orderDetail = _orderDetail.set 'wishlst', data.wishlst
+		_orderDetail = _orderDetail.set 'shipperMobile', temp.shipperMobile
+		_orderDetail = _orderDetail.set 'receiverMobile', temp.receiverMobile	
+		_orderDetail = _orderDetail.set 'goodsPersonMobile', temp.goodsPersonMobile
 		_orderDetail = _orderDetail.set 'createTime', temp.createTime
 		OrderStore.emitChange ['car_owner_order_detail']
 	, (data)->

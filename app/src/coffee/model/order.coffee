@@ -139,6 +139,9 @@ Order = Immutable.Record {
 	goodScore: 0
 	wishlst: null
 	createTime: null
+	goodsPersonMobile: null
+	receiverMobile: null
+	shipperMobile: null
 
 }
 

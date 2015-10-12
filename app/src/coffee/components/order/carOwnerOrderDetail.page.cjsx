@@ -32,7 +32,6 @@ OrderDetail = React.createClass {
 		OrderAction.carOwnerOrderDetail(@state.carPersonUserId, @state.orderNo, @state.goodsPersonUserId)			
 		OrderStore.addChangeListener @resultCallBack
 
-# goodSsourceId
 	componentWillNotMount: ->
 		OrderStore.removeChangeListener @resultCallBack
 
@@ -92,6 +91,9 @@ OrderDetail = React.createClass {
 		}
 		Plugin.nav.push ['doComment']
 
+	_tel: (tel)->
+		window.location.href = tel
+
 	render: ->
 		if @state.order?.orderState is '1'
 			if @state.order?.orderType is 'CG'
@@ -126,7 +128,7 @@ OrderDetail = React.createClass {
 						</div>
 						<ul className="g-driver-contact">
 							<li className={ if @state.wishlst then "ll-font" else 'll-font active'} onClick={@attention.bind this, @state.wishlst, @state.order?.goodsPersonUserId}>关注</li>
-							<li className="ll-font">拨号</li>
+							<li className="ll-font" onClick={@_tel.bind this, @state.order.goodsPersonMobile}>拨号</li>
 						</ul>
 					</div>
 				</div>
@@ -172,11 +174,11 @@ OrderDetail = React.createClass {
 			<div className={if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' || @state.order?.orderState is '4' then 'm-detail-info' else 'm-detail-info m-nomargin'} >
 				<p>
 					<span>发货人:</span>
-					<span className="ll-font g-info-name">{@state.order?.shipper}</span>
+					<span onClick={@_tel.bind this, @state.order.shipperMobile} className="ll-font g-info-name">{@state.order?.shipper}</span>
 				</p>
 				<p>
 					<span>收货人:</span>
-					<span className="ll-font g-info-name">{@state.order?.receiver}</span>
+					<span onClick={@_tel.bind this, @state.order.receiverMobile} className="ll-font g-info-name">{@state.order?.receiver}</span>
 				</p>
 				<p>
 					<span>价格类型:</span>
