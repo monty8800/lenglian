@@ -196,7 +196,8 @@ carDetail = (carId)->
 _carOwnerDetail = (carId, targetUserId)->
 	Http.post Constants.api.car_detail, {
 			carId: carId
-			userId: targetUserId # 找车列表车主的Id
+			userId: _user?.id
+			focusid: targetUserId # 找车列表车主的Id
 		}, (data) ->
 			td = data.carInfoLoad;
 			_carDetail = _carDetail.set 'id', td.id

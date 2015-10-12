@@ -31,14 +31,14 @@ Detail = React.createClass {
 		if @state.wishlst is true
 			CarAction.attentionDetail({
 				focusid: dUserId
-				focustype: 1
+				focustype: 2
 				userId: _user?.id
 				type: 2
 			})
 		else if @state.wishlst is false
 			CarAction.attentionDetail({
 				focusid: dUserId
-				focustype: 1
+				focustype: 2
 				userId: _user?.id
 				type: 1
 			})

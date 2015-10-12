@@ -88,6 +88,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public int mOrderStatus = -1;
 
+    public int currentIndex = -1;
+
+    public int flag = -1;
+
     public static void actionView(Context context, int index) {
         mCurrentItem = index;
         context.startActivity(new Intent(context, MainActivity.class));
@@ -160,28 +164,40 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_home:
+                flag = 0;
                 setViewState(0);
                 break;
             case R.id.rl_map:
+                flag = 1;
                 setViewState(1);
                 break;
             case R.id.rl_order:
-                if (mOrderStatus == -1) {
+                if (currentIndex == -1) {
                     showPopMenu(orderView);
                 } else {
-                    orderStatus(mOrderStatus);
+                    if (flag != 2) {
+                        mOrderStatus = currentIndex;
+                        orderStatus(mOrderStatus);
+                    } else {
+                        showPopMenu(orderView);
+                    }
                 }
+                flag = 2;
                 break;
             case R.id.rl_center:
+                flag = 3;
                 setViewState(3);
                 break;
             case R.id.tv_goods: // 货主订单
+                currentIndex = 0;
                 orderStatus(0);
                 break;
             case R.id.tv_driver: // 司机订单
+                currentIndex = 1;
                 orderStatus(1);
                 break;
             case R.id.tv_store: // 仓库订单
+                currentIndex = 2;
                 orderStatus(2);
                 break;
         }
