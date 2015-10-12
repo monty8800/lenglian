@@ -9,6 +9,8 @@ WarehouseAction = require 'actions/warehouse/warehouseAction'
 UserStore = require 'stores/user/user'
 Helper = require 'util/helper'
 PureRenderMixin = React.addons.PureRenderMixin
+LinkedStateMixin = React.addons.LinkedStateMixin
+
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
 
@@ -29,17 +31,21 @@ conf = (aProperty) ->
 		when '3' then warehouseArea.push aProperty.attributeName + '   ' + aProperty.value
 		when '4' then warehousePrice.push  aProperty.value + aProperty.attributeName
 
-window.startEditWarehouse = ->
-
 
 WarehouseDetail = React.createClass {
-	deleteWarehouse: ->
+	mixins: [PureRenderMixin, LinkedStateMixin]
+
+	_deleteWarehouse: ->
 		alert @state.warehouseDetail.id
 		WarehouseAction.deleteWarehouse @state.warehouseDetail.id
 
 	getInitialState: ->
 		{
 			warehouseDetail:{}
+			isEditing:false
+			remark:''
+			phone:''
+			contacts:''
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
@@ -49,13 +55,41 @@ WarehouseDetail = React.createClass {
 		WarehouseStore.removeChangeListener @_onChange
 
 	_onChange: (mark) ->
-		if mark is 'getDetailWithId'
-			console.log '~~~~  ~~~  result data + ' + WarehouseStore.getDetail()
+		if mark is 'getWarehouseDetailWithId'
 			detailResult = WarehouseStore.getDetail()
 			conf aProperty for aProperty in detailResult.warehouseProperty
-			@setState { 
-				warehouseDetail:detailResult
-			}
+			newState = Object.create @state
+			newState.warehouseDetail = detailResult
+			newState.remark = detailResult.remark
+			newState.phone = detailResult.contactTel
+			newState.contacts = detailResult.contact
+			@setState newState
+			if parseInt(detailResult.status) is 1
+				# 状态是1 仓库才能编辑和删除 原生界面 右上角 原本隐藏的编辑按钮 改为显示
+				Plugin.run [1,'warehouseDetail_showEditButton']
+
+		else if mark is 'editWarehouseButtonClick'
+			newState = Object.create @state
+			newState.isEditing = true
+			@setState newState
+		else if mark is 'trySaveEditWarehouse'
+			# TODO:保存之前先做各种判断 是否符合保存条件
+			WarehouseAction.doSaveEditWarehouse @state.remark,@state.phone,@state.contacts,_transData.warehouseId
+
+		else if mark is 'saveEditWarehouseSucc'
+			# 编辑完成  编辑的信息 保留输入框中数据不再允许编辑即可
+			newState = Object.create @state
+			currentWarehouseDetail = newState.warehouseDetail
+			currentWarehouseDetail = currentWarehouseDetail.set 'remark',@state.remark
+			currentWarehouseDetail = currentWarehouseDetail.set 'contact',@state.contacts
+			currentWarehouseDetail = currentWarehouseDetail.set 'contactTel',@state.phone
+			newState.warehouseDetail = currentWarehouseDetail
+			newState.isEditing = false
+			Plugin.run [1,'warehouseDetail_saveEditSucc']
+
+			@setState newState
+
+
 	render :->
 		warehouseAreaList = warehouseArea.map (aArea,i) ->
 			<p>
@@ -117,21 +151,36 @@ WarehouseDetail = React.createClass {
 			<div className="m-detail-info">			
 				<p>
 					<span>联系人:</span>
-					<span>{ @state.warehouseDetail.contact }</span>
+					{
+						if @state.isEditing
+							<input valueLink={@linkState 'contacts'} type="text" placeholder="请输入联系人" id="packType"/>	
+						else
+							<span>{ @state.warehouseDetail.contact }</span>
+					}
 				</p>
 				<p>
 					<span>联系手机:</span>
-					<span>{ @state.warehouseDetail.contactTel }</span>
+					{
+						if @state.isEditing
+							<input valueLink={@linkState 'phone'} type="text" placeholder="请输入联系人电话" id="packType"/>	
+						else
+							<span>{ @state.warehouseDetail.contactTel }</span>
+					}
 				</p>
 				<p>
 					<span>备注说明:</span>
-					<span>{ @state.warehouseDetail.remark }</span>
+					{
+						if @state.isEditing
+							<input valueLink={@linkState 'remark'} type="text" placeholder="请输入备注信息" id="packType"/>	
+						else
+							<span>{ @state.warehouseDetail.remark }</span>
+					}
 				</p>		
 			</div>
 
 			<div className="m-detail-bottom">
 				<div className="g-pay-btn">
-					<a onClick={ @deleteWarehouse } className="u-btn02">删除仓库</a>
+					<a onClick={ @_deleteWarehouse } className="u-btn02">删除仓库</a>
 				</div>
 			</div>
 		</div>
@@ -172,7 +221,7 @@ React.render <WarehouseDetail />, document.getElementById('content')
 # 		WarehouseStore.removeChangeListener @_onChange
 
 # 	_onChange: (mark)->
-# 		if mark is 'getDetailWithId'
+# 		if mark is 'getWarehouseDetailWithId'
 # 			detailResult = WarehouseStore.getDetail()
 # 			conf aProperty for aProperty in detailResult.warehouseProperty
 # 			@setState { 

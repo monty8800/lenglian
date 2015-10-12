@@ -37,7 +37,6 @@
 -(void)setInfoList:(NSArray *)infoList {
     _infoList = infoList;
     _infoView.dataList = infoList;
-    
 }
 
 - (void)awakeFromNib {

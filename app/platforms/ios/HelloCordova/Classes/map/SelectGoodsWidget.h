@@ -9,10 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "SelectGoodsTableViewCell.h"
 
+typedef enum : NSUInteger {
+    Cars,
+    Warehouses,
+} GoodsWidgetType;
+
 @protocol SelectGoodsDelegate <NSObject>
 
-@required
+@optional
 -(void) selectGoods:(NSString *) goodsId car:(NSString *) carId;
+-(void) selectGoods:(NSString *) goodsId warehouse:(NSString *) warehouseId;
 
 @end
 
@@ -21,14 +27,16 @@
     UITableView *_tabView;
 
     UIButton *_closeBtn;
+
 }
 
 @property (strong, nonatomic) NSArray *dataList;
 @property (weak, nonatomic) id<SelectGoodsDelegate> delegate;
 @property (strong, nonatomic) NSString *goodsId;
+@property (assign, nonatomic) GoodsWidgetType type;
 
 
-+(void) show:(id<SelectGoodsDelegate>) delegate goods:(NSString *) goodsId;
++(void) show:(id<SelectGoodsDelegate>) delegate goods:(NSString *) goodsId type:(GoodsWidgetType) type;
 
 
 

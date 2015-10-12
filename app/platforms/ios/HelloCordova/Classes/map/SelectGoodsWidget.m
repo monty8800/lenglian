@@ -56,13 +56,14 @@
     [_tabView reloadData];
 }
 
-+(void)show:(id<SelectGoodsDelegate>)delegate goods:(NSString *)goodsId
++(void)show:(id<SelectGoodsDelegate>)delegate goods:(NSString *)goodsId type:(GoodsWidgetType)type
 {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     SelectGoodsWidget *widget = [[SelectGoodsWidget alloc] initWithFrame:window.bounds];
     [window addSubview:widget];
     widget.delegate = delegate;
     widget.goodsId= goodsId;
+    widget.type = type;
     [widget showAnim];
 }
 
@@ -82,108 +83,157 @@
     NSDictionary *user = [Global getUser];
     NSString *userId = [user objectForKey:@"id"];
     if (userId != nil) {
-        [Net post:MY_CARS params:@{@"userId": userId, @"goodsResourceId": self.goodsId} cb:^(NSDictionary *responseDic) {
-            DDLogDebug(@"MY goods %@", responseDic);
-            if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
-                NSMutableArray *goodsList = [NSMutableArray new];
-                for (NSDictionary *dic in [responseDic objectForKey:@"data"]) {
-                    
-                    NSString *carNo = [NSString stringWithFormat:@"车牌号码： %@", [dic objectForKey:@"carno"]];
-                    NSAttributedString *carNoStr = [[NSAttributedString alloc] initWithString:carNo attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:15]}];
-                    
-                    NSString *category;
-                    switch ([[dic objectForKey:@"category"] integerValue]) {
-                        case 1:
-                            category = @"车辆类别： 单车";
-                            break;
-                            
-                        case 2:
-                            category = @"车辆类别： 前四后四";
-                            break;
-                            
-                        case 3:
-                            category = @"车辆类别： 前四后六";
-                            break;
-                            
-                        case 4:
-                            category = @"车辆类别： 前四后八";
-                            break;
-                            
-                        case 5:
-                            category = @"车辆类别： 后八轮";
-                            break;
-                            
-                        case 6:
-                            category = @"车辆类别： 五桥";
-                            break;
-                            
-                        case 7:
-                            category = @"车辆类别： 六桥";
-                            break;
-                            
-                        case 8:
-                            category = @"车辆类别： 半挂";
-                            break;
-                            
-                        default:
-                            category = @"车辆类别： 未知";
-                            break;
-                    }
-                    
-                    
-                    NSString *type;
-                    switch ([[dic objectForKey:@"type"] integerValue]) {
-                        case 1:
-                            type = @"车辆类型： 普通卡车";
-                            break;
-                            
-                        case 2:
-                            type = @"车辆类型： 冷藏车";
-                            break;
-                            
-                        case 3:
-                            type = @"车辆类型： 平板";
-                            break;
-                            
-                        case 4:
-                            type = @"车辆类型： 箱式";
-                            break;
-                            
-                        case 5:
-                            type = @"车辆类型： 集装箱";
-                            break;
-                            
-                        case 6:
-                            type = @"车辆类型： 高栏";
-                            break;
-                            
-                        default:
-                            type = @"车辆类型： 未知";
-                            break;
-                    }
-                    
-                    NSString *carLength = [NSString stringWithFormat:@"车辆长度： %@米", [dic objectForKey:@"vehicle"]];
-                    
-                    [goodsList addObject:@{
-                                           @"infoList":@[carNoStr, category, type, carLength],
-                                           @"data": @{
-                                                   @"id": [dic objectForKey:@"id"],
-                                                   }
-                                           }];
-                }
+        switch (self.type) {
+            case Cars:
+                [self getCars:userId];
+                break;
                 
-                self.dataList = goodsList;
+            case Warehouses:
+                [self getWarehouses:userId];
+                break;
                 
-            }
-            else
-            {
-                [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
-            }
-            
-        } loading:NO];
+            default:
+                break;
+        }
+        
     }
     
-    
+}
+
+//TODO:  这里有分页
+-(void) getWarehouses:(NSString *) userId {
+    [Net post:MY_WAREHOUSE params:@{@"userId": userId, @"status": @"2", @"pageNow": @"1", @"pageSize": @"10"} cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"MY warehouse %@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            NSMutableArray *warehouseList = [NSMutableArray new];
+            for (NSDictionary *dic in [[responseDic objectForKey:@"data"] objectForKey:@"myWarehouse"]) {
+                
+                NSAttributedString *warehouseName = [[NSAttributedString alloc] initWithString:[dic objectForKey:@"name"] attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
+                
+                NSString *address = [NSString stringWithFormat:@"%@%@%@%@", [dic objectForKey:@"provinceName"], [dic objectForKey:@"cityName"], [dic objectForKey:@"areaName"], [dic objectForKey:@"street"]];
+                //TODO:  把仓库id换成库员id
+                [warehouseList addObject:@{
+                                       @"infoList":@[warehouseName, address],
+                                       @"data": @{
+                                               @"id": [dic objectForKey:@"mjWarehouseResourceId"],
+                                               }
+                                       }];
+            }
+            
+            self.dataList = warehouseList;
+            
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+        
+    } loading:NO];
+
+}
+
+
+-(void) getCars: (NSString *) userId {
+    [Net post:MY_CARS params:@{@"userId": userId, @"goodsResourceId": self.goodsId} cb:^(NSDictionary *responseDic) {
+        DDLogDebug(@"MY goods %@", responseDic);
+        if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+            NSMutableArray *goodsList = [NSMutableArray new];
+            for (NSDictionary *dic in [responseDic objectForKey:@"data"]) {
+                
+                NSString *carNo = [NSString stringWithFormat:@"车牌号码： %@", [dic objectForKey:@"carno"]];
+                NSAttributedString *carNoStr = [[NSAttributedString alloc] initWithString:carNo attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:15]}];
+                
+                NSString *category;
+                switch ([[dic objectForKey:@"category"] integerValue]) {
+                    case 1:
+                        category = @"车辆类别： 单车";
+                        break;
+                        
+                    case 2:
+                        category = @"车辆类别： 前四后四";
+                        break;
+                        
+                    case 3:
+                        category = @"车辆类别： 前四后六";
+                        break;
+                        
+                    case 4:
+                        category = @"车辆类别： 前四后八";
+                        break;
+                        
+                    case 5:
+                        category = @"车辆类别： 后八轮";
+                        break;
+                        
+                    case 6:
+                        category = @"车辆类别： 五桥";
+                        break;
+                        
+                    case 7:
+                        category = @"车辆类别： 六桥";
+                        break;
+                        
+                    case 8:
+                        category = @"车辆类别： 半挂";
+                        break;
+                        
+                    default:
+                        category = @"车辆类别： 未知";
+                        break;
+                }
+                
+                
+                NSString *type;
+                switch ([[dic objectForKey:@"type"] integerValue]) {
+                    case 1:
+                        type = @"车辆类型： 普通卡车";
+                        break;
+                        
+                    case 2:
+                        type = @"车辆类型： 冷藏车";
+                        break;
+                        
+                    case 3:
+                        type = @"车辆类型： 平板";
+                        break;
+                        
+                    case 4:
+                        type = @"车辆类型： 箱式";
+                        break;
+                        
+                    case 5:
+                        type = @"车辆类型： 集装箱";
+                        break;
+                        
+                    case 6:
+                        type = @"车辆类型： 高栏";
+                        break;
+                        
+                    default:
+                        type = @"车辆类型： 未知";
+                        break;
+                }
+                
+                NSString *carLength = [NSString stringWithFormat:@"车辆长度： %@米", [dic objectForKey:@"vehicle"]];
+                
+                [goodsList addObject:@{
+                                       @"infoList":@[carNoStr, category, type, carLength],
+                                       @"data": @{
+                                               @"id": [dic objectForKey:@"id"],
+                                               }
+                                       }];
+            }
+            
+            self.dataList = goodsList;
+            
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+        }
+        
+    } loading:NO];
+
 }
 
 -(void) hide {
@@ -197,7 +247,20 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 90;
+    CGFloat height;
+    switch (self.type) {
+        case Cars:
+            height = 90;
+            break;
+            
+        case Warehouses:
+            height = 45;
+            break;
+            
+        default:
+            break;
+    }
+    return height;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -209,7 +272,19 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dic = [_dataList[indexPath.row] objectForKey:@"data"];
     DDLogDebug(@"select %@", dic);
-    [self.delegate selectGoods:self.goodsId car:[dic objectForKey:@"id"]];
+    switch (self.type) {
+        case Cars:
+            [self.delegate selectGoods:self.goodsId car:[dic objectForKey:@"id"]];
+            break;
+            
+        case Warehouses:
+            [self.delegate selectGoods:self.goodsId warehouse:[dic objectForKey:@"id"]];
+            break;
+            
+        default:
+            break;
+    }
+    
     [self hide];
 }
 

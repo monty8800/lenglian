@@ -10,6 +10,13 @@ AttentionAction = {
 			actionType: Constants.actionType.ATTENTION_LIST
 			status: statu
 		}
+
+	#关注
+	follow: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.FOLLOW
+			params: params
+		}
 }
 
 module.exports = AttentionAction

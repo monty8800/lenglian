@@ -98,7 +98,7 @@
         return;
     }
     ((NearByViewController *)[Global sharedInstance].mapVC).bid = [[self.data objectForKey:@"priceType"] integerValue] == 2;
-    [SelectGoodsWidget show:(id<SelectGoodsDelegate>)([Global sharedInstance].mapVC) goods:[self.data objectForKey:@"id"]];
+    [SelectGoodsWidget show:(id<SelectGoodsDelegate>)([Global sharedInstance].mapVC) goods:[self.data objectForKey:@"id"] type:Cars];
 }
 
 @end

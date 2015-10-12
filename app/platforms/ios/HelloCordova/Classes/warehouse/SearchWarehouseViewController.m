@@ -32,12 +32,12 @@
 
 -(void) createUI {
     self.title = @"找仓库";
-    UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
-    [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
-    [addWarehouseButton setTitle:@"搜索" forState:UIControlStateNormal];
-    [addWarehouseButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
+    UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchButton setFrame:CGRectMake(0, 0, 40, 44)];
+    [searchButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
+    [searchButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:searchButton];
 }
 -(void)sureToSearch{
     NSString *js = [NSString stringWithFormat:@"(function(){window.doSearchWarehouse()})()"];
