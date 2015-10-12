@@ -2,6 +2,7 @@ Immutable = require 'immutable'
 
 Order = Immutable.Record {
 
+	rateFlag: false #是否可以评价
 	# 车主订单
 	carPersonName: null # 车主姓名
 	carPersonUserId: null # 车主用户ID
@@ -139,6 +140,9 @@ Order = Immutable.Record {
 	goodScore: 0
 	wishlst: null
 	createTime: null
+	goodsPersonMobile: null
+	receiverMobile: null
+	shipperMobile: null
 
 }
 

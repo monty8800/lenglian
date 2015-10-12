@@ -23,7 +23,7 @@ GoodsCell = React.createClass {
 
 	_showBid: ->
 		console.log 'show bid'
-		if not @state.selectBid and @props.order?.priceType isnt '1'
+		if not @state.selectBid and @props.order?.priceType isnt '1' and parseInt(@props.order?.orderState) is 1
 			@setState {
 				showBidList: not @state.showBidList
 			}
@@ -38,10 +38,11 @@ GoodsCell = React.createClass {
 		console.log 'order----', @props.order, @state
 
 		cls = 'g-item g-pad ll-font'
-		if not @state.showBidList and not @state.selectBid and @props.order?.priceType isnt '1'
-			cls += ' u-arrow-right'
-		else if @state.showBidList and @props.order?.priceType isnt '1'
-			cls += ' u-arrow-right g-pad-active'
+		if parseInt(@state.order?.orderState) is 1
+			if not @state.showBidList and not @state.selectBid and @props.order?.priceType isnt '1'
+				cls += ' u-arrow-right'
+			else if @state.showBidList and @props.order?.priceType isnt '1'
+				cls += ' u-arrow-right g-pad-active'
 
 		<div className="m-item01">
 			{

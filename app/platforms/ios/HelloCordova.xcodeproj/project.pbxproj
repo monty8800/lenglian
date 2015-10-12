@@ -67,6 +67,7 @@
 		4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8392CB1BB286D60000466D /* ImagePicker.m */; settings = {ASSET_TAGS = (); }; };
 		4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523351BB6A229008205E3 /* SelectAddressViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523391BB6B16D008205E3 /* AddGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4C946F3A1BCBFD4B0042444D /* DoCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C946F391BCBFD4B0042444D /* DoCommentViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020E1BB3FE8B002A0A5C /* BaseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB02121BB40002002A0A5C /* PersonalWarehouseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02111BB40002002A0A5C /* PersonalWarehouseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -254,6 +255,8 @@
 		4C8523351BB6A229008205E3 /* SelectAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectAddressViewController.m; path = address/SelectAddressViewController.m; sourceTree = "<group>"; };
 		4C8523381BB6B16D008205E3 /* AddGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddGoodsViewController.h; path = goods/AddGoodsViewController.h; sourceTree = "<group>"; };
 		4C8523391BB6B16D008205E3 /* AddGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddGoodsViewController.m; path = goods/AddGoodsViewController.m; sourceTree = "<group>"; };
+		4C946F381BCBFD4B0042444D /* DoCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoCommentViewController.h; sourceTree = "<group>"; };
+		4C946F391BCBFD4B0042444D /* DoCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoCommentViewController.m; sourceTree = "<group>"; };
 		4C9A184B1BB680710072F940 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationViewController.h; path = map/LocationViewController.h; sourceTree = "<group>"; };
 		4C9A184C1BB680710072F940 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationViewController.m; path = map/LocationViewController.m; sourceTree = "<group>"; };
 		4CAB020A1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalGoodsAuthViewController.h; path = auth/PersonalGoodsAuthViewController.h; sourceTree = "<group>"; };
@@ -886,6 +889,8 @@
 			children = (
 				5BEB926A1BB651A0003970B3 /* CommentViewController.h */,
 				5BEB926B1BB651A0003970B3 /* CommentViewController.m */,
+				4C946F381BCBFD4B0042444D /* DoCommentViewController.h */,
+				4C946F391BCBFD4B0042444D /* DoCommentViewController.m */,
 			);
 			path = comment;
 			sourceTree = "<group>";
@@ -1126,6 +1131,7 @@
 				4CE2FFED1BC0C81100935C9F /* SelectGoodsWidget.m in Sources */,
 				4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */,
 				4C134C281BB8EC4200490AF5 /* ModifyAddressViewController.m in Sources */,
+				4C946F3A1BCBFD4B0042444D /* DoCommentViewController.m in Sources */,
 				4C822F661BB135E500112533 /* AddressListViewController.m in Sources */,
 				4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */,
 				4CB11F4B1BC806DC002280B2 /* CarOrderDetailViewController.m in Sources */,

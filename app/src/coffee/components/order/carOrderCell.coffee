@@ -6,8 +6,8 @@ Helper = require 'util/helper'
 OrderAction = require 'actions/order/order'
 OrderStore = require 'stores/order/order'
 DB = require 'util/storage'
-
-DRIVER_LOGO = require 'user-01.jpg'
+XeImage = require 'components/common/xeImage'
+avatar = require 'user-01'
 
 CarItem = React.createClass {
 
@@ -61,7 +61,7 @@ CarItem = React.createClass {
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
-							<img src={ DRIVER_LOGO } />
+							<XeImage src={item?.goodsPersonHeadPic} size='130x130' type='avatar' />
 						</div>	
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">

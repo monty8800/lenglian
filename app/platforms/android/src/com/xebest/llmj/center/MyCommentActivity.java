@@ -1,4 +1,4 @@
-package com.xebest.llmj.car;
+package com.xebest.llmj.center;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,9 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
+ * 我的评价
  * Created by kaisun on 15/9/22.
  */
-public class CarDetailActivity extends BaseCordovaActivity implements CordovaInterface {
+public class MyCommentActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -31,49 +32,33 @@ public class CarDetailActivity extends BaseCordovaActivity implements CordovaInt
 
     private TextView tvTitle;
 
-    private TextView editorCar;
-
     /**
      * 活跃当前窗口
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, CarDetailActivity.class));
+        context.startActivity(new Intent(context, MyCommentActivity.class));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.car_detail);
+        setContentView(R.layout.cwebview);
 
         initView();
+
     }
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        if (flag.equals("del_success")) {
-            MyCarActivity.isRefresh = true;
-            finish();
-        } else if (args.toString().contains("modify_success")) {
-            MyCarActivity.isRefresh = true;
-            finish();
-        } else if (flag.equalsIgnoreCase("carInfoEnable")) {
-            // 车辆信息可编辑
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    editorCar.setVisibility(View.VISIBLE);
-                }
-            });
-        }
+
     }
 
     protected void initView() {
-        editorCar = (TextView) findViewById(R.id.editor);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("车辆详情");
+        tvTitle.setText("我的评价");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -82,35 +67,22 @@ public class CarDetailActivity extends BaseCordovaActivity implements CordovaInt
                 finish();
             }
         });
-        editorCar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ("编辑".equals(editorCar.getText().toString().trim())) {
-                    mWebView.getWebView().loadUrl("javascript:editorCar()");
-//                    editorCar.setText("完成");
-                    editorCar.setText("");
-                } else {
-                    mWebView.getWebView().loadUrl("javascript:editorCarDone()");
-                    editorCar.setText("编辑");
-                }
-            }
-        });
     }
 
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("车辆详情");
+        MobclickAgent.onPageStart("我的评价");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "carDetail.html", this, this, this, this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "myComment.html", this, this, this, this);
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("车辆详情");
+        MobclickAgent.onPageEnd("我的评价");
         MobclickAgent.onPause(this);
     }
 

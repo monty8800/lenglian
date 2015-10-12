@@ -255,7 +255,8 @@
             android:id="@+id/user_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/icon_def"/>
 
         <ImageView
             android:id="@+id/goods_close"

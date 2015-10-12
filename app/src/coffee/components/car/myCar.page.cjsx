@@ -15,6 +15,7 @@ st_01 = '1'
 st_02 = '2'
 st_03 = '3'
 st_04 = ''
+_currentStatus = ''
 
 detailCarUrl = 'carDetail'
 addCarUrl = 'releaseVehicle'
@@ -25,6 +26,7 @@ CarItem = React.createClass {
 	_goPage: (page, i)-> 
 		carId = carList.toJS()[i].carId
 		DB.put 'transData', carList.toJS()[i]
+		DB.put 'callBackRefresh', _currentStatus
 		Plugin.nav.push [page]
 		
 	render: ->
@@ -38,7 +40,7 @@ CarItem = React.createClass {
 					<div className="u-item-btn"> 
 						{
 							if car?.status is 1
-								<a href="#" onClick={@_goPage.bind this, addCarUrl, i} >发布车源</a>
+								<a href="#" className="u-btn02" onClick={@_goPage.bind this, addCarUrl, i} >发布车源</a>
 							else if car?.status is 2
 								<span>求货中</span>
 							else if car?.status is 3
@@ -50,7 +52,7 @@ CarItem = React.createClass {
 					<dl className="clearfix">  
 						<dt className=" fl">
 							<img src={Image.getFullPath car?.carPic, Constants.carPicSize} />
-						</dt>  
+						</dt>
 						<dd className=" fl">
 							<p>司机姓名: <span>{ car?.name }</span></p>
 							<p>联系电话: <span>{ car?.mobile }</span></p>
@@ -72,6 +74,7 @@ Car = React.createClass {
 
 	# 空闲中
 	status_01: ->
+		_currentStatus = st_01
 		newState = Object.create @state
 		newState.type = st_01
 		@setState newState
@@ -79,6 +82,7 @@ Car = React.createClass {
 
 	# 求货中
 	status_02: ->
+		_currentStatus = st_02
 		newState = Object.create @state
 		newState.type = st_02
 		@setState newState
@@ -86,6 +90,7 @@ Car = React.createClass {
 
 	# 运输中
 	status_03: ->
+		_currentStatus = st_03
 		newState = Object.create @state
 		newState.type = st_03
 		@setState newState
@@ -93,6 +98,7 @@ Car = React.createClass {
 
 	# 全部
 	status_04: ->
+		_currentStatus = st_04
 		newState = Object.create @state
 		newState.type = st_04
 		@setState newState

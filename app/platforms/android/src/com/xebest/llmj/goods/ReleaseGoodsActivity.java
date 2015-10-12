@@ -26,7 +26,6 @@ import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
-import com.xebest.llmj.car.AddCarActivity;
 import com.xebest.llmj.car.SelectBirthday;
 import com.xebest.llmj.center.SelectAddressActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
@@ -112,6 +111,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
     protected void initView() {
         mApplication = (Application) getApplicationContext();
         addCar = (TextView) findViewById(R.id.add);
+        addCar.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("发布货源");
         mWebView = (XEWebView) findViewById(R.id.wb);
@@ -125,7 +125,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
         addCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddCarActivity.actionView(ReleaseGoodsActivity.this);
+                AddGoodsActivity.actionView(ReleaseGoodsActivity.this);
             }
         });
     }

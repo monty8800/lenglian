@@ -1,4 +1,4 @@
-package com.xebest.llmj.car;
+package com.xebest.llmj.goods;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -21,9 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
+ * 新增仓库
  * Created by kaisun on 15/9/22.
  */
-public class CarDetailActivity extends BaseCordovaActivity implements CordovaInterface {
+public class AddGoodsActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -31,49 +33,40 @@ public class CarDetailActivity extends BaseCordovaActivity implements CordovaInt
 
     private TextView tvTitle;
 
-    private TextView editorCar;
+    private TextView addCar;
+
+    private boolean isOnCreate = false;
 
     /**
      * 活跃当前窗口
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, CarDetailActivity.class));
+        context.startActivity(new Intent(context, AddGoodsActivity.class));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.car_detail);
-
+        setContentView(R.layout.my_ware);
+        isOnCreate = true;
         initView();
+
     }
 
-    @Override
-    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
-        super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        if (flag.equals("del_success")) {
-            MyCarActivity.isRefresh = true;
-            finish();
-        } else if (args.toString().contains("modify_success")) {
-            MyCarActivity.isRefresh = true;
-            finish();
-        } else if (flag.equalsIgnoreCase("carInfoEnable")) {
-            // 车辆信息可编辑
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    editorCar.setVisibility(View.VISIBLE);
-                }
-            });
-        }
+    public void onPause() {
+        super.onPause();
+        // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
+        MobclickAgent.onPageEnd("新增仓库");
+        MobclickAgent.onPause(this);
     }
 
     protected void initView() {
-        editorCar = (TextView) findViewById(R.id.editor);
+        addCar = (TextView) findViewById(R.id.add);
+        addCar.setText("搜索");
+        addCar.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("车辆详情");
+        tvTitle.setText("新增仓库");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -82,36 +75,27 @@ public class CarDetailActivity extends BaseCordovaActivity implements CordovaInt
                 finish();
             }
         });
-        editorCar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ("编辑".equals(editorCar.getText().toString().trim())) {
-                    mWebView.getWebView().loadUrl("javascript:editorCar()");
-//                    editorCar.setText("完成");
-                    editorCar.setText("");
-                } else {
-                    mWebView.getWebView().loadUrl("javascript:editorCarDone()");
-                    editorCar.setText("编辑");
-                }
-            }
-        });
+    }
+
+    @Override
+    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        super.jsCallNative(args, callbackContext);
+        String flag = args.getString(1);
+        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("车辆详情");
+        MobclickAgent.onPageStart("竞价");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "carDetail.html", this, this, this, this);
-        super.onResume();
-    }
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "addGoods.html", this, this, this, this);
+        }
+        isOnCreate = false;
 
-    public void onPause() {
-        super.onPause();
-        // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("车辆详情");
-        MobclickAgent.onPause(this);
+        super.onResume();
     }
 
     @Override

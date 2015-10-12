@@ -10,7 +10,11 @@ OrderStore = require 'stores/order/order'
 DRIVER_LOGO = require 'user-01.jpg'
 DB = require 'util/storage'
 UserStore = require 'stores/user/user'
+XeImage = require 'components/common/xeImage'
+avatar = require 'user-01'
+Image = require 'util/image'
 _user = UserStore.getUser()
+title = null
 
 OrderDetail = React.createClass {
 
@@ -64,41 +68,57 @@ OrderDetail = React.createClass {
 			type: type
 		})
 
-	_comment: ->
-		console.log '-------comment'
+		# 车主详情
+	_goPage: ->
+		item = @state.order.toJS()
+		id = item?.goodsSourceId
+		focusid = item?.goodsPersonUserId
+		DB.put 'transData', {
+			goodsId: id
+			focusid: focusid
+			orderNo: item.orderNo
+			orderStatus: title
+		}
+		Plugin.nav.push ['searchGoodsDetail']
+
+
+	_comment: (targetId, orderNo)->
+		DB.put 'transData', {
+			userRole: '2'
+			targetId: targetId
+			targetRole: '1'
+			orderNo: orderNo
+		}
+		Plugin.nav.push ['doComment']
+
+	_tel: (tel)->
+		window.location.href = tel
 
 	render: ->
+		if @state.order?.orderState is '1'
+			if @state.order?.orderType is 'CG'
+				title = '等待货主确认'
+		else if @state.order?.orderState is '2'
+			# 1：货到付款（线下）2：回单付款（线下） 3：预付款（线上）
+			if @state.order?.payType is '3'
+				title = '等待货主付款'
+			else
+				title = '货物运输中'
+		else if @state.order?.orderState is '3'
+			title = '货物运输中'
+		else if @state.order?.orderState is '4'
+			title = '待评价'
+
 		<div>
 			<div className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{@state.order.orderNo}</span></p>
-					{
-						if @state.order?.orderState is '1'
-							if @state.order?.orderType is 'CG'
-								<p className="fr">等待货主确认</p>
-							#else if @state.order?.orderType is 'GC'
-								#<a href="###" className="u-btn02">接受</a>
-								#<a href="###" className="u-btn02">取消</a>
-						else if @state.order?.orderState is '2'
-							# 1：货到付款（线下）2：回单付款（线下） 3：预付款（线上）
-							if @state.order?.payType is '3'
-								<p className="fr">等待货主付款</p>
-							else
-								<span>货物运输中</span>
-						else if @state.order?.orderState is '3'
-							# if @state.order?.payType is '3'
-							# 	<a href="###" className="u-btn02">完成订单</a>
-							# else
-							<p className="fr">货物运输中</p>
-						else if @state.order?.orderState is '4'
-							<p className="fr">待评价</p>
-							# <a href="###" onClick={@_comment} className="u-btn02">评价货主</a>
-					}
+				<p className="fr">{title}</p>
 			</div>
 			<div className="m-item01">
 				<div className="g-detail-dirver">
 					<div className="g-detail">					
-						<div className="g-dirver-pic">
-							<img src={DRIVER_LOGO} />
+						<div onClick={@_goPage} className="g-dirver-pic">
+							<XeImage src={@state.order?.goodsPersonHeadPic} size='130x130' type='avatar' />
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
@@ -108,7 +128,7 @@ OrderDetail = React.createClass {
 						</div>
 						<ul className="g-driver-contact">
 							<li className={ if @state.wishlst then "ll-font" else 'll-font active'} onClick={@attention.bind this, @state.wishlst, @state.order?.goodsPersonUserId}>关注</li>
-							<li className="ll-font">拨号</li>
+							<li className="ll-font" onClick={@_tel.bind this, @state.order.goodsPersonMobile}>拨号</li>
 						</ul>
 					</div>
 				</div>
@@ -141,7 +161,7 @@ OrderDetail = React.createClass {
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<img src={DRIVER_LOGO} />
+						<img src={Image.getFullPath @state.order?.goodsPic, Constants.carPicSize} />
 					</div>
 					<div className="g-pro-text fl">
 						<p>货物名字: <span>{@state.order?.goodsName}</span></p>
@@ -154,11 +174,11 @@ OrderDetail = React.createClass {
 			<div className={if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' || @state.order?.orderState is '4' then 'm-detail-info' else 'm-detail-info m-nomargin'} >
 				<p>
 					<span>发货人:</span>
-					<span className="ll-font g-info-name">{@state.order?.shipper}</span>
+					<span onClick={@_tel.bind this, @state.order.shipperMobile} className="ll-font g-info-name">{@state.order?.shipper}</span>
 				</p>
 				<p>
 					<span>收货人:</span>
-					<span className="ll-font g-info-name">{@state.order?.receiver}</span>
+					<span onClick={@_tel.bind this, @state.order.receiverMobile} className="ll-font g-info-name">{@state.order?.receiver}</span>
 				</p>
 				<p>
 					<span>价格类型:</span>
@@ -185,7 +205,7 @@ OrderDetail = React.createClass {
 								<a href="#" className="u-btn02">确定</a>
 								<a href="#" className="u-btn02">取消</a>
 						else if @state.order?.orderState is '4'
-							<a href="###" onClick={@_comment} className="u-btn02">评价货主</a>
+							<a href="###" onClick={@_comment.bind this, @state.order.goodsPersonUserId, @state.order.orderNo} className="u-btn02">评价货主</a>
 					}
 				</div>
 			</div>

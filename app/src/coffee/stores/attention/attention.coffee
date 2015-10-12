@@ -25,10 +25,7 @@ AttentionList = (status)->
 		pageNo: 0
 		pageSize: 10
 	}, (data) ->
-		console.log '---- ', data
 		AttList = AttList.clear() 
-		if data.length is 0
-			Plugin.toast.err '没有相关数据呢!'
 		for att in data
 			do (att)->
 				tempAtt = new AttentionModel

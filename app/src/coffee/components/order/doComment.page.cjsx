@@ -9,14 +9,16 @@ CommentStore = require 'stores/order/commentStore'
 CommentAction = require 'actions/order/commentAction'
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
+transData = DB.get 'transData'
+Plugin = require 'util/plugin'
 
 DoComment = React.createClass {
 	submitBtnClick: ->
 		#TODO: 假数据
-		userRole = ''#'2'
-		targetId = ''#'7201beba475b49fd8b872e2d1493844a'
-		targetRole = ''#'3'
-		orderNo = ''#'d8b872e2d1493844a'
+		userRole = transData.userRole
+		targetId = transData.targetId
+		targetRole = transData.targetRole
+		orderNo = transData.orderNo
 		startStage = @state.startStage
 		commentValue = @state.commentValue
 		CommentAction.submitComment userRole,targetId,targetRole,startStage,orderNo,commentValue
@@ -27,7 +29,7 @@ DoComment = React.createClass {
 
 	getInitialState: ->
 		{
-			startStage:	'0'
+			startStage:	'8'
 			commentValue:''		 
 		}
 	componentDidMount: ->
@@ -38,9 +40,10 @@ DoComment = React.createClass {
 
 	_onChange : (mark)->
 		if mark is 'addNewCommentSucc'
-			alert 'comment succ'
+			Plugin.toast.success '评价成功！'
+			Plugin.nav.pop()
 		else if mark is 'addNewCommentFaile'
-			alert 'comment faile'
+			Plugin.toast.err '评价失败!'
 
 	render : ->
 		<div>

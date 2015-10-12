@@ -12,7 +12,6 @@ UserStore = require 'stores/user/user'
 OrderAction = require 'actions/order/order'
 Goods = require 'model/goods'
 
-
 _orderList = Immutable.List()
 _orderDetail = new OrderModel
 
@@ -22,6 +21,9 @@ _bidList = Immutable.List()
 
 # 0 货主订单  1 司机订单  2 仓库订单   
 _page = -1
+
+paths = window.location.href.split('/')
+_htmlPage = paths[paths.length-1]
 
 window.comeFromFlag = (page)->			
 	# 禁止多次相同请求
@@ -72,6 +74,8 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'userName', order.userName
 				tempOrder = tempOrder.set 'acceptMode', order.acceptMode
 				tempOrder = tempOrder.set 'price', order.price
+				tempOrder = tempOrder.set 'userId', order.userId
+				tempOrder = tempOrder.set 'rateFlag', order.rateFlag
 				tempOrder = tempOrder.set 'goodsSourceId', order.goodsSourceId
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
@@ -204,7 +208,10 @@ goodsAgree = (params, orderId)->
 		_orderList = _orderList.filterNot (order)->
 			order.get('orderNo') is orderId
 		console.log '_orderList after', _orderList
-		OrderStore.emitChange ['goods']
+		if _htmlPage is 'orderList.html'
+			OrderStore.emitChange ['goods']
+		else
+			Plugin.nav.pop()
 
 orderGoodsFinish = (params, orderId)->
 	Http.post Constants.api.order_finish, params, (data)->
@@ -212,7 +219,10 @@ orderGoodsFinish = (params, orderId)->
 		console.log 'order finish', data
 		_orderList = _orderList.filterNot (order)->
 			order.get('orderNo') is orderId
-		OrderStore.emitChange ['goods']
+		if _htmlPage is 'orderList.html'
+			OrderStore.emitChange ['goods']
+		else
+			Plugin.nav.pop()
 
 # 车主确认订单
 _carOwnerConfirmOrder = (carPersonUserId, orderNo, version, index)->
@@ -265,7 +275,7 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 		_orderDetail = _orderDetail.set 'payType', temp.payType
 		_orderDetail = _orderDetail.set 'price', temp.price
 		_orderDetail = _orderDetail.set 'carPersonUserId', temp.carPersonUserId
-		_orderDetail = _orderDetail.set 'goodSsourceId', temp.goodSsourceId
+		_orderDetail = _orderDetail.set 'goodsSourceId', temp.goodsSourceId
 		_orderDetail = _orderDetail.set 'goodsPersonUserId', temp.goodsPersonUserId
 		_orderDetail = _orderDetail.set 'loadingEdate', temp.loadingEdate
 		_orderDetail = _orderDetail.set 'loadingSdate', temp.loadingSdate
@@ -275,13 +285,17 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 		_orderDetail = _orderDetail.set 'goodsPackingType', temp.goodsPackingType
 		_orderDetail = _orderDetail.set 'goodsType', temp.goodsType
 		_orderDetail = _orderDetail.set 'goodsWeight', temp.goodsWeight
+		_orderDetail = _orderDetail.set 'goodsPic', temp.goodsPic
 		_orderDetail = _orderDetail.set 'shipper', temp.shipper
 		_orderDetail = _orderDetail.set 'receiver', temp.receiver
 		_orderDetail = _orderDetail.set 'isInvoice', temp.isInvoice
 		_orderDetail = _orderDetail.set 'goodsPersonName', temp.goodsPersonName
 		_orderDetail = _orderDetail.set 'certification', data.certification
 		_orderDetail = _orderDetail.set 'goodScore', data.goodScore
-		_orderDetail = _orderDetail.set 'wishlst', data.wishlst			
+		_orderDetail = _orderDetail.set 'wishlst', data.wishlst
+		_orderDetail = _orderDetail.set 'shipperMobile', temp.shipperMobile
+		_orderDetail = _orderDetail.set 'receiverMobile', temp.receiverMobile	
+		_orderDetail = _orderDetail.set 'goodsPersonMobile', temp.goodsPersonMobile
 		_orderDetail = _orderDetail.set 'createTime', temp.createTime
 		OrderStore.emitChange ['car_owner_order_detail']
 	, (data)->
@@ -332,6 +346,14 @@ orderGoodsDetail = (params)->
 			msg: 'goods:order:detail:done'
 			detail: Immutable.Map data
 		}
+
+updateStore = ->
+	switch _page
+		when 0 then OrderStore.emitChange ['goods']
+		when 1 then OrderStore.emitChange ['car']
+		when 2 then OrderStore.emitChange ['store']
+
+window.updateStore = updateStore
 
 OrderStore = assign BaseStore, {
 	getOrderList: ->

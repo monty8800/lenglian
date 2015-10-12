@@ -51,17 +51,40 @@ OrderDriverCell = React.createClass {
 		, ['完成订单', '取消']
 
 	_goComment: ->
+		console.log 'o---rder', @props.order
+		if not @props.order?.rateFlag
+			return
+		DB.put 'transData', {
+			userRole: '1'
+			targetId: @props.order?.userId
+			targetRole: if @props.order?.orderType in ['GC', 'CG'] then 2 else 3
+			orderNo: @props.order?.orderNo
+		}
 		Plugin.nav.push ['doComment']
 
-	_getBtnTitle: ->
-		switch parseInt(@props.order?.orderState)
-			when 1 then '接受'
-			when 2
-				if parseInt(@props.order?.payType) is 3 then '确认付款' else '订单完成'
-			when 3 then '订单完成'
-			when 4
-				if parseInt(@props.order?.acceptMode) is 2 then '评价司机' else '评价仓库'
 	render: ->
+		statusBtn = null
+		switch parseInt(@props.order?.orderState)
+			when 1
+				switch parseInt(@props.order?.acceptMode)
+					when 1
+						statusBtn = <a onClick={@_receiver} className="u-btn02">接受</a>
+					when 2
+						statusBtn = <span>等待司机同意</span>
+					when 3
+						statusBtn = <span>等待仓库同意</span>
+			when 2
+				if parseInt(@props.order?.payType) is 3
+					statusBtn = <a onClick={@_receiver} className="u-btn02">确认付款</a>
+				else
+					statusBtn = <span>订单运输中</span>
+			when 3
+				statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
+			when 4
+				if @props.order?.orderType in ['GC', 'CG']
+					statusBtn = <a onClick={@_receiver} className="u-btn02">评价司机</a>
+				else
+					statusBtn = <a onClick={@_receiver} className="u-btn02">评价仓库</a>
 		<div className="g-item-dirver">
 			<div className="g-dirver">					
 				<div className="g-dirver-pic">
@@ -74,18 +97,7 @@ OrderDriverCell = React.createClass {
 					<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 				</div>
 				<div className="g-dirver-btn">
-					{
-						switch parseInt(@props.order?.acceptMode)
-							when 1
-								if parseInt(@props.order?.payType) is 3
-									<a onClick={@_receiver} className="u-btn02">{@_getBtnTitle()}</a>
-								else
-									<span>订单运输中</span>
-							when 2
-								<span>等待司机同意</span>
-							when 3
-								<span>等待仓库同意</span>
-					}			
+					{statusBtn}			
 				</div>
 			</div>
 		</div>

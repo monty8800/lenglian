@@ -7,22 +7,13 @@ LinkedStateMixin = React.addons.LinkedStateMixin
 Constants = require 'constants/constants'
 Validator = require 'util/validator'
 Image = require 'util/image'
-
-CarPic01 = require 'car-02.jpg'
-CarPic02 = require 'car-03.jpg'
-CarPic03 = require 'car-04.jpg'
-
 CarAction = require 'actions/car/car'
 CarStore = require 'stores/car/car'
 Plugin = require 'util/plugin'
-
 Helper = require 'util/helper'
-
 DB = require 'util/storage'
-
 UserStore = require 'stores/user/user'
 _user = UserStore.getUser()
-
 CarInfo = DB.get 'transData'
 carId = CarInfo.carId
 DB.remove 'transData'
@@ -37,6 +28,7 @@ Detail = React.createClass {
 			isDel: 1
 			driver: ''
 			phone: ''
+			status: ''
 			carDetail: CarStore.getCarDetail().toJS()
 		}
 
@@ -53,6 +45,7 @@ Detail = React.createClass {
 			@setState {
 				name: carDetail.name
 				mobile: carDetail.mobile
+				status: carDetail.status
 				carDetail: carDetail
 			}
 		else if params[0] is 'editor_car'
@@ -64,8 +57,8 @@ Detail = React.createClass {
 				isDel: 1
 			}
 
-	_delStore: (params)->
-		CarAction.delCar(params)
+	_delCar: (id)->
+		CarAction.delCar(id, @state.status)
 
 	_editorCarDone: ->
 		if not Validator.name @state.name
@@ -79,6 +72,7 @@ Detail = React.createClass {
 			userId: _user?.id
 			driver: @state.name
 			phone: @state.mobile
+			status: @state.status
 		});
 
 	render: ->
@@ -131,9 +125,9 @@ Detail = React.createClass {
 			<div className="u-pay-btn" style={{display: if @state.isDel is 2 then 'block' else 'none'}}>
 				<a href="###" onClick={@_editorCarDone} className="btn">提交</a>
 			</div>
-			<div className="m-detail-bottom" style={{display: if @state.isDel is 1 then 'block' else 'none'}}>
+			<div className="m-detail-bottom" style={{display: if @state.isDel is 1 && @state.status is 1 then 'block' else 'none'}}>
 				<div className="g-pay-btn">
-					<a href="###" className="u-btn02" onClick={@_delStore.bind this, detail.id}>删除车辆</a>
+					<a href="###" className="u-btn02" onClick={@_delCar.bind this, detail.id}>删除车辆</a>
 				</div>
 			</div>
 		</div>

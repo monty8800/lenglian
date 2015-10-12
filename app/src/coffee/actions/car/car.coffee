@@ -121,20 +121,22 @@ CarAction = {
 			type: type
 		}
 
-	delCar: (carId)->
+	delCar: (carId, status)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.DEL_CAR
 			carId: carId
+			status: status
 		}
 	modifyCar: (param)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.MODIFY_CAR
 			param: param
 		}
-	carOwnerDetail: (carId)->
+	carOwnerDetail: (carId, targetUserId)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CAR_OWNER_DETAIL
 			carId: carId
+			targetUserId: targetUserId
 		}
 	attentionDetail: (params)->
 		Dispatcher.dispatch {

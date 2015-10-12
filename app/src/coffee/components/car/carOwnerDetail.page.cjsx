@@ -13,14 +13,16 @@ CarStore = require 'stores/car/car'
 DB = require 'util/storage'
 UserStore = require 'stores/user/user'
 _user = UserStore.getUser()
-
-DRIVER_LOGO = require 'user-01.jpg'
-CarPic03 = require 'car-04.jpg'
-
-dUserId = DB.get 'fdcar_to_userId'
+Image = require 'util/image'
 XeImage = require 'components/common/xeImage'
 Image = require 'util/image'
 avatar = require 'user-01'
+
+_detailParams = DB.get 'transData'
+carId = _detailParams[0]
+dUserId = _detailParams[1]
+carNo = _detailParams[2]
+carStatus = _detailParams[3]
 
 Detail = React.createClass {
 
@@ -29,34 +31,32 @@ Detail = React.createClass {
 		if @state.wishlst is true
 			CarAction.attentionDetail({
 				focusid: dUserId
-				focustype: 1
+				focustype: 2
 				userId: _user?.id
 				type: 2
 			})
 		else if @state.wishlst is false
 			CarAction.attentionDetail({
 				focusid: dUserId
-				focustype: 1
+				focustype: 2
 				userId: _user?.id
 				type: 1
 			})
 
-	getInitialState: ->		
+	getInitialState: ->
 		{
 			wishlst: false
 			carDetail: CarStore.getCarDetail().toJS()
 		}
 
 	componentDidMount: ->
-		carId = DB.get 'fdcar_to_card'	
 		CarStore.addChangeListener @_onChange
-		CarAction.carOwnerDetail(carId)
+		CarAction.carOwnerDetail(carId, dUserId)
 
 	componentWillUnMount: ->
 		CarStore.removeChangeListener @_onChange
 
 	_onChange: (params)->
-		console.log '-------callback'
 		if params[0] is 'car_owner_detail'
 			carInfo = CarStore.getCarDetail().toJS()
 			@setState {
@@ -75,6 +75,10 @@ Detail = React.createClass {
 	render: ->
 		detail = @state.carDetail
 		<div>
+			<div className="m-orderdetail clearfix" style={{display: if carNo is undefined then 'none' else 'block'}}>
+				<p className="fl">订单号：<span>{carNo}</span></p>
+				<p className="fr">{carStatus}</p>
+			</div>
 			<div className="m-item01">
 				<div className="g-detail-dirver g-det-pad0">
 					<div className="g-detail">					

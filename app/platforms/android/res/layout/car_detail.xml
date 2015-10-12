@@ -39,6 +39,7 @@
             android:layout_marginRight="10dp"
             android:textSize="20sp"
             android:text="编辑"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:layout_centerVertical="true"/>
 

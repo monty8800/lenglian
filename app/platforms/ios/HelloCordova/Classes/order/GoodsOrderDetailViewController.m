@@ -7,6 +7,8 @@
 //
 
 #import "GoodsOrderDetailViewController.h"
+#import "OrderPayViewController.h"
+#import "DoCommentViewController.h"
 
 @interface GoodsOrderDetailViewController ()
 
@@ -30,6 +32,25 @@
 
 -(void) createUI {
     self.title = @"货主订单详情";
+}
+
+
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"orderPay"])
+        {
+            OrderPayViewController *payVC = [OrderPayViewController new];
+            [self.navigationController pushViewController:payVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"doComment"])
+        {
+            DoCommentViewController *commentVC = [DoCommentViewController new];
+            [self.navigationController pushViewController:commentVC animated:YES];
+        }
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {

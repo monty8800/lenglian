@@ -63,8 +63,7 @@ public class MyGoodsActivity extends BaseCordovaActivity implements CordovaInter
 
     protected void initView() {
         addCar = (TextView) findViewById(R.id.add);
-        addCar.setText("搜索");
-        addCar.setVisibility(View.GONE);
+        addCar.setText("发布货源");
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("我的货源");
         mWebView = (XEWebView) findViewById(R.id.wb);
@@ -78,7 +77,7 @@ public class MyGoodsActivity extends BaseCordovaActivity implements CordovaInter
         addCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWebView.getWebView().loadUrl("javascript:doCarSearchGoods()");
+                ReleaseGoodsActivity.actionView(MyGoodsActivity.this);
             }
         });
     }

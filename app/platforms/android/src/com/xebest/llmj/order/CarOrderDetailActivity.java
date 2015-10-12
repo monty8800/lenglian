@@ -12,6 +12,7 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
+import com.xebest.llmj.ware.SearchWarehouseDetailActivity;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -54,6 +55,9 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
+        if (flag.equalsIgnoreCase("searchWarehouseDetail")) {
+            SearchWarehouseDetailActivity.actionView(CarOrderDetailActivity.this);
+        }
 
     }
 

@@ -11,6 +11,9 @@
 #import "CarOrderDetailViewController.h"
 #import "WarehouseOrderDetailViewController.h"
 #import "GoodsOrderDetailViewController.h"
+#import "OrderPayViewController.h"
+#import "DoCommentViewController.h"
+
 @interface OrderListViewController ()
 @property (assign,nonatomic)NSInteger showOrderType;
 @property (assign,nonatomic)BOOL isLoaded;
@@ -57,6 +60,14 @@
     appdelegate.orderVCLoaded = YES;
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSString *js = @"(function(){window.updateStore()})()";
+    [self.commandDelegate evalJs: js];
+}
+
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
@@ -78,6 +89,16 @@
             GoodsOrderDetailViewController *goodsOrderDetailVC = [GoodsOrderDetailViewController new];
             goodsOrderDetailVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:goodsOrderDetailVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"orderPay"])
+        {
+            OrderPayViewController *payVC = [OrderPayViewController new];
+            [self.navigationController pushViewController:payVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"doComment"])
+        {
+            DoCommentViewController *commentVC = [DoCommentViewController new];
+            [self.navigationController pushViewController:commentVC animated:YES];
         }
         
     }
