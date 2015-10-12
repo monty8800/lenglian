@@ -56,6 +56,15 @@ WarehouseAction = {
 			focustype:focustype
 			type:type
 		}
+
+	doSaveEditWarehouse:(remark,phone,contacts,warehouseId)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.UPDATE_WAREHOUSE
+			remark:remark
+			phone:phone
+			contacts:contacts
+			warehouseId:warehouseId
+		}
 }
 
 module.exports = WarehouseAction

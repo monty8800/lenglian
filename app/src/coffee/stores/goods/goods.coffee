@@ -260,13 +260,7 @@ searchGoods = (params)->
 
 		# 		remark: null #备注
 
-		# 		#搜索返回的冗余字段
-		# 		canBid: 1 #是否可以竞价 1可以 2不可以
-		# 		certification: 0 #认证类型 0 未认证 1个人 2公司
-		# 		userAvatar: null #用户头像
-		# 		userId: null #用户id
-		# 		userName: null #用户姓名
-		# 		userScore: 0 #用户积分
+
 		# 	}
 changeWidget = (show, bid)->
 	GoodsStore.emitChange {
@@ -294,6 +288,8 @@ window.tryReloadGoodsList = ->
 	shouldReloadGoodsList = DB.get 'shouldReloadGoodsList'
 	if shouldReloadGoodsList is 1
 		getUserGoodsList 1,10,''
+
+
 
 getSearchGoodsDetail = (goodsId,focusid)->
 	user = UserStore.getUser()
@@ -373,5 +369,4 @@ Dispatcher.register (action) ->
 		when Constants.actionType.DELETE_GOODS then deleteGoodsWithID(action.goodsId)
 		when Constants.actionType.GET_SEARCH_GOODS_DETAIL then getSearchGoodsDetail(action.goodsId,action.focusid)
 		when Constants.actionType.attention then handleFallow(action.focusid,action.focustype,action.type)
-			
 module.exports = GoodsStore

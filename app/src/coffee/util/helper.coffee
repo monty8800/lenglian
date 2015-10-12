@@ -123,7 +123,7 @@ whoYouAre = (who)->
 			else '(未认证)'
 	else
 		''
-
+		
 carVehicle = (status) ->
 	if status?
 		switch parseInt(status)

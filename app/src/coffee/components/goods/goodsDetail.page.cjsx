@@ -60,7 +60,12 @@ GoodsDetail = React.createClass {
 			Plugin.nav.pop()
 
 	_deleteCurrentGoods: ->
-		GoodsAction.deleteGoods @state.goodsDetail.id
+		if parseInt(@state.goodsDetail.resourceStatus) is 1
+			GoodsAction.deleteGoods @state.goodsDetail.id
+		else
+			# TODO:修改文案
+			Plugin.toast.show '货源当前不在空闲状态 无法删除'
+
 
 
 	render : ->
@@ -143,12 +148,7 @@ GoodsDetail = React.createClass {
 			</div>
 			<div className="m-detail-bottom">
 				<div className="g-pay-btn">
-					{
-						if parseInt(@state.goodsDetail.resourceStatus) is 1
-							<a onClick={ @_deleteCurrentGoods } className="u-btn02">删除货源</a>
-						else
-							<a disabled='disabled' className="u-btn02">删除货源</a>
-					}
+					<a onClick={ @_deleteCurrentGoods } className="u-btn02">删除货源</a>
 				</div>
 			</div>	
 		</div>
