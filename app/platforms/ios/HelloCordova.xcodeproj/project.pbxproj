@@ -68,6 +68,7 @@
 		4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523351BB6A229008205E3 /* SelectAddressViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523391BB6B16D008205E3 /* AddGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4C946F3A1BCBFD4B0042444D /* DoCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C946F391BCBFD4B0042444D /* DoCommentViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CA94EB31BCCF1EC00694178 /* OrderCancelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA94EB21BCCF1EC00694178 /* OrderCancelListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020E1BB3FE8B002A0A5C /* BaseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CAB02121BB40002002A0A5C /* PersonalWarehouseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB02111BB40002002A0A5C /* PersonalWarehouseAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -259,6 +260,8 @@
 		4C946F391BCBFD4B0042444D /* DoCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoCommentViewController.m; sourceTree = "<group>"; };
 		4C9A184B1BB680710072F940 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationViewController.h; path = map/LocationViewController.h; sourceTree = "<group>"; };
 		4C9A184C1BB680710072F940 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationViewController.m; path = map/LocationViewController.m; sourceTree = "<group>"; };
+		4CA94EB11BCCF1EC00694178 /* OrderCancelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderCancelListViewController.h; path = order/OrderCancelListViewController.h; sourceTree = "<group>"; };
+		4CA94EB21BCCF1EC00694178 /* OrderCancelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderCancelListViewController.m; path = order/OrderCancelListViewController.m; sourceTree = "<group>"; };
 		4CAB020A1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalGoodsAuthViewController.h; path = auth/PersonalGoodsAuthViewController.h; sourceTree = "<group>"; };
 		4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalGoodsAuthViewController.m; path = auth/PersonalGoodsAuthViewController.m; sourceTree = "<group>"; };
 		4CAB020D1BB3FE8B002A0A5C /* BaseAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseAuthViewController.h; path = auth/BaseAuthViewController.h; sourceTree = "<group>"; };
@@ -804,6 +807,8 @@
 			children = (
 				4CDD997C1BAFA7A0008B4AC6 /* OrderListViewController.h */,
 				4CDD997D1BAFA7A0008B4AC6 /* OrderListViewController.m */,
+				4CA94EB11BCCF1EC00694178 /* OrderCancelListViewController.h */,
+				4CA94EB21BCCF1EC00694178 /* OrderCancelListViewController.m */,
 				4CB11F5C1BCAA355002280B2 /* GoodsOrderDetailViewController.h */,
 				4CB11F5D1BCAA355002280B2 /* GoodsOrderDetailViewController.m */,
 				4CB11F561BCA7D4F002280B2 /* OrderPayViewController.h */,
@@ -1092,6 +1097,7 @@
 				4CB4C0E01BBF6FE50095ABE8 /* LocationViewController.m in Sources */,
 				4CB11F581BCA7D4F002280B2 /* OrderPayViewController.m in Sources */,
 				4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */,
+				4CA94EB31BCCF1EC00694178 /* OrderCancelListViewController.m in Sources */,
 				5B2F623A1BB3E7870020AD28 /* WarehouseSearchGoodsViewController.m in Sources */,
 				5B3733FB1BC2242600807804 /* CarSearchGoodsViewController.m in Sources */,
 				4C7813581BC3C8B900EFE04E /* CarbidGoodsViewController.m in Sources */,

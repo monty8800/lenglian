@@ -1,31 +1,30 @@
 //
-//  OrderListViewController.m
+//  OrderCancelListViewController.m
 //  HelloCordova
 //
-//  Created by ywen on 15/9/21.
+//  Created by ywen on 15/10/13.
 //
 //
 
-#import "OrderListViewController.h"
+#import "OrderCancelListViewController.h"
+
 #import "AppDelegate.h"
 #import "CarOrderDetailViewController.h"
 #import "WarehouseOrderDetailViewController.h"
 #import "GoodsOrderDetailViewController.h"
 #import "OrderPayViewController.h"
 #import "DoCommentViewController.h"
-#import "OrderCancelListViewController.h"
 
-@interface OrderListViewController ()
-@property (assign,nonatomic)NSInteger showOrderType;
-@property (assign,nonatomic)BOOL isLoaded;
+@interface OrderCancelListViewController ()
+
 @end
 
-@implementation OrderListViewController
+@implementation OrderCancelListViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"orderList.html";
+        self.startPage = @"orderCancelList.html";
     }
     return self;
 }
@@ -33,44 +32,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self createUI];
     
+    [self createUI];
 }
 
 -(void) createUI {
     self.title = @"订单";
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"已取消" style:UIBarButtonItemStylePlain target:self action:@selector(goCancelList)];
-    rightBtn.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = rightBtn;
 }
 
--(void) goCancelList {
-    OrderCancelListViewController *cancelListVC = [OrderCancelListViewController new];
-    cancelListVC.hidesBottomBarWhenPushed = YES;
-    cancelListVC.showOrderType = _showOrderType;
-    [self.navigationController pushViewController:cancelListVC animated:YES];
-}
 
--(void)showWithType:(NSInteger )type{
-    NSLog(@"_______%d",(int)type);
-    AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (appdelegate.orderVCLoaded) {
-        _showOrderType = -1;
-        [self.commandDelegate evalJs:[NSString stringWithFormat:@"comeFromFlag(%d)",(int)type]];
-    }else{
-        _showOrderType = type;
-    }
-}
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     [super webViewDidFinishLoad:webView];
-    AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (appdelegate.orderVCLoaded) {
-        return;
-    }
+
     if (_showOrderType == 0 || _showOrderType == 1 || _showOrderType == 2) {
-        [self.commandDelegate evalJs:[NSString stringWithFormat:@"comeFromFlag(%d)",(int)_showOrderType]];
+        [self.commandDelegate evalJs:[NSString stringWithFormat:@"comeFromFlag(%d, %d)",(int)_showOrderType, 5]];
     }
-    appdelegate.orderVCLoaded = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -102,16 +78,6 @@
             GoodsOrderDetailViewController *goodsOrderDetailVC = [GoodsOrderDetailViewController new];
             goodsOrderDetailVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:goodsOrderDetailVC animated:YES];
-        }
-        else if ([params[1] isEqualToString:@"orderPay"])
-        {
-            OrderPayViewController *payVC = [OrderPayViewController new];
-            [self.navigationController pushViewController:payVC animated:YES];
-        }
-        else if ([params[1] isEqualToString:@"doComment"])
-        {
-            DoCommentViewController *commentVC = [DoCommentViewController new];
-            [self.navigationController pushViewController:commentVC animated:YES];
         }
         
     }

@@ -12,6 +12,8 @@ UserStore = require 'stores/user/user'
 OrderAction = require 'actions/order/order'
 Goods = require 'model/goods'
 
+DB = require 'util/storage'
+
 _orderList = Immutable.List()
 _orderDetail = new OrderModel
 
@@ -25,12 +27,12 @@ _page = -1
 paths = window.location.href.split('/')
 _htmlPage = paths[paths.length-1]
 
-window.comeFromFlag = (page)->			
+window.comeFromFlag = (page, status)->			
 	# 禁止多次相同请求
 	if _page is page 
 		return
 	_page = page 
-	OrderAction.getOrderList(Constants.orderStatus.st_01, 1)
+	OrderAction.getOrderList(status or Constants.orderStatus.st_01, 1)
 
 # 浏览器临时测试
 browser_temp = (params)->
@@ -204,24 +206,31 @@ goodsAgree = (params, orderId)->
 	Http.post Constants.api.ORDER_GOODS_AGREE, params, (data)->
 		Plugin.toast.success '接受订单成功！'
 		console.log 'goods agree', data
-		console.log '_orderList before', _orderList
-		_orderList = _orderList.filterNot (order)->
-			order.get('orderNo') is orderId
-		console.log '_orderList after', _orderList
 		if _htmlPage is 'orderList.html'
+			console.log '_orderList before', _orderList
+			_orderList = _orderList.filterNot (order)->
+				order.get('orderNo') is orderId
+			console.log '_orderList after', _orderList
 			OrderStore.emitChange ['goods']
 		else
+			DB.put 'transData', {
+				del: orderId
+			}
 			Plugin.nav.pop()
 
 orderGoodsFinish = (params, orderId)->
 	Http.post Constants.api.order_finish, params, (data)->
 		Plugin.toast.success '订单已完成！'
 		console.log 'order finish', data
-		_orderList = _orderList.filterNot (order)->
-			order.get('orderNo') is orderId
+
 		if _htmlPage is 'orderList.html'
+			_orderList = _orderList.filterNot (order)->
+				order.get('orderNo') is orderId
 			OrderStore.emitChange ['goods']
 		else
+			DB.put 'transData', {
+				del: orderId
+			}
 			Plugin.nav.pop()
 
 # 车主确认订单
@@ -346,8 +355,34 @@ orderGoodsDetail = (params)->
 			msg: 'goods:order:detail:done'
 			detail: Immutable.Map data
 		}
+#TODO:  从列表删除
+cancelGoodsOrder = (params)->
+	Http.post Constants.api.ORDER_GOODS_CANCEL, params, (data)->
+		console.log 'cancelGoodsOrder result', data
+		Plugin.toast.success '取消订单成功！'
+		DB.put 'transData', {
+			del: params.orderNo
+		}
+		Plugin.nav.pop()
+
+repubGoodsOrder = (params)->
+	Http.post Constants.api.ORDER_GOODS_REPUB, params, (data)->
+		console.log 'repubGoodsOrder result', data
+		Plugin.toast.success '发布成功！'
+		Plugin.nav.pop()
 
 updateStore = ->
+	transData = DB.get 'transData'
+	if transData.del
+		_orderList = _orderList.filterNot (order)->
+			order.get('orderNo') is transData.del
+	else if transData.modify
+		_orderList = _orderList.map (order)->
+			if order.get('orderNo') is transData.modify
+				return order.merge transData.props
+			else
+				return order
+	DB.remove 'transData'
 	switch _page
 		when 0 then OrderStore.emitChange ['goods']
 		when 1 then OrderStore.emitChange ['car']
@@ -388,6 +423,8 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ORDER_GOODS_AGREE then goodsAgree(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_FINISH then orderGoodsFinish(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_DETAIL then orderGoodsDetail(action.params)
+		when Constants.actionType.ORDER_GOODS_CANCEL then cancelGoodsOrder(action.params)
+		when Constants.actionType.ORDER_GOODS_REPUB then repubGoodsOrder(action.params)
 
 module.exports = OrderStore
 		

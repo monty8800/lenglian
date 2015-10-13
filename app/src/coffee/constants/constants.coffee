@@ -142,6 +142,10 @@ actionType = {
 	ORDER_GOODS_FINISH: null
 	ORDER_GOODS_DETAIL: null
 
+	ORDER_GOODS_CANCEL: null
+
+	ORDER_GOODS_REPUB: null
+
 	FOLLOW: null
 
 }
@@ -219,6 +223,12 @@ api = {
 
 	#货主接受订单
 	ORDER_GOODS_AGREE: '/orderGoods/accept.shtml'
+
+	#货主取消订单
+	ORDER_GOODS_CANCEL: '/orderGoods/cancel.shtml'
+
+	#货主重新发布订单
+	ORDER_GOODS_REPUB: '/orderGoods/rePublish.shtml'
 
 
 #YYQ

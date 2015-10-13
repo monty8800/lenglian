@@ -118,6 +118,18 @@ OrderAction = {
 			actionType: Constants.actionType.ORDER_GOODS_DETAIL
 			params: params
 		}
+
+	cancelGoodsOrder: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_GOODS_CANCEL
+			params: params
+		}
+
+	repubGoodsOrder: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_GOODS_REPUB
+			params: params
+		}
 }
 
 module.exports = OrderAction

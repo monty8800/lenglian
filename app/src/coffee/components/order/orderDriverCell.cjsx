@@ -85,6 +85,7 @@ OrderDriverCell = React.createClass {
 					statusBtn = <a onClick={@_receiver} className="u-btn02">评价司机</a>
 				else
 					statusBtn = <a onClick={@_receiver} className="u-btn02">评价仓库</a>
+
 		<div className="g-item-dirver">
 			<div className="g-dirver">					
 				<div className="g-dirver-pic">
