@@ -153,6 +153,13 @@ actionType = {
 
 	CANCEL_CAR_ORDER_LIST: null
 
+
+	GET_PAY_INFO: null
+	HIDE_PAY_SMS: null
+
+	PAY_NOTI: null
+	DO_PAY: null
+
 }
 
 								
@@ -229,6 +236,12 @@ api = {
 
 	#货主重新发布订单
 	ORDER_GOODS_REPUB: '/orderGoods/rePublish.shtml'
+
+	#获取支付页面数据
+	GET_PAY_INFO: '/orderPay/toPay.shtml'
+
+	#支付订单
+	PAY_ORDER: ''
 
 
 #YYQ

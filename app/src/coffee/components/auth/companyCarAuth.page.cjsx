@@ -66,6 +66,8 @@ Auth = React.createClass {
 			Plugin.toast.err '请上传道路运输许可证照片'
 		else if not @state.user.companyPic
 			Plugin.toast.err '请上传门头照片'
+		else if not Validator.tel @state.tel
+			Plugin.toast.err '请输入正确的固定电话'
 		else
 			UserAction.companyAuth {
 				type: Constants.authType.CAR
@@ -74,6 +76,7 @@ Auth = React.createClass {
 				certifies: @state.organizingCode
 				permits: @state.transLicenseNo
 				principalName: @state.managerName
+				phone: @state.tel
 				userId: @state.user.id
 			}, [
 				{
@@ -99,6 +102,7 @@ Auth = React.createClass {
 			businessLicenseNo: user.businessLicenseNo or ''
 			organizingCode: user.organizingCode or ''
 			transLicenseNo: user.transLicenseNo or ''
+			tel: user.tel or ''
 		}
 	render: ->
 		cells = [
@@ -175,6 +179,16 @@ Auth = React.createClass {
 								<input valueLink={@linkState 'transLicenseNo'} className="input-weak" type="text" placeholder="道路运输许可证号码" />
 						}
 					
+				</li>
+
+				<li>
+					<h6 className="xert-h6">公司电话</h6>
+						{
+							if @state.user.tel and @state.user.certification isnt 0
+								<input value=@state.user.tel readOnly="readOnly" className="input-weak" type="text" placeholder="请输入公司电话" />
+							else
+								<input valueLink={@linkState 'tel'} className="input-weak" type="text" placeholder="请输入公司电话" />
+						}
 				</li>
 			</ul>
 		</div>
