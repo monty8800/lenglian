@@ -118,6 +118,7 @@ OrderAction = {
 			actionType: Constants.actionType.ORDER_GOODS_DETAIL
 			params: params
 		}
+
 	getWarehouseOrderDetail:(params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.ORDER_WAREHOUSE_DETAIL
@@ -134,6 +135,18 @@ OrderAction = {
 			actionType:Constants.actionType.WAREHOUSE_CANCLE_ORDER
 			params:params
 			index:index
+
+
+	cancelGoodsOrder: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_GOODS_CANCEL
+			params: params
+		}
+
+	repubGoodsOrder: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_GOODS_REPUB
+			params: params
 		}
 }
 
