@@ -4,6 +4,8 @@ Plugin = require 'util/plugin'
 Helper = require 'util/helper'
 DRIVER_LOGO = require 'user-01.jpg'
 DB = require 'util/storage'
+OrderAction = require 'actions/order/order'
+OrderStore = require 'stores/order/order'
 
 StoreCell = React.createClass {
 
@@ -14,15 +16,34 @@ StoreCell = React.createClass {
 		OrderStore.removeChangeListener @_onChange
 
 	_onChange: (mark)->
-		if mark is ''
+		if mark[0] is 'warehouse:accept:order:done'
+			console.log '||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||'
+			orderList = @props.items.splice mark[1], 1
 			newState = Object.create @state
 			newState.orderList = orderList
 			@setState newState
+		
+
 
 	_toWarehouseDetail:(item)->
 		console.log item,'++++++____++++++'
-		DB.put 'transData',item
+		DB.put 'transData',item.orderNo
 		Plugin.nav.push ['warehouseOrderDetail']
+
+	_receiver:(orderState,item,e )->
+		if orderState is 1
+			console.log '接受货主的用库请求 调接口生成订单'
+			OrderAction.warehouseAcceptOrder {
+				orderNo:item.orderNo
+				warehousePersonUserId:item.warehousePersonUserId
+				version:item.version
+			}
+		else if orderState is 4
+			console.log '货库交易尾声  库主 评价 货主'
+
+		else
+			console.log 'XXXXXXXXXXXXXXXXX'
+		e.stopPropagation()
 
 
 	render: ->
@@ -45,7 +66,7 @@ StoreCell = React.createClass {
 									if item?.orderType is 'WG'
 										<span>等待货主确认</span>
 									else if item?.orderType is 'GW'
-										<a href="###" onClick={@_receiver} className="u-btn02">接受</a>
+										<a onClick={@_receiver.bind this,1,item} className="u-btn02">接受</a>
 								else if item?.orderState is '2'
 									if item?.payType is '3'
 										<span>等待货主付款</span>
@@ -58,7 +79,7 @@ StoreCell = React.createClass {
 									#else
 									<span>货物存储中</span>
 								else if item?.orderState is '4'
-									<a href="###" onClick={@_receiver} className="u-btn02">评价货主</a>
+									<a onClick={@_receiver.bind this,4,item} className="u-btn02">评价货主</a>
 							}
 						</div>
 					</div>

@@ -38,7 +38,7 @@ GoodsCell = React.createClass {
 		console.log 'order----', @props.order, @state
 
 		cls = 'g-item g-pad ll-font'
-		if parseInt(@state.order?.orderState) is 1
+		if parseInt(@props.order?.orderState) is 1
 			if not @state.showBidList and not @state.selectBid and @props.order?.priceType isnt '1'
 				cls += ' u-arrow-right'
 			else if @state.showBidList and @props.order?.priceType isnt '1'

@@ -45,8 +45,22 @@ GoodsOrderDetail = React.createClass {
 			when 4
 				@_goComment()
 
+			when 5
+				@_rePub()
+
+	_rePub: ->
+		console.log 'repub order', @state.detail
+		OrderAction.repubGoodsOrder {
+			userId: UserStore.getUser()?.id
+			goodsResourceId: @state.detail?.get 'goodsResourceId'
+		}
+
 	_cancel: ->
 		console.log 'cancel order', @state.detail
+		OrderAction.cancelGoodsOrder {
+			userId: UserStore.getUser()?.id
+			orderNo: @state.detail?.get 'orderNo'
+		}
 
 	_agree: ->
 		OrderAction.goodsAgree {
@@ -166,23 +180,27 @@ GoodsOrderDetail = React.createClass {
 		</div>
 
 		<div className="m-item01">
-			<div className="g-detail-dirver">
-				<div className="g-detail">					
-					<div className="g-dirver-pic">
-						<XeImage src={@state.targetPic} size='130x130' type='avatar' />
-					</div>
-					<div className="g-dirver-msg">
-						<div className="g-dirver-name">
-							<span>{@state.target}</span><span className="g-dirname-single">{if parseInt(@state.targetAuth) is 1 then '(个体)' else '(公司)'}</span>
+			{
+				if parseInt(@state.detail?.get 'orderState') isnt 5
+					<div className="g-detail-dirver">
+						<div className="g-detail">					
+							<div className="g-dirver-pic">
+								<XeImage src={@state.targetPic} size='130x130' type='avatar' />
+							</div>
+							<div className="g-dirver-msg">
+								<div className="g-dirver-name">
+									<span>{@state.target}</span><span className="g-dirname-single">{if parseInt(@state.targetAuth) is 1 then '(个体)' else '(公司)'}</span>
+								</div>
+								<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+							</div>
+							<ul className="g-driver-contact">
+								<li onClick={@_follow} className={"ll-font " + if @state.followed then 'active' else ''}>关注</li>
+								<li onClick={@_call.bind this, @state.targetMobile} className="ll-font">拨号</li>
+							</ul>
 						</div>
-						<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 					</div>
-					<ul className="g-driver-contact">
-						<li onClick={@_follow} className={"ll-font " + if @state.followed then 'active' else ''}>关注</li>
-						<li onClick={@_call.bind this, @state.targetMobile} className="ll-font">拨号</li>
-					</ul>
-				</div>
-			</div>
+			}
+
 			<div className="g-item g-adr-detail ll-font nopadding">			
 				<div className="g-adr-start ll-font g-adr-start-line">
 					{@state.detail?.get('fromProvinceName') + @state.detail?.get('fromCityName') + @state.detail?.get('fromCountyName')}
@@ -253,11 +271,14 @@ GoodsOrderDetail = React.createClass {
 			</p>			
 		</div>
 		{
-			if parseInt(@state.detail?.orderState) isnt 1 or parseInt(@state.detail?.acceptMode) is 1
+			if parseInt(@state.detail?.get 'orderState') isnt 1 or parseInt(@state.detail?.get 'acceptMode') is 1
 				<div className="m-detail-bottom">
-					<div className="g-cancle-btn">
-						<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
-					</div>
+					{
+						if parseInt(@state.detail?.get 'orderState') is 1
+							<div className="g-cancle-btn">
+								<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
+							</div>
+					}
 					<div className="g-pay-btn">
 						<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
 					</div>

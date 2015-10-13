@@ -12,7 +12,6 @@ pageSize = '10'
 
 ToReleaseWarehouseList = React.createClass {
 	goToDetail: (index)->
-		console.log '######## $$$$$$ ' ,index
 		DB.put 'transData', @state.warehouseList[index].id
 		Plugin.nav.push ['warehouseDetail']
 

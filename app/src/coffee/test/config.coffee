@@ -10,14 +10,13 @@ module.exports = {
 	}
 	#TODO 接口地址
 	api: {
-		server: 'http://192.168.26.177:7080/llmj-app/'
+		# server: 'http://192.168.26.177:7080/llmj-app/'
 		# server: 'http://192.168.29.176:8072/'
 		#server: 'http://m.lenglianmajia.com'
 		# server: 'http://192.168.29.190:8072/' #朱舟 
 		# server: 'http://192.168.29.176:8072/' # 盘代军
 		# server: 'http://m.lenglianmajia.com'
-		# server: 'http://192.168.29.190:8072/' #朱舟 
-		# server: 'http://192.168.29.149:8072/'
+		server: 'http://192.168.29.210:8072/'
 
 		#登录
 		LOGIN: '/loginCtl/userLogin.shtml'
@@ -110,6 +109,10 @@ module.exports = {
 		GET_GOODS_LIST:'/mjGoodsResource/queryMjGoodsResourceList.shtml'
 		#查询我的货源详情
 		GET_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
+		# 仓库接受订单
+		WAREHOUSE_ACCEPT_ORDER: '/mjOrderWarhouse/warehouseConfirmOrder.shtml'
+		# 仓库拒绝订单 (取消)
+		WAREHOUSE_CANCLE_ORDER: 'mjOrderWarhouse/warehouseCancelOrder.shtml'
 
 #支付相关 钱包
 		#我的收入和支出

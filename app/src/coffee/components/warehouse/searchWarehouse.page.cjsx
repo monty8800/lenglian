@@ -75,7 +75,7 @@ SearchWarehouse = React.createClass {
 		}
 
 		for selection in selectionList
-			initState[selection.key] = '' #(option.key for option in selection.options)
+			initState[selection.key] = ''
 		console.log 'initState', initState
 
 		return initState

@@ -122,16 +122,38 @@ describe '库相关', ->
 	# 		done()
 
 
-	it '货找库 下单', (done)->
+	# it '货找库 下单', (done)->
+	# 	params = {
+	# 		userId:'5b3d93775a22449284aad35443c09fb6'
+	# 		warehouseId:'295dd8ab5f6442afae2542175efdba1e'
+	# 		orderGoodsId:'d881b05483ef4f59b4e36290136d7204'
+	# 	}
+	# 	request.post config.api.GOODS_BIND_WAREHOUSE_ORDER, params, (result)->
+	# 		should.exists result
+	# 		done()
+
+# GW20151012100000485
+
+	# it '仓库 接受货主的用库请求', (done)->
+	# 	params = {
+	# 		orderNo:"GW20151007100000438"
+	# 		warehousePersonUserId:"5b3d93775a22449284aad35443c09fb6"
+	# 		version:"0"
+	# 	}
+	# 	request.post config.api.WAREHOUSE_ACCEPT_ORDER, params, (result)->
+	# 		should.exists result
+	# 		done()
+
+
+	it '仓库 拒绝 货主的用库请求  取消这个订单', (done)->
 		params = {
-			userId:'5b3d93775a22449284aad35443c09fb6'
-			warehouseId:'295dd8ab5f6442afae2542175efdba1e'
-			orderGoodsId:'d881b05483ef4f59b4e36290136d7204'
+			orderNo:"GW20151012100000484"
+			warehousePersonUserId:"5b3d93775a22449284aad35443c09fb6"
+			version:"0"
 		}
-		request.post config.api.GOODS_BIND_WAREHOUSE_ORDER, params, (result)->
+		request.post config.api.WAREHOUSE_CANCLE_ORDER, params, (result)->
 			should.exists result
 			done()
-
 
 			 
 

@@ -22,7 +22,6 @@ addPropertyModel = (attribute,attributeName,type,typeName,value) ->
 	areaModel = areaModel.set 'type',type
 	areaModel = areaModel.set 'typeName',typeName
 	areaModel = areaModel.set 'value',value
-	areaModel
 
 AddWarehouse = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
