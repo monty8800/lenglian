@@ -133,6 +133,7 @@ actionType = {
 	
 	GET_BIDDING_LIST: null
 	CAR_OWNER_CONFIRM_ORDER: null
+	CAR_OWNER_CONFIRM_ORDER2: null
 	CAR_OWNER_CANCEL_ORDER: null
 	CAR_OWNER_ORDER_DETAIL: null
 	ORDER_FINISH: null
@@ -143,6 +144,8 @@ actionType = {
 	ORDER_GOODS_DETAIL: null
 
 	FOLLOW: null
+
+	CANCEL_CAR_ORDER_LIST: null
 
 }
 

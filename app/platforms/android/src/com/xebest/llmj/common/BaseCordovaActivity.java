@@ -2,7 +2,9 @@ package com.xebest.llmj.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.webkit.WebView;
 
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.Application;
@@ -35,6 +37,10 @@ public class BaseCordovaActivity extends CordovaActivity implements XECommand, X
 
         Application mApp = (Application) getApplicationContext();
         mApp.addActivity(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
 
     }
 

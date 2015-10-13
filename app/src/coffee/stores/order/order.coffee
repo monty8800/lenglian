@@ -11,6 +11,7 @@ Plugin = require 'util/plugin'
 UserStore = require 'stores/user/user'
 OrderAction = require 'actions/order/order'
 Goods = require 'model/goods'
+DB = require 'util/storage'
 
 _orderList = Immutable.List()
 _orderDetail = new OrderModel
@@ -39,6 +40,8 @@ browser_temp = (params)->
 
 # 订单列表
 getOrderList = (status, currentPage)->
+	# if status is '5'
+	# 	_page = 1
 	switch _page
 		when 0 then getGoodsOrderList(status, currentPage)
 		when 1 then getCarOwnerOrderList(status, currentPage)
@@ -239,20 +242,39 @@ _carOwnerConfirmOrder = (carPersonUserId, orderNo, version, index)->
 		Plugin.loading.hide()
 		Plugin.toast.err data.msg
 
+_carOwnerConfirmOrder2 = (carPersonUserId, orderNo, version, index)->
+	Plugin.loading.show '正在确认...'
+	Http.post Constants.api.car_owner_confirm_order, {
+		carPersonUserId: carPersonUserId
+		orderNo: orderNo
+		version: version
+	}, (data)->
+		Plugin.loading.hide()
+		Plugin.toast.success '接受订单成功'
+		DB.put 'detailCallBackFlag', index
+		Plugin.nav.pop()
+	, (data)->
+		Plugin.loading.hide()
+		Plugin.toast.err data.msg
+
 # 车主取消订单
 _carOwnerCancelOrder = (carPersonUserId, orderNo, version, index)->
+	console.log '----------ordrNo:', orderNo
 	Plugin.loading.show '正在取消...'
 	Http.post Constants.api.car_owner_cancel_order, {
 		carPersonUserId: carPersonUserId
 		orderNo: orderNo
 		version: version
 	}, (data)->
+		Plugin.toast.success '-------'
+		DB.put 'detailCallBackFlag', index
 		Plugin.loading.hide()
 		Plugin.toast.success '取消成功'
-		OrderStore.emitChange ['car_owner_cancel_order_success', index]
+		Plugin.nav.pop()
 	, (data)->
 		Plugin.loading.hide()
 		Plugin.toast.err data.msg
+	
 
 carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 	Http.post Constants.api.car_owner_order_detail, {
@@ -300,6 +322,9 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 		OrderStore.emitChange ['car_owner_order_detail']
 	, (data)->
 		Plugin.toast.err data.msg
+
+cancel_car_orderlist = ->
+	console.log '--------fuck'
 
 # 完成订单
 _orderFinish = (orderNo, version, carPersonUserId)->
@@ -350,7 +375,7 @@ orderGoodsDetail = (params)->
 updateStore = ->
 	switch _page
 		when 0 then OrderStore.emitChange ['goods']
-		when 1 then OrderStore.emitChange ['car']
+		when 1 then OrderStore.emitChange ['car_fresh']
 		when 2 then OrderStore.emitChange ['store']
 
 window.updateStore = updateStore
@@ -379,6 +404,7 @@ Dispatcher.register (action) ->
 		when Constants.actionType.BROWSER_TEMP then browser_temp(action.params)
 		when Constants.actionType.GET_BIDDING_LIST then getBinddingList(action.goodsResourceId)
 		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER then _carOwnerConfirmOrder(action.carPersonUserId, action.orderNo, action.version, action.index) 
+		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER2 then _carOwnerConfirmOrder2(action.carPersonUserId, action.orderNo, action.version, action.index) 
 		when Constants.actionType.CAR_OWNER_CANCEL_ORDER then _carOwnerCancelOrder(action.carPersonUserId, action.orderNo, action.version, action.index)
 		when Constants.actionType.CAR_OWNER_ORDER_DETAIL then carOwnerOrderDetail(action.carPersonUserId, action.orderNo, action.goodsPersonUserId)
 		when Constants.actionType.ORDER_FINISH then _orderFinish(action.orderNo, action.version, action.carPersonUserId)
@@ -388,6 +414,7 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ORDER_GOODS_AGREE then goodsAgree(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_FINISH then orderGoodsFinish(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_DETAIL then orderGoodsDetail(action.params)
+		when Constants.actionType.CANCEL_CAR_ORDER_LIST then cancel_car_orderlist()
 
 module.exports = OrderStore
 		

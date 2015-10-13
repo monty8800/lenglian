@@ -77,6 +77,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private TextView tvTitle;
 
+    private TextView orderCancel;
+
     private HomeFragment homeFragment;
     private MapFragment mapFragment;
     private OrderFragment orderFragment;
@@ -141,6 +143,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         orderView = findViewById(R.id.rl_order);
         centerView = findViewById(R.id.rl_center);
 
+        orderCancel = (TextView) findViewById(R.id.order_cancel);
+        orderCancel.setOnClickListener(this);
+
         homeView.setOnClickListener(this);
         mapView.setOnClickListener(this);
         orderView.setOnClickListener(this);
@@ -168,10 +173,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setViewState(0);
                 break;
             case R.id.rl_map:
+                orderCancel.setVisibility(View.GONE);
                 flag = 1;
                 setViewState(1);
                 break;
             case R.id.rl_order:
+                orderCancel.setVisibility(View.VISIBLE);
                 if (currentIndex == -1) {
                     showPopMenu(orderView);
                 } else {
@@ -199,6 +206,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.tv_store: // 仓库订单
                 currentIndex = 2;
                 orderStatus(2);
+                break;
+            case R.id.order_cancel:// 已取消订单
+                orderFragment.cancelOrder();
                 break;
         }
     }

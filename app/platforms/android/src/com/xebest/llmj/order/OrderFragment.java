@@ -67,10 +67,16 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
         }
     }
 
+    public void cancelOrder() {
+        mWebView.getWebView().loadUrl("javascript:comeFromFlag(" + mainActivity.mOrderStatus + ")");
+        CarCancelOrderActivity.actionView(getActivity());
+    }
+
     @Override
     public void onResume() {
         // 统计页面
         MobclickAgent.onPageStart("订单");
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

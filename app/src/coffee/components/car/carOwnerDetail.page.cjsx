@@ -17,6 +17,7 @@ Image = require 'util/image'
 XeImage = require 'components/common/xeImage'
 Image = require 'util/image'
 avatar = require 'user-01'
+Auth = require 'util/auth'
 
 _detailParams = DB.get 'transData'
 carId = _detailParams[0]
@@ -28,20 +29,21 @@ Detail = React.createClass {
 
 	# 关注
 	attention: ->
-		if @state.wishlst is true
-			CarAction.attentionDetail({
-				focusid: dUserId
-				focustype: 2
-				userId: _user?.id
-				type: 2
-			})
-		else if @state.wishlst is false
-			CarAction.attentionDetail({
-				focusid: dUserId
-				focustype: 2
-				userId: _user?.id
-				type: 1
-			})
+		Auth.needLogin ->	
+			if @state.wishlst is true
+				CarAction.attentionDetail({
+					focusid: dUserId
+					focustype: 2
+					userId: _user?.id
+					type: 2
+				})
+			else if @state.wishlst is false
+				CarAction.attentionDetail({
+					focusid: dUserId
+					focustype: 2
+					userId: _user?.id
+					type: 1
+				})
 
 	getInitialState: ->
 		{

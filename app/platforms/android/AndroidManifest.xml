@@ -76,5 +76,7 @@
         <activity android:name=".ware.WarehouseDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.MyCommentActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".goods.AddGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.CarCancelOrderActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.SearchGoodsDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>
