@@ -472,16 +472,16 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ORDER_GOODS_AGREE then goodsAgree(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_FINISH then orderGoodsFinish(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_DETAIL then orderGoodsDetail(action.params)
-<<<<<<< HEAD
+
 		when Constants.actionType.CANCEL_CAR_ORDER_LIST then cancel_car_orderlist()
-=======
+
 		when Constants.actionType.ORDER_WAREHOUSE_DETAIL then getWarehouseOrderDetail(action.params)
 		when Constants.actionType.WAREHOUSE_ACCEPT_ORDER then warehouseAcceptOrder(action.params,action.index)
 		when Constants.actionType.WAREHOUSE_CANCLE_ORDER then warehouseCancleOrder(action.params,action.index)
 		
 		when Constants.actionType.ORDER_GOODS_CANCEL then cancelGoodsOrder(action.params)
 		when Constants.actionType.ORDER_GOODS_REPUB then repubGoodsOrder(action.params)
->>>>>>> bcda87b978e2b3a6865401c471ac9f7274da35d7
+
 
 module.exports = OrderStore
 		

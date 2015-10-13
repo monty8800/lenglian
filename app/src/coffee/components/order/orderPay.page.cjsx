@@ -6,6 +6,7 @@ PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
 
 DB = require 'util/storage'
+Plugin = require 'util/plugin'
 BankCardList = require 'components/order/bankCardList'
 
 PayStore = require 'stores/order/pay'
@@ -40,6 +41,12 @@ OrderPay = React.createClass {
 			showSms: true
 		}
 
+	_setPayPwd: ->
+		DB.put 'transData', {
+			type: 'payPwd'
+		}
+		Plugin.nav.push ['resetPasswd']
+
 	_callCB: (params)->
 		console.log 'event----', params
 		if params.msg is 'pay:info'
@@ -69,7 +76,7 @@ OrderPay = React.createClass {
 				<span className="fr">
 					{
 						if user.hasPayPwd is 0
-							<input className="setPas" type="password" readOnly="readonly" placeholder="去设置支付密码"/>
+							<input onClick={@_setPayPwd} className="setPas" type="password" readOnly="readonly" placeholder="去设置支付密码"/>
 						else
 							<input valueLink={@linkState 'payPasswd'} className="setPas" type="password"  placeholder="请输入支付密码"/>
 					}
