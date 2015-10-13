@@ -118,6 +118,23 @@ OrderAction = {
 			actionType: Constants.actionType.ORDER_GOODS_DETAIL
 			params: params
 		}
+	getWarehouseOrderDetail:(params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ORDER_WAREHOUSE_DETAIL
+			params: params
+		}
+	warehouseAcceptOrder:(params,index)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.WAREHOUSE_ACCEPT_ORDER
+			params:params
+			index:index
+		}
+	warehouseCancleOrder:(params,index)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.WAREHOUSE_CANCLE_ORDER
+			params:params
+			index:index
+		}
 }
 
 module.exports = OrderAction

@@ -11,9 +11,7 @@ DB = require 'util/storage'
 Plugin = require 'util/plugin'
 
 pageNow = '1'
-
 pageSize = '10'
-
 showType = '1' 		# 1-空闲中  2-已发布 3-使用中
 
 

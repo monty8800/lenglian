@@ -1,88 +1,173 @@
 
 require 'majia-style'
-React = require 'react'
+React = require 'react/addons'
+PureRenderMixin = React.addons.PureRenderMixin
+LinkedStateMixin = React.addons.LinkedStateMixin
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
-DB = require 'util/storage'
+DB = require 'util/storage' 
+UserStore = require 'stores/user/user'
+OrderStore = require 'stores/order/order'
+OrderAction = require 'actions/order/order'
+XeImage = require 'components/common/xeImage'
+Moment = require 'moment'
 
 _transData = DB.get 'transData'
 
 
 WarehouseOrderDetail = React.createClass {
+	minxins : [PureRenderMixin,LinkedStateMixin]
+	componentDidMount: ->			
+		OrderStore.addChangeListener @_onChange
+		OrderAction.getWarehouseOrderDetail {orderNo:_transData?.orderNo,userId:UserStore.getUser()?.id}
+
+	componentWillNotMount: ->
+		OrderStore.removeChangeListener @_onChange
+
+	getInitialState:->
+		{
+			orderDetail:{}
+			wishlst:false
+		}
+
+	_onChange: (mark)->
+		if mark.msg is 'warehouse:order:detail:done'
+			console.log '++++___+++ ',mark.detail
+			newState = Object.create @state
+			newState.orderDetail = mark.detail
+			@setState newState
+		else if params[0] is 'attention_success'
+			console.log '---attention_success-'
+			newState = Object.create @state
+			newState.wishlst = true
+			@setState newState
+		else if params[0] is 'nattention_success'
+			console.log '---nattention_success-'
+			newState = Object.create @state
+			newState.wishlst = false
+			@setState newState
+		else if params[0] is 'warehouse:cancle:order:done'
+			console.log 'cancle order succ'
+			Plugin.nav.pop()
+
+	_handleFallow: ->
+		Plugin.toast.show 'follow me' 
+		# type = ''
+		# if @state.wishlst
+		# 	type = 2 # 关注 则取消关注
+		# else
+		# 	type = 1 # 未关注 则添加关注
+		# OrderAction.attention({
+		# 	focusid: @state.orderDetail?.goodsPersonUserId 
+		# 	focustype: '2'
+		# 	userId: UserStore.getUser()?.id
+		# 	type: type
+		# })
+
+	_cancleOrder:->
+		OrderAction.warehouseAcceptOrder {
+			orderNo:@state.orderDetail.orderNo
+			warehousePersonUserId:@state.orderDetail.warehousePersonUserId
+			version:@state.orderDetail.version
+		}
+
+
 	render: ->
+		switch parseInt(@state.orderDetail.orderState)
+			when 1
+				if @state.orderDetail?.orderType is 'GW'
+					title = '等待仓库确认'
+				else if @state.orderDetail?.orderType is 'WG'
+					title = '等待货主确认'
+			when 2
+				if parseInt(@state.orderDetail?.payType) is 3
+					title = '等待货主付款'
+				else
+					title = '货物运输中'
+			when 3
+				title = '货物运输中'
+			when 4
+				title = '待评价'
+		
 		<div>
 			<div className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{ _transData?.orderNo }</span></p>
-				<p className="fr">等待货主付款</p>
+				<p className="fr">{ title }</p>
 			</div>
 			<div className="m-item01">
 				<div className="g-detail-dirver">
 					<div className="g-detail">					
 						<div className="g-dirver-pic">
-							<img src="../images/user-01.jpg" />
+							<XeImage src={ @state.orderDetail.goodsPersonHeadPic } size='100x100' type='avatar' />
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
-								<span>货主姓名</span><span className="g-dirname-single">(个体)</span>
+								<span>{ @state.orderDetail.goodsPersonName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper @state.orderDetail.goodsPersonAuthMode}</span>
 							</div>
-							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+							<div className="g-dirver-dis ll-font">
+								<div dangerouslySetInnerHTML={{__html: Helper.stars @state.orderDetail.goodsPersonScore }} />
+							</div>
 						</div>
 						<ul className="g-driver-contact">
-							<li className="ll-font">关注</li>
+							<li onClick={ @_handleFallow } className={ if @state.wishlst then "ll-font" else 'll-font active'}>关注</li>
 							<li className="ll-font">拨号</li>
 						</ul>
 					</div>
 				</div>
 				<div className="g-item g-adr-detail ll-font nopadding">			
 					<div className="g-adr-store ll-font">
-						北京市海淀区泰鹏大厦
+						{ @state.orderDetail.warehousePlace }
 						<p>
-							<span>2015-8-20</span> 至 <span>2015-10-1</span>
+							<span>{ Moment(@state.orderDetail.goodsCreateTime ).format('YYYY-MM-DD') }</span> 至 <span>2015-10-1</span>
 						</p>
 					</div>
 				</div>
 			</div>
 			<div className="m-item01">
 				<div className="g-pro-p">
-					<p className="g-pro-name">货物名称: <span>冷鲜肉</span></p>
+					<p className="g-pro-name">货物名称: <span>{ @state.orderDetail.goodsName }</span></p>
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<img src="../images/product-01.jpg"/>
+						<XeImage src={ @state.orderDetail.goodsPic } size='100x100' />
 					</div>
 					<div className="g-pro-text fl">
-						<p>货物种类: <span>冷鲜肉</span></p>
-						<p>货物要求: <span>冷藏</span></p>
-						<p>货物重量: <span>20吨</span></p>
-						<p>包装类型: <span>硬纸壳</span></p>
+						<p>货物类型: <span>{ @state.orderDetail.goodsType }</span></p>
+						<p>货物重量: <span>{ @state.orderDetail.goodsWeight }</span></p>
+						<p>包装类型: <span>{ @state.orderDetail.goodsPackingType }</span></p>
 					</div>
 				</div>
 			</div>
 			<div className="m-detail-info m-nomargin">			
 				<p>
 					<span>发货人:</span>
-					<span className="ll-font g-info-name">李鑫萍</span>
+					<span className="ll-font g-info-name">{ @state.orderDetail.shipper }</span>
 				</p>
 				<p>
 					<span>收货人:</span>
-					<span className="ll-font g-info-name">周昌旭</span>
+					<span className="ll-font g-info-name">{ @state.orderDetail.receiver }</span>
 				</p>
 				<p>
 					<span>价格类型:</span>
-					<span>竞价 4000元</span>
+					<span>{ Helper.priceTypeMapper @state.orderDetail.priceType }</span>
 				</p>
 				<p>
 					<span>支付方式:</span>
-					<span>货到付款</span>
+					<span>{ Helper.payTypeMapper @state.orderDetail.payType }</span>
 				</p>
 				<p>
 					<span>发票:</span>
-					<span>需要发票</span>
+					<span>{ Helper.isInvoinceMap @state.orderDetail.isInvoice }</span>
 				</p>
 				<p>
 					<span>发布时间:</span>
-					<span>2015-01-01</span>
+					<span>{ Moment(@state.orderDetail.goodsCreateTime ).format('YYYY-MM-DD') }</span>
 				</p>			
+			</div>
+			<div className="m-detail-bottom">
+				<div className="g-pay-btn">
+					<a onClick={@_cancleOrder} className="u-btn02">取消</a>
+				</div>
 			</div>
 		</div>
 }

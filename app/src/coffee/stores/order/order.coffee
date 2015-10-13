@@ -142,6 +142,11 @@ getStoreOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'price', order.price
 				tempOrder = tempOrder.set 'orderState', order.orderState
 				tempOrder = tempOrder.set 'orderType', order.orderType
+				tempOrder = tempOrder.set 'warehouseId', order.warehouseId
+				tempOrder = tempOrder.set 'orderNo', order.orderNo
+				tempOrder = tempOrder.set 'warehousePersonUserId', order.warehousePersonUserId
+				tempOrder = tempOrder.set 'version', order.version
+
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['store']
 	, (err)->
@@ -347,6 +352,14 @@ orderGoodsDetail = (params)->
 			detail: Immutable.Map data
 		}
 
+getWarehouseOrderDetail = (params) ->
+	Http.post Constants.api.store_order_detail, params, (data)->
+		console.log 'warehouse order detail _______', data
+		OrderStore.emitChange {
+			msg: 'warehouse:order:detail:done'
+			detail: data
+		}
+
 updateStore = ->
 	switch _page
 		when 0 then OrderStore.emitChange ['goods']
@@ -354,6 +367,16 @@ updateStore = ->
 		when 2 then OrderStore.emitChange ['store']
 
 window.updateStore = updateStore
+
+
+warehouseAcceptOrder = (params,index)->
+	Http.post Constants.api.WAREHOUSE_ACCEPT_ORDER, params, (data)->
+		OrderStore.emitChange ['warehouse:accept:order:done',index]
+
+warehouseCancleOrder = (params,index)->
+	Http.post Constants.api.WAREHOUSE_CANCLE_ORDER, params, (data)->
+		OrderStore.emitChange ['warehouse:cancle:order:done',index]
+
 
 OrderStore = assign BaseStore, {
 	getOrderList: ->
@@ -388,6 +411,9 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ORDER_GOODS_AGREE then goodsAgree(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_FINISH then orderGoodsFinish(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_DETAIL then orderGoodsDetail(action.params)
-
+		when Constants.actionType.ORDER_WAREHOUSE_DETAIL then getWarehouseOrderDetail(action.params)
+		when Constants.actionType.WAREHOUSE_ACCEPT_ORDER then warehouseAcceptOrder(action.params,action.index)
+		when Constants.actionType.WAREHOUSE_CANCLE_ORDER then warehouseCancleOrder(action.params,action.index)
+		
 module.exports = OrderStore
 		

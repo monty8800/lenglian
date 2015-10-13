@@ -39,7 +39,8 @@ actionType = {
 	GET_GOODS_LIST:null
 	GET_GOODS_DETAIL:null
 	GET_SEARCH_GOODS_DETAIL:null
-
+	WAREHOUSE_ACCEPT_ORDER:null
+	WAREHOUSE_CANCLE_ORDER:null
 	GOODS_BIND_WAREHOUSE_ORDER:null
 
 	GET_WALLET_IN_OUT:null
@@ -141,6 +142,7 @@ actionType = {
 	ORDER_GOODS_AGREE: null
 	ORDER_GOODS_FINISH: null
 	ORDER_GOODS_DETAIL: null
+	ORDER_WAREHOUSE_DETAIL:null
 
 	FOLLOW: null
 
@@ -160,13 +162,8 @@ api = {
 	# server: 'http://192.168.26.177:7080/llmj-app/'
 	# server: 'http://192.168.29.176:8072/'
 	# server: 'http://192.168.26.177:7080/llmj-app/'
-	# server: 'http://192.168.29.203:8072/'
-	# server: 'http://192.168.29.204:8072/'
-
 	# server: 'http://192.168.29.149:8072/'
-
 	# server: 'http://192.168.29.203:8072/'
-
 	# server:'http://192.168.27.160:8080/llmj-app/' #高
 	# server: 'http://192.168.29.210:8072/'
 
@@ -267,6 +264,10 @@ api = {
 	GET_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
 	#搜索货源时进入货源详情
 	GET_SEARCH_GOODS_DETAIL: '/mjGoodsResource/queryMjGoodsResource.shtml'
+	#仓库接受订单
+	WAREHOUSE_ACCEPT_ORDER: '/mjOrderWarhouse/warehouseConfirmOrder.shtml'
+	# 仓库拒绝订单 (取消)
+	WAREHOUSE_CANCLE_ORDER: 'mjOrderWarhouse/warehouseCancelOrder.shtml'
 
 #支付相关 钱包
 	#我的收入和支出
