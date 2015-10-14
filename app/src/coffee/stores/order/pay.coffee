@@ -19,7 +19,7 @@ getPayInfo = (params)->
 		console.log 'get pay info result', data
 		PayStore.emitChange {
 			msg: 'pay:info'
-			data: data
+			data: Immutable.Map data
 		}
 
 hidePaySms = ->
@@ -31,7 +31,17 @@ payNoti = ->
 doPay = (params)->
 	Http.post Constants.api.PAY_ORDER, params, (data)->
 		console.log 'pay order result', data
-		PayStore.emitChange 'pay:success'
+		switch parseInt(data)
+			when 10 then Plugin.toast.err '余额不足！'
+			when 11 then Plugin.toast.err '支付失败，请稍后再试'
+			when 12 then Plugin.toast.err '充值失败，请稍后再试'
+			when 13 then Plugin.toast.err '订单处理中'
+			when 14 then Plugin.toast.err '支付异常，请稍后再试'
+			when 0
+				DB.put 'transData', {
+					del: params.orderNo
+				}
+				PayStore.emitChange 'pay:success'
 
 Dispatcher.register (action)->
 	switch action.actionType

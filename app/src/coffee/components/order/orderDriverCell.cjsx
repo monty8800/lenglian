@@ -41,13 +41,14 @@ OrderDriverCell = React.createClass {
 		Plugin.nav.push ['orderPay']
 
 	_orderDone: ->
+		orderNo = @props.order?.orderNo
 		Plugin.alert '确认完成订单?', '提醒', (index)->
 			console.log 'click index', index
 			if index is 1
 				OrderAction.goodsOrderDone {
 					userId: UserStore.getUser()?.id
-					orderNo: @props.order?.orderNo
-				}, @props.order?.orderNo
+					orderNo: orderNo
+				}, orderNo
 		, ['完成订单', '取消']
 
 	_goComment: ->

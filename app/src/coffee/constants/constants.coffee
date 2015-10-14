@@ -242,7 +242,7 @@ api = {
 	GET_PAY_INFO: '/orderPay/toPay.shtml'
 
 	#支付订单
-	PAY_ORDER: ''
+	PAY_ORDER: '/orderPay/pay.shtml'
 
 
 #YYQ

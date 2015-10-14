@@ -10,6 +10,9 @@ DB = require 'util/storage'
 Immutable = require 'immutable'
 Plugin = require 'util/plugin'
 
+paths = window.location.href.split('/')
+_htmlPage = paths[paths.length-1]
+
 localUser = DB.get 'user'
 _user = new User localUser
 
@@ -30,6 +33,17 @@ updateUser = ->
 		requestInfo()
 
 window.updateUser = updateUser
+
+updateStore = ->
+	if _htmlPage is 'orderPay.html'
+		localUser = DB.get 'user'
+		_user = new User localUser
+		console.log 'new user', _user
+		UserStore.emitChange 'user:update'
+	else
+		updateUser()
+
+window.updateStore = updateStore
 
 window.setAuthPic = (picUrl, type)->
 	console.log 'set auth pic', type, picUrl
@@ -238,6 +252,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.CLEAR_AUTH_PIC then clearAuthPic(action.type)
 		when Constants.actionType.UPDATE_USER then updateUserProps(action.properties)
 		when Constants.actionType.COMPANY_AUTH then companyAuth(action.params, action.files)
-		when Constants.actionType.UPDATE_STORE then updateUser()
+		when Constants.actionType.UPDATE_STORE then updateStore()
 
 module.exports = UserStore

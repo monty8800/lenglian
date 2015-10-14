@@ -54,6 +54,9 @@ submitComment = (userId,userRole,targetId,targetRole,startStage,orderNo,commentV
 		content:commentValue		#内容
 	},(data)->
 		console.log '__ _评价成功__'
+		DB.put 'transData', {
+			del: orderNo
+		}
 		CommentStore.emitChange 'addNewCommentSucc'
 	,(data)->
 		console.log '__ _添加评价失败__'

@@ -71,7 +71,7 @@ getBankCardInfo = (cardNo)->
 
 		WalletStore.emitChange "getBankCardInfoSucc"
 	,(data)->
-		Plugin.toast.err data.msg
+		WalletStore.emitChange "getBankCardInfoFailed"
 	,true
 
 getVCodeForBindBankCar = (aBankCardModel)->

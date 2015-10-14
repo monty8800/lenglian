@@ -66,6 +66,12 @@ selectionList = [
 
 ]
 
+#TODO: 分页还是有点问题
+_skip = 0
+_pageSize = 10
+_hasMore = true
+_netBusy = false
+
 CarFindGoods = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	componentDidMount: ->
@@ -101,25 +107,28 @@ CarFindGoods = React.createClass {
 			@_search()
 		else if msg is 'search:goods:done'
 			dataList = GoodsStore.getGoodsList()
+			_netBusy = false
+			_skip = dataList.size
+			_hasMore = (dataList.size % _pageSize) is 0
 			@setState {
 				goodsList: dataList
-				hasMore: dataList.size - @state.dataCount >= @state.pageSize
-				dataCount: dataList.size
-				netBusy: false
 			}
 
 	_search: ->
-		@_requestData 0
+		_skip = 0
+		_hasMore = true
+		_netBusy = false
+		@_requestData()
 
 	_requestData: (page)->
-		if @state.netBusy
+		if _netBusy
+			console.log 'net busy, return'
 			return
-		@setState {
-			netBusy: true
-		}
+		_netBusy = true
+
 		GoodsAction.searchGoods {
-			startNo: @state.goodsList.size
-			pageSize: @state.pageSize
+			startNo: _skip
+			pageSize: _pageSize
 			goodsType: @state.goodsType
 			fromProvinceId: @state.fromProvinceId if @state.fromProvinceId
 			fromCityId: @state.fromCityId if @state.fromCityId
@@ -137,10 +146,6 @@ CarFindGoods = React.createClass {
 			fromArea: null
 			fromAreaId: null
 			goodsList: GoodsStore.getGoodsList()
-			pageSize: 10
-			dataCount: 0
-			hasMore: true
-			netBusy: false
 			showCarList: false
 			bid: false
 		}
@@ -166,7 +171,7 @@ CarFindGoods = React.createClass {
 			
 		</div>
 
-		<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={@state.hasMore and not @state.netBusy}>
+		<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={_hasMore and not _netBusy}>
 		{ goodsCells }
 		</InfiniteScroll>
 		</section>

@@ -15,6 +15,8 @@ UserStore = require 'stores/user/user'
 
 PaySmsCode = require 'components/order/paySmsCode'
 
+Validator = require 'util/validator'
+
 transData = DB.get 'transData'
 
 OrderPay = React.createClass {
@@ -24,6 +26,11 @@ OrderPay = React.createClass {
 			info: null
 			payPasswd: ''
 			showSms: false
+			payMode: 1
+			bankCard: null
+			user: UserStore.getUser()
+			agree: true
+			smsCode: null
 		}
 
 	componentDidMount: ->
@@ -37,8 +44,32 @@ OrderPay = React.createClass {
 		PayStore.removeChangeListener @_callCB
 
 	_showPaySms: ->
+		if @state.payMode is 1
+			@_doPay()
+		else
+			@setState {
+				showSms: true
+			}
+
+	_doPay: ->
+		if not Validator.payPasswd @state.payPasswd
+			Plugin.toast.err '请输入正确的支付密码'
+		else if @state.payMode isnt 1 and not Validator.smsCode @state.smsCode
+			Plugin.toast.err '请输入正确的手机验证码'
+		else
+			PayAction.doPay {
+				userId: @state.user.id
+				orderNo: transData?.orderNo
+				consumeOrderNo: @state.info.get 'consumeOrderNo'
+				payMode: @state.payMode
+				userBankCardId: @state.bankCard if @state.payMode isnt 1
+				smsCode: @state.smsCode if @state.payMode isnt 1
+				payPwd: @state.payPasswd
+			}
+
+	_setPayMode: (mode)->
 		@setState {
-			showSms: true
+			payMode: mode
 		}
 
 	_setPayPwd: ->
@@ -61,10 +92,17 @@ OrderPay = React.createClass {
 			@setState {
 				showSms: false
 			}
+		else if params is 'user:update'
+			@setState {
+				user: UserStore.getUser()
+			}
+		else if params is 'pay:success'
+			Plugin.toast.success '订单支付成功！'
+			Plugin.nav.pop()
 			#TODO: 调用支付接口，接口还没有哦
 
 	render : ->
-		user = UserStore.getUser()
+		user = @state.user
 		<section>
 		<div className="m-pay-item">
 			<p className="g-pay clearfix">
@@ -85,7 +123,7 @@ OrderPay = React.createClass {
 		</div>
 
 		<div className="m-pay-item">
-			<p className="g-pay offMoney ll-font">
+			<p onClick={@_setPayMode.bind this, 1} className={"g-pay offMoney ll-font" + if @state.payMode is 1 then ' active' else ''}>
 				<span className="font30">余额支付</span>
 				<span className="font24">{@state.info?.get('accountAmount') + '元'}</span>
 			</p>
