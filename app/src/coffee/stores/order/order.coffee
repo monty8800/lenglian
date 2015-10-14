@@ -28,13 +28,13 @@ _page = -1
 paths = window.location.href.split('/')
 _htmlPage = paths[paths.length-1]
 
-window.comeFromFlag = (page, status)->			
+window.comeFromFlag = (page, status)->		
 	# 禁止多次相同请求
 	if _page is page 
 		return
 	_page = page 
 	OrderAction.getOrderList(status or Constants.orderStatus.st_01, 1)
-
+	
 # 浏览器临时测试
 browser_temp = (params)->
 	_page = params
@@ -42,9 +42,7 @@ browser_temp = (params)->
 
 # 订单列表
 getOrderList = (status, currentPage)->
-	# if status is '5'
-	# 	_page = 1
-	switch _page
+	switch parseInt(_page)
 		when 0 then getGoodsOrderList(status, currentPage)
 		when 1 then getCarOwnerOrderList(status, currentPage)
 		when 2 then getStoreOrderList(status, currentPage)
@@ -273,14 +271,12 @@ _carOwnerConfirmOrder2 = (carPersonUserId, orderNo, version, index)->
 
 # 车主取消订单
 _carOwnerCancelOrder = (carPersonUserId, orderNo, version, index)->
-	console.log '----------ordrNo:', orderNo
 	Plugin.loading.show '正在取消...'
 	Http.post Constants.api.car_owner_cancel_order, {
 		carPersonUserId: carPersonUserId
 		orderNo: orderNo
 		version: version
 	}, (data)->
-		Plugin.toast.success '-------'
 		DB.put 'detailCallBackFlag', index
 		Plugin.loading.hide()
 		Plugin.toast.success '取消成功'
@@ -325,6 +321,7 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 		_orderDetail = _orderDetail.set 'shipper', temp.shipper
 		_orderDetail = _orderDetail.set 'receiver', temp.receiver
 		_orderDetail = _orderDetail.set 'isInvoice', temp.isInvoice
+		_orderDetail = _orderDetail.set 'version', temp.version
 		_orderDetail = _orderDetail.set 'goodsPersonName', temp.goodsPersonName
 		_orderDetail = _orderDetail.set 'certification', data.certification
 		_orderDetail = _orderDetail.set 'goodScore', data.goodScore
@@ -337,8 +334,38 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 	, (data)->
 		Plugin.toast.err data.msg
 
-cancel_car_orderlist = ->
-	console.log '--------fuck'
+cancel_car_orderlist = (page)->
+	Http.post Constants.api.carowner_order_list, {
+		carPersonUserId: UserStore.getUser()?.id # 用户id
+		pageNow: page # 当前页码
+		pageSize: Constants.orderStatus.PAGESIZE
+		orderState: '5' # 全部空 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消
+	}, (data) ->
+		orderList = data.myCarInfo
+		_orderList = _orderList.clear()
+		for order in orderList
+			do (order) ->
+				tempOrder = new OrderModel
+				tempOrder = tempOrder.set 'orderNo', order.orderNo
+				tempOrder = tempOrder.set 'orderState', order.orderState
+				tempOrder = tempOrder.set 'orderType', order.orderType
+				tempOrder = tempOrder.set 'goodsPersonHeadPic', order.goodsPersonHeadPic
+				tempOrder = tempOrder.set 'carPersonName', order.carPersonName
+				tempOrder = tempOrder.set 'goodsPersonScore', order.goodsPersonScore
+				tempOrder = tempOrder.set 'destination', order.destination
+				tempOrder = tempOrder.set 'setOut', order.setOut
+				tempOrder = tempOrder.set 'priceType', order.priceType
+				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + order.goodsType
+				tempOrder = tempOrder.set 'payType', order.payType
+				tempOrder = tempOrder.set 'price', order.price
+				tempOrder = tempOrder.set 'carPersonUserId', order.carPersonUserId
+				tempOrder = tempOrder.set 'goodSsourceId', order.goodSsourceId
+				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
+				tempOrder = tempOrder.set 'version', order.version
+				_orderList = _orderList.push tempOrder
+		OrderStore.emitChange ['cancel_car']
+	, (err)->
+		Plugin.toast.err err.msg
 
 # 完成订单
 _orderFinish = (orderNo, version, carPersonUserId)->
@@ -411,10 +438,10 @@ getWarehouseOrderDetail = (params) ->
 
 updateStore = ->
 	transData = DB.get 'transData'
-	if transData.del
+	if transData?.del
 		_orderList = _orderList.filterNot (order)->
 			order.get('orderNo') is transData.del
-	else if transData.modify
+	else if transData?.modify
 		_orderList = _orderList.map (order)->
 			if order.get('orderNo') is transData.modify
 				return order.merge transData.props
@@ -472,16 +499,12 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ORDER_GOODS_AGREE then goodsAgree(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_FINISH then orderGoodsFinish(action.params, action.orderId)
 		when Constants.actionType.ORDER_GOODS_DETAIL then orderGoodsDetail(action.params)
-<<<<<<< HEAD
-		when Constants.actionType.CANCEL_CAR_ORDER_LIST then cancel_car_orderlist()
-=======
+		when Constants.actionType.CANCEL_CAR_ORDER_LIST then cancel_car_orderlist(action.currentPage)
 		when Constants.actionType.ORDER_WAREHOUSE_DETAIL then getWarehouseOrderDetail(action.params)
 		when Constants.actionType.WAREHOUSE_ACCEPT_ORDER then warehouseAcceptOrder(action.params,action.index)
 		when Constants.actionType.WAREHOUSE_CANCLE_ORDER then warehouseCancleOrder(action.params,action.index)
-		
 		when Constants.actionType.ORDER_GOODS_CANCEL then cancelGoodsOrder(action.params)
 		when Constants.actionType.ORDER_GOODS_REPUB then repubGoodsOrder(action.params)
->>>>>>> bcda87b978e2b3a6865401c471ac9f7274da35d7
 
 module.exports = OrderStore
 		

@@ -59,12 +59,12 @@ CarItem = React.createClass {
 		else if params[0] is 'car_fresh'
 			index = DB.get 'detailCallBackFlag'
 			console.log '------hahahha:', index
-			if index not ''
-				orderList = @props.items.splice index, 1
-				newState = Object.create @state
-				newState.orderList = orderList
-				@setState newState
-				DB.put 'detailCallBackFlag', ''
+			# if index not ''
+			orderList = @props.items.splice parseInt(index), 1
+			newState = Object.create @state
+			newState.orderList = orderList
+			@setState newState
+			DB.remove 'detailCallBackFlag'
 
 	render: ->
 		items = @props.items.map (item, i)->
@@ -98,6 +98,8 @@ CarItem = React.createClass {
 									<span>货物运输中</span>
 								else if item?.orderState is '4'
 									<a href="###" onClick={@comment.bind this, item?.goodsPersonUserId, item?.orderNo} className="u-btn02">评价货主</a>
+								else if item?.orderState is '5'
+									<span>订单已取消</span>
 							}
 						</div>
 					</div>

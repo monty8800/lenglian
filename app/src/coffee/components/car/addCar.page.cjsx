@@ -151,7 +151,7 @@ AddCar = React.createClass {
 	handleSubmit: ->
 		if not Validator.carNum @state.carNo
 			Plugin.toast.err '请输入正确的车牌号'
-		if @state.category is ''
+		else if @state.category is ''
 			Plugin.toast.err '请选择车辆类型'
 		else if @state.heavy is ''
 			Plugin.toast.err '可载重货不能为空'
@@ -271,7 +271,7 @@ AddCar = React.createClass {
 			</div>
 			<div className="u-pay-btn">
 				<div className="u-pay-btn">
-					<a href="#" className="btn" onClick={@.handleSubmit.bind this}>新增车辆</a>
+					<a href="###" className="btn" onClick={@.handleSubmit.bind this}>新增车辆</a>
 				</div>
 			</div>
 		</div>

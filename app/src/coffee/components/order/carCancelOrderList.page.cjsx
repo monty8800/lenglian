@@ -19,14 +19,14 @@ Item = React.createClass {
 		}
 
 	componentDidMount: ->			
-		OrderAction.getOrderList(Constants.orderStatus.st_05, 1)
+		OrderAction.getCarCancelOrderList(1)
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->
 		OrderStore.removeChangeListener @resultCallBack
 
 	resultCallBack: (params)->
-		if params[0] is 'car'
+		if params[0] is 'cancel_car'
 			newState = Object.create @state
 			newState.orderList = OrderStore.getOrderList().toJS()
 			@setState newState

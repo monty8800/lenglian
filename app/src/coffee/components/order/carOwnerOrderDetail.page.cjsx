@@ -98,19 +98,16 @@ OrderDetail = React.createClass {
 		console.log '--------tel:', tel
 		window.location.href = 'tel:' + tel
 
-	operation: (params)->
+	operation: (params, carPersonUserId, orderNo, version)->
 		if params is 1 
 			Plugin.alert '确认接受吗?', '提示', (index)->
 				if index is 1
-					OrderAction.carOwnercomfitOrder2(@state.order?.carPersonUserId, @state.order?.orderNo, @state.order.version, _index)
+					OrderAction.carOwnercomfitOrder2 carPersonUserId, orderNo, version, _index
 			, ['确定', '取消']
 		else if params is 2	
 			Plugin.alert '确定取消吗', '提示', (index)->
 				if index is 1
-					Plugin.toast.show '11111111'
-					OrderAction.carOwnerCancelOrder @state.order?.carPersonUserId, @state.order?.orderNo, @state.order.version, _index
-				else
-					Plugin.toast.show '22222222'
+					OrderAction.carOwnerCancelOrder carPersonUserId, orderNo, version, _index
 			, ['确定', '取消']
 
 	render: ->
@@ -220,8 +217,8 @@ OrderDetail = React.createClass {
 			</div>	
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' then 'block' else 'none'}}>
 				<div className="g-pay-btn">
-					<a href="###" className="u-btn02" onClick={@operation.bind this, 1}>确定</a>
-					<a href="###" className="u-btn02" onClick={@operation.bind this, 2}>取消</a>
+					<a href="###" className="u-btn02" onClick={@operation.bind this, 1, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version}>确定</a>
+					<a href="###" className="u-btn02" onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version}>取消</a>
 				</div>
 			</div>
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '4' then 'block' else 'none'}}>

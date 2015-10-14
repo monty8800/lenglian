@@ -55,7 +55,6 @@ OrderDoc = React.createClass {
 	componentDidMount: ->
 		# 浏览器调试(临时)	
 		# OrderAction.browerTemp(1)
-		# OrderAction.browerTemp(0)
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->

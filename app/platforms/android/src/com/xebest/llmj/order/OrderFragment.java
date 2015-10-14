@@ -58,6 +58,8 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
             CarOrderDetailActivity.actionView(getActivity());
         } else if (flag.equals("doComment")) {
             DoCommentActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("goodsOrderDetail")) {
+            GoodsOrderDetailActivity.actionView(getActivity());
         }
     }
 
@@ -68,8 +70,8 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
     }
 
     public void cancelOrder() {
-        mWebView.getWebView().loadUrl("javascript:comeFromFlag(" + mainActivity.mOrderStatus + ")");
-        CarCancelOrderActivity.actionView(getActivity());
+//        CarCancelOrderActivity.actionView(getActivity());
+        OrderCancelListActivity.actionView(getActivity(), mainActivity.mOrderStatus);
     }
 
     @Override
