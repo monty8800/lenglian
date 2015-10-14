@@ -229,8 +229,13 @@
             }
             else
             {
-                [self hide];
-                [[Global sharedInstance] showErr:@"没有可用车源，请添加车源后重试"];
+                [UIView animateWithDuration:0.15 animations:^{
+                    self.alpha = 0;
+                } completion:^(BOOL finished) {
+                    [self hide];
+                    [[Global sharedInstance] showErr:@"没有可用车源，请添加车源后重试"];
+                }];
+                
             }
             
             
