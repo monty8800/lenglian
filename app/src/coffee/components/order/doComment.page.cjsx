@@ -12,6 +12,9 @@ DB = require 'util/storage'
 transData = DB.get 'transData'
 Plugin = require 'util/plugin'
 
+Raty = require 'components/common/raty'
+RatyStore = require 'stores/common/raty'
+
 DoComment = React.createClass {
 	submitBtnClick: ->
 		#TODO: 假数据
@@ -29,7 +32,7 @@ DoComment = React.createClass {
 
 	getInitialState: ->
 		{
-			startStage:	'8'
+			startStage:	RatyStore.getScore()
 			commentValue:''		 
 		}
 	componentDidMount: ->
@@ -44,19 +47,19 @@ DoComment = React.createClass {
 			Plugin.nav.pop()
 		else if mark is 'addNewCommentFaile'
 			Plugin.toast.err '评价失败!'
+		else if mark is 'rate:change'
+			score = RatyStore.getScore()
+			console.log 'new score ', score
+			@setState {
+				startStage: score
+			}
 
 	render : ->
 		<div>
 			<div className="m-releaseitem">
 				<div>
-					<p dangerouslySetInnerHTML = {{ __html : "给货主评分"}}/> 
-					<p className="star">
-						<i className="ll-font">&#xe62f;</i>
-						<i className="ll-font">&#xe62f;</i>
-						<i className="ll-font">&#xe62f;</i>
-						<i className="ll-font">&#xe62f;</i>
-						<i className="ll-font">&#xe62f;</i>
-					</p>
+					<p dangerouslySetInnerHTML = {{ __html : "给货主评分"}}/>
+					<Raty score=3 canRate=true />
 				</div>
 			</div>
 			<div className="m-releaseitem">
