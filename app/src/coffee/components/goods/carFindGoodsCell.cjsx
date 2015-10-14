@@ -14,6 +14,8 @@ moment = require 'moment'
 
 XeImage = require 'components/common/xeImage'
 
+Raty = require 'components/common/raty'
+
 CarFindGoodsCell = React.createClass {
 	mixins: [PureRenderMixin]
 
@@ -38,7 +40,7 @@ CarFindGoodsCell = React.createClass {
 						<div className="g-dirver-name">
 							<span>{@props.goods.get 'userName'}</span><span className="g-dirname-single">{if @props.goods.get('certificAtion') is '1' then '(个体)' else '(公司)'}</span>
 						</div>
-						<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+						<div className="g-dirver-dis ll-font"><Raty score={@props.goods.get 'userScore'} canRate=false /></div>
 					</div>
 					<div onClick={@_showWidget} className="g-dirver-btn">
 						<a className="u-btn03">{if @props.goods.get('priceType') isnt '1' then '竞价' else '抢单'}</a>

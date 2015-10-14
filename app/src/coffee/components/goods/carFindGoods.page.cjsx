@@ -105,6 +105,7 @@ CarFindGoods = React.createClass {
 				goodsList: dataList
 				hasMore: dataList.size - @state.dataCount >= @state.pageSize
 				dataCount: dataList.size
+				netBusy: false
 			}
 
 
@@ -112,6 +113,11 @@ CarFindGoods = React.createClass {
 		@_requestData 0
 
 	_requestData: (page)->
+		if @state.netBusy
+			return
+		@setState {
+			netBusy: true
+		}
 		GoodsAction.searchGoods {
 			startNo: @state.goodsList.size
 			pageSize: @state.pageSize
@@ -132,9 +138,10 @@ CarFindGoods = React.createClass {
 			fromArea: null
 			fromAreaId: null
 			goodsList: GoodsStore.getGoodsList()
-			pageSize: 4
+			pageSize: 10
 			dataCount: 0
 			hasMore: true
+			netBusy: false
 			showCarList: false
 			bid: false
 		}
@@ -143,23 +150,6 @@ CarFindGoods = React.createClass {
 			initState[selection.key] = (option.key for option in selection.options)
 		console.log 'initState', initState
 		return initState
-
-# <InfiniteScroll
-#     pageStart=0
-#     loadMore={loadFunc}
-#     hasMore={true || false}
-#     loader={<div className="loader">Loading ...</div>}>
-#   {items} // <-- This is the "stuff" you want to load
-# </InfiniteScroll>
-# pageStart : The page number corresponding to the initial items, defaults to 0 which means that for the first loading, loadMore will be called with 1
-
-# loadMore(pageToLoad) : This function is called when the user scrolls down and we need to load stuff
-
-# hasMore : Boolean stating if we should keep listening to scroll event and trying to load more stuff
-
-# loader : Loader element to be displayed while loading stuff - You can use InfiniteScroll.setDefaultLoader(loader); to set a defaut loader for all your InfiniteScroll components
-
-# threshold : The distance between the bottom of the page and the bottom of the window's viewport that triggers the loading of new stuff - Defaults to 250
 
 	render: ->
 		console.log 'state', @state
@@ -177,7 +167,7 @@ CarFindGoods = React.createClass {
 			
 		</div>
 
-		<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={@state.hasMore}>
+		<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={@state.hasMore and not @state.netBusy}>
 		{ goodsCells }
 		</InfiniteScroll>
 		</section>

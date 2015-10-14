@@ -159,6 +159,7 @@ actionType = {
 
 	PAY_NOTI: null
 	DO_PAY: null
+	RATY_CHANGE: null
 
 }
 
@@ -372,6 +373,7 @@ smsType = {
 	register: 1 #注册
 	resetPwd: 2 #重置密码
 	resetPayPwd: 3 #重置支付密码
+	payOrder: 5 #订单支付
 }
 
 authType = {

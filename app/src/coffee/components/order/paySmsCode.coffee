@@ -11,6 +11,7 @@ UserStore = require 'stores/user/user'
 
 Validator = require 'util/validator'
 Plugin = require 'util/plugin'
+Constants = require 'constants/constants'
 
 PaySmsCode = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -37,7 +38,7 @@ PaySmsCode = React.createClass {
 				<div className="g-payinput">
 					<input valueLink={@linkState 'smsCode'} type="number" className="g-codeinput fl"/>
 					<a className="g-paytime fr">
-						<SmsCode mobile={user.mobile} styleType='pay'  />
+						<SmsCode mobile={user.mobile} styleType='pay' type={Constants.smsType.payOrder} />
 					</a>
 				</div>
 			</div>
