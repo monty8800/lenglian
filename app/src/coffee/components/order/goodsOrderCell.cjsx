@@ -46,7 +46,7 @@ GoodsCell = React.createClass {
 
 		<div className="m-item01">
 			{
-				if parseInt(@props.order.priceType) is 1
+				if parseInt(@props.order.priceType) is 1 or parseInt(@props.order.orderState) in [2, 3, 4]
 					<OrderDriverCell order={@props.order} />
 			}
 			<div onClick={@_goDetail} className="g-item">
