@@ -224,7 +224,16 @@
                                        }];
             }
             
-            self.dataList = goodsList;
+            if (goodsList.count > 0) {
+                self.dataList = goodsList;
+            }
+            else
+            {
+                [self hide];
+                [[Global sharedInstance] showErr:@"没有可用车源，请添加车源后重试"];
+            }
+            
+            
             
         }
         else

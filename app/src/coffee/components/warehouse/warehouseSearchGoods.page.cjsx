@@ -77,7 +77,7 @@ SearchResultList = React.createClass {
 				# # GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
 				Plugin.run [3, 'select:warehouse', _selectedGoodsId]
 			else 
-				Plugin.toast.show '未认证仓库 先认证'
+				Plugin.toast.err '尚未通过仓库主认证，请认证后再试'
 		e.stopPropagation()
 
 	render: ->

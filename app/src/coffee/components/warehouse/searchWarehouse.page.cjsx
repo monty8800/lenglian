@@ -120,7 +120,7 @@ SearchWarehouse = React.createClass {
 				_selectedWarehouseId = aResult.id
 				Plugin.run [3, 'select:goods', _selectedWarehouseId]
 			else 
-				Plugin.toast.show '未认证货主 先认证'
+				Plugin.toast.err '尚未通过货主认证，请认证后再试'
 		e.stopPropagation()
 
 	render: ->

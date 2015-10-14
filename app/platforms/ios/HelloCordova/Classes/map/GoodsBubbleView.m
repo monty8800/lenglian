@@ -97,6 +97,14 @@
         [[Global sharedInstance] showErr:@"错误的货物数据！"];
         return;
     }
+    
+    NSDictionary *user = [Global getUser];
+    BOOL carAuth = [[user objectForKey:@"carStatus"] integerValue] == 1;
+    if (!carAuth) {
+        [[Global sharedInstance] showErr:@"尚未进行车主认证，请认证之后再进行操作"];
+        return;
+    }
+    
     ((NearByViewController *)[Global sharedInstance].mapVC).bid = [[self.data objectForKey:@"priceType"] integerValue] == 2;
     [SelectGoodsWidget show:(id<SelectGoodsDelegate>)([Global sharedInstance].mapVC) goods:[self.data objectForKey:@"id"] type:Cars];
 }

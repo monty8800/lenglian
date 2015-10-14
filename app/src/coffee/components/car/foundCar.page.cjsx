@@ -16,6 +16,7 @@ CarStore = require 'stores/car/car'
 CarAction = require 'actions/car/car'
 XeImage = require 'components/common/xeImage'
 avatar = require 'user-01'
+UserStore = require 'stores/user/user'
 
 CarItem = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -39,6 +40,7 @@ CarItem = React.createClass {
 
 	# 选择此车
 	select: (carId, i, e)->
+		return Plugin.toast.err '尚未通过货主认证，请认证后再试' if UserStore.getUser()?.goodsStatus isnt 1
 		console.log '-------select_car', carId
 		Plugin.nav.push ['select_goods', carId, i]
 		e.stopPropagation()

@@ -164,7 +164,15 @@
                                            @"infoList": infoList
                                            }];
                     
-                    self.dataList = goodsList;
+                    if (goodsList.count > 0) {
+                        self.dataList = goodsList;
+                    }
+                    else
+                    {
+                        [self hide];
+                        [[Global sharedInstance] showErr:@"没有可用货源，请添加货源后重试"];
+                    }
+                    
                 }
             }
             else

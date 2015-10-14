@@ -81,10 +81,13 @@ OrderDriverCell = React.createClass {
 			when 3
 				statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
 			when 4
-				if @props.order?.orderType in ['GC', 'CG']
-					statusBtn = <a onClick={@_receiver} className="u-btn02">评价司机</a>
+				if @props.order?.rateFlag
+					if @props.order?.orderType in ['GC', 'CG']
+						statusBtn = <a onClick={@_receiver} className="u-btn02">评价司机</a>
+					else
+						statusBtn = <a onClick={@_receiver} className="u-btn02">评价仓库</a>
 				else
-					statusBtn = <a onClick={@_receiver} className="u-btn02">评价仓库</a>
+					statusBtn = <span>订单已评价</span>
 
 		<div className="g-item-dirver">
 			<div className="g-dirver">					

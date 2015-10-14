@@ -164,10 +164,13 @@ GoodsOrderDetail = React.createClass {
 				_btnText = '订单完成'
 			when 4
 				_statusText = '已付款'
-				if @state.detail?.get('orderType') in ['GC', 'CG'] 
-					_btnText = '评价司机'
+				if @state.detail?.get 'rateFlag'
+					if @state.detail?.get('orderType') in ['GC', 'CG'] 
+						_btnText = '评价司机'
+					else
+						_btnText = '评价仓库'
 				else
-					_btnText = '评价仓库'
+					_btnText = '订单已评价'
 			when 5
 				_statusText = '已取消'
 				_btnText = '重新发布'
