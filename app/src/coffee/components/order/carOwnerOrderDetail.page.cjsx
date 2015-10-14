@@ -10,6 +10,7 @@ OrderStore = require 'stores/order/order'
 DB = require 'util/storage'
 UserStore = require 'stores/user/user'
 XeImage = require 'components/common/xeImage'
+Raty = require 'components/common/raty'
 avatar = require 'user-01'
 Image = require 'util/image'
 Auth = require 'util/auth'
@@ -28,6 +29,7 @@ OrderDetail = React.createClass {
 			goodsPersonUserId: detail[2]
 			order: OrderStore.getOrderDetail()
 			wishlst: false
+			isInit: true
 		}
 
 	componentDidMount: ->
@@ -42,6 +44,7 @@ OrderDetail = React.createClass {
 			detail = OrderStore.getOrderDetail()
 			newState = Object.create @state
 			newState.order = detail
+			newState.isInit = false
 			newState.wishlst = detail.wishlst
 			@setState newState
 		else if params[0] is 'attention_success'
@@ -142,7 +145,12 @@ OrderDetail = React.createClass {
 							<div className="g-dirver-name">
 								<span>{@state.order.goodsPersonName}</span><span className="g-dirname-single">{Helper.whoYouAreMapper @state.order.certification}</span>
 							</div>
-							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+							<div className="g-dirver-dis ll-font">
+								{
+									if not @state.isInit
+										<Raty score=8 />
+								}
+							</div>
 						</div>
 						<ul className="g-driver-contact">
 							<li className={ if @state.wishlst then "ll-font" else 'll-font active'} onClick={@attention.bind this, @state.wishlst, @state.order?.goodsPersonUserId}>关注</li>

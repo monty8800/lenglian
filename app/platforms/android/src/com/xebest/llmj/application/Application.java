@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
+import android.view.WindowManager;
 import android.webkit.WebView;
 
 import com.baidu.location.BDLocation;
@@ -54,6 +55,10 @@ public class Application extends android.app.Application {
     public String phone = "";
 
     public String userId = "";
+
+    public int WIDTH = 0;
+
+    public int HEIGHT = 0;
 
     public void setUserId(String userId) {
         this.userId = userId;
@@ -106,6 +111,12 @@ public class Application extends android.app.Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+
+        WindowManager wm = (WindowManager) getApplicationContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+
+        WIDTH = wm.getDefaultDisplay().getWidth();
+        HEIGHT = wm.getDefaultDisplay().getHeight();
 
     }
 

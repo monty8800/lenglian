@@ -19,6 +19,7 @@ import com.xebest.llmj.adapter.CarAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
+import com.xebest.llmj.goods.SearchGoodsDetailActivity;
 import com.xebest.llmj.model.CarListInfo;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
@@ -117,6 +118,8 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
             // 选择该仓库
             wareHouseId = args.getString(2);
             new GoodsFoundCar().execute();
+        } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
+            SearchGoodsDetailActivity.actionView(WareHouseFindGoodsActivity.this);
         }
     }
 

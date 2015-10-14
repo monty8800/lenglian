@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -54,6 +55,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private View orderView;
     private View centerView;
     private View topView;
+    private View bottomView;
 
     private View popView;
     private PopupWindow popupWindow;
@@ -142,6 +144,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mapView = findViewById(R.id.rl_map);
         orderView = findViewById(R.id.rl_order);
         centerView = findViewById(R.id.rl_center);
+
+        bottomView = findViewById(R.id.rl_bottom);
 
         orderCancel = (TextView) findViewById(R.id.order_cancel);
         orderCancel.setOnClickListener(this);
@@ -365,7 +369,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         tvStore = (TextView) popView.findViewById(R.id.tv_store);
         tvStore.setOnClickListener(this);
 
-        popupWindow = new PopupWindow(popView, 300, 400);
+
+        double hhh = Double.valueOf(Application.getInstance().HEIGHT) / 4.8;
+
+        int hei = (int) hhh;
+
+        popupWindow = new PopupWindow(popView, 300, hei);
         // 使其聚集
         popupWindow.setFocusable(true);
         // 设置允许在外点击消失
@@ -377,7 +386,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int[] location = new int[2];
         v.getLocationOnScreen(location);
 
-        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] - popupWindow.getHeight() - 20);
+        Log.i("info", "--------Height:" + Application.getInstance().HEIGHT);
+
+        double aaa = Double.valueOf(Application.getInstance().HEIGHT) / Double.valueOf(400);
+
+        Log.i("info", "--------aaa:" + aaa);
+
+
+
+        Log.i("info", "--------hhh:" + hhh);
+
+        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1]-popupWindow.getHeight());
 
     }
 

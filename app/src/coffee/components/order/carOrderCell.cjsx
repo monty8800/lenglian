@@ -7,9 +7,15 @@ OrderAction = require 'actions/order/order'
 OrderStore = require 'stores/order/order'
 DB = require 'util/storage'
 XeImage = require 'components/common/xeImage'
+Raty = require 'components/common/raty'
 avatar = require 'user-01'
 
 CarItem = React.createClass {
+
+	getInitialState: ->
+		{
+			isInit: false
+		}	
 
 	# 接受
 	_receiver: (type, item, i, e)->
@@ -57,14 +63,19 @@ CarItem = React.createClass {
 			newState.orderList = orderList
 			@setState newState
 		else if params[0] is 'car_fresh'
-			index = DB.get 'detailCallBackFlag'
-			console.log '------hahahha:', index
-			# if index not ''
-			orderList = @props.items.splice parseInt(index), 1
-			newState = Object.create @state
-			newState.orderList = orderList
-			@setState newState
+			indexsss = DB.get 'detailCallBackFlag'
+			console.log '---------hahahha:', indexsss
+			if indexsss not null
+				orderList = @props.items.splice parseInt(indexsss), 1
+				console.log '---------hahahha:', orderList
+				newState = Object.create @state
+				newState.orderList = orderList
+				@setState newState
 			DB.remove 'detailCallBackFlag'
+		else if params[0] is 'car' or params[0] is 'goods' or params[0] is 'store'
+			@setState {
+				isInit: false
+			}
 
 	render: ->
 		items = @props.items.map (item, i)->
@@ -78,7 +89,12 @@ CarItem = React.createClass {
 							<div className="g-dirver-name">
 								<div>{item?.carPersonName}</div>
 							</div>
-							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+							<div className="g-dirver-dis ll-font">	
+								{
+									if not @state.isInit
+										<Raty score={item?.goodsPersonScore} />
+								}
+							</div>
 						</div>
 						<div className="g-dirver-btn">
 							{

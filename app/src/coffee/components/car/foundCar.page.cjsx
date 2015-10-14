@@ -15,6 +15,7 @@ DRIVER_LOGO = require 'user-01.jpg'
 CarStore = require 'stores/car/car'
 CarAction = require 'actions/car/car'
 XeImage = require 'components/common/xeImage'
+Raty = require 'components/common/raty'
 avatar = require 'user-01'
 UserStore = require 'stores/user/user'
 
@@ -22,7 +23,9 @@ CarItem = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 
 	getInitialState: ->
-		null
+		{
+			isInit: false
+		}
 
 	componentDidMount: ->
 		CarStore.addChangeListener @_onChange
@@ -30,8 +33,12 @@ CarItem = React.createClass {
 	componentWillUnmount: ->
 		CarStore.removeChangeListener @_onChange
 
-	_onChange: ->
+	_onChange: (params)->
 		console.log 'callback'
+		if params[0] is 'found_car'
+			@setState {
+				wishlst: true
+			}
 
 	# 车主详情
 	_goPage: (item)->
@@ -56,7 +63,12 @@ CarItem = React.createClass {
 						<div className="g-dirver-name">
 							<span>{ @props.car?.name }</span>
 						</div>  
-						<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+						<div className="g-dirver-dis ll-font">
+							{
+								if not @state.isInit
+									<Raty score={@props.car.carScore} />
+							}
+						</div>
 					</div>
 					<div className="g-dirver-btn">
 						<a href="###" onClick={@select.bind this, @props.car.id, @props.index} className="u-btn02">选择此车</a>

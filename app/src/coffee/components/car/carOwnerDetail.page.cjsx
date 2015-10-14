@@ -18,6 +18,7 @@ XeImage = require 'components/common/xeImage'
 Image = require 'util/image'
 avatar = require 'user-01'
 Auth = require 'util/auth'
+Raty = require 'components/common/raty'
 
 _detailParams = DB.get 'transData'
 carId = _detailParams[0]
@@ -29,7 +30,6 @@ Detail = React.createClass {
 
 	# 关注
 	attention: (wishlst)->
-		console.log '---------', wishlst
 		# Auth.needLogin ->	
 		console.log '-------wishlst:', @state.wishlst
 		if wishlst is true
@@ -50,6 +50,8 @@ Detail = React.createClass {
 	getInitialState: ->
 		{
 			wishlst: false
+			score: 0
+			isInit: true
 			carDetail: CarStore.getCarDetail().toJS()
 		}
 
@@ -64,8 +66,10 @@ Detail = React.createClass {
 		if params[0] is 'car_owner_detail'
 			carInfo = CarStore.getCarDetail().toJS()
 			@setState {
+				score: carInfo.goodScore
 				wishlst: carInfo.wishlst
 				carDetail: carInfo
+				isInit: false
 			}
 		else if params[0] is 'attention_success'
 			@setState {
@@ -75,7 +79,8 @@ Detail = React.createClass {
 			@setState {
 				wishlst: false
 			}
-			
+
+	mixins: [PureRenderMixin, LinkedStateMixin]
 	render: ->
 		detail = @state.carDetail
 		<div>
@@ -93,7 +98,12 @@ Detail = React.createClass {
 							<div className="g-dirver-name">
 								<span>{detail.name}</span><span className="g-dirname-single">{if detail.certificationis is '1' then '(个体)' else if detail.certificationis is '2' then '(企业 )'}</span>
 							</div>
-							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+							<div className="g-dirver-dis ll-font">
+								{
+									if not @state.isInit
+										<Raty score={@state.score} />
+								}
+							</div>
 						</div>
 						<ul className="g-driver-contact" onClick={@attention.bind this, @state.wishlst}>
 							<li className={if @state.wishlst is true then "ll-font" else 'll-font active'}>关注</li>

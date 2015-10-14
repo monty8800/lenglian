@@ -80,5 +80,6 @@
         <activity android:name=".goods.SearchGoodsDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".order.GoodsOrderDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".order.OrderCancelListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.SearchWarehouseDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

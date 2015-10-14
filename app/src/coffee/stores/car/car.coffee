@@ -131,6 +131,7 @@ carItemInfo = (startNo)->
 				tempCar = tempCar.set 'carType', car.carType
 				tempCar = tempCar.set 'vehicle', car.vehicle
 				tempCar = tempCar.set 'carId', car.carId
+				tempCar = tempCar.set 'carScore', car.carScore
 				tempCar = tempCar.set 'startPoint', car.fromProvinceName + 
 						car.fromCityName + car.fromAreaName
 				tempCar = tempCar.set 'destination', car.toProvinceName + 

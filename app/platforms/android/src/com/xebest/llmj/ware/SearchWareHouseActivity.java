@@ -79,8 +79,8 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SearchWareHouseActivity.this, "调用JS", Toast.LENGTH_LONG).show();
-//                mWebView.getWebView().loadUrl("javascript:searchMyCar()");
+//                Toast.makeText(SearchWareHouseActivity.this, "调用JS", Toast.LENGTH_LONG).show();
+                mWebView.getWebView().loadUrl("javascript:doSearchWarehouse()");
             }
         });
 
@@ -116,6 +116,8 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
             // 选择该仓库
             wareHouseId = args.getString(2);
             new GoodsFoundCar().execute();
+        } else if (flag.equalsIgnoreCase("searchWarehouseDetail")) {
+            SearchWarehouseDetailActivity.actionView(SearchWareHouseActivity.this);
         }
     }
 
