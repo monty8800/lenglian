@@ -12,8 +12,6 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
-import com.xebest.llmj.goods.SearchGoodsDetailActivity;
-import com.xebest.llmj.ware.SearchWarehouseDetailActivity;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -23,10 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 车订单详情
+ * 已取消订单
  * Created by kaisun on 15/9/22.
  */
-public class CarOrderDetailActivity extends BaseCordovaActivity implements CordovaInterface {
+public class OrderCancelListActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -36,12 +34,15 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
 
     private TextView editorCar;
 
+    private static int mStatus = -1;
+
     /**
      * 活跃当前窗口
      * @param context
      */
-    public static void actionView(Context context) {
-        context.startActivity(new Intent(context, CarOrderDetailActivity.class));
+    public static void actionView(Context context, int status) {
+        mStatus = status;
+        context.startActivity(new Intent(context, OrderCancelListActivity.class));
     }
 
     @Override
@@ -55,27 +56,17 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String back = args.getString(0);
-        if (back.equals("2")) {
-            finish();
-        } else {
-            String flag = args.getString(1);
-            if (flag.equalsIgnoreCase("searchWarehouseDetail")) {
-                SearchWarehouseDetailActivity.actionView(CarOrderDetailActivity.this);
-            } else if (args.getString(0).equals("2")) {
-                finish();
-            } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
-                SearchGoodsDetailActivity.actionView(CarOrderDetailActivity.this);
-            }
+        String flag = args.getString(1);
+        if (flag.equalsIgnoreCase("carOwnerOrderDetail")) {
+            CarOrderDetailActivity.actionView(this);
         }
-
     }
 
     protected void initView() {
         editorCar = (TextView) findViewById(R.id.editor);
         editorCar.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("订单详情");
+        tvTitle.setText("已取消");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -84,15 +75,32 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
                 finish();
             }
         });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mWebView.getWebView().loadUrl("javascript:comeFromFlag('" + mStatus + "','5')");
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
     protected void onResume() {
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "orderCancelList.html", this, this, this, this);
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("订单详情");
+        MobclickAgent.onPageStart("已取消");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "carOwnerOrderDetail.html", this, this, this, this);
         super.onResume();
     }
 

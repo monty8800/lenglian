@@ -134,6 +134,7 @@ actionType = {
 	
 	GET_BIDDING_LIST: null
 	CAR_OWNER_CONFIRM_ORDER: null
+	CAR_OWNER_CONFIRM_ORDER2: null
 	CAR_OWNER_CANCEL_ORDER: null
 	CAR_OWNER_ORDER_DETAIL: null
 	ORDER_FINISH: null
@@ -149,6 +150,15 @@ actionType = {
 	ORDER_GOODS_REPUB: null
 
 	FOLLOW: null
+
+	CANCEL_CAR_ORDER_LIST: null
+
+
+	GET_PAY_INFO: null
+	HIDE_PAY_SMS: null
+
+	PAY_NOTI: null
+	DO_PAY: null
 
 }
 
@@ -226,6 +236,12 @@ api = {
 
 	#货主重新发布订单
 	ORDER_GOODS_REPUB: '/orderGoods/rePublish.shtml'
+
+	#获取支付页面数据
+	GET_PAY_INFO: '/orderPay/toPay.shtml'
+
+	#支付订单
+	PAY_ORDER: ''
 
 
 #YYQ

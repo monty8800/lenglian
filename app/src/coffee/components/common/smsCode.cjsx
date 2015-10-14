@@ -56,10 +56,16 @@ SmsCode = React.createClass {
 			time: 0
 		}
 	render: ->
-		if @state.time is 0
-			return <button className="u-btn-yz" onClick={@_sendSmsCode}>获取验证码</button>
+		if @props.styleType is 'pay'
+			if @state.time is 0
+				return <span onClick={@_sendSmsCode}>获取验证码</span>
+			else
+				return <span className="u-btn-yz" disabled="disabled">{"重新获取验证码(#{@state.time})"}</span>
 		else
-			return <button className="u-btn-yz" disabled="disabled">{"重新获取验证码(#{@state.time})"}</button>
+			if @state.time is 0
+				return <button className="u-btn-yz" onClick={@_sendSmsCode}>获取验证码</button>
+			else
+				return <button className="u-btn-yz" disabled="disabled">{"重新获取验证码(#{@state.time})"}</button>
 }
 
 

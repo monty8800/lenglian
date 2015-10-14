@@ -7,19 +7,21 @@ Helper = require 'util/helper'
 Constants = require 'constants/constants'
 OrderAction = require 'actions/order/order'
 OrderStore = require 'stores/order/order'
-DRIVER_LOGO = require 'user-01.jpg'
 DB = require 'util/storage'
 UserStore = require 'stores/user/user'
 XeImage = require 'components/common/xeImage'
 avatar = require 'user-01'
 Image = require 'util/image'
+Auth = require 'util/auth'
 _user = UserStore.getUser()
 title = null
+_index = null
 
 OrderDetail = React.createClass {
 
 	getInitialState: ->
 		detail = DB.get 'car_owner_order_detail'
+		_index = detail[3]
 		{
 			carPersonUserId: detail[0]
 			orderNo: detail[1]
@@ -54,21 +56,22 @@ OrderDetail = React.createClass {
 			@setState newState
 
 	attention: (flag, goodsPersonUserId)->
-		type = ''
-		if flag
-			# 关注
-			type = 2
-		else
-			# 取消关注
-			type = 1
-		OrderAction.attention({
-			focusid: goodsPersonUserId
-			focustype: '1'
-			userId: _user?.id
-			type: type
-		})
+		Auth.needLogin ->
+			type = ''
+			if flag
+				# 关注
+				type = 2
+			else
+				# 取消关注
+				type = 1
+			OrderAction.attention({
+				focusid: goodsPersonUserId
+				focustype: '1'
+				userId: _user?.id
+				type: type
+			})
 
-		# 车主详情
+	# 车主详情
 	_goPage: ->
 		item = @state.order.toJS()
 		id = item?.goodsSourceId
@@ -92,7 +95,20 @@ OrderDetail = React.createClass {
 		Plugin.nav.push ['doComment']
 
 	_tel: (tel)->
-		window.location.href = tel
+		console.log '--------tel:', tel
+		window.location.href = 'tel:' + tel
+
+	operation: (params, carPersonUserId, orderNo, version)->
+		if params is 1 
+			Plugin.alert '确认接受吗?', '提示', (index)->
+				if index is 1
+					OrderAction.carOwnercomfitOrder2 carPersonUserId, orderNo, version, _index
+			, ['确定', '取消']
+		else if params is 2	
+			Plugin.alert '确定取消吗', '提示', (index)->
+				if index is 1
+					OrderAction.carOwnerCancelOrder carPersonUserId, orderNo, version, _index
+			, ['确定', '取消']
 
 	render: ->
 		if @state.order?.orderState is '1'
@@ -108,6 +124,8 @@ OrderDetail = React.createClass {
 			title = '货物运输中'
 		else if @state.order?.orderState is '4'
 			title = '待评价'
+		else if @state.order?.orderState is '5'
+			title = '订单已取消'
 
 		<div>
 			<div className="m-orderdetail clearfix">
@@ -197,18 +215,18 @@ OrderDetail = React.createClass {
 					<span>{Helper.subStr 0, 10, @state.order?.createTime}</span>
 				</p>			
 			</div>	
-			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' || @state.order?.orderState is '4' then 'block' else 'none'}}>
+			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' then 'block' else 'none'}}>
 				<div className="g-pay-btn">
-					{
-						if @state.order?.orderState is '1'
-							if @state.order?.orderType is 'GC'
-								<a href="#" className="u-btn02">确定</a>
-								<a href="#" className="u-btn02">取消</a>
-						else if @state.order?.orderState is '4'
-							<a href="###" onClick={@_comment.bind this, @state.order.goodsPersonUserId, @state.order.orderNo} className="u-btn02">评价货主</a>
-					}
+					<a href="###" className="u-btn02" onClick={@operation.bind this, 1, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version}>确定</a>
+					<a href="###" className="u-btn02" onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version}>取消</a>
 				</div>
 			</div>
+			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '4' then 'block' else 'none'}}>
+				<div className="g-pay-btn">
+					<a href="###" className="u-btn02" onClick={@_comment.bind this, @state.order.goodsPersonUserId, @state.order.orderNo}>评价货主</a>
+				</div>
+			</div>
+
 		</div>
 }
 

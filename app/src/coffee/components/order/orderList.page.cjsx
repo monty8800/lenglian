@@ -54,7 +54,7 @@ OrderDoc = React.createClass {
 
 	componentDidMount: ->
 		# 浏览器调试(临时)	
-		OrderAction.browerTemp(0)
+		# OrderAction.browerTemp(1)
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->
@@ -63,7 +63,7 @@ OrderDoc = React.createClass {
 	resultCallBack: (params)->
 		# type: 'car'司机订单  'goods'货主订单  'store'仓库订单
 		console.log 'params in order list', params
-		if params[0] is 'car' || params[0] is 'goods' || params[0] is 'store'
+		if params[0] is 'car' or params[0] is 'goods' or params[0] is 'store'
 			newState = Object.create @state
 			newState.orderType = params[0]
 			newState.orderList = OrderStore.getOrderList().toJS()

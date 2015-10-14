@@ -58,6 +58,8 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
             CarOrderDetailActivity.actionView(getActivity());
         } else if (flag.equals("doComment")) {
             DoCommentActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("goodsOrderDetail")) {
+            GoodsOrderDetailActivity.actionView(getActivity());
         }
     }
 
@@ -67,10 +69,16 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
         }
     }
 
+    public void cancelOrder() {
+//        CarCancelOrderActivity.actionView(getActivity());
+        OrderCancelListActivity.actionView(getActivity(), mainActivity.mOrderStatus);
+    }
+
     @Override
     public void onResume() {
         // 统计页面
         MobclickAgent.onPageStart("订单");
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

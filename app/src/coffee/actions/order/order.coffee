@@ -76,6 +76,15 @@ OrderAction = {
 			orderNo: orderNo
 			version: version
 			index: index
+		}	
+
+	carOwnercomfitOrder2: (carPersonUserId, orderNo, version, index)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CAR_OWNER_CONFIRM_ORDER2
+			carPersonUserId: carPersonUserId
+			orderNo: orderNo
+			version: version
+			index: index
 		}		
 	carOwnerCancelOrder: (carPersonUserId, orderNo, version, index)->
 		Dispatcher.dispatch {
@@ -119,6 +128,11 @@ OrderAction = {
 			params: params
 		}
 
+	getCancelOrderList: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CANCEL_CAR_ORDER_LIST
+		}
+
 	getWarehouseOrderDetail:(params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.ORDER_WAREHOUSE_DETAIL
@@ -130,6 +144,7 @@ OrderAction = {
 			params:params
 			index:index
 		}
+		
 	warehouseCancleOrder:(params,index)->
 		Dispatcher.dispatch {
 			actionType:Constants.actionType.WAREHOUSE_CANCLE_ORDER
@@ -148,6 +163,12 @@ OrderAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.ORDER_GOODS_REPUB
 			params: params
+		}
+		
+	getCarCancelOrderList: (pageNo)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CANCEL_CAR_ORDER_LIST
+			currentPage: pageNo
 		}
 }
 

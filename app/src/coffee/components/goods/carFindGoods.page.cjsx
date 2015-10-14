@@ -32,6 +32,8 @@ OrderStore = require 'stores/order/order'
 
 DB = require 'util/storage'
 
+InfiniteScroll = require('react-infinite-scroll')(React)
+
 
 selectionList = [
 	{
@@ -98,14 +100,20 @@ CarFindGoods = React.createClass {
 		else if msg is 'do:car:search:goods'
 			@_search()
 		else if msg is 'search:goods:done'
+			dataList = GoodsStore.getGoodsList()
 			@setState {
-				goodsList: GoodsStore.getGoodsList()
+				goodsList: dataList
+				hasMore: dataList.size - @state.dataCount >= @state.pageSize
+				dataCount: dataList.size
 			}
 
 
 	_search: ->
+		@_requestData 0
+
+	_requestData: (page)->
 		GoodsAction.searchGoods {
-			startNo: @state.startNo
+			startNo: @state.goodsList.size
 			pageSize: @state.pageSize
 			goodsType: @state.goodsType
 			fromProvinceId: @state.fromProvinceId if @state.fromProvinceId
@@ -123,8 +131,10 @@ CarFindGoods = React.createClass {
 			fromCityId: null
 			fromArea: null
 			fromAreaId: null
-			startNo: 0
-			pageSize: 100
+			goodsList: GoodsStore.getGoodsList()
+			pageSize: 4
+			dataCount: 0
+			hasMore: true
 			showCarList: false
 			bid: false
 		}
@@ -133,6 +143,23 @@ CarFindGoods = React.createClass {
 			initState[selection.key] = (option.key for option in selection.options)
 		console.log 'initState', initState
 		return initState
+
+# <InfiniteScroll
+#     pageStart=0
+#     loadMore={loadFunc}
+#     hasMore={true || false}
+#     loader={<div className="loader">Loading ...</div>}>
+#   {items} // <-- This is the "stuff" you want to load
+# </InfiniteScroll>
+# pageStart : The page number corresponding to the initial items, defaults to 0 which means that for the first loading, loadMore will be called with 1
+
+# loadMore(pageToLoad) : This function is called when the user scrolls down and we need to load stuff
+
+# hasMore : Boolean stating if we should keep listening to scroll event and trying to load more stuff
+
+# loader : Loader element to be displayed while loading stuff - You can use InfiniteScroll.setDefaultLoader(loader); to set a defaut loader for all your InfiniteScroll components
+
+# threshold : The distance between the bottom of the page and the bottom of the window's viewport that triggers the loading of new stuff - Defaults to 250
 
 	render: ->
 		console.log 'state', @state
@@ -149,7 +176,10 @@ CarFindGoods = React.createClass {
 			</ul>
 			
 		</div>
+
+		<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={@state.hasMore}>
 		{ goodsCells }
+		</InfiniteScroll>
 		</section>
 }
 

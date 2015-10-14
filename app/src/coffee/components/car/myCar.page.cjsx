@@ -32,7 +32,7 @@ CarItem = React.createClass {
 	render: ->
 		items = @props.items.map (item, i)->
 			car = item
-			<div className="m-item03" key={ i }>
+			<div className="m-item03" key={car.carNo}>
 				<div className="g-itemList">  
 					<h5>
 						车牌号码: <span>{ car?.carNo }</span>				

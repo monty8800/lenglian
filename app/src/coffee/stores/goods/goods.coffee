@@ -231,7 +231,7 @@ searchGoods = (params)->
 	Http.post Constants.api.DRIVER_FIND_GOODS, params, (data)->
 		console.log 'search goods result', data
 		_goodsList = Immutable.List() if params.startNo is 0
-		_goodsList = _goodsList.merge data.goods
+		_goodsList = _goodsList.concat(Immutable.List().merge data.goods)
 		GoodsStore.emitChange 'search:goods:done'
 
 

@@ -23,10 +23,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 车订单详情
+ * 货物订单详情
  * Created by kaisun on 15/9/22.
  */
-public class CarOrderDetailActivity extends BaseCordovaActivity implements CordovaInterface {
+public class GoodsOrderDetailActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -41,7 +41,7 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, CarOrderDetailActivity.class));
+        context.startActivity(new Intent(context, GoodsOrderDetailActivity.class));
     }
 
     @Override
@@ -61,11 +61,11 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
         } else {
             String flag = args.getString(1);
             if (flag.equalsIgnoreCase("searchWarehouseDetail")) {
-                SearchWarehouseDetailActivity.actionView(CarOrderDetailActivity.this);
+                SearchWarehouseDetailActivity.actionView(GoodsOrderDetailActivity.this);
             } else if (args.getString(0).equals("2")) {
                 finish();
             } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
-                SearchGoodsDetailActivity.actionView(CarOrderDetailActivity.this);
+                SearchGoodsDetailActivity.actionView(GoodsOrderDetailActivity.this);
             }
         }
 
@@ -92,7 +92,7 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
         MobclickAgent.onPageStart("订单详情");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "carOwnerOrderDetail.html", this, this, this, this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "goodsOrderDetail.html", this, this, this, this);
         super.onResume();
     }
 

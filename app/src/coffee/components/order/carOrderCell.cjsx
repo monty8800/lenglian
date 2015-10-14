@@ -13,12 +13,14 @@ CarItem = React.createClass {
 
 	# 接受
 	_receiver: (type, item, i, e)->
-		if type is 1 # 接受
-			OrderAction.carOwnercomfitOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
-			e.stopPropagation()
-		else if type is 2 # 取消
-			OrderAction.carOwnerCancelOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
-			e.stopPropagation()
+		Plugin.alert '确认接受吗?', '提示', (index)->
+			if index is 1
+				if type is 1 # 接受
+					OrderAction.carOwnercomfitOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
+				else if type is 2 # 取消
+					OrderAction.carOwnerCancelOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
+		, ['确定', '取消']
+		e.stopPropagation()
 
 	comment: (targetId, orderNo, e)->
 		DB.put 'transData', {
@@ -31,8 +33,8 @@ CarItem = React.createClass {
 		e.stopPropagation()
 		
 
-	_detail: (item)->
-		DB.put 'car_owner_order_detail', [item?.carPersonUserId, item?.orderNo, item?.goodsPersonUserId]
+	_detail: (item, i)->
+		DB.put 'car_owner_order_detail', [item?.carPersonUserId, item?.orderNo, item?.goodsPersonUserId, i]
 		Plugin.nav.push ['carOwnerOrderDetail']
 
 	componentDidMount: ->			
@@ -54,10 +56,19 @@ CarItem = React.createClass {
 			newState = Object.create @state
 			newState.orderList = orderList
 			@setState newState
+		else if params[0] is 'car_fresh'
+			index = DB.get 'detailCallBackFlag'
+			console.log '------hahahha:', index
+			# if index not ''
+			orderList = @props.items.splice parseInt(index), 1
+			newState = Object.create @state
+			newState.orderList = orderList
+			@setState newState
+			DB.remove 'detailCallBackFlag'
 
 	render: ->
 		items = @props.items.map (item, i)->
-			<div className="m-item01" key={i} onClick={@_detail.bind this, item}>
+			<div className="m-item01" key={item?.orderNo} onClick={@_detail.bind this, item, i}>
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
@@ -87,6 +98,8 @@ CarItem = React.createClass {
 									<span>货物运输中</span>
 								else if item?.orderState is '4'
 									<a href="###" onClick={@comment.bind this, item?.goodsPersonUserId, item?.orderNo} className="u-btn02">评价货主</a>
+								else if item?.orderState is '5'
+									<span>订单已取消</span>
 							}
 						</div>
 					</div>

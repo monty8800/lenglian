@@ -18,6 +18,18 @@
             android:textSize="20sp"
             android:textColor="@color/white"/>
 
+        <TextView
+            android:id="@+id/order_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已取消"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"/>
+
     </RelativeLayout>
 
     <FrameLayout
