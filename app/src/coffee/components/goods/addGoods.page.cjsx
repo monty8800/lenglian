@@ -115,7 +115,7 @@ AddGoods = React.createClass {
 		else if not @state.type
 			Plugin.toast.err '请选择货物类型'
 		else if not @state.weight
-			Plugin.toast.err '请填写货物重量'
+			Plugin.toast.err '请填写货物规格'
 		else if not @state.installMinTime or not @state.installMaxTime
 			Plugin.toast.err '请填写装车时间'
 		else if not @state.price
@@ -234,7 +234,7 @@ AddGoods = React.createClass {
 				<input valueLink={@linkState 'name'} type="text" placeholder="选填" id="proName"/>
 			</div>
 			<div>
-				<span>货物重量</span>
+				<span>货物规格</span>
 				<input valueLink={@linkState 'weight'} type="text" className="weight"/><span>吨</span>
 				<input valueLink={@linkState 'cube'} type="text"  className="weight"/><span>方</span>
 			</div>

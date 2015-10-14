@@ -104,7 +104,7 @@ WarehouseDetail = React.createClass {
 					</div>
 					<div className="g-pro-text fl">
 						<p>仓库状态: <span>{ Helper.warehouseStatus @state.warehouseDetail.status }</span></p>
-						<p>货物重量: <span>常温 1000平方</span><span>常温 1000平方</span></p>
+						<p>货物规格: <span>我是死数据，请修复我</span><span>常温 1000平方</span></p>
 					</div>
 				</div>
 			</div>

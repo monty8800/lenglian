@@ -239,7 +239,7 @@ GoodsOrderDetail = React.createClass {
 				</div>
 				<div className="g-pro-text fl">
 					<p>货物种类: <span>{@state.detail?.get('goodsType')}</span></p>
-					<p>货物重量: <span>{@state.detail?.get('goodsWeight') + '吨'}</span></p>
+					<p>货物规格: <span>{@state.detail?.get('goodsWeight') + '吨'}</span></p>
 					<p>包装类型: <span>{@state.detail?.get('goodsPackingType')}</span></p>
 				</div>
 			</div>
