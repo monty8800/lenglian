@@ -59,12 +59,13 @@ window.updateDate = (startDate, endDate)->
 	console.log '--------', 
 	CarStore.emitChange ['updateDate', startDate, endDate]
 
-# 更新我的车辆列表
-window.updateMyCarList = ->
-	console.log '##############'
-	status = DB.get 'callBackRefresh'
-	console.log '##############：', status
-	CarAction.carList(status)
+# 更新我的车辆列表  1 删除或编辑不要重新请求  2新增要重新请求
+window.updateMyCarList = (params)->
+	if parseInt(params) is 1
+		CarStore.emitChange ['refresh_my_car']
+	else if parseInt(params) is 2
+		CarAction.carList('1')
+		CarStore.emitChange ['native_js_status']
 
 # 编辑车辆
 window.editorCar = ->
@@ -78,7 +79,7 @@ window.cleanTransData = ->
 
 # 车辆搜索
 window.searchMyCar = ->
-	CarAction.info([''])
+	CarAction.info('0')
 	CarAction.closeCarHea()
 	CarAction.closeCarInvoince()
 	CarAction.closeCarLen()
@@ -88,7 +89,7 @@ window.submitSuccess = (index)->
 	CarStore.emitChange ['submit_success', index]
 
 # 我要找车
-carItemInfo = (param)->
+carItemInfo = (startNo)->
 	ncarLenList = []
 	for veh in _carLenList
 		do (veh) ->
@@ -101,8 +102,8 @@ carItemInfo = (param)->
 
 	params = {
 		userId: _user?.id
-		startNo: 0
-		pageSize: 10
+		startNo: startNo
+		pageSize: Constants.orderStatus.PAGESIZE
 		fromProvinceId: ''
 		fromCityId: ''
 		fromAreaId: ''
@@ -117,7 +118,8 @@ carItemInfo = (param)->
 	}
 	Http.post Constants.api.found_car, params, (result) ->
 		console.log '我要找车--', result.length
-		_foundCarList = _foundCarList.clear() 
+		if parseInt(params.startNo) is 0
+			_foundCarList = _foundCarList.clear() 
 		for car in result
 			do (car) ->
 				tempCar = new Car
@@ -140,17 +142,18 @@ carItemInfo = (param)->
 		Plugin.toast.err data.msg
 
 # 我的车辆
-carListInfo = (status)->
+carListInfo = (status, pageNow)->
 	# 请求网络获取数据
 	params = {
 		userId: _user?.id
-		pageNow: 1
-		pageSize: 10
+		pageNow: pageNow
+		pageSize: Constants.orderStatus.PAGESIZE
 		status: status 
 	}
 	Http.post Constants.api.my_car_list, params, (data)->
 		tempList = data.myCarInfo; 
-		_carList = _carList.clear() 
+		if parseInt(params.pageNow) is 1
+			_carList = _carList.clear() 
 		for car in tempList
 			do (car) ->
 				tempCar = new Car
@@ -225,8 +228,10 @@ _releaeCar = (params)->
 	Http.post Constants.api.release_car, params, (result)->
 		Plugin.loading.hide()
 		Plugin.toast.success '发布成功'
-		Plugin.nav.push ['release_success']
-		CarStore.emitChange ['release_success']
+		DB.put 'operator_car', '10000'
+		Plugin.nav.pop()
+		# Plugin.nav.push ['release_success']
+		# CarStore.emitChange ['release_success']
 	, (err)->
 		Plugin.loading.hide()
 		Plugin.toast.err err.msg
@@ -348,7 +353,7 @@ _notNeedInv = (type)->
 		console.log '-------_notNeedInv:', _isInvoice
 
 # 删除车辆
-_carDel = (carId, status)->
+_carDel = (carId, status, index)->
 	Plugin.loading.show '正在删除...'
 	Http.post Constants.api.detail_car, {
 		userId: _user?.id
@@ -356,7 +361,8 @@ _carDel = (carId, status)->
 	}, (data)->				
 		Plugin.loading.hide()
 		Plugin.toast.err '删除成功'
-		Plugin.nav.push ['del_success']
+		DB.put 'operator_car', index
+		Plugin.nav.pop()
 	, (data)->
 		Plugin.loading.hide()
 		Plugin.toast.err err.msg
@@ -429,7 +435,7 @@ CarStore = assign BaseStore, {
 Dispatcher.register (action)->
 	switch action.actionType
 		when Constants.actionType.FOUND_CAR then carItemInfo(action.params)
-		when Constants.actionType.CAR_LIST then carListInfo(action.status)
+		when Constants.actionType.CAR_LIST then carListInfo(action.status, action.pageNow)
 		when Constants.actionType.CAR_DETAIL then carDetail(action.carId)
 		when Constants.actionType.RELEASE_CAR then _releaeCar(action.params)
 		when Constants.actionType.ADD_CAR then _addCar(action.params, action.files)
@@ -448,7 +454,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.CLOSE_INVOINCE then _close_car_invoince()
 		when Constants.actionType.NEEDINV then _needInv(action.type)
 		when Constants.actionType.NOTNEEDINV then _notNeedInv(action.type)
-		when Constants.actionType.DEL_CAR then _carDel(action.carId, action.status)
+		when Constants.actionType.DEL_CAR then _carDel(action.carId, action.status, action.index)
 		when Constants.actionType.MODIFY_CAR then _modifyCar(action.param)
 		when Constants.actionType.CAR_OWNER_DETAIL then _carOwnerDetail(action.carId, action.targetUserId)
 		when Constants.actionType.ATTENTION_DETAIL then _attentionDetail(action.params)

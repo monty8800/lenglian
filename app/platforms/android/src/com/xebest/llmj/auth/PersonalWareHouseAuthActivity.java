@@ -155,9 +155,9 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
             content.put("version", version);
             content.put("data", ttData);
 
+            operate = new HashMap<String, File>();
             String path = files.getJSONObject(0).getString("path");
             if (path != null && !path.equals("")) {
-                operate = new HashMap<String, File>();
                 operate.put("idcardImg", new File(path));
             }
 

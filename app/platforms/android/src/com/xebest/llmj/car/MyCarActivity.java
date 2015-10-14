@@ -37,6 +37,8 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
 
     private boolean isOnCreate = false;
 
+    public static boolean isAdd = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -106,12 +108,13 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
         }
         isOnCreate = false;
 
-        if (isRefresh) {
-            // 删除成功刷新列表
-            mWebView.getWebView().loadUrl("javascript:updateMyCarList()");
+        // 删除成功刷新列表
+        if (isAdd) {
+            mWebView.getWebView().loadUrl("javascript:updateMyCarList('2')");
+        } else {
+            mWebView.getWebView().loadUrl("javascript:updateMyCarList('1')");
         }
-        isRefresh = false;
-
+        isAdd = false;
         super.onResume();
     }
 

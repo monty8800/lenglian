@@ -5,10 +5,11 @@ Constants = require 'constants/constants'
 
 AttentionAction = {
 	# 关注列表
-	attentionList: (statu)->
+	attentionList: (statu, pageNow)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.ATTENTION_LIST
 			status: statu
+			pageNow: pageNow
 		}
 
 	#关注

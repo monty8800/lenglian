@@ -108,7 +108,6 @@ CarFindGoods = React.createClass {
 				netBusy: false
 			}
 
-
 	_search: ->
 		@_requestData 0
 

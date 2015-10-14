@@ -184,10 +184,9 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             content.put("data", ttData);
 
 
-
+            driving = new HashMap<String, File>();
             String path = files.getJSONObject(0).getString("path");
             if (!path.equals("") && path != null) {
-                driving = new HashMap<String, File>();
                 driving.put("file", new File(files.getJSONObject(0).getString("path")));
             }
 

@@ -176,6 +176,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
             Log.i("info", "--------------client_type:" + client_type);
             Log.i("info", "--------------uuid:" + uuid);
             Log.i("info", "--------------version:" + version);
+
             driving = new HashMap<String, File>();
             if (files.length() != 0) {
                 JSONObject jb = files.getJSONObject(0);
@@ -409,6 +410,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
     }
 
     boolean success = false;
+    String msg = "";
     public class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -422,6 +424,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
             try {
                 String result = UploadFile.post(url, content, driving, null, null);
                 JSONObject jsonObject = new JSONObject(result);
+                msg = jsonObject.getString("msg");
                 Log.i("info", "----------------result" + result);
                 if (jsonObject.getString("code").equals("0000")) {
                     // 认证成功
@@ -448,7 +451,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
                 finish();
                 MainActivity.actionView(ReleaseGoodsActivity.this, 3);
             } else {
-                Tools.showErrorToast(ReleaseGoodsActivity.this, "添加失败!");
+                Tools.showErrorToast(ReleaseGoodsActivity.this, msg);
             }
         }
     }

@@ -52,21 +52,23 @@ public class CarDetailActivity extends BaseCordovaActivity implements CordovaInt
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        if (flag.equals("del_success")) {
-            MyCarActivity.isRefresh = true;
+        String ind = args.getString(0);
+        if (ind.equals("2")) {
             finish();
-        } else if (args.toString().contains("modify_success")) {
-            MyCarActivity.isRefresh = true;
-            finish();
-        } else if (flag.equalsIgnoreCase("carInfoEnable")) {
-            // 车辆信息可编辑
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    editorCar.setVisibility(View.VISIBLE);
-                }
-            });
+        } else {
+            String flag = args.getString(1);
+            if (args.toString().contains("modify_success")) {
+                MyCarActivity.isRefresh = true;
+                finish();
+            } else if (flag.equalsIgnoreCase("carInfoEnable")) {
+                // 车辆信息可编辑
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        editorCar.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
         }
     }
 

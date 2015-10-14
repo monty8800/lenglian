@@ -15,6 +15,7 @@ DB = require 'util/storage'
 UserStore = require 'stores/user/user'
 _user = UserStore.getUser()
 CarInfo = DB.get 'transData'
+_index = DB.get 'transData2'
 carId = CarInfo.carId
 DB.remove 'transData'
 
@@ -57,8 +58,11 @@ Detail = React.createClass {
 				isDel: 1
 			}
 
-	_delCar: (id)->
-		CarAction.delCar(id, @state.status)
+	_delCar: (id, status)->
+		Plugin.alert '确认删除吗?', '提示', (index)->
+			if index is 1
+				CarAction.delCar(id, status, _index)
+		, ['确定', '取消']
 
 	_editorCarDone: ->
 		if not Validator.name @state.name
@@ -127,7 +131,7 @@ Detail = React.createClass {
 			</div>
 			<div className="m-detail-bottom" style={{display: if @state.isDel is 1 && @state.status is 1 then 'block' else 'none'}}>
 				<div className="g-pay-btn">
-					<a href="###" className="u-btn02" onClick={@_delCar.bind this, detail.id}>删除车辆</a>
+					<a href="###" className="u-btn02" onClick={@_delCar.bind this, detail.id, detail.status}>删除车辆</a>
 				</div>
 			</div>
 		</div>

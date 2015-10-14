@@ -3,62 +3,80 @@ require 'user-center-style'
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
-
+InfiniteScroll = require('react-infinite-scroll')(React)
 MessageStore = require 'stores/attention/message'
 MessageAction = require 'actions/attention/message'
+Constants = require 'constants/constants'
+
+_currentStatus = '2'
 
 Item = React.createClass {
 	render: ->
-		items = @props.items.map (item, i) ->
-			<div className="m-item02" key={ i }>
-				{ item?.content }
-			</div>
-		<div>{ items }</div>
+		<div className="m-item02">
+			{ @props.items?.content }
+		</div>
 }
 
 Message = React.createClass {
 
 	attDriver: ->
+		_currentStatus = '1'
 		newState = Object.create @state
 		newState.type = '1'
+		pageNow: 1
 		@setState newState
-		MessageAction?.msgList('2')
+		MessageAction?.msgList('2', 1)
 
 	attGoodsOwner: ->
+		_currentStatus = '2'
 		newState = Object.create @state
 		newState.type = '2'
+		pageNow: 1
 		@setState newState
-		MessageAction?.msgList('1')
+		MessageAction?.msgList('1', 1)
 
 	attStoreOwner: ->
+		_currentStatus = '3'
 		newState = Object.create @state
 		newState.type = '3'
+		pageNow: 1
 		@setState newState
-		MessageAction?.msgList('3')
+		MessageAction?.msgList('3', 1)
 
 
 	getInitialState: ->
 		{
 			type: '1'
+			hasMore: true
+			pageNow: 1
+			dataCount: 0
 			msgList: MessageStore?.getMsgList()
 		}
 
 	componentDidMount: ->
 		MessageStore.addChangeListener @resultCallBack
-		MessageAction?.msgList('2')
+		# MessageAction?.msgList('2')
 
 	componentWillUnMount: ->
 		MessageStore.removeChangeListener @resultCallBack
 
 	resultCallBack: ->
-		console.log 'callback-------'
+		list = MessageStore?.getMsgList()
+		pageNow = @state.pageNow + 1
 		@setState {
+			hasMore: list.size - @state.dataCount >= Constants.orderStatus.PAGESIZE
+			pageNow: pageNow
+			dataCount: list.size
 			msgList: MessageStore?.getMsgList()
 		}
 
+	_loadMore: ->
+		MessageAction.msgList(_currentStatus, @state.pageNow)
+
 	minxins: [PureRenderMixin]
 	render: ->
-		console.log 'msg------', @state.msgList
+		msgs = @state.msgList.map (item, index)->
+			<Item items={item} index={index} key={index} />
 		<div>
 			<div className="m-tab01">
 				<ul>
@@ -73,7 +91,9 @@ Message = React.createClass {
 					</li>
 				</ul>
 			</div>	
-			<Item items={ @state.msgList }/>
+			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore}>
+				{msgs}
+			</InfiniteScroll>
 		</div>
 }
 

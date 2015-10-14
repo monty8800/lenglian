@@ -10,10 +10,11 @@ CarAction = {
 			params: params
 		}
 
-	carList: (statu)->
+	carList: (statu, pageNow)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CAR_LIST
 			status: statu
+			pageNow: pageNow
 		}
 
 	carDetail: (carid)->
@@ -121,11 +122,12 @@ CarAction = {
 			type: type
 		}
 
-	delCar: (carId, status)->
+	delCar: (carId, status, index)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.DEL_CAR
 			carId: carId
 			status: status
+			index: index
 		}
 	modifyCar: (param)->
 		Dispatcher.dispatch {

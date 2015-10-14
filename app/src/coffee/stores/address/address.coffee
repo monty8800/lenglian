@@ -32,9 +32,6 @@ addressList = ->
 	Http.post Constants.api.address_list, {
 		userId: _user?.id
 	}, (result) ->
-		if result.length is 0
-			Plugin.toast.err '没有相关数据呢!'
-			return;
 		_addressList = Immutable.List()
 		for info in result
 			do (info) ->

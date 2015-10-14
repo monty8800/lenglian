@@ -56,20 +56,20 @@ OrderDetail = React.createClass {
 			@setState newState
 
 	attention: (flag, goodsPersonUserId)->
-		Auth.needLogin ->
-			type = ''
-			if flag
-				# 关注
-				type = 2
-			else
-				# 取消关注
-				type = 1
-			OrderAction.attention({
-				focusid: goodsPersonUserId
-				focustype: '1'
-				userId: _user?.id
-				type: type
-			})
+		#Auth.needLogin ->
+		type = ''
+		if flag
+			# 关注
+			type = 2
+		else
+			# 取消关注
+			type = 1
+		OrderAction.attention({
+			focusid: goodsPersonUserId
+			focustype: '1'
+			userId: _user?.id
+			type: type
+		})
 
 	# 车主详情
 	_goPage: ->
