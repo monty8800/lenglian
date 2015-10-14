@@ -135,6 +135,7 @@ OrderAction = {
 			actionType:Constants.actionType.WAREHOUSE_CANCLE_ORDER
 			params:params
 			index:index
+		}
 
 
 	cancelGoodsOrder: (params)->
