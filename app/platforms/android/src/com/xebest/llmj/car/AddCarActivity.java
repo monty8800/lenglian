@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
-import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
@@ -408,11 +407,12 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
 
             Tools.dismissLoading();
             if (success) {
-                // TODO 调用js方法更新User
+                // 调用js方法更新User
                 mWebView.getWebView().loadUrl("javascript:authDone()");
                 Tools.showSuccessToast(AddCarActivity.this, "添加成功!");
                 finish();
-                MainActivity.actionView(AddCarActivity.this, 3);
+                MyCarActivity.isAdd = true;
+//                MainActivity.actionView(AddCarActivity.this, 3);
             } else {
                 Tools.showErrorToast(AddCarActivity.this, "添加失败!");
             }

@@ -16,6 +16,7 @@ UserStore = require 'stores/user/user'
 _user = UserStore.getUser()
 
 CarInfo = DB.get 'transData'
+_index = DB.get 'transData2'
 carId = CarInfo?.carId
 _carNo = CarInfo?.carNo
 
@@ -185,6 +186,8 @@ Vehicle = React.createClass {
 				fromLat: @state.fromLat
 				toLng: @state.toLng
 				toLat: @state.toLat
+
+				_index: _index
 			});
 
 	render: ->

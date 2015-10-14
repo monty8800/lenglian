@@ -107,7 +107,6 @@ CarFindGoods = React.createClass {
 				dataCount: dataList.size
 			}
 
-
 	_search: ->
 		@_requestData 0
 

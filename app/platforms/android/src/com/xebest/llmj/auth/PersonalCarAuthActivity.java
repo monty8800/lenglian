@@ -157,21 +157,21 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
             content.put("data", ttData);
 
 
+            driving = new HashMap<String, File>();
             String pathD = files.getJSONObject(0).getString("path");
             if (pathD != null && !pathD.equals("")) {
-                driving = new HashMap<String, File>();
                 driving.put("drivingImg", new File(pathD));
             }
 
+            idCard = new HashMap<String, File>();
             String pathI = files.getJSONObject(1).getString("path");
             if (pathI != null && !pathI.equals("")) {
-                idCard = new HashMap<String, File>();
                 idCard.put("idcardImg", new File(pathI));
             }
 
+            operate = new HashMap<String, File>();
             String pathT = files.getJSONObject(2).getString("path");
             if (pathT != null && !pathT.equals("")) {
-                operate = new HashMap<String, File>();
                 operate.put("taxiLicenseImg", new File(pathT));
             }
 

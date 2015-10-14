@@ -42,10 +42,6 @@ selList = [
 			{key: 5, value: '后八轮'}
 			{key: 6, value: '五桥'}
 			{key: 7, value: '六桥'}
-
-
-
-
 			{key: 8, value: '半挂'}
 		]
 	}

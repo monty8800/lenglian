@@ -28,22 +28,24 @@ carStatus = _detailParams[3]
 Detail = React.createClass {
 
 	# 关注
-	attention: ->
-		Auth.needLogin ->	
-			if @state.wishlst is true
-				CarAction.attentionDetail({
-					focusid: dUserId
-					focustype: 2
-					userId: _user?.id
-					type: 2
-				})
-			else if @state.wishlst is false
-				CarAction.attentionDetail({
-					focusid: dUserId
-					focustype: 2
-					userId: _user?.id
-					type: 1
-				})
+	attention: (wishlst)->
+		console.log '---------', wishlst
+		# Auth.needLogin ->	
+		console.log '-------wishlst:', @state.wishlst
+		if wishlst is true
+			CarAction.attentionDetail({
+				focusid: dUserId
+				focustype: 2
+				userId: _user?.id
+				type: 2
+			})
+		else if wishlst is false
+			CarAction.attentionDetail({
+				focusid: dUserId
+				focustype: 2
+				userId: _user?.id
+				type: 1
+			})
 
 	getInitialState: ->
 		{
@@ -93,7 +95,7 @@ Detail = React.createClass {
 							</div>
 							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
 						</div>
-						<ul className="g-driver-contact" onClick={@attention}>
+						<ul className="g-driver-contact" onClick={@attention.bind this, @state.wishlst}>
 							<li className={if @state.wishlst is true then "ll-font" else 'll-font active'}>关注</li>
 						</ul>
 					</div>

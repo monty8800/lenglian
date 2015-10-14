@@ -17,15 +17,15 @@ _user = UserStore.getUser()
 AttList = Immutable.List()
 
 # 关注列表
-AttentionList = (status)->
-	console.log '--关注列表'  
+AttentionList = (status, pageNow)->
 	Http.post Constants.api.attention_list, {
 		userId: _user?.id,
 		focustype: status # 1:司机 2：货主 3：仓库
-		pageNo: 0
-		pageSize: 10
+		pageNow: pageNow
+		pageSize: Constants.orderStatus.PAGESIZE
 	}, (data) ->
-		AttList = AttList.clear() 
+		if parseInt(pageNow) is 1
+			AttList = AttList.clear() 
 		for att in data
 			do (att)->
 				tempAtt = new AttentionModel
@@ -57,7 +57,7 @@ AttStore = assign BaseStore, {
 
 Dispatcher.register (action) ->
 	switch action.actionType
-		when Constants.actionType.ATTENTION_LIST then AttentionList(action.status)
+		when Constants.actionType.ATTENTION_LIST then AttentionList(action.status, action.pageNow)
 		when Constants.actionType.FOLLOW then follow(action.params)
 
 module.exports = AttStore

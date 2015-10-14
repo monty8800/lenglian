@@ -85,22 +85,27 @@ public class ReleaseCarActivity extends BaseCordovaActivity implements CordovaIn
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        if (flag.equals("release_success")) {
+        String ind = args.getString(0);
+        if (ind.equals("2")) {
             finish();
-        } else if (flag.equals("contact_list")) {
-            ContactListActivity.actionView(ReleaseCarActivity.this);
-        } else if (flag.equals("datepicker")) {
-            isStartDate = false;
-            selectBirthday = new SelectBirthday(ReleaseCarActivity.this, "开始时间");
-            selectBirthday.showAtLocation(ReleaseCarActivity.this.findViewById(R.id.root),
-                    Gravity.BOTTOM, 0, 0);
-        } else if (flag.equals("select_start_address")) {
-            flagW = 1;
-            SelectAddressActivity.actionView(ReleaseCarActivity.this);
-        } else if (flag.equals("select_end_address")) {
-            flagW = 2;
-            SelectAddressActivity.actionView(ReleaseCarActivity.this);
+        } else {
+            String flag = args.getString(1);
+            if (flag.equals("release_success")) {
+                finish();
+            } else if (flag.equals("contact_list")) {
+                ContactListActivity.actionView(ReleaseCarActivity.this);
+            } else if (flag.equals("datepicker")) {
+                isStartDate = false;
+                selectBirthday = new SelectBirthday(ReleaseCarActivity.this, "开始时间");
+                selectBirthday.showAtLocation(ReleaseCarActivity.this.findViewById(R.id.root),
+                        Gravity.BOTTOM, 0, 0);
+            } else if (flag.equals("select_start_address")) {
+                flagW = 1;
+                SelectAddressActivity.actionView(ReleaseCarActivity.this);
+            } else if (flag.equals("select_end_address")) {
+                flagW = 2;
+                SelectAddressActivity.actionView(ReleaseCarActivity.this);
+            }
         }
     }
 

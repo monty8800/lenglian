@@ -147,9 +147,9 @@ public class CompanyWareHouseAuthActivity extends BaseCordovaActivity implements
             content.put("version", version);
             content.put("data", ttData);
 
+            driving = new HashMap<String, File>();
             String path = files.getJSONObject(0).getString("path");
             if (path != null && !path.equals("")) {
-                driving = new HashMap<String, File>();
                 driving.put("businessLicenseImg", new File(path));
             }
 

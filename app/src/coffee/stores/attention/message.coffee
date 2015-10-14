@@ -16,14 +16,15 @@ _user = UserStore.getUser()
 
 _messageList = Immutable.List()
 
-getMsgList = (status)->
+getMsgList = (status, pageNow)->
 	Http.post Constants.api.message_list, {
 		userId: _user?.id
 		userRole: status
+		pageNow: pageNow
+		pageSize: Constants.orderStatus.PAGESIZE
 	}, (result) ->
-		_messageList = _messageList.clear()
-		if result.myMessage.length is 0
-			Plugin.toast.err '没有相关数据呢!'
+		if parseInt(pageNow) is 1
+			_messageList = _messageList.clear()
 		for msg in result.myMessage
 			do (msg) ->
 				_msg = new Message
@@ -40,6 +41,6 @@ MessageStore = assign BaseStore, {
 
 Dispatcher.register (action) ->
 	switch action.actionType
-		when Constants.actionType.MSG_LIST then getMsgList(action.status)
+		when Constants.actionType.MSG_LIST then getMsgList(action.status, action.pageNow)
 
 module.exports = MessageStore

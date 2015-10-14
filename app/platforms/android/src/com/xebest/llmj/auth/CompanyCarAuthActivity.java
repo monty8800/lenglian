@@ -161,21 +161,21 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
             content.put("version", version);
             content.put("data", ttData);
 
+            driving = new HashMap<String, File>();
             String pathB = files.getJSONObject(0).getString("path");
             if (pathB != null && !pathB.equals("")) {
-                driving = new HashMap<String, File>();
                 driving.put("businessLicenseImg", new File(pathB));
             }
 
+            idCard = new HashMap<String, File>();
             String pathT = files.getJSONObject(1).getString("path");
             if (pathT != null && !pathT.equals("")) {
-                idCard = new HashMap<String, File>();
                 idCard.put("transportImg", new File(pathT));
             }
 
+            operate = new HashMap<String, File>();
             String pathD = files.getJSONObject(2).getString("path");
             if (pathD != null && !pathD.equals("")) {
-                operate = new HashMap<String, File>();
                 operate.put("doorImg", new File(pathD));
             }
 
