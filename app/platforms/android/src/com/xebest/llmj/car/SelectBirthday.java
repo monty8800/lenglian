@@ -20,7 +20,9 @@ import com.xebest.llmj.widget.NumericWheelAdapter;
 import com.xebest.llmj.widget.OnWheelChangedListener;
 import com.xebest.llmj.widget.WheelView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class SelectBirthday extends PopupWindow implements OnClickListener {
 	private DateCallBack dateCallBack;
@@ -42,7 +44,12 @@ public class SelectBirthday extends PopupWindow implements OnClickListener {
 		mContext = context;
 		dateCallBack = (DateCallBack) context;
 		mTitle = title;
-		this.age = "2012-9-25";
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM--dd");
+		String date = df.format(new Date());
+		Log.i("info", "--------------date:" + date);
+		this.age = "2015-10-15";
+//		this.age = date;
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mMenuView = inflater.inflate(R.layout.birthday, null);

@@ -160,6 +160,8 @@ actionType = {
 	PAY_NOTI: null
 	DO_PAY: null
 	RATY_CHANGE: null
+	INVST: null
+	INVNOTST: null
 
 }
 

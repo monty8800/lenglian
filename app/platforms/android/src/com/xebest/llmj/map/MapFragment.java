@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.baidu.mapapi.map.BaiduMap;
@@ -215,13 +216,10 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 String id = list.get(Integer.parseInt(title)).getId();
                 if (status == 1) {
                     goodsId = id;
-                    goodsBottomView.setVisibility(View.VISIBLE);
                 } else if (status == 2) {
                     carId = id;
-                    carBottomView.setVisibility(View.VISIBLE);
                 } else if (status == 3) {
                     storeId = id;
-                    storeBottomView.setVisibility(View.VISIBLE);
                 }
                 new DetailTask().execute(id);
                 return false;
@@ -424,8 +422,10 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     ooA = new MarkerOptions().position(llA).icon(goodsCold)
                             .zIndex(9).draggable(true);
                 }
-                Marker marker = (Marker) (mMapView.getMap().addOverlay(ooA));
-                marker.setTitle(i + "");
+                if (ooA != null) {
+                    Marker marker = (Marker) (mMapView.getMap().addOverlay(ooA));
+                    marker.setTitle(i + "");
+                }
             }
 
         }
@@ -488,7 +488,11 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 String data = jsonObject.getString("data");
                 if (status == 2) { // 车
                     List<CarDetailInfo> list = JSON.parseArray(data, CarDetailInfo.class);
-                    if (list.size() == 0) return;
+                    if (list.size() == 0) {
+                        Toast.makeText(getActivity(), "没有查询到相关数据", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    carBottomView.setVisibility(View.VISIBLE);
                     carDestination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() +
                             list.get(0).getToAreaName());
                     carStartPoint.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() +
@@ -496,7 +500,11 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     carDes.setText("车辆描述：" + Helper.getCarVehicle(list.get(0).getVehicle()) + " " + Helper.getCarType(list.get(0).getCarType()));
                 } else if (status == 3) { // 库
                     List<StoreDetailInfo> list = JSON.parseArray(data, StoreDetailInfo.class);
-                    if (list.size() == 0) return;
+                    if (list.size() == 0) {
+                        Toast.makeText(getActivity(), "没有查询到相关数据", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    storeBottomView.setVisibility(View.VISIBLE);
                     storeAddress.setText("仓库地址：" + list.get(0).getProvinceName() + list.get(0).getCityName() +
                             list.get(0).getAreaName() + list.get(0).getName());
                     storeType.setText("仓库类型：" + Helper.getStoreType(list.get(0).getWareHouseType()));
@@ -505,7 +513,11 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 } else if (status == 1) {// 货
                     JSONObject jsonObject1 = new JSONObject(data);
                     List<GoodsDetailInfo> list = JSON.parseArray(jsonObject1.getString("goods"), GoodsDetailInfo.class);
-                    if (list.size() == 0) return;
+                    if (list.size() == 0) {
+                        Toast.makeText(getActivity(), "没有查询到相关数据", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    goodsBottomView.setVisibility(View.VISIBLE);
                     mPriceType = list.get(0).getPriceType();
                     if (mPriceType.equals("1")) {
                         goodsBtn.setText("抢单");

@@ -77,6 +77,12 @@ public class MyGoodsActivity extends BaseCordovaActivity implements CordovaInter
         addCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                int status = Application.getInstance().getGoodsStatus();
+//                if (status != 1) {
+//                    Tools.showErrorToast(MyGoodsActivity.this, "尚未通过货主认证，请认证后再进行发布");
+//                } else {
+//                    ReleaseGoodsActivity.actionView(MyGoodsActivity.this);
+//                }
                 ReleaseGoodsActivity.actionView(MyGoodsActivity.this);
             }
         });

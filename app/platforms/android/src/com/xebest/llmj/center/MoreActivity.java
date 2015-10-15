@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -84,14 +82,16 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_SHORT).show();
-        Log.i("info", "---------------" + args.toString());
-        if (args.toString().contains("user:update")) {
+        String flag = args.getString(1);
+        if (flag.equalsIgnoreCase("user:update")) {
+            ((Application) getApplication()).setUserId("");
             finish();
-        } else if (args.toString().contains("changePasswd")) {
+        } else if (flag.equalsIgnoreCase("changePasswd")) {
             ChangePwdActivity.actionView(MoreActivity.this);
-        } else if (args.toString().contains("resetPasswd")) {
+        } else if (flag.equalsIgnoreCase("resetPasswd")) {
             ResetPwdActivity.actionView(MoreActivity.this);
+        } else if (flag.equalsIgnoreCase("login")) {
+            LoginActivity.actionView(MoreActivity.this);
         }
     }
 

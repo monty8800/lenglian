@@ -39,6 +39,8 @@ _isInvoice = ''
 
 _orderSelectCarList = Immutable.List()
 
+_invoiceArray = []
+
 # 更新联系人
 window.updateContact = (contact, phone)->
 	console.log '------updateContact-', phone
@@ -100,6 +102,16 @@ carItemInfo = (startNo)->
 		do (hea) ->
 			nCarHeaList.push hea + 1
 
+	size = _invoiceArray.length
+	tempInvoice = ''
+	if size is 2
+		tempInvoice = ""
+	else if size is 1
+		if _invoiceArray[0] is '1'
+			tempInvoice = '1'
+		else
+			tempInvoice = '2'
+
 	params = {
 		userId: _user?.id
 		startNo: startNo
@@ -112,7 +124,8 @@ carItemInfo = (startNo)->
 		toAreaId: ''
 		vehicle: ncarLenList
 		heavy: nCarHeaList
-		isInvoice: _isInvoice
+		# isInvoice: _isInvoice
+		isInvoice: tempInvoice
 		carType: ''
 		id: ''
 	}
@@ -416,7 +429,34 @@ updateStore = ->
 	switch page
 		when 'releaseVehicle.html' then changeAddress()
 
+invSt = (params)->
+	if parseInt(params) is 1
+		_invoiceArray.push '1'
+		CarStore.emitChange ['inv_need', _invoiceArray.length]
+	else if parseInt(params) is 2
+		_invoiceArray.push '2'
+		CarStore.emitChange ['inv_not_need', _invoiceArray.length]
+	else if parseInt(params) is 3
+		_invoiceArray = ['1', '2']
+		CarStore.emitChange ['inv_need_all', _invoiceArray.length]
+
+	console.log '----------invoince:', _invoiceArray
+
+invNotSt = (params)->
+	if parseInt(params) is 1
+		_invoiceArray = ['2']
+		CarStore.emitChange ['inv2_need', _invoiceArray.length]
+	else if parseInt(params) is 2
+		_invoiceArray = ['1']
+		CarStore.emitChange ['inv2_not_need', _invoiceArray.length]
+	else if parseInt(params) is 3
+		_invoiceArray = []
+		CarStore.emitChange ['inv2_need_all', _invoiceArray.length]
+
+	console.log '----------invoince:', _invoiceArray
+
 CarStore = assign BaseStore, {
+
 	getCar: ->
 		_foundCarList
 
@@ -463,8 +503,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.ORDER_SELECT_CAR_LIST then orderSelectCarList(action.params)
 		when Constants.actionType.ADD_CAR_SELECTION then _addCarSelection(action.params)
 		when Constants.actionType.UPDATE_STORE then updateStore()
+		when Constants.actionType.INVST then invSt(action.params)
+		when Constants.actionType.INVNOTST then invNotSt(action.params)
 
 module.exports = CarStore
-
-
-

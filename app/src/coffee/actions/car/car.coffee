@@ -162,6 +162,18 @@ CarAction = {
 			actionType: Constants.actionType.ORDER_SELECT_CAR_LIST
 			params: params
 		}
+
+	invStChecked: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.INVST
+			params: params
+		}
+
+	invStNotChecked: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.INVNOTST
+			params: params
+		}
 }
 
 module.exports = CarAction

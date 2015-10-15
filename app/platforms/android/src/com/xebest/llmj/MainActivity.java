@@ -41,6 +41,7 @@ import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.center.CenterFragment;
+import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.home.HomeFragment;
 import com.xebest.llmj.map.MapFragment;
 import com.xebest.llmj.order.OrderFragment;
@@ -182,6 +183,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setViewState(1);
                 break;
             case R.id.rl_order:
+                String userId = Application.getInstance().userId;
+                if (userId.equals("") || userId == null) {
+                    LoginActivity.actionView(MainActivity.this);
+                    return;
+                }
                 orderCancel.setVisibility(View.VISIBLE);
                 if (currentIndex == -1) {
                     showPopMenu(orderView);
@@ -391,8 +397,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         double aaa = Double.valueOf(Application.getInstance().HEIGHT) / Double.valueOf(400);
 
         Log.i("info", "--------aaa:" + aaa);
-
-
 
         Log.i("info", "--------hhh:" + hhh);
 

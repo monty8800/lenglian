@@ -60,6 +60,13 @@ public class Application extends android.app.Application {
 
     public int HEIGHT = 0;
 
+    public boolean loginSuccess = false;
+
+    // 0未认证车主，1认证 2：认证中 3：审核驳回
+    public int goodsStatus = -1;
+    public int warehouseStatus = -1;
+    public int carStatus = -1;
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -263,4 +270,39 @@ public class Application extends android.app.Application {
         ImageLoader.getInstance().init(config);
     }
 
+    public boolean isLoginSuccess() {
+        return loginSuccess;
+    }
+
+    public void setLoginSuccess(boolean loginSuccess) {
+
+        this.loginSuccess = loginSuccess;
+    }
+
+    public int getWarehouseStatus() {
+        return warehouseStatus;
+    }
+
+    public void setWarehouseStatus(int warehouseStatus) {
+
+        this.warehouseStatus = warehouseStatus;
+    }
+
+    public void setCarStatus(int carStatus) {
+
+        this.carStatus = carStatus;
+    }
+
+    public void setGoodsStatus(int goodsStatus) {
+        this.goodsStatus = goodsStatus;
+    }
+
+    public int getCarStatus() {
+
+        return carStatus;
+    }
+
+    public int getGoodsStatus() {
+        return goodsStatus;
+    }
 }

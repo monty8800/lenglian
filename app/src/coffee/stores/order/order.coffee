@@ -12,8 +12,7 @@ UserStore = require 'stores/user/user'
 OrderAction = require 'actions/order/order'
 Goods = require 'model/goods'
 DB = require 'util/storage'
-
-DB = require 'util/storage'
+Auth = require 'util/auth'
 
 _orderList = Immutable.List()
 _orderDetail = new OrderModel
@@ -28,12 +27,13 @@ _page = -1
 paths = window.location.href.split('/')
 _htmlPage = paths[paths.length-1]
 
-window.comeFromFlag = (page, status)->		
-	# 禁止多次相同请求
-	if _page is page 
-		return
-	_page = page 
-	OrderAction.getOrderList(status or Constants.orderStatus.st_01, 1)
+window.comeFromFlag = (page, status)->	
+	Auth.needLogin ->	
+		# 禁止多次相同请求
+		if _page is page 
+			return
+		_page = page 
+		OrderAction.getOrderList(status or Constants.orderStatus.st_01, 1)
 	
 # 浏览器临时测试
 browser_temp = (params)->

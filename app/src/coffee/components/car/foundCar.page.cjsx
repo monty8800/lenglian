@@ -1,6 +1,5 @@
 require 'components/common/common'
 require 'index-style'
-
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
@@ -11,13 +10,13 @@ Helper = require 'util/helper'
 XeImage = require 'util/image'
 DB = require 'util/storage'
 ScreenMenu = require 'components/car/screen'
-DRIVER_LOGO = require 'user-01.jpg'
 CarStore = require 'stores/car/car'
 CarAction = require 'actions/car/car'
 XeImage = require 'components/common/xeImage'
 Raty = require 'components/common/raty'
 avatar = require 'user-01'
 UserStore = require 'stores/user/user'
+Auth = require 'util/auth'
 
 CarItem = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -42,14 +41,16 @@ CarItem = React.createClass {
 
 	# 车主详情
 	_goPage: (item)->
-		DB.put 'transData', [item.carId, item.userId]
-		Plugin.nav.push ['carOwnerDetail']
+		Auth.needLogin ->
+			DB.put 'transData', [item.carId, item.userId]
+			Plugin.nav.push ['carOwnerDetail']
 
 	# 选择此车
 	select: (carId, i, e)->
-		return Plugin.toast.err '尚未通过货主认证，请认证后再试' if UserStore.getUser()?.goodsStatus isnt 1
-		console.log '-------select_car', carId
-		Plugin.nav.push ['select_goods', carId, i]
+		Auth.needLogin ->
+			return Plugin.toast.err '尚未通过货主认证，请认证后再试' if UserStore.getUser()?.goodsStatus isnt 1
+			console.log '-------select_car', carId
+			Plugin.nav.push ['select_goods', carId, i]
 		e.stopPropagation()
 
 	render: ->
@@ -118,8 +119,10 @@ FoundCar = React.createClass {
 				dataCount: list.size
 			}
 		else if params[0] is 'submit_success'
+			list = @state.carList
+			console.log '----submit_success--callback--:', params[1]
 			newState = Object.create @state
-			newState.carList = @state.carList.splice params[1], 1
+			newState.carList = list.splice params[1], 1
 			@setState newState
 
 	_loadMore: ->
@@ -128,7 +131,7 @@ FoundCar = React.createClass {
 
 	render: ->
 		carCells = @state.carList.map (cars, index)->
-			<CarItem car={cars} index={index} key={index} />
+			<CarItem car={cars} index={index} key={cars?.id} />
 		<section>
 			<ScreenMenu />
 			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore} >
@@ -138,9 +141,3 @@ FoundCar = React.createClass {
 }
 
 React.render <FoundCar />, document.getElementById('content')
-
-
-
-
-
-

@@ -18,6 +18,7 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.CarAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.model.CarListInfo;
 import com.xebest.llmj.utils.Tools;
@@ -120,6 +121,8 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
             carId = args.getString(2);
             index = args.getInt(3);
             new GoodsFoundCar().execute();
+        } else if (flag.equalsIgnoreCase("login")) {
+            LoginActivity.actionView(FoundCarActivity.this);
         }
     }
 
@@ -267,7 +270,6 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
             map.put("goodsUserId", Application.getInstance().userId);
             map.put("goodsResouseId", params[0]);
             map.put("carResouseId", carId);
-
             return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
         }
 
@@ -291,8 +293,6 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
             }
             Tools.dismissLoading();
         }
-
     }
-
 
 }
