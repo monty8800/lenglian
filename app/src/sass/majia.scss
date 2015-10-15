@@ -1264,9 +1264,8 @@
         }  
         span{
             margin-right: 5/$ppr;
-            line-height: 1;
             &:first-child{
-                font-weight: bold;
+                font-weight: 700;
                 display: inline-block;
                 width: 145/$ppr;
                 margin-right: 0;
@@ -1496,7 +1495,7 @@
         }
         input{
             max-width: 400/$ppr;
-            line-height: 1;
+            //line-height: 1;
         }
     }
     .title{

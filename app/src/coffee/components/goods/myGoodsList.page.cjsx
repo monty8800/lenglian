@@ -61,7 +61,8 @@ GoodsListItem = React.createClass {
 							<XeImage src={ item.imageUrl } size='100x100' />
 						</dt>
 						<dd className=" fl">
-							<p>货物规格: <span>{ item.weight }</span></p>
+							<p>货物类型: <span>{ Helper.goodsType item.goodsType }</span></p>
+							<p>货物规格: <span>{ if item.weight then item.weight + '吨' } { if item.cube then item.cube + '方' }</span></p>
 							<p>包装类型: <span>{ item.packType }</span></p>
 						</dd>
 					</dl>			

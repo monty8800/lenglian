@@ -52,6 +52,7 @@ Goods = Immutable.Record {
 	remark: null 				#备注
 	wishlst:false				#是否被关注
 	stars:0						#评价 星级
+	goodsType:1					#货物类型(1:常温、2:冷藏、3:冷冻、4:急冻、5:深冷)
 
 	cube: ''   				#货物体积
 

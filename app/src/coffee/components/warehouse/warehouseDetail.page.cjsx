@@ -36,8 +36,11 @@ WarehouseDetail = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 
 	_deleteWarehouse: ->
-		alert @state.warehouseDetail.id
-		WarehouseAction.deleteWarehouse @state.warehouseDetail.id
+		@state.warehouseDetail.id
+		Plugin.alert '确定删除吗', '提示', (index)->
+			if index is 1
+				WarehouseAction.deleteWarehouse @state.warehouseDetail.id
+		, ['确定', '取消']
 
 	getInitialState: ->
 		{
@@ -177,12 +180,14 @@ WarehouseDetail = React.createClass {
 					}
 				</p>		
 			</div>
-
-			<div className="m-detail-bottom">
-				<div className="g-pay-btn">
-					<a onClick={ @_deleteWarehouse } className="u-btn02">删除仓库</a>
-				</div>
-			</div>
+			{
+				if parseInt(@state.warehouseDetail.status) is 1
+					<div className="m-detail-bottom">
+						<div className="g-pay-btn">
+							<a onClick={ @_deleteWarehouse } className="u-btn02">删除仓库</a>
+						</div>
+					</div>
+			}
 		</div>
 }
 

@@ -50,8 +50,8 @@ selectionList = [
 		key: 'isInvoice'
 		value: '需要发票'
 		options: [
-			{key: '1', value: '提供发票'}
-			{key: '2', value: '不提供发票'}
+			{key: '1', value: '是'}
+			{key: '2', value: '否'}
 		]
 	}
 ]
