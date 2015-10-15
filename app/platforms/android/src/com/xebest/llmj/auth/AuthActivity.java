@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -53,7 +52,6 @@ public class AuthActivity extends BaseCordovaActivity implements CordovaInterfac
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_SHORT).show();
         // 个人车主认证
         if (args.toString().contains("personalCarAuth")) {
             PersonalCarAuthActivity.actionView(AuthActivity.this);

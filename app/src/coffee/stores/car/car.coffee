@@ -440,8 +440,6 @@ invSt = (params)->
 		_invoiceArray = ['1', '2']
 		CarStore.emitChange ['inv_need_all', _invoiceArray.length]
 
-	console.log '----------invoince:', _invoiceArray
-
 invNotSt = (params)->
 	if parseInt(params) is 1
 		_invoiceArray = ['2']
@@ -452,8 +450,6 @@ invNotSt = (params)->
 	else if parseInt(params) is 3
 		_invoiceArray = []
 		CarStore.emitChange ['inv2_need_all', _invoiceArray.length]
-
-	console.log '----------invoince:', _invoiceArray
 
 CarStore = assign BaseStore, {
 

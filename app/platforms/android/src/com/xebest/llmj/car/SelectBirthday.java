@@ -45,11 +45,11 @@ public class SelectBirthday extends PopupWindow implements OnClickListener {
 		dateCallBack = (DateCallBack) context;
 		mTitle = title;
 
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM--dd");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String date = df.format(new Date());
 		Log.i("info", "--------------date:" + date);
-		this.age = "2015-10-15";
-//		this.age = date;
+//		this.age = "2015-10-15";
+		this.age = date;
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mMenuView = inflater.inflate(R.layout.birthday, null);
@@ -79,7 +79,6 @@ public class SelectBirthday extends PopupWindow implements OnClickListener {
 			mCurYear = 100 - (curYear - Integer.parseInt(str[0]));
 			mCurMonth = Integer.parseInt(str[1]) - 1;
 			mCurDay = Integer.parseInt(str[2]) - 1;
-			;
 		}
 		dateType = mContext.getResources().getStringArray(R.array.date2);
 		monthAdapter = new DateNumericAdapter(context, 1, 12, 5);
