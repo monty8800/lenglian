@@ -58,7 +58,7 @@ GoodsListItem = React.createClass {
 				<div className="g-itemList">
 					<dl className="clearfix">
 						<dt className=" fl">
-							<XeImage src={ item.imageUrl } size='100x100' />
+							<XeImage src={ item.imageUrl } size='200x200' />
 						</dt>
 						<dd className=" fl">
 							<p>货物类型: <span>{ Helper.goodsType item.goodsType }</span></p>

@@ -143,6 +143,7 @@ getUserGoodsList = (pageNow,pageSize,status)->
 		resourceStatus:status
 	}
 	Http.post Constants.api.GET_GOODS_LIST,params,(data)->
+
 		DB.remove 'shouldReloadGoodsList'
 		if pageNow is 1
 			_myGoodsList = []
@@ -161,7 +162,7 @@ getUserGoodsList = (pageNow,pageSize,status)->
 			aGoodsModel = aGoodsModel.set 'weight',goodsObj.weight
 			aGoodsModel = aGoodsModel.set 'packType',goodsObj.packType
 			aGoodsModel = aGoodsModel.set 'type',goodsObj.type
-			aGoodsModel = aGoodsModel.set 'imageUrl',goodsObj.imageUrl
+			aGoodsModel = aGoodsModel.set 'imageUrl',goodsObj.imgurl
 			aGoodsModel = aGoodsModel.set 'resourceStatus',goodsObj.resourceStatus
 			aGoodsModel = aGoodsModel.set 'goodsType',goodsObj.goodsType
 
