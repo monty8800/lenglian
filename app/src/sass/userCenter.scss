@@ -27,6 +27,7 @@
             }
             dd{
                 padding-top: 20/$ppr;
+                width: 320/$ppr;
                 p{
                     font-size: 30/$ppr;
                     color: #fff;
@@ -35,6 +36,10 @@
                     }
                     &.g-name{
                         font-size: 32/$ppr;
+                        width: 100%;
+                        white-space: nowrap;
+                        text-overflow:ellipsis;
+                        overflow: hidden;
                     }
                 }
             }

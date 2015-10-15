@@ -15,6 +15,8 @@ Helper = require 'util/helper'
 
 Image = require 'util/image'
 
+XeImage = require 'components/common/xeImage'
+
 AuthStatus = React.createClass {
 	_goAuth: (auth)->
 		user = @props.user
@@ -77,8 +79,8 @@ Profile = React.createClass {
 		<div className="m-userCenter-top">
 			<div className="g-userPrivate">
 				<dl className="clearfix"> 
-					<dt className="fl">
-						<img onError={@_pic404} onClick={@_changeAvatar} src={Image.getFullPath(user.avatar, '130x130') or Image.avatar}/>
+					<dt className="fl" onClick={@_changeAvatar} >
+						<XeImage src={user.avatar} size='130x130' type='avatar' />
 					</dt>
 					<dd className="fl">
 						<p className="g-name">{user.name || user.company || user.mobile}</p>
@@ -136,6 +138,7 @@ UserCenter = React.createClass {
 		UserStore.removeChangeListener @_onChange
 
 	_onChange: (msg)->
+		console.log 'user center msg', msg
 		@setState {
 			user: UserStore.getUser()
 			menus: UserStore.getMenus()
