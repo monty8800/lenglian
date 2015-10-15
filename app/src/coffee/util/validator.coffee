@@ -67,4 +67,5 @@ module.exports = {
 	remark: remark
 	isEmpty: isEmpty
 	price: price
+	float: price
 }

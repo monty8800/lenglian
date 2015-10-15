@@ -114,14 +114,14 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请输入终点'
 		else if not @state.type
 			Plugin.toast.err '请选择货物类型'
-		else if not @state.weight
-			Plugin.toast.err '请填写货物规格'
+		else if not Validator.float @state.weight or (@state.cube?.length > 0 and not Validator.float @state.cube)
+			Plugin.toast.err '请填写正确的货物规格, 最多两位小数'
 		else if not @state.installMinTime or not @state.installMaxTime
 			Plugin.toast.err '请填写装车时间'
-		else if not @state.price
-			Plugin.toast.err '请输入价格'
-		else if @state.payType is 3 and not @state.prePay
-			Plugin.toast.err '请输入预付款'
+		else if not Validator.price @state.price
+			Plugin.toast.err '请输入正确的价格， 最多两位小数'
+		else if @state.payType is 3 and not Validator.price @state.prePay
+			Plugin.toast.err '请输入正确的预付款， 最多两位小数'
 		else if not Validator.name @state.sender
 			Plugin.toast.err '发货人姓名不正确'
 		else if not Validator.mobile @state.senderMobile
@@ -130,7 +130,7 @@ AddGoods = React.createClass {
 			Plugin.toast.err '收货人姓名不正确'
 		else if not Validator.mobile @state.reciverMobile
 			Plugin.toast.err '收货人手机号不正确'
-		else if @state.remark.length > 0 and not Validator.remark @state.remark
+		else if @state.remark?.length > 0 and not Validator.remark @state.remark
 			Plugin.toast.err '备注过长,最多30个汉字'
 		else
 			files = []
