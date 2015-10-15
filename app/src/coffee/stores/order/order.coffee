@@ -149,7 +149,8 @@ getStoreOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'orderNo', order.orderNo
 				tempOrder = tempOrder.set 'warehousePersonUserId', order.warehousePersonUserId
 				tempOrder = tempOrder.set 'version', order.version
-
+				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
+				console.log '_________________________________________________',order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['store']
 	, (err)->
@@ -383,7 +384,7 @@ _orderFinish = (orderNo, version, carPersonUserId)->
 
 # 关注取消关注
 _attention = (params)->
-	Plugin.loading.show '正在确认...'
+	# Plugin.loading.show '正在确认...'
 	Http.post Constants.api.attention, params, (data)->
 		if params.type is 1
 			OrderStore.emitChange ['attention_success']
@@ -391,9 +392,9 @@ _attention = (params)->
 		else 
 			OrderStore.emitChange ['nattention_success']
 			Plugin.toast.success '取消关注成功'
-		Plugin.loading.hide()
+		# Plugin.loading.hide()
 	, (data)->
-		Plugin.loading.hide()
+		# Plugin.loading.hide()
 		Plugin.toast.err data.msg
 
 getBidGoodsDetail = (params)->

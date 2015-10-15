@@ -37,9 +37,9 @@ priceType = (type) ->
 invoiceStatus = (status) ->
 	switch parseInt(status)
 		when 1
-			'可以开发票'
+			'开发票'
 		when 2
-			'不可以开发票'
+			'不开发票'
 
 isInvoince = (status) ->
 	switch parseInt(status)

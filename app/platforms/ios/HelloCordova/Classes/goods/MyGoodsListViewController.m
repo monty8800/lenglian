@@ -8,6 +8,7 @@
 
 #import "MyGoodsListViewController.h"
 #import "GoodsDetailViewController.h"
+#import "AddGoodsViewController.h"
 @interface MyGoodsListViewController ()
 
 @end
@@ -29,12 +30,23 @@
 //
 -(void)createUI{
     self.title = @"我的货源";
+    
+    UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [saveButton setFrame:CGRectMake(0, 0, 60, 44)];
+    [saveButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [saveButton setTitle:@"发布货源" forState:UIControlStateNormal];
+    [saveButton addTarget:self action:@selector(releaseGoodsResource) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:saveButton];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     [self.commandDelegate evalJs:@"(function(){window.tryReloadGoodsList()})()"];
     
+}
+-(void)releaseGoodsResource{
+    AddGoodsViewController *addGoodsVC = [AddGoodsViewController new];
+    [self.navigationController pushViewController:addGoodsVC animated:YES];
 }
 -(void)commonCommand:(NSArray *)params{
     [super commonCommand:params];

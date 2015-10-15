@@ -450,7 +450,7 @@ AddWarehouse = React.createClass {
 
 			<div className="m-releaseitem">
 				<div className="choicePic">
-					<span>货物照片</span> <i>选填</i>					
+					<span>仓库照片</span> <i>选填</i>					
 					<figure onClick={@_takePhoto}>
 						{
 							if @state.addWarehouseImageUrl

@@ -1672,12 +1672,18 @@
 //aboutus
 .m-aboutUs{
     padding: 30/$ppr 20/$ppr 0;
-    .g-aboutCon{
+    font-size: 26/$ppr;
+    line-height: 36/$ppr;
+    color: $text-color-333;
+    .g-aboutCon{    
+        text-indent: 50/$ppr;        
+        margin-bottom: 36/$ppr;       
+    }
+    .g-titleItem{
         font-size: 26/$ppr;
-        text-indent: 50/$ppr;
-        line-height: 36/$ppr;
+//      line-height: 36/$ppr;
         margin-bottom: 36/$ppr;
-        color: $text-color-333;
+        font-weight: bold;
     }
 }
 //searchNoresult

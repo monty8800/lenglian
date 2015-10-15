@@ -38,6 +38,15 @@ Register = React.createClass {
 		else
 			UserAction.register @state.mobile, @state.code, @state.passwd
 
+	_toAgreement:->
+		Plugin.nav.push ['toAgreement']
+
+	_agreeAgreement:(e)->
+		newState = Object.create @state
+		newState.agree = !newState.agree
+		@setState newState
+		e.stopPropagation()
+
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	componentDidMount: ->
 		UserStore.addChangeListener @_change
@@ -97,13 +106,13 @@ Register = React.createClass {
 			<a className="u-btn" onClick={@_register}>同意协议并注册</a>
 		</div>
 		<div className="m-btn-reg">
-			<label className="u-label"><input className="ll-font" checkedLink={@linkState 'agree'} type="checkbox" />已阅读《冷链马甲服务协议》</label>
+			<label className="u-label" onClick={@_toAgreement}><input className="ll-font" onClick={@_agreeAgreement} checked={if @state.agree then 'checked' else '' } type="checkbox" />已阅读《冷链马甲服务协议》</label>
 		</div>
 		{ <Auth /> if @state.success}
 		</section>
 }
 
-
+# checkedLink={@linkState 'agree'}
 React.render <Register  />, document.getElementById('content')
 
 

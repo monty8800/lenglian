@@ -60,6 +60,16 @@
     }else{
         _showOrderType = type;
     }
+#if DEBUG
+    if (type == 0) {
+        self.title = @"货主订单";
+    }else if (type == 1){
+        self.title = @"司机订单";
+    }else if (type == 2){
+        self.title = @"仓库订单";
+    }
+#endif
+
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     [super webViewDidFinishLoad:webView];

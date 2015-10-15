@@ -1,3 +1,4 @@
+require 'components/common/common'
 
 require 'majia-style'
 React = require 'react/addons'
@@ -11,7 +12,7 @@ OrderStore = require 'stores/order/order'
 OrderAction = require 'actions/order/order'
 XeImage = require 'components/common/xeImage'
 Moment = require 'moment'
-
+Raty = require 'components/common/raty'
 _transData = DB.get 'transData'
 
 
@@ -19,7 +20,7 @@ WarehouseOrderDetail = React.createClass {
 	minxins : [PureRenderMixin,LinkedStateMixin]
 	componentDidMount: ->			
 		OrderStore.addChangeListener @_onChange
-		OrderAction.getWarehouseOrderDetail {orderNo:_transData?.orderNo,userId:UserStore.getUser()?.id}
+		OrderAction.getWarehouseOrderDetail {orderNo:_transData?.orderNo,userId:UserStore.getUser()?.id,focusid:_transData?.goodsPersonUserId}
 
 	componentWillNotMount: ->
 		OrderStore.removeChangeListener @_onChange
@@ -28,44 +29,46 @@ WarehouseOrderDetail = React.createClass {
 		{
 			orderDetail:{}
 			wishlst:false
+			data:{}
 		}
 
 	_onChange: (mark)->
 		if mark.msg is 'warehouse:order:detail:done'
 			console.log '++++___+++ ',mark.detail
 			newState = Object.create @state
-			newState.orderDetail = mark.detail
+			newState.orderDetail = mark.detail?.mjWarhousefoundGoods
+			newState.data = mark.detail
+			newState.wishlst = mark.detail.wishlst
 			@setState newState
-		else if params[0] is 'attention_success'
+		else if mark[0] is 'attention_success'
 			console.log '---attention_success-'
 			newState = Object.create @state
 			newState.wishlst = true
 			@setState newState
-		else if params[0] is 'nattention_success'
+		else if mark[0] is 'nattention_success'
 			console.log '---nattention_success-'
 			newState = Object.create @state
 			newState.wishlst = false
 			@setState newState
-		else if params[0] is 'warehouse:cancle:order:done'
+		else if mark[0] is 'warehouse:cancle:order:done'
 			console.log 'cancle order succ'
 			Plugin.nav.pop()
 
-	_handleFallow: ->
-		Plugin.toast.show 'follow me' 
-		# type = ''
-		# if @state.wishlst
-		# 	type = 2 # 关注 则取消关注
-		# else
-		# 	type = 1 # 未关注 则添加关注
-		# OrderAction.attention({
-		# 	focusid: @state.orderDetail?.goodsPersonUserId 
-		# 	focustype: '2'
-		# 	userId: UserStore.getUser()?.id
-		# 	type: type
-		# })
+	_handleFallow: ()->
+		type = ''
+		if @state.wishlst
+			type = 2 # 关注 则取消关注
+		else
+			type = 1 # 未关注 则添加关注
+		OrderAction.attention({
+			focusid: @state.orderDetail?.goodsPersonUserId 
+			focustype: '1'
+			userId: UserStore.getUser()?.id
+			type: type
+		})
 
-	_cancleOrder:->
-		OrderAction.warehouseAcceptOrder {
+	_cancleOrder: (index)->
+		OrderAction.warehouseCancleOrder {
 			orderNo:@state.orderDetail.orderNo
 			warehousePersonUserId:@state.orderDetail.warehousePersonUserId
 			version:@state.orderDetail.version
@@ -73,7 +76,7 @@ WarehouseOrderDetail = React.createClass {
 
 
 	render: ->
-		switch parseInt(@state.orderDetail.orderState)
+		switch parseInt(@state.orderDetail?.orderState)
 			when 1
 				if @state.orderDetail?.orderType is 'GW'
 					title = '等待仓库确认'
@@ -83,11 +86,13 @@ WarehouseOrderDetail = React.createClass {
 				if parseInt(@state.orderDetail?.payType) is 3
 					title = '等待货主付款'
 				else
-					title = '货物运输中'
+					title = '货物存储中'
 			when 3
-				title = '货物运输中'
+				title = '货物存储中'
+
 			when 4
 				title = '待评价'
+
 		
 		<div>
 			<div className="m-orderdetail clearfix">
@@ -105,7 +110,10 @@ WarehouseOrderDetail = React.createClass {
 								<span>{ @state.orderDetail.goodsPersonName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper @state.orderDetail.goodsPersonAuthMode}</span>
 							</div>
 							<div className="g-dirver-dis ll-font">
-								<div dangerouslySetInnerHTML={{__html: Helper.stars @state.orderDetail.goodsPersonScore }} />
+								{
+									# @state.orderDetail.goodsPersonScore
+									<Raty score={ @state.data.goodsScore } />
+								}
 							</div>
 						</div>
 						<ul className="g-driver-contact">
@@ -164,11 +172,16 @@ WarehouseOrderDetail = React.createClass {
 					<span>{ Moment(@state.orderDetail.goodsCreateTime ).format('YYYY-MM-DD') }</span>
 				</p>			
 			</div>
-			<div className="m-detail-bottom">
-				<div className="g-pay-btn">
-					<a onClick={@_cancleOrder} className="u-btn02">取消</a>
-				</div>
-			</div>
+			{
+				if parseInt(@state.orderDetail?.orderState) is 1
+					# 洽谈中的可以取消
+					<div className="m-detail-bottom">
+						<div onClick={@_cancleOrder} className="g-pay-btn">
+							<a className="u-btn02">取消</a>
+						</div>
+					</div>
+			}
+
 		</div>
 }
 

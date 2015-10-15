@@ -117,7 +117,6 @@ GoodsDetail = React.createClass {
 						<XeImage src={ @state.goodsDetail.imageUrl } size='100x100' />
 					</div>
 					<div className="g-pro-text fl">
-						<p>货物要求: <span>{@state.goodsDetail.goodsType}</span></p>
 						<p>货物规格: <span>{ @state.goodsDetail.weight }</span></p>
 						<p>包装类型: <span>{ @state.goodsDetail.packType }</span></p>
 					</div>

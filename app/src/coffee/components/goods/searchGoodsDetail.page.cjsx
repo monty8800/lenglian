@@ -140,7 +140,6 @@ GoodsDetail = React.createClass {
 						<XeImage src={ @state.goodsDetail.imageUrl } size='100x100' />
 					</div>
 					<div className="g-pro-text fl">
-						<p>货物要求: <span>{@state.goodsDetail.goodsType}</span></p>
 						<p>货物规格: <span>{ @state.goodsDetail.weight }</span></p>
 						<p>包装类型: <span>{ @state.goodsDetail.packType }</span></p>
 					</div>
@@ -162,7 +161,7 @@ GoodsDetail = React.createClass {
 				</p>
 				<p>
 					<span>支付方式:</span>
-					<span>{ Helper.payTypeMapper @state.goodsDetail.payType } {'预付款金额$$'} </span>
+					<span>{ Helper.payTypeMapper @state.goodsDetail.payType }</span>
 				</p>
 				<p>
 					<span>发票:</span>

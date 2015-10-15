@@ -191,6 +191,7 @@
     {
         if ([params[1] isEqualToString:@"login"]) {
             LoginViewController *loginVC = [LoginViewController new];
+            loginVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:loginVC animated:YES];
             return;
         }

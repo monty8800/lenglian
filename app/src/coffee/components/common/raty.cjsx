@@ -41,6 +41,12 @@ Raty = React.createClass {
 				dirty : false
 			}
 
+	componentWillReceiveProps: (nextProps)->
+		@setState {
+			ratyScore: Math.min(Math.max(0, nextProps.score), 10)
+			dirty: false
+		}
+
 	render: ->
 		starCount = Math.floor(@state.ratyScore / 2)
 		hasHalf = (@state.ratyScore % 2) isnt 0

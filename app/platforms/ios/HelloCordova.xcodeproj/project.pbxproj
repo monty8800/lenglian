@@ -98,6 +98,7 @@
 		4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */; settings = {ASSET_TAGS = (); }; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
+		5B1A51BB1BCF9E250031761B /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A51BA1BCF9E250031761B /* AgreementViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1C0B691BCA553300DA196C /* SearchGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1CBCF61BC36D4D00D94095 /* AddBankCardNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B1CBCF91BC36DD100D94095 /* AddBankCarVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -317,6 +318,8 @@
 		4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationBubbleView.m; path = map/LocationBubbleView.m; sourceTree = "<group>"; };
 		555391413AAD4C94B9C1B273 /* XEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEViewController.m; path = "com.xebest.xe-plugin/XEViewController.m"; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		5B1A51B91BCF9E250031761B /* AgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AgreementViewController.h; path = user/AgreementViewController.h; sourceTree = "<group>"; };
+		5B1A51BA1BCF9E250031761B /* AgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AgreementViewController.m; path = user/AgreementViewController.m; sourceTree = "<group>"; };
 		5B1C0B671BCA553300DA196C /* SearchGoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGoodsDetailViewController.h; sourceTree = "<group>"; };
 		5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGoodsDetailViewController.m; sourceTree = "<group>"; };
 		5B1CBCF41BC36D4D00D94095 /* AddBankCardNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCardNextViewController.h; path = wallet/AddBankCardNextViewController.h; sourceTree = "<group>"; };
@@ -798,6 +801,8 @@
 				4C006DF91BB02FCC00381462 /* ChangePasswdViewController.m */,
 				4C5D3F8C1BB0222E00BBD5A6 /* MoreViewController.h */,
 				4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */,
+				5B1A51B91BCF9E250031761B /* AgreementViewController.h */,
+				5B1A51BA1BCF9E250031761B /* AgreementViewController.m */,
 			);
 			name = user;
 			sourceTree = "<group>";
@@ -950,6 +955,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 700;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = 475MHG62GY;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "HelloCordova" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1182,6 +1192,7 @@
 				5BE0EB221BBE40DA00027BA8 /* ReleaseCarViewController.m in Sources */,
 				4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */,
 				4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */,
+				5B1A51BB1BCF9E250031761B /* AgreementViewController.m in Sources */,
 				5BE2632F1BB3A5E000167D4F /* SearchWarehouseViewController.m in Sources */,
 				5B69AE841BBD116000A14101 /* AddCarViewController.m in Sources */,
 			);
@@ -1204,6 +1215,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1248,6 +1260,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
