@@ -183,7 +183,6 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             content.put("version", version);
             content.put("data", ttData);
 
-
             driving = new HashMap<String, File>();
             String path = files.getJSONObject(0).getString("path");
             if (!path.equals("") && path != null) {
@@ -192,7 +191,6 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
 
             Log.i("info", "--------------content:" + content);
             Log.i("info", "--------------content:");
-
             new RequestTask().execute();
         }
     }
@@ -441,7 +439,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
 
             Tools.dismissLoading();
             if (success) {
-                // TODO 调用js方法更新User
+                // 调用js方法更新User
                 mWebView.getWebView().loadUrl("javascript:authDone()");
                 Tools.showSuccessToast(AddWarehouseActivity.this, "添加成功!");
                 finish();

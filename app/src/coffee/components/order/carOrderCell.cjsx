@@ -38,7 +38,6 @@ CarItem = React.createClass {
 		Plugin.nav.push ['doComment']
 		e.stopPropagation()
 		
-
 	_detail: (item, i)->
 		DB.put 'car_owner_order_detail', [item?.carPersonUserId, item?.orderNo, item?.goodsPersonUserId, i]
 		Plugin.nav.push ['carOwnerOrderDetail']

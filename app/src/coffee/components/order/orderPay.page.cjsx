@@ -99,7 +99,9 @@ OrderPay = React.createClass {
 		else if params is 'pay:success'
 			Plugin.toast.success '订单支付成功！'
 			Plugin.nav.pop()
-			#TODO: 调用支付接口，接口还没有哦
+		else if params is 'pay:done'
+			Plugin.toast.success '支付成功，订单处理中！'
+			Plugin.nav.pop()
 
 	render : ->
 		user = @state.user

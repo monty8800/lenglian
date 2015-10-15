@@ -54,7 +54,8 @@ ResetPwd = React.createClass {
 		console.log 'event change ', msg
 		if msg is 'changePasswd:done'
 			console.log 'changePasswd success!'
-			Plugin.nav.pop()
+			# Plugin.nav.pop()
+			Plugin.nav.push ['change_login_pwd_success']
 			Plugin.toast.success '密码修改成功！'
 		else if msg is 'setPayPwd:done'
 			if hasPayPwd

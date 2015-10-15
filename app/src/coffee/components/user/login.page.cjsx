@@ -39,7 +39,8 @@ Login = React.createClass {
 		if not Validator.mobile @state.mobile
 			Plugin.toast.err '请输入正确的手机号码'
 			return
-		else if not Validator.passwd @state.passwd
+		# else if not Validator.passwd @state.passwd
+		else if @state.passwd.length < 1
 			Plugin.toast.err '密码格式不正确'
 			return
 		else

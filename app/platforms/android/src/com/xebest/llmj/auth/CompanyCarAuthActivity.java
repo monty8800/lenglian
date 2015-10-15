@@ -272,7 +272,7 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
 
     @Override
     public Object onMessage(String id, Object data) {
-        mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
+        mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='3';})();");
         return super.onMessage(id, data);
     }
 

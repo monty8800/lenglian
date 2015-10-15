@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -77,6 +76,12 @@ public class MyGoodsActivity extends BaseCordovaActivity implements CordovaInter
         addCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                int status = Application.getInstance().getGoodsStatus();
+//                if (status != 1) {
+//                    Tools.showErrorToast(MyGoodsActivity.this, "尚未通过货主认证，请认证后再进行发布");
+//                } else {
+//                    ReleaseGoodsActivity.actionView(MyGoodsActivity.this);
+//                }
                 ReleaseGoodsActivity.actionView(MyGoodsActivity.this);
             }
         });
@@ -86,7 +91,6 @@ public class MyGoodsActivity extends BaseCordovaActivity implements CordovaInter
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
         if (flag.equals("goodsDetail")) {
             GoodsDetailActivity.actionView(MyGoodsActivity.this);
         }

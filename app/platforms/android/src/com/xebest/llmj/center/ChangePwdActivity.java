@@ -62,12 +62,20 @@ public class ChangePwdActivity extends BaseCordovaActivity implements CordovaInt
         });
     }
 
+    int mFlag = -1;
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(0);
         if (flag.equals("2")) {
-            finish();;
+            finish();
+        } else {
+            String temp = args.getString(1);
+            if (temp.equalsIgnoreCase("change_login_pwd_success")) {
+                mFlag = 1;
+                Application.getInstance().setLoginSuccess(true);
+                LoginActivity.actionView(ChangePwdActivity.this);
+            }
         }
     }
 
@@ -108,5 +116,18 @@ public class ChangePwdActivity extends BaseCordovaActivity implements CordovaInt
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
         return null;
     }
+
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK
+//                && event.getRepeatCount() == 0) {
+//            if (mFlag == 1) {
+//                mFlag = -1;
+//                LoginActivity.actionView(ChangePwdActivity.this);
+//            }
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+
 
 }

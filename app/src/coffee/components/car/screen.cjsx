@@ -52,6 +52,10 @@ ScreenMenu = React.createClass {
 			# 提交给服务器的字段
 			isinvoice: ''
 
+			invAll: false
+			invNeed: false
+			invNot: false
+
 		}
 
 	_showLen: ->
@@ -275,6 +279,25 @@ ScreenMenu = React.createClass {
 				isinvoice: '2'
 			}
 			CarAction.updateInvState('2')
+
+	cinvAll: (e)->
+		if e.target.checked
+			CarAction.invStChecked 3
+		else
+			CarAction.invStNotChecked 3
+
+	cinvNeed: (e)->
+		if e.target.checked
+			CarAction.invStChecked 1
+		else
+			CarAction.invStNotChecked 1
+
+	cinvNot: (e)->
+		if e.target.checked
+			CarAction.invStChecked 2
+		else
+			CarAction.invStNotChecked 2
+
 	componentDidMount: ->
 		CarStore.addChangeListener @_onChange
 
@@ -555,7 +578,6 @@ ScreenMenu = React.createClass {
 				heaCheck30: false
 				heaCheck40: false
 			}
-	
 		else if params[0] is 'heacheck'
 			temp = params[1]
 			if temp is 'heaCheck2'
@@ -803,6 +825,64 @@ ScreenMenu = React.createClass {
 				invoinceNeed: false
 				invoinceNotNeed: true
 			}
+		else if params[0] is 'inv_need'
+			length = params[1]
+			istrue = false
+			if parseInt(length) is 2
+				istrue = true
+			else
+				istrue = false
+			@setState {
+				invAll: istrue
+				invNeed: true
+			}
+		else if params[0] is 'inv_not_need'
+			length = params[1]
+			istrue = false
+			if parseInt(length) is 2
+				istrue = true
+			else
+				istrue = false
+			@setState {
+				invAll: istrue
+				invNot: true
+			}
+		else if params[0] is 'inv_need_all'
+			length = params[1]
+			@setState {
+				invNot: true
+				invNeed: true
+				invAll: true	
+			}
+		else if params[0] is 'inv2_need'
+			length = params[1]
+			istrue = false
+			if parseInt(length) is 2
+				istrue = true
+			else
+				istrue = false
+			@setState {
+				invAll: istrue
+				invNeed: false
+			}
+		else if params[0] is 'inv2_not_need'
+			length = params[1]
+			istrue = false
+			if parseInt(length) is 2
+				istrue = true
+			else
+				istrue = false
+			@setState {
+				invAll: istrue
+				invNot: false
+			}
+		else if params[0] is 'inv2_need_all'
+			length = params[1]
+			@setState {
+				invNot: false
+				invNeed: false
+				invAll: false	
+			}
 
 	# 车辆长度确定
 	carLenSub: ->
@@ -855,6 +935,10 @@ ScreenMenu = React.createClass {
 		needInvoinceLink = this.linkState 'invoinceNeed'
 		notNeedInvoinceLink = this.linkState 'invoinceNotNeed'
 
+		invAll = this.linkState 'invAll'
+		invNeed = this.linkState 'invNeed'
+		invNot = this.linkState 'invNot'
+
 		<div className="m-nav03">
 			<ul>
 				<li>
@@ -886,7 +970,7 @@ ScreenMenu = React.createClass {
 					</div>
 					<div id="menu" className="g-div02" style={{ display: if @state.isInvoince is 1 then 'none' else 'block' }}>
 						<div className="g-div02-item">
-							<label className="u-label"><input name="a" onChange=@needInvoice className="ll-font" type="radio" dangerouslySetInnerHTML={{__html:'是'}} /></label><label className="u-label"><input name="a" className="ll-font" type="radio" dangerouslySetInnerHTML={{__html:'否'}} onChange=@unNeedInvoice /></label>
+							<label className="u-label"><input checked={invAll.value} onChange={@cinvAll} className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'全部'}} /></label><label className="u-label"><input onChange={@cinvNeed} checked={invNeed.value} className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'是'}} /></label><label onChange={@cinvNot} className="u-label"><input checked={invNot.value} className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html:'否'}} onChange=@unNeedInvoice /></label>
 						</div>
 						<div className="g-div02-btn" style={{display: 'none'}}>
 							<a href="###" onClick={@carInvoince} className="u-btn u-btn-small">确定</a>

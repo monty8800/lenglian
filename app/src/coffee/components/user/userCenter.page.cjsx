@@ -65,7 +65,8 @@ AuthStatus = React.createClass {
 Profile = React.createClass {
 	#TODO: 用户头像
 	_changeAvatar: ->
-		Plugin.run [8, 'avatar']
+		Auth.needLogin ->
+			Plugin.run [8, 'avatar']
 
 	_pic404: ->
 		UserAction.clearAuthPic 'avatar'
@@ -91,11 +92,21 @@ Profile = React.createClass {
 
 Menu = React.createClass {    
 	_goPage: (page)->
+		user = UserStore.getUser()
 		console.log 'go page', page
 		if page in ['more']
 			Plugin.nav.push [page]
 		else
 			Auth.needLogin ->
+				if page is 'myGoods'
+					if user.goodsStatus isnt 1
+						return Plugin.toast.err '尚未通过货主认证，请认证后再进行操作' 
+				else if page is 'myCar'
+					if user.carStatus isnt 1
+						return Plugin.toast.err '尚未通过车主认证，请认证后再进行操作'
+				else if page is 'myWarehouse'
+					if user.warehouseStatus isnt 1
+						return Plugin.toast.err '尚未通过仓库主认证，请认证后再进行操作'
 				Plugin.nav.push [page]
 	render: ->
 		items = this.props.items.map (item, i)->

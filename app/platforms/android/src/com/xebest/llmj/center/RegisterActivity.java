@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.MainActivity;
@@ -85,7 +84,6 @@ public class RegisterActivity extends BaseCordovaActivity implements CordovaInte
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        Toast.makeText(RegisterActivity.this, "" + args.toString(), Toast.LENGTH_SHORT).show();
         if (args.toString().contains("user:update")) {
             finish();
         } else if (args.toString().contains("2")) {
@@ -113,7 +111,7 @@ public class RegisterActivity extends BaseCordovaActivity implements CordovaInte
 
     @Override
     public Object onMessage(String id, Object data) {
-        mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
+        mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='3';})();");
         return null;
     }
 }

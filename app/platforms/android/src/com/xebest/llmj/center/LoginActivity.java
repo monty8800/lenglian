@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
@@ -90,10 +91,18 @@ public class LoginActivity extends BaseCordovaActivity implements CordovaInterfa
             JSONObject jsonObject = new JSONObject(userInfo);
             // 存放userId
             ((Application) getApplication()).setUserId(jsonObject.getString("id"));
+            Application.getInstance().setGoodsStatus(Integer.parseInt(jsonObject.getString("goodsStatus")));
+            Application.getInstance().setWarehouseStatus(Integer.parseInt(jsonObject.getString("warehouseStatus")));
+            Application.getInstance().setCarStatus(Integer.parseInt(jsonObject.getString("carStatus")));
             SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
             editor.putString("userId", jsonObject.getString("id"));
             editor.commit();
-            finish();
+            if (Application.getInstance().loginSuccess) {
+                MainActivity.actionView(LoginActivity.this, 3);
+                Application.getInstance().setLoginSuccess(false);
+            } else {
+                finish();
+            }
         } else if (flag.equals("register")) {
             RegisterActivity.actionView(LoginActivity.this);
         } else if (flag.equals("resetPasswd")) {
@@ -118,7 +127,7 @@ public class LoginActivity extends BaseCordovaActivity implements CordovaInterfa
 
     @Override
     public Object onMessage(String id, Object data) {
-        mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
+        mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='3';})();");
         return null;
     }
 
