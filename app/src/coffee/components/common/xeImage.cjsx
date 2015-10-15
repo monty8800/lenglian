@@ -13,7 +13,13 @@ XeImage = React.createClass {
 		{
 			imgUrl: if @props.src then Image.getFullPath(@props.src, @props.size) else @_getDefault()
 		}
+	componentWillReceiveProps: (nextProps)->
+		console.log 'nextProps---', nextProps
+		@setState {
+			imgUrl: if nextProps.src then Image.getFullPath(nextProps.src, nextProps.size) else @_getDefault()
+		}
 	render: ->
+		console.log 'img url-------', @state.imgUrl
 		<img src={@state.imgUrl} onError={@_pic404} />
 }
 

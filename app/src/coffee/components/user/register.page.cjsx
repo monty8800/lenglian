@@ -93,12 +93,12 @@ Register = React.createClass {
 				<li>
 					<span className="ll-font u-user-icon u-reg-icon01"></span>
 					<input type={if @state.showPwd then 'text' else 'password'} placeholder="请输入新密码" valueLink={@linkState 'passwd'} />
-					<label className="u-label"> <input className="ll-font" checkedLink={@linkState 'showPwd'} type="checkbox" dangerouslySetInnerHTML={{__html: "显示密码"}} /></label>
+					<label className="u-label"> <input className="input-weak ll-font" checkedLink={@linkState 'showPwd'} type="checkbox" dangerouslySetInnerHTML={{__html: "显示密码"}} /></label>
 				</li>
 				<li>
 					<span className="ll-font u-user-icon u-pass-icon02"></span>
 					<input type={if @state.showRePwd then 'text' else 'password'} placeholder="请确认新密码"  valueLink={@linkState 'rePasswd'}/>
-					<label className="u-label"><input className="ll-font" checkedLink={@linkState 'showRePwd'} type="checkbox" dangerouslySetInnerHTML={{__html: "显示密码"}} /></label>
+					<label className="u-label"><input className="input-weak ll-font" checkedLink={@linkState 'showRePwd'} type="checkbox" dangerouslySetInnerHTML={{__html: "显示密码"}} /></label>
 				</li>
 			</ul>
 		</div>
