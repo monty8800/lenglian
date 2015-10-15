@@ -13,6 +13,7 @@ PureRenderMixin = React.addons.PureRenderMixin
 More = React.createClass {
 	mixins: [PureRenderMixin]
 	_goPage: (page, transData)->
+		return Plugin.nav.push [page] if page is 'aboutUs'
 		DB.put 'transData', transData or {}
 		Auth.needLogin ->
 			Plugin.nav.push [page]
@@ -59,7 +60,7 @@ More = React.createClass {
 			<div className="m-cert-item cert03 ll-font" onClick={@_goPage.bind this, 'resetPasswd', {type:'payPwd'}}>
 				找回支付密码
 			</div>
-			<div className="m-cert-item cert04 ll-font">
+			<div onClick={@_goPage.bind this, 'aboutUs', {foo: 'foo'}} className="m-cert-item cert04 ll-font">
 				关于我们
 			</div>
 		</div>

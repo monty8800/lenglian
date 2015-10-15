@@ -35,7 +35,11 @@ doPay = (params)->
 			when 10 then Plugin.toast.err '余额不足！'
 			when 11 then Plugin.toast.err '支付失败，请稍后再试'
 			when 12 then Plugin.toast.err '充值失败，请稍后再试'
-			when 13 then Plugin.toast.err '订单处理中'
+			when 13
+				DB.put 'transData', {
+					del: params.orderNo
+				}
+				PayStore.emitChange 'pay:done'
 			when 14 then Plugin.toast.err '支付异常，请稍后再试'
 			when 0
 				DB.put 'transData', {

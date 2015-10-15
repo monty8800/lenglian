@@ -11,7 +11,7 @@ Dialog = React.createClass {
 		<div className="m-gray"></div>
 		<div className="m-payalert">
 			<div className="g-paycode g-paycode-center">
-				<p >尊贵的冷链马甲用户<br/>请您进行身份选择，方便交易！<br/>我们支持多重身份！</p>
+				<p >尊贵的冷链马甲用户<br/>请您进行身份认证，方便交易！<br/>我们支持多重身份！</p>
 			</div>
 			<ul className="g-paybtn">
 				<li>

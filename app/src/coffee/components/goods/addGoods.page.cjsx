@@ -130,6 +130,8 @@ AddGoods = React.createClass {
 			Plugin.toast.err '收货人姓名不正确'
 		else if not Validator.mobile @state.reciverMobile
 			Plugin.toast.err '收货人手机号不正确'
+		else if @state.remark.length > 0 and not Validator.remark @state.remark
+			Plugin.toast.err '备注过长,最多30个汉字'
 		else
 			files = []
 			files.push {
@@ -235,8 +237,8 @@ AddGoods = React.createClass {
 			</div>
 			<div>
 				<span>货物规格</span>
-				<input valueLink={@linkState 'weight'} type="text" className="weight"/><span>吨</span>
-				<input valueLink={@linkState 'cube'} type="text"  className="weight"/><span>方</span>
+				<input valueLink={@linkState 'weight'} type="number" className="weight"/><span>吨</span>
+				<input valueLink={@linkState 'cube'} type="number"  className="weight"/><span>方</span>
 			</div>
 			<div>
 				<label htmlFor="packType"><span>包装类型</span></label>
