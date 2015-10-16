@@ -10,7 +10,7 @@ public class Helper {
      * @param status
      */
     public static String getCarType(String status) {
-        if (status == null) return "未知";
+        if (status == null) return "";
         if (status.equals("1")) {
             return "普通卡车";
         } else if (status.equals("2")) {
@@ -24,7 +24,7 @@ public class Helper {
         } else if (status.equals("6")) {
             return "高栏";
         }
-        return "未知";
+        return "";
     }
 
     /**
@@ -33,7 +33,7 @@ public class Helper {
      * @return
      */
     public static String getStoreType(String status) {
-        if (status == null) return "未知";
+        if (status == null) return "";
         if (status.equals("1")) {
             return "驶入式";
         } else if (status.equals("2")) {
@@ -43,7 +43,7 @@ public class Helper {
         } else if (status.equals("4")) {
             return "自动立体货架式";
         }
-        return "未知";
+        return "";
     }
 
     /**
@@ -52,7 +52,7 @@ public class Helper {
      * @return
      */
     public static String getStoreTerType(String status) {
-        if (status == null) return "未知";
+        if (status == null) return "";
         if (status.equals("1")) {
             return "常温";
         } else if (status.equals("2")) {
@@ -64,20 +64,20 @@ public class Helper {
         } else if (status.equals("5")) {
             return "深冷";
         }
-        return "未知";
+        return "";
     }
 
     /**价格类型：，
      * 价格类型
      */
     public static String getPriceType(String status) {
-        if (status == null) return "未知";
+        if (status == null) return "";
         if (status.equals("1")) {
             return "一口价";
         } else if (status.equals("2")) {
             return "竞价";
         }
-        return "未知";
+        return "";
     }
 
     /**
@@ -86,7 +86,7 @@ public class Helper {
      * @return
      */
     public static String getGoodsType(String status) {
-        if (status == null) return "未知";
+        if (status == null) return "";
         if (status.equals("1")) {
             return "常温";
         } else if (status.equals("2")) {
@@ -98,7 +98,7 @@ public class Helper {
         } else if (status.equals("5")) {
             return "深冷";
         }
-        return "未知";
+        return "";
     }
 
     /**
@@ -107,7 +107,7 @@ public class Helper {
      * @return
      */
     public static String carCategory(String status) {
-        if (status == null) return "未知";
+        if (status == null) return "";
         if (status.equals("1")) {
             return "单车";
         } else if (status.equals("2")) {
@@ -121,7 +121,7 @@ public class Helper {
         } else if (status.equals("6")) {
             return "五桥";
         }
-        return "未知";
+        return "";
     }
 
     /**
@@ -130,7 +130,7 @@ public class Helper {
      * @return
      */
     public static String getCarVehicle(String status) {
-        if (status == null) return "未知";
+        if (status == null) return "";
         if (status.equals("1")) {
             return "3.8米";
         } else if (status.equals("2")) {
@@ -156,7 +156,7 @@ public class Helper {
         } else if (status.equals("6")) {
             return "15米以上";
         }
-        return "未知";
+        return "";
     }
 
     /**
@@ -164,18 +164,13 @@ public class Helper {
      * @return
      */
     public static String whoAreYou (String status) {
-        if (status == null) return "未知";
+        if (status == null) return "";
         if (status.equals("1")) {
             return "(个人)";
         } else if (status.equals("2")) {
             return "(企业)";
         }
-        return "未知";
+        return "";
     }
-
-    /**
-     * 15810129806
-     * 123456a
-     */
 
 }

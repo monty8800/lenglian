@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
@@ -116,7 +115,6 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Toast.makeText(this, "---" + args.toString(), Toast.LENGTH_LONG).show();
         if (flag.equalsIgnoreCase("select:car")) {
             // true 抢单  false竞价
             isBidding = args.getBoolean(3);
