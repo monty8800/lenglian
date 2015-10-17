@@ -35,6 +35,12 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:_navBgBlue forBarMetrics: UIBarMetricsDefault];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    [self.commandDelegate evalJs:@"(function(){updateStore})()"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

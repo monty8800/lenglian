@@ -54,6 +54,7 @@
     DDLogVerbose(@"leave page %@", vcName);
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -100,6 +101,7 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     _navDeepth = self.navigationController.viewControllers.count;
+    [self.commandDelegate evalJs:@"(function(){if(window.updateStore != undefined){window.updateStore()}})()"];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {

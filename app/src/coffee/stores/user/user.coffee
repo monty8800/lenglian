@@ -20,17 +20,18 @@ now = new Date
 _updateTime = now.getTime()
 
 needCheck = ->
-	return _user.carStatus is 2 or _user.goodsStatus is 2 or _user.warehouseStatus is 2
+	return _user.carStatus is 2 or _user.goodsStatus is 2 or _user.warehouseStatus is 2 or (not _user.name and not _user.company)
 
 updateUser = ->
+	localUser = DB.get 'user'
+	_user = new User localUser
+	console.log 'new user', _user
 	now = new Date
-	if now.getTime() - _updateTime < Constants.cache.USER_INFO or not needCheck()
-		localUser = DB.get 'user'
-		_user = new User localUser
-		console.log 'new user', _user
-		UserStore.emitChange 'user:update'
-	else
+	cacheTime = if needCheck() then Constants.cache.USER_INFO_MIN else Constants.cache.USER_INFO
+	if now.getTime() - _updateTime >  cacheTime
 		requestInfo()
+	else
+		UserStore.emitChange 'user:update'
 
 window.updateUser = updateUser
 

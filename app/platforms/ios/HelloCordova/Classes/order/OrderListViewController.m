@@ -87,8 +87,8 @@
 {
     [super viewDidAppear:animated];
     
-    NSString *js = @"(function(){window.updateStore()})()";
-    [self.commandDelegate evalJs: js];
+//    NSString *js = @"(function(){window.updateStore()})()";
+//    [self.commandDelegate evalJs: js];
 }
 
 

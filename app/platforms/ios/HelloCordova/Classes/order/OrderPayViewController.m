@@ -35,7 +35,7 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self.commandDelegate evalJs:@"(function(){window.updateStore()})()"];
+//    [self.commandDelegate evalJs:@"(function(){window.updateStore()})()"];
 }
 
 - (void)didReceiveMemoryWarning {

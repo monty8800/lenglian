@@ -61,7 +61,7 @@ Login = React.createClass {
 				</li>
 				<li>
 					<span className="ll-font u-pass-icon"></span>
-					<input type="password" placeholder="请输入密码" valueLink={@linkState 'passwd'} />
+					<input className="input-weak" type="password" placeholder="请输入密码" valueLink={@linkState 'passwd'} />
 				</li>
 			</ul>
 		</div>
