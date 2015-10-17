@@ -61,6 +61,7 @@ GoodsDetail = React.createClass {
 		else if mark is 'fallowOrUnFallowHandleSucc'
 			newState = Object.create @state
 			newState.isFallow = !@state.isFallow
+			Plugin.toast.success if newState.isFallow then '关注成功' else '取消关注成功'
 			@setState newState
 
 	_fallowButtonClick:->
@@ -140,7 +141,8 @@ GoodsDetail = React.createClass {
 						<XeImage src={ @state.goodsDetail.imageUrl } size='100x100' />
 					</div>
 					<div className="g-pro-text fl">
-						<p>货物规格: <span>{ @state.goodsDetail.weight }</span></p>
+						<p>货物规格: <span>{ @state.goodsDetail.weight + '吨'} { if @state.goodsDetail.cube then @state.goodsDetail.cube + '方' else ''}</span></p>
+						<p>货物类型: <span>{ Helper.goodsType @state.goodsDetail.goodsType }</span></p>
 						<p>包装类型: <span>{ @state.goodsDetail.packType }</span></p>
 					</div>
 				</div>

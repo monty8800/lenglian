@@ -269,6 +269,7 @@ handleFallow = (focusid,focustype,type)->
 		focustype:focustype
 		type:type
 	},(data)->
+		Plugin.toast.success if parseInt(type) is 1 then '关注成功' else '取消关注成功'
 		WarehouseStore.emitChange "fallowOrUnFallowHandleSucc"
 	,(data)->
 		Plugin.toast.err data.msg
