@@ -156,8 +156,8 @@ Vehicle = React.createClass {
 			Plugin.toast.err '请选择开始时间'
 		else if not Validator.isEmpty @state.endTime
 			Plugin.toast.err '请选择结束时间'
-		else if not Validator.isEmpty @state.isinvoice
-			Plugin.toast.err '是否需要发票'
+		else if @state.isinvoice isnt '1' and @state.isinvoice isnt '2'
+			Plugin.toast.err '请选择是否需要发票'
 		else if not Validator.name @state.contacts
 			Plugin.toast.err '请输入正确的联系人'
 		else if not Validator.mobile @state.phone
@@ -249,7 +249,7 @@ Vehicle = React.createClass {
 			</div>		
 			<div className="u-pay-btn">
 				<div className="u-pay-btn">
-					<a href="#" className="btn" onClick={@_submit}>发布</a>
+					<a href="###" className="btn" onClick={@_submit}>发布</a>
 				</div>
 			</div>
 		</div>

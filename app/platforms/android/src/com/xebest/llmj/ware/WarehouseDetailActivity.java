@@ -78,7 +78,10 @@ public class WarehouseDetailActivity extends BaseCordovaActivity implements Cord
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
+        String flag = args.getString(0);
+        if (flag.equals("2")) {
+            finish();
+        }
 
     }
 
