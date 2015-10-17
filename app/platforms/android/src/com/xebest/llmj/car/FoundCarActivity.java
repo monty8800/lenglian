@@ -62,6 +62,8 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
 
     private String carId = "";
 
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -74,6 +76,8 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.found_car);
+
+        isOnCreate = true;
 
         initView();
 
@@ -132,7 +136,14 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
         MobclickAgent.onPageStart("我要找车");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "foundCar.html", this, this, this, this);
+
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "foundCar.html", this, this, this, this);
+        }
+        isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
+
         super.onResume();
     }
 

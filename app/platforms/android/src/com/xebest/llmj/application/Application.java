@@ -42,7 +42,7 @@ public class Application extends android.app.Application {
 
     public static String UUID;
 
-    public int VERSIONCODE;
+    public int VERSIONCODE = 0;
 
     private static Application instance;
 

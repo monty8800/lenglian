@@ -296,17 +296,11 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                Toast.makeText(
-                        LocationActivity.this,
-                        "拖拽结束，新位置：" + marker.getPosition().latitude + ", "
-                                + marker.getPosition().longitude,
-                        Toast.LENGTH_LONG).show();
 
                 LatLng ll = marker.getPosition();
 
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                         .location(ll));
-
 
                 // 重新设置地图中心点
                 MapStatus mMapStatus = new MapStatus.Builder().target(ll).zoom(14.0f).build();

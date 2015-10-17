@@ -8,7 +8,6 @@ Helper = require 'util/helper'
 Constants = require 'constants/constants'
 OrderAction = require 'actions/order/order'
 OrderStore = require 'stores/order/order'
-
 CarItem = require 'components/order/carOrderCell'
 GoodsItem = require 'components/order/goodsOrderCell'
 StoreItem = require 'components/order/storeOrderCell'

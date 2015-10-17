@@ -137,6 +137,7 @@ Car = React.createClass {
 			if parseInt(index) is 10000
 				newState = Object.create @state
 				newState.type = st_02
+				newState.pageNow = 1
 				@setState newState	
 				CarAction.carList(st_02, @state.pageNow)			
 			else

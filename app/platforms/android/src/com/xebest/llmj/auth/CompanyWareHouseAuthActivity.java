@@ -110,7 +110,7 @@ public class CompanyWareHouseAuthActivity extends BaseCordovaActivity implements
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
-        String flag = args.getString(2);
+        String flag = args.getString(1);
         if (flag.equals("businessLicense")) {
             resource = "businessLicense";
             // 行驶证照片

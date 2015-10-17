@@ -187,7 +187,9 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
 
     @Override
     public Object onMessage(String id, Object data) {
-        mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getActivity().getApplicationContext()).VERSIONCODE + "';client_type='3';})();");
+        if (Application.UUID != null && mWebView != null && mWebView.getWebView() != null) {
+            mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + Application.getInstance().VERSIONCODE + "';client_type='3';})();");
+        }
         return super.onMessage(id, data);
     }
 

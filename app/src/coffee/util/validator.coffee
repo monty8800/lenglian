@@ -28,8 +28,10 @@ company = (input)->
 businessLicenseNo = (input)->
 	return /^[\da-zA-Z]{15}$/.test input
 
+# organizingCode = (input)->
+# 	return /^[\dA-Z]{9}$/.test input
 organizingCode = (input)->
-	return /^[\dA-Z]{9}$/.test input
+	return /^\S{1,10}$/.test input
 
 transLicenseNo = (input)->
 	return /^\S{1,30}$/.test input

@@ -373,6 +373,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
     }
 
     boolean success = false;
+    String msg = "";
     public class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -387,6 +388,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
                 String result = UploadFile.post(url, content, driving, idCard, operate);
                 JSONObject jsonObject = new JSONObject(result);
                 Log.i("info", "----------------result" + result);
+                msg = jsonObject.getString("msg");
                 if (jsonObject.getString("code").equals("0000")) {
                     // 认证成功
                     success = true;
@@ -414,7 +416,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
                 MyCarActivity.isAdd = true;
 //                MainActivity.actionView(AddCarActivity.this, 3);
             } else {
-                Tools.showErrorToast(AddCarActivity.this, "添加失败!");
+                Tools.showErrorToast(AddCarActivity.this, msg);
             }
         }
     }

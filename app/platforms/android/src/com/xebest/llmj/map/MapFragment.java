@@ -417,17 +417,16 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 OverlayOptions ooA = null;
                 if (list.get(i).getColdStoreFlag() == null || list.get(i).getColdStoreFlag().equals("1")) {
                     ooA = new MarkerOptions().position(llA).icon(goods)
-                            .zIndex(9).draggable(true);
+                            .zIndex(9).draggable(false);
                 } else if (list.get(i).getColdStoreFlag() != null && list.get(i).getColdStoreFlag().equals("2")) {
                     ooA = new MarkerOptions().position(llA).icon(goodsCold)
-                            .zIndex(9).draggable(true);
+                            .zIndex(9).draggable(false);
                 }
                 if (ooA != null) {
                     Marker marker = (Marker) (mMapView.getMap().addOverlay(ooA));
                     marker.setTitle(i + "");
                 }
             }
-
         }
 
     }

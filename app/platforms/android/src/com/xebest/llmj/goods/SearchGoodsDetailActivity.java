@@ -89,7 +89,6 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
         String flag = args.getString(1);
         Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
 
-
     }
 
     @Override

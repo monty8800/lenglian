@@ -17,6 +17,7 @@ Raty = require 'components/common/raty'
 avatar = require 'user-01'
 UserStore = require 'stores/user/user'
 Auth = require 'util/auth'
+_user = UserStore.getUser()
 
 CarItem = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -46,9 +47,13 @@ CarItem = React.createClass {
 			Plugin.nav.push ['carOwnerDetail']
 
 	# 选择此车
-	select: (carId, i, e)->
+	select: (carId, i, carUserId, e)->
 		Auth.needLogin ->
 			return Plugin.toast.err '尚未通过货主认证，请认证后再试' if UserStore.getUser()?.goodsStatus isnt 1
+			# 判断该车源是否是自己发布的，如果是自己发布的提示不能选择
+			return Plugin.toast.err '不能选择自己的车源哦' if carUserId is _user?.id
+			console.log '-------carUserId:', carUserId
+			console.log '-------userId:', _user.id
 			console.log '-------select_car', carId
 			Plugin.nav.push ['select_goods', carId, i]
 		e.stopPropagation()
@@ -72,7 +77,7 @@ CarItem = React.createClass {
 						</div>
 					</div>
 					<div className="g-dirver-btn">
-						<a href="###" onClick={@select.bind this, @props.car.id, @props.index} className="u-btn02">选择此车</a>
+						<a href="###" onClick={@select.bind this, @props.car.id, @props.index, @props.car.userId} className="u-btn02">选择此车</a>
 					</div>
 				</div>  
 			</div>   

@@ -113,7 +113,7 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(2);
+        String flag = args.getString(1);
         if (flag.equals("businessLicense")) {
 //            resource = "businessLicense";
             resource = "businessLicense";

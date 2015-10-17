@@ -328,4 +328,10 @@ public class Tools {
         return bitmap;
     }
 
+    private static boolean isShow = true;
+    public static void toast(Context context, String msg) {
+        if (!isShow) return;
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+    }
+
 }

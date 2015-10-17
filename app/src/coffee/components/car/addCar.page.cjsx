@@ -15,7 +15,6 @@ CarAction = require 'actions/car/car'
 AddressStore = require 'stores/address/address'
 Selection = require 'components/car/addCarSelection'
 
-
 # 数据源
 selList = [
 	{

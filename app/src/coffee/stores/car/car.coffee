@@ -257,6 +257,9 @@ _addCar = (params, files)->
 		console.log 'auth result', data
 		UserStore.emitChange 'auth:done'
 
+addCarSuccess = ->
+	console.log '------addCarSuccess---'
+
 # 发布车源 -- 车辆列表
 _freedomCar = ->
 	Http.post Constants.api.car_free_list, {

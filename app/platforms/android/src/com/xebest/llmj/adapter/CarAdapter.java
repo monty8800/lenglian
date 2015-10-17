@@ -79,7 +79,7 @@ public class CarAdapter extends BaseAdapter {
         holder.priceType.setText("价格类型：" + Helper.getPriceType(info.getPriceType()) + " " + price);
 
         // 货物类型 + 重量
-        holder.goodsDes.setText("货物描述：" + Helper.getGoodsType(info.getGoodsType() + (info.getWeight() == null ? "" : info.getWeight())));
+        holder.goodsDes.setText("货物描述：" + Helper.getGoodsType(info.getGoodsType() + "") + (info.getWeight() == null ? "" : info.getWeight()) + "吨");
 
         return convertView;
     }

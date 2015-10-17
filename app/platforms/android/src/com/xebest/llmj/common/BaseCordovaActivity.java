@@ -45,6 +45,11 @@ public class BaseCordovaActivity extends CordovaActivity implements XECommand, X
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void startActivityForResult(CordovaPlugin command, Intent intent, int requestCode) {
 
     }
