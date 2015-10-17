@@ -92,6 +92,8 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
             ResetPwdActivity.actionView(MoreActivity.this);
         } else if (flag.equalsIgnoreCase("login")) {
             LoginActivity.actionView(MoreActivity.this);
+        } else if (flag.equalsIgnoreCase("aboutUs")) {
+            AboutUsActivity.actionView(MoreActivity.this);
         }
     }
 

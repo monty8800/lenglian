@@ -81,5 +81,8 @@
         <activity android:name=".order.GoodsOrderDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".order.OrderCancelListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".ware.SearchWarehouseDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AboutUsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AgreementActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.OrderPayActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

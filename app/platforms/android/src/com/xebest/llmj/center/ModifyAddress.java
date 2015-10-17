@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -69,7 +68,6 @@ public class ModifyAddress extends BaseCordovaActivity implements CordovaInterfa
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
         if (flag.equalsIgnoreCase("location")) {
             LocationActivity.actionView(this);
         } else if (flag.equals("modify_success") || flag.equals("add_success")) {

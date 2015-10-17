@@ -10,6 +10,7 @@ CommentStore = require 'stores/order/commentStore'
 Immutable = require 'immutable'
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
+UserStore = require 'stores/user/user'
 
 _commentList = []
 
@@ -18,7 +19,8 @@ getCommentList = (userId,status,startNo,pageSize)->
 		targetId:userId
 		onsetRole:status
 		startNo:startNo
-		pageSize:pageSize
+		pageSize:pageSize	
+		userId: UserStore.getUser()?.id
 	},(data)->
 		comment = new Comment
 		if startNo is '0'
