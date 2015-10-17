@@ -56,7 +56,7 @@ getGoodsOrderList = (status, currentPage)->
 		pageSize: Constants.orderStatus.PAGESIZE
 		state: status # 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消 空表示查询所有订单
 	}, (data)->
-		orderList = data.records
+		orderList = data.pv.records
 		_orderList = _orderList.clear()
 		for order in orderList
 			do (order) ->
@@ -334,6 +334,8 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
 		OrderStore.emitChange ['car_owner_order_detail']
 	, (data)->
 		Plugin.toast.err data.msg
+		Plugin.nav.pop()
+	, true
 
 cancel_car_orderlist = (page)->
 	Http.post Constants.api.carowner_order_list, {
@@ -413,6 +415,10 @@ orderGoodsDetail = (params)->
 			msg: 'goods:order:detail:done'
 			detail: Immutable.Map data
 		}
+	, (data)->
+		Plugin.toast.err data.msg
+		Plugin.nav.pop()
+	, true
 #TODO:  从列表删除
 cancelGoodsOrder = (params)->
 	Http.post Constants.api.ORDER_GOODS_CANCEL, params, (data)->
