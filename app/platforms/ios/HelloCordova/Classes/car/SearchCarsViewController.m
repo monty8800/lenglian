@@ -8,7 +8,7 @@
 
 #import "SearchCarsViewController.h"
 #import "Net.h"
-
+#import "CarOwnerDetailViewController.h"
 
 @interface SearchCarsViewController ()
 
@@ -55,6 +55,11 @@
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"select_goods"]) {
             [SelectCarWidget show:self carId:params[2]];
+        }
+        else if ([params[1] isEqualToString:@"carOwnerDetail"])
+        {
+            CarOwnerDetailViewController *carOwnerVC = [CarOwnerDetailViewController new];
+            [self.navigationController pushViewController:carOwnerVC animated:YES];
         }
     }
 }

@@ -12,7 +12,7 @@ PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
 XeImage = require 'components/common/xeImage'
-
+Raty = require 'components/common/raty'
 _transData = DB.get('transData')
 _isMine = _transData.isMine is 1
 
@@ -79,7 +79,9 @@ WarehouseDetail = React.createClass {
 							<div className="g-dirver-name">
 								<span>{ @state.warehouseDetail.userName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper @state.warehouseDetail.certification }</span>
 							</div>
-							<div className="g-dirver-dis ll-font" dangerouslySetInnerHTML={{__html: Helper.stars @state.warehouseDetail.score}}/>
+							<div className="g-dirver-dis ll-font">
+								<Raty score={@state.warehouseDetail.score}/>
+							 </div>
 						</div>
 						<ul className="g-driver-contact" onClick={ @_fallowButtonClick }>
 							<li className={ if @state.isFallow then "ll-font" else "ll-font active" } >关注</li>

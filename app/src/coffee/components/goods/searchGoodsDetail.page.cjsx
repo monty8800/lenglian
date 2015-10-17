@@ -17,7 +17,7 @@ GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
 Goods = require 'model/goods'
 DB = require 'util/storage'
-
+Raty = require 'components/common/raty'
 
 _transData = DB.get 'transData'
 
@@ -86,7 +86,7 @@ GoodsDetail = React.createClass {
 								<span>{ @state.goodsDetail.userName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper @state.goodsDetail.certification  }</span>
 							</div>
 							<div className="g-dirver-dis ll-font">
-								<div dangerouslySetInnerHTML={{ __html:Helper.stars @state.goodsDetail.stars }} />
+								<Raty score={ @state.goodsDetail.stars }/>
 							</div>
 						</div>
 						<ul className="g-driver-contact" onClick={ @_fallowButtonClick }>

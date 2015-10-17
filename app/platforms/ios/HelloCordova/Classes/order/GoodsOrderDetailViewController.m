@@ -9,7 +9,7 @@
 #import "GoodsOrderDetailViewController.h"
 #import "OrderPayViewController.h"
 #import "DoCommentViewController.h"
-
+#import "CarOwnerDetailViewController.h"
 @interface GoodsOrderDetailViewController ()
 
 @end
@@ -49,7 +49,11 @@
             DoCommentViewController *commentVC = [DoCommentViewController new];
             [self.navigationController pushViewController:commentVC animated:YES];
         }
-        
+        else if ([params[1] isEqualToString:@"carOnwerDetail"])
+        {
+            CarOwnerDetailViewController *carOnwerDetailVC = [CarOwnerDetailViewController new];
+            [self.navigationController pushViewController:carOnwerDetailVC animated:YES];
+        }
     }
 }
 

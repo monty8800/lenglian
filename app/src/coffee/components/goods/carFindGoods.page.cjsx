@@ -57,10 +57,10 @@ selectionList = [
 	}
 	{
 		key: 'invoiceType'
-		value: '可开发票'
+		value: '需要发票'
 		options: [
-			{key: '1', value: '可开发票'}
-			{key: '2', value: '不可开发票'}
+			{key: '1', value: '是'}
+			{key: '2', value: '否'}
 		]
 	}
 

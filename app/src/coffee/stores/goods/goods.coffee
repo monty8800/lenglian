@@ -251,7 +251,6 @@ window.tryReloadGoodsList = ->
 		getUserGoodsList 1,10,''
 
 
-
 getSearchGoodsDetail = (goodsId,focusid)->
 	user = UserStore.getUser()
 	params = {

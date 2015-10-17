@@ -966,7 +966,7 @@ ScreenMenu = React.createClass {
 					</div>
 				</li>
 				<li>
-					<div onClick={ this._showInvoince } className={ if @state.isInvoince is 1 then "g-div01 ll-font u-arrow-right" else "g-div01 ll-font u-arrow-right g-div01-act"} dangerouslySetInnerHTML={{__html:'需要发票<span>全部</span>'}}>		
+					<div onClick={ this._showInvoince } className={ if @state.isInvoince is 1 then "g-div01 ll-font u-arrow-right" else "g-div01 ll-font u-arrow-right g-div01-act"} dangerouslySetInnerHTML={{__html:'提供发票<span>全部</span>'}}>		
 					</div>
 					<div id="menu" className="g-div02" style={{ display: if @state.isInvoince is 1 then 'none' else 'block' }}>
 						<div className="g-div02-item">

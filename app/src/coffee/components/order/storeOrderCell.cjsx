@@ -60,9 +60,7 @@ StoreCell = React.createClass {
 								<span>{item?.goodsPersonName}</span>
 							</div>		
 							<div className="g-dirver-dis ll-font">
-								{
-									<Raty score={ item?.goodsPersonScore } />
-								}
+								<Raty score={ item?.goodsPersonScore } />
 							</div>
 						</div>
 						<div className="g-dirver-btn">

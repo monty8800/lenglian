@@ -17,6 +17,7 @@ GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
 Goods = require 'model/goods'
 DB = require 'util/storage'
+Moment = require 'moment'
 
 
 GoodsListItem = React.createClass {
@@ -64,6 +65,7 @@ GoodsListItem = React.createClass {
 							<p>货物类型: <span>{ Helper.goodsType item.goodsType }</span></p>
 							<p>货物规格: <span>{ if item.weight then item.weight + '吨' } { if item.cube then item.cube + '方' }</span></p>
 							<p>包装类型: <span>{ item.packType }</span></p>
+							<p>发布日期:<span>{ Moment(item.createTime).format('YYYY-MM-DD') }</span></p>
 						</dd>
 					</dl>			
 				</div>

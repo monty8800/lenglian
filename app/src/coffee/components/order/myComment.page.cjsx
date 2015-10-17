@@ -10,18 +10,10 @@ CommentAction = require 'actions/order/commentAction'
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 headerImg = require 'user-01.jpg'
+Raty = require 'components/common/raty'
 
 
 CommentItem = React.createClass {
-	# <div dangerouslySetInnerHTML={{__html: starArr[parseInt item.score / 2]}}/>
-	# starArr = [
-	# 	''
-	# 	'&#xe609;'
-	# 	'&#xe609;&#xe609;'
-	# 	'&#xe609;&#xe609;&#xe609;'
-	# 	'&#xe609;&#xe609;&#xe609;&#xe609;'
-	# 	'&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;'
-	# ]
 	render: ->
 
 		resultList = @props.list
@@ -34,7 +26,7 @@ CommentItem = React.createClass {
 					</div>
 					<div className="item-msg">
 						<div className="item-star ll-font">
-							<div dangerouslySetInnerHTML={{__html: Helper.stars item.score }} />
+							<Raty score={ item.score } />
 						</div>
 						<div className="item-text">{ item.content }</div>
 						<div className="item-status">

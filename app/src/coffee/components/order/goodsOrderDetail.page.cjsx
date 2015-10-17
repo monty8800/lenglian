@@ -24,6 +24,7 @@ FollowAction = require 'actions/attention/attention'
 FollowStore = require 'stores/attention/attention'
 
 Plugin = require 'util/plugin'
+Raty = require 'components/common/raty'
 
 #TODO:  少是否关注字段
 
@@ -111,6 +112,18 @@ GoodsOrderDetail = React.createClass {
 			userId: UserStore.getUser()?.id
 			type: if @state.followed then 2 else 1
 		}
+
+	_toOnwerDetail:->
+		if isGC
+			# DB.put 'transData', [item.carId, item.userId]
+			# Plugin.nav.push ['carOnwerDetail']
+		else
+			# DB.put 'transData', [item.carId, item.userId]
+			# Plugin.nav.push ['warehouseOnwerDetail']
+
+
+
+
 	componentDidMount: ->
 		OrderStore.addChangeListener @resultCallBack
 		OrderAction.goodsOrderDetail {
@@ -187,17 +200,20 @@ GoodsOrderDetail = React.createClass {
 				if parseInt(@state.detail?.get 'orderState') isnt 5
 					<div className="g-detail-dirver">
 						<div className="g-detail">					
-							<div className="g-dirver-pic">
+							<div onClick={@_toOnwerDetail} className="g-dirver-pic">
 								<XeImage src={@state.targetPic} size='130x130' type='avatar' />
 							</div>
 							<div className="g-dirver-msg">
 								<div className="g-dirver-name">
 									<span>{@state.target}</span><span className="g-dirname-single">{if parseInt(@state.targetAuth) is 1 then '(个体)' else '(公司)'}</span>
 								</div>
-								<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+								<div className="g-dirver-dis ll-font">
+									<Raty score={ @state.detail?.get('goodsUserScore') } />
+								</div>
+
 							</div>
 							<ul className="g-driver-contact">
-								<li onClick={@_follow} className={"ll-font " + if @state.followed then 'active' else ''}>关注</li>
+								<li onClick={@_follow} className={"ll-font " + if @state.followed then '' else 'active'}>关注</li>
 								<li onClick={@_call.bind this, @state.targetMobile} className="ll-font">拨号</li>
 							</ul>
 						</div>
@@ -238,7 +254,7 @@ GoodsOrderDetail = React.createClass {
 			</div>
 			<div className="g-pro-detail">
 				<div className="g-pro-pic fl">
-					<XeImage src={@state.detail?.get('goodsPic')} />
+					<XeImage src={@state.detail?.get('goodsPic')} size='130x130' />
 				</div>
 				<div className="g-pro-text fl">
 					<p>货物种类: <span>{@state.detail?.get('goodsType')}</span></p>

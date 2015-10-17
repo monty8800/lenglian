@@ -112,6 +112,7 @@
 		5B3733FB1BC2242600807804 /* CarSearchGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3733FA1BC2242600807804 /* CarSearchGoodsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B3734021BC24C7C00807804 /* BankCardsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3734011BC24C7C00807804 /* BankCardsListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B3734051BC2519600807804 /* AddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3734041BC2519600807804 /* AddBankCardViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5B4962381BD0ECB800E93AB2 /* CarOwnerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4962371BD0ECB800E93AB2 /* CarOwnerDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B66400B1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B66400A1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B69AE511BBB8AFB00A14101 /* ReleaseWarehouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69AE501BBB8AFB00A14101 /* ReleaseWarehouseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5B69AE841BBD116000A14101 /* AddCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69AE831BBD116000A14101 /* AddCarViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -347,6 +348,8 @@
 		5B3734011BC24C7C00807804 /* BankCardsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BankCardsListViewController.m; path = wallet/BankCardsListViewController.m; sourceTree = "<group>"; };
 		5B3734031BC2519600807804 /* AddBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBankCardViewController.h; path = wallet/AddBankCardViewController.h; sourceTree = "<group>"; };
 		5B3734041BC2519600807804 /* AddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBankCardViewController.m; path = wallet/AddBankCardViewController.m; sourceTree = "<group>"; };
+		5B4962361BD0ECB800E93AB2 /* CarOwnerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarOwnerDetailViewController.h; path = car/CarOwnerDetailViewController.h; sourceTree = "<group>"; };
+		5B4962371BD0ECB800E93AB2 /* CarOwnerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarOwnerDetailViewController.m; path = car/CarOwnerDetailViewController.m; sourceTree = "<group>"; };
 		5B6640091BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWarehouseDetailViewController.h; sourceTree = "<group>"; };
 		5B66400A1BC7F6F600FBF0E9 /* SearchWarehouseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWarehouseDetailViewController.m; sourceTree = "<group>"; };
 		5B69AE4F1BBB8AFB00A14101 /* ReleaseWarehouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleaseWarehouseViewController.h; sourceTree = "<group>"; };
@@ -655,6 +658,8 @@
 				5BE0EB211BBE40DA00027BA8 /* ReleaseCarViewController.m */,
 				5B3733F91BC2242600807804 /* CarSearchGoodsViewController.h */,
 				5B3733FA1BC2242600807804 /* CarSearchGoodsViewController.m */,
+				5B4962361BD0ECB800E93AB2 /* CarOwnerDetailViewController.h */,
+				5B4962371BD0ECB800E93AB2 /* CarOwnerDetailViewController.m */,
 			);
 			name = car;
 			sourceTree = "<group>";
@@ -801,9 +806,9 @@
 				4C006E071BB0383F00381462 /* RegisterViewController.h */,
 				4C006E081BB0383F00381462 /* RegisterViewController.m */,
 				4C006DF81BB02FCC00381462 /* ChangePasswdViewController.h */,
+				4C006DF91BB02FCC00381462 /* ChangePasswdViewController.m */,
 				4C006E011BB0370600381462 /* ResetPasswdViewController.h */,
 				4C006E021BB0370600381462 /* ResetPasswdViewController.m */,
-				4C006DF91BB02FCC00381462 /* ChangePasswdViewController.m */,
 				4C5D3F8C1BB0222E00BBD5A6 /* MoreViewController.h */,
 				4C5D3F8D1BB0222E00BBD5A6 /* MoreViewController.m */,
 				5B1A51B91BCF9E250031761B /* AgreementViewController.h */,
@@ -1109,6 +1114,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B4962381BD0ECB800E93AB2 /* CarOwnerDetailViewController.m in Sources */,
 				4CB4C0E01BBF6FE50095ABE8 /* LocationViewController.m in Sources */,
 				4CB11F581BCA7D4F002280B2 /* OrderPayViewController.m in Sources */,
 				4CDD997A1BAFA5E7008B4AC6 /* UserCenterViewController.m in Sources */,

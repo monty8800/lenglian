@@ -76,8 +76,6 @@
     
     self.navigationController.navigationBar.backgroundColor = [UIColor WY_ColorWithHex:0x1987c6];
     
-
-    
     //返回
     if (self.navigationController.viewControllers.count > 1) {
         UIBarButtonItem *backItem = [[UIBarButtonItem  alloc] initWithImage:[[UIImage imageNamed:@"nav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(navBack)];
@@ -173,7 +171,6 @@
             __block BaseViewController *weakSelf = self;
             [Global getLocation:^(BMKUserLocation *location) {
                 DDLogDebug(@"location is -----%@", location);
-                
                 [Global reverseGeo:location.location.coordinate cb:^(BMKReverseGeoCodeResult *result) {
                     DDLogDebug(@"reverse geo is ----%@", result.address);
                     NSString *userProps = [NSString stringWithFormat: @"{provinceName:'%@', cityName:'%@', areaName:'%@', street:'%@%@', lati: '%f', longi: '%f'}", result.addressDetail.province, result.addressDetail.city, result.addressDetail.district, result.addressDetail.streetName, result.addressDetail.streetNumber, location.location.coordinate.latitude, location.location.coordinate.longitude];

@@ -118,7 +118,7 @@ Detail = React.createClass {
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<img src={Image.getFullPath detail?.carPic, Constants.carPicSize} />
+						<XeImage src={detail?.carPic} size='130x130'/>
 					</div>
 					<div className="g-pro-text fl">
 						<p>车辆类别: <span>{Helper.carCategoryMapper detail?.category}</span></p>
@@ -131,7 +131,7 @@ Detail = React.createClass {
 			<div className="m-detail-info m-nomargin">
 				<p>
 					<span>随车司机:</span>
-					<span>{detail?.name}</span>
+					<span>{detail?.driver}</span>
 				</p>
 				<p>
 					<span>联系电话:</span>
@@ -142,3 +142,4 @@ Detail = React.createClass {
 }
 
 React.render <Detail />, document.getElementById('content')
+# <img src={Image.getFullPath detail?.carPic, Constants.carPicSize} />

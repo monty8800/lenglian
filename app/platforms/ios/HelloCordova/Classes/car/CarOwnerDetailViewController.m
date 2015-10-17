@@ -1,28 +1,23 @@
 //
-//  MoreViewController.m
+//  CarOnwerDetailViewController.m
 //  HelloCordova
 //
-//  Created by ywen on 15/9/21.
+//  Created by YYQ on 15/10/16.
 //
 //
 
-#import "MoreViewController.h"
+#import "CarOwnerDetailViewController.h"
 
-#import "ChangePasswdViewController.h"
-#import "ResetPasswdViewController.h"
-#import "LoginViewController.h"
-#import "AboutUsViewController.h"
-
-@interface MoreViewController ()
+@interface CarOwnerDetailViewController ()
 
 @end
 
-@implementation MoreViewController
+@implementation CarOwnerDetailViewController
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.startPage = @"more.html";
+        self.startPage = @"carOwnerDetail.html";
     }
     return self;
 }
@@ -30,23 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self createUI];
 }
 
 -(void) createUI {
-    self.title = @"更多";
-}
-
-
--(void)commonCommand:(NSArray *)params {
-    [super commonCommand:params];
-    if ([params[0] integerValue] == 1) {
-        if ([params[1] isEqualToString:@"aboutUs"]) {
-            AboutUsViewController *aboutUsVC = [AboutUsViewController new];
-            [self.navigationController pushViewController:aboutUsVC animated:YES];
-        }
-    }
+    self.title = @"车主详情";
 }
 
 - (void)didReceiveMemoryWarning {

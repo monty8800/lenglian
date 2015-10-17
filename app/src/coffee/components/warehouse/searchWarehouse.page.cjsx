@@ -17,6 +17,7 @@ PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 
 Plugin = require 'util/plugin'
+Raty = require 'components/common/raty'
 
 Selection = require 'components/common/selection'
 SelectionStore = require 'stores/common/selection'
@@ -48,7 +49,7 @@ selectionList = [
 	}
 	{
 		key: 'isInvoice'
-		value: '需要发票'
+		value: '提供发票'
 		options: [
 			{key: '1', value: '是'}
 			{key: '2', value: '否'}
@@ -133,13 +134,19 @@ SearchWarehouse = React.createClass {
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
-								<span>{ aResult.name }</span><span className="g-dirname-single">(个体)</span>
+								<span>{ aResult.name }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper aResult.certificAtion }</span>
 							</div>
-							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+							<div className="g-dirver-dis ll-font">
+								<Raty score={ aResult.score } />
+							</div>
 						</div>
-						<div className="g-dirver-btn">
-							<a onClick={ @_selectWarehouse.bind this,aResult } className="u-btn02">选择该仓库</a>
-						</div>
+						{
+							user = UserStore.getUser()
+							if user.id is aResult.userId
+								<div className="g-dirver-btn">
+									<a onClick={ @_selectWarehouse.bind this,aResult } className="u-btn02">选择该仓库</a>
+								</div>
+						}
 					</div>
 				</div>
 				<div className="g-item">
@@ -151,10 +158,6 @@ SearchWarehouse = React.createClass {
 								aResult.provinceName + aResult.cityName + aResult.areaName 
 						}
 					</div>
-				</div>
-				<div className="g-item g-pad ll-font">
-					价格类型 : 竞价
-					<span>( 柠静  4999元 )</span>
 				</div>
 				<div className="g-item g-item-des">
 					<p>仓库类型 : <span>{ aResult.wareHouseType }</span></p>

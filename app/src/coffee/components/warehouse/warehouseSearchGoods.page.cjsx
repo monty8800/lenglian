@@ -10,11 +10,11 @@ Auth = require 'util/auth'
 headerImg = require 'user-01.jpg'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
-
+Moment = require 'moment'
 Selection = require 'components/common/selection'
 SelectionStore = require 'stores/common/selection'
 UserStore = require 'stores/user/user'
-
+Raty = require 'components/common/raty'
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 
@@ -91,9 +91,11 @@ SearchResultList = React.createClass {
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
-								<span>{ aResult.name }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper aResult.certificAtion }</span>
+								<span>{ aResult.userName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper aResult.certificAtion }</span>
 							</div>
-							<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+							<div className="g-dirver-dis ll-font">
+								<Raty score={aResult.goodsScore} />
+							</div>
 						</div>
 						<div className="g-dirver-btn">
 							<a onClick={ @_bindGoodsCreateOrder.bind this, aResult } className="u-btn03">抢单</a>
@@ -107,7 +109,6 @@ SearchResultList = React.createClass {
 								aResult.toProvinceName + aResult.toAreaName
 							else
 								aResult.toProvinceName + aResult.toCityName + aResult.toAreaName
-
 						}}/>
 					</div>
 				</div>
@@ -115,7 +116,9 @@ SearchResultList = React.createClass {
 					<p dangerouslySetInnerHTML={{__html:'价格类型 : ' + Helper.priceTypeMapper aResult.priceType }} /> 
 				</div>
 				<div className="g-item g-item-des">
-					<p>车辆描述 : <span>10米</span><span>高栏</span></p>
+					<p>货物名称 : <span>{ aResult.name }</span></p>
+					<p>货物类型 : <span>{ Helper.goodsType aResult.goodsType }</span><span>{aResult.weight + '吨'}</span><span>{ if aResult.cube then aResult.cube + '方'}</span></p>
+					<p>装货时间 : <span>{ Moment(aResult.installStime).format('YYYY-MM-DD') }</span></p>
 				</div>
 			</div>
 		,this
@@ -159,7 +162,7 @@ WarehouseSearchGoods = React.createClass {
 			searchResult:[]
 			resultCount:-1
 			startNo: 0
-			pageSize: 10
+			pageSize: 100
 		}
 
 		for selection in selectionList

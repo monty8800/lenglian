@@ -60,11 +60,10 @@ GoodsDetail = React.createClass {
 			Plugin.nav.pop()
 
 	_deleteCurrentGoods: ->
-		if parseInt(@state.goodsDetail.resourceStatus) is 1
-			GoodsAction.deleteGoods @state.goodsDetail.id
-		else
-			# TODO:修改文案
-			Plugin.toast.show '货源当前不在空闲状态 无法删除'
+		Plugin.alert '确定删除吗', '提示', (index)->
+			if index is 1
+				GoodsAction.deleteGoods @state.goodsDetail.id
+		, ['确定', '取消']
 
 
 

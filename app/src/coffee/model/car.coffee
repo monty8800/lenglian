@@ -1,8 +1,10 @@
 Immutable = require 'immutable'
 
 Car = Immutable.Record {
+
 	drivePic: '' # 司机头像
-	name: '' # 司机名
+	name: '' # 车主名
+	driver:'' # 司机名
 	remark: 0 # 司机星级
 	startPoint: '' # 起点
 	destination: '' # 目的地

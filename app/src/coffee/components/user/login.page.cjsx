@@ -48,7 +48,7 @@ Login = React.createClass {
 		
 	getInitialState: ->
 		{
-			mobile: ''
+			mobile: DB.get('LAST_LOGIN_MOBILE')
 			passwd: ''
 		}
 	render: ->

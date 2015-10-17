@@ -141,30 +141,6 @@ carVehicle = (status) ->
 			when 12 then "15米以上"
 	else
 		''
-stars = (score)->
-	switch parseInt(score)
-		when 0
-			''
-		when 1
-			'&#xe609;'		#半颗星
-		when 2
-			'&#xe609;'			#一颗
-		when 3
-			'&#xe609;&#xe609;'		#一颗半
-		when 4
-			'&#xe609;&#xe609;'			#两颗
-		when 5
-			'&#xe609;&#xe609;&#xe609;'		#两颗半
-		when 6
-			'&#xe609;&#xe609;&#xe609;'			#三颗
-		when 7
-			'&#xe609;&#xe609;&#xe609;&#xe609;'		#三颗半
-		when 8
-			'&#xe609;&#xe609;&#xe609;&#xe609;'			#四颗
-		when 9
-			'&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;'		#四颗半
-		when 10
-			'&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;'			#五颗
 
 goodsWeight = (index) ->
 	if index?
@@ -207,4 +183,3 @@ module.exports =
 	whoYouAreMapper: whoYouAre
 	carVehicle: carVehicle
 	goodsWeight: goodsWeight
-	stars:stars
