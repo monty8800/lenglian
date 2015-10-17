@@ -12,7 +12,7 @@ GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
 XeImage = require 'components/common/xeImage'
 UserStore = require 'stores/user/user'
-
+Helper = require 'util/helper'
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 
@@ -116,12 +116,15 @@ SearchWarehouse = React.createClass {
 	_selectWarehouse :(aResult,e) ->
 		Auth.needLogin ->
 			user = UserStore.getUser()
-			if user.goodsStatus is 1
-#TODO:弹出选择货物的弹窗前 先判断有没有货 
-				_selectedWarehouseId = aResult.id
-				Plugin.run [3, 'select:goods', _selectedWarehouseId]
-			else 
-				Plugin.toast.err '尚未通过货主认证，请认证后再试'
+			if user.id is aResult.userId
+				Plugin.toast.err '不能选择自己的仓库'
+			else
+				if user.goodsStatus is 1
+	#TODO:弹出选择货物的弹窗前 先判断有没有货
+					_selectedWarehouseId = aResult.id
+					Plugin.run [3, 'select:goods', _selectedWarehouseId]
+				else 
+					Plugin.toast.err '尚未通过货主认证，请认证后再试'
 		e.stopPropagation()
 
 	render: ->
@@ -141,8 +144,9 @@ SearchWarehouse = React.createClass {
 							</div>
 						</div>
 						{
-							user = UserStore.getUser()
-							if user.id is aResult.userId
+							# user = UserStore.getUser()
+							# if user.id is aResult.userId
+							# else
 								<div className="g-dirver-btn">
 									<a onClick={ @_selectWarehouse.bind this,aResult } className="u-btn02">选择该仓库</a>
 								</div>

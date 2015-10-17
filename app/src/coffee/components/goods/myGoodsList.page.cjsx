@@ -42,17 +42,17 @@ GoodsListItem = React.createClass {
 					<div className="g-adr-start ll-font g-adr-start-line">
 						{
 							if item.toProvinceName is item.toCityName
-								item.toCityName + item.toAreaName + item.toStreet
+								(item.toCityName or '') + (item.toAreaName or '') + (item.toStreet or '')
 							else
-								item.toProvinceName + item.toCityName + item.toAreaName + item.toStreet
+								(item.toProvinceName or '') + (item.toCityName or '') + (item.toAreaName or '') + (item.toStreet or '')
 						}
 					</div>
 					<div className="g-adr-end ll-font g-adr-end-line">
 						{
 							if item.fromProvinceName is item.fromCityName
-								item.fromCityName + item.fromAreaName + item.fromStreet
+								(item.fromCityName or '') + (item.fromAreaName or '') + (item.fromStreet or '')
 							else
-								item.fromProvinceName + item.fromCityName + item.fromAreaName + item.fromStreet
+								(item.fromProvinceName or '') + (item.fromCityName or '') + (item.fromAreaName or '') + (item.fromStreet or '')
 						}
 					</div>
 				</div>			

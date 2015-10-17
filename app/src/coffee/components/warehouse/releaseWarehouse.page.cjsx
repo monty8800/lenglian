@@ -12,7 +12,7 @@ pageSize = '10'
 
 ToReleaseWarehouseList = React.createClass {
 	goToDetail: (index)->
-		DB.put 'transData', @state.warehouseList[index].id
+		DB.put 'transData', {warehouseId:@state.warehouseList[index].id,isMine:1}
 		Plugin.nav.push ['warehouseDetail']
 
 	sureToRelease:(index, e)->

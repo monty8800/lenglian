@@ -35,13 +35,6 @@ conf = (aProperty) ->
 WarehouseDetail = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 
-	_deleteWarehouse: ->
-		@state.warehouseDetail.id
-		Plugin.alert '确定删除吗', '提示', (index)->
-			if index is 1
-				WarehouseAction.deleteWarehouse @state.warehouseDetail.id
-		, ['确定', '取消']
-
 	getInitialState: ->
 		{
 			warehouseDetail:{}
@@ -91,7 +84,12 @@ WarehouseDetail = React.createClass {
 			Plugin.run [1,'warehouseDetail_saveEditSucc']
 
 			@setState newState
-
+	_deleteWarehouse: ->
+		toDeleteWarehouseId = @state.warehouseDetail.id
+		Plugin.alert '确定删除吗', '提示', (index)->
+			if index is 1
+				WarehouseAction.deleteWarehouse toDeleteWarehouseId
+		, ['确定', '取消']
 
 	render :->
 		warehouseAreaList = warehouseArea.map (aArea,i) ->

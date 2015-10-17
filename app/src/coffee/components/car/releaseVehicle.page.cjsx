@@ -45,7 +45,7 @@ Vehicle = React.createClass {
 
 			startPoint: '' # 出发地
 			destination: '' # 目的地
-			isinvoice: '' # 是否需要发票 默认是
+			isinvoice: '2' # 是否需要发票 默认否
 			contacts: user.name or '' # 联系人
 			phone:  user.mobile or '' # 手机号
 			carId: carId # 车辆Id
@@ -136,15 +136,13 @@ Vehicle = React.createClass {
 
 	# 发票
 	needInvoice : (e)->
-		if e.target.checked
-			@setState {
-				isinvoice: '1'
-			}
+		@setState {
+			isinvoice: '1'
+		}
 	unNeedInvoice : (e)->
-		if e.target.checked
-			@setState {
-				isinvoice: '2'
-			}
+		@setState {
+			isinvoice: '2'
+		}
 	_submit: ->
 		if @state.startPoint is ''
 			Plugin.toast.err '请输入出发地'
@@ -221,7 +219,7 @@ Vehicle = React.createClass {
 					<span>提供发票</span> 
 					<div className="radio-box">
 						<label className="label-checkbox">
-							<input onChange=@unNeedInvoice type="radio" name="xe-checkbox"/><span className="item-media ll-font"></span><span>否</span>
+							<input onChange=@unNeedInvoice defaultChecked=true type="radio" name="xe-checkbox"/><span className="item-media ll-font"></span><span>否</span>
 						</label>
 						<label className="label-checkbox">
 							<input onChange=@needInvoice type="radio" name="xe-checkbox"/><span className="item-media ll-font"></span><span>是</span>

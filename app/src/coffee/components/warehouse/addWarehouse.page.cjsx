@@ -222,11 +222,11 @@ AddWarehouse = React.createClass {
 		@setState newState
 
 # 发票
-	needInvoice : (e)->
+	_needInvoice : (e)->
 		newState = Object.create @state
 		newState.params.isinvoice = '1'
 		@setState newState
-	unNeedInvoice : (e)->
+	_unNeedInvoice : (e)->
 		newState = Object.create @state
 		newState.params.isinvoice = '2'
 		@setState newState
@@ -353,10 +353,10 @@ AddWarehouse = React.createClass {
 						<span>提供发票</span>
 						<div className="radio-box">
 							<label className="mr5">
-		                        <input onChange=@needInvoice defaultChecked=true className="mui-checkbox ll-font" name="xe-checkbox" type="radio"/>否
+		                        <input onChange=@_unNeedInvoice defaultChecked=true className="mui-checkbox ll-font" name="xe-checkbox" type="radio"/>否
 		                    </label>
 		                    <label className="mr5">
-		                        <input onChange=@unNeedInvoice className="mui-checkbox ll-font" name="xe-checkbox" type="radio"/>是
+		                        <input onChange=@_needInvoice className="mui-checkbox ll-font" name="xe-checkbox" type="radio"/>是
 		                    </label>
 						</div>
 					</div>

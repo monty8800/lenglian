@@ -71,12 +71,12 @@ SelectAddress = React.createClass {
 			Plugin.nav.pop()
 	render: ->
 		<section>
-		<div onClick={@_locate} className="m-releasehead02 ll-font">
-			<div className="g-adr-item u-arrow-right ll-font">
+		<div className="m-releasehead02 ll-font">
+			<div onClick={@_locate} className="g-adr-item u-arrow-right ll-font">
 				{@state.address}
 			</div>
 			<div className="g-adr-item">
-				{@state.street}
+				<input value={@state.street} />
 			</div>
 		</div>
 		<AddressList />	
