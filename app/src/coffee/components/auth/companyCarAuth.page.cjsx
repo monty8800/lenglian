@@ -125,7 +125,7 @@ Auth = React.createClass {
 				type: 'companyPic'
 			}
 		].map (cell, i)->
-			<PicCell key={i} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
+			<PicCell selectable={@state.user.carStatus is 0} key={i} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
 		, this
 
 		<section>
@@ -195,9 +195,13 @@ Auth = React.createClass {
 		<div className="m-file-upload m-file-many">
 			{cells}
 		</div>
-		<div className="u-certBtn-con">
-			<a className="u-btn" onClick={@_auth}>提交认证</a>
-		</div>
+		{
+			if @state.user.carStatus is 0
+				<div className="u-certBtn-con">
+					<a className="u-btn" onClick={@_auth}>提交认证</a>
+				</div>
+		}
+
 		</section>
 }
 

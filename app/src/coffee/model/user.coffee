@@ -32,7 +32,6 @@ User = Immutable.Record {
 	companyPic: null #门头照片地址
 	transLicensePic: null # 道路运输许可证照片
 
-	transLicensePic: null #道路运输许可证图片地址
 
 	#认证相关字段，本地缓存用，再次认证带过去
 	idCardNo: null #身份证号码

@@ -82,6 +82,47 @@ _menus = Immutable.fromJS [
 ]
 
 
+requestPersonalAuthInfo = (type)->
+	Http.post Constants.api.GET_PERSONAL_AUTH_INFO, {
+		type: type
+		userId: _user.id
+	}, (data)->
+		_user = _user.merge {
+			idCardNo: data.cardno if data.cardno
+			carNo: data.carno if data.carno
+			license: data.drivingImg + '|certificates' if data.drivingImg
+			vinNo: data.frameno if data.frameno
+			idCard: data.idcardImg + '|certificates' if data.idcardImg
+			operationLicense: data.taxiLicenseImg + '|certificates' if data.taxiLicenseImg
+			name: data.username if data.username
+		}
+		DB.put 'user', _user.toJS()
+		UserStore.emitChange 'user:update'
+
+
+
+requestCompanyAuthInfo = (type)->
+	Http.post Constants.api.GET_COMPANY_AUTH_INFO, {
+		type: type
+		userId: _user.id
+	}, (data)->
+		_user = _user.merge {
+			transLicensePic: data.transportImg + '|certificates' if data.transportImg
+			street: data.street if data.street
+			address: data.provinceName + data.cityName + data.areaName if data.areaName
+			businessLicense: data.businessLicenseImg  + '|certificates' if data.businessLicenseImg
+			organizingCode: data.certifies if data.certifies
+			company: data.name if data.name
+			companyPic: data.doorImg + '|certificates' if data.doorImg
+			businessLicenseNo: data.licenseno if data.licenseno
+			transLicenseNo: data.permits if data.permits
+			tel: data.phone if data.phone
+			name: data.principalName if data.principalName
+		}
+		DB.put 'user', _user.toJS()
+		UserStore.emitChange 'user:update'
+
+
 requestInfo = ->
 	if not _user?.id
 		return
@@ -109,7 +150,21 @@ requestInfo = ->
 		_user = _user.set 'balance', data.balance
 		DB.put 'user', _user.toJS()
 		Plugin.run [9, 'user:update', _user.toJS()]
-		UserStore.emitChange 'user:update'
+
+		#跨手机，跨账号同步数据
+		#个人数据
+		if _user.certification is 1
+			if _user.carStatus is 1
+				requestPersonalAuthInfo 2
+			else if _user.goodsStatus is 1 or _user.warehouseStatus is 1
+				requestPersonalAuthInfo 1
+		else if _user.certification is 2
+			if _user.carStatus is 1
+				requestCompanyAuthInfo 2
+			else if _user.goodsStatus is 1 or _user.warehouseStatus is 1
+				requestCompanyAuthInfo 1
+		else
+			UserStore.emitChange 'user:update'
 		# checkPayPwd() if _user.hasPayPwd isnt 1
 
 smsCode = (mobile, type)->
