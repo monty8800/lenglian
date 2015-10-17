@@ -137,7 +137,7 @@ GoodsDetail = React.createClass {
 				</p>
 				<p>
 					<span>支付方式:</span>
-					<span>{ Helper.payTypeMapper @state.goodsDetail.payType } {'预付款金额$$'} </span>
+					<span>{ Helper.payTypeMapper @state.goodsDetail.payType }</span>
 				</p>
 				<p>
 					<span>发票:</span>

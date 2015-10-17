@@ -41,10 +41,15 @@
     [addWarehouseButton setTitle:@"新增车辆" forState:UIControlStateNormal];
     [addWarehouseButton addTarget:self action:@selector(addNewCar) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateCarListAfterAddNewCar) name:@"ADD_CAR_SUCCESS" object:nil];
 }
 - (void)addNewCar{
     AddCarViewController *addNewCarVC = [AddCarViewController new];
     [self.navigationController pushViewController:addNewCarVC animated:YES];
+}
+-(void)updateCarListAfterAddNewCar{
+    NSString *js = [NSString stringWithFormat:@"(function(){window.updateMyCarList('2')})()"];
+    [self.commandDelegate evalJs: js];
 }
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];

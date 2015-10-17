@@ -50,8 +50,9 @@
     {
         [Net postFile:params[1] params:params[2] files:params[3] cb:^(NSDictionary *responseDic) {
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
-                [[Global sharedInstance] showSuccess:@"车辆发布成功！"];
+                [[Global sharedInstance] showSuccess:@"车辆添加成功！"];
                 [self.navigationController popViewControllerAnimated:YES];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"ADD_CAR_SUCCESS" object:nil];
             }
             else
             {

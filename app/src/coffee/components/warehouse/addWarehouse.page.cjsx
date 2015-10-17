@@ -455,6 +455,7 @@ AddWarehouse = React.createClass {
 						{
 							if @state.addWarehouseImageUrl
 								<img className="ll-font" src={'file://' + @state.addWarehouseImageUrl} />
+								<XeImage src={ @state.addWarehouseImageUrl }/>
 							else
 								<span className="ll-font"></span>
 						}

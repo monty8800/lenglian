@@ -210,6 +210,7 @@ getGoodsDetail = (goodsId)->
 		_goodsDetail = _goodsDetail.set 'invoice',resource.isinvoice
 		_goodsDetail = _goodsDetail.set 'resourceStatus',resource.resourceStatus
 		_goodsDetail = _goodsDetail.set 'goodsType',resource.goodsType
+		_goodsDetail = _goodsDetail.set 'price',resource.price
 
 		GoodsStore.emitChange 'getGoodsDetailSucc'
 	,(data)->
@@ -279,6 +280,7 @@ getSearchGoodsDetail = (goodsId,focusid)->
 		_searchGoodsDetail = _searchGoodsDetail.set 'toAreaName',resource.toAreaName
 		_searchGoodsDetail = _searchGoodsDetail.set 'toStreet',resource.toStreet
 		_searchGoodsDetail = _searchGoodsDetail.set 'weight',resource.weight
+		_searchGoodsDetail = _searchGoodsDetail.set 'cube',resource.cube
 		_searchGoodsDetail = _searchGoodsDetail.set 'packType',resource.packType
 		_searchGoodsDetail = _searchGoodsDetail.set 'type',resource.type
 		_searchGoodsDetail = _searchGoodsDetail.set 'imageUrl',resource.imageUrl
@@ -295,7 +297,7 @@ getSearchGoodsDetail = (goodsId,focusid)->
 		_searchGoodsDetail = _searchGoodsDetail.set 'priceType',resource.priceType
 		_searchGoodsDetail = _searchGoodsDetail.set 'invoice',resource.isinvoice
 		_searchGoodsDetail = _searchGoodsDetail.set 'resourceStatus',resource.resourceStatus
-		_searchGoodsDetail = _searchGoodsDetail.set 'goodsType',data.goodsType	
+		_searchGoodsDetail = _searchGoodsDetail.set 'goodsType',resource.goodsType	
 
 		GoodsStore.emitChange 'getSearchGoodsDetailSucc'
 	,(data)->
