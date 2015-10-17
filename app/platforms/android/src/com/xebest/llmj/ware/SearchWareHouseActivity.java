@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
@@ -111,7 +110,6 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
         if (flag.equals("select:goods")) {
             // 选择该仓库
             wareHouseId = args.getString(2);
@@ -172,7 +170,7 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
             map.put("userId", Application.getInstance().userId);
             map.put("resourceStatus", "1");
             map.put("pageNow", "1");
-            map.put("pageSize", "2");
+            map.put("pageSize", "100");
             return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
         }
 

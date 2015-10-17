@@ -108,8 +108,6 @@ public class ReleaseWarehouseActivity extends BaseCordovaActivity implements Cor
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-
     }
 
     @Override

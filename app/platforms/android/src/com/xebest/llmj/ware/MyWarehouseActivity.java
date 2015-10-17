@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -86,7 +85,6 @@ public class MyWarehouseActivity extends BaseCordovaActivity implements CordovaI
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
         if (flag.equals("warehouseDetail")) {
             WarehouseDetailActivity.actionView(MyWarehouseActivity.this);
         }

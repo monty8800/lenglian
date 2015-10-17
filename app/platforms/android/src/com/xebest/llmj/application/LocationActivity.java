@@ -172,11 +172,17 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
 
         mStreetNumber = result.getAddressDetail().streetNumber;
 
-        loc.setText(result.getAddress());
-        des.setText(result.getAddressDetail().street + result.getAddressDetail().streetNumber);
+        if (result.getAddress() != null) {
+            loc.setText(result.getAddress());
+        }
+        if (result.getAddressDetail().street != null) {
+            des.setText(result.getAddressDetail().street + result.getAddressDetail().streetNumber);
+        }
 
         mInfoWindow = new InfoWindow(view, result.getLocation(), -120);
-        mBaiduMap.showInfoWindow(mInfoWindow);
+        if (mInfoWindow != null) {
+            mBaiduMap.showInfoWindow(mInfoWindow);
+        }
     }
 
 

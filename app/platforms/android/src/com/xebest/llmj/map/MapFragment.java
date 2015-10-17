@@ -506,7 +506,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     storeBottomView.setVisibility(View.VISIBLE);
                     storeAddress.setText("仓库地址：" + list.get(0).getProvinceName() + list.get(0).getCityName() +
                             list.get(0).getAreaName() + list.get(0).getName());
-                    storeType.setText("仓库类型：" + Helper.getStoreType(list.get(0).getWareHouseType()));
+//                    storeType.setText("仓库类型：" + Helper.getStoreType(list.get(0).getWareHouseType()));
+                    storeType.setText("仓库类型：" + list.get(0).getWareHouseType());
                     storeTemperatureType.setText("库温类型：" + list.get(0).getCuvinType());
                     storePrice.setText("价格：" + list.get(0).getPrice());
                 } else if (status == 1) {// 货
@@ -573,7 +574,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             map.put("userId", Application.getInstance().userId);
             map.put("resourceStatus", "1");
             map.put("pageNow", "1");
-            map.put("pageSize", "2");
+            map.put("pageSize", "100");
             return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
         }
 

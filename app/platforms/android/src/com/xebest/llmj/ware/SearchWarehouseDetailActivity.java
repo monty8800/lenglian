@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -22,7 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 货物详情
+ * 仓库详情
  * Created by kaisun on 15/9/22.
  */
 public class SearchWarehouseDetailActivity extends BaseCordovaActivity implements CordovaInterface {
@@ -57,14 +56,15 @@ public class SearchWarehouseDetailActivity extends BaseCordovaActivity implement
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("货物详情");
+        MobclickAgent.onPageEnd("仓库详情");
         MobclickAgent.onPause(this);
     }
 
     protected void initView() {
         addCar = (TextView) findViewById(R.id.add);
+        addCar.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("货物详情");
+        tvTitle.setText("仓库详情");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -85,15 +85,12 @@ public class SearchWarehouseDetailActivity extends BaseCordovaActivity implement
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
-
     }
 
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("货物详情");
+        MobclickAgent.onPageStart("仓库详情");
         // 统计时长
         MobclickAgent.onResume(this);
         if (isOnCreate) {
