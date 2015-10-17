@@ -13,6 +13,7 @@ GoodsAction = require 'actions/goods/goods'
 XeImage = require 'components/common/xeImage'
 UserStore = require 'stores/user/user'
 Helper = require 'util/helper'
+
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 

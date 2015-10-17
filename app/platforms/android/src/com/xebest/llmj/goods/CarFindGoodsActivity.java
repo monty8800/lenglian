@@ -19,6 +19,7 @@ import com.xebest.llmj.adapter.GoodsAdapter;
 import com.xebest.llmj.adapter.MyCarAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.model.Car;
 import com.xebest.llmj.model.Goods;
@@ -122,6 +123,8 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
             new CarResourceTask().execute();
         } else if (flag.equals("carBidGoods")) {
             BiddingActivity.actionView(CarFindGoodsActivity.this, "", "");
+        } else if (flag.equalsIgnoreCase("login")) {
+            LoginActivity.actionView(CarFindGoodsActivity.this);
         }
 
     }
@@ -136,6 +139,8 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
             mWebView.init(this, ApiUtils.API_COMMON_URL + "carFindGoods.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 
