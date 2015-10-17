@@ -114,7 +114,7 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请输入终点'
 		else if not @state.type
 			Plugin.toast.err '请选择货物类型'
-		else if not Validator.float @state.weight or (@state.cube?.length > 0 and not Validator.float @state.cube)
+		else if not Validator.float(@state.weight)  or (@state.cube?.length > 0 and not Validator.float @state.cube)
 			Plugin.toast.err '请填写正确的货物规格, 最多两位小数'
 		else if not @state.installMinTime or not @state.installMaxTime
 			Plugin.toast.err '请填写装车时间'
@@ -237,8 +237,8 @@ AddGoods = React.createClass {
 			</div>
 			<div>
 				<span>货物规格</span>
-				<input valueLink={@linkState 'weight'} type="number" className="weight"/><span>吨</span>
-				<input valueLink={@linkState 'cube'} type="number"  className="weight"/><span>方</span>
+				<input valueLink={@linkState 'weight'} type="text" className="weight"/><span>吨</span>
+				<input valueLink={@linkState 'cube'} type="text"  className="weight"/><span>方</span>
 			</div>
 			<div>
 				<label htmlFor="packType"><span>包装类型</span></label>
