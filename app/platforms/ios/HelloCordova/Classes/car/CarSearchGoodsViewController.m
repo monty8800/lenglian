@@ -65,7 +65,7 @@
             CarbidGoodsViewController *bidVC = [CarbidGoodsViewController new];
             [self.navigationController pushViewController:bidVC animated:YES];
         }
-        else if ([params[1] isEqualToString:@"goodsDetail"])
+        else if ([params[1] isEqualToString:@"searchGoodsDetail"])
         {
             SearchGoodsDetailViewController *detailVC = [SearchGoodsDetailViewController new];
             [self.navigationController pushViewController:detailVC animated:YES];
