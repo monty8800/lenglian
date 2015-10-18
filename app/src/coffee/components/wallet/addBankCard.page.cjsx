@@ -12,18 +12,31 @@ LinkedStateMixin = React.addons.LinkedStateMixin
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
 user = UserStore.getUser()
-
+Validator = require 'util/validator'
 
 AddBankCard = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 
 	_addNewBankNext:->
-		WalletAction.getBankCardInfo @state.bankCardNo
+		console.log 'state', @state
+		if not Validator.name @state.bankCardOnwerName
+			Plugin.toast.err '请输入正确的姓名'
+		else if not Validator.bankCard @state.bankCardNo
+			Plugin.toast.err '请输入正确的银行卡号'
+		else if not @state.agree
+			Plugin.toast.err '请同意冷链马甲服务协议'
+		else
+			WalletAction.getBankCardInfo @state.bankCardNo
+
+	_goAgreement: (e)->
+		e.preventDefault()
+		Plugin.nav.push ['agreement']
 
 	getInitialState:->
 		{
 			bankCardOnwerName:''
 			bankCardNo:''
+			agree: true
 		}
 	componentDidMount: ->
 		WalletStore.addChangeListener @_onChange
@@ -46,11 +59,11 @@ AddBankCard = React.createClass {
 			<div className="m-releaseitem">
 				<div>
 					<label htmlFor="packType"><span>持卡人:</span></label>
-					<input valueLink={@linkState 'bankCardOnwerName'} type="text" placeholder="请输入持卡人姓名" id="packType"/>
+					<input className="input-weak" valueLink={@linkState 'bankCardOnwerName'} type="text" placeholder="请输入持卡人姓名" id="packType"/>
 				</div>
 				<div className="u-personIcon u-close ll-font">
 					<label htmlFor="packType"><span>卡&nbsp;&nbsp;&nbsp;号:</span></label>
-					<input valueLink={@linkState 'bankCardNo'} type="text" placeholder="请输入银行卡号" id="packType"/>
+					<input className="input-weak" valueLink={@linkState 'bankCardNo'} type="text" placeholder="请输入银行卡号" id="packType"/>
 				</div>
 			</div>
 			
@@ -59,9 +72,9 @@ AddBankCard = React.createClass {
 					<a onClick={ @_addNewBankNext } href="#" className="btn">下一步</a>
 				</div>
 			</div>
-			<div className="u-green ll-font">
-				同意
-				<a href="#">《马甲协议》</a>
+
+			<div className="u-green" style={{paddingLeft: '0 rem'}}>
+				<label className="u-label" >同意<input  className="ll-font" checkedLink={@linkState 'agree'}  type="checkbox" /><span onClick={@_goAgreement} >《冷链马甲服务协议》</span></label>
 			</div>
 		</div>
 }
