@@ -73,7 +73,8 @@
     [Net post:ORDER_GOODS_SELECT_CAR params:params cb:^(NSDictionary *responseDic) {
         DDLogDebug(@"goods select car result %@", responseDic);
         if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
-            
+            [[Global sharedInstance] showSuccess:@"成功选择该车辆"];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else
         {

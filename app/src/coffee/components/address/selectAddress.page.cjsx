@@ -41,7 +41,7 @@ SelectAddress = React.createClass {
 				data = {}
 				data[transData] = address.toJS()
 				DB.put 'transData', data
-				console.log 'transData----', data
+				console.log 'trans____Data----', data
 				Plugin.nav.pop()
 
 					

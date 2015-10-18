@@ -64,7 +64,7 @@ CarItem = React.createClass {
 		else if params[0] is 'car_fresh'
 			indexsss = DB.get 'detailCallBackFlag'
 			console.log '---------hahahha:', indexsss
-			if indexsss not null
+			if indexsss isnt null
 				orderList = @props.items.splice parseInt(indexsss), 1
 				console.log '---------hahahha:', orderList
 				newState = Object.create @state

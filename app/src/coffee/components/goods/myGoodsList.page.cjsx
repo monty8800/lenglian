@@ -76,12 +76,29 @@ GoodsListItem = React.createClass {
 		</div>
 }
 
-
+getStamp = (index)->
+	tempInt = 0
+	currentTimestamp = Math.round(new Date().getTime()/1000)
+	switch parseInt(index)
+		when 1
+			tempInt = 1
+		when 2
+			tempInt = 3
+		when 3
+			tempInt = 5
+		when 4
+			tempInt = 7
+		when 5
+			tempInt = 14
+	timeStamp = currentTimestamp - tempInt * 24 * 60 * 60
+	# if parseInt(index) is 0	
+	# 	timeStamp = ''
+	
 GoodsList = React.createClass {
 	getInitialState:->
 		{
 			showType:0  		# 1 货源状态  2 价格类型  3 发布日期
-			shouldShowMenu:0 # 1 货源菜单  2 价格菜单  3 发布日期菜单
+			shouldShowMenu:0 # 1 货源菜单  2 价格菜单  3 发布日期菜单  = 0 时 可以滑动   
 			selectedMenu1: 0 # 按资源状态 1 全部 2 求车种 3 有人响应 4 已成交
 			selectedMenu2: 0 # 按价格类型 1 高价 2 中价  3 低价
 			selectedMenu3: 0 # 按发布类型 1 近一周 2 近两周  3 近一月
@@ -90,7 +107,8 @@ GoodsList = React.createClass {
 
 	componentDidMount: ->
 		GoodsStore.addChangeListener @_onChange
-		GoodsAction.getGoodsList 1,10,''		#pageNow pageSize status   userId在store中传
+		GoodsAction.getGoodsList 1,10,'','',''	
+		#pageNow pageSize resourceStatus priceType createTime   userId在store中传 
 	componentWillUnmount: ->
 		GoodsStore.removeChangeListener @_onChange
 
@@ -106,8 +124,10 @@ GoodsList = React.createClass {
 		if index is @state.showType
 			newState.shouldShowMenu = 0
 			newState.showType = 0
+			Plugin.run ['shouldScrollEnable',0]
 		else
 			newState.shouldShowMenu = index
+			Plugin.run ['shouldScrollEnable',index]
 			newState.showType = newState.shouldShowMenu
 		@setState newState
 
@@ -117,19 +137,38 @@ GoodsList = React.createClass {
 			return
 		newState = Object.create @state
 		newState.selectedMenu1 = index
+		newState.goodsList = []
 		newState.shouldShowMenu = 0
+		Plugin.run ['shouldScrollEnable',0]
 		@setState newState 
-		Plugin.toast.show  "" + index + @state.selectedMenu2 + @state.selectedMenu3
+		stu = index
+		if parseInt(stu) is 0 then stu = ''
+		pt = @state.selectedMenu2
+		if parseInt(pt) is 0 then pt = ''
+		ct = @state.selectedMenu3
+		if parseInt(ct) is 0 then ct = ''  else ct = getStamp(ct)
+		
+		GoodsAction.getGoodsList 1,10,stu,pt,ct
 
-		# 确定了筛选条件 开始筛选
-		# GoodsAction.filter @state.selectedMenu1,@state.selectedMenu2,@state.selectedMenu3
+
 	_subMenu2Click :(index) ->
 		if @state.selectedMenu2 is index
 			return
 		newState = Object.create @state
 		newState.selectedMenu2 = index
 		newState.shouldShowMenu = 0
+		newState.goodsList = []
+		Plugin.run ['shouldScrollEnable',0]
 		@setState newState 
+		stu = @state.selectedMenu1
+		if parseInt(stu) is 0 then stu = ''
+		pt = index
+		if parseInt(pt) is 0 then pt = ''
+		ct = @state.selectedMenu3
+		if parseInt(ct) is 0 then ct = ''  else ct = getStamp(ct)
+		
+		GoodsAction.getGoodsList 1,10,stu,pt,ct
+
 
 	_subMenu3Click :(index) ->
 		if @state.selectedMenu3 is index
@@ -137,7 +176,17 @@ GoodsList = React.createClass {
 		newState = Object.create @state
 		newState.selectedMenu3 = index
 		newState.shouldShowMenu = 0
+		newState.goodsList = []
+		Plugin.run ['shouldScrollEnable',0]
 		@setState newState 
+		stu = @state.selectedMenu1
+		if parseInt(stu) is 0 then stu = ''
+		pt = @state.selectedMenu2
+		if parseInt(pt) is 0 then pt = ''
+		ct = index
+		if parseInt(ct) is 0 then ct = ''  else ct = getStamp(ct)
+		GoodsAction.getGoodsList 1,10,stu,pt,ct
+
 	
 		
 	render : ->
@@ -146,37 +195,34 @@ GoodsList = React.createClass {
 			<div className="viewport">
 				<div className="m-tab02">
 					<ul>
-						<li onClick={ @_topTypeClick.bind this,1 } className={ if @state.showType is 1 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>货源状态</li>
-						<li onClick={ @_topTypeClick.bind this,2 } className={ if @state.showType is 2 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>价格类型</li>
-						<li onClick={ @_topTypeClick.bind this,3 } className={ if @state.showType is 3 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>发布日期</li>
+						<li onClick={ @_topTypeClick.bind this,1 } className={ if @state.showType is 1 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>货源状态
+							<div style={display: if @state.showType is 1 then 'block' else 'none'} className="m-dropDown">
+								<p onClick={ @_subMenu1Click.bind this,0 } className={ if @state.selectedMenu1 is 0 then "active" else "" }>全部</p>
+								<p onClick={ @_subMenu1Click.bind this,1 } className={ if @state.selectedMenu1 is 1 then "active" else "" }>求车(库)中</p>
+								<p onClick={ @_subMenu1Click.bind this,2 } className={ if @state.selectedMenu1 is 2 then "active" else "" }>有人响应</p>
+								<p onClick={ @_subMenu1Click.bind this,3 } className={ if @state.selectedMenu1 is 3 then "active" else "" }>已成交</p>
+							</div>
+						</li>
+						<li onClick={ @_topTypeClick.bind this,2 } className={ if @state.showType is 2 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>价格类型
+							<div style={display: if @state.showType is 2 then 'block' else 'none'}  className="m-dropDown">
+								<p onClick={ @_subMenu2Click.bind this,0 } className={ if @state.selectedMenu2 is 0 then "active" else "" } >全部</p>
+								<p onClick={ @_subMenu2Click.bind this,1 } className={ if @state.selectedMenu2 is 1 then "active" else "" } >竞价</p>
+								<p onClick={ @_subMenu2Click.bind this,2 } className={ if @state.selectedMenu2 is 2 then "active" else "" } >一口价</p>
+							</div>
+						</li>
+						<li onClick={ @_topTypeClick.bind this,3 } className={ if @state.showType is 3 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>发布日期
+							<div style={display: if @state.showType is 3 then 'block' else 'none'}  className="m-dropDown">
+								<p onClick={ @_subMenu3Click.bind this,0 } className={ if @state.selectedMenu3 is 0 then "active" else "" }>全部</p>
+								<p onClick={ @_subMenu3Click.bind this,1 } className={ if @state.selectedMenu3 is 1 then "active" else "" }>一天内</p>
+								<p onClick={ @_subMenu3Click.bind this,2 } className={ if @state.selectedMenu3 is 2 then "active" else "" }>三天内</p>
+								<p onClick={ @_subMenu3Click.bind this,3 } className={ if @state.selectedMenu3 is 3 then "active" else "" }>五天内</p>
+								<p onClick={ @_subMenu3Click.bind this,4 } className={ if @state.selectedMenu3 is 4 then "active" else "" }>一周内</p>
+								<p onClick={ @_subMenu3Click.bind this,5 } className={ if @state.selectedMenu3 is 5 then "active" else "" }>两周内</p>
+							</div>
+						</li>
 					</ul>
 				</div>
-				<div style={display: if @state.shouldShowMenu is 1 then 'block' else 'none'} className="m-dropDown">
-					<ul>
-						<li onClick={ @_subMenu1Click.bind this,0 } className={ if @state.selectedMenu1 is 0 then "active" else "" } >全部</li>
-						<li onClick={ @_subMenu1Click.bind this,1 } className={ if @state.selectedMenu1 is 1 then "active" else "" } >求车中</li>
-						<li onClick={ @_subMenu1Click.bind this,2 } className={ if @state.selectedMenu1 is 1 then "active" else "" } >求库中</li>
-						<li onClick={ @_subMenu1Click.bind this,3 } className={ if @state.selectedMenu1 is 2 then "active" else "" } >有人响应</li>
-						<li onClick={ @_subMenu1Click.bind this,4 } className={ if @state.selectedMenu1 is 3 then "active" else "" } >已成交</li>
-					</ul>
-				</div>
-				<div style={display: if @state.shouldShowMenu is 2 then 'block' else 'none'} className="m-dropDown">
-					<ul>
-						<li onClick={ @_subMenu2Click.bind this,0 } className={ if @state.selectedMenu2 is 0 then "active" else "" } >全部</li>
-						<li onClick={ @_subMenu2Click.bind this,1 } className={ if @state.selectedMenu2 is 1 then "active" else "" } >竞价</li>
-						<li onClick={ @_subMenu2Click.bind this,2 } className={ if @state.selectedMenu2 is 2 then "active" else "" } >一口价</li>
-					</ul>
-				</div>
-				<div style={display: if @state.shouldShowMenu is 3 then 'block' else 'none'} className="m-dropDown">
-					<ul>
-						<li onClick={ @_subMenu3Click.bind this,0 } className={ if @state.selectedMenu3 is 0 then "active" else "" } >全部</li>
-						<li onClick={ @_subMenu3Click.bind this,1 } className={ if @state.selectedMenu3 is 1 then "active" else "" } >一天内</li>
-						<li onClick={ @_subMenu3Click.bind this,2 } className={ if @state.selectedMenu3 is 2 then "active" else "" } >三天内</li>
-						<li onClick={ @_subMenu3Click.bind this,3 } className={ if @state.selectedMenu3 is 3 then "active" else "" } >五天内</li>
-						<li onClick={ @_subMenu3Click.bind this,3 } className={ if @state.selectedMenu3 is 3 then "active" else "" } >一周内</li>
-						<li onClick={ @_subMenu3Click.bind this,3 } className={ if @state.selectedMenu3 is 3 then "active" else "" } >两周内</li>
-					</ul>
-				</div>
+				
 				<GoodsListItem list={ @state.goodsList } />
 			</div>
 			<div style={display: if @state.shouldShowMenu isnt 0 then 'block' else 'none'} className="m-gray02"></div>
@@ -184,6 +230,5 @@ GoodsList = React.createClass {
 }
 
 React.render <GoodsList />,document.getElementById('content')
-
 
 
