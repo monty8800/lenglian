@@ -21,7 +21,10 @@ SmsCode = React.createClass {
 			Plugin.alert '请输入正确的手机号码'
 			return
 		return null if _busy is true
-		UserAction.smsCode @props.mobile, @props.type
+		if @props.smsFunc
+			@props.smsFunc()
+		else
+			UserAction.smsCode @props.mobile, @props.type
 		_busy = true
 		setTimeout ->
 			_busy = false if _busy is true
@@ -46,7 +49,7 @@ SmsCode = React.createClass {
 
 	_change: (msg)->
 		console.log 'event change ', msg
-		if msg is "sms:done"
+		if msg in ["sms:done", 'getVCodeForBindBankCarSucc']
 			_busy = false
 			#开始倒计时
 			@setState {

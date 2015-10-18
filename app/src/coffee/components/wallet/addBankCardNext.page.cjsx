@@ -15,40 +15,68 @@ DB = require 'util/storage'
 Plugin = require 'util/plugin'
 user = UserStore.getUser()
 
+Validator = require 'util/validator'
+
 DBBankModel = DB.get 'transData'
 _bankCardInfo = new BankCardModel DBBankModel
 
 AddBankCardNext = React.createClass {
 	mixins:[PureRenderMixin,LinkedStateMixin]
 	_addBankCardVerify:->
-		_bankCardInfo = _bankCardInfo.set 'bankBranchName',@state.bankBranchName
-		_bankCardInfo = _bankCardInfo.set 'bankMobile',@state.bankMobile
-		_bankCardInfo = _bankCardInfo.set 'userIdNumber',@state.userIdNumber
-		DB.put 'transData',_bankCardInfo
-		Plugin.nav.push ['addBankCardVerify']
+		if @state.bankName is '请选择银行'
+			Plugin.toast.err '请选择银行'
+		else if @state.bankBranchName.length < 4
+			Plugin.toast.err '请输入正确的开户行'
+		else if not Validator.mobile @state.bankMobile
+			Plugin.toast.err '请输入正确的手机号'
+		else if not Validator.idCard @state.userIdNumber
+			Plugin.toast.err '请输入正确的身份证号码'
+		else
+			_bankCardInfo = _bankCardInfo.set 'bankBranchName',@state.bankBranchName
+			_bankCardInfo = _bankCardInfo.set 'bankMobile',@state.bankMobile
+			_bankCardInfo = _bankCardInfo.set 'userIdNumber',@state.userIdNumber
+			_bankCardInfo = _bankCardInfo.set 'bankName', @state.bankName
+			DB.put 'transData',_bankCardInfo
+			Plugin.nav.push ['addBankCardVerify']
 
 	getInitialState: ->
 		{
-			bankName: _bankCardInfo.bankName
+			bankName: _bankCardInfo.bankName or '请选择银行'
 			cardType: _bankCardInfo.cardType
-			bankBranchName:''
+			bankBranchName: ''
 			bankMobile:''
 			userIdNumber:''
+			bankList: WalletStore.getSupportBankList()
 		}
 
 	componentDidMount: ->
 		WalletStore.addChangeListener @_onChange
+		WalletAction.getSupportBankList()
 
 	componentWillUnmount: ->
 		WalletStore.removeChangeListener @_onChange
 
 	_onChange :(mark) ->
+		console.log 'event ', mark
+		if mark is 'get:support:bank:list:done'
+			@setState {
+				bankList: WalletStore.getSupportBankList()
+			}
 
 	render : ->
+		console.log 'new state', @state
 		<div>
 			<div className="m-releaseitem">
-				<div>
-					<span>卡类型: </span><span>{ @state.bankName }</span><span>{ @state.cardType }</span>
+
+				<div className="u-arrow-right ll-font">
+					<span>卡类型</span>
+					<i className="arrow-i">{@state.bankName}</i>
+					<select className="select" valueLink={@linkState 'bankName'} name="">
+						{
+							@state.bankList.map (bk, i)->
+								<option key={i} value={bk.bankName}>{bk.bankName}</option>
+						}
+					</select>
 				</div>
 				<div>
 					<label htmlFor="packType"><span>开户行:</span></label>
@@ -65,10 +93,6 @@ AddBankCardNext = React.createClass {
 			</div>
 			<div className="u-pay-btn">
 				<a onClick={ @_addBankCardVerify } href="#" className="btn noUse">下一步</a>
-			</div>
-			<div className="u-green ll-font">
-				同意
-				<a href="#">《马甲协议》</a>
 			</div>
 		</div>
 }

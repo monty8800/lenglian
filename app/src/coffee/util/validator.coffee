@@ -51,6 +51,9 @@ isEmpty = (input)->
 price = (input)->
 	return /^\d+(\.\d{0,2})?$/.test input
 
+bankCard = (input)->
+	return /^\d{16,19}$/.test input
+
 module.exports = {
 	mobile: mobile #手机号
 	passwd: passwd #登录注册密码
@@ -70,4 +73,5 @@ module.exports = {
 	isEmpty: isEmpty
 	price: price
 	float: price
+	bankCard: bankCard
 }
