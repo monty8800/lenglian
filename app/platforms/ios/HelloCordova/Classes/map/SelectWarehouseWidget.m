@@ -168,6 +168,7 @@
                         self.dataList = goodsList;
                     }
                     else
+                        
                     {
                         [UIView animateWithDuration:0.15 animations:^{
                             self.alpha = 0;

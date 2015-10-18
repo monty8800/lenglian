@@ -8,6 +8,7 @@
 
 #import "CarSearchGoodsViewController.h"
 #import "CarbidGoodsViewController.h"
+#import "SearchGoodsDetailViewController.h"
 #import "Net.h"
 
 @interface CarSearchGoodsViewController ()
@@ -63,6 +64,11 @@
         if ([params[1] isEqualToString:@"carBidGoods"]) {
             CarbidGoodsViewController *bidVC = [CarbidGoodsViewController new];
             [self.navigationController pushViewController:bidVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"goodsDetail"])
+        {
+            SearchGoodsDetailViewController *detailVC = [SearchGoodsDetailViewController new];
+            [self.navigationController pushViewController:detailVC animated:YES];
         }
     }
 }

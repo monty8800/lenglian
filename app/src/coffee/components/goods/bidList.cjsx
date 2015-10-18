@@ -12,7 +12,7 @@ OrderAction = require 'actions/order/order'
 
 Helper = require 'util/helper'
 
-avatar = require 'user-01'
+Image = require 'util/image'
 
 BidList = React.createClass {
 	mixins: [PureRenderMixin]
@@ -49,7 +49,7 @@ BidList = React.createClass {
 
 		bidCells = @state.bidList.map (bid, i)->
 			<li>
-				<div><img src={avatar} /></div>
+				<div><img src={Image.avatar} /></div>
 				<p><span>{Helper.hideName bid.userName}</span><span>{'出价:' + bid.price + '元'}</span></p>
 				<p>{bid.createTime}</p>
 			</li>
