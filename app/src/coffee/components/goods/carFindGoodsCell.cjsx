@@ -19,23 +19,33 @@ Raty = require 'components/common/raty'
 UserStore = require 'stores/user/user'
 Auth = require 'util/auth'
 
+DB = require 'util/storage'
+
 CarFindGoodsCell = React.createClass {
 	mixins: [PureRenderMixin]
 
-	_showWidget: ->
+	_showWidget: (e)->
 		#js，改用原生的弹窗就用不到了
 		# GoodsAction.changeWidgetStatus(true, @props.bid)
 		#goodsid，是否是竞价
 		Auth.needLogin ->
 			return Plugin.toast.err '尚未通过车主认证，请认证后再试' if UserStore.getUser()?.carStatus isnt 1
 			Plugin.run [3, 'select:car', @props.goods.get('id'), if @props.goods.get('priceType') isnt '1' then true else false]
+		e.stopPropagation()
+
+	_goodsDetail: ->
+		DB.put 'transData', {
+			goodsId: @props.goods.get 'id'
+			focusid: @props.goods.get 'userId'
+		}
+		Plugin.nav.push ['searchGoodsDetail']
 
 	render: ->
 		console.log 'goods---', @props.goods.get 'certificAtion'
 		installStime = @props.goods.get('installStime')
 		installEtime = @props.goods.get('installEtime')
 		userAvatar = @props.goods.get 'userImgUrl'
-		<div className="m-item01 m-item03">
+		<div onClick={@_goodsDetail} className="m-item01 m-item03">
 			<div className="g-item-dirver">
 				<div className="g-dirver">					
 					<div className="g-dirver-pic">
