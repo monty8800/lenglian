@@ -61,15 +61,7 @@ Auth = React.createClass {
 		else if not @state.user.idCard
 			Plugin.toast.err '请上传身份证照片'
 		else
-			UserAction.personalAuth {
-				phone: @state.user.mobile
-				type: Constants.authType.CAR
-				username: @state.name
-				userId: @state.user.id
-				cardno: @state.idNum
-				frameno: @state.vinNum
-				carno: @state.carNum
-			}, [
+			files = [
 				{
 					filed: 'idcardImg'
 					path: @state.user.idCard
@@ -80,12 +72,24 @@ Auth = React.createClass {
 					path: @state.user.license
 					name: 'drivingImg.jpg'
 				}
-				{
-					filed: 'taxiLicenseImg'
-					path: @state.user.operationLicense
-					name: 'taxiLicenseImg.jpg'
-				}
 			]
+
+			if @state.user.operationLicense
+				files.push 	{
+						filed: 'taxiLicenseImg'
+						path: @state.user.operationLicense
+						name: 'taxiLicenseImg.jpg'
+					} 
+
+			UserAction.personalAuth {
+				phone: @state.user.mobile
+				type: Constants.authType.CAR
+				username: @state.name
+				userId: @state.user.id
+				cardno: @state.idNum
+				frameno: @state.vinNum
+				carno: @state.carNum
+			}, files
 
 	getInitialState: ->
 		user = UserStore.getUser()
@@ -117,7 +121,7 @@ Auth = React.createClass {
 				type: 'operationLicense'
 			}
 		].map (cell, i)->
-			<PicCell key={i} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
+			<PicCell key={i} selectable={@state.user.carStatus is 0} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
 		, this
 
 		<section>
@@ -156,9 +160,13 @@ Auth = React.createClass {
 		<div className="m-file-upload m-file-many">
 			{cells}
 		</div>
-		<div className="u-certBtn-con">
-			<a className="u-btn" onClick={@_auth}>提交认证</a>
-		</div>
+		{
+			if @state.user.carStatus is 0
+				<div className="u-certBtn-con">
+					<a className="u-btn" onClick={@_auth}>提交认证</a>
+				</div>
+		}
+
 		</section>
 }
 

@@ -246,6 +246,11 @@ api = {
 	#支付订单
 	PAY_ORDER: '/orderPay/pay.shtml'
 
+	#获取个人认证信息
+	GET_PERSONAL_AUTH_INFO: '/mjPersonInfoAuthCtl/queryMjPersonInfo.shtml'
+
+	#获取公司认证信息
+	GET_COMPANY_AUTH_INFO: '/enterprise/queryEnterpriseInfo.shtml'
 
 #YYQ
 	# 查询我的仓库

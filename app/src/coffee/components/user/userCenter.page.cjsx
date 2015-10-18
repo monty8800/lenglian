@@ -20,17 +20,19 @@ XeImage = require 'components/common/xeImage'
 AuthStatus = React.createClass {
 	_goAuth: (auth)->
 		user = @props.user
+		unAuth = (auth is 'CarAuth' and user.carStatus isnt 1) or (auth is 'WarehouseAuth' and user.warehouseStatus isnt 1) or (auth is 'GoodsAuth' and user.goodsStatus isnt 1)
+
 		if user.carStatus is 2 or user.goodsStatus is 2 or user.warehouseStatus is 2
-			Plugin.toast.show '有认证正在审核中，无法继续认证!'
-			return
+			return Plugin.toast.show '有认证正在审核中，无法继续认证!' if unAuth
+
 		Auth.needLogin ->
-			switch auth
-				when 'CarAuth'
-					return null if user.carStatus in [1, 2]
-				when 'WarehouseAuth'
-					return null if user.warehouseStatus in [1, 2]
-				when 'GoodsAuth'
-					return null if user.goodsStatus in [1, 2]
+			# switch auth
+			# 	when 'CarAuth'
+			# 		return null if user.carStatus in [1, 2]
+			# 	when 'WarehouseAuth'
+			# 		return null if user.warehouseStatus in [1, 2]
+			# 	when 'GoodsAuth'
+			# 		return null if user.goodsStatus in [1, 2]
 
 			if user.certification is 0
 				Plugin.nav.push ['auth']
