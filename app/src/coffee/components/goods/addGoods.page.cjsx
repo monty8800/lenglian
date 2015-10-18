@@ -249,7 +249,7 @@ AddGoods = React.createClass {
 				<i>选填</i>
 				{
 					if @state.photo?.length > 0
-						<img width="50 rem" height="50 rem" src={@state.photo} onError={@_pic404} />
+						<img onClick={@_selectPic} width="50 rem" height="50 rem" src={@state.photo} onError={@_pic404} />
 					else
 						<figure onClick={@_selectPic}><span className="ll-font"></span></figure>
 				}
