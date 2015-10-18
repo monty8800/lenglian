@@ -1,6 +1,7 @@
 require 'components/common/common'
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+LinkedStateMixin = React.addons.LinkedStateMixin
 
 AddressStore = require 'stores/address/address'
 AddressAction = require 'actions/address/address'
@@ -16,7 +17,7 @@ DB = require 'util/storage'
 transData = DB.get 'transData' #这里是个字符串，如 from,to,by0,by1
 
 SelectAddress = React.createClass {
-	mixins: [PureRenderMixin]
+	mixins: [PureRenderMixin, LinkedStateMixin]
 	getInitialState: ->
 		address = AddressStore.getAddress()
 		{
@@ -76,7 +77,7 @@ SelectAddress = React.createClass {
 				{@state.address}
 			</div>
 			<div className="g-adr-item">
-				<input value={@state.street} />
+				<input type="text" valueLink={@linkState 'street'} className="input-weak" placeholder="详细地址" />
 			</div>
 		</div>
 		<AddressList />	
