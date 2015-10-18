@@ -42,6 +42,10 @@
 }
 
 -(void)clickBtn {
+    if ([self.data objectForKey:@"id"] == nil) {
+        [[Global sharedInstance] showErr:@"错误的仓库数据！"];
+        return;
+    }
     NSDictionary *user = [Global getUser];
     BOOL goodsAuth = [[user objectForKey:@"goodsStatus"] integerValue] == 1;
     if (!goodsAuth) {

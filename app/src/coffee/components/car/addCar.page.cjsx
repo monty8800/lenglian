@@ -160,25 +160,25 @@ AddCar = React.createClass {
 			Plugin.toast.err '随车司机不能为空'
 		else if not Validator.mobile @state.mobile
 			Plugin.toast.err '请输入正确的手机号'
-		else if not @state.user.carPic
-			Plugin.toast.err '请上传车辆图片'
+		# else if not @state.user.carPic
+			# Plugin.toast.err '请上传车辆图片'	
 		else if not @state.user.license
-			Plugin.toast.err '请上传行驶证图片'
+			Plugin.toast.err '请上传行驶证图片'	
 		else if not @state.user.transLicensePic
 			Plugin.toast.err '请上传道路运输许可证'
 		else 
 			CarAction.addCar {
 				bulky: @state.bulky # 可载泡货
 				carno: @state.carNo # 车牌号
-				category: @state.category # 车辆类别
+				category: (@state.category + 1) # 车辆类别
 				driver: @state.driver # 随车司机
-				heavy: @state.heavy # 可载重货
+				heavy: (@state.heavy + 1) # 可载重货
 				latitude: @state.latitude # 纬度
 				longitude: @state.longitude # 经度
 				phone: @state.mobile # 联系电话 
-				type: @state.type # 车辆类型
+				type: (@state.type + 1) # 车辆类型
 				userId: @state.user.id
-				vehicle: @state.vehicle # 车辆长度
+				vehicle: (@state.vehicle + 1) # 车辆长度
 			}, [
 				{
 					filed: 'imgUrl'
@@ -266,7 +266,7 @@ AddCar = React.createClass {
 			</div>
 			<div className="u-pay-btn">
 				<div className="u-pay-btn">
-					<a href="###" className="btn" onClick={@.handleSubmit.bind this}>新增车辆</a>
+					<a href="###" className="btn" onClick={@.handleSubmit}>新增车辆</a>
 				</div>
 			</div>
 		</div>

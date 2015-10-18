@@ -17,6 +17,7 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.CarAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.model.CarListInfo;
 import com.xebest.llmj.utils.Tools;
@@ -116,6 +117,8 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
             new GoodsFoundCar().execute();
         } else if (flag.equalsIgnoreCase("searchWarehouseDetail")) {
             SearchWarehouseDetailActivity.actionView(SearchWareHouseActivity.this);
+        } else if (flag.equalsIgnoreCase("login")) {
+            LoginActivity.actionView(SearchWareHouseActivity.this);
         }
     }
 
@@ -129,6 +132,8 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
             mWebView.init(this, ApiUtils.API_COMMON_URL + "searchWarehouse.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 
@@ -201,7 +206,7 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
      * 货源、车源、库源列表
      */
     public void showDialog(final List<CarListInfo> list) {
-        mDialog = Tools.getCustomDialog(getActivity(), R.layout.near_lv_dialog,
+        mDialog = Tools.getCustomDialogBg(getActivity(), R.layout.near_lv_dialog,
             new Tools.BindEventView() {
                 @Override
                 public void bindEvent(final View view) {

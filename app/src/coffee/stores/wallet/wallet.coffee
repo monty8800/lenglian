@@ -21,6 +21,9 @@ _billListResult = []
 
 _aBankCardInfo = new BankCardModel
 
+localBankList = DB.get 'supportBankList'
+_supportBankList = Immutable.List localBankList?.list
+
 
 window.tryReloadBandCardsList = ->
 	shouldReload = parseInt (DB.get 'shouldBankCardsListReload')
@@ -158,7 +161,23 @@ getBillList = (type)->
 	,(data)->
 		Plugin.toast.err data.msg
 
-
+getSupportBankList = ->
+	console.log 'get GET_SUPPORT_BANK_LIST'
+	localBankList = DB.get 'supportBankList'
+	now = new Date
+	if not localBankList or now.getTime() - localBankList?.updateTime  > Constants.cache.SUPPORT_BANK_LIST
+		console.log 'update bank list'
+		Http.post Constants.api.GET_SUPPORT_BANK_LIST, {
+			userId: UserStore.getUser()?.id
+		}, (data)->
+			_supportBankList = Immutable.List data
+			DB.put 'supportBankList', {
+				updateTime: now.getTime()
+				list: data
+			}
+			WalletStore.emitChange 'get:support:bank:list:done'
+	else
+		WalletStore.emitChange 'get:support:bank:list:done'
 
 WalletStore = assign BaseStore, {
 	getBankCardsList: ->
@@ -167,6 +186,8 @@ WalletStore = assign BaseStore, {
 		_aBankCardInfo
 	getBillList:->
 		_billListResult
+	getSupportBankList: ->
+		_supportBankList
 
 }
 
@@ -178,6 +199,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.VERITY_PHONE_FOR_BANK then getVCodeForBindBankCar(action.bankCardModel)
 		when Constants.actionType.ADD_BANK_CARD_PRIVET then bindBankCard(action.bankCardModel,action.smsCode)
 		when Constants.actionType.GET_WALLET_IN_OUT then getBillList(action.type)
+		when Constants.actionType.GET_SUPPORT_BANK_LIST then getSupportBankList()
 
 module.exports = WalletStore
 

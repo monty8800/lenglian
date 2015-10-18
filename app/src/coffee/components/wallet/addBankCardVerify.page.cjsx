@@ -16,6 +16,8 @@ DB = require 'util/storage'
 Plugin = require 'util/plugin'
 user = UserStore.getUser()
 
+SmsCode = require 'components/common/smsCode'
+
 DBBankModel = DB.get 'transData'
 _aBankCardModel = new BankCardModel DBBankModel
 
@@ -28,7 +30,7 @@ AddBankCardVerify = React.createClass {
 
 	_verifyNext:->
 		WalletAction.bindBankCard _aBankCardModel,@state.smsCode
-		Plugin.toast.show 'VerifyNext'
+		# Plugin.toast.show 'VerifyNext'
 
 	getInitialState: ->
 		{
@@ -54,7 +56,7 @@ AddBankCardVerify = React.createClass {
 				<div className="g-testCode">
 					<span className="icon ll-font"></span><span>{ _aBankCardModel.bankMobile }</span>
 					<div className="g-dirver-btn">
-						<a onClick={@_getVCodeForBindBankCar} href="#" className="u-btn02">发送验证码</a>
+						<SmsCode mobile={_aBankCardModel.bankMobile} smsFunc={@_getVCodeForBindBankCar} type=1 />
 					</div>
 				</div>
 				<div className="g-testCode">

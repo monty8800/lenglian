@@ -33,6 +33,16 @@
     self.title = @"修改密码";
 }
 
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"change_login_pwd_success"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

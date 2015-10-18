@@ -10,9 +10,9 @@ OrderStore = require 'stores/order/order'
 DB = require 'util/storage'
 UserStore = require 'stores/user/user'
 XeImage = require 'components/common/xeImage'
+Image = require 'util/image'
 Raty = require 'components/common/raty'
 avatar = require 'user-01'
-Image = require 'util/image'
 Auth = require 'util/auth'
 _user = UserStore.getUser()
 title = null
@@ -187,7 +187,7 @@ OrderDetail = React.createClass {
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<img src={Image.getFullPath @state.order?.goodsPic, Constants.carPicSize} />
+						<XeImage src={@state.order?.goodsPic} size=Constants.carPicSize />
 					</div>
 					<div className="g-pro-text fl">
 						<p>货物名字: <span>{@state.order?.goodsName}</span></p>

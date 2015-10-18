@@ -175,10 +175,11 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
         if (result.getAddress() != null) {
             loc.setText(result.getAddress());
         }
-        if (result.getAddressDetail().street != null) {
+        if (result != null && result.getAddressDetail() != null && result.getAddressDetail().street != null) {
             des.setText(result.getAddressDetail().street + result.getAddressDetail().streetNumber);
         }
 
+        if (result.getLocation() == null) return;
         mInfoWindow = new InfoWindow(view, result.getLocation(), -120);
         if (mInfoWindow != null) {
             mBaiduMap.showInfoWindow(mInfoWindow);

@@ -36,6 +36,10 @@ WalletAction = {
 			actionType: Constants.actionType.REMOVE_BANK_CARD
 			cardId:cardId
 		}
+	getSupportBankList: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.GET_SUPPORT_BANK_LIST
+		}
 }
 
 module.exports = WalletAction

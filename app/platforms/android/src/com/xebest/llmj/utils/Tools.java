@@ -282,6 +282,29 @@ public class Tools {
 
     }
 
+    public static Dialog getCustomDialogBg(final Activity context, int layout,
+                                         BindEventView event) {
+        View view = context.getLayoutInflater().inflate(layout, null);
+        final Dialog dialog = new Dialog(context, R.style.DialogThemeBg);
+        Window window = dialog.getWindow();
+        // window.setWindowAnimations(R.drawable.animation);
+        window.setBackgroundDrawable(new ColorDrawable(0));
+        Display display = context.getWindowManager().getDefaultDisplay();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.width = (int) (display.getWidth() * 0.9);
+        window.setAttributes(lp);
+        window.setContentView(view);
+        if (null != event) {
+            event.bindEvent(view);
+        }
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCancelable(true);
+        dialog.show();
+
+        return dialog;
+
+    }
+
     public interface BindEventView {
         void bindEvent(View view);
     }

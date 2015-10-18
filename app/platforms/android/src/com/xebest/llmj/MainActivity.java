@@ -313,10 +313,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 break;
             case 2:
-
-                tvTitle.setText("订单");
+                if (currentIndex == 0) {
+                    tvTitle.setText("货主订单");
+                } else if (currentIndex == 1) {
+                    tvTitle.setText("司机订单");
+                } else if (currentIndex == 2) {
+                    tvTitle.setText("仓库订单");
+                }
                 topView.setVisibility(View.VISIBLE);
-
                 ivHome.setBackgroundResource(R.drawable.bar_home_normal_2);
                 ivMap.setBackgroundResource(R.drawable.bar_map_normal_2);
                 ivOrder.setBackgroundResource(R.drawable.bar_order_pressed_2);
@@ -374,6 +378,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         tvStore = (TextView) popView.findViewById(R.id.tv_store);
         tvStore.setOnClickListener(this);
+
+        if (currentIndex == 0) {
+            tvGoods.setTextColor(Color.parseColor("#1e90ff"));
+        } else if (currentIndex == 1) {
+            tvDriver.setTextColor(Color.parseColor("#1e90ff"));
+        } else if (currentIndex == 2) {
+            tvStore.setTextColor(Color.parseColor("#1e90ff"));
+        }
 
 
         double hhh = Double.valueOf(Application.getInstance().HEIGHT) / 4.8;

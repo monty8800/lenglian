@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
@@ -18,6 +17,7 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.CarAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.goods.SearchGoodsDetailActivity;
 import com.xebest.llmj.model.CarListInfo;
@@ -81,8 +81,8 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WareHouseFindGoodsActivity.this, "调用JS", Toast.LENGTH_LONG).show();
-//                mWebView.getWebView().loadUrl("javascript:searchMyCar()");
+//                Toast.makeText(WareHouseFindGoodsActivity.this, "调用JS", Toast.LENGTH_LONG).show();
+                mWebView.getWebView().loadUrl("javascript:doWarehouseSearchGoods()");
             }
         });
 
@@ -113,13 +113,14 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
-        if (flag.equals("select:goods")) {
+        if (flag.equals("select:warehouse")) {
             // 选择该仓库
             wareHouseId = args.getString(2);
             new GoodsFoundCar().execute();
         } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
             SearchGoodsDetailActivity.actionView(WareHouseFindGoodsActivity.this);
+        } else if (flag.equalsIgnoreCase("login")) {
+            LoginActivity.actionView(WareHouseFindGoodsActivity.this);
         }
     }
 
@@ -133,6 +134,8 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
             mWebView.init(this, ApiUtils.API_COMMON_URL + "warehouseSearchGoods.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 
@@ -174,7 +177,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
             map.put("userId", Application.getInstance().userId);
             map.put("resourceStatus", "1");
             map.put("pageNow", "1");
-            map.put("pageSize", "2");
+            map.put("pageSize", "100");
             return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
         }
 
@@ -205,7 +208,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
      * 货源、车源、库源列表
      */
     public void showDialog(final List<CarListInfo> list) {
-        mDialog = Tools.getCustomDialog(getActivity(), R.layout.near_lv_dialog,
+        mDialog = Tools.getCustomDialogBg(getActivity(), R.layout.near_lv_dialog,
             new Tools.BindEventView() {
                 @Override
                 public void bindEvent(final View view) {
@@ -266,11 +269,14 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
         @Override
         protected String doInBackground(String... params) {
             Map<String, String> map = new HashMap<String, String>();
-            map.put("goodsUserId", Application.getInstance().userId);
-            map.put("goodsResouseId", params[0]);
-            map.put("carResouseId", wareHouseId);
-
-            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
+//            map.put("goodsUserId", Application.getInstance().userId);
+//            map.put("goodsResouseId", params[0]);
+//            map.put("carResouseId", wareHouseId);
+            map.put("userId", Application.getInstance().userId);
+            map.put("warehouseId", wareHouseId);
+            map.put("orderGoodsId", params[0]);
+//            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
+            return UploadFile.postWithJsonString(ApiUtils.store_found_goods, new Gson().toJson(map));
         }
 
         @Override

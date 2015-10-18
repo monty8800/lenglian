@@ -1,24 +1,28 @@
 carType = (status)->
-	switch status
-		when '1' then '普通卡车'
-		when '2' then '冷藏车'
-		when '3' then '平板'
-		when '4' then '箱式'
-		when '5' then '集装箱'
-		when '6' then '高栏'
-		else '未知'
+	if status is '' or undefined
+		return ''
+	switch parseInt(status)
+		when 1 then '普通卡车'
+		when 2 then '冷藏车'
+		when 3 then '平板'
+		when 4 then '箱式'
+		when 5 then '集装箱'
+		when 6 then '高栏'
+		else ''
 
 carCategory = (status) ->
-	switch status
-		when '1' then '单车'
-		when '2' then '前四后四'
-		when '3' then '前四后六'
-		when '4' then '前四后八'
-		when '5' then '后八轮'
-		when '6' then '五桥'
-		when '7' then '六桥'
-		when '8' then '半挂'	
-		else '未知'	
+	if status is '' or undefined
+		return ''
+	switch parseInt(status)
+		when 1 then '单车'
+		when 2 then '前四后四'
+		when 3 then '前四后六'
+		when 4 then '前四后八'
+		when 5 then '后八轮'
+		when 6 then '五桥'
+		when 7 then '六桥'
+		when 8 then '半挂'	
+		else ''	
 
 payType = (type) ->
 	if type?

@@ -117,7 +117,6 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
                 }
             });
 
-
             // [7,"http:\/\/192.168.29.176:8072\/\/mjPersonInfoAuthCtl\/personInfoAuth.shtml",
             // {"data":"{\"phone\"
             // :\"18513468467\",\"type\":2,\"username\":\"骨灰盒\",\"userId\":\"50819ab3c0954f828d0851da576cbc31\",\"cardno\":\"340621188807124021\",\"carno\":\"京j12345\",\"frameno\":\"11111111111111111\"}",
@@ -154,7 +153,10 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
             idCard = new HashMap<String, File>();
             operate = new HashMap<String, File>();
 
-            driving.put("imgUrl", new File(files.getJSONObject(0).getString("path")));
+            if (files.getJSONObject(0).getString("path") != null && !files.getJSONObject(0).getString("path").equalsIgnoreCase("null")) {
+                driving.put("imgUrl", new File(files.getJSONObject(0).getString("path")));
+            }
+
             idCard.put("drivingImg", new File(files.getJSONObject(1).getString("path")));
             operate.put("transportImg", new File(files.getJSONObject(2).getString("path")));
 
