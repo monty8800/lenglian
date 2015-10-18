@@ -163,6 +163,8 @@ actionType = {
 	INVST: null
 	INVNOTST: null
 
+	GET_SUPPORT_BANK_LIST: null
+
 }
 
 								
@@ -251,6 +253,9 @@ api = {
 
 	#获取公司认证信息
 	GET_COMPANY_AUTH_INFO: '/enterprise/queryEnterpriseInfo.shtml'
+
+	#获取支持的银行列表
+	GET_SUPPORT_BANK_LIST: '/mjUserBankCard/queryBankInfo.shtml'
 
 #YYQ
 	# 查询我的仓库
@@ -402,6 +407,7 @@ cache = {
 	CITY_LIST: 7 * 24 * 60 * 60 * 1000
 	USER_INFO: 3 * 60 * 1000 #更新用户信息的间隔
 	USER_INFO_MIN: 30 * 1000 #更新用户信息最小间隔
+	SUPPORT_BANK_LIST: 7 * 24 * 60 * 60 * 1000 #支持银行列表
 }
 
 carPicSize = '200x200'

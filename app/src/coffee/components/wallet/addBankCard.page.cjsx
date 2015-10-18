@@ -45,9 +45,12 @@ AddBankCard = React.createClass {
 		WalletStore.removeChangeListener @_onChange
 
 	_onChange :(mark) ->
-		if mark is 'getBankCardInfoSucc'
+		console.log 'event change', mark
+		if mark in ['getBankCardInfoSucc', 'getBankCardInfoFailed']
 			aBankModel = WalletStore.getBankCardInfo()
-			aBankModel = aBankModel.set 'onwerName',@state.bankCardOnwerName
+			aBankModel = aBankModel.set 'onwerName', @state.bankCardOnwerName
+			aBankModel = aBankModel.set 'cardNo', @state.bankCardNo
+
 			DB.put 'transData',aBankModel
 			Plugin.nav.push ['addBankCardNext']
 
