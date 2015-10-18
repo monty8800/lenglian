@@ -2,7 +2,7 @@ mobile = (input)->
 	return /^1(3|4|5|6|7|8)\d(-|\s)?\d{4}(-|\s)?\d{4}$/.test input
 
 passwd = (input)->
-	return /^[\da-zA-Z]{6}$/.test input
+	return /^[\da-zA-Z]{6,12}$/.test input
 
 payPasswd = (input)->
 	return /^[\da-zA-Z]{6,20}$/.test input
