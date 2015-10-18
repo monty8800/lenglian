@@ -12,6 +12,7 @@ Plugin = require 'util/plugin'
 Validator = require 'util/validator'
 Constants = require 'constants/constants'
 XeImage = require 'components/common/xeImage'
+InfiniteScroll = require('react-infinite-scroll')(React)
 
 GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
@@ -187,7 +188,15 @@ GoodsList = React.createClass {
 		if parseInt(ct) is 0 then ct = ''  else ct = getStamp(ct)
 		GoodsAction.getGoodsList 1,10,stu,pt,ct
 
-	
+	_loadMore ->
+		stu = @state.selectedMenu1
+		if parseInt(stu) is 0 then stu = ''
+		pt = @state.selectedMenu2
+		if parseInt(pt) is 0 then pt = ''
+		ct = @state.selectedMenu3
+		if parseInt(ct) is 0 then ct = ''  else ct = getStamp(ct)
+		GoodsAction.getGoodsList 1,10,stu,pt,ct
+
 		
 	render : ->
 		console.log 'state', @state
@@ -223,7 +232,10 @@ GoodsList = React.createClass {
 					</ul>
 				</div>
 				
-				<GoodsListItem list={ @state.goodsList } />
+				# <InfiniteScroll pageStart=1 loadMore={@_loadMore} hasMore={@state.hasMore}>
+					<GoodsListItem list={ @state.goodsList } />
+				# </InfiniteScroll>
+
 			</div>
 			<div style={display: if @state.shouldShowMenu isnt 0 then 'block' else 'none'} className="m-gray02"></div>
 		</div>
