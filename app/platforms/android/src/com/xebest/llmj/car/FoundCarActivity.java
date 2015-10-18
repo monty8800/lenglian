@@ -217,7 +217,7 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
      * 货源、车源、库源列表
      */
     public void showDialog(final List<CarListInfo> list) {
-        mDialog = Tools.getCustomDialog(getActivity(), R.layout.near_lv_dialog,
+        mDialog = Tools.getCustomDialogBg(getActivity(), R.layout.near_lv_dialog,
             new Tools.BindEventView() {
                 @Override
                 public void bindEvent(final View view) {

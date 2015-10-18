@@ -118,7 +118,7 @@ Detail = React.createClass {
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<XeImage src={detail?.carPic} size='130x130'/>
+						<XeImage src={detail?.carPic} size=Constants.carPicSize />
 					</div>
 					<div className="g-pro-text fl">
 						<p>车辆类别: <span>{Helper.carCategoryMapper detail?.category}</span></p>

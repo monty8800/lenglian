@@ -209,7 +209,7 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
     }
 
     public void showDialogGoods(final List<Goods> list) {
-        mDialog = Tools.getCustomDialog(getActivity(), R.layout.near_lv_dialog,
+        mDialog = Tools.getCustomDialogBg(getActivity(), R.layout.near_lv_dialog,
                 new Tools.BindEventView() {
                     @Override
                     public void bindEvent(final View view) {

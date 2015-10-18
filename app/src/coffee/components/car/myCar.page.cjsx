@@ -4,6 +4,7 @@ React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
 InfiniteScroll = require('react-infinite-scroll')(React)
 Constants = require 'constants/constants'
+XeImage = require 'components/common/xeImage'
 CarAction = require 'actions/car/car'
 CarStore = require 'stores/car/car'
 CarPic = require 'car.jpg'
@@ -52,7 +53,7 @@ CarItem = React.createClass {
 			<div className="g-itemList" onClick={@_goPage.bind this, detailCarUrl, @props.index} >
 				<dl className="clearfix">  
 					<dt className=" fl">
-						<img src={Image.getFullPath car?.carPic, Constants.carPicSize} />
+						<XeImage src={car?.carPic} size=Constants.carPicSize />
 					</dt>
 					<dd className=" fl">
 						<p>司机姓名: <span>{ car?.name }</span></p>
