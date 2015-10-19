@@ -94,7 +94,7 @@ SearchResultList = React.createClass {
 								<span>{ aResult.userName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper aResult.certificAtion }</span>
 							</div>
 							<div className="g-dirver-dis ll-font">
-								<Raty score={aResult.goodsScore} />
+								<Raty score={aResult.userScore} />
 							</div>
 						</div>
 						<div className="g-dirver-btn">

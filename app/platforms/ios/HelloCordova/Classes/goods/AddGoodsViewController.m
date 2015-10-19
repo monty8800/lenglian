@@ -70,6 +70,7 @@
         [Net postFile:params[1] params:params[2] files:params[3] cb:^(NSDictionary *responseDic) {
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
                 [[Global sharedInstance] showSuccess:@"货源发布成功！"];
+                [self.commandDelegate evalJs:@"(function(){window.addGoodsSucc()})()"];
                 [self.navigationController popViewControllerAnimated:YES];
             }
             else

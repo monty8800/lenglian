@@ -1,5 +1,6 @@
 require 'components/common/common'
 require 'user-center-style'
+require 'majia-style'
 
 React = require 'react/addons'
 XeImage = require 'components/common/xeImage'
@@ -56,7 +57,7 @@ AddWarehouse = React.createClass {
 				area:""						#区id
 				city:""						#市id
 				contacts:user.name				#联系人
-				isinvoice:"1"				#1:要发票 2：不要发票
+				isinvoice:"2"				#1:开发票 2：不开发票
 				latitude:""					#纬度
 				longitude:""				#经度,116.361905,39.948242 北站 
 				name:""						#仓库名称
@@ -104,7 +105,11 @@ AddWarehouse = React.createClass {
 			newState.contactMobile = mark.contactMobile
 			newState.params.phone = mark.contactMobile
 			@setState newState
-		else if mark is "saveAddAWarehouse"
+		# else if mark is "saveAddAWarehouse"
+
+
+
+	_addNewWarehouse : ->
 			newState = Object.create @state
 			newState.params.warehouseProperty = []
 			if !@state.params.name
@@ -479,14 +484,12 @@ AddWarehouse = React.createClass {
 					<input type="text" onChange={ @markChange } className="input-weak" placeholder="请输入备注消息" id="remark"/>
 				</div>
 			</div>
+			<div className="u-pay-btn">
+				<div className="u-pay-btn">
+					<a onClick={@_addNewWarehouse} className="btn">新增仓库</a>
+				</div>
+			</div>
 		</div>
 }
 
 React.render <AddWarehouse />,document.getElementById('content')
-
-# <span>{ user.name }</span> <span>{ user.mobile }</span>
-# <div className="u-pay-btn">
-# 	<div className="u-pay-btn">
-# 		<a href="#" className="btn">发布</a>
-# 	</div>
-# </div>

@@ -41,7 +41,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
-    [self.commandDelegate evalJs:@"(function(){window.tryReloadGoodsList()})()"];
+    [self.commandDelegate evalJs:@"(function(){window.tryReloadMyGoodsList()})()"];
     
 }
 -(void)releaseGoodsResource{
@@ -55,8 +55,10 @@
             GoodsDetailViewController *goodsDetailVC = [GoodsDetailViewController new];
             [self.navigationController pushViewController:goodsDetailVC animated:YES];
         }
-    }else if ([params[0] isEqualToString:@"shouldScrollEnable"]){
-        [self.webView.scrollView setScrollEnabled:([params[1] integerValue] == 0)];
+    }else if ([params[0] integerValue] == 3){
+        if ([params[1] isEqualToString:@"shouldScrollEnable"]) {
+            [self.webView.scrollView setScrollEnabled:([params[1] integerValue] == 0)];
+        }
     }
     
 }

@@ -51,6 +51,7 @@ AddressAction = {
 			actionType: Constants.actionType.SELECT_LIST_ADDRESS
 			address: address
 		}
+
 }
 
 module.exports = AddressAction

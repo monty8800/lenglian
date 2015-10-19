@@ -150,7 +150,7 @@ SearchWarehouse = React.createClass {
 								<span>{ aResult.name }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper aResult.certificAtion }</span>
 							</div>
 							<div className="g-dirver-dis ll-font">
-								<Raty score={ aResult.score } />
+								<Raty score={ aResult.userScore } />
 							</div>
 						</div>
 						{

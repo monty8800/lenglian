@@ -95,7 +95,7 @@ WarehouseDetail = React.createClass {
 		warehouseAreaList = warehouseArea.map (aArea,i) ->
 			<p>
 				<span>{if i is 0 then "仓库面积:"}</span>
-				<span>{ aArea }</span>
+				<span>{ aArea + '平方米'}</span>
 			</p>
 		, this
 
@@ -109,7 +109,7 @@ WarehouseDetail = React.createClass {
 				<div className="g-itemList">
 					<dl className="clearfix">
 						<dt className=" fl">
-							<XeImage src={ @state.warehouseDetail.imageUrl } size='100x100' />
+							<XeImage src={ @state.warehouseDetail.imageUrl } size='200x200' />
 						</dt>
 						<dd className=" fl">
 							<p>仓库状态: 

@@ -93,7 +93,7 @@ getDetail = (warehouseId) ->
 		_warehouse = _warehouse.set 'street', warehouseLoad.street			#地址 街道
 		_warehouse = _warehouse.set 'status', warehouseLoad.status  			# 0-空闲中  1-已发布 2-使用中
 		_warehouse = _warehouse.set 'styleType', warehouseLoad.styleType		#  驶入式、横梁式、平推式、自动立体货架式
-		_warehouse = _warehouse.set 'imageUrl', warehouseLoad.imageUrl			#图片
+		_warehouse = _warehouse.set 'imageUrl', warehouseLoad.imgurl			#图片
 		_warehouse = _warehouse.set 'invoice', warehouseLoad.isinvoice			# 0-不提供发票 1-提供发票
 		_warehouse = _warehouse.set 'contact', warehouseLoad.contacts  		#联系人姓名
 		_warehouse = _warehouse.set 'contactTel', warehouseLoad.phone 	#联系人电话
@@ -221,8 +221,8 @@ window.showAddWarehouseImage = (picUrl,type)->
 	param.type = type
 	WarehouseStore.emitChange param
 
-window.addWarehouseBtnClick = ->
-	WarehouseStore.emitChange "saveAddAWarehouse"
+# window.addWarehouseBtnClick = ->
+# 	WarehouseStore.emitChange "saveAddAWarehouse"
 	
 deleteWarehouseRequest = (warehouseId)->
 	user = UserStore.getUser()

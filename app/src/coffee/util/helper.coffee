@@ -93,7 +93,7 @@ goodsType = (type)->
 		when 3 then '冷冻'
 		when 4 then '急冻'
 		when 5 then '深冷'
-		else '请选择'
+		else ''
 
 warehouseType = (type)->
 	switch parseInt(type)

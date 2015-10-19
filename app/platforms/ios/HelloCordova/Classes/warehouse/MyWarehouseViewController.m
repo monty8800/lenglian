@@ -34,7 +34,7 @@
     self.title = @"我的仓库";
     
     UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addWarehouseButton setFrame:CGRectMake(0, 0, 80, 44)];
+    [addWarehouseButton setFrame:CGRectMake(0, 0, 60, 44)];
     [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
     [addWarehouseButton setTitle:@"新增仓库" forState:UIControlStateNormal];
     [addWarehouseButton addTarget:self action:@selector(addWarehouse) forControlEvents:UIControlEventTouchUpInside];

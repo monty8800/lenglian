@@ -15,6 +15,7 @@ Validator = require 'util/validator'
 DB = require 'util/storage'
 
 transData = DB.get 'transData' #这里是个字符串，如 from,to,by0,by1
+detailStreet = ''
 
 SelectAddress = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -43,8 +44,6 @@ SelectAddress = React.createClass {
 				DB.put 'transData', data
 				console.log 'trans____Data----', data
 				Plugin.nav.pop()
-
-					
 				
 
 	componentWillUnMount: ->

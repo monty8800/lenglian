@@ -56,13 +56,13 @@ GoodsDetail = React.createClass {
 			@setState newState
 		else if mark is 'deleteGoodsSucc'
 			Plugin.toast.success '删除成功'
-			DB.put 'shouldGoodsListReload',1
 			Plugin.nav.pop()
 
 	_deleteCurrentGoods: ->
+		toDeleteGoodsId = @state.goodsDetail.id
 		Plugin.alert '确定删除吗', '提示', (index)->
 			if index is 1
-				GoodsAction.deleteGoods @state.goodsDetail.id
+				GoodsAction.deleteGoods toDeleteGoodsId
 		, ['确定', '取消']
 
 
@@ -97,7 +97,10 @@ GoodsDetail = React.createClass {
 				<div className="g-detail-time01">
 					<span className="fl">装货时间:</span>
 					<span className="fr">
-						{ Moment(@state.goodsDetail.installStime).format('YYYY-MM-DD') } 到 { Moment(@state.goodsDetail.installEtime).format('YYYY-MM-DD') }
+						{
+							if @state.goodsDetail.installStime and @state.goodsDetail.installEtime
+								Moment(@state.goodsDetail.installStime).format('YYYY-MM-DD') + '到' +  Moment(@state.goodsDetail.installEtime).format('YYYY-MM-DD') 
+						}
 					</span>
 				</div>
 				{
@@ -141,7 +144,7 @@ GoodsDetail = React.createClass {
 
 				<p>
 					<span>价格类型:</span>
-					<span>{ Helper.priceTypeMapper @state.goodsDetail.priceType } { @state.goodsDetail.price}</span>
+					<span>{ Helper.priceTypeMapper @state.goodsDetail.priceType }  { if  @state.goodsDetail.price then @state.goodsDetail.price + '元' else ''}</span>
 				</p>
 				<p>
 					<span>支付方式:</span>

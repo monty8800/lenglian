@@ -134,6 +134,16 @@ addPassBy = ->
 addGoods = (params, files)->
 	Http.postFile Constants.api.ADD_GOODS, params, files
 
+window.addGoodsSucc = ->
+	DB.put 'shouldMyGoodsListReload',1
+
+window.tryReloadMyGoodsList = ()->
+	shouldReloadMyGoodsList = DB.get 'shouldMyGoodsListReload'
+	if (parseInt shouldReloadMyGoodsList) is 1
+		GoodsStore.emitChange 'myGoodsList:reloaded'
+		getUserGoodsList 1,10
+		console.log '货源__列表刷新......'
+
 
 getUserGoodsList = (pageNow,pageSize,status,priceType,createTime)->
 	params = {
@@ -146,7 +156,7 @@ getUserGoodsList = (pageNow,pageSize,status,priceType,createTime)->
 	}
 	Http.post Constants.api.GET_GOODS_LIST,params,(data)->
 
-		DB.remove 'shouldReloadGoodsList'
+		DB.remove 'shouldMyGoodsListReload'
 		if pageNow is 1
 			_myGoodsList = []
 		for goodsObj in data.GoodsResource
@@ -167,6 +177,7 @@ getUserGoodsList = (pageNow,pageSize,status,priceType,createTime)->
 			aGoodsModel = aGoodsModel.set 'imageUrl',goodsObj.imgurl
 			aGoodsModel = aGoodsModel.set 'resourceStatus',goodsObj.resourceStatus
 			aGoodsModel = aGoodsModel.set 'goodsType',goodsObj.goodsType
+			aGoodsModel = aGoodsModel.set 'createTime',goodsObj.createTime
 
 			_myGoodsList.push aGoodsModel	
 		GoodsStore.emitChange 'getUserGoodsListSucc'
@@ -213,6 +224,7 @@ getGoodsDetail = (goodsId)->
 		_goodsDetail = _goodsDetail.set 'resourceStatus',resource.resourceStatus
 		_goodsDetail = _goodsDetail.set 'goodsType',resource.goodsType
 		_goodsDetail = _goodsDetail.set 'price',resource.price
+		_goodsDetail = _goodsDetail.set 'payType',resource.payType
 
 		GoodsStore.emitChange 'getGoodsDetailSucc'
 	,(data)->
@@ -243,15 +255,10 @@ deleteGoodsWithID = (goodsId) ->
 		id:goodsId
 	}
 	Http.post Constants.api.DELETE_GOODS,params,(data)->
-		DB.put 'shouldReloadGoodsList',1
+		DB.put 'shouldMyGoodsListReload',1
 		GoodsStore.emitChange 'deleteGoodsSucc'
 	,(data)->
 		Plugin.toast.err data.msg
-
-window.tryReloadGoodsList = ->
-	shouldReloadGoodsList = DB.get 'shouldReloadGoodsList'
-	if shouldReloadGoodsList is 1
-		getUserGoodsList 1,10,''
 
 
 getSearchGoodsDetail = (goodsId,focusid)->

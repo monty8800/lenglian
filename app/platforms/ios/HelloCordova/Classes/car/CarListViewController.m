@@ -36,7 +36,7 @@
 -(void) createUI {
     self.title = @"我的车辆";
     UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addWarehouseButton setFrame:CGRectMake(0, 0, 80, 44)];
+    [addWarehouseButton setFrame:CGRectMake(0, 0, 60, 44)];
     [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
     [addWarehouseButton setTitle:@"新增车辆" forState:UIControlStateNormal];
     [addWarehouseButton addTarget:self action:@selector(addNewCar) forControlEvents:UIControlEventTouchUpInside];
@@ -48,7 +48,7 @@
     [self.navigationController pushViewController:addNewCarVC animated:YES];
 }
 -(void)updateCarListAfterAddNewCar{
-    NSString *js = [NSString stringWithFormat:@"(function(){window.updateMyCarList('2')})()"];
+    NSString *js = [NSString stringWithFormat:@"(function(){window.updateMyCarList('1')})()"];
     [self.commandDelegate evalJs: js];
 }
 -(void)commonCommand:(NSArray *)params {

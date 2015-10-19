@@ -214,7 +214,48 @@
                         break;
                 }
                 
-                NSString *carLength = [NSString stringWithFormat:@"车辆长度： %@米", [dic objectForKey:@"vehicle"]];
+                NSString *carLength = @"";
+                switch ([[dic objectForKey:@"vehicle"] integerValue]) {
+                    case 1:
+                        carLength = @"车辆长度： 3.8米";
+                        break;
+                    case 2:
+                        carLength = @"车辆长度： 4.2米";
+                        break;
+                    case 3:
+                        carLength = @"车辆长度： 4.8米";
+                        break;
+                    case 4:
+                        carLength = @"车辆长度： 5.8米";
+                        break;
+                    case 5:
+                        carLength = @"车辆长度： 6.2米";
+                        break;
+                    case 6:
+                        carLength = @"车辆长度： 6.8米";
+                        break;
+                    case 7:
+                        carLength = @"车辆长度： 7.4米";
+                        break;
+                    case 8:
+                        carLength = @"车辆长度： 7.8米";
+                        break;
+                    case 9:
+                        carLength = @"车辆长度： 8.6米";
+                        break;
+                    case 10:
+                        carLength = @"车辆长度： 9.6米";
+                        break;
+                    case 11:
+                        carLength = @"车辆长度： 13~15米";
+                        break;
+                    case 12:
+                        carLength = @"车辆长度： 15米以上米";
+                        break;
+                    default:
+                        carLength = @"车辆长度： 未知";
+                        break;
+                }
                 
                 [goodsList addObject:@{
                                        @"infoList":@[carNoStr, category, type, carLength],

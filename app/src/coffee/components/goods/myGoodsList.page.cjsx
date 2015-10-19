@@ -3,7 +3,6 @@ require 'user-center-style'
 
 React = require 'react/addons'
 Immutable = require 'immutable'
-
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
 
@@ -79,7 +78,7 @@ GoodsListItem = React.createClass {
 
 getStamp = (index)->
 	tempInt = 0
-	currentTimestamp = Math.round(new Date().getTime()/1000)
+	currentTimestamp = Math.round(new Date().getTime())
 	switch parseInt(index)
 		when 1
 			tempInt = 1
@@ -91,9 +90,10 @@ getStamp = (index)->
 			tempInt = 7
 		when 5
 			tempInt = 14
-	timeStamp = currentTimestamp - tempInt * 24 * 60 * 60
-	# if parseInt(index) is 0	
-	# 	timeStamp = ''
+	timeStamp = currentTimestamp - tempInt * 24 * 60 * 60 * 1000
+	Moment(timeStamp).format('YYYY-MM-DD')
+
+
 	
 GoodsList = React.createClass {
 	getInitialState:->
@@ -118,17 +118,26 @@ GoodsList = React.createClass {
 			newState = Object.create @state
 			newState.goodsList = GoodsStore.getMyGoodsList()		
 			@setState newState
-	
+		else if mark is 'myGoodsList:reloaded'
+			@setState {
+				showType:0
+				shouldShowMenu:0
+				selectedMenu1: 0
+				selectedMenu2: 0
+				selectedMenu3: 0 
+				goodsList:[]
+			}
+		
 
 	_topTypeClick : (index)->
 		newState = Object.create @state
 		if index is @state.showType
 			newState.shouldShowMenu = 0
 			newState.showType = 0
-			Plugin.run ['shouldScrollEnable',0]
+			Plugin.run [3,'shouldScrollEnable',0]
 		else
 			newState.shouldShowMenu = index
-			Plugin.run ['shouldScrollEnable',index]
+			Plugin.run [3,'shouldScrollEnable',index]
 			newState.showType = newState.shouldShowMenu
 		@setState newState
 
@@ -140,7 +149,7 @@ GoodsList = React.createClass {
 		newState.selectedMenu1 = index
 		newState.goodsList = []
 		newState.shouldShowMenu = 0
-		Plugin.run ['shouldScrollEnable',0]
+		Plugin.run [3,'shouldScrollEnable',0]
 		@setState newState 
 		stu = index
 		if parseInt(stu) is 0 then stu = ''
@@ -159,7 +168,7 @@ GoodsList = React.createClass {
 		newState.selectedMenu2 = index
 		newState.shouldShowMenu = 0
 		newState.goodsList = []
-		Plugin.run ['shouldScrollEnable',0]
+		Plugin.run [3,'shouldScrollEnable',0]
 		@setState newState 
 		stu = @state.selectedMenu1
 		if parseInt(stu) is 0 then stu = ''
@@ -178,7 +187,7 @@ GoodsList = React.createClass {
 		newState.selectedMenu3 = index
 		newState.shouldShowMenu = 0
 		newState.goodsList = []
-		Plugin.run ['shouldScrollEnable',0]
+		Plugin.run [3,'shouldScrollEnable',0]
 		@setState newState 
 		stu = @state.selectedMenu1
 		if parseInt(stu) is 0 then stu = ''
@@ -215,8 +224,8 @@ GoodsList = React.createClass {
 						<li onClick={ @_topTypeClick.bind this,2 } className={ if @state.showType is 2 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>价格类型
 							<div style={display: if @state.showType is 2 then 'block' else 'none'}  className="m-dropDown">
 								<p onClick={ @_subMenu2Click.bind this,0 } className={ if @state.selectedMenu2 is 0 then "active" else "" } >全部</p>
-								<p onClick={ @_subMenu2Click.bind this,1 } className={ if @state.selectedMenu2 is 1 then "active" else "" } >竞价</p>
-								<p onClick={ @_subMenu2Click.bind this,2 } className={ if @state.selectedMenu2 is 2 then "active" else "" } >一口价</p>
+								<p onClick={ @_subMenu2Click.bind this,1 } className={ if @state.selectedMenu2 is 1 then "active" else "" } >一口价</p>
+								<p onClick={ @_subMenu2Click.bind this,2 } className={ if @state.selectedMenu2 is 2 then "active" else "" } >竞价</p>
 							</div>
 						</li>
 						<li onClick={ @_topTypeClick.bind this,3 } className={ if @state.showType is 3 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>发布日期

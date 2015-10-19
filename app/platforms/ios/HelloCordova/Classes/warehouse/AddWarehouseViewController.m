@@ -36,12 +36,12 @@
 -(void) createUI {
     self.title = @"新增仓库";
     
-    UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [saveButton setFrame:CGRectMake(0, 0, 40, 44)];
-    [saveButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
-    [saveButton setTitle:@"完成" forState:UIControlStateNormal];
-    [saveButton addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:saveButton];
+//    UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [saveButton setFrame:CGRectMake(0, 0, 40, 44)];
+//    [saveButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+//    [saveButton setTitle:@"完成" forState:UIControlStateNormal];
+//    [saveButton addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:saveButton];
     
 }
 
