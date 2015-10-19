@@ -187,7 +187,6 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
         }
     }
 
-
     public class MyLocationListener implements BDLocationListener {
 
         @Override

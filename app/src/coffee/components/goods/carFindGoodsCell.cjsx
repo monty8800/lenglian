@@ -83,12 +83,9 @@ CarFindGoodsCell = React.createClass {
 					if @props.goods.get('priceType') is '1'
 						<p>价格类型 : <span>一口价</span><span>{@props.goods.get('price') or '0' + '元'}</span></p>
 				}
-				
 			</div>
 		</div>
 }
 
 
 module.exports = CarFindGoodsCell
-
-
