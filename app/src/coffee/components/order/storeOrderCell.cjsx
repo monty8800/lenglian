@@ -65,11 +65,12 @@ StoreCell = React.createClass {
 						</div>
 						<div className="g-dirver-btn">
 							{
+								# acceptMode 1显示接受、取消按钮 2显示等待司机同意 3显示等待仓库同意
 								switch parseInt(item?.orderState)
 									when 1
-										if item?.orderType is 'WG'
+										if parseInt(item?.sourceMode) is 1
 											<span>等待货主确认</span>
-										else if item?.orderType is 'GW'
+										else if parseInt(item?.acceptMode) is 2
 											<a onClick={@_receiver.bind this,1,item} className="u-btn02">接受</a>
 									when 2
 										if item?.payType is '3'

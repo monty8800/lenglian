@@ -156,6 +156,7 @@ getStoreOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'warehousePersonUserId', order.warehousePersonUserId
 				tempOrder = tempOrder.set 'version', order.version
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
+				tempOrder = tempOrder.set 'sourceMode', order.sourceMode
 				console.log '_________________________________________________',order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['store']

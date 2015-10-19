@@ -307,7 +307,7 @@ getSearchGoodsDetail = (goodsId,focusid)->
 		_searchGoodsDetail = _searchGoodsDetail.set 'invoice',resource.isinvoice
 		_searchGoodsDetail = _searchGoodsDetail.set 'resourceStatus',resource.resourceStatus
 		_searchGoodsDetail = _searchGoodsDetail.set 'goodsType',resource.goodsType	
-
+		_searchGoodsDetail = _searchGoodsDetail.set 'payType',resource.payType	
 		GoodsStore.emitChange 'getSearchGoodsDetailSucc'
 	,(data)->
 		Plugin.toast.err data.msg
