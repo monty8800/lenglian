@@ -137,7 +137,7 @@ AddGoods = React.createClass {
 			Plugin.toast.err '收货人姓名不正确'
 		else if not Validator.mobile @state.reciverMobile
 			Plugin.toast.err '收货人手机号不正确'
-		if not Validator.remark @state.remark
+		else if not Validator.remark @state.remark
 			Plugin.toast.err '备注要1~30个字符哦'
 		else
 			files = []
@@ -268,7 +268,7 @@ AddGoods = React.createClass {
 			    <i>{if @state.installMinTime then @state.installMinTime + '到' + @state.installMaxTime else ''}</i>
 			</div>
 			<div onClick={@_selectTime.bind this, 'arrive'} className="u-arrow-right ll-font">
-				<span>货到时间</span> 
+				<span>到货时间</span> 
 				<i>{if @state.arriveMinTime then @state.arriveMinTime + '到' + @state.arriveMaxTime else '选填'}</i>
 			</div>
 		</div>
@@ -383,8 +383,8 @@ AddGoods = React.createClass {
 				<input className="input-weak" valueLink={@linkState 'reciverMobile'} type="tel" placeholder="请输入或点击图标导入" />
 			</div>
 		</div>
-		<div className="m-releaseitem">
-			<div className=" ll-font">
+		<div className="m-releaseitem">			
+			<div className="u-voice ll-font">
 				<label htmlFor="remark"><span>备注说明</span> </label>
 				<input className="input-weak" valueLink={@linkState 'remark'} type="text" placeholder="请输入备注消息" id="remark"/>
 			</div>
@@ -397,7 +397,6 @@ AddGoods = React.createClass {
 		</div>
 		</section>
 }
-
 
 React.render <AddGoods  />, document.getElementById('content')
 

@@ -174,8 +174,8 @@
 	.g-div02-item {
 		font-size: 0;
 		.u-label {
-			width: 107/$ppr;
-			margin:30/$ppr 10/$ppr 30/$ppr 0;
+//			width: 107/$ppr;
+			margin:30/$ppr 40/$ppr 30/$ppr 0;
 			word-wrap:break-word;
 			word-break:break-all;
 			display: inline-block;
@@ -183,7 +183,7 @@
 			overflow: hidden;
 			text-overflow:ellipsis;
 			&:nth-child(4n){
-				margin-right: 0;
+//				margin-right: 0;
 			}
 		}
 	}

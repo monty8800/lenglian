@@ -107,6 +107,8 @@ public class MyGoodsActivity extends BaseCordovaActivity implements CordovaInter
             mWebView.init(this, ApiUtils.API_COMMON_URL + "myGoodsList.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:tryReloadMyGoodsList()");
         super.onResume();
     }
 

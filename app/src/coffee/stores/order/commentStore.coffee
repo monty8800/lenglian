@@ -23,24 +23,24 @@ getCommentList = (userId,status,startNo,pageSize)->
 		userId: UserStore.getUser()?.id
 	},(data)->
 		comment = new Comment
+		console.log '-------------data:',data
 		if startNo is '0'
 			_commentList = [];
-		for aComment in data
-			comment = comment.set 'onsetId', aComment.onsetId
-			comment = comment.set 'onsetRole', aComment.onsetRole
-			comment = comment.set 'onsetUsercode', aComment.onsetUsercode
-			comment = comment.set 'targetId', aComment.targetId
-			comment = comment.set 'targetRole', aComment.targetRole
-			comment = comment.set 'targetUsercode', aComment.targetUsercode
-			comment = comment.set 'content', aComment.content
-			comment = comment.set 'createTime', aComment.createTime
-			comment = comment.set 'orderNo', aComment.orderNo
-			comment = comment.set 'score', aComment.score
-			comment = comment.set 'id', aComment.id
-			comment = comment.set 'onsetName', aComment.onsetName
-			comment = comment.set 'onsetName', aComment.onsetName
-			_commentList.push comment
-
+		for aComment in data.myMjRates
+				comment = comment.set 'onsetId', aComment.onsetId
+				comment = comment.set 'onsetRole', aComment.onsetRole
+				comment = comment.set 'onsetUsercode', aComment.onsetUsercode
+				comment = comment.set 'targetId', aComment.targetId
+				comment = comment.set 'targetRole', aComment.targetRole
+				comment = comment.set 'targetUsercode', aComment.targetUsercode
+				comment = comment.set 'content', aComment.content
+				comment = comment.set 'createTime', aComment.createTime
+				comment = comment.set 'orderNo', aComment.orderNo
+				comment = comment.set 'score', aComment.score
+				comment = comment.set 'id', aComment.id
+				comment = comment.set 'onsetName', aComment.onsetName
+				comment = comment.set 'onsetName', aComment.onsetName
+				_commentList.push comment
 		console.log '__ _评价列表__',_commentList
 		CommentStore.emitChange 'getCommentList'
 	,null,true

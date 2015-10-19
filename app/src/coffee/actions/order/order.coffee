@@ -69,29 +69,32 @@ OrderAction = {
 			orderId: orderId
 		}
 
-	carOwnercomfitOrder: (carPersonUserId, orderNo, version, index)->
+	carOwnercomfitOrder: (carPersonUserId, orderNo, version, orderCarId, index)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CAR_OWNER_CONFIRM_ORDER
 			carPersonUserId: carPersonUserId
 			orderNo: orderNo
 			version: version
+			orderCarId: orderCarId
 			index: index
 		}	
 
-	carOwnercomfitOrder2: (carPersonUserId, orderNo, version, index)->
+	carOwnercomfitOrder2: (carPersonUserId, orderNo, version, orderCarId, index)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CAR_OWNER_CONFIRM_ORDER2
 			carPersonUserId: carPersonUserId
 			orderNo: orderNo
 			version: version
+			orderCarId: orderCarId
 			index: index
 		}		
-	carOwnerCancelOrder: (carPersonUserId, orderNo, version, index)->
+	carOwnerCancelOrder: (carPersonUserId, orderNo, version, orderCarId, index)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CAR_OWNER_CANCEL_ORDER
 			carPersonUserId: carPersonUserId
 			orderNo: orderNo
 			version: version
+			orderCarId: orderCarId
 			index: index			
 		}	
 	carOwnerOrderDetail: (carPersonUserId, orderNo, goodsPersonUserId, orderCarId)->
