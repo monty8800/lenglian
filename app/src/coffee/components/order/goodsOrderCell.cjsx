@@ -67,7 +67,7 @@ GoodsCell = React.createClass {
 
 			<div onClick={@_goDetail} className="g-item g-item-des">
 				<p>货物描述 : <span>{@props.order.goodsDesc}</span><span>{@props.order.goodsWeight + '吨'}</span></p>
-				<p>支付方式 : <span>{Helper.payTypeMapper @props.order.payType}</span><span>{@props.order.price + '元'}</span></p>
+				<p>支付方式 : <span>{Helper.payTypeMapper @props.order.payType}</span></p>
 			</div>
 		</div>
 }

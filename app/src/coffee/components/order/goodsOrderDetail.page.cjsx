@@ -298,9 +298,13 @@ GoodsOrderDetail = React.createClass {
 								<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
 							</div>
 					}
-					<div className="g-pay-btn">
-						<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
-					</div>
+					{
+						if parseInt(@state.detail?.get 'orderState') isnt 5
+							<div className="g-pay-btn">
+								<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
+							</div>
+					}
+
 				</div>
 		}
 		</section>
