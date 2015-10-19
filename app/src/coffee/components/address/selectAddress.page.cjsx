@@ -36,7 +36,7 @@ SelectAddress = React.createClass {
 			if not address.lati
 				Plugin.toast.err '请选择城市'
 			else if not Validator.street @state.street
-				Plugin.toast.err '请填写详细地址'
+				Plugin.toast.err '请填写正确的详细地址，最多20位'
 			else		
 				#根据上个界面放在transddata中的key，把数据放在value里传回去
 				data = {}

@@ -77,12 +77,20 @@ CarBidGoods = React.createClass {
 		if not Validator.price @state.price
 			Plugin.toast.err '请输入正确的金额，最多两位小数'
 		else
-			OrderAction.carBidGoods {
-				userId: UserStore.getUser()?.id
-				carResourceId: @state.carId
-				goodsResourceId: @state.goodsId
-				price: @state.price
-			}
+			carId = @state.carId
+			goodsId = @state.goodsId
+			price = @state.price
+			Plugin.alert '确认提交竞价?一辆车仅有3次竞价机会', '提醒', (index)->
+				console.log 'click index', index
+				if index is 1
+					OrderAction.carBidGoods {
+						userId: UserStore.getUser()?.id
+						carResourceId: carId
+						goodsResourceId: goodsId
+						price: price
+					}
+			, ['竞价', '取消']
+
 
 
 	getInitialState: ->

@@ -196,12 +196,13 @@ carBidGoods = (params)->
 		console.log 'car bid goods result ', data
 		OrderStore.emitChange 'car:bid:goods:done'
 	, (data)->
-		if data.code is '0002'
-			Plugin.toast.err '已经竞价3次，不能继续竞价了！'
-		else if data.code is '0001'
-			Plugin.toast.err '已经有5个车源参与竞价，不能继续竞价了！'
-		else
-			Plugin.toast.err data.msg
+		Plugin.toast.err data.msg
+		# if data.code is '0002'
+		# 	Plugin.toast.err '已经竞价3次，不能继续竞价了！'
+		# else if data.code is '0001'
+		# 	Plugin.toast.err '已经有5个车源参与竞价，不能继续竞价了！'
+		# else
+		# 	Plugin.toast.err data.msg
 	, true
 
 selectBidCar = (params, orderId)->

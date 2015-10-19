@@ -48,18 +48,21 @@ FromTo = React.createClass {
 	render: ->
 		console.log 'state---', @state
 		passBy = @state.passBy.toArray().map (address, i)->
-			<div key={i} onClick={@_selectAddress.bind this,  'passBy' + i} className="g-adr-middle ll-font">
-				<input value={if address.lati then address.provinceName + address.cityName + address.areaName + address.street else ''} readOnly="readOnly" type="type" placeholder="途径地"/>
+			<div key={i} onClick={@_selectAddress.bind this,  'passBy' + i} className="g-adr-pass ll-font g-adr-pass-line">
+				<p>{if address.lati then address.provinceName + address.cityName + address.areaName + address.street else '途径地'} </p>
+				<i className="icon-mask"></i>
 			</div>
 		,this
 
 		<div  className="m-releasehead ll-font">
 			<div onClick={@_selectAddress.bind this, 'to'} className="g-adr-end ll-font g-adr-end-line">
-				<input readOnly="readOnly" type="type" value={if @state.to.lati then @state.to.provinceName + @state.to.cityName + @state.to.areaName + @state.to.street else ''} placeholder="输入终点"/>
+				<p>{if @state.to.lati then @state.to.provinceName + @state.to.cityName + @state.to.areaName + @state.to.street else '输入终点'}</p>
+				<i className="icon-mask"></i>
 			</div>
 			{passBy}
 			<div onClick={@_selectAddress.bind this, 'from'} className="g-adr-start ll-font g-adr-start-line">
-				<input readOnly="readOnly" type="type" value={if @state.from.lati then @state.from.provinceName + @state.from.cityName + @state.from.areaName + @state.from.street else ''} placeholder="输入起点"/>
+				<p>{if @state.from.lati then @state.from.provinceName + @state.from.cityName + @state.from.areaName + @state.from.street else '输入起点'} </p>
+				<i className="icon-mask"></i>
 			</div>
 			<a onClick={@_addPassBy} className="u-addIcon"></a>
 		</div>
