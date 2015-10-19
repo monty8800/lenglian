@@ -25,25 +25,27 @@ SelectAddress = React.createClass {
 			lati: address.lati
 			longi: address.longi
 			address: if address.areaName then address.provinceName + address.cityName + address.areaName else '选择地区'
-			street: address.street or '详细地址'
+			street: address.street or ''
 		}
 	componentDidMount: ->
 		AddressStore.addChangeListener @_change
 		AddressAction.locate() if not AddressStore.getAddress()?.lati
 
-		window.selectCurrent = ->
+		selectCurrent = ->
 			address = AddressStore.getAddress()
 			if not address.lati
 				Plugin.toast.err '请选择城市'
-			# else if not Validator.street @state.street
-				# Plugin.toast.err '请填写详细地址'
+			else if not Validator.street @state.street
+				Plugin.toast.err '请填写详细地址'
 			else		
 				#根据上个界面放在transddata中的key，把数据放在value里传回去
 				data = {}
+				address = address.set 'street', @state.street
 				data[transData] = address.toJS()
 				DB.put 'transData', data
 				console.log 'trans____Data----', data
 				Plugin.nav.pop()
+		window.selectCurrent = selectCurrent.bind this
 				
 
 	componentWillUnMount: ->
@@ -61,7 +63,7 @@ SelectAddress = React.createClass {
 				lati: address.lati
 				longi: address.longi
 				address: address.provinceName + address.cityName + address.areaName
-				street: address.street or '详细地址'
+				street: address.street or ''
 			}
 		else if arg.msg is 'address:select'
 			#根据上个界面放在transddata中的key，把数据放在value里传回去

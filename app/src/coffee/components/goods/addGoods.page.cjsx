@@ -386,7 +386,7 @@ AddGoods = React.createClass {
 		<div className="m-releaseitem">
 			<div className=" ll-font">
 				<label htmlFor="remark"><span>备注说明</span> </label>
-				<input valueLink={@linkState 'remark'} type="text" placeholder="请输入备注消息" id="remark"/>
+				<input className="input-weak" valueLink={@linkState 'remark'} type="text" placeholder="请输入备注消息" id="remark"/>
 			</div>
 		</div>
 					
