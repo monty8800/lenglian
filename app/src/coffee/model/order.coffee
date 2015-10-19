@@ -144,6 +144,8 @@ Order = Immutable.Record {
 	receiverMobile: null
 	shipperMobile: null
 	orderCarId: null
+	mjRateflag: null
+	orderCarId: null
 
 }
 

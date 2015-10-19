@@ -143,6 +143,17 @@ AddCar = React.createClass {
 		}
 
 	handleSubmit: ->
+		bulky = @state.bulky
+		if bulky.length isnt 0
+			h = bulky.split '.'
+			if h.length > 2
+				return Plugin.toast.err '只能包含一个小数点哦'
+			else
+				index = bulky.indexOf '.'
+				last = bulky.substr index + 1, bulky.length
+				console.log '------hasdfads:', last
+				if last.length > 2
+					return Plugin.toast.err '只能有两位小数哦'
 		if not Validator.carNum @state.carNo
 			Plugin.toast.err '请输入正确的车牌号'
 		else if @state.category is ''

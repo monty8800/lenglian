@@ -70,7 +70,7 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'toProvinceName', order.toProvinceName
 				tempOrder = tempOrder.set 'priceType', order.priceType
 				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + ' ' + order.goodsType
-				tempOrder = tempOrder.set 'payType', order.payType
+				tempOrder = tempOrder.set 'payType', order.payType			
 				tempOrder = tempOrder.set 'orderNo', order.orderNo
 				tempOrder = tempOrder.set 'orderType', order.orderType
 				tempOrder = tempOrder.set 'orderState', order.orderState
@@ -111,14 +111,17 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'destination', order.destination
 				tempOrder = tempOrder.set 'setOut', order.setOut
 				tempOrder = tempOrder.set 'priceType', order.priceType
-				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + order.goodsType
+				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + ' ' + order.goodsType
 				tempOrder = tempOrder.set 'payType', order.payType
 				tempOrder = tempOrder.set 'price', order.price
 				tempOrder = tempOrder.set 'carPersonUserId', order.carPersonUserId
 				tempOrder = tempOrder.set 'goodSsourceId', order.goodSsourceId
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				tempOrder = tempOrder.set 'version', order.version
+				tempOrder = tempOrder.set 'mjRateflag', order.mjRateflag
 				tempOrder = tempOrder.set 'orderCarId', order.orderCarId
+				tempOrder = tempOrder.set 'goodsWeight', order.goodsWeight
+				tempOrder = tempOrder.set 'goodsPersonName', order.goodsPersonName
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['car']
 	, (err)->
@@ -244,12 +247,13 @@ orderGoodsFinish = (params, orderId)->
 			Plugin.nav.pop()
 
 # 车主确认订单
-_carOwnerConfirmOrder = (carPersonUserId, orderNo, version, index)->
+_carOwnerConfirmOrder = (carPersonUserId, orderNo, version, orderCarId, index)->
 	Plugin.loading.show '正在确认...'
 	Http.post Constants.api.car_owner_confirm_order, {
 		carPersonUserId: carPersonUserId
 		orderNo: orderNo
 		version: version
+		orderCarId: orderCarId
 	}, (data)->
 		Plugin.loading.hide()
 		Plugin.toast.success '接受订单成功'
@@ -258,12 +262,13 @@ _carOwnerConfirmOrder = (carPersonUserId, orderNo, version, index)->
 		Plugin.loading.hide()
 		Plugin.toast.err data.msg
 
-_carOwnerConfirmOrder2 = (carPersonUserId, orderNo, version, index)->
+_carOwnerConfirmOrder2 = (carPersonUserId, orderNo, version, orderCarId, index)->
 	Plugin.loading.show '正在确认...'
 	Http.post Constants.api.car_owner_confirm_order, {
 		carPersonUserId: carPersonUserId
 		orderNo: orderNo
 		version: version
+		orderCarId: orderCarId
 	}, (data)->
 		Plugin.loading.hide()
 		Plugin.toast.success '接受订单成功'
@@ -274,12 +279,13 @@ _carOwnerConfirmOrder2 = (carPersonUserId, orderNo, version, index)->
 		Plugin.toast.err data.msg
 
 # 车主取消订单
-_carOwnerCancelOrder = (carPersonUserId, orderNo, version, index)->
+_carOwnerCancelOrder = (carPersonUserId, orderNo, version, orderCarId, index)->
 	Plugin.loading.show '正在取消...'
 	Http.post Constants.api.car_owner_cancel_order, {
 		carPersonUserId: carPersonUserId
 		orderNo: orderNo
 		version: version
+		orderCarId: orderCarId
 	}, (data)->
 		DB.put 'detailCallBackFlag', index
 		Plugin.loading.hide()
@@ -335,6 +341,8 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId, orderCarId)-
 		_orderDetail = _orderDetail.set 'receiverMobile', temp.receiverMobile	
 		_orderDetail = _orderDetail.set 'goodsPersonMobile', temp.goodsPersonMobile
 		_orderDetail = _orderDetail.set 'createTime', temp.createTime
+		_orderDetail = _orderDetail.set 'mjRateflag', temp.mjRateflag
+		_orderDetail = _orderDetail.set 'orderCarId', temp.orderCarId
 		OrderStore.emitChange ['car_owner_order_detail']
 	, (data)->
 		Plugin.toast.err data.msg
@@ -499,9 +507,9 @@ Dispatcher.register (action) ->
 		when Constants.actionType.ORDER_CAR_BID_GOODS then carBidGoods(action.params)
 		when Constants.actionType.BROWSER_TEMP then browser_temp(action.params)
 		when Constants.actionType.GET_BIDDING_LIST then getBinddingList(action.goodsResourceId)
-		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER then _carOwnerConfirmOrder(action.carPersonUserId, action.orderNo, action.version, action.index) 
-		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER2 then _carOwnerConfirmOrder2(action.carPersonUserId, action.orderNo, action.version, action.index) 
-		when Constants.actionType.CAR_OWNER_CANCEL_ORDER then _carOwnerCancelOrder(action.carPersonUserId, action.orderNo, action.version, action.index)
+		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER then _carOwnerConfirmOrder(action.carPersonUserId, action.orderNo, action.version, action.orderCarId, action.index) 
+		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER2 then _carOwnerConfirmOrder2(action.carPersonUserId, action.orderNo, action.version, action.orderCarId, action.index) 
+		when Constants.actionType.CAR_OWNER_CANCEL_ORDER then _carOwnerCancelOrder(action.carPersonUserId, action.orderNo, action.version, action.orderCarId, action.index)
 		when Constants.actionType.CAR_OWNER_ORDER_DETAIL then carOwnerOrderDetail(action.carPersonUserId, action.orderNo, action.goodsPersonUserId, action.orderCarId)
 		when Constants.actionType.ORDER_FINISH then _orderFinish(action.orderNo, action.version, action.carPersonUserId)
 		when Constants.actionType.ATTENTION then _attention(action.params)

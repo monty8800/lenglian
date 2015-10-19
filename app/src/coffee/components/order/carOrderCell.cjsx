@@ -22,23 +22,27 @@ CarItem = React.createClass {
 		Plugin.alert '确认接受吗?', '提示', (index)->
 			if index is 1
 				if type is 1 # 接受
-					OrderAction.carOwnercomfitOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
+					OrderAction.carOwnercomfitOrder(item?.carPersonUserId, item?.orderNo, item.version, item.orderCarId, i)
 				else if type is 2 # 取消
-					OrderAction.carOwnerCancelOrder(item?.carPersonUserId, item?.orderNo, item.version, i)
+					OrderAction.carOwnerCancelOrder(item?.carPersonUserId, item?.orderNo, item.version, item.orderCarId, i)
 		, ['确定', '取消']
 		e.stopPropagation()
 
-	comment: (targetId, orderNo, e)->
+	comment: (targetId, orderNo, i, e)->
 		DB.put 'transData', {
 			userRole: '2'
 			targetId: targetId
 			targetRole: '1'
 			orderNo: orderNo
 		}
+		# 保存当前下标
+		DB.put 'indexOfComment', i
 		Plugin.nav.push ['doComment']
 		e.stopPropagation()
 		
 	_detail: (item, i)->
+		# 保存当前下标
+		DB.put 'indexOfComment', i
 		console.log '---------orderCarId:', item.orderCarId 
 		DB.put 'car_owner_order_detail', [item?.carPersonUserId, item?.orderNo, item?.goodsPersonUserId, item.orderCarId, i]
 		Plugin.nav.push ['carOwnerOrderDetail']
@@ -76,6 +80,8 @@ CarItem = React.createClass {
 			@setState {
 				isInit: false
 			}
+		else if params[0] is 'commentSuccess'
+			console.log '---------评价成功'
 
 	render: ->
 		items = @props.items.map (item, i)->
@@ -88,7 +94,7 @@ CarItem = React.createClass {
 						</div>	
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
-								<div>{item?.carPersonName}</div>
+								<div>{item?.goodsPersonName}</div>
 							</div>
 							<div className="g-dirver-dis ll-font">	
 								{
@@ -114,7 +120,10 @@ CarItem = React.createClass {
 								else if item?.orderState is '3'
 									<span>货物运输中</span>
 								else if item?.orderState is '4'
-									<a href="###" onClick={@comment.bind this, item?.goodsPersonUserId, item?.orderNo} className="u-btn02">评价货主</a>
+									if item?.mjRateflag is true
+										<span>已评价</span>
+									else
+										<a href="###" onClick={@comment.bind this, item?.goodsPersonUserId, item?.orderNo, i} className="u-btn02">评价货主</a>
 								else if item?.orderState is '5'
 									<span>订单已取消</span>
 							}
@@ -130,9 +139,9 @@ CarItem = React.createClass {
 					</div>
 				</div>
 				<div className="g-item g-item-des">
-					<p>价格类型：<span>{Helper.priceTypeMapper item?.priceType}</span><span>{item?.price}元</span></p>
-					<p>货物描述 : <span>{item?.goodsDesc}</span></p>
-					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}</span></p>
+					<p>价格类型：<span>{Helper.priceTypeMapper item?.priceType}</span></p>
+					<p>货物描述 : <span>{item?.goodsDesc}{item?.goodsWeight + '吨'}</span></p>
+					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}{item?.price + '元'}</span></p>
 				</div>
 			</div>
 		, this

@@ -57,7 +57,7 @@ Login = React.createClass {
 			<ul>
 				<li>
 					<span className="ll-font u-user-icon"></span>
-					<input type="tel" maxLength=11 placeholder="请输入手机号" valueLink={@linkState 'mobile'} />
+					<input className="input-weak" type="text" maxLength=11 placeholder="请输入手机号" valueLink={@linkState 'mobile'} />
 				</li>
 				<li>
 					<span className="ll-font u-pass-icon"></span>

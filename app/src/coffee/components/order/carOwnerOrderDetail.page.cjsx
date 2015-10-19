@@ -102,16 +102,16 @@ OrderDetail = React.createClass {
 		console.log '--------tel:', tel
 		window.location.href = 'tel:' + tel
 
-	operation: (params, carPersonUserId, orderNo, version)->
+	operation: (params, carPersonUserId, orderNo, version, orderCarId)->
 		if params is 1 
 			Plugin.alert '确认接受吗?', '提示', (index)->
 				if index is 1
-					OrderAction.carOwnercomfitOrder2 carPersonUserId, orderNo, version, _index
+					OrderAction.carOwnercomfitOrder2 carPersonUserId, orderNo, version, orderCarId, _index
 			, ['确定', '取消']
 		else if params is 2	
 			Plugin.alert '确定取消吗', '提示', (index)->
 				if index is 1
-					OrderAction.carOwnerCancelOrder carPersonUserId, orderNo, version, _index
+					OrderAction.carOwnerCancelOrder carPersonUserId, orderNo, version, orderCarId, _index
 			, ['确定', '取消']
 
 	render: ->
@@ -127,7 +127,10 @@ OrderDetail = React.createClass {
 		else if @state.order?.orderState is '3'
 			title = '货物运输中'
 		else if @state.order?.orderState is '4'
-			title = '待评价'
+			if @state.order?.mjRateflag is true
+				title = '已评价'
+			else
+				title = '待评价'
 		else if @state.order?.orderState is '5'
 			title = '订单已取消'
 
@@ -226,11 +229,11 @@ OrderDetail = React.createClass {
 			</div>	
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' then 'block' else 'none'}}>
 				<div className="g-pay-btn">
-					<a href="###" className="u-btn02" onClick={@operation.bind this, 1, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version}>确定</a>
-					<a href="###" className="u-btn02" onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version}>取消</a>
+					<a href="###" className="u-btn02" onClick={@operation.bind this, 1, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>确定</a>
+					<a href="###" className="u-btn02" onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>取消</a>
 				</div>
 			</div>
-			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '4' then 'block' else 'none'}}>
+			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '4' and @state.order.mjRateflag is false then 'block' else 'none'}}>
 				<div className="g-pay-btn">
 					<a href="###" className="u-btn02" onClick={@_comment.bind this, @state.order.goodsPersonUserId, @state.order.orderNo}>评价货主</a>
 				</div>
