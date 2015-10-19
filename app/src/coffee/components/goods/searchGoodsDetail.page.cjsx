@@ -88,7 +88,7 @@ GoodsDetail = React.createClass {
 				<div className="g-detail-dirver">
 					<div className="g-detail">					
 						<div className="g-dirver-pic">
-							<XeImage src={ @state.goodsDetail.userHeaderImageUrl } size='100x100' type='avatar'/>
+							<XeImage src={ @state.goodsDetail.userHeaderImageUrl } size='130x130' type='avatar'/>
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
@@ -133,12 +133,16 @@ GoodsDetail = React.createClass {
 						{ Moment(@state.goodsDetail.installStime).format('YYYY-MM-DD') } 到 { Moment(@state.goodsDetail.installEtime).format('YYYY-MM-DD') }
 					</span>
 				</div>
-				<div className="g-detail-time01">
-					<span className="fl">到货时间:</span>
-					<span className="fr">
-						{ Moment(@state.goodsDetail.installStime).format('YYYY-MM-DD') } 到 { Moment(@state.goodsDetail.arrivalEtime).format('YYYY-MM-DD') }
-					</span>
-				</div>
+				{
+					if @state.goodsDetail.arrivalStime
+						<div className="g-detail-time01">
+							<span className="fl">到货时间:</span>
+							<span className="fr">
+								{ Moment(@state.goodsDetail.arrivalStime).format('YYYY-MM-DD') } 到 { Moment(@state.goodsDetail.arrivalEtime).format('YYYY-MM-DD') }
+							</span>
+						</div>	
+				}
+
 			</div>
 			<div className="m-item01">
 				<div className="g-pro-p">
@@ -146,7 +150,7 @@ GoodsDetail = React.createClass {
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<XeImage src={ @state.goodsDetail.imageUrl } size='100x100' />
+						<XeImage src={ @state.goodsDetail.imageUrl } size='200x200' />
 					</div>
 					<div className="g-pro-text fl">
 						<p>货物规格: <span>{ if @state.goodsDetail.weight then @state.goodsDetail.weight + '吨' else ''} { if @state.goodsDetail.cube then @state.goodsDetail.cube + '方' else ''}</span></p>
@@ -161,10 +165,14 @@ GoodsDetail = React.createClass {
 					<span>发货人:</span>
 					<span className="ll-font g-info-name">{ @state.goodsDetail.sender }</span>
 				</p>
-				<p>
-					<span>收货人:</span>
-					<span className="ll-font g-info-name">{ @state.goodsDetail.receiver }</span>
-				</p>
+				{
+					if @state.goodsDetail.receiver
+						<p>
+							<span>收货人:</span>
+							<span className="ll-font g-info-name">{ @state.goodsDetail.receiver }</span>
+						</p>					
+				}
+
 				<p>
 					<span>价格类型:</span>
 					<span>{ Helper.priceTypeMapper @state.goodsDetail.priceType } { @state.goodsDetail.price}</span>
