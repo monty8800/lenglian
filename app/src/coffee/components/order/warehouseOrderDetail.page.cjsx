@@ -110,7 +110,6 @@ WarehouseOrderDetail = React.createClass {
 								<span>{ @state.orderDetail.goodsPersonName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper @state.orderDetail.goodsPersonAuthMode}</span>
 							</div>
 							<div className="g-dirver-dis ll-font">
-									# @state.orderDetail.goodsPersonScore
 								<Raty score={ @state.data.goodsScore } />
 							</div>
 						</div>
@@ -124,7 +123,7 @@ WarehouseOrderDetail = React.createClass {
 					<div className="g-adr-store ll-font">
 						{ @state.orderDetail.warehousePlace }
 						<p>
-							<span>{ Moment(@state.orderDetail.goodsCreateTime ).format('YYYY-MM-DD') }</span> 至 <span>2015-10-1</span>
+							<span>{ Moment(@state.orderDetail.goodsCreateTime ).format('YYYY-MM-DD') }</span> 至 <span>错误数据 不要提bug</span>
 						</p>
 					</div>
 				</div>

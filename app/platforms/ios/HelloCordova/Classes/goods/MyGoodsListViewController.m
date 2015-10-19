@@ -55,6 +55,8 @@
             GoodsDetailViewController *goodsDetailVC = [GoodsDetailViewController new];
             [self.navigationController pushViewController:goodsDetailVC animated:YES];
         }
+    }else if ([params[0] isEqualToString:@"shouldScrollEnable"]){
+        [self.webView.scrollView setScrollEnabled:([params[1] integerValue] == 0)];
     }
     
 }

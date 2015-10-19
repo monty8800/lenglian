@@ -135,12 +135,14 @@ addGoods = (params, files)->
 	Http.postFile Constants.api.ADD_GOODS, params, files
 
 
-getUserGoodsList = (pageNow,pageSize,status)->
+getUserGoodsList = (pageNow,pageSize,status,priceType,createTime)->
 	params = {
 		userId: _user?.id
 		pageNow:pageNow
 		pageSize:pageSize
 		resourceStatus:status
+		priceType:priceType
+		createTime:createTime
 	}
 	Http.post Constants.api.GET_GOODS_LIST,params,(data)->
 
@@ -323,7 +325,7 @@ Dispatcher.register (action) ->
 		when Constants.actionType.CLEAR_GOODS_PIC then clearPic()
 		when Constants.actionType.CLEAR_GOODS then clearGoods()
 
-		when Constants.actionType.GET_GOODS_LIST then getUserGoodsList(action.pageNow,action.pageSize,action.status)
+		when Constants.actionType.GET_GOODS_LIST then getUserGoodsList(action.pageNow,action.pageSize,action.status,action.priceType,action.createTime)
 		when Constants.actionType.GET_GOODS_DETAIL then getGoodsDetail(action.goodsId)
 
 		when Constants.actionType.SEARCH_GOODS then searchGoods(action.params)
