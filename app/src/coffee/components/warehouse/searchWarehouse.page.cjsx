@@ -128,7 +128,7 @@ SearchWarehouse = React.createClass {
 					Plugin.toast.err '尚未通过货主认证，请认证后再试'
 		e.stopPropagation()
 
-	_loadMore = ->
+	_loadMore : ->
 		WarehouseAction.searchWarehouse {
 			startNo: @state.startNo
 			pageSize: @state.pageSize
@@ -194,9 +194,7 @@ SearchWarehouse = React.createClass {
 				<div className="g-bgPic"></div>
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
 			</div>
-			# <InfiniteScroll pageStart=1 loadMore={@_loadMore} hasMore={@state.hasMore}>
-				{ searchResultList }
-			# </InfiniteScroll>
+			{ searchResultList }
 			
 
 		</div>
