@@ -188,7 +188,7 @@ GoodsList = React.createClass {
 		if parseInt(ct) is 0 then ct = ''  else ct = getStamp(ct)
 		GoodsAction.getGoodsList 1,10,stu,pt,ct
 
-	_loadMore ->
+	_loadMore: ->
 		stu = @state.selectedMenu1
 		if parseInt(stu) is 0 then stu = ''
 		pt = @state.selectedMenu2
@@ -232,9 +232,7 @@ GoodsList = React.createClass {
 					</ul>
 				</div>
 				
-				# <InfiniteScroll pageStart=1 loadMore={@_loadMore} hasMore={@state.hasMore}>
-					<GoodsListItem list={ @state.goodsList } />
-				# </InfiniteScroll>
+				<GoodsListItem list={ @state.goodsList } />
 
 			</div>
 			<div style={display: if @state.shouldShowMenu isnt 0 then 'block' else 'none'} className="m-gray02"></div>
