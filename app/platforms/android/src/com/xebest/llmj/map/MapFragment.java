@@ -535,6 +535,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                         loader.DisplayImage(ApiUtils.API_PIC + im, userLogo);
 //                        ImageLoader.getInstance().displayImage(ApiUtils.API_PIC + im, userLogo, Application.getInstance().options);
                     }
+
                     destination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() + list.get(0).getToAreaName());
                     start_point.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() + list.get(0).getFromAreaName());
                     priceType.setText("价格类型：" + Helper.getPriceType(list.get(0).getPriceType()));
