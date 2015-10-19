@@ -2,7 +2,7 @@ require 'components/common/common'
 require 'user-center-style'
 
 React = require 'react/addons'
-
+XeImage = require 'components/common/xeImage'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
 UserStore = require 'stores/user/user'
@@ -86,16 +86,16 @@ AddWarehouse = React.createClass {
 			pa.province = mark.province
 			pa.city = mark.city
 			pa.area = mark.district
-			pa.street = mark.streetName
 			pa.latitude = mark.latitude
 			pa.longitude = mark.longitude
-			newState.params = pa
 			if pa.city is pa.province
 				mainStreet = pa.province + pa.area
 			else
 				mainStreet = pa.province + pa.city + pa.area
 			newState.mainStreet = mainStreet
-			newState.detailStreet = pa.street + mark.streetNumber
+			newState.detailStreet = mark.streetName + mark.streetNumber
+			pa.street = newState.detailStreet
+			newState.params = pa
 			@setState newState
 		else if mark.mark is 'getContectForAddWarehouse'
 			newState = Object.create @state
@@ -454,7 +454,7 @@ AddWarehouse = React.createClass {
 					<figure onClick={@_takePhoto}>
 						{
 							if @state.addWarehouseImageUrl
-								<img className="ll-font" src={'file://' + @state.addWarehouseImageUrl} />
+								# <img className="ll-font" src={'file://' + @state.addWarehouseImageUrl} />
 								<XeImage src={ @state.addWarehouseImageUrl }/>
 							else
 								<span className="ll-font"></span>
