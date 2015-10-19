@@ -24,12 +24,14 @@ GoodsAction = {
 			actionType: Constants.actionType.CLEAR_GOODS
 		}
 
-	getGoodsList: (pageNow,pageSize,status)->
+	getGoodsList: (pageNow,pageSize,status,priceType,createTime)->
 		Dispatcher.dispatch {
 			actionType:Constants.actionType.GET_GOODS_LIST
 			pageNow:pageNow
 			pageSize:pageSize
 			status:status
+			priceType:priceType
+			createTime:createTime
 		}
 	getGoodsDetail :(goodsId) ->
 		Dispatcher.dispatch {

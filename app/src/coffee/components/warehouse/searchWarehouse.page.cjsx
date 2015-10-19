@@ -128,6 +128,15 @@ SearchWarehouse = React.createClass {
 					Plugin.toast.err '尚未通过货主认证，请认证后再试'
 		e.stopPropagation()
 
+	_loadMore : ->
+		WarehouseAction.searchWarehouse {
+			startNo: @state.startNo
+			pageSize: @state.pageSize
+			cuvinType: @state.cuvinType
+			wareHouseType: @state.wareHouseType
+			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
+		}
+
 	render: ->
 		searchResultList = @state.searchResult.map (aResult, i)->
 			<div className="m-item01 m-item03" onClick={ @_resultItemClick.bind this,aResult } >
@@ -185,7 +194,9 @@ SearchWarehouse = React.createClass {
 				<div className="g-bgPic"></div>
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
 			</div>
-			{ searchResultList }
+			# <InfiniteScroll pageStart=1 loadMore={@_loadMore} hasMore={@state.hasMore}>
+				{ searchResultList }
+			# </InfiniteScroll>
 			
 
 		</div>
