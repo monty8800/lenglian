@@ -143,6 +143,7 @@ Order = Immutable.Record {
 	goodsPersonMobile: null
 	receiverMobile: null
 	shipperMobile: null
+	orderCarId: null
 
 }
 

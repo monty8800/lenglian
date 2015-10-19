@@ -58,7 +58,6 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
 
     private TextView tvTitle;
 
-
     private Dialog mDialog;
 
     private String localTempImgDir = "tempPic";

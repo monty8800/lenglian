@@ -39,7 +39,8 @@ CarItem = React.createClass {
 		e.stopPropagation()
 		
 	_detail: (item, i)->
-		DB.put 'car_owner_order_detail', [item?.carPersonUserId, item?.orderNo, item?.goodsPersonUserId, i]
+		console.log '---------orderCarId:', item.orderCarId 
+		DB.put 'car_owner_order_detail', [item?.carPersonUserId, item?.orderNo, item?.goodsPersonUserId, item.orderCarId, i]
 		Plugin.nav.push ['carOwnerOrderDetail']
 
 	componentDidMount: ->			
@@ -78,7 +79,8 @@ CarItem = React.createClass {
 
 	render: ->
 		items = @props.items.map (item, i)->
-			<div className="m-item01" key={item?.orderNo} onClick={@_detail.bind this, item, i}>
+			console.log '-------------items:', item
+			<div className="m-item01" key={item?.orderCarId} onClick={@_detail.bind this, item, i}>
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">

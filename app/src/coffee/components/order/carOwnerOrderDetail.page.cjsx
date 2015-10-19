@@ -27,13 +27,14 @@ OrderDetail = React.createClass {
 			carPersonUserId: detail[0]
 			orderNo: detail[1]
 			goodsPersonUserId: detail[2]
+			orderCarId: detail[3]
 			order: OrderStore.getOrderDetail()
 			wishlst: false
 			isInit: true
 		}
 
 	componentDidMount: ->
-		OrderAction.carOwnerOrderDetail(@state.carPersonUserId, @state.orderNo, @state.goodsPersonUserId)			
+		OrderAction.carOwnerOrderDetail(@state.carPersonUserId, @state.orderNo, @state.goodsPersonUserId, @state.orderCarId)			
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->
