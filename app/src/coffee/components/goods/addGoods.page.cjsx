@@ -83,12 +83,19 @@ AddGoods = React.createClass {
 			newState.refrigeration = parseInt e.target.value
 			@setState newState
 
-	_selectPriceType: (e)->
+	_selectPriceType1: (e)->
 		console.log 'event', e
+		newState = Object.create @state
 		if e.target.checked
-			newState = @state
-			newState.priceType = parseInt e.target.value
-			@setState newState
+			newState.priceType = 1
+		@setState newState
+
+	_selectPriceType2: (e)->
+		console.log 'event', e
+		newState = Object.create @state
+		if e.target.checked
+			newState.priceType = 2
+		@setState newState
 
 	_selectPayType: (e)->
 		console.log 'event', e
@@ -291,14 +298,25 @@ AddGoods = React.createClass {
 					<dd className="fl">
 						<div>
 							<label className="label-checkbox">
-								<input onChange={@_selectPriceType} defaultChecked=true value="1" type="radio" name="xe-checkbox01" /><span className="item-media ll-font"></span><span>一口价</span>
+								<input onChange={@_selectPriceType1} defaultChecked=true value="1" type="radio" name="xe-checkbox01" /><span className="item-media ll-font"></span><span>一口价</span>
 							</label>
+							{
+								if parseInt(@state.priceType) is 1
+									<input type="number" valueLink={@linkState 'price'} placeholder="请输入一口价" className="price"/>
+								else
+									<input disabled='disabled' type="number" placeholder="请输入一口价" className="price"/>
+							}
 						</div>
 						<div>
 							<label className="label-checkbox">
-								<input onChange={@_selectPriceType} value="2" type="radio" name="xe-checkbox01" /><span className="item-media ll-font"></span><span>竞价</span>
+								<input onChange={@_selectPriceType2} value="2" type="radio" name="xe-checkbox01" /><span className="item-media ll-font"></span><span>竞价</span>
 							</label>
-							<input type="number" valueLink={@linkState 'price'} placeholder="请输入基础价" className="price"/>
+							{
+								if parseInt(@state.priceType) is 2
+									<input type="number" valueLink={@linkState 'price'} placeholder="请输入基础价" className="price"/>
+								else
+									<input disabled='disabled' type="number" placeholder="请输入基础价" className="price"/>
+							}
 						</div>					
 					</dd>
 				</dl>
