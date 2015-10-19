@@ -16,13 +16,16 @@ PicCell = React.createClass {
 	_pic404: ->
 		UserAction.clearAuthPic @props.type
 
+	_picLoad: (e)->
+		console.log 'pic onLoad', e.target
+
 	render: ->
 		content = null
 		optional = '<br/><span>(非必填)</span>'
 		url = Image.getFullPath @props.url, '250x250'
 		console.log 'url---------', url
 		if @props.url
-			content = <img onError={@_pic404} src={url} />
+			content = <img onLoad={@_picLoad} onError={@_pic404} src={url} />
 		else
 			content = <div className="m-file-btn"><div className="m-file-icon ll-font"></div><p dangerouslySetInnerHTML={{__html:@props.name + if @props.optional then optional else ''}}></p></div>
 		<div className="m-file-div" onClick={@_selectPic.bind this, @props.type}>
