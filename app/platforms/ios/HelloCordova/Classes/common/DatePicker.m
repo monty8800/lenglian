@@ -105,6 +105,7 @@
         _bgView.alpha = 1;
         _bgView.frame = CGRectMake(0, self.bounds.size.height, SCREEN_WIDTH, 216);
     } completion:^(BOOL finished) {
+        
         _datePicker.minimumDate = [NSDate date];
         NSString *btnTitle = _pickerCount > 1 ? @"开始时间" : @"确定";
         [_confirmBtn setTitle:btnTitle forState:UIControlStateNormal];
