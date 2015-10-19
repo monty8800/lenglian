@@ -49,13 +49,14 @@ getOrderList = (status, currentPage)->
 
 # 货主订单列表
 getGoodsOrderList = (status, currentPage)->
-	console.log 'getGoodsOrderList'
+	console.log 'getGoodsOrderList-----', status, currentPage
 	Http.post Constants.api.goods_order_list, {
 		userId: UserStore.getUser()?.id
 		pageNo: currentPage
 		pageSize: Constants.orderStatus.PAGESIZE
-		state: status # 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消 空表示查询所有订单
+		orderState: status # 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消 空表示查询所有订单
 	}, (data)->
+		console.log 'goods order list result', data
 		orderList = data.pv.records
 		_orderList = _orderList.clear()
 		for order in orderList

@@ -141,7 +141,7 @@ GoodsDetail = React.createClass {
 
 				<p>
 					<span>价格类型:</span>
-					<span>{ Helper.priceTypeMapper @state.goodsDetail.priceType } { @state.goodsDetail.price}</span>
+					<span>{ Helper.priceTypeMapper(@state.goodsDetail.priceType) + @state.goodsDetail.price + '元'}</span>
 				</p>
 				<p>
 					<span>支付方式:</span>

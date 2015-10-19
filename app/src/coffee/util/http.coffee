@@ -114,29 +114,56 @@ post = (api, params, cb, err, showLoading, key, iv)->
 	console.log '请求接口:', api
 	console.log '发送参数:', JSON.stringify(paramDic)
 
-	Plugin.loading.show() if showLoading
-	$.post api, paramDic, (data, status, xhr)->
-		console.log '请求状态', status
-		Plugin.loading.hide() if showLoading
-		if status is 0
-			Plugin.toast.err '暂时无法连接网络，请检查网络设置'
-			return
-		if status isnt 'success'
-			Plugin.toast.err '请求出错'
-			return
 
-		console.log '返回数据：', JSON.stringify(data)
-		console.groupEnd()
-		if data.code isnt '0000'
-			return err data if err
-			console.error "错误码: #{data.code}, 错误信息: #{data.msg}"
-			if Constants.inBrowser
-				alert "接口：#{api},错误信息：#{data.msg}"
+	Plugin.loading.show() if showLoading
+	$.ajax {
+		type: 'POST'
+		url: api
+		data: paramDic
+		dataType: 'json'
+		timeout: 30000
+		success: (data)->
+			console.log '返回数据', data
+			Plugin.loading.hide() if showLoading
+			if data.code isnt '0000'
+				return err data if err
+				console.error "错误码: #{data.code}, 错误信息: #{data.msg}"
+				if Constants.inBrowser
+					alert "接口：#{api},错误信息：#{data.msg}"
+				else
+					Plugin.toast.err data.msg
 			else
-				Plugin.toast.err data.msg
-		else
-			cb data.data
-	, 'json'
+				cb data.data
+		error: (xhr, type)->
+			Plugin.loading.hide() if showLoading
+			if xhr.status is 0
+				Plugin.toast.err '暂时无法连接网络，请检查网络设置'
+			else
+				Plugin.toast.err '请求出错'
+			console.error xhr, type
+	}
+	# $.post api, paramDic, (data, status, xhr)->
+	# 	console.log '请求状态', status
+	# 	Plugin.loading.hide() if showLoading
+	# 	if status is 0
+	# 		Plugin.toast.err '暂时无法连接网络，请检查网络设置'
+	# 		return
+	# 	if status isnt 'success'
+	# 		Plugin.toast.err '请求出错'
+	# 		return
+
+	# 	console.log '返回数据：', JSON.stringify(data)
+	# 	console.groupEnd()
+	# 	if data.code isnt '0000'
+	# 		return err data if err
+	# 		console.error "错误码: #{data.code}, 错误信息: #{data.msg}"
+	# 		if Constants.inBrowser
+	# 			alert "接口：#{api},错误信息：#{data.msg}"
+	# 		else
+	# 			Plugin.toast.err data.msg
+	# 	else
+	# 		cb data.data
+	# , 'json'
 
 get = (api, cb)->
 
