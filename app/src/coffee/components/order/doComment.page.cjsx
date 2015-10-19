@@ -55,16 +55,21 @@ DoComment = React.createClass {
 			}
 
 	render : ->
+		target = ''
+		switch parseInt(transData.targetRole)
+			when 1 then target = '货主'
+			when 2 then target = '车主'
+			when 3 then target = '仓库主'
 		<div>
 			<div className="m-releaseitem">
 				<div>
-					<p dangerouslySetInnerHTML = {{ __html : "给货主评分"}}/>
+					<p dangerouslySetInnerHTML = {{ __html : "给" + target + "评分"}}/>
 					<Raty score=3 canRate=true />
 				</div>
 			</div>
 			<div className="m-releaseitem">
 				<div>
-					<p dangerouslySetInnerHTML = {{ __html : "货主等待着您宝贵的评价！"}}/> 
+					<p dangerouslySetInnerHTML = {{ __html : target + "等待着您宝贵的评价！"}}/> 
 					<div className="u-comment">
 						<textarea placeholder="写点评论吧！" className="text" onChange=@textareaValueChange></textarea>
 					</div>
