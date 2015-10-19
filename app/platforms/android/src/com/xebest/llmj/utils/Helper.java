@@ -120,6 +120,10 @@ public class Helper {
             return "后八轮";
         } else if (status.equals("6")) {
             return "五桥";
+        } else if (status.equals("7")) {
+            return "六桥";
+        } else if (status.equals("8")) {
+            return "半挂";
         }
         return "";
     }
@@ -143,17 +147,17 @@ public class Helper {
             return "6.2米";
         } else if (status.equals("6")) {
             return "6.8米";
-        }  else if (status.equals("6")) {
+        }  else if (status.equals("7")) {
             return "7.4米";
-        } else if (status.equals("6")) {
+        } else if (status.equals("8")) {
             return "7.8米";
-        } else if (status.equals("6")) {
+        } else if (status.equals("9")) {
             return "8.6米";
-        } else if (status.equals("6")) {
+        } else if (status.equals("10")) {
             return "9.6米";
-        } else if (status.equals("6")) {
+        } else if (status.equals("11")) {
             return "13~15米";
-        } else if (status.equals("6")) {
+        } else if (status.equals("12")) {
             return "15米以上";
         }
         return "";

@@ -37,7 +37,7 @@ Car = Immutable.Record {
 	type: null
 	goodsSourceId: null
 	carScore: null
-
+	orderCarId: null
 
 }
 

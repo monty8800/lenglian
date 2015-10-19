@@ -175,7 +175,8 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
         if (result.getAddress() != null) {
             loc.setText(result.getAddress());
         }
-        if (result != null && result.getAddressDetail() != null && result.getAddressDetail().street != null) {
+        if (result != null && result.getAddressDetail() != null && result.getAddressDetail().street != null &&
+                result.getAddressDetail().streetNumber != null) {
             des.setText(result.getAddressDetail().street + result.getAddressDetail().streetNumber);
         }
 

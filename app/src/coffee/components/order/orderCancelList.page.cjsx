@@ -42,6 +42,8 @@ OrderCancelList = React.createClass {
 				orderList: OrderStore.getOrderList().toJS()
 				orderType: params[0]
 			}
+		console.log '---------size:', @state.orderList.size
+		console.log '---------size:', @state.orderList
 
 	render: ->
 		console.log '___state', @state

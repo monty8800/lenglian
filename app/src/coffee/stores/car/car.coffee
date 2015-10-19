@@ -66,7 +66,7 @@ window.updateMyCarList = (params)->
 	if parseInt(params) is 1
 		CarStore.emitChange ['refresh_my_car']
 	else if parseInt(params) is 2
-		CarAction.carList('1')
+		CarAction.carList('1', '1')
 		CarStore.emitChange ['native_js_status']
 
 # 编辑车辆

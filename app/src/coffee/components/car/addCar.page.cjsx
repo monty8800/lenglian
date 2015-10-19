@@ -37,7 +37,6 @@ selList = [
 			{key: 2, value: '前四后四'}
 			{key: 3, value: '前四后六'}
 			{key: 4, value: '前四后八'}
-			{key: 4, value: '前四后八'}
 			{key: 5, value: '后八轮'}
 			{key: 6, value: '五桥'}
 			{key: 7, value: '六桥'}

@@ -49,13 +49,14 @@ getOrderList = (status, currentPage)->
 
 # 货主订单列表
 getGoodsOrderList = (status, currentPage)->
-	console.log 'getGoodsOrderList'
+	console.log 'getGoodsOrderList-----', status, currentPage
 	Http.post Constants.api.goods_order_list, {
 		userId: UserStore.getUser()?.id
 		pageNo: currentPage
 		pageSize: Constants.orderStatus.PAGESIZE
-		state: status # 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消 空表示查询所有订单
+		orderState: status # 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消 空表示查询所有订单
 	}, (data)->
+		console.log 'goods order list result', data
 		orderList = data.pv.records
 		_orderList = _orderList.clear()
 		for order in orderList
@@ -117,6 +118,7 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'goodSsourceId', order.goodSsourceId
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				tempOrder = tempOrder.set 'version', order.version
+				tempOrder = tempOrder.set 'orderCarId', order.orderCarId
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['car']
 	, (err)->
@@ -288,12 +290,13 @@ _carOwnerCancelOrder = (carPersonUserId, orderNo, version, index)->
 		Plugin.toast.err data.msg
 	
 
-carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId)->
+carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId, orderCarId)->
 	Http.post Constants.api.car_owner_order_detail, {
 		carPersonUserId: carPersonUserId
 		orderNo: orderNo
 		goodsPersonUserId: goodsPersonUserId
 		userId: UserStore.getUser()?.id
+		orderCarId: orderCarId
 	}, (data)->
 		temp = data.ownerOrder
 		_orderDetail = _orderDetail.set 'orderNo', temp.orderNo
@@ -499,7 +502,7 @@ Dispatcher.register (action) ->
 		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER then _carOwnerConfirmOrder(action.carPersonUserId, action.orderNo, action.version, action.index) 
 		when Constants.actionType.CAR_OWNER_CONFIRM_ORDER2 then _carOwnerConfirmOrder2(action.carPersonUserId, action.orderNo, action.version, action.index) 
 		when Constants.actionType.CAR_OWNER_CANCEL_ORDER then _carOwnerCancelOrder(action.carPersonUserId, action.orderNo, action.version, action.index)
-		when Constants.actionType.CAR_OWNER_ORDER_DETAIL then carOwnerOrderDetail(action.carPersonUserId, action.orderNo, action.goodsPersonUserId)
+		when Constants.actionType.CAR_OWNER_ORDER_DETAIL then carOwnerOrderDetail(action.carPersonUserId, action.orderNo, action.goodsPersonUserId, action.orderCarId)
 		when Constants.actionType.ORDER_FINISH then _orderFinish(action.orderNo, action.version, action.carPersonUserId)
 		when Constants.actionType.ATTENTION then _attention(action.params)
 		when Constants.actionType.GET_BID_GOODS_DETAIL then getBidGoodsDetail(action.params)

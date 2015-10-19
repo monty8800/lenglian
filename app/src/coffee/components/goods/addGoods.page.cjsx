@@ -137,8 +137,8 @@ AddGoods = React.createClass {
 			Plugin.toast.err '收货人姓名不正确'
 		else if not Validator.mobile @state.reciverMobile
 			Plugin.toast.err '收货人手机号不正确'
-		else if @state.remark?.length > 0 and not Validator.remark @state.remark
-			Plugin.toast.err '备注过长,最多30个汉字'
+		if not Validator.remark @state.remark
+			Plugin.toast.err '备注要1~30个字符哦'
 		else
 			files = []
 			files.push {
@@ -219,7 +219,7 @@ AddGoods = React.createClass {
 			reciver: null #收货人
 			reciverMobile: null #收货人电话
 
-			remark: null #备注
+			remark: '' #备注
 		}
 	render: ->
 		console.log 'state', @state
@@ -400,5 +400,4 @@ AddGoods = React.createClass {
 
 
 React.render <AddGoods  />, document.getElementById('content')
-
 

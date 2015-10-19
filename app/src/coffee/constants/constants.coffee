@@ -178,15 +178,13 @@ api = {
 
 	#注意！⚠️浏览器里请去gulpfile里面改接口地址，这里改不起作用
 
-	# server: 'http://192.168.26.177:7080/llmj-app/'
-	# server: 'http://192.168.29.176:8072/'
-	# server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.29.176:8072/'		
 	# server: 'http://192.168.29.149:8072/'
-	# server: 'http://192.168.29.203:8072/'		
+	# server: 'http://192.168.29.203:8072/'	
 	# server:'http://192.168.27.160:8080/llmj-app/' #高
 	server: 'http://192.168.29.210:8072/'
 
-	#短信验证码
+	#短信验证码			
 	SMS_CODE: '/register/sendMobileMsg.shtml'
 	#登录
 	LOGIN: '/loginCtl/userLogin.shtml'

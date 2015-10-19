@@ -101,6 +101,9 @@ public class MyWarehouseActivity extends BaseCordovaActivity implements CordovaI
             mWebView.init(this, ApiUtils.API_COMMON_URL + "myWarehouse.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:tryReloadWarehousList()");
+
         super.onResume();
     }
 

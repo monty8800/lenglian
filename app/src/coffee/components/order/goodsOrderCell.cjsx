@@ -59,7 +59,7 @@ GoodsCell = React.createClass {
 			</div>
 
 			<div onClick={@_showBid} className={cls}>
-				{'价格类型 : ' + if @props.order.priceType is '1' then '一口价'  else '竞价'}
+				{'价格类型 : ' + if @props.order.priceType is '1' then '一口价' + @props.order.price  + '元' else '竞价'}
 				<span>{@state.selectBid}</span>
 			</div>
 
