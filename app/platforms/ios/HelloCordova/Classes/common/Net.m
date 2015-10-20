@@ -20,8 +20,20 @@
         if ([file isKindOfClass:[NSNull class]]) {
             return;
         }
-        if ([[file objectForKey:@"path"] length] > 0) {
-            [op addFile:[file objectForKey:@"path"] forKey:[file objectForKey:@"filed"]];
+        NSString *originPath = [file objectForKey:@"path"];
+        if ([originPath length] > 0) {
+            
+            NSArray *paths = [originPath componentsSeparatedByString:@"|"];
+            NSString *path;
+            if (paths.count > 1) {
+                path = [AUTH_PIC_FOLDER stringByAppendingPathComponent: paths[0]];
+            }
+            else
+            {
+                path = originPath;
+            }
+            DDLogDebug(@"path is -----%@", path);
+            [op addFile:path forKey:[file objectForKey:@"filed"]];
         }
     }
     

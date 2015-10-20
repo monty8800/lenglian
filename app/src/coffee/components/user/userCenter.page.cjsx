@@ -85,7 +85,7 @@ Profile = React.createClass {
 						<XeImage src={user.avatar} size='130x130' type='avatar' />
 					</dt>
 					<dd className="fl">
-						<p className="g-name">{if (user.carStatus is 1 or user.goodsStatus is 1 or user.warehouseStatus is 1) then user.name or user.company or user.mobile else user.mobile}</p>
+						<p className="g-name">{if (user.carStatus is 1 or user.goodsStatus is 1 or user.warehouseStatus is 1) then user.company or user.name or user.mobile else user.mobile}</p>
 						<p>成交数：<span>{user.orderDoneCount}单</span></p>
 					</dd>
 				</dl> 

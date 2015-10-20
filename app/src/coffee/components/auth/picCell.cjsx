@@ -17,7 +17,12 @@ PicCell = React.createClass {
 		UserAction.clearAuthPic @props.type
 
 	_picLoad: (e)->
-		console.log 'pic onLoad', e.nativeEvent
+		src = e.target.src
+		console.log 'pic onLoad', src
+		if /^http.*$/.test src
+			#原生收到这条指令之后，把图片缓存起来，图片名字为src的md5字符串
+			#以后原生收到postfile指令的时候，如果图片路径是http，直接md5之后从缓存目录里找，没找到就掉clearAuthPic重置图片
+			Plugin.run [13, src, @props.type]
 
 	render: ->
 		content = null
