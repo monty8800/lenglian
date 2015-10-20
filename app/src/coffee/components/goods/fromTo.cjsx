@@ -29,6 +29,10 @@ FromTo = React.createClass {
 		if @props.type is 'addGoods'
 			GoodsAction.addPassBy()
 
+	_minusPassBy: (index)->
+		if @props.type is 'addGoods'
+			GoodsAction.minusPassBy index
+
 
 	_change: (msg)->
 		console.log 'event change ', msg
@@ -47,11 +51,14 @@ FromTo = React.createClass {
 		}
 	render: ->
 		console.log 'state---', @state
-		passBy = @state.passBy.toArray().map (address, i)->
-			<div key={i} onClick={@_selectAddress.bind this,  'passBy' + i} className="g-adr-pass ll-font g-adr-pass-line">
-				<p>{if address.lati then address.provinceName + address.cityName + address.areaName + address.street else '途径地'} </p>
+		passBy = @state.passBy.map (address, k)->
+			<section>
+			<div key={k} onClick={@_selectAddress.bind this,  k} className="g-adr-pass ll-font g-adr-pass-line">
+				<p>{if address.lati then address.get('provinceName') + address.get('cityName') + address.get('areaName') + address.get('street') else '途径地'} </p>
 				<i className="icon-mask"></i>
 			</div>
+			<a onClick={@_minusPassBy.bind this, k} className="ll-font">&#xe632;</a>
+			</section>
 		,this
 
 		<div  className="m-releasehead ll-font">

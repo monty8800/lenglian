@@ -164,6 +164,7 @@ actionType = {
 	INVNOTST: null
 
 	GET_SUPPORT_BANK_LIST: null
+	GOODS_MINUS_PASS_BY: null
 
 }
 

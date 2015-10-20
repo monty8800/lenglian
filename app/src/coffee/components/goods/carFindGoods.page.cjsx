@@ -32,7 +32,14 @@ OrderStore = require 'stores/order/order'
 
 DB = require 'util/storage'
 
+AddressSelector = require 'components/address/citySelector'
+
 InfiniteScroll = require('react-infinite-scroll')(React)
+
+AddressStore = require 'stores/address/address'
+AddressAction = require 'actions/address/address'
+
+Helper = require 'util/helper'
 
 
 selectionList = [
@@ -93,7 +100,7 @@ CarFindGoods = React.createClass {
 
 	_change: (msg)->
 		console.log 'event change ', msg
-		if msg.type #从selectionstore过来的
+		if msg.type and msg.type isnt 'area' #从selectionstore过来的
 			newState = Object.create @state
 			newState[msg.type] = msg.list
 			console.log 'newState', newState
@@ -112,6 +119,17 @@ CarFindGoods = React.createClass {
 			_hasMore = (dataList.size % _pageSize) is 0
 			@setState {
 				goodsList: dataList
+			}
+		else if msg.msg is 'address:changed' and msg.type is 'area'
+			address = AddressStore.getAddress()
+			console.log 'new address---', address
+			@setState {
+				fromProvince: address.provinceName
+				fromCity: address.cityName
+				fromArea: address.areaName
+				fromProvinceId: address.provinceId
+				fromCityId: address.cityId
+				fromAreaId: address.areaId
 			}
 
 	_search: ->
@@ -136,6 +154,9 @@ CarFindGoods = React.createClass {
 			priceType: @state.priceType[0] if @state.priceType.length is 1
 			isInvoice: @state.invoiceType[0] if @state.invoiceType.length is 1 
 		}
+
+	_showAddressSelector: ->
+		AddressAction.changeSelector 'show'
 
 	getInitialState: ->
 		initState = {
@@ -167,6 +188,11 @@ CarFindGoods = React.createClass {
 					for s, i in selectionList
 						<Selection selectionMap=s  key={i} />
 				}
+
+				<li>
+					<div onClick={@_showAddressSelector} className="g-div01 ll-font u-arrow-right" dangerouslySetInnerHTML={{__html: "发货地点<span>" + (if @state.fromAreaId then Helper.maxLength(@state.fromProvince + @state.fromCity + @state.fromArea, 8) else '全部') + "</span>"}}>		
+					</div>
+				</li>
 			</ul>
 			
 		</div>
@@ -174,6 +200,8 @@ CarFindGoods = React.createClass {
 		<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={_hasMore and not _netBusy}>
 		{ goodsCells }
 		</InfiniteScroll>
+
+		<AddressSelector />
 		</section>
 }
 
