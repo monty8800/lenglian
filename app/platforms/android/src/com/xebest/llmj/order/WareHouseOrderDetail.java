@@ -23,10 +23,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 货物订单详情
+ * 仓库订单详情
  * Created by kaisun on 15/9/22.
  */
-public class GoodsOrderDetailActivity extends BaseCordovaActivity implements CordovaInterface {
+public class WareHouseOrderDetail extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -41,7 +41,7 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, GoodsOrderDetailActivity.class));
+        context.startActivity(new Intent(context, WareHouseOrderDetail.class));
     }
 
     @Override
@@ -61,13 +61,11 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
         } else {
             String flag = args.getString(1);
             if (flag.equalsIgnoreCase("searchWarehouseDetail")) {
-                SearchWarehouseDetailActivity.actionView(GoodsOrderDetailActivity.this);
+                SearchWarehouseDetailActivity.actionView(WareHouseOrderDetail.this);
             } else if (args.getString(0).equals("2")) {
                 finish();
             } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
-                SearchGoodsDetailActivity.actionView(GoodsOrderDetailActivity.this);
-            } else if (flag.equalsIgnoreCase("orderPay")) {
-                OrderPayActivity.actionView(getActivity());
+                SearchGoodsDetailActivity.actionView(WareHouseOrderDetail.this);
             }
         }
 
@@ -77,7 +75,7 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
         editorCar = (TextView) findViewById(R.id.editor);
         editorCar.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("订单详情");
+        tvTitle.setText("仓库详情");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -91,17 +89,17 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("订单详情");
+        MobclickAgent.onPageStart("仓库订单详情");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "goodsOrderDetail.html", this, this, this, this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "warehouseOrderDetail.html", this, this, this, this);
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("订单详情");
+        MobclickAgent.onPageEnd("仓库订单详情");
         MobclickAgent.onPause(this);
     }
 

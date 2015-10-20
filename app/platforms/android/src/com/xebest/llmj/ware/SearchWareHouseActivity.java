@@ -267,11 +267,15 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
         @Override
         protected String doInBackground(String... params) {
             Map<String, String> map = new HashMap<String, String>();
-            map.put("goodsUserId", Application.getInstance().userId);
-            map.put("goodsResouseId", params[0]);
-            map.put("carResouseId", wareHouseId);
-
-            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
+//            map.put("goodsUserId", Application.getInstance().userId);
+//            map.put("goodsResouseId", params[0]);
+//            map.put("carResouseId", wareHouseId);
+            map.put("userId", Application.getInstance().userId);
+            map.put("warehouseId", wareHouseId);
+            map.put("orderGoodsId", params[0]);
+            return UploadFile.postWithJsonString(ApiUtils.goods_find_store_order, new Gson().toJson(map));
+//            return UploadFile.postWithJsonString(ApiUtils.store_found_goods, new Gson().toJson(map));
+//            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
         }
 
         @Override

@@ -62,6 +62,8 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
             GoodsOrderDetailActivity.actionView(getActivity());
         } else if (flag.equalsIgnoreCase("orderPay")) {
             OrderPayActivity.actionView(getActivity());
+        } else if (flag.equals("warehouseOrderDetail")) {
+            WareHouseOrderDetail.actionView(getActivity());
         }
     }
 

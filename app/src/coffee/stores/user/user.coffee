@@ -82,6 +82,7 @@ _menus = Immutable.fromJS [
 
 
 requestPersonalAuthInfo = (type)->
+	console.log 'request personalAuth info', type
 	Http.post Constants.api.GET_PERSONAL_AUTH_INFO, {
 		type: type
 		userId: _user.id
@@ -101,6 +102,7 @@ requestPersonalAuthInfo = (type)->
 
 
 requestCompanyAuthInfo = (type)->
+	console.log 'request company auth info', type
 	Http.post Constants.api.GET_COMPANY_AUTH_INFO, {
 		type: type
 		userId: _user.id
@@ -155,13 +157,17 @@ requestInfo = ->
 		if _user.certification is 1
 			if _user.carStatus is 1
 				requestPersonalAuthInfo 2
-			else if _user.goodsStatus is 1 or _user.warehouseStatus is 1
+			else if _user.goodsStatus is 1
 				requestPersonalAuthInfo 1
+			else if _user.warehouseStatus is 1
+				requestPersonalAuthInfo 3
 		else if _user.certification is 2
 			if _user.carStatus is 1
 				requestCompanyAuthInfo 2
-			else if _user.goodsStatus is 1 or _user.warehouseStatus is 1
+			else if _user.goodsStatus is 1
 				requestCompanyAuthInfo 1
+			else if _user.warehouseStatus is 1
+				requestCompanyAuthInfo 3
 		else
 			UserStore.emitChange 'user:update'
 		# checkPayPwd() if _user.hasPayPwd isnt 1

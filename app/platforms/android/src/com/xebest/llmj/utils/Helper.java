@@ -177,4 +177,16 @@ public class Helper {
         return "";
     }
 
+    public static String payType(String status) {
+        if (status == null) return "";
+        if (status.equals("1")) {
+            return "货到付款";
+        } else if (status.equals("2")) {
+            return "回单付款";
+        } else if (status.equals("3")) {
+            return "预付款";
+        }
+        return "";
+    }
+
 }

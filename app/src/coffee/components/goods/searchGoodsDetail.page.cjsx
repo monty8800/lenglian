@@ -79,6 +79,9 @@ GoodsDetail = React.createClass {
 
 
 	render : ->
+		console.log 'state', @state
+		toColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 3] then '（需要冷库）' else ''
+		fromColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 4] then '（需要冷库）' else '' 
 		<div>
 			<div style={{display: if _transData?.orderId then 'block' else 'none'}} className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{ _transData?.orderId }</span></p>
@@ -107,9 +110,9 @@ GoodsDetail = React.createClass {
 					<div className="g-adr-start ll-font g-adr-start-line">
 						{
 							if @state.goodsDetail.toProvinceName is @state.goodsDetail.toCityName
-								(@state.goodsDetail.toCityName + @state.goodsDetail.toAreaName + @state.goodsDetail.toStreet)
+								(@state.goodsDetail.toCityName + @state.goodsDetail.toAreaName + @state.goodsDetail.toStreet) + toColdFlag
 							else
-								(@state.goodsDetail.toProvinceName + @state.goodsDetail.toCityName + @state.goodsDetail.toAreaName + @state.goodsDetail.toStreet)
+								(@state.goodsDetail.toProvinceName + @state.goodsDetail.toCityName + @state.goodsDetail.toAreaName + @state.goodsDetail.toStreet) + toColdFlag
 						}
 					</div>
 					{
@@ -119,9 +122,9 @@ GoodsDetail = React.createClass {
 					<div className="g-adr-end ll-font g-adr-end-line">
 						{
 							if @state.goodsDetail.fromProvinceName is @state.goodsDetail.fromCityName
-								@state.goodsDetail.fromCityName + @state.goodsDetail.fromAreaName + @state.goodsDetail.fromStreet
+								@state.goodsDetail.fromCityName + @state.goodsDetail.fromAreaName + @state.goodsDetail.fromStreet + fromColdFlag
 							else
-								@state.goodsDetail.fromProvinceName + @state.goodsDetail.fromCityName + @state.goodsDetail.fromAreaName + @state.goodsDetail.fromStreet
+								@state.goodsDetail.fromProvinceName + @state.goodsDetail.fromCityName + @state.goodsDetail.fromAreaName + @state.goodsDetail.fromStreet + fromColdFlag
 						}
 					</div>
 				</div>

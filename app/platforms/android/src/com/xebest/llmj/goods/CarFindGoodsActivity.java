@@ -125,6 +125,8 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
             BiddingActivity.actionView(CarFindGoodsActivity.this, "", "");
         } else if (flag.equalsIgnoreCase("login")) {
             LoginActivity.actionView(CarFindGoodsActivity.this);
+        } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
+            SearchGoodsDetailActivity.actionView(this);
         }
 
     }
