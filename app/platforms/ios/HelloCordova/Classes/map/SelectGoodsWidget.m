@@ -250,7 +250,7 @@
                         carLength = @"车辆长度： 13~15米";
                         break;
                     case 12:
-                        carLength = @"车辆长度： 15米以上米";
+                        carLength = @"车辆长度： 15米以上";
                         break;
                     default:
                         carLength = @"车辆长度： 未知";

@@ -48,7 +48,7 @@
     [self.navigationController pushViewController:addNewCarVC animated:YES];
 }
 -(void)updateCarListAfterAddNewCar{
-    NSString *js = [NSString stringWithFormat:@"(function(){window.updateMyCarList('1')})()"];
+    NSString *js = [NSString stringWithFormat:@"(function(){window.updateMyCarList('2')})()"];
     [self.commandDelegate evalJs: js];
 }
 -(void)commonCommand:(NSArray *)params {

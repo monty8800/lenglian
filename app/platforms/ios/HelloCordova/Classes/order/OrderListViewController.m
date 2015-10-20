@@ -64,7 +64,7 @@
     if (type == 0) {
         self.title = @"货主订单";
     }else if (type == 1){
-        self.title = @"司机订单";
+        self.title = @"车主订单";
     }else if (type == 2){
         self.title = @"仓库订单";
     }
@@ -116,11 +116,13 @@
         else if ([params[1] isEqualToString:@"orderPay"])
         {
             OrderPayViewController *payVC = [OrderPayViewController new];
+            payVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:payVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"doComment"])
         {
             DoCommentViewController *commentVC = [DoCommentViewController new];
+            commentVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:commentVC animated:YES];
         }
         

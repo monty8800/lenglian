@@ -81,7 +81,7 @@
     NSDictionary *user = [Global getUser];
     NSString *userId = [user objectForKey:@"id"];
     if (userId != nil) {
-        [Net post:MY_GOODS params:@{@"userId": userId, @"resourceStatus": @"1"} cb:^(NSDictionary *responseDic) {
+        [Net post:MY_GOODS params:@{@"userId": userId, @"resourceStatus": @"1", @"priceType":@"1"} cb:^(NSDictionary *responseDic) {
             DDLogDebug(@"MY goods %@", responseDic);
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
                 NSMutableArray *goodsList = [NSMutableArray new];

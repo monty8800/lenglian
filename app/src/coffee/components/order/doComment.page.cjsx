@@ -77,7 +77,7 @@ DoComment = React.createClass {
 				</div>
 			</div>
 			<div className="u-pay-btn">
-				<a onClick=@submitBtnClick className="btn">下一步</a>
+				<a onClick=@submitBtnClick className="btn">发表评价</a>
 			</div>
 		</div>
 }

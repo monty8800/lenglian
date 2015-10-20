@@ -179,6 +179,8 @@ searchWarehouse = (params)->
 	,null
 
 warehouseSearchGoods = (params)->
+	params.priceType = 1
+	params.coldStoreFlag = 1
 	Http.post Constants.api.WAREHOUSE_SEARCH_GOODS,params,(data)->
 		_warehouseSearchGoodsResult = data.goods
 		WarehouseStore.emitChange 'warehouseSearchGoodsSucc'

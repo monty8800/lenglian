@@ -78,12 +78,12 @@ WarehouseOrderDetail = React.createClass {
 	render: ->
 		switch parseInt(@state.orderDetail?.orderState)
 			when 1
-				if @state.orderDetail?.orderType is 'GW'
-					title = '等待仓库确认'
-				else if @state.orderDetail?.orderType is 'WG'
+				if parseInt(@state.orderDetail?.sourceMode) is 1
 					title = '等待货主确认'
+				else if parseInt(@state.orderDetail?.sourceMode) is 2
+					title = ''	
 			when 2
-				if parseInt(@state.orderDetail?.payType) is 3
+				if parseInt(@state.orderDetail?.payType) is 3  	
 					title = '等待货主付款'
 				else
 					title = '货物存储中'
@@ -170,8 +170,8 @@ WarehouseOrderDetail = React.createClass {
 				</p>			
 			</div>
 			{
-				if parseInt(@state.orderDetail?.orderState) is 1
-					# 洽谈中的可以取消
+				if parseInt(@state.orderDetail?.orderState) is 1 and parseInt(@state.orderDetail?.sourceMode) is 2
+					# 洽谈中 且当前用户是接受方(状态是2)的可以取消
 					<div className="m-detail-bottom">
 						<div onClick={@_cancleOrder} className="g-pay-btn">
 							<a className="u-btn02">取消</a>

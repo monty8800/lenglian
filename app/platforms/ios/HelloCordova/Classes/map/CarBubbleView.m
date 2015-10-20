@@ -82,7 +82,49 @@
             carType = @"未知类型";
             break;
     }
-    _infoView.dataList = @[[NSString stringWithFormat:@"车辆描述: %@米 %@", [data objectForKey:@"vehicle"], carType]];
+    NSString *carLength = @"";
+    switch ([[data objectForKey:@"vehicle"] integerValue]) {
+        case 1:
+            carLength = @"3.8米";
+            break;
+        case 2:
+            carLength = @"4.2米";
+            break;
+        case 3:
+            carLength = @"4.8米";
+            break;
+        case 4:
+            carLength = @"5.8米";
+            break;
+        case 5:
+            carLength = @"6.2米";
+            break;
+        case 6:
+            carLength = @"6.8米";
+            break;
+        case 7:
+            carLength = @"7.4米";
+            break;
+        case 8:
+            carLength = @"7.8米";
+            break;
+        case 9:
+            carLength = @"8.6米";
+            break;
+        case 10:
+            carLength = @"9.6米";
+            break;
+        case 11:
+            carLength = @"13~15米";
+            break;
+        case 12:
+            carLength = @"15米以上";
+            break;
+        default:
+            carLength = @"";
+            break;
+    }
+    _infoView.dataList = @[[NSString stringWithFormat:@"车辆描述: %@ %@", carLength, carType]];
 }
 
 -(void)clickBtn {
