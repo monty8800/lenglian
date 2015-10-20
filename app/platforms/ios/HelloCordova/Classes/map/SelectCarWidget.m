@@ -119,27 +119,27 @@
                     NSString *typeStr;
                     switch ([[dic objectForKey:@"goodsType"] integerValue]) {
                         case 1:
-                            typeStr = @"货物种类： 常温";
+                            typeStr = @"常温";
                             break;
                             
                         case 2:
-                            typeStr = @"货物种类： 冷藏";
+                            typeStr = @"冷藏";
                             break;
                             
                         case 3:
-                            typeStr = @"货物种类： 冷冻";
+                            typeStr = @"冷冻";
                             break;
                             
                         case 4:
-                            typeStr = @"货物种类： 急冻";
+                            typeStr = @"急冻";
                             break;
                             
                         case 5:
-                            typeStr = @"货物种类： 深冷";
+                            typeStr = @"深冷";
                             break;
                             
                         default:
-                            typeStr = @"货物种类： 其他";
+                            typeStr = @"其他";
                             break;
                     }
                     
