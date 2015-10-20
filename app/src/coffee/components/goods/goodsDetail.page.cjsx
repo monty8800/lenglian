@@ -68,15 +68,18 @@ GoodsDetail = React.createClass {
 
 
 	render : ->
+		console.log 'state', @state
+		toColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 3] then '（需要冷库）' else ''
+		fromColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 4] then '（需要冷库）' else ''
 		<div>
 			<div className="m-item01">
 				<div className="g-item g-adr-detail ll-font nopadding">			
 					<div className="g-adr-start ll-font g-adr-start-line">
 						{
 							if @state.goodsDetail.toProvinceName is @state.goodsDetail.toCityName
-								(@state.goodsDetail.toCityName or '') + (@state.goodsDetail.toAreaName or '') + (@state.goodsDetail.toStreet or '')
+								(@state.goodsDetail.toCityName or '') + (@state.goodsDetail.toAreaName or '') + (@state.goodsDetail.toStreet or '') + toColdFlag
 							else
-								(@state.goodsDetail.toProvinceName or '') + (@state.goodsDetail.toCityName or '') + (@state.goodsDetail.toAreaName or '') + (@state.goodsDetail.toStreet or '')
+								(@state.goodsDetail.toProvinceName or '') + (@state.goodsDetail.toCityName or '') + (@state.goodsDetail.toAreaName or '') + (@state.goodsDetail.toStreet or '') + toColdFlag
 						}
 					</div>
 					{
@@ -86,9 +89,9 @@ GoodsDetail = React.createClass {
 					<div className="g-adr-end ll-font g-adr-end-line">
 						{
 							if @state.goodsDetail.fromProvinceName is @state.goodsDetail.fromCityName
-								(@state.goodsDetail.fromCityName or '') + (@state.goodsDetail.fromAreaName or '') + (@state.goodsDetail.fromStreet or '')
+								(@state.goodsDetail.fromCityName or '') + (@state.goodsDetail.fromAreaName or '') + (@state.goodsDetail.fromStreet or '') + fromColdFlag
 							else
-								(@state.goodsDetail.fromProvinceName or '') + (@state.goodsDetail.fromCityName or '') + (@state.goodsDetail.fromAreaName or '') + (@state.goodsDetail.fromStreet or '')
+								(@state.goodsDetail.fromProvinceName or '') + (@state.goodsDetail.fromCityName or '') + (@state.goodsDetail.fromAreaName or '') + (@state.goodsDetail.fromStreet or '') + fromColdFlag
 						}
 					</div>
 				</div>

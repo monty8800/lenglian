@@ -17,7 +17,7 @@ PicCell = React.createClass {
 		UserAction.clearAuthPic @props.type
 
 	_picLoad: (e)->
-		console.log 'pic onLoad', e.target
+		console.log 'pic onLoad', e.nativeEvent
 
 	render: ->
 		content = null

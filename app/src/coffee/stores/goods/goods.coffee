@@ -225,6 +225,7 @@ getGoodsDetail = (goodsId)->
 		_goodsDetail = _goodsDetail.set 'goodsType',resource.goodsType
 		_goodsDetail = _goodsDetail.set 'price',resource.price
 		_goodsDetail = _goodsDetail.set 'payType',resource.payType
+		_goodsDetail = _goodsDetail.set 'refrigeration', resource.coldStoreFlag
 
 		GoodsStore.emitChange 'getGoodsDetailSucc'
 	,(data)->
@@ -271,7 +272,7 @@ getSearchGoodsDetail = (goodsId,focusid)->
 	Http.post Constants.api.GET_SEARCH_GOODS_DETAIL,params,(data)->
 		resource = data.mjGoodsResource
 		if !resource
-			Plugin.toast.show 'kong'
+			# Plugin.toast.show 'kong'
 			return
 		_searchGoodsDetail = _searchGoodsDetail.set 'userName',data.name	
 		_searchGoodsDetail = _searchGoodsDetail.set 'certification',data.certification
@@ -307,7 +308,8 @@ getSearchGoodsDetail = (goodsId,focusid)->
 		_searchGoodsDetail = _searchGoodsDetail.set 'invoice',resource.isinvoice
 		_searchGoodsDetail = _searchGoodsDetail.set 'resourceStatus',resource.resourceStatus
 		_searchGoodsDetail = _searchGoodsDetail.set 'goodsType',resource.goodsType	
-		_searchGoodsDetail = _searchGoodsDetail.set 'payType',resource.payType	
+		_searchGoodsDetail = _searchGoodsDetail.set 'payType',resource.payType
+		_searchGoodsDetail = _searchGoodsDetail.set 'refrigeration', resource.coldStoreFlag
 		GoodsStore.emitChange 'getSearchGoodsDetailSucc'
 	,(data)->
 		Plugin.toast.err data.msg

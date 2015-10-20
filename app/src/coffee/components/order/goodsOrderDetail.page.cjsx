@@ -289,24 +289,21 @@ GoodsOrderDetail = React.createClass {
 				<span>{Moment(@state.detail?.get('createTime')).format('YYYY-MM-DD')}</span>
 			</p>			
 		</div>
-		{
-			if parseInt(@state.detail?.get 'orderState') isnt 1 or parseInt(@state.detail?.get 'acceptMode') is 1
-				<div className="m-detail-bottom">
-					{
-						if parseInt(@state.detail?.get 'orderState') is 1
-							<div className="g-cancle-btn">
-								<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
-							</div>
-					}
-					{
-						if parseInt(@state.detail?.get 'orderState') isnt 5
-							<div className="g-pay-btn">
-								<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
-							</div>
-					}
+		<div className="m-detail-bottom">
+			{
+				if parseInt(@state.detail?.get 'orderState') is 1
+					<div className="g-cancle-btn">
+						<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
+					</div>
+			}
+			{
+				if parseInt(@state.detail?.get 'orderState') isnt 5 and not (parseInt(@state.detail?.get 'orderState') is 1 and parseInt(@state.detail?.get 'acceptMode') isnt 1)
+					<div className="g-pay-btn">
+						<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
+					</div>
+			}
 
-				</div>
-		}
+		</div>
 		</section>
 }
 
