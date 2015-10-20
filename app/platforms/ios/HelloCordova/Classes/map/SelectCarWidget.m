@@ -159,7 +159,7 @@
                         weightStr = [NSString stringWithFormat:@"%@方", [dic objectForKey:@"cube"]];
                     }
 
-                    if ([name isKindOfClass:[NSNull class]]) {
+                    if (![name isKindOfClass:[NSNull class]]) {
                         descStr = [NSString stringWithFormat:@"货物描述： %@ %@ %@", name, weightStr, typeStr];
                     }
                     else
