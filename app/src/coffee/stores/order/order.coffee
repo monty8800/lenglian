@@ -54,7 +54,7 @@ getGoodsOrderList = (status, currentPage)->
 		userId: UserStore.getUser()?.id
 		pageNo: currentPage
 		pageSize: Constants.orderStatus.PAGESIZE
-		orderState: status # 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消 空表示查询所有订单
+		state: status # 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消 空表示查询所有订单
 	}, (data)->
 		console.log 'goods order list result', data
 		orderList = data.pv.records

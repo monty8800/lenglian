@@ -137,7 +137,7 @@ AddGoods = React.createClass {
 			Plugin.toast.err '收货人姓名不正确'
 		else if not Validator.mobile @state.reciverMobile
 			Plugin.toast.err '收货人手机号不正确'
-		else if not Validator.remark @state.remark
+		else if @state.remark?.length > 0 and not Validator.remark @state.remark
 			Plugin.toast.err '备注要1~30个字符哦'
 		else
 			files = []
@@ -302,9 +302,9 @@ AddGoods = React.createClass {
 							</label>
 							{
 								if parseInt(@state.priceType) is 1
-									<input type="number" valueLink={@linkState 'price'} placeholder="请输入一口价" className="price"/>
+									<input type="number" valueLink={@linkState 'price'} placeholder="请输入一口价" className="price input-weak"/>
 								else
-									<input disabled='disabled' type="number" placeholder="请输入一口价" className="price"/>
+									<input disabled='disabled' type="number" placeholder="请输入一口价" className="price input-weak"/>
 							}
 						</div>
 						<div>
@@ -313,9 +313,9 @@ AddGoods = React.createClass {
 							</label>
 							{
 								if parseInt(@state.priceType) is 2
-									<input type="number" valueLink={@linkState 'price'} placeholder="请输入基础价" className="price"/>
+									<input type="number" valueLink={@linkState 'price'} placeholder="请输入基础价" className="price input-weak"/>
 								else
-									<input disabled='disabled' type="number" placeholder="请输入基础价" className="price"/>
+									<input disabled='disabled' type="number" placeholder="请输入基础价" className="price input-weak"/>
 							}
 						</div>					
 					</dd>
