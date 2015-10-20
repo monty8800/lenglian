@@ -57,8 +57,13 @@ submitComment = (userId,userRole,targetId,targetRole,startStage,orderNo,commentV
 	},(data)->
 		console.log '__ _评价成功__'
 		DB.put 'transData', {
-			del: orderNo
+			modify: orderNo
+			props: {
+				mjRateflag: true
+			}
 		}
+		DB.put 'commentOrderDetail', true
+		Plugin.nav.pop()
 		CommentStore.emitChange 'addNewCommentSucc'
 	,(data)->
 		console.log '__ _添加评价失败__'

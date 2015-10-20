@@ -36,6 +36,8 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
 
     private TextView editorCar;
 
+    private boolean isOncreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -48,7 +50,7 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.car_detail);
-
+        isOncreate = true;
         initView();
     }
 
@@ -66,6 +68,8 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
                 finish();
             } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
                 SearchGoodsDetailActivity.actionView(CarOrderDetailActivity.this);
+            } else if (flag.equals("doComment")) {
+                DoCommentActivity.actionView(getActivity());
             }
         }
 
@@ -92,7 +96,12 @@ public class CarOrderDetailActivity extends BaseCordovaActivity implements Cordo
         MobclickAgent.onPageStart("订单详情");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "carOwnerOrderDetail.html", this, this, this, this);
+        if (isOncreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "carOwnerOrderDetail.html", this, this, this, this);
+        }
+        isOncreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

@@ -124,6 +124,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
     protected void initView() {
         tvOk = (TextView) findViewById(R.id.near);
         tvOk.setText("完成");
+        tvOk.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("新增仓库");
         mWebView = (XEWebView) findViewById(R.id.wb);
