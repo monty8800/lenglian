@@ -78,19 +78,28 @@ WarehouseList = React.createClass {
 			<div className="m-tab01">
 				<ul>
 					<li onClick={ @_topTypeClick.bind this,'1' }>
-						<span className={ if @state.showType == '1' then "active" else "" }>
-							空闲中
-						</span>
+					{
+						if parseInt(@state.showType) is 1
+							<span className="active">空闲</span>
+						else
+							'空闲'
+					}
 					</li>
 					<li onClick={ @_topTypeClick.bind this,'2' }>
-						<span className={ if @state.showType == '2' then "active" else "" }>
-							已发布
-						</span>
+					{
+						if parseInt(@state.showType) is 2
+							<span className="active">已发布</span>
+						else
+							'已发布'
+					}
 					</li>
 					<li onClick={ @_topTypeClick.bind this,'3' }>
-						<span className={ if @state.showType == '3' then "active" else "" }>
-							使用中
-					</span>
+					{
+						if parseInt(@state.showType) is 3
+							<span className="active">使用中</span>
+						else
+							'使用中'
+					}
 					</li>
 				</ul>
 			</div>
