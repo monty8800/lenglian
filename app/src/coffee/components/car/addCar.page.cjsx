@@ -100,13 +100,6 @@ AddCar = React.createClass {
 
 	resultCallBack: (result)->
 		if result is 'setAuthPic:done'
-			user = UserStore.getUser()
-			carPic = @state.user.carPic
-			license = @state.user.license
-			transLicensePic = @state.user.transLicensePic
-			console.log '----------carPic:', carPic
-			console.log '----------license:', license
-			console.log '----------transLicensePic:', transLicensePic
 			@setState {
 				user: UserStore.getUser()
 				carNum: @state.carNum
@@ -133,24 +126,27 @@ AddCar = React.createClass {
 				newState = Object.create @state
 				newState.vehicle = result[2]
 				@setState newState
+		else if result[0] is 'setAuthPicType'
+			type = result[1]
+			url = result[2]
+			if type is 'carPic'
+				@setState {
+					carPic: url
+				}
+			if type is 'license'
+				@setState {
+					license: url
+				}
+			if type is 'transLicensePic'
+				@setState {
+					transLicensePic: url
+				}				
+			console.log '********type:', type
+			console.log '********url:', url
 
 	getInitialState: ->
-		# 清空上次图片
-		_user = new User
-		_user = _user.set 'carPic', null
-		_user = _user.set 'license', null
-		_user = _user.set 'transLicensePic', null
-		DB.put 'user', _user.toJS()
 
 		user = UserStore.getUser()
-
-		user = user.set 'carPic', null
-		user = user.set 'license', null
-		user = user.set 'transLicensePic', null
-
-		console.log '----------carPic:', user.carPic
-		console.log '----------license:', user.license
-		console.log '----------transLicensePic:', user.transLicensePic
 
 		address = AddressStore.getAddress()
 		{
@@ -165,6 +161,10 @@ AddCar = React.createClass {
 			heavy: ''
 			type: ''
 			vehicle: ''
+
+			carPic: ''
+			license: ''
+			transLicensePic: ''
 		}
 
 	handleSubmit: ->
@@ -198,9 +198,9 @@ AddCar = React.createClass {
 			Plugin.toast.err '请输入正确的手机号'
 		# else if not @state.user.carPic
 			# Plugin.toast.err '请上传车辆图片'	
-		else if not @state.user.license
+		else if not @state.license
 			Plugin.toast.err '请上传行驶证图片'	
-		else if not @state.user.transLicensePic
+		else if not @state.transLicensePic
 			Plugin.toast.err '请上传道路运输许可证'
 		else 
 			CarAction.addCar {
@@ -218,17 +218,20 @@ AddCar = React.createClass {
 			}, [
 				{
 					filed: 'imgUrl'
-					path: @state.user.carPic
+					# path: @state.user.carPic
+					path: @state.carPic
 					name: 'carPic.jpg'
 				}
 				{
 					filed: 'drivingImg'
-					path: @state.user.license
+					# path: @state.user.license
+					path: @state.license
 					name: 'license.jpg'
 				}
 				{
 					filed: 'transportImg'
-					path: @state.user.transLicensePic
+					# path: @state.user.transLicensePic
+					path: @state.transLicensePic
 					name: 'transLicensePic.jpg'
 				}
 			]
@@ -238,19 +241,22 @@ AddCar = React.createClass {
 		cells = [
 			{
 				name: '车辆图片'
-				url: @state.user.carPic
+				# url: @state.user.carPic
+				url: @state.carPic
 				optional: false
 				type: 'carPic'
 			}
 			{
 				name: '行驶证图片'
-				url: @state.user.license
+				# url: @state.user.license
+				url: @state.license
 				optional: false
 				type: 'license'
 			}
 			{
 				name: '道路运输许可证'
-				url: @state.user.transLicensePic
+				# url: @state.user.transLicensePic
+				url: @state.transLicensePic
 				optional: false
 				type: 'transLicensePic'
 			}

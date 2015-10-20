@@ -193,7 +193,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
                     List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
                     carList.addAll(list);
                     if (list.size() == 0) {
-                        Tools.showErrorToast(WareHouseFindGoodsActivity.this, "还没发布货源哦");
+                        Tools.showErrorToast(WareHouseFindGoodsActivity.this, "还没发布库源哦");
                         return;
                     }
                     showDialog(list);

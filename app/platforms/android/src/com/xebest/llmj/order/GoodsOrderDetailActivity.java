@@ -68,6 +68,8 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
                 SearchGoodsDetailActivity.actionView(GoodsOrderDetailActivity.this);
             } else if (flag.equalsIgnoreCase("orderPay")) {
                 OrderPayActivity.actionView(getActivity());
+            } else if (flag.equals("doComment")) {
+                DoCommentActivity.actionView(getActivity());
             }
         }
 
