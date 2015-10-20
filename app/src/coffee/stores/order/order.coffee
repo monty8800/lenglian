@@ -94,7 +94,8 @@ getGoodsOrderList = (status, currentPage)->
 getCarOwnerOrderList = (status, currentPage)->
 	console.log 'getCarOwnerOrderList'
 	Http.post Constants.api.carowner_order_list, {
-		carPersonUserId: UserStore.getUser()?.id # 用户id
+		# carPersonUserId: UserStore.getUser()?.id # 用户id
+		userId: UserStore.getUser()?.id
 		pageNow: currentPage # 当前页码
 		pageSize: Constants.orderStatus.PAGESIZE
 		orderState: status # 全部空 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消
@@ -123,6 +124,7 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'mjRateflag', order.mjRateflag
 				tempOrder = tempOrder.set 'orderCarId', order.orderCarId
 				tempOrder = tempOrder.set 'goodsWeight', order.goodsWeight
+				tempOrder = tempOrder.set 'bidPrice', order.bidPrice
 				tempOrder = tempOrder.set 'goodsPersonName', order.goodsPersonName
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['car']
@@ -254,7 +256,8 @@ orderGoodsFinish = (params, orderId)->
 _carOwnerConfirmOrder = (carPersonUserId, orderNo, version, orderCarId, index)->
 	Plugin.loading.show '正在确认...'
 	Http.post Constants.api.car_owner_confirm_order, {
-		carPersonUserId: carPersonUserId
+		# carPersonUserId: carPersonUserId
+		userId: UserStore.getUser()?.id
 		orderNo: orderNo
 		version: version
 		orderCarId: orderCarId
@@ -272,7 +275,8 @@ _carOwnerConfirmOrder = (carPersonUserId, orderNo, version, orderCarId, index)->
 _carOwnerConfirmOrder2 = (carPersonUserId, orderNo, version, orderCarId, index)->
 	Plugin.loading.show '正在确认...'
 	Http.post Constants.api.car_owner_confirm_order, {
-		carPersonUserId: carPersonUserId
+		# carPersonUserId: carPersonUserId
+		userId: UserStore.getUser()?.id
 		orderNo: orderNo
 		version: version
 		orderCarId: orderCarId
@@ -292,7 +296,8 @@ _carOwnerConfirmOrder2 = (carPersonUserId, orderNo, version, orderCarId, index)-
 _carOwnerCancelOrder = (carPersonUserId, orderNo, version, orderCarId, index)->
 	Plugin.loading.show '正在取消...'
 	Http.post Constants.api.car_owner_cancel_order, {
-		carPersonUserId: carPersonUserId
+		# carPersonUserId: carPersonUserId
+		userId: UserStore.getUser()?.id
 		orderNo: orderNo
 		version: version
 		orderCarId: orderCarId

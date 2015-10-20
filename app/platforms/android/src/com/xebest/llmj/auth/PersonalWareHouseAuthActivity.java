@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -206,7 +207,7 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
 
             Tools.dismissLoading();
             if (success) {
-                // TODO 调用js方法更新User
+                // 调用js方法更新User
                 mWebView.getWebView().loadUrl("javascript:authDone()");
                 Tools.showSuccessToast(PersonalWareHouseAuthActivity.this, "认证成功!");
                 finish();
@@ -314,6 +315,12 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
                     Bitmap bitmap = BitmapFactory.decodeFile(pat);
                     // 压缩过后的图片
                     Bitmap bitmap2 = Tools.getimage(pat);
+
+                    // MI 4W
+                    String model = Build.MODEL;
+                    if (model.equalsIgnoreCase("SM-N9100") || model.equalsIgnoreCase("Coolpad")) {
+                        bitmap2 = Tools.rotaingImageView(90, bitmap2);
+                    }
 
                     // 将压缩过后的图片存放到该目录下
                     File ff = new File(pat);
