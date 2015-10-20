@@ -11,6 +11,8 @@ Validator = require 'util/validator'
 PicCell = require 'components/car/picCell'
 UserStore = require 'stores/user/user'
 CarStore = require 'stores/car/car'
+User = require 'model/user'
+DB = require 'util/storage'
 CarAction = require 'actions/car/car'
 AddressStore = require 'stores/address/address'
 Selection = require 'components/car/addCarSelection'
@@ -98,6 +100,13 @@ AddCar = React.createClass {
 
 	resultCallBack: (result)->
 		if result is 'setAuthPic:done'
+			user = UserStore.getUser()
+			carPic = @state.user.carPic
+			license = @state.user.license
+			transLicensePic = @state.user.transLicensePic
+			console.log '----------carPic:', carPic
+			console.log '----------license:', license
+			console.log '----------transLicensePic:', transLicensePic
 			@setState {
 				user: UserStore.getUser()
 				carNum: @state.carNum
@@ -126,7 +135,17 @@ AddCar = React.createClass {
 				@setState newState
 
 	getInitialState: ->
+		# 清空上次图片
+		_user = new User
+		_user = _user.set 'carPic', null
+		_user = _user.set 'license', null
+		_user = _user.set 'transLicensePic', null
+		DB.put 'user', _user.toJS()
+
 		user = UserStore.getUser()
+		user = user.set 'carPic', null
+		user = user.set 'license', null
+		user = user.set 'transLicensePic', null
 		address = AddressStore.getAddress()
 		{
 			user: user
@@ -146,9 +165,10 @@ AddCar = React.createClass {
 		bulky = @state.bulky
 		if bulky.length isnt 0
 			h = bulky.split '.'
+			console.log '-------hhhh:', h
 			if h.length > 2
 				return Plugin.toast.err '只能包含一个小数点哦'
-			else
+			else if h.length > 1
 				index = bulky.indexOf '.'
 				last = bulky.substr index + 1, bulky.length
 				console.log '------hasdfads:', last
