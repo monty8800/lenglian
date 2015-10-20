@@ -143,9 +143,15 @@ AddCar = React.createClass {
 		DB.put 'user', _user.toJS()
 
 		user = UserStore.getUser()
+
 		user = user.set 'carPic', null
 		user = user.set 'license', null
 		user = user.set 'transLicensePic', null
+
+		console.log '----------carPic:', user.carPic
+		console.log '----------license:', user.license
+		console.log '----------transLicensePic:', user.transLicensePic
+
 		address = AddressStore.getAddress()
 		{
 			user: user

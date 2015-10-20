@@ -38,4 +38,6 @@ public interface ApiUtils {
 
     String API_PIC = "http://qa-pic.lenglianmajia.com/head/130/130/";
 
+    String goods_find_store_order = SERVER + "/mjOrderWarhouse/addGoodsFoundWarhouseOrder.shtml";
+
 }
