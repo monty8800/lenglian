@@ -139,9 +139,9 @@ CarItem = React.createClass {
 					</div>
 				</div>
 				<div className="g-item g-item-des">
-					<p>价格类型：<span>{Helper.priceTypeMapper item?.priceType}</span></p>
+					<p>价格类型：<span>{Helper.priceTypeMapper item?.priceType}{item?.price + '元'}</span></p>
 					<p>货物描述 : <span>{item?.goodsDesc}{item?.goodsWeight + '吨'}</span></p>
-					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}{item?.price + '元'}</span></p>
+					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}</span></p>
 				</div>
 			</div>
 		, this

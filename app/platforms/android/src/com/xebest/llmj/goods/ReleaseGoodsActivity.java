@@ -182,7 +182,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
                 JSONObject jb = files.getJSONObject(0);
                 String a = jb.getString("filed");
                 Log.i("info", "--------------filed:" + a);
-                driving.put("file", new File(files.getJSONObject(0).getString("path")));
+                driving.put("imgurl", new File(files.getJSONObject(0).getString("path")));
             }
 
             content = new HashMap<String, Object>();

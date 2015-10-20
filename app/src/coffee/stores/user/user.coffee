@@ -62,7 +62,6 @@ clearAuthPic = (type)->
 	DB.put 'user', _user.toJS()
 	UserStore.emitChange 'setAuthPic:done'
 
-
 _menus = Immutable.fromJS [
 	[
 		{cls: 'u-icon-message', title: '我的消息', url: 'messageList'},

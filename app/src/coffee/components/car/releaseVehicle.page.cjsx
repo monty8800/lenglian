@@ -195,10 +195,12 @@ Vehicle = React.createClass {
 		<div>
 			<div className="m-releasehead ll-font">
 				<div className="g-adr-end ll-font g-adr-end-line g-adr-car" onClick={@_goPage.bind this, 'select_start_address'}>
-					<input readOnly="readOnly" valueLink={@linkState 'startPoint'} type="text" placeholder="出发地"/>
+					<p>{@state.startPoint or '出发地'}</p>
+					<i className="icon-mask"></i>
 				</div>
 				<div className="g-adr-start ll-font g-adr-start-line  g-adr-car" onClick={@_goPage.bind this, 'select_end_address'}>
-					<input readOnly="readOnly" valueLink={@linkState 'destination'} type="text" placeholder="终点(选填)"/>
+					<p>{@state.destination or '终点(选填)'}</p>
+					<i className="icon-mask"></i>
 				</div>
 			</div>	
 			<div className="m-releaseitem">
