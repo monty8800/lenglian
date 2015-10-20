@@ -140,10 +140,6 @@ OrderPay = React.createClass {
 			</div>
 		</div>
 		
-		<div className="u-green ll-font">
-			同意
-			<a >《马甲协议》</a>
-		</div>
 		{
 			if @state.showSms
 				<PaySmsCode />

@@ -100,13 +100,31 @@
     
     NSDictionary *user = [Global getUser];
     BOOL carAuth = [[user objectForKey:@"carStatus"] integerValue] == 1;
-    if (!carAuth) {
-        [[Global sharedInstance] showErr:@"尚未进行车主认证，请认证之后再进行操作"];
+    BOOL warehouseAuth = [[user objectForKey:@"warehouseStatus"] integerValue] == 1;
+    BOOL bid = [[self.data objectForKey:@"priceType"] integerValue] == 2;
+    if (carAuth) {
+        ((NearByViewController *)[Global sharedInstance].mapVC).bid = bid;
+        [SelectGoodsWidget show:(id<SelectGoodsDelegate>)([Global sharedInstance].mapVC) goods:[self.data objectForKey:@"id"] type:Cars];
+    }
+    else if (warehouseAuth)
+    {
+        if (!bid) {
+            ((NearByViewController *)[Global sharedInstance].mapVC).bid = bid;
+            [SelectGoodsWidget show:(id<SelectGoodsDelegate>)([Global sharedInstance].mapVC) goods:[self.data objectForKey:@"id"] type:Warehouses];
+        }
+        else
+        {
+            [[Global sharedInstance] showErr:@"仓库无法参与竞价"];
+        }
+    }
+    else
+    {
+        [[Global sharedInstance] showErr:@"尚未进行车主或仓库主认证，请认证之后再进行操作"];
         return;
     }
     
-    ((NearByViewController *)[Global sharedInstance].mapVC).bid = [[self.data objectForKey:@"priceType"] integerValue] == 2;
-    [SelectGoodsWidget show:(id<SelectGoodsDelegate>)([Global sharedInstance].mapVC) goods:[self.data objectForKey:@"id"] type:Cars];
+    
+    
 }
 
 @end
