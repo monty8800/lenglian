@@ -109,6 +109,8 @@ public class CompanyWareHouseAuthActivity extends BaseCordovaActivity implements
     Map<String, Object> content;
     Map<String, File> driving = null;
 
+    String businsFromNet = "";
+
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
 //        String flag = args.getString(1);
@@ -126,7 +128,20 @@ public class CompanyWareHouseAuthActivity extends BaseCordovaActivity implements
                 showWindow();
             }
         } else if (flag.equals("13")) {
-
+            final String url = args.getString(1);
+            // businessLicense
+            final String type = args.getString(2);
+            int index = url.lastIndexOf("/");
+            final String fileName = url.substring(index + 1, url.length());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    byte[] data = UploadFile.getImage(url);
+                    Bitmap bm = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    UploadFile.saveImage(bm, fileName);
+                    businsFromNet = ApiUtils.storePath + "/" + fileName;
+                }
+            }).start();
         } else if (flag.equals("7")) {
             // [7,"http:\/\/192.168.29.176:8072\/\/mjPersonInfoAuthCtl\/personInfoAuth.shtml",
             // {"data":"{\"phone\":\"18513468467\",\"type\":2,\"username\":\"骨灰盒\",\"userId\":\"50819ab3c0954f828d0851da576cbc31\",\"cardno\":\"340621188807124021\",\"carno\":\"京j12345\",\"frameno\":\"11111111111111111\"}",
@@ -162,7 +177,11 @@ public class CompanyWareHouseAuthActivity extends BaseCordovaActivity implements
             driving = new HashMap<String, File>();
             String path = files.getJSONObject(0).getString("path");
             if (path != null && !path.equals("")) {
-                driving.put("businessLicenseImg", new File(path));
+                if (path.contains("|")) {
+                    driving.put("businessLicenseImg", new File(businsFromNet));
+                } else {
+                    driving.put("businessLicenseImg", new File(path));
+                }
             }
 
             Log.i("info", "--------------content:" + content);

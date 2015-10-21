@@ -176,6 +176,8 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
             map.put("resourceStatus", "1");
             map.put("pageNow", "1");
             map.put("pageSize", "100");
+            map.put("coldStoreFlag", "1");
+            map.put("priceType", "1");
             return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
         }
 
