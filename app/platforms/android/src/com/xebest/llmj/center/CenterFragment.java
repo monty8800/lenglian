@@ -111,7 +111,7 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
             String userInfo = args.getString(2);
             JSONObject jsonObject = new JSONObject(userInfo);
             // 存放userId
-            ((Application) getActivity().getApplication()).setUserId(jsonObject.getString("id"));
+            Application.getInstance().setUserId(jsonObject.getString("id"));
             Application.getInstance().setGoodsStatus(Integer.parseInt(jsonObject.getString("goodsStatus")));
             Application.getInstance().setWarehouseStatus(Integer.parseInt(jsonObject.getString("warehouseStatus")));
             Application.getInstance().setCarStatus(Integer.parseInt(jsonObject.getString("carStatus")));

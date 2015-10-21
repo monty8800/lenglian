@@ -248,7 +248,6 @@ OrderDetail = React.createClass {
 					<a href="###" className="u-btn02" onClick={@_comment.bind this, @state.order.goodsPersonUserId, @state.order.orderNo}>评价货主</a>
 				</div>
 			</div>
-
 		</div>
 }
 
