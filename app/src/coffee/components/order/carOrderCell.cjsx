@@ -35,14 +35,10 @@ CarItem = React.createClass {
 			targetRole: '1'
 			orderNo: orderNo
 		}
-		# 保存当前下标
-		DB.put 'indexOfComment', i
 		Plugin.nav.push ['doComment']
 		e.stopPropagation()
 		
 	_detail: (item, i)->
-		# 保存当前下标
-		DB.put 'indexOfComment', i
 		console.log '---------orderCarId:', item.orderCarId 
 		DB.put 'car_owner_order_detail', [item?.carPersonUserId, item?.orderNo, item?.goodsPersonUserId, item.orderCarId, i]
 		Plugin.nav.push ['carOwnerOrderDetail']
@@ -67,15 +63,15 @@ CarItem = React.createClass {
 			newState.orderList = orderList
 			@setState newState
 		else if params[0] is 'car_fresh'
-			indexsss = DB.get 'detailCallBackFlag'
-			console.log '---------hahahha:', indexsss
-			if indexsss isnt null
-				orderList = @props.items.splice parseInt(indexsss), 1
-				console.log '---------hahahha:', orderList
-				newState = Object.create @state
-				newState.orderList = orderList
-				@setState newState
-			DB.remove 'detailCallBackFlag'
+			# indexsss = DB.get 'detailCallBackFlag'
+			# console.log '---------hahahha:', indexsss
+			# if indexsss isnt null
+			# 	orderList = @props.items.splice parseInt(indexsss), 1
+			# 	console.log '---------hahahha:', orderList
+			# 	newState = Object.create @state
+			# 	newState.orderList = orderList
+			# 	@setState newState
+			# DB.remove 'detailCallBackFlag'
 		else if params[0] is 'car' or params[0] is 'goods' or params[0] is 'store'
 			@setState {
 				isInit: false
@@ -139,7 +135,9 @@ CarItem = React.createClass {
 					</div>
 				</div>
 				<div className="g-item g-item-des">
-					<p>价格类型：<span>{Helper.priceTypeMapper item?.priceType}{item?.price + '元'}</span></p>
+					<p>价格类型：
+						<span>{Helper.priceTypeMapper item?.priceType}{if parseInt(item?.priceType) is 1 then item?.price + '元' else item?.bidPrice + '元'}</span>
+					</p>
 					<p>货物描述 : <span>{item?.goodsDesc}{item?.goodsWeight + '吨'}</span></p>
 					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}</span></p>
 				</div>

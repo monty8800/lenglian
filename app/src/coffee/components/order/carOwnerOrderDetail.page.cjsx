@@ -31,6 +31,7 @@ OrderDetail = React.createClass {
 			order: OrderStore.getOrderDetail()
 			wishlst: false
 			isInit: true
+			mjRateflag: null
 		}
 
 	componentDidMount: ->
@@ -47,6 +48,7 @@ OrderDetail = React.createClass {
 			newState.order = detail
 			newState.isInit = false
 			newState.wishlst = detail.wishlst
+			newState.mjRateflag = detail.mjRateflag
 			@setState newState
 		else if params[0] is 'attention_success'
 			console.log '---attention_success-'
@@ -58,6 +60,10 @@ OrderDetail = React.createClass {
 			newState = Object.create @state
 			newState.wishlst = false
 			@setState newState
+		else if params[0] is 'orderDetailCommentUpdate'
+			@setState {
+				mjRateflag: true
+			}
 
 	attention: (flag, goodsPersonUserId)->
 		#Auth.needLogin ->
@@ -127,7 +133,7 @@ OrderDetail = React.createClass {
 		else if @state.order?.orderState is '3'
 			title = '货物运输中'
 		else if @state.order?.orderState is '4'
-			if @state.order?.mjRateflag is true
+			if @state.mjRateflag is true
 				title = '已评价'
 			else
 				title = '待评价'
@@ -194,7 +200,6 @@ OrderDetail = React.createClass {
 						<XeImage src={@state.order?.goodsPic} size=Constants.carPicSize />
 					</div>
 					<div className="g-pro-text fl">
-						<p>货物名字: <span>{@state.order?.goodsName}</span></p>
 						<p>货物种类: <span>{@state.order?.goodsType}</span></p>
 						<p>货物规格: <span>{@state.order?.goodsWeight}吨</span></p>
 						<p>包装类型: <span>{@state.order?.goodsPackingType}</span></p>
@@ -233,7 +238,7 @@ OrderDetail = React.createClass {
 					<a href="###" className="u-btn02" onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>取消</a>
 				</div>
 			</div>
-			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '4' and @state.order.mjRateflag is false then 'block' else 'none'}}>
+			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '4' and @state.mjRateflag is false then 'block' else 'none'}}>
 				<div className="g-pay-btn">
 					<a href="###" className="u-btn02" onClick={@_comment.bind this, @state.order.goodsPersonUserId, @state.order.orderNo}>评价货主</a>
 				</div>

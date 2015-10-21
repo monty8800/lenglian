@@ -54,8 +54,10 @@ public class DoCommentActivity extends BaseCordovaActivity implements CordovaInt
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-
+        String flag = args.getString(0);
+        if (flag.equals("2")) {
+            finish();
+        }
     }
 
     protected void initView() {

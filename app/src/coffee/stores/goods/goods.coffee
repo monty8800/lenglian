@@ -131,6 +131,13 @@ addPassBy = ->
 	DB.put 'passBy', _passBy.toJS()
 	GoodsStore.emitChange 'goods:update'
 
+minusPassBy = (index)->
+	console.log 'minus index', index, _passBy 
+	_passBy = _passBy.remove index
+	console.log 'after minus', _passBy
+	DB.put 'passBy', _passBy.toJS()
+	GoodsStore.emitChange 'goods:update'
+
 addGoods = (params, files)->
 	Http.postFile Constants.api.ADD_GOODS, params, files
 
@@ -330,6 +337,7 @@ Dispatcher.register (action) ->
 	switch action.actionType
 		when Constants.actionType.UPDATE_STORE then updateStore()
 		when Constants.actionType.GOODS_ADD_PASS_BY then addPassBy()
+		when Constants.actionType.GOODS_MINUS_PASS_BY then minusPassBy(action.index)
 		when Constants.actionType.ADD_GOODS then addGoods(action.params, action.files)
 		when Constants.actionType.CLEAR_GOODS_PIC then clearPic()
 		when Constants.actionType.CLEAR_GOODS then clearGoods()

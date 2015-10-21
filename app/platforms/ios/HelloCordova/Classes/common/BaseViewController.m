@@ -146,6 +146,21 @@
         [self.navigationController popToViewController:toVC animated:YES];
         return;
     }
+    else if ([params[0] integerValue] == 13)
+    {
+        NSString *path = params[1];
+        DDLogDebug(@"cache auth pic %@, %@", path, params[2]);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:path]];
+            NSString *localPath = [AUTH_PIC_FOLDER stringByAppendingPathComponent: path.lastPathComponent];
+            DDLogDebug(@"add new cache image--------%@----%@", localPath, path.lastPathComponent);
+            if (![[NSFileManager defaultManager] fileExistsAtPath:localPath]) {
+                
+                [data writeToFile:localPath  atomically:YES];
+            }
+            
+        });
+    }
     else if ([params[0] integerValue] == 9)
     {
         if ([params[1] isEqualToString:@"user:update"]) {

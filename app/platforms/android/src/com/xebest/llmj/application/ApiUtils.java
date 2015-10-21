@@ -1,5 +1,7 @@
 package com.xebest.llmj.application;
 
+import android.os.Environment;
+
 /**
  * 公共变量
  * Created by kaisun on 15/7/10.
@@ -39,5 +41,8 @@ public interface ApiUtils {
     String API_PIC = "http://qa-pic.lenglianmajia.com/head/130/130/";
 
     String goods_find_store_order = SERVER + "/mjOrderWarhouse/addGoodsFoundWarhouseOrder.shtml";
+
+    // SD 跟目录
+    String rootPath = Environment.getExternalStorageDirectory() + "";
 
 }

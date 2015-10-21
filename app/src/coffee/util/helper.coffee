@@ -119,6 +119,9 @@ subStr = (start,length,str)->
 hideName = (name)->
 	name[0] + '**'
 
+maxLength = (input, max)->
+	input[0..max] + '...'
+
 whoYouAre = (who)->
 	if who?
 		switch parseInt(who)
@@ -187,3 +190,4 @@ module.exports =
 	whoYouAreMapper: whoYouAre
 	carVehicle: carVehicle
 	goodsWeight: goodsWeight
+	maxLength: maxLength

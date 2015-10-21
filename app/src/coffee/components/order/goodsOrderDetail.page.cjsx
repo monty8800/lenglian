@@ -160,6 +160,8 @@ GoodsOrderDetail = React.createClass {
 		}
 
 	render : ->
+		toColdFlag = if @state.detail?.get 'coldStoreFlag' in [2, 3] then '（需要冷库）' else ''
+		fromColdFlag = if @state.detail?.get 'coldStoreFlag' in [2, 4] then '（需要冷库）' else ''
 		_statusText = null
 		_btnText = null
 		switch parseInt(@state.detail?.get 'orderState')
@@ -222,11 +224,11 @@ GoodsOrderDetail = React.createClass {
 
 			<div className="g-item g-adr-detail ll-font nopadding">			
 				<div className="g-adr-start ll-font g-adr-start-line">
-					{@state.detail?.get('fromProvinceName') + @state.detail?.get('fromCityName') + @state.detail?.get('fromCountyName')}
+					{@state.detail?.get('fromProvinceName') + @state.detail?.get('fromCityName') + @state.detail?.get('fromCountyName') + fromColdFlag}
 				</div>
 				
 				<div className="g-adr-end ll-font g-adr-end-line">
-					{@state.detail?.get('toProvinceName') + @state.detail?.get('toCityName') + @state.detail?.get('toCountyName')}
+					{@state.detail?.get('toProvinceName') + @state.detail?.get('toCityName') + @state.detail?.get('toCountyName') + toColdFlag}
 				</div>	
 			</div>
 		</div>

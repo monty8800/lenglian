@@ -82,6 +82,9 @@ public class ResetPwdActivity extends BaseCordovaActivity implements CordovaInte
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
+        if (args.toString().contains("2")) {
+            finish();
+        } else
         if (args.toString().contains("user:update")) {
             finish();
         } else if (args.toString().contains("register")) {

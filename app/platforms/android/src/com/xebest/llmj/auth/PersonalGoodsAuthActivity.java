@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -111,19 +112,25 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        if (args.toString().contains("license")) {
-            resource = "license";
-            // 行驶证照片
-            showWindow();
-        } else if (args.toString().contains("idCard")) {
-            resource = "idCard";
-            // 身份证照片
-            showWindow();
-        } else if (args.toString().contains("operationLicense")) {
-            resource = "operationLicense";
-            // 运营证照片(非必填)
-            showWindow();
-        } else if (args.toString().contains("7")) {
+        String flag = args.getString(0);
+        if (flag.equals("8")) {
+            String next = args.getString(1);
+            if (next.equals("license")) {
+                resource = "license";
+                // 行驶证照片
+                showWindow();
+            } else if (next.equals("idCard")) {
+                resource = "idCard";
+                // 身份证照片
+                showWindow();
+            } else if (next.equals("operationLicense")) {
+                resource = "operationLicense";
+                // 运营证照片(非必填)
+                showWindow();
+            }
+        } else if (flag.equals("13")) {
+
+        } else if (flag.equals("7")) {
             // [7,"http:\/\/192.168.29.176:8072\/\/mjPersonInfoAuthCtl\/personInfoAuth.shtml",
             // {"data":"{\"phone\":\"18513468467\",\"type\":2,\"username\":\"骨灰盒\",\"userId\":\"50819ab3c0954f828d0851da576cbc31\",\"cardno\":\"340621188807124021\",\"carno\":\"京j12345\",\"frameno\":\"11111111111111111\"}",
             // "client_type":"2","version":"10","uuid":"4ab872a3-143d-4ace-b6cc-9f8f11e599cb"},
@@ -206,7 +213,7 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
 
             Tools.dismissLoading();
             if (success) {
-                // TODO 调用js方法更新User
+                // 调用js方法更新User
                 mWebView.getWebView().loadUrl("javascript:authDone()");
                 Tools.showSuccessToast(PersonalGoodsAuthActivity.this, "认证成功!");
                 finish();
@@ -314,6 +321,12 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
                     Bitmap bitmap = BitmapFactory.decodeFile(pat);
                     // 压缩过后的图片
                     Bitmap bitmap2 = Tools.getimage(pat);
+
+                    // MI 4W
+                    String model = Build.MODEL;
+                    if (model.equalsIgnoreCase("SM-N9100") || model.equalsIgnoreCase("Coolpad")) {
+                        bitmap2 = Tools.rotaingImageView(90, bitmap2);
+                    }
 
                     // 将压缩过后的图片存放到该目录下
                     File ff = new File(pat);

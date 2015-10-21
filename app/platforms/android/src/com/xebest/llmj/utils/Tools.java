@@ -2,13 +2,17 @@ package com.xebest.llmj.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.telephony.TelephonyManager;
@@ -355,6 +359,47 @@ public class Tools {
     public static void toast(Context context, String msg) {
         if (!isShow) return;
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * 旋转图片任意角度
+     * @param angle
+     * @param bitmap
+     * @return
+     */
+    public static Bitmap rotaingImageView(int angle , Bitmap bitmap) {
+        //旋转图片 动作
+        Matrix matrix = new Matrix();;
+        matrix.postRotate(angle);
+        System.out.println("angle2=" + angle);
+        // 创建新的图片
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        return resizedBitmap;
+    }
+
+    public static boolean isReat(Context context, Uri mImageCaptureUri) {
+        ContentResolver cr = context.getContentResolver();
+        Cursor cursor = cr.query(mImageCaptureUri, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            String filePath = cursor.getString(cursor.getColumnIndex("_data"));// 获取图片路
+            String orientation = cursor.getString(cursor
+                    .getColumnIndex("orientation"));// 获取旋转的角度
+            cursor.close();
+            if (filePath != null) {
+                Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+                int angle = 0;
+                if (orientation != null && !"".equals(orientation)) {
+                    angle = Integer.parseInt(orientation);
+                }
+                if (angle != 0) {
+                    // 需要旋转
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

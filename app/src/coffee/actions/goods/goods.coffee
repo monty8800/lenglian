@@ -8,6 +8,11 @@ GoodsAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.GOODS_ADD_PASS_BY
 		}
+	minusPassBy: (index)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.GOODS_MINUS_PASS_BY
+			index: index
+		}
 	addGoods: (params, files)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.ADD_GOODS

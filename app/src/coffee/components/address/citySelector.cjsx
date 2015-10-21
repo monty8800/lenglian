@@ -123,9 +123,9 @@ Selector = React.createClass {
 		<section style={{display: if @state.show then 'block' else 'none'}}>
 		    <div className="chadr_box">
 		        <div className="chadr_topbar">
-		            <div onClick={@_back} className="xeAppfonts arrow-left"></div>
+		            <div onClick={@_back} className="ll-font arrow-left"></div>
 		            请选择城市
-		            <div onClick={@_close} className="xeAppfonts ch-close"></div>
+		            <div onClick={@_close} className="ll-font ch-close"></div>
 		        </div>
 		        <div className="chadr_con">
 	            	<div className={'ul_con deepth' + @state.deepth}>

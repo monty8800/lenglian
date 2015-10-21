@@ -51,6 +51,7 @@ window.setAuthPic = (picUrl, type)->
 	_user = _user.set type, picUrl
 	DB.put 'user', _user.toJS()
 	UserStore.emitChange 'setAuthPic:done'
+	UserStore.emitChange ['setAuthPicType', type, picUrl]
 
 window.authDone = ->
 	UserStore.emitChange 'auth:done'

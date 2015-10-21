@@ -88,10 +88,10 @@ Auth = React.createClass {
 			UserAction.companyAuth {
 				type: Constants.authType.WAREHOUSE
 				name: @state.companyName
-				province: address.provinceId
-				city: address.cityId
-				area: address.areaId
-				street: @state.address
+				province: address.provinceName
+				city: address.cityName
+				area: address.areaName
+				street: @state.street
 				phone: @state.tel
 				licenseno: @state.businessLicenseNo
 				certifies: @state.organizingCode

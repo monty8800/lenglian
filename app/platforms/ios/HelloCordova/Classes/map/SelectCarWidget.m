@@ -111,7 +111,7 @@
                     }
                     else
                     {
-                        priceStr = [NSString stringWithFormat:@"价格类型： %@ %@", priceType, price];
+                        priceStr = [NSString stringWithFormat:@"价格类型： %@ %@元", priceType, price];
                     }
                     
                     NSString *descStr;

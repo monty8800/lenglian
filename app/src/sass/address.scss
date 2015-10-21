@@ -1,4 +1,5 @@
 @import 'mixin';
+
 // ---
 .chadr_box {
 	width: 640/$ppr;
@@ -46,7 +47,8 @@
 		top: 0;
 		
 		&:after {
-			content: "\d60c";
+			content: "\e60c";
+			color: $main-color;
 		}
 		-webkit-transform:rotate(180deg);
 		transform:rotate(180deg);
@@ -61,7 +63,8 @@
 		right: 0;
 		top: 0;
 		&:after {
-			content: "\d632";
+			content: "\e632";
+			color: $main-color;
 		}
 	}
 }
