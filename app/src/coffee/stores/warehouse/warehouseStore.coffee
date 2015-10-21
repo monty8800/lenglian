@@ -144,7 +144,7 @@ getSearchWarehouseDetail = (warehouseId,focusid) ->
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'street', warehouseLoad?.street			#地址 街道
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'status', warehouseLoad?.status  			# 0-空闲中  1-已发布 2-使用中
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'styleType', warehouseLoad?.styleType		#  驶入式、横梁式、平推式、自动立体货架式
-		_searchWarehouseDetail = _searchWarehouseDetail.set 'imageUrl', warehouseLoad?.imageUrl			#图片
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'imageUrl', warehouseLoad?.imgurl			#图片
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'invoice', warehouseLoad?.isinvoice			# 0-不提供发票 1-提供发票
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'contact', warehouseLoad?.contacts  		#联系人姓名
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'contactTel', warehouseLoad?.phone 	#联系人电话
@@ -156,6 +156,7 @@ getSearchWarehouseDetail = (warehouseId,focusid) ->
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'score', data?.goodScore
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'userName', data?.name
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'wishlst', data?.wishlst
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'userHeaderImageUrl', data?.imgurl		#仓库主头像
 		console.log _searchWarehouseDetail.wishlst + 'oooooooooooooo'
 		propertyArr = warehouseLoad?.warehouseProperty or []
 		tempArr = []

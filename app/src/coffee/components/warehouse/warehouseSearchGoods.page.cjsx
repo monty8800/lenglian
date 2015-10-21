@@ -65,19 +65,21 @@ SearchResultList = React.createClass {
 		console.log 'select ', aResult
 		Auth.needLogin ->
 			user = UserStore.getUser()
-			if user.warehouseStatus is 1
-				# if @state.userGoodsSource.length < 1
-				# 	Plugin.toast.show '没有货源适合这个仓库'
-				# 	return
+			if user.id is aResult.userId
+				Plugin.toast.err '不能选择自己的货物'
+			else
+				if user.warehouseStatus is 1
+					# if @state.userGoodsSource.length < 1
+					# 	Plugin.toast.show '没有货源适合这个仓库'
+					# 	return
 
-#TODO:仓库找货  在弹出我的仓库列表的弹窗前 先判断有没有仓库
-
-				_selectedGoodsId = aResult.id
-				console.log _selectedGoodsId,'____仓库找货 货源ID_'
-				# # GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
-				Plugin.run [3, 'select:warehouse', _selectedGoodsId]
-			else 
-				Plugin.toast.err '尚未通过仓库主认证，请认证后再试'
+	#TODO:仓库找货  在弹出我的仓库列表的弹窗前 先判断有没有仓库
+					_selectedGoodsId = aResult.id
+					console.log _selectedGoodsId,'____仓库找货 货源ID_'
+					# # GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
+					Plugin.run [3, 'select:warehouse', _selectedGoodsId]
+				else 
+					Plugin.toast.err '尚未通过仓库主认证，请认证后再试'
 		e.stopPropagation()
 
 	render: ->
@@ -87,7 +89,7 @@ SearchResultList = React.createClass {
 				<div className="g-item-dirver">
 					<div className="g-dirver">					
 						<div className="g-dirver-pic">
-							<XeImage src={ aResult.userImgUrl } size='100x100' type='avatar' />
+							<XeImage src={ aResult.userImgUrl } size='130x130' type='avatar' />
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
@@ -102,16 +104,51 @@ SearchResultList = React.createClass {
 						</div>
 					</div>
 				</div>
-				<div className="g-item">
-					<div className="g-adr-start ll-font">
-						<p dangerouslySetInnerHTML={{__html: 
-							if aResult.toProvinceName is aResult.toCityName
-								aResult.toProvinceName + aResult.toAreaName
-							else
-								aResult.toProvinceName + aResult.toCityName + aResult.toAreaName
-						}}/>
-					</div>
-				</div>
+				{
+					switch parseInt(aResult.coldStoreFlag)
+						when 2
+							<div className="g-item">
+								<div className="g-adr-end ll-font">
+									<p dangerouslySetInnerHTML={{__html: 
+										if aResult.fromProvinceName is aResult.fromCityName
+											aResult.fromProvinceName + aResult.fromAreaName
+										else
+											aResult.fromProvinceName + aResult.fromCityName + aResult.fromAreaName
+									}}/>
+								</div>
+								<div className="g-adr-start ll-font">
+									<p dangerouslySetInnerHTML={{__html: 
+										if aResult.toProvinceName is aResult.toCityName
+											aResult.toProvinceName + aResult.toAreaName
+										else
+											aResult.toProvinceName + aResult.toCityName + aResult.toAreaName
+									}}/>
+								</div>
+							</div>
+						when 3
+							<div className="g-item">
+								<div className="g-adr-start ll-font">
+									<p dangerouslySetInnerHTML={{__html: 
+										if aResult.toProvinceName is aResult.toCityName
+											aResult.toProvinceName + aResult.toAreaName
+										else
+											aResult.toProvinceName + aResult.toCityName + aResult.toAreaName
+									}}/>
+								</div>
+							</div>
+						when 4
+							<div className="g-item">
+								<div className="g-adr-end ll-font">
+									<p dangerouslySetInnerHTML={{__html: 
+										if aResult.fromProvinceName is aResult.fromCityName
+											aResult.fromProvinceName + aResult.fromAreaName
+										else
+											aResult.fromProvinceName + aResult.fromCityName + aResult.fromAreaName
+									}}/>
+								</div>
+							</div>
+
+				}
 				<div className="g-item g-pad ll-font">
 					{
 						if aResult.price
@@ -310,7 +347,7 @@ React.render <WarehouseSearchGoods />, document.getElementById('content')
 # 				<div className="g-item-dirver">
 # 					<div className="g-dirver">					
 # 						<div className="g-dirver-pic">
-# 							<XeImage src={ aResult.userImgUrl } size='100x100' type='avatar' />
+# 							<XeImage src={ aResult.userImgUrl } size='130x130' type='avatar' />
 # 						</div>
 # 						<div className="g-dirver-msg">
 # 							<div className="g-dirver-name">

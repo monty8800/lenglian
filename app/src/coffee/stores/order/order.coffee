@@ -156,7 +156,7 @@ getStoreOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'warehousePersonUserId', order.warehousePersonUserId
 				tempOrder = tempOrder.set 'version', order.version
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
-				tempOrder = tempOrder.set 'sourceMode', order.sourceMode
+				tempOrder = tempOrder.set 'warehouseSourceMode', order.warehouseSourceMode
 				console.log '_________________________________________________',order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['store']
@@ -484,7 +484,10 @@ warehouseAcceptOrder = (params,index)->
 warehouseCancleOrder = (params,index)->
 	Http.post Constants.api.WAREHOUSE_CANCLE_ORDER, params, (data)->
 		OrderStore.emitChange ['warehouse:cancle:order:done',index]
-
+		Plugin.toast.success '订单取消成功'
+		DB.put 'transData', {
+			del: params.orderNo
+		}
 
 OrderStore = assign BaseStore, {
 	getOrderList: ->

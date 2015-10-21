@@ -18,7 +18,7 @@ _transData = DB.get 'transData'
 
 WarehouseOrderDetail = React.createClass {
 	minxins : [PureRenderMixin,LinkedStateMixin]
-	componentDidMount: ->			
+	componentDidMount: ->		
 		OrderStore.addChangeListener @_onChange
 		OrderAction.getWarehouseOrderDetail {orderNo:_transData?.orderNo,userId:UserStore.getUser()?.id,focusid:_transData?.goodsPersonUserId}
 
@@ -30,6 +30,7 @@ WarehouseOrderDetail = React.createClass {
 			orderDetail:{}
 			wishlst:false
 			data:{}
+			mjRateflag:true
 		}
 
 	_onChange: (mark)->
@@ -39,6 +40,7 @@ WarehouseOrderDetail = React.createClass {
 			newState.orderDetail = mark.detail?.mjWarhousefoundGoods
 			newState.data = mark.detail
 			newState.wishlst = mark.detail.wishlst
+			newState.mjRateflag = newState.orderDetail.mjRateflag
 			@setState newState
 		else if mark[0] is 'attention_success'
 			console.log '---attention_success-'
@@ -52,6 +54,7 @@ WarehouseOrderDetail = React.createClass {
 			@setState newState
 		else if mark[0] is 'warehouse:cancle:order:done'
 			console.log 'cancle order succ'
+
 			Plugin.nav.pop()
 
 	_handleFallow: ()->
@@ -74,13 +77,28 @@ WarehouseOrderDetail = React.createClass {
 			version:@state.orderDetail.version
 		}
 
+	_doComment:->
+		if @state.mjRateflag
+			Plugin.toast.show '评价过了'
+		else
+			DB.put 'transData', {
+				userRole: '3'
+				targetId: @state.orderDetail?.goodsPersonUserId
+				targetRole: if @state.orderDetail?.orderType in ['GW', 'WG'] then 1 
+				orderNo: @state.orderDetail?.orderNo
+			}
+			Plugin.nav.push ['doComment']
+		
+
+	_makePhoneCall:(phone)->
+		window.location.href = 'tel:' + phone
 
 	render: ->
 		switch parseInt(@state.orderDetail?.orderState)
 			when 1
-				if parseInt(@state.orderDetail?.sourceMode) is 1
+				if parseInt(@state.orderDetail?.warehouseSourceMode) is 1
 					title = '等待货主确认'
-				else if parseInt(@state.orderDetail?.sourceMode) is 2
+				else if parseInt(@state.orderDetail?.warehouseSourceMode) is 2
 					title = ''	
 			when 2
 				if parseInt(@state.orderDetail?.payType) is 3  	
@@ -91,8 +109,10 @@ WarehouseOrderDetail = React.createClass {
 				title = '货物存储中'
 
 			when 4
-				title = '待评价'
-
+				if @state.mjRateflag
+					title = '已评价'
+				else
+					title = '待评价'
 		
 		<div>
 			<div className="m-orderdetail clearfix">
@@ -103,7 +123,7 @@ WarehouseOrderDetail = React.createClass {
 				<div className="g-detail-dirver">
 					<div className="g-detail">					
 						<div className="g-dirver-pic">
-							<XeImage src={ @state.orderDetail.goodsPersonHeadPic } size='100x100' type='avatar' />
+							<XeImage src={ @state.orderDetail.goodsPersonHeadPic } size='130x130' type='avatar' />
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
@@ -115,16 +135,13 @@ WarehouseOrderDetail = React.createClass {
 						</div>
 						<ul className="g-driver-contact">
 							<li onClick={ @_handleFallow } className={ if @state.wishlst then "ll-font" else 'll-font active'}>关注</li>
-							<li className="ll-font">拨号</li>
+							<li onClick={ @_makePhoneCall.bind this, @state.orderDetail.goodsPersonMobile } className="ll-font">拨号</li>
 						</ul>
 					</div>
 				</div>
 				<div className="g-item g-adr-detail ll-font nopadding">			
 					<div className="g-adr-store ll-font">
 						{ @state.orderDetail.warehousePlace }
-						<p>
-							<span>{ Moment(@state.orderDetail.goodsCreateTime ).format('YYYY-MM-DD') }</span> 至 <span>错误数据 不要提bug</span>
-						</p>
 					</div>
 				</div>
 			</div>
@@ -134,7 +151,7 @@ WarehouseOrderDetail = React.createClass {
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<XeImage src={ @state.orderDetail.goodsPic } size='100x100' />
+						<XeImage src={ @state.orderDetail.goodsPic } size='200x200' />
 					</div>
 					<div className="g-pro-text fl">
 						<p>货物类型: <span>{ @state.orderDetail.goodsType }</span></p>
@@ -146,15 +163,15 @@ WarehouseOrderDetail = React.createClass {
 			<div className="m-detail-info m-nomargin">			
 				<p>
 					<span>发货人:</span>
-					<span className="ll-font g-info-name">{ @state.orderDetail.shipper }</span>
+					<span onClick={ @_makePhoneCall.bind this, @state.orderDetail.shipperMobile } className="ll-font g-info-name">{ @state.orderDetail.shipper }</span>
 				</p>
 				<p>
 					<span>收货人:</span>
-					<span className="ll-font g-info-name">{ @state.orderDetail.receiver }</span>
+					<span onClick={ @_makePhoneCall.bind this, @state.orderDetail.receiverMobile } className="ll-font g-info-name">{ @state.orderDetail.receiver }</span>
 				</p>
 				<p>
 					<span>价格类型:</span>
-					<span>{ Helper.priceTypeMapper @state.orderDetail.priceType }</span>
+					<span>{ Helper.priceTypeMapper @state.orderDetail.priceType }  { if @state.orderDetail.price then @state.orderDetail.price + '元' else '' }</span>
 				</p>
 				<p>
 					<span>支付方式:</span>
@@ -170,13 +187,20 @@ WarehouseOrderDetail = React.createClass {
 				</p>			
 			</div>
 			{
-				if parseInt(@state.orderDetail?.orderState) is 1 and parseInt(@state.orderDetail?.sourceMode) is 2
-					# 洽谈中 且当前用户是接受方(状态是2)的可以取消
+				if parseInt(@state.orderDetail?.orderState) is 1 
 					<div className="m-detail-bottom">
 						<div onClick={@_cancleOrder} className="g-pay-btn">
 							<a className="u-btn02">取消</a>
 						</div>
 					</div>
+				else if parseInt(@state.orderDetail?.orderState) is 4 
+					if not @state.mjRateflag
+						<div className="m-detail-bottom">
+							<div onClick={@_doComment} className="g-pay-btn">
+								<a className="u-btn02">评价货主</a>
+							</div>
+						</div>
+
 			}
 
 		</div>

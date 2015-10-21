@@ -73,7 +73,7 @@ WarehouseDetail = React.createClass {
 				<div className="g-detail-dirver g-det-pad0">
 					<div className="g-detail">					
 						<div className="g-dirver-pic">
-							<XeImage src={ @state.warehouseDetail.userHeaderImageUrl } size='100x100' type='avatar'/>
+							<XeImage src={ @state.warehouseDetail.userHeaderImageUrl } size='130x130' type='avatar'/>
 						</div>
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
@@ -102,7 +102,7 @@ WarehouseDetail = React.createClass {
 				</div>
 				<div className="g-pro-detail">
 					<div className="g-pro-pic fl">
-						<XeImage src={ @state.warehouseDetail.imageUrl } size='100x100'/>
+						<XeImage src={ @state.warehouseDetail.imageUrl } size='200x200'/>
 					</div>
 					<div className="g-pro-text fl">
 						<p>仓库状态: <span>{ Helper.warehouseStatus @state.warehouseDetail.status }</span></p>
