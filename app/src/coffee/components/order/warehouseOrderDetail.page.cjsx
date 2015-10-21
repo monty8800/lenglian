@@ -74,7 +74,7 @@ WarehouseOrderDetail = React.createClass {
 			type: type
 		})
 
-	_cancleOrder: (index)->
+	_cancleOrder: ()->
 		orderNo = @state.orderDetail.orderNo
 		warehousePersonUserId = @state.orderDetail.warehousePersonUserId
 		version = @state.orderDetail.version
@@ -87,6 +87,18 @@ WarehouseOrderDetail = React.createClass {
 				}
 		, ['确定', '取消']
 
+	_receiver:()->
+		orderNo = @state.orderDetail.orderNo
+		warehousePersonUserId = @state.orderDetail.warehousePersonUserId
+		version = @state.orderDetail.version
+		Plugin.alert '确认接受吗?', '提示', (index)->
+			if index is 1
+				OrderAction.warehouseAcceptOrder {
+					orderNo:orderNo
+					warehousePersonUserId:warehousePersonUserId
+					version:version
+				},orderNo
+		, ['确定', '取消']
 
 	_doComment:->
 		if @state.mjRateflag
@@ -205,8 +217,9 @@ WarehouseOrderDetail = React.createClass {
 			{
 				if parseInt(@state.orderDetail?.orderState) is 1 
 					<div className="m-detail-bottom">
-						<div onClick={@_cancleOrder} className="g-pay-btn">
-							<a className="u-btn02">取消</a>
+						<div className="g-pay-btn">
+							<a onClick={@_receiver} className="u-btn02">接受</a>
+							<a onClick={@_cancleOrder} className="u-btn02">取消</a>
 						</div>
 					</div>
 				else if parseInt(@state.orderDetail?.orderState) is 4 

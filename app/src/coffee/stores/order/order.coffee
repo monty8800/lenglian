@@ -520,9 +520,23 @@ updateStore = ->
 window.updateStore = updateStore
 
 
-warehouseAcceptOrder = (params,index)->
+# warehouseAcceptOrder = (params,index)->
+# 	Http.post Constants.api.WAREHOUSE_ACCEPT_ORDER, params, (data)->
+# 		OrderStore.emitChange ['warehouse:accept:order:done',index]
+
+warehouseAcceptOrder = (params, orderId)->
 	Http.post Constants.api.WAREHOUSE_ACCEPT_ORDER, params, (data)->
-		OrderStore.emitChange ['warehouse:accept:order:done',index]
+		Plugin.toast.success '接受订单成功！'
+		console.log 'warehouse agree', data
+		if _htmlPage is 'orderList.html'
+			_orderList = _orderList.filterNot (order)->
+				order.get('orderNo') is orderId
+			OrderStore.emitChange ['store']
+		else
+			DB.put 'transData', {
+				del: orderId
+			}
+			Plugin.nav.pop()
 
 warehouseCancleOrder = (params,index)->
 	Http.post Constants.api.WAREHOUSE_CANCLE_ORDER, params, (data)->

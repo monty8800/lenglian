@@ -11,6 +11,7 @@ Raty = require 'components/common/raty'
 
 StoreCell = React.createClass {
 
+
 	_toWarehouseDetail:(item)->
 		console.log item,'++++++____++++++'
 		DB.put 'transData',item
@@ -24,7 +25,7 @@ StoreCell = React.createClass {
 						orderNo:item.orderNo
 						warehousePersonUserId:item.warehousePersonUserId
 						version:item.version
-					}
+					},item.orderNo
 			, ['确定', '取消']
 
 		else if orderState is 4
