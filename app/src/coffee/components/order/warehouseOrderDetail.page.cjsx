@@ -56,7 +56,7 @@ WarehouseOrderDetail = React.createClass {
 			console.log 'cancle order succ'
 
 			Plugin.nav.pop()
-		else if params[0] is 'orderDetailCommentUpdate'
+		else if mark[0] is 'orderDetailCommentUpdate'
 			@setState {
 				mjRateflag: true
 			}

@@ -33,7 +33,7 @@ GoodsListItem = React.createClass {
 				if parseInt(item.refrigeration) is 1  
 					_statusText = '求车中'
 				else
-					_statusText = '求库中'
+					_statusText = '求车(库)中'
 			else
 				_statusText = Helper.goodsStatus item.resourceStatus
 
