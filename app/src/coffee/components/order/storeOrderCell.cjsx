@@ -40,8 +40,18 @@ StoreCell = React.createClass {
 				version:item.version
 			}
 		else if orderState is 4
-			console.log '货库交易尾声  库主 评价 货主'
+			console.log '货库交易结束 库主 评价 货主'
+			if not item?.rateFlag
 
+				DB.put 'transData', {
+					userRole: '3'
+					targetId: item?.goodsPersonUserId
+					targetRole: if item?.orderType in ['GW', 'WG'] then 1 
+					orderNo: item?.orderNo
+				}
+				Plugin.nav.push ['doComment']
+			else
+				e.stopPropagation()
 		else
 			console.log 'XXXXXXXXXXXXXXXXX'
 		e.stopPropagation()
@@ -68,9 +78,9 @@ StoreCell = React.createClass {
 								# acceptMode 1显示接受、取消按钮 2显示等待司机同意 3显示等待仓库同意
 								switch parseInt(item?.orderState)
 									when 1
-										if parseInt(item?.sourceMode) is 1
+										if parseInt(item?.warehouseSourceMode) is 1
 											<span>等待货主确认</span>
-										else if parseInt(item?.acceptMode) is 2
+										else if parseInt(item?.warehouseSourceMode) is 2
 											<a onClick={@_receiver.bind this,1,item} className="u-btn02">接受</a>
 									when 2
 										if item?.payType is '3'

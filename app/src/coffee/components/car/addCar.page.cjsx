@@ -81,7 +81,7 @@ selList = [
 			{key: 8, value: '8.6米'}
 			{key: 9, value: '9.6米'}
 			{key: 10, value: '13~15米'}
-			{key: 11, value: '15~米'}
+			{key: 11, value: '15米以上'}
 		]
 	}
 ]

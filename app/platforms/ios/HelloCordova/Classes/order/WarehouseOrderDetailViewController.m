@@ -7,7 +7,7 @@
 //
 
 #import "WarehouseOrderDetailViewController.h"
-
+#import "DoCommentViewController.h"
 @interface WarehouseOrderDetailViewController ()
 
 @end
@@ -32,7 +32,15 @@
 -(void) createUI {
     self.title = @"仓库订单详情";
 }
-
+-(void)commonCommand:(NSArray *)params{
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"doComment"]){
+            DoCommentViewController *doCommentVC = [DoCommentViewController new];
+            [self.navigationController pushViewController:doCommentVC animated:YES];
+        }
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
