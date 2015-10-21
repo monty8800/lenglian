@@ -165,7 +165,7 @@ WarehouseOrderDetail = React.createClass {
 				<div className="g-pro-p">
 					<p className="g-pro-name">货物名称: <span>{ @state.orderDetail.goodsName }</span></p>
 				</div>
-				<div className="g-pro-detail">
+				<div className="g-pro-detail clearfix">
 					<div className="g-pro-pic fl">
 						<XeImage src={ @state.orderDetail.goodsPic } size='200x200' />
 					</div>

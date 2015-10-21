@@ -54,10 +54,10 @@ $text-color-fd8 : #fd8c2a;
 }
 
 @mixin blur($size){
-	-webkit-filter: blur($size); /* Chrome, Opera */
-	-moz-filter: blur($size);
-	-ms-filter: blur($size);   
-	filter: blur($size); 
+  -webkit-filter: blur($size); /* Chrome, Opera */
+  -moz-filter: blur($size);
+  -ms-filter: blur($size);   
+  filter: blur($size); 
 }
 
 @mixin transition($target,$time,$style){
@@ -67,17 +67,17 @@ $text-color-fd8 : #fd8c2a;
 }
 
 @mixin animation{
-	  -webkit-animation-duration: 1s;
-	  animation-duration: 1s;
-	  -webkit-animation-fill-mode: both;
-	  animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
 @mixin preserve3d {
-	-webkit-transform-origin: 50% 50%;
-	-moz-transform-origin: 50% 50%;
-	transform-origin: 50% 50%;
-	-webkit-transform-style: preserve-3d;
-	-moz-transform-style: preserve-3d;
-	transform-style: preserve-3d;
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
