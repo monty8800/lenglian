@@ -100,7 +100,7 @@ WarehouseDetail = React.createClass {
 							detailAddr.provinceName + detailAddr.cityName + detailAddr.areaName + detailAddr.street 
 					}</p>
 				</div>
-				<div className="g-pro-detail">
+				<div className="g-pro-detail clearfix">
 					<div className="g-pro-pic fl">
 						<XeImage src={ @state.warehouseDetail.imageUrl } size='200x200'/>
 					</div>

@@ -187,7 +187,6 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
             map.put("pageNow", "1");
             map.put("pageSize", "100");
             map.put("priceType", "1");
-            map.put("coldStoreFlag", "1");
             return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
         }
 

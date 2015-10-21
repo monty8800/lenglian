@@ -78,6 +78,7 @@
     }];
     _pointAnno.subtitle = @"拖拽修改位置";
     [_mapView addAnnotation:_pointAnno];
+    [_mapView selectAnnotation:_pointAnno animated:YES];
 }
 
 -(BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {

@@ -358,10 +358,10 @@ AddWarehouse = React.createClass {
 						<span>提供发票</span>
 						<div className="radio-box">
 							<label className="mr5">
-		                        <input onChange=@_unNeedInvoice defaultChecked=true className="mui-checkbox ll-font" name="xe-checkbox" type="radio"/>否
+		                        <input onChange=@_unNeedInvoice defaultChecked=true className="mui-checkbox ll-font" name="xe-checkbox" type="radio" dangerouslySetInnerHTML={{__html: '否'}}/>
 		                    </label>
 		                    <label className="mr5">
-		                        <input onChange=@_needInvoice className="mui-checkbox ll-font" name="xe-checkbox" type="radio"/>是
+		                        <input onChange=@_needInvoice className="mui-checkbox ll-font" name="xe-checkbox" type="radio" dangerouslySetInnerHTML={{__html: '是'}} />
 		                    </label>
 						</div>
 					</div>
@@ -371,13 +371,13 @@ AddWarehouse = React.createClass {
 						<span>增值服务</span>
 						<div className="radio-box">
 							<label className="mr5">
-		                        <input onChange=@increaseServe1 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox"/>城配
+		                        <input onChange=@increaseServe1 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '城配'}} />
 		                    </label>
 							<label className="mr5">
-		                        <input onChange=@increaseServe2 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox"/>仓配
+		                        <input onChange=@increaseServe2 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '仓配'}} />
 		                    </label>
         					<label className="mr5">
-                                <input onChange=@increaseServe3 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox"/>金融
+                                <input onChange=@increaseServe3 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '金融'}} />
                             </label>
 						</div>
 					</div>
@@ -390,7 +390,7 @@ AddWarehouse = React.createClass {
 						<dd className="fl">
 							<div>
 								<label>
-			                        <input onChange=@temperatureCheck1 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox"/><span>常温</span>
+			                        <input onChange=@temperatureCheck1 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '常温'}} />
 			                    </label>
 								{
 									if @state.temperatureChecked1 is '0'
@@ -402,7 +402,7 @@ AddWarehouse = React.createClass {
 							</div>
 							<div>
 								<label>
-			                        <input onChange=@temperatureCheck2 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox"/><span>冷藏</span>
+			                        <input onChange=@temperatureCheck2 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '冷藏'}} />
 			                    </label>
 								{
 									if @state.temperatureChecked2 is '0'
@@ -414,7 +414,7 @@ AddWarehouse = React.createClass {
 							</div>
 							<div>
 								<label>
-			                        <input onChange=@temperatureCheck3 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox"/><span>冷冻</span>
+			                        <input onChange=@temperatureCheck3 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '冷冻'}} />
 			                    </label>
 			                    {
 			                    	if @state.temperatureChecked3 is '0'
@@ -426,7 +426,7 @@ AddWarehouse = React.createClass {
 							</div>
 							<div>
 								<label>
-			                        <input onChange=@temperatureCheck4 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox"/><span>急冻</span>
+			                        <input onChange=@temperatureCheck4 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '急冻'}}/>
 			                    </label>
 			                    {
 			                    	if @state.temperatureChecked4 is '0'
@@ -438,7 +438,7 @@ AddWarehouse = React.createClass {
 							</div>
 							<div>
 								<label>
-			                        <input onChange=@temperatureCheck5 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox"/><span>深冷</span>
+			                        <input onChange=@temperatureCheck5 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '深冷'}} />
 			                    </label>
 			                    {
 			                    	if @state.temperatureChecked5 is '0'

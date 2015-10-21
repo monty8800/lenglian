@@ -306,7 +306,7 @@ GoodsOrderDetail = React.createClass {
 				<span>{Moment(@state.detail?.get('createTime')).format('YYYY-MM-DD')}</span>
 			</p>			
 		</div>
-		<div className={if _statusText isnt '订单已评价' then 'm-detail-bottom' else ''}>
+		<div className={if _statusText not in ['订单已评价', '已取消'] then 'm-detail-bottom' else ''}>
 			{
 				if orderState is 1
 					<div className={if acceptMode is 1 then "g-cancle-btn" else 'g-pay-btn'}>

@@ -220,11 +220,11 @@ Vehicle = React.createClass {
 				<div className="g-radio">
 					<span>提供发票</span> 
 					<div className="radio-box">
-						<label className="label-checkbox">
-							<input onChange=@unNeedInvoice defaultChecked=true type="radio" name="xe-checkbox"/><span className="item-media ll-font"></span><span>否</span>
+						<label >
+							<input className="mui-checkbox ll-font" onChange={@unNeedInvoice} defaultChecked=true type="radio" name="xe-checkbox" dangerouslySetInnerHTML={{__html: '否'}} />
 						</label>
-						<label className="label-checkbox">
-							<input onChange=@needInvoice type="radio" name="xe-checkbox"/><span className="item-media ll-font"></span><span>是</span>
+						<label >
+							<input className="mui-checkbox ll-font" onChange={@needInvoice} type="radio" name="xe-checkbox" dangerouslySetInnerHTML={{__html: '是'}} />
 						</label>
 					</div>
 				</div>
@@ -238,13 +238,13 @@ Vehicle = React.createClass {
 				</div>
 				<div>
 					<span>手机号</span>
-					<span><input type="text" valueLink={@linkState 'phone'} placeholder="请输入手机号" /></span>
+					<span><input className="input-weak" type="text" valueLink={@linkState 'phone'} placeholder="请输入手机号" /></span>
 				</div>
 			</div>
 			<div className="m-releaseitem">
 				<div>
 					<label htmlFor="remark"><span>备注说明</span> </label>
-					<input type="text" valueLink={@linkState 'remark'} placeholder="选填" id="remark"/>
+					<input type="text" className="input-weak" valueLink={@linkState 'remark'} placeholder="选填" id="remark"/>
 				</div>
 			</div>		
 			<div className="u-pay-btn">

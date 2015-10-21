@@ -132,6 +132,7 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'goodsWeight', order.goodsWeight
 				tempOrder = tempOrder.set 'goodsCubic', order.goodsCubic
 				tempOrder = tempOrder.set 'bidPrice', order.bidPrice
+				tempOrder = tempOrder.set 'goodsCubic', order.goodsCubic
 				tempOrder = tempOrder.set 'goodsPersonName', order.goodsPersonName
 				tempOrder = tempOrder.set 'advance', order.advance
 
@@ -378,8 +379,8 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId, orderCarId)-
 		_orderDetail = _orderDetail.set 'mjRateflag', temp.mjRateflag
 		_orderDetail = _orderDetail.set 'orderCarId', temp.orderCarId
 		_orderDetail = _orderDetail.set 'advance', temp.advance
-
-		OrderStore.emitChange ['car_owner_order_detail']
+		_orderDetail = _orderDetail.set 'goodsCubic', temp.goodsCubic
+		OrderStore.emitChange ['car_owner_order_detail']		
 	, (data)->
 		Plugin.toast.err data.msg
 		Plugin.nav.pop()

@@ -422,7 +422,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     ooA = new MarkerOptions().position(llA).icon(goodsCold)
                             .zIndex(9).draggable(false);
                 }
-                if (ooA != null) {
+                if (ooA != null && mMapView != null && mMapView.getMap() != null) {
                     Marker marker = (Marker) (mMapView.getMap().addOverlay(ooA));
                     marker.setTitle(i + "");
                 }

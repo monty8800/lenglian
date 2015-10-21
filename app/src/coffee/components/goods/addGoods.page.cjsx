@@ -276,17 +276,17 @@ AddGoods = React.createClass {
 			<div className="g-radio">
 				<span>使用冷库</span>
 				<div className="radio-box">
-					<label className="label-checkbox">
-						<input  onChange={@_selectRefrigeration} value="1" defaultChecked=true type="radio" name="xe-checkbox" /><span className="item-media ll-font"></span><span>否</span>
+					<label className="mr5">
+						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="1" defaultChecked=true type="radio" name="xe-checkbox" dangerouslySetInnerHTML={{__html: '否'}} />
 					</label>
-					<label className="label-checkbox">
-						<input onChange={@_selectRefrigeration} value="2"  type="radio" name="xe-checkbox" /><span className="item-media ll-font" ></span><span>是</span>
+					<label className="mr5">
+						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="2"  type="radio" name="xe-checkbox" dangerouslySetInnerHTML={{__html: '是'}} />
 					</label>
-					<label className="label-checkbox">
-						<input onChange={@_selectRefrigeration} value="4"  type="radio" name="xe-checkbox" /><span className="item-media ll-font" ></span><span>发地</span>
+					<label className="mr5">
+						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="4"  type="radio" name="xe-checkbox"  dangerouslySetInnerHTML={{__html: '发地'}} />
 					</label>
-					<label className="label-checkbox">
-						<input onChange={@_selectRefrigeration} value="3"  type="radio" name="xe-checkbox" /><span className="item-media ll-font" ></span><span>终点</span>
+					<label className="mr5">
+						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="3"  type="radio" name="xe-checkbox" dangerouslySetInnerHTML={{__html: '终点'}} />
 					</label>
 				</div>
 			</div>
@@ -297,8 +297,8 @@ AddGoods = React.createClass {
 					<dt className="fl"><span>价格类型</span></dt>
 					<dd className="fl">
 						<div>
-							<label className="label-checkbox">
-								<input onChange={@_selectPriceType1} defaultChecked=true value="1" type="radio" name="xe-checkbox01" /><span className="item-media ll-font"></span><span>一口价</span>
+							<label>
+								<input className="mui-checkbox ll-font" onChange={@_selectPriceType1} defaultChecked=true value="1" type="radio" name="xe-checkbox01" dangerouslySetInnerHTML={{__html: '一口价'}} />
 							</label>
 							{
 								if parseInt(@state.priceType) is 1
@@ -308,8 +308,8 @@ AddGoods = React.createClass {
 							}
 						</div>
 						<div>
-							<label className="label-checkbox">
-								<input onChange={@_selectPriceType2} value="2" type="radio" name="xe-checkbox01" /><span className="item-media ll-font"></span><span>竞价</span>
+							<label>
+								<input className="mui-checkbox ll-font" onChange={@_selectPriceType2} value="2" type="radio" name="xe-checkbox01" dangerouslySetInnerHTML={{__html: '竞价'}} />
 							</label>
 							{
 								if parseInt(@state.priceType) is 2
@@ -329,18 +329,18 @@ AddGoods = React.createClass {
 					<dt className="fl"><span>支付方式</span></dt>
 					<dd className="fl">
 						<div>
-							<label className="label-checkbox">
-								<input value="1" onChange={@_selectPayType} defaultChecked=true type="radio" name="xe-checkbox02" /><span className="item-media ll-font"></span><span>货到付款</span>
+							<label >
+								<input className="mui-checkbox ll-font" value="1" onChange={@_selectPayType} defaultChecked=true type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '货到付款'}} />
 							</label>
 						</div>
 						<div>
-							<label className="label-checkbox">
-								<input value="2" onChange={@_selectPayType} type="radio" name="xe-checkbox02" /><span className="item-media ll-font"></span><span>回单付款</span>
+							<label>
+								<input className="mui-checkbox ll-font" value="2" onChange={@_selectPayType} type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '回单付款'}} />
 							</label>
 						</div>
 						<div>
-							<label className="label-checkbox">
-								<input value="3" onChange={@_selectPayType} type="radio" name="xe-checkbox02" /><span className="item-media ll-font"></span><span>预付款</span>
+							<label>
+								<input className="mui-checkbox ll-font" value="3" onChange={@_selectPayType} type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '预付款'}} />
 							</label>
 							<input valueLink={@linkState 'prePay'} type="number" placeholder="请输入预付款" className="price"/>
 						</div>						
@@ -352,11 +352,11 @@ AddGoods = React.createClass {
 			<div className="g-radio">
 				<span>需要发票</span>
 				<div className="radio-box">
-					<label className="label-checkbox">
-						<input defaultChecked=true value="2" onChange={@_selectInvoice} type="radio" name="xe-checkbox03" /><span className="item-media ll-font"></span><span>否</span>
+					<label>
+						<input className="mui-checkbox ll-font" defaultChecked=true value="2" onChange={@_selectInvoice} type="radio" name="xe-checkbox03" dangerouslySetInnerHTML={{__html: '否'}} />
 					</label>
-					<label className="label-checkbox">
-						<input value="1" onChange={@_selectInvoice} type="radio" name="xe-checkbox03" /><span className="item-media ll-font"></span><span>是</span>
+					<label >
+						<input className="mui-checkbox ll-font" value="1" onChange={@_selectInvoice} type="radio" name="xe-checkbox03" dangerouslySetInnerHTML={{__html: '是'}} />
 					</label>
 				</div>
 			</div>
