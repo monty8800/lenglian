@@ -95,6 +95,7 @@
 		4CDD99851BAFE4EC008B4AC6 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CDD99841BAFE4EC008B4AC6 /* images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		4CE0AE5C1BB241E00081DE22 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0AE5B1BB241E00081DE22 /* AuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CE0AE5F1BB243C20081DE22 /* PersonalCarAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CE2FDB11BD7326B0022B8D6 /* StarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FDB01BD7326B0022B8D6 /* StarView.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFED1BC0C81100935C9F /* SelectGoodsWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */; settings = {ASSET_TAGS = (); }; };
@@ -314,6 +315,8 @@
 		4CE0AE5B1BB241E00081DE22 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthViewController.m; path = auth/AuthViewController.m; sourceTree = "<group>"; };
 		4CE0AE5D1BB243C20081DE22 /* PersonalCarAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalCarAuthViewController.h; path = auth/PersonalCarAuthViewController.h; sourceTree = "<group>"; };
 		4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalCarAuthViewController.m; path = auth/PersonalCarAuthViewController.m; sourceTree = "<group>"; };
+		4CE2FDAF1BD7326B0022B8D6 /* StarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarView.h; path = map/StarView.h; sourceTree = "<group>"; };
+		4CE2FDB01BD7326B0022B8D6 /* StarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarView.m; path = map/StarView.m; sourceTree = "<group>"; };
 		4CE2FFEB1BC0C81100935C9F /* SelectGoodsWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectGoodsWidget.h; path = map/SelectGoodsWidget.h; sourceTree = "<group>"; };
 		4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectGoodsWidget.m; path = map/SelectGoodsWidget.m; sourceTree = "<group>"; };
 		4CE2FFEE1BC0C83900935C9F /* SelectGoodsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectGoodsTableViewCell.h; path = map/SelectGoodsTableViewCell.h; sourceTree = "<group>"; };
@@ -706,6 +709,8 @@
 			children = (
 				4C6584121BBE295C005FEB16 /* GoodsBubbleView.h */,
 				4C6584131BBE295C005FEB16 /* GoodsBubbleView.m */,
+				4CE2FDAF1BD7326B0022B8D6 /* StarView.h */,
+				4CE2FDB01BD7326B0022B8D6 /* StarView.m */,
 				4C6584151BBE2982005FEB16 /* WarehouseBubbleView.h */,
 				4C6584181BBE2995005FEB16 /* CarBubbleView.h */,
 				4C6584191BBE2995005FEB16 /* CarBubbleView.m */,
@@ -1174,6 +1179,7 @@
 				5BDFC3871BBFC86100712DBB /* MyGoodsListViewController.m in Sources */,
 				4C59928D1BBB7B2500CA5039 /* Net.m in Sources */,
 				4CDD99771BAFA563008B4AC6 /* HomeViewController.m in Sources */,
+				4CE2FDB11BD7326B0022B8D6 /* StarView.m in Sources */,
 				4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */,
 				5BEAC0D61BBA361100D9753C /* WarehouseDetailViewController.m in Sources */,
 				4CD14ACB1BBE9189009FFF0C /* InfoTableViewCell.m in Sources */,
@@ -1226,6 +1232,8 @@
 			baseConfigurationReference = 6B0EB7C66DF1B48523C2D80D /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -1271,6 +1279,8 @@
 			baseConfigurationReference = A7E4DB4F52C7578F94386307 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;

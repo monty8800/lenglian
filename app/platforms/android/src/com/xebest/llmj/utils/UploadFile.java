@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -303,13 +304,31 @@ public class UploadFile {
         return outputStream.toByteArray();
     }
 
-    // 保存评价
-    public static void saveImage(Bitmap bitmap, String filePath) throws IOException {
-        File dirFile = new File(ApiUtils.rootPath + filePath);
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
-        bos.flush();
-        bos.close();
+    // 保存图片
+    public static void saveImage(Bitmap bitmap, String fileName) {
+        File dirFile = new File(ApiUtils.storePath + "/" + fileName);
+        BufferedOutputStream bos = null;
+        try {
+            bos = new BufferedOutputStream(new FileOutputStream(dirFile));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (bos != null) {
+                try {
+                    bos.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (bos != null) {
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

@@ -42,7 +42,13 @@ public interface ApiUtils {
 
     String goods_find_store_order = SERVER + "/mjOrderWarhouse/addGoodsFoundWarhouseOrder.shtml";
 
+
+    String storePath = Environment.getExternalStorageDirectory() + "";
+
     // SD 跟目录
-    String rootPath = Environment.getExternalStorageDirectory() + "";
+    String rootPath = Environment.getRootDirectory() + "";
+
+    // 修改头像
+    String change_head_pic = SERVER + "/loginCtl/changHeadPic.shtml";
 
 }

@@ -145,8 +145,8 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6">详细地址</h6>
 						{
-							if @state.user.address and @state.user.certification isnt 0
-								<input value=@state.user.address readOnly="readOnly" className="input-weak" type="text" placeholder="请输入详细地址" />
+							if @state.user.street and @state.user.certification isnt 0
+								<input value=@state.user.street readOnly="readOnly" className="input-weak" type="text" placeholder="请输入详细地址" />
 							else
 								<input valueLink={@linkState 'street'} className="input-weak" type="text" placeholder="请输入详细地址" />
 						}

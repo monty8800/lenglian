@@ -539,7 +539,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     destination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() + list.get(0).getToAreaName());
                     start_point.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() + list.get(0).getFromAreaName());
                     priceType.setText("价格类型：" + Helper.getPriceType(list.get(0).getPriceType()));
-                    goods_des.setText("货物描述：" + list.get(0).getName() + " " + list.get(0).getWeight() + "吨");
+                    goods_des.setText("货物描述：" + (list.get(0).getName() == null ? "" : list.get(0).getName()) + " " + list.get(0).getWeight() + "吨");
                     int score = Integer.parseInt(list.get(0).getUserScore());
                     if (score == 0) {
                         rate.setVisibility(View.GONE);
@@ -576,6 +576,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             map.put("resourceStatus", "1");
             map.put("pageNow", "1");
             map.put("pageSize", "100");
+            map.put("priceType", "1");
+            map.put("coldStoreFlag", "1");
             return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
         }
 

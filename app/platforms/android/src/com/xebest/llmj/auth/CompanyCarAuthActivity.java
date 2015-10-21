@@ -110,6 +110,11 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
     Map<String, File> idCard = null;
     Map<String, File> operate = null;
 
+
+    String businsFromNet = "";
+    String transFromNet = "";
+    String companyNet = "";
+
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
@@ -131,18 +136,25 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
             }
         } else if (flag.equals("13")) {
             final String url = args.getString(1);
-            String type = args.getString(2);
-            // http://qa-pic.lenglianmajia.com//certificates//250/250/780148d52d2e4eedaff676b663ba329f.jpg
-            Log.i("info", "---------url:" + url);
             // businessLicense
-            Log.i("info", "---------type:" + type);
+            final String type = args.getString(2);
+            int index = url.lastIndexOf("/");
+            final String fileName = url.substring(index + 1, url.length());
+            // http://qa-pic.lenglianmajia.com//certificates//250/250/780148d52d2e4eedaff676b663ba329f.jpg
             // 开启线程下载图片
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     byte[] data = UploadFile.getImage(url);
-                    Log.i("info", "-----------data" + data);
-                    Bitmap bm = BitmapFactory.decodeByteArray(data, 0, data.length);// bitmap
+                    Bitmap bm = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    UploadFile.saveImage(bm, fileName);
+                    if (type.equals("businessLicense")) {
+                        businsFromNet = ApiUtils.storePath + "/" + fileName;
+                    } else if (type.equalsIgnoreCase("transLicensePic")) {
+                        transFromNet = ApiUtils.storePath + "/" + fileName;
+                    } else if (type.equalsIgnoreCase("companyPic")) {
+                        companyNet = ApiUtils.storePath + "/" + fileName;
+                    }
                 }
             }).start();
 
@@ -181,19 +193,31 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
             driving = new HashMap<String, File>();
             String pathB = files.getJSONObject(0).getString("path");
             if (pathB != null && !pathB.equals("")) {
-                driving.put("businessLicenseImg", new File(pathB));
+                if (pathB.contains("|")) {
+                    driving.put("businessLicenseImg", new File(businsFromNet));
+                } else {
+                    driving.put("businessLicenseImg", new File(pathB));
+                }
             }
 
             idCard = new HashMap<String, File>();
             String pathT = files.getJSONObject(1).getString("path");
             if (pathT != null && !pathT.equals("")) {
-                idCard.put("transportImg", new File(pathT));
+                if (pathT.contains("|")) {
+                    idCard.put("transportImg", new File(transFromNet));
+                } else {
+                    idCard.put("transportImg", new File(pathT));
+                }
             }
 
             operate = new HashMap<String, File>();
             String pathD = files.getJSONObject(2).getString("path");
             if (pathD != null && !pathD.equals("")) {
-                operate.put("doorImg", new File(pathD));
+                if (pathD.contains("|")) {
+                    operate.put("doorImg", new File(companyNet));
+                } else {
+                    operate.put("doorImg", new File(pathD));
+                }
             }
 
             Log.i("info", "--------------content:" + content);

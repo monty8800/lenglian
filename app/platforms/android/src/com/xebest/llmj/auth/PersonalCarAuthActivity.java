@@ -110,6 +110,10 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
     Map<String, File> idCard = null;
     Map<String, File> operate = null;
 
+    String licenseNet = "";
+    String idCardNet = "";
+    String operationNet = "";
+
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
@@ -130,7 +134,28 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
                 showWindow();
             }
         } else if (flag.equals("13")) {
-
+            final String url = args.getString(1);
+            // businessLicense
+            final String type = args.getString(2);
+            int index = url.lastIndexOf("/");
+            final String fileName = url.substring(index + 1, url.length());
+            // http://qa-pic.lenglianmajia.com//certificates//250/250/780148d52d2e4eedaff676b663ba329f.jpg
+            // 开启线程下载图片
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    byte[] data = UploadFile.getImage(url);
+                    Bitmap bm = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    UploadFile.saveImage(bm, fileName);
+                    if (type.equals("license")) {
+                        licenseNet = ApiUtils.storePath + "/" + fileName;
+                    } else if (type.equalsIgnoreCase("idCard")) {
+                        idCardNet = ApiUtils.storePath + "/" + fileName;
+                    } else if (type.equalsIgnoreCase("operationLicense")) {
+                        operationNet = ApiUtils.storePath + "/" + fileName;
+                    }
+                }
+            }).start();
         } else if (flag.equals("7")) {
             // [7,"http:\/\/192.168.29.176:8072\/\/mjPersonInfoAuthCtl\/personInfoAuth.shtml",
             // {"data":"{\"phone\":\"18513468467\",\"type\":2,\"username\":\"骨灰盒\",\"userId\":\"50819ab3c0954f828d0851da576cbc31\",\"cardno\":\"340621188807124021\",\"carno\":\"京j12345\",\"frameno\":\"11111111111111111\"}",
@@ -167,22 +192,31 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
             driving = new HashMap<String, File>();
             String pathD = files.getJSONObject(0).getString("path");
             if (pathD != null && !pathD.equals("")) {
+                if (pathD.contains("|")) {
+                    driving.put("drivingImg", new File(licenseNet));
+                }
                 driving.put("drivingImg", new File(pathD));
             }
 
             idCard = new HashMap<String, File>();
             String pathI = files.getJSONObject(1).getString("path");
             if (pathI != null && !pathI.equals("")) {
-                idCard.put("idcardImg", new File(pathI));
+                if (pathI.contains("|")) {
+                    idCard.put("idcardImg", new File(idCardNet));
+                } else {
+                    idCard.put("idcardImg", new File(pathI));
+                }
             }
 
             operate = new HashMap<String, File>();
             String pathT = files.getJSONObject(2).getString("path");
             if (pathT != null && !pathT.equals("")) {
-                operate.put("taxiLicenseImg", new File(pathT));
+                if (pathT.contains("|")) {
+                    operate.put("taxiLicenseImg", new File(operationNet));
+                } else {
+                    operate.put("taxiLicenseImg", new File(pathT));
+                }
             }
-
-
 
             Log.i("info", "--------------content:" + content);
             Log.i("info", "--------------content:");

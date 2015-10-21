@@ -88,9 +88,9 @@ GoodsOrderDetail = React.createClass {
 		, ['完成订单', '取消']
 
 	_goComment: ->
-		rateFlag = @state.detail?.get 'rateFlag'
+		rateFlag = @state.detail?.get 'mjRateflag'
 		console.log 'go comment', rateFlag
-		if not rateFlag
+		if rateFlag
 			return
 		DB.put 'transData', {
 			userRole: '1'
@@ -147,10 +147,15 @@ GoodsOrderDetail = React.createClass {
 				targetPic: if isGC then params.detail.get('carUserHeadPic') else params.detail.get('warehouseUserHeadPic')
 				targetAuth: if isGC then params.detail.get('carUserAuthMode') else params.detail.get('warehouseUserAuthMode')
 				targetScore: if isGC then params.detail.get('carUserScore') else params.detail.get('warehouseUserScore')
+				followed: params.detail.get('mjRateflag')
 			}
 		else if params.msg is 'follow:done'
 			@setState {
 				followed: params.followed
+			}
+		else if params?[0] is 'orderDetailCommentUpdate'
+			@setState {
+				detail: @state.detail.set 'mjRateflag', true
 			}
 
 	getInitialState: ->
@@ -179,13 +184,14 @@ GoodsOrderDetail = React.createClass {
 				_btnText = '订单完成'
 			when 4
 				_statusText = '已付款'
-				if @state.detail?.get 'rateFlag'
+				if not @state.detail?.get 'mjRateflag'
 					if @state.detail?.get('orderType') in ['GC', 'CG'] 
 						_btnText = '评价司机'
 					else
 						_btnText = '评价仓库'
 				else
 					_btnText = '订单已评价'
+					_statusText = '订单已评价'
 			when 5
 				_statusText = '已取消'
 				_btnText = '重新发布'
@@ -299,7 +305,7 @@ GoodsOrderDetail = React.createClass {
 					</div>
 			}
 			{
-				if parseInt(@state.detail?.get 'orderState') isnt 5 and not (parseInt(@state.detail?.get 'orderState') is 1 and parseInt(@state.detail?.get 'acceptMode') isnt 1)
+				if parseInt(@state.detail?.get 'orderState') isnt 5 and not (parseInt(@state.detail?.get 'orderState') is 1 and parseInt(@state.detail?.get 'acceptMode') isnt 1) and not @state.detail?.get 'mjRateflag'
 					<div className="g-pay-btn">
 						<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
 					</div>

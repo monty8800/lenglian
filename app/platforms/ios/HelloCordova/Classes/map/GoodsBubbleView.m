@@ -12,6 +12,7 @@
 #import "UIImageView+XE.h"
 #import "NearByViewController.h"
 
+
 @implementation GoodsBubbleView
 
 /*
@@ -33,6 +34,9 @@
     _nameLabel.textColor = [UIColor WY_ColorWithHex:0x333333];
     [self addSubview:_nameLabel];
     
+    _starView = [[StarView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-30-5*15, 18, 15*5, 15)];
+    [self addSubview:_starView];
+    
     _fromToView = [[FromToView alloc] initWithFrame:CGRectMake(10, 45, self.bounds.size.width-20, 74)];
     _fromToView.tabView.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
     [_fromToView WY_MakeBorder:Top|Bottom borderColor:[UIColor WY_ColorWithHex:0xececec] lineWidth:0.5];
@@ -49,6 +53,9 @@
     [_avatar XE_setImage:[data objectForKey:@"userImgUrl"] size:s130x130 type:Avatar];
     
     _nameLabel.text = [data objectForKey:@"userName"];
+    
+    _starView.score = [[data objectForKey:@"userScore"] integerValue];
+    
     _fromToView.addressList = @[
                                 @{
                                     @"type": @(TO),

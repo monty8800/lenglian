@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
@@ -35,6 +37,7 @@ import com.xebest.llmj.auth.PersonalWareHouseAuthActivity;
 import com.xebest.llmj.car.MyCarActivity;
 import com.xebest.llmj.goods.MyGoodsActivity;
 import com.xebest.llmj.utils.Tools;
+import com.xebest.llmj.utils.UploadFile;
 import com.xebest.llmj.ware.MyWarehouseActivity;
 import com.xebest.plugin.XEFragment;
 import com.xebest.plugin.XEWebView;
@@ -51,7 +54,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kaisun on 15/9/21.
@@ -289,6 +294,7 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                     mWebView.getWebView().loadUrl("javascript:(function(){setAuthPic('"+ pat +"', '"+ resource +"')})()");
                     Log.i("info", "-----------resource:" + resource);
                     Log.i("info", "-----------img:" + pat);
+                    new UploadUserHeadTask().execute(pat);
 
                     break;
                 case IMAGE_CODE:
@@ -340,6 +346,7 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                         Log.i("info", "-----------resource:" + resource);
                         Log.i("info", "-----------temp:" + temp);
 
+                        new UploadUserHeadTask().execute(temp);
 
                     } catch(Exception e) {
                         e.printStackTrace();
@@ -353,6 +360,42 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
     @Override
     public void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
+    }
+
+    /**
+     * 修改头像
+     */
+    public class UploadUserHeadTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, String> data = new HashMap<String, String>();
+            data.put("userId", Application.getInstance().userId);
+            map.put("uuid", Application.getInstance().UUID);
+            map.put("version", Application.getInstance().VERSIONCODE);
+            map.put("client_type", "3");
+            map.put("data", new Gson().toJson(data));
+            Map<String, File> fileMap = new HashMap<String, File>();
+            fileMap.put("file", new File(params[0]));
+            String result = null;
+            try {
+                result = UploadFile.post(ApiUtils.change_head_pic, map, fileMap, null, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
     }
 
 
