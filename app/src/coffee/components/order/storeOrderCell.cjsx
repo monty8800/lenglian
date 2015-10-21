@@ -89,9 +89,9 @@ StoreCell = React.createClass {
 					</div>
 				</div>
 				<div className="g-item g-item-des">
-					<p>价格类型：<span>{Helper.priceTypeMapper item?.priceType}</span><span>{item?.price}元</span></p>
+					<p>价格类型：<span>{Helper.priceTypeMapper item?.priceType}</span><span>{item?.price + '元'}</span><span>{ if item?.goodsWeight then item?.goodsWeight + '吨' else ''}</span><span>{if item?.goodsCubic then item?.goodsCubic + '方' else ''}</span></p>
 					<p>货物描述 : <span>{item?.goodsDesc}</span></p>
-					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}</span></p>
+					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}</span><span>{ if parseInt(item?.payType) is 3 then item?.advance + '元' else ''}</span></p>
 				</div>
 			</div>
 		, this

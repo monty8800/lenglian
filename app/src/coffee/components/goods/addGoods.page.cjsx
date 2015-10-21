@@ -283,10 +283,10 @@ AddGoods = React.createClass {
 						<input onChange={@_selectRefrigeration} value="2"  type="radio" name="xe-checkbox" /><span className="item-media ll-font" ></span><span>是</span>
 					</label>
 					<label className="label-checkbox">
-						<input onChange={@_selectRefrigeration} value="3"  type="radio" name="xe-checkbox" /><span className="item-media ll-font" ></span><span>发地</span>
+						<input onChange={@_selectRefrigeration} value="4"  type="radio" name="xe-checkbox" /><span className="item-media ll-font" ></span><span>发地</span>
 					</label>
 					<label className="label-checkbox">
-						<input onChange={@_selectRefrigeration} value="4"  type="radio" name="xe-checkbox" /><span className="item-media ll-font" ></span><span>终点</span>
+						<input onChange={@_selectRefrigeration} value="3"  type="radio" name="xe-checkbox" /><span className="item-media ll-font" ></span><span>终点</span>
 					</label>
 				</div>
 			</div>

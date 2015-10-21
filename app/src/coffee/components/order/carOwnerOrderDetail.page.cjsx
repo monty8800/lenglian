@@ -177,13 +177,15 @@ OrderDetail = React.createClass {
 					</div>	
 				</div>
 			</div>
-			<div className="m-item01">
+			<div className="m-item01" style={{display: if @state.order?.loadingSdate is '' then 'none' else 'block' }}>
 				<div className="g-detail-time01">
 					<span className="fl">装货时间:</span>
 					<span className="fr">
 						{Helper.subStr 0, 10, @state.order?.loadingSdate} 到 {Helper.subStr 0, 10, @state.order?.loadingEdate}
 					</span>
 				</div>
+			</div>
+			<div className="m-item01" style={{display: if @state.order?.arrivalSdate is '' then 'none' else 'block' }}>
 				<div className="g-detail-time01">
 					<span className="fl">到货时间:</span>
 					<span className="fr">

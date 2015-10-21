@@ -186,6 +186,7 @@ getUserGoodsList = (pageNow,pageSize,status,priceType,createTime)->
 			aGoodsModel = aGoodsModel.set 'goodsType',goodsObj.goodsType
 			aGoodsModel = aGoodsModel.set 'createTime',goodsObj.createTime
 			aGoodsModel = aGoodsModel.set 'cube',goodsObj.cube
+			aGoodsModel = aGoodsModel.set 'refrigeration', goodsObj.coldStoreFlag
 
 			_myGoodsList.push aGoodsModel	
 		GoodsStore.emitChange 'getUserGoodsListSucc'
