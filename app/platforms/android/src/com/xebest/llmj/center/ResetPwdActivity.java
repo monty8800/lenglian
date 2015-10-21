@@ -32,11 +32,14 @@ public class ResetPwdActivity extends BaseCordovaActivity implements CordovaInte
 
     private TextView tvTitle;
 
+    private static String mTitle;
+
     /**
      * 活跃当前窗口
      * @param context
      */
-    public static void actionView(Context context) {
+    public static void actionView(Context context, String title) {
+        mTitle = title;
         context.startActivity(new Intent(context, ResetPwdActivity.class));
     }
 
@@ -51,7 +54,8 @@ public class ResetPwdActivity extends BaseCordovaActivity implements CordovaInte
 
     protected void initView() {
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("忘记密码");
+//        tvTitle.setText("忘记密码");
+        tvTitle.setText(mTitle);
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {

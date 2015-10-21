@@ -100,6 +100,13 @@ AddCar = React.createClass {
 
 	resultCallBack: (result)->
 		if result is 'setAuthPic:done'
+			user = UserStore.getUser()
+			carPic = @state.user.carPic
+			license = @state.user.license
+			transLicensePic = @state.user.transLicensePic
+			console.log '----------carPic:', carPic
+			console.log '----------license:', license
+			console.log '----------transLicensePic:', transLicensePic
 			@setState {
 				user: UserStore.getUser()
 				carNum: @state.carNum
@@ -145,7 +152,6 @@ AddCar = React.createClass {
 			console.log '********url:', url
 
 	getInitialState: ->
-
 		user = UserStore.getUser()
 
 		address = AddressStore.getAddress()
