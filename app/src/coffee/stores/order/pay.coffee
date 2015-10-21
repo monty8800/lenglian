@@ -25,8 +25,17 @@ getPayInfo = (params)->
 hidePaySms = ->
 	PayStore.emitChange 'hide:pay:sms'
 
-payNoti = ->
-	PayStore.emitChange 'do:pay'
+payNoti = (smsCode)->
+	PayStore.emitChange {
+		msg: 'do:pay'
+		smsCode: smsCode
+	}
+
+selectPayCard = (cardId)->
+	PayStore.emitChange {
+		msg: 'select:card'
+		cardId: cardId
+	}
 
 doPay = (params)->
 	Http.post Constants.api.PAY_ORDER, params, (data)->
@@ -46,13 +55,16 @@ doPay = (params)->
 					del: params.orderNo
 				}
 				PayStore.emitChange 'pay:success'
+	, null
+	, true
 
 Dispatcher.register (action)->
 	switch action.actionType
 		when Constants.actionType.GET_PAY_INFO then getPayInfo(action.params)
 		when Constants.actionType.HIDE_PAY_SMS then hidePaySms()
-		when Constants.actionType.PAY_NOTI then payNoti()
+		when Constants.actionType.PAY_NOTI then payNoti(action.smsCode)
 		when Constants.actionType.DO_PAY then doPay(action.params)
+		when Constants.actionType.SELECT_PAY_CARD then selectPayCard(action.cardId)
 
 
 module.exports = PayStore

@@ -36,8 +36,11 @@ AddBankCardNext = React.createClass {
 			_bankCardInfo = _bankCardInfo.set 'bankMobile',@state.bankMobile
 			_bankCardInfo = _bankCardInfo.set 'userIdNumber',@state.userIdNumber
 			_bankCardInfo = _bankCardInfo.set 'bankName', @state.bankName
-			DB.put 'transData',_bankCardInfo
-			Plugin.nav.push ['addBankCardVerify']
+			if user.certification is 2
+				WalletAction.bindBankCard _bankCardInfo, null
+			else
+				DB.put 'transData',_bankCardInfo.toJS()
+				Plugin.nav.push ['addBankCardVerify']
 
 	getInitialState: ->
 		{
@@ -62,6 +65,9 @@ AddBankCardNext = React.createClass {
 			@setState {
 				bankList: WalletStore.getSupportBankList()
 			}
+		else if mark is 'bindBankCarSucc'
+			DB.put 'shouldBankCardsListReload',1
+			Plugin.nav.popTo 2
 
 	render : ->
 		console.log 'new state', @state

@@ -92,15 +92,19 @@ getVCodeForBindBankCar = (aBankCardModel)->
 		bankBranchName:aBankCardModel.bankBranchName
 	},(data)->
 		console.log data,'______ bind card vcode _______'
-		WalletStore.emitChange "getVCodeForBindBankCarSucc"
+		WalletStore.emitChange {
+			msg: 'getVCodeForBindBankCarSucc'
+			txSNBinding: data.txSNBinding
+		}
 	,(data)->
 		Plugin.toast.err data.msg
 	,true
 
 bindBankCard = (aBankCardModel,smsCode)->
 	user = UserStore.getUser()
-	Http.post Constants.api.ADD_BANK_CARD_PRIVET, {
-		id:'7201beba475b49fd8b872e2d1493844a'						# 不知道是什么ID
+	api = if user.certification is 2 then Constants.api.ADD_BANK_CARD_COMMPANY else Constants.api.ADD_BANK_CARD_PRIVET
+	Http.post api, {
+		id: aBankCardModel.txSNBinding						# 不知道是什么ID
 		userId:user.id
 		cardName:aBankCardModel.cardName
 		cardNo:aBankCardModel.cardNo
@@ -108,7 +112,7 @@ bindBankCard = (aBankCardModel,smsCode)->
 		cardType:aBankCardModel.cardType
 		bankMobile:aBankCardModel.bankMobile
 		userIdNumber:aBankCardModel.userIdNumber
-		mobileCode:smsCode
+		mobileCode:smsCode if smsCode
 		bankCode:aBankCardModel.bankCode
 		zfNo:aBankCardModel.zfNo
 		bankBranchName:aBankCardModel.bankBranchName

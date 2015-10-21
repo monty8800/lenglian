@@ -51,7 +51,7 @@ OrderPay = React.createClass {
 				showSms: true
 			}
 
-	_doPay: ->
+	_doPay: (smsCode)->
 		if not Validator.payPasswd @state.payPasswd
 			Plugin.toast.err '请输入正确的支付密码'
 		else if @state.payMode isnt 1 and not Validator.smsCode @state.smsCode
@@ -63,13 +63,14 @@ OrderPay = React.createClass {
 				consumeOrderNo: @state.info.get 'consumeOrderNo'
 				payMode: @state.payMode
 				userBankCardId: @state.bankCard if @state.payMode isnt 1
-				smsCode: @state.smsCode if @state.payMode isnt 1
+				smsCode: smsCode if @state.payMode isnt 1
 				payPwd: @state.payPasswd
 			}
 
 	_setPayMode: (mode)->
 		@setState {
 			payMode: mode
+			bankCard: null
 		}
 
 	_setPayPwd: ->
@@ -88,7 +89,12 @@ OrderPay = React.createClass {
 			@setState {
 				showSms: false
 			}
-		else if params is 'do:pay'
+		else if params.msg is 'do:pay'
+			payFunc = ->
+				@_doPay params.smsCode
+			payFunc = payFunc.bind this
+			setTimeout payFunc ,200
+
 			@setState {
 				showSms: false
 			}
@@ -102,8 +108,14 @@ OrderPay = React.createClass {
 		else if params is 'pay:done'
 			Plugin.toast.success '支付成功，订单处理中！'
 			Plugin.nav.pop()
+		else if params.msg is 'select:card'
+			@setState {
+				bankCard: params.cardId
+				payMode: 2
+			}
 
 	render : ->
+		console.log 'state---', @state
 		user = @state.user
 		<section>
 		<div className="m-pay-item">
@@ -130,8 +142,10 @@ OrderPay = React.createClass {
 				<span className="font24">{@state.info?.get('accountAmount') + '元'}</span>
 			</p>
 		</div>
-
-		<BankCardList />
+		{
+			if user.certification is 1
+				<BankCardList selected={@state.bankCard} bankCardList={@state.info?.get 'bankCardList'} />
+		}
 
 
 		<div className="u-pay-btn">
