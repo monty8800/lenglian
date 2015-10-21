@@ -53,7 +53,7 @@ OrderDriverCell = React.createClass {
 
 	_goComment: ->
 		console.log 'o---rder', @props.order
-		if not @props.order?.rateFlag
+		if  @props.order?.mjRateflag
 			return
 		DB.put 'transData', {
 			userRole: '1'
@@ -82,7 +82,7 @@ OrderDriverCell = React.createClass {
 			when 3
 				statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
 			when 4
-				if @props.order?.rateFlag
+				if not @props.order?.mjRateflag
 					if @props.order?.orderType in ['GC', 'CG']
 						statusBtn = <a onClick={@_receiver} className="u-btn02">评价司机</a>
 					else

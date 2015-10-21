@@ -82,6 +82,7 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'price', order.price
 				tempOrder = tempOrder.set 'userId', order.userId
 				tempOrder = tempOrder.set 'rateFlag', order.rateFlag
+				tempOrder = tempOrder.set 'mjRateflag', order.mjRateflag
 				tempOrder = tempOrder.set 'goodsWeight', order.goodsWeight
 				tempOrder = tempOrder.set 'goodsSourceId', order.goodsSourceId
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId

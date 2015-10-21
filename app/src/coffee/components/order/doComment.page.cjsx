@@ -64,7 +64,7 @@ DoComment = React.createClass {
 			<div className="m-releaseitem">
 				<div>
 					<p dangerouslySetInnerHTML = {{ __html : "给" + target + "评分"}}/>
-					<Raty score=3 canRate=true />
+					<Raty score={@state.startStage} canRate=true />
 				</div>
 			</div>
 			<div className="m-releaseitem">
