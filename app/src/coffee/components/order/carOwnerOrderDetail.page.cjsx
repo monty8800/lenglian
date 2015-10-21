@@ -124,6 +124,9 @@ OrderDetail = React.createClass {
 		if @state.order?.orderState is '1'
 			if @state.order?.orderType is 'CG'
 				title = '等待货主确认'
+			else
+				# 2015-10-21 如果这块有问题，果断去掉这块逻辑
+				title = '洽谈中'
 		else if @state.order?.orderState is '2'
 			# 1：货到付款（线下）2：回单付款（线下） 3：预付款（线上）
 			if @state.order?.payType is '3'
@@ -203,7 +206,7 @@ OrderDetail = React.createClass {
 					</div>
 					<div className="g-pro-text fl">
 						<p>货物种类: <span>{@state.order?.goodsType}</span></p>
-						<p>货物规格: <span>{@state.order?.goodsWeight}吨</span></p>
+						<p>货物规格: <span>{@state.order?.goodsWeight + '吨'}{@state.order?.goodsCubic + '方'}</span></p>
 						<p>包装类型: <span>{@state.order?.goodsPackingType}</span></p>
 					</div>
 				</div>
