@@ -233,7 +233,7 @@ Vehicle = React.createClass {
 				<div className="u-personIcon ll-font">
 					<span>联系人</span>
 					<input valueLink={@linkState 'contacts'} type="text" 
-						className="input-weak" placeholder="请输入收货人"/>
+						className="input-weak" placeholder="请输入联系人"/>
 					<em onClick={@_goPage.bind this, 'contact_list'}></em>
 				</div>
 				<div>
