@@ -116,7 +116,7 @@ Detail = React.createClass {
 					<p className="g-pro-name">车牌号码: <span>{detail?.carNo}</span></p>
 					<p className="g-pro-name">车辆类型: <span>{Helper.carTypeMapper detail?.carType}</span></p>
 				</div>
-				<div className="g-pro-detail">
+				<div className="g-pro-detail clearfix">
 					<div className="g-pro-pic fl">
 						<XeImage src={detail?.carPic} size=Constants.carPicSize />
 					</div>
