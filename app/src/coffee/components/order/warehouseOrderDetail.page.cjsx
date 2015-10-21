@@ -216,12 +216,19 @@ WarehouseOrderDetail = React.createClass {
 			</div>
 			{
 				if parseInt(@state.orderDetail?.orderState) is 1 
-					<div className="m-detail-bottom">
-						<div className="g-pay-btn">
-							<a onClick={@_receiver} className="u-btn02">接受</a>
-							<a onClick={@_cancleOrder} className="u-btn02">取消</a>
+					if parseInt(@state.orderDetail?.warehouseSourceMode) is 2
+						<div className="m-detail-bottom">
+							<div className="g-pay-btn">
+								<a onClick={@_receiver} className="u-btn02">接受</a>
+								<a onClick={@_cancleOrder} className="u-btn02">取消</a>
+							</div>
 						</div>
-					</div>
+					else
+						<div className="m-detail-bottom">
+							<div className="g-pay-btn">
+								<a onClick={@_cancleOrder} className="u-btn02">取消</a>
+							</div>
+						</div>
 				else if parseInt(@state.orderDetail?.orderState) is 4 
 					if not @state.mjRateflag
 						<div className="m-detail-bottom">
