@@ -58,7 +58,8 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
         if (flag.equalsIgnoreCase("carOwnerOrderDetail")) {
             CarOrderDetailActivity.actionView(this);
         } else if (flag.equalsIgnoreCase("resetPasswd")) {
-            ResetPwdActivity.actionView(this);
+            // 修改支付密码
+            ResetPwdActivity.actionView(this, "修改支付密码");
         }
     }
 

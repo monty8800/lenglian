@@ -106,7 +106,7 @@ public class LoginActivity extends BaseCordovaActivity implements CordovaInterfa
         } else if (flag.equals("register")) {
             RegisterActivity.actionView(LoginActivity.this);
         } else if (flag.equals("resetPasswd")) {
-            ResetPwdActivity.actionView(LoginActivity.this);
+            ResetPwdActivity.actionView(LoginActivity.this, "忘记密码");
         }
     }
 

@@ -85,24 +85,24 @@ OrderDoc = React.createClass {
 					<li onClick={@status_04}>
 						<span className={ if @state.type is '4' then "active" else ""}>已完成</span>
 					</li>
-				</ul> 
-				{
-					switch @state.orderType
-						when 'car'
-							<CarItem items=@state.orderList />
-						when 'goods'
-							goodsOrderList = @state.orderList.map (order, i)->
-								<GoodsItem order={order} key={order.orderNo} />
-							<div>
+				</ul>
+			</div> 
+			{
+				switch @state.orderType
+					when 'car'
+						<CarItem items=@state.orderList />
+					when 'goods'
+						goodsOrderList = @state.orderList.map (order, i)->
+							<GoodsItem order={order} key={order.orderNo} />
+						<div>
+						
+						{goodsOrderList}
+						
+						</div>
+					when 'store'
+						<StoreItem items=@state.orderList />
 							
-							{goodsOrderList}
-							
-							</div>
-						when 'store'
-							<StoreItem items=@state.orderList />
-								
-				}
-			</div>
+			}
 		</div>
 }
 

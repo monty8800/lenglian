@@ -287,7 +287,7 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
     }
 
     public void showWindow() {
-        mDialog = Tools.getCustomDialog(this, R.layout.choose_cg, new Tools.BindEventView() {
+        mDialog = Tools.getCustomDialogBg(this, R.layout.choose_cg, new Tools.BindEventView() {
             @Override
             public void bindEvent(View view) {
                 TextView tvCamera = (TextView) view.findViewById(R.id.camera);

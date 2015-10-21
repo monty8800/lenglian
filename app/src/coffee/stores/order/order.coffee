@@ -125,6 +125,7 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'mjRateflag', order.mjRateflag
 				tempOrder = tempOrder.set 'orderCarId', order.orderCarId
 				tempOrder = tempOrder.set 'goodsWeight', order.goodsWeight
+				tempOrder = tempOrder.set 'goodsCubic', order.goodsCubic
 				tempOrder = tempOrder.set 'bidPrice', order.bidPrice
 				tempOrder = tempOrder.set 'goodsPersonName', order.goodsPersonName
 				_orderList = _orderList.push tempOrder

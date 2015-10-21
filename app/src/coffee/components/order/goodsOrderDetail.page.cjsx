@@ -165,11 +165,13 @@ GoodsOrderDetail = React.createClass {
 		}
 
 	render : ->
-		toColdFlag = if @state.detail?.get 'coldStoreFlag' in [2, 3] then '（需要冷库）' else ''
-		fromColdFlag = if @state.detail?.get 'coldStoreFlag' in [2, 4] then '（需要冷库）' else ''
+		toColdFlag = if parseInt(@state.detail?.get('coldStoreFlag')) in [2, 3] then '（需要冷库）' else ''
+		fromColdFlag = if parseInt(@state.detail?.get('coldStoreFlag')) in [2, 4] then '（需要冷库）' else ''
 		_statusText = null
 		_btnText = null
-		switch parseInt(@state.detail?.get 'orderState')
+		orderState = parseInt(@state.detail?.get 'orderState')
+		acceptMode = parseInt(@state.detail?.get 'acceptMode')
+		switch orderState
 			when 1
 				_statusText =  '洽谈中'
 				_btnText = '接受'
@@ -266,7 +268,9 @@ GoodsOrderDetail = React.createClass {
 				</div>
 				<div className="g-pro-text fl">
 					<p>货物种类: <span>{@state.detail?.get('goodsType')}</span></p>
+
 					<p>货物规格: <span>{@state.detail?.get('goodsWeight') + '吨'}</span><span>{ if @state.detail?.get('goodsCubic') then @state.detail?.get('goodsCubic') + '方' else ''}</span></p>
+
 					<p>包装类型: <span>{@state.detail?.get('goodsPackingType')}</span></p>
 				</div>
 			</div>
@@ -297,15 +301,15 @@ GoodsOrderDetail = React.createClass {
 				<span>{Moment(@state.detail?.get('createTime')).format('YYYY-MM-DD')}</span>
 			</p>			
 		</div>
-		<div className="m-detail-bottom">
+		<div className={if _statusText isnt '订单已评价' then 'm-detail-bottom' else ''}>
 			{
-				if parseInt(@state.detail?.get 'orderState') is 1
-					<div className="g-cancle-btn">
+				if orderState is 1
+					<div className={if acceptMode is 1 then "g-cancle-btn" else 'g-pay-btn'}>
 						<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
 					</div>
 			}
 			{
-				if parseInt(@state.detail?.get 'orderState') isnt 5 and not (parseInt(@state.detail?.get 'orderState') is 1 and parseInt(@state.detail?.get 'acceptMode') isnt 1) and not @state.detail?.get 'mjRateflag'
+				if orderState isnt 5 and not (orderState is 1 and acceptMode isnt 1) and not (orderState is 4 and @state.detail?.get 'mjRateflag')
 					<div className="g-pay-btn">
 						<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
 					</div>
