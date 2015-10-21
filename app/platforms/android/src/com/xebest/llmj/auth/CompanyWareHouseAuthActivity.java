@@ -111,12 +111,23 @@ public class CompanyWareHouseAuthActivity extends BaseCordovaActivity implements
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
-        String flag = args.getString(1);
-        if (flag.equals("businessLicense")) {
-            resource = "businessLicense";
-            // 行驶证照片
-            showWindow();
-        } else {
+//        String flag = args.getString(1);
+//        if (flag.equals("businessLicense")) {
+//            resource = "businessLicense";
+//            // 行驶证照片
+//            showWindow();
+//        }
+        String flag = args.getString(0);
+        if (flag.equals("8")) {
+            String next = args.getString(1);
+            if (next.equals("businessLicense")) {
+                resource = "businessLicense";
+                // 行驶证照片
+                showWindow();
+            }
+        } else if (flag.equals("13")) {
+
+        } else if (flag.equals("7")) {
             // [7,"http:\/\/192.168.29.176:8072\/\/mjPersonInfoAuthCtl\/personInfoAuth.shtml",
             // {"data":"{\"phone\":\"18513468467\",\"type\":2,\"username\":\"骨灰盒\",\"userId\":\"50819ab3c0954f828d0851da576cbc31\",\"cardno\":\"340621188807124021\",\"carno\":\"京j12345\",\"frameno\":\"11111111111111111\"}",
             // "client_type":"2","version":"10","uuid":"4ab872a3-143d-4ace-b6cc-9f8f11e599cb"},

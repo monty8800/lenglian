@@ -113,23 +113,40 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        if (flag.equals("businessLicense")) {
-//            resource = "businessLicense";
-            resource = "businessLicense";
-            // 行驶证照片
-            showWindow();
-        } else if (flag.equals("transLicensePic")) {
-//            resource = "idCard";
-            resource = "transLicensePic";
-            // 身份证照片
-            showWindow();
-        } else if (flag.equals("companyPic")) {
-//            resource = "operationLicense";
-            resource = "companyPic";
-            // 运营证照片(非必填)
-            showWindow();
-        } else {
+        String flag = args.getString(0);
+        if (flag.equals("8")) {
+            String next = args.getString(1);
+            if (next.equals("businessLicense")) {
+                resource = "businessLicense";
+                // 行驶证照片
+                showWindow();
+            } else if (next.equals("transLicensePic")) {
+                resource = "transLicensePic";
+                // 身份证照片
+                showWindow();
+            } else if (next.equals("companyPic")) {
+                resource = "companyPic";
+                // 运营证照片(非必填)
+                showWindow();
+            }
+        } else if (flag.equals("13")) {
+            final String url = args.getString(1);
+            String type = args.getString(2);
+            // http://qa-pic.lenglianmajia.com//certificates//250/250/780148d52d2e4eedaff676b663ba329f.jpg
+            Log.i("info", "---------url:" + url);
+            // businessLicense
+            Log.i("info", "---------type:" + type);
+            // 开启线程下载图片
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    byte[] data = UploadFile.getImage(url);
+                    Log.i("info", "-----------data" + data);
+                    Bitmap bm = BitmapFactory.decodeByteArray(data, 0, data.length);// bitmap
+                }
+            }).start();
+
+        } else if(flag.equals("7")) {
             // [7,"http:\/\/192.168.29.176:8072\/\/mjPersonInfoAuthCtl\/personInfoAuth.shtml",
             // {"data":"{\"phone\":\"18513468467\",\"type\":2,\"username\":\"骨灰盒\",\"userId\":\"50819ab3c0954f828d0851da576cbc31\",\"cardno\":\"340621188807124021\",\"carno\":\"京j12345\",\"frameno\":\"11111111111111111\"}",
             // "client_type":"2","version":"10","uuid":"4ab872a3-143d-4ace-b6cc-9f8f11e599cb"},
