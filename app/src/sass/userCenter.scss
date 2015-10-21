@@ -333,6 +333,7 @@
                 }
             }
             dd{
+                max-width: 380/$ppr;
                 p{
                     
                     line-height: 50/$ppr;
@@ -415,6 +416,38 @@
                font-size: 50/$ppr; 
                color:$com-color;
                padding-top: 30/$ppr;               
+            }
+        }
+        
+    }
+}
+
+.m-moneyRecord{
+    margin-top: 20/$ppr;
+    border-top: 1px solid #e6e6e6;
+    .g-recordItem{
+        padding: 30/$ppr 20/$ppr;
+        border-bottom: 1px solid #e6e6e6;
+        background: #fff;
+        .f30{
+            font-size: 30/$ppr;
+            color: #333;
+            padding-bottom: 22/$ppr;
+        }
+        .time{
+            font-size: 22/$ppr;
+            color: #999;
+        }
+        .right{
+            font-size: 26/$ppr;
+            text-align:right;
+            line-height: 37/$ppr;
+            color: #333;
+            .state{
+                color: #666;
+            }
+            .fail{
+                color: #fd8c2a;
             }
         }
         
@@ -609,7 +642,7 @@
         &.active{
             color: $main-color;
         }
-    }   
+    }
     &:after {
         content: "";
         width: 0;
