@@ -198,6 +198,11 @@ GoodsOrderDetail = React.createClass {
 				_statusText = '已取消'
 				_btnText = '重新发布'
 
+		_payTypeText = Helper.payTypeMapper @state.detail?.get 'payType'
+		if parseInt(@state.detail?.get 'payType') is 3
+			_payTypeText = _payTypeText + (@state.detail?.get 'advance') + '元'
+
+
 		console.log 'state', @state
 		<section>
 		<div className="m-orderdetail clearfix">
@@ -290,7 +295,7 @@ GoodsOrderDetail = React.createClass {
 			</p>
 			<p>
 				<span>支付方式:</span>
-				<span>{Helper.payTypeMapper @state.detail?.get('payType')}</span>
+				<span>{_payTypeText}</span>
 			</p>
 			<p>
 				<span>发票:</span>

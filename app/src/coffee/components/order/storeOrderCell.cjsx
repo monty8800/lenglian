@@ -18,12 +18,15 @@ StoreCell = React.createClass {
 
 	_receiver:(orderState,item,e )->
 		if orderState is 1
-			console.log '接受货主的用库请求 调接口生成订单'
-			OrderAction.warehouseAcceptOrder {
-				orderNo:item.orderNo
-				warehousePersonUserId:item.warehousePersonUserId
-				version:item.version
-			}
+			Plugin.alert '确认接受吗?', '提示', (index)->
+				if index is 1
+					OrderAction.warehouseAcceptOrder {
+						orderNo:item.orderNo
+						warehousePersonUserId:item.warehousePersonUserId
+						version:item.version
+					}
+			, ['确定', '取消']
+
 		else if orderState is 4
 			console.log '货库交易结束 库主 评价 货主'
 			if not item?.rateFlag
@@ -89,8 +92,8 @@ StoreCell = React.createClass {
 					</div>
 				</div>
 				<div className="g-item g-item-des">
-					<p>价格类型：<span>{Helper.priceTypeMapper item?.priceType}</span><span>{item?.price + '元'}</span><span>{ if item?.goodsWeight then item?.goodsWeight + '吨' else ''}</span><span>{if item?.goodsCubic then item?.goodsCubic + '方' else ''}</span></p>
-					<p>货物描述 : <span>{item?.goodsDesc}</span></p>
+					<p>价格类型 : <span>{Helper.priceTypeMapper item?.priceType}</span><span>{item?.price + '元'}</span></p>
+					<p>货物描述 : <span>{item?.goodsName}</span><span>{ if item?.goodsWeight then item?.goodsWeight + '吨' else ''}</span><span>{if item?.goodsCubic then item?.goodsCubic + '方' else ''}</span><span>{ item?.goodsType }</span></p>
 					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}</span><span>{ if parseInt(item?.payType) is 3 then item?.advance + '元' else ''}</span></p>
 				</div>
 			</div>

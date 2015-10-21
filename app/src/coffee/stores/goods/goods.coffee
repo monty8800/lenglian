@@ -235,6 +235,7 @@ getGoodsDetail = (goodsId)->
 		_goodsDetail = _goodsDetail.set 'goodsType',resource.goodsType
 		_goodsDetail = _goodsDetail.set 'price',resource.price
 		_goodsDetail = _goodsDetail.set 'payType',resource.payType
+		_goodsDetail = _goodsDetail.set 'prePay',resource.advance
 		_goodsDetail = _goodsDetail.set 'refrigeration', resource.coldStoreFlag
 
 		GoodsStore.emitChange 'getGoodsDetailSucc'

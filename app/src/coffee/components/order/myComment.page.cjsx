@@ -11,7 +11,14 @@ PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
 headerImg = require 'user-01.jpg'
 Raty = require 'components/common/raty'
+XeImage = require 'components/common/xeImage'
 
+# <div className="item-pic fl">
+# 	<p>
+# 		<XeImage src={@props.order.userHeadPic} size="130x130" type="avatar" />
+# 	</p>
+# 	<p>匿名用户</p>
+# </div>
 
 CommentItem = React.createClass {
 	render: ->
@@ -20,10 +27,7 @@ CommentItem = React.createClass {
 		items = resultList.map (item,i) ->
 			<div>
 				<div className="m-dis-item">
-					<div className="item-pic fl">
-						<p><img src={ headerImg }/></p>
-						<p>{ item.onsetName }</p>
-					</div>
+					
 					<div className="item-msg">
 						<div className="item-star ll-font">
 							<Raty score={ item.score } />

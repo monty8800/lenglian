@@ -65,12 +65,19 @@ GoodsDetail = React.createClass {
 				GoodsAction.deleteGoods toDeleteGoodsId
 		, ['确定', '取消']
 
+	_makePhoneCall:(phone)->
+		if phone
+  			window.location.href = 'tel:' + phone
 
 
 	render : ->
 		console.log 'state', @state
 		toColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 3] then '（需要冷库）' else ''
 		fromColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 4] then '（需要冷库）' else ''
+
+		_payTypeText = Helper.payTypeMapper @state.goodsDetail.payType
+		if parseInt(@state.goodsDetail.payType) is 3 and @state.goodsDetail.prePay
+			_payTypeText = _payTypeText + @state.goodsDetail.prePay + '元'
 		<div>
 			<div className="m-item01">
 				<div className="g-item g-adr-detail ll-font nopadding">			
@@ -135,13 +142,13 @@ GoodsDetail = React.createClass {
 			<div className="m-detail-info">			
 				<p>
 					<span>发货人:</span>
-					<span className="ll-font g-info-name">{ @state.goodsDetail.sender }</span>
+					<span onClick={ @_makePhoneCall.bind this, @state.goodsDetail.senderMobile } className="ll-font g-info-name">{ @state.goodsDetail.sender }</span>
 				</p>
 				{
 					if @state.goodsDetail.receiver
 						<p>
 							<span>收货人:</span>
-							<span className="ll-font g-info-name">{ @state.goodsDetail.receiver }</span>
+							<span onClick={ @_makePhoneCall.bind this, @state.goodsDetail.receiverMobile } className="ll-font g-info-name">{ @state.goodsDetail.receiver }</span>
 						</p>					
 				}
 
@@ -151,7 +158,7 @@ GoodsDetail = React.createClass {
 				</p>
 				<p>
 					<span>支付方式:</span>
-					<span>{ Helper.payTypeMapper @state.goodsDetail.payType }</span>
+					<span>{ _payTypeText }</span>
 				</p>
 				<p>
 					<span>发票:</span>

@@ -67,9 +67,9 @@ GoodsCell = React.createClass {
 
 			<div onClick={@_goDetail} className="g-item g-item-des">
 
-				<p>货物描述 : <span>{@props.order.goodsDesc}</span><span>{@props.order.goodsWeight + '吨' + (if @props.order?.goodsCubic then @props.order.goodsCubic + '方' else '')}</span></p>
+				<p>货物描述 : <span>{@props.order?.goodsName}</span><span>{@props.order?.goodsWeight + '吨' }</span><span>{if @props.order?.goodsCubic then @props.order?.goodsCubic + '方'}</span><span>{ if @props.order?.goodsType then @props.order?.goodsType }</span></p>
 
-				<p>支付方式 : <span>{Helper.payTypeMapper @props.order.payType}</span></p>
+				<p>支付方式 : <span>{Helper.payTypeMapper @props.order.payType}</span><span>{if parseInt(@props.order.payType) is 3 then @props.order.advance + '元' else ''}</span></p>
 			</div>
 		</div>
 }

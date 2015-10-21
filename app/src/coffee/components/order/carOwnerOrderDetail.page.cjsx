@@ -140,6 +140,10 @@ OrderDetail = React.createClass {
 		else if @state.order?.orderState is '5'
 			title = '订单已取消'
 
+		_payTypeText = Helper.payTypeMapper @state.order?.payType
+		if parseInt(@state.order?.payType) is 3 and @state.order?.advance
+			_payTypeText = _payTypeText + @state.order?.advance + '元'
+
 		<div>
 			<div className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{@state.order.orderNo}</span></p>
@@ -223,7 +227,7 @@ OrderDetail = React.createClass {
 				</p>
 				<p>
 					<span>支付方式:</span>
-					<span>{Helper.payTypeMapper @state.order?.payType}</span>
+					<span>{ _payTypeText }</span>
 				</p>
 				<p>
 					<span>发票:</span>

@@ -125,7 +125,11 @@ WarehouseOrderDetail = React.createClass {
 					title = '已评价'
 				else
 					title = '待评价'
-		
+
+		_payTypeText = Helper.payTypeMapper @state.orderDetail?.payType
+		if parseInt(@state.orderDetail?.payType) is 3 and @state.orderDetail?.advance
+			_payTypeText = _payTypeText + @state.orderDetail?.advance + '元'
+
 		<div>
 			<div className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{ _transData?.orderNo }</span></p>
@@ -187,7 +191,7 @@ WarehouseOrderDetail = React.createClass {
 				</p>
 				<p>
 					<span>支付方式:</span>
-					<span>{ Helper.payTypeMapper @state.orderDetail.payType }</span>
+					<span>{ _payTypeText }</span>
 				</p>
 				<p>
 					<span>发票:</span>

@@ -71,7 +71,7 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'toCountyName', order.toCountyName
 				tempOrder = tempOrder.set 'toProvinceName', order.toProvinceName
 				tempOrder = tempOrder.set 'priceType', order.priceType
-				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + ' ' + order.goodsType
+				tempOrder = tempOrder.set 'goodsDesc', order.goodsDesc
 				tempOrder = tempOrder.set 'payType', order.payType			
 				tempOrder = tempOrder.set 'orderNo', order.orderNo
 				tempOrder = tempOrder.set 'orderType', order.orderType
@@ -86,6 +86,9 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'goodsCubic', order.goodsCubic
 				tempOrder = tempOrder.set 'goodsSourceId', order.goodsSourceId
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
+				tempOrder = tempOrder.set 'goodsName',order.goodsName
+				tempOrder = tempOrder.set 'goodsType',order.goodsType
+				tempOrder = tempOrder.set 'advance',order.advance
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['goods']
 	, (err) ->
@@ -109,13 +112,15 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'orderNo', order.orderNo
 				tempOrder = tempOrder.set 'orderState', order.orderState
 				tempOrder = tempOrder.set 'orderType', order.orderType
+				tempOrder = tempOrder.set 'goodsDesc', order.goodsDesc
 				tempOrder = tempOrder.set 'goodsPersonHeadPic', order.goodsPersonHeadPic
 				tempOrder = tempOrder.set 'carPersonName', order.carPersonName
 				tempOrder = tempOrder.set 'goodsPersonScore', order.goodsPersonScore
 				tempOrder = tempOrder.set 'destination', order.destination
 				tempOrder = tempOrder.set 'setOut', order.setOut
 				tempOrder = tempOrder.set 'priceType', order.priceType
-				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + ' ' + order.goodsType
+				tempOrder = tempOrder.set 'goodsName', order.goodsName
+				tempOrder = tempOrder.set 'goodsType', order.goodsType
 				tempOrder = tempOrder.set 'payType', order.payType
 				tempOrder = tempOrder.set 'price', order.price
 				tempOrder = tempOrder.set 'carPersonUserId', order.carPersonUserId
@@ -128,6 +133,8 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'goodsCubic', order.goodsCubic
 				tempOrder = tempOrder.set 'bidPrice', order.bidPrice
 				tempOrder = tempOrder.set 'goodsPersonName', order.goodsPersonName
+				tempOrder = tempOrder.set 'advance', order.advance
+
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['car']
 	, (err)->
@@ -153,6 +160,8 @@ getStoreOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'warehousePlace', order.warehousePlace
 				tempOrder = tempOrder.set 'priceType', order.priceType
 				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + order.goodsType
+				tempOrder = tempOrder.set 'goodsName', order.goodsName
+				tempOrder = tempOrder.set 'goodsType', order.goodsType
 				tempOrder = tempOrder.set 'payType', order.payType
 				tempOrder = tempOrder.set 'advance',order.advance
 				tempOrder = tempOrder.set 'price', order.price
@@ -368,6 +377,8 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId, orderCarId)-
 		_orderDetail = _orderDetail.set 'createTime', temp.createTime
 		_orderDetail = _orderDetail.set 'mjRateflag', temp.mjRateflag
 		_orderDetail = _orderDetail.set 'orderCarId', temp.orderCarId
+		_orderDetail = _orderDetail.set 'advance', temp.advance
+
 		OrderStore.emitChange ['car_owner_order_detail']
 	, (data)->
 		Plugin.toast.err data.msg
@@ -402,6 +413,8 @@ cancel_car_orderlist = (page)->
 				tempOrder = tempOrder.set 'goodSsourceId', order.goodSsourceId
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				tempOrder = tempOrder.set 'version', order.version
+				tempOrder = tempOrder.set 'advance', order.advance
+
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['cancel_car']
 	, (err)->
