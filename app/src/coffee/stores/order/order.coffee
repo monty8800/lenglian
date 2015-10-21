@@ -153,6 +153,7 @@ getStoreOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'priceType', order.priceType
 				tempOrder = tempOrder.set 'goodsDesc', order.goodsName + order.goodsType
 				tempOrder = tempOrder.set 'payType', order.payType
+				tempOrder = tempOrder.set 'advance',order.advance
 				tempOrder = tempOrder.set 'price', order.price
 				tempOrder = tempOrder.set 'orderState', order.orderState
 				tempOrder = tempOrder.set 'orderType', order.orderType
@@ -163,6 +164,8 @@ getStoreOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				tempOrder = tempOrder.set 'warehouseSourceMode', order.warehouseSourceMode
 				tempOrder = tempOrder.set 'mjRateflag', order.mjRateflag
+				tempOrder = tempOrder.set 'goodsWeight', order.goodsWeight
+				tempOrder = tempOrder.set 'goodsCubic', order.goodsCubic
 
 				console.log '_________________________________________________',order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder

@@ -28,21 +28,22 @@ GoodsListItem = React.createClass {
 
 	render : ->
 		listItem = @props.list.map (item, i) ->
+			_statusText = ''
+			if parseInt(item.resourceStatus) is 1
+				if parseInt(item.refrigeration) is 1  
+					_statusText = '求车中'
+				else
+					_statusText = '求库中'
+			else
+				_statusText = Helper.goodsStatus item.resourceStatus
+
 			<div className="m-item03" onClick={ @_toGoodsDetail.bind this,i }>
 				<div className="g-itemList">
 					<h5>
 						货物名称: <span>{ item.name }</span>				
 					</h5>
 					<div className="u-item-btn">
-						{
-							if parseInt(item.resourceStatus) is 1
-								if parseInt(item.coldStoreFlag) is 1  
-									<span>求车中</span>
-								else
-									<span>求库中</span>
-							else
-								<span>{ Helper.goodsStatus item.resourceStatus }</span>
-						}
+						<span>{_statusText}</span>
 					</div>
 						
 				</div>			
