@@ -11,21 +11,6 @@ Raty = require 'components/common/raty'
 
 StoreCell = React.createClass {
 
-	componentDidMount: ->			
-		OrderStore.addChangeListener @_onChange
-
-	componentWillNotMount: ->
-		OrderStore.removeChangeListener @_onChange
-
-	_onChange: (mark)->
-		if mark[0] is 'warehouse:accept:order:done'
-			orderList = @props.items.splice mark[1], 1
-			newState = Object.create @state
-			newState.orderList = orderList
-			@setState newState
-		
-
-
 	_toWarehouseDetail:(item)->
 		console.log item,'++++++____++++++'
 		DB.put 'transData',item
@@ -42,7 +27,6 @@ StoreCell = React.createClass {
 		else if orderState is 4
 			console.log '货库交易结束 库主 评价 货主'
 			if not item?.rateFlag
-
 				DB.put 'transData', {
 					userRole: '3'
 					targetId: item?.goodsPersonUserId
@@ -75,7 +59,6 @@ StoreCell = React.createClass {
 						</div>
 						<div className="g-dirver-btn">
 							{
-								# acceptMode 1显示接受、取消按钮 2显示等待司机同意 3显示等待仓库同意
 								switch parseInt(item?.orderState)
 									when 1
 										if parseInt(item?.warehouseSourceMode) is 1
@@ -89,9 +72,13 @@ StoreCell = React.createClass {
 											<span>货物存储中</span>
 									when 3
 										<span>货物存储中</span>
-
 									when 4
-										<a onClick={@_receiver.bind this,4,item} className="u-btn02">评价货主</a>
+										if item?.mjRateflag
+											<span>已评价</span>
+										else
+											<a onClick={@_receiver.bind this,4,item} className="u-btn02">评价货主</a>
+
+										
 							}
 						</div>
 					</div>

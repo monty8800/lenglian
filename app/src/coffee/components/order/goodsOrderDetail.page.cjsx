@@ -256,11 +256,11 @@ GoodsOrderDetail = React.createClass {
 			</div>
 			<div className="g-pro-detail">
 				<div className="g-pro-pic fl">
-					<XeImage src={@state.detail?.get('goodsPic')} size='130x130' />
+					<XeImage src={@state.detail?.get('goodsPic')} size='200x200' />
 				</div>
 				<div className="g-pro-text fl">
 					<p>货物种类: <span>{@state.detail?.get('goodsType')}</span></p>
-					<p>货物规格: <span>{@state.detail?.get('goodsWeight') + '吨'}</span></p>
+					<p>货物规格: <span>{@state.detail?.get('goodsWeight') + '吨'}</span><span>{ if @state.detail?.get('goodsCubic') then @state.detail?.get('goodsCubic') + '方' else ''}</span></p>
 					<p>包装类型: <span>{@state.detail?.get('goodsPackingType')}</span></p>
 				</div>
 			</div>

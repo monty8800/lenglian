@@ -81,8 +81,9 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'acceptMode', order.acceptMode
 				tempOrder = tempOrder.set 'price', order.price
 				tempOrder = tempOrder.set 'userId', order.userId
-				tempOrder = tempOrder.set 'rateFlag', order.rateFlag
+				tempOrder = tempOrder.set 'mjRateflag', order.mjRateflag
 				tempOrder = tempOrder.set 'goodsWeight', order.goodsWeight
+				tempOrder = tempOrder.set 'goodsCubic', order.goodsCubic
 				tempOrder = tempOrder.set 'goodsSourceId', order.goodsSourceId
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
@@ -161,6 +162,8 @@ getStoreOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'version', order.version
 				tempOrder = tempOrder.set 'goodsPersonUserId', order.goodsPersonUserId
 				tempOrder = tempOrder.set 'warehouseSourceMode', order.warehouseSourceMode
+				tempOrder = tempOrder.set 'mjRateflag', order.mjRateflag
+
 				console.log '_________________________________________________',order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['store']

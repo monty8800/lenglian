@@ -185,6 +185,7 @@ getUserGoodsList = (pageNow,pageSize,status,priceType,createTime)->
 			aGoodsModel = aGoodsModel.set 'resourceStatus',goodsObj.resourceStatus
 			aGoodsModel = aGoodsModel.set 'goodsType',goodsObj.goodsType
 			aGoodsModel = aGoodsModel.set 'createTime',goodsObj.createTime
+			aGoodsModel = aGoodsModel.set 'cube',goodsObj.cube
 
 			_myGoodsList.push aGoodsModel	
 		GoodsStore.emitChange 'getUserGoodsListSucc'
@@ -213,6 +214,7 @@ getGoodsDetail = (goodsId)->
 		_goodsDetail = _goodsDetail.set 'toAreaName',resource.toAreaName
 		_goodsDetail = _goodsDetail.set 'toStreet',resource.toStreet
 		_goodsDetail = _goodsDetail.set 'weight',resource.weight
+		_goodsDetail = _goodsDetail.set 'cube',resource.cube
 		_goodsDetail = _goodsDetail.set 'packType',resource.packType
 		_goodsDetail = _goodsDetail.set 'type',resource.type
 		_goodsDetail = _goodsDetail.set 'imageUrl',resource.imgurl

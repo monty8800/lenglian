@@ -32,7 +32,7 @@
 }
 
 -(void) createUI {
-    self.title = @"仓库找货";
+    self.title = @"我要找货";
     UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
     [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];

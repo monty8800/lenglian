@@ -66,7 +66,7 @@ GoodsCell = React.createClass {
 			<OrderBidDriverList order={@props.order} show={@state.showBidList} />
 
 			<div onClick={@_goDetail} className="g-item g-item-des">
-				<p>货物描述 : <span>{@props.order.goodsDesc}</span><span>{@props.order.goodsWeight + '吨'}</span></p>
+				<p>货物描述 : <span>{@props.order.goodsDesc}</span><span>{@props.order.goodsWeight + '吨'}</span><span>{ if @props.order.goodsWeight then @props.order.goodsWeight + '方'}</span></p>
 				<p>支付方式 : <span>{Helper.payTypeMapper @props.order.payType}</span></p>
 			</div>
 		</div>

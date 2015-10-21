@@ -34,7 +34,15 @@ GoodsListItem = React.createClass {
 						货物名称: <span>{ item.name }</span>				
 					</h5>
 					<div className="u-item-btn">
-						<span href="#">{ Helper.goodsStatus item.resourceStatus }</span>
+						{
+							if parseInt(item.resourceStatus) is 1
+								if parseInt(item.coldStoreFlag) is 1  
+									<span>求车中</span>
+								else
+									<span>求库中</span>
+							else
+								<span>{ Helper.goodsStatus item.resourceStatus }</span>
+						}
 					</div>
 						
 				</div>			

@@ -56,6 +56,10 @@ WarehouseOrderDetail = React.createClass {
 			console.log 'cancle order succ'
 
 			Plugin.nav.pop()
+		else if params[0] is 'orderDetailCommentUpdate'
+			@setState {
+				mjRateflag: true
+			}
 
 	_handleFallow: ()->
 		type = ''
@@ -71,11 +75,18 @@ WarehouseOrderDetail = React.createClass {
 		})
 
 	_cancleOrder: (index)->
-		OrderAction.warehouseCancleOrder {
-			orderNo:@state.orderDetail.orderNo
-			warehousePersonUserId:@state.orderDetail.warehousePersonUserId
-			version:@state.orderDetail.version
-		}
+		orderNo = @state.orderDetail.orderNo
+		warehousePersonUserId = @state.orderDetail.warehousePersonUserId
+		version = @state.orderDetail.version
+		Plugin.alert '确认取消吗', '提示', (index)->
+			if index is 1
+				OrderAction.warehouseCancleOrder {
+					orderNo:orderNo
+					warehousePersonUserId:warehousePersonUserId
+					version:version
+				}
+		, ['确定', '取消']
+
 
 	_doComment:->
 		if @state.mjRateflag
@@ -91,7 +102,8 @@ WarehouseOrderDetail = React.createClass {
 		
 
 	_makePhoneCall:(phone)->
-		window.location.href = 'tel:' + phone
+		if phone
+			window.location.href = 'tel:' + phone
 
 	render: ->
 		switch parseInt(@state.orderDetail?.orderState)
@@ -155,7 +167,7 @@ WarehouseOrderDetail = React.createClass {
 					</div>
 					<div className="g-pro-text fl">
 						<p>货物类型: <span>{ @state.orderDetail.goodsType }</span></p>
-						<p>货物规格: <span>{ @state.orderDetail.goodsWeight }</span></p>
+						<p>货物规格: <span>{ if @state.orderDetail.goodsWeight then @state.orderDetail.goodsWeight + '吨' else ''}</span><span>{ if @state.orderDetail.goodsCubic then @state.orderDetail.goodsCubic + '方' else ''}</span></p>
 						<p>包装类型: <span>{ @state.orderDetail.goodsPackingType }</span></p>
 					</div>
 				</div>
@@ -183,7 +195,7 @@ WarehouseOrderDetail = React.createClass {
 				</p>
 				<p>
 					<span>发布时间:</span>
-					<span>{ Moment(@state.orderDetail.goodsCreateTime ).format('YYYY-MM-DD') }</span>
+					<span>{ if @state.orderDetail.goodsCreateTime then Moment(@state.orderDetail.goodsCreateTime ).format('YYYY-MM-DD') else ''}</span>
 				</p>			
 			</div>
 			{
