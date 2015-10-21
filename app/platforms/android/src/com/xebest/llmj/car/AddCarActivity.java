@@ -228,7 +228,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
     }
 
     public void showWindow() {
-        mDialog = Tools.getCustomDialog(this, R.layout.choose_cg, new Tools.BindEventView() {
+        mDialog = Tools.getCustomDialogBg(this, R.layout.choose_cg, new Tools.BindEventView() {
             @Override
             public void bindEvent(View view) {
                 TextView tvCamera = (TextView) view.findViewById(R.id.camera);
