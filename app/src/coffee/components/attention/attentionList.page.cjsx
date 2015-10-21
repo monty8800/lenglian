@@ -18,7 +18,7 @@ Item = React.createClass {
 				<div className="item-pic">
 					<XeImage src={@props.items?.imgurl} size='130x130' type='avatar' />
 				</div>
-				<div className="item-name">司机: {@props.items?.userName}</div>
+				<div className="item-name">{@props.role + ': ' + @props.items?.userName}</div>
 				<div className={if @props.items?.wishlist is '1' then "item-btn item-btn-color03 ll-font" else if @props.items?.wishlist is '2' then 'item-btn item-btn-color01 ll-font'}></div>
 			</div>
 		</div>
@@ -79,8 +79,13 @@ Attention = React.createClass {
 
 	minxins: [PureRenderMixin]
 	render: ->
+		role = ''
+		switch @state.status
+			when '1' then role = '司机'
+			when '2' then role = '货主'
+			when '3' then role = '仓库'
 		atts = @state.attList.map (item, index)->
-			<Item items={item} index={index} key={index} />
+			<Item items={item} role={role} index={index} key={index} />
 		<div>
 			<div className="m-tab01">
 				<ul> 
