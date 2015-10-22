@@ -1,4 +1,4 @@
-package com.xebest.llmj.order;
+package com.xebest.llmj.wallet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,10 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 已取消订单
+ * 添加银行卡
  * Created by kaisun on 15/9/22.
  */
-public class OrderCancelListActivity extends BaseCordovaActivity implements CordovaInterface {
+public class AddBankActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -32,45 +32,42 @@ public class OrderCancelListActivity extends BaseCordovaActivity implements Cord
 
     private TextView tvTitle;
 
-    private TextView editorCar;
-
-    private static int mStatus = -1;
+    private TextView bank;
 
     /**
      * 活跃当前窗口
      * @param context
      */
-    public static void actionView(Context context, int status) {
-        mStatus = status;
-        context.startActivity(new Intent(context, OrderCancelListActivity.class));
+    public static void actionView(Context context) {
+        context.startActivity(new Intent(context, AddBankActivity.class));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.car_detail);
+        setContentView(R.layout.wallet);
 
         initView();
+
+        // 添加到移除队列中
+        Application.getInstance().addRemoveActivity(this);
+
     }
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        if (flag.equalsIgnoreCase("carOwnerOrderDetail")) {
-            CarOrderDetailActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("goodsOrderDetail")) {
-            GoodsOrderDetailActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("warehouseOrderDetail")) {
-            WareHouseOrderDetail.actionView(getActivity());
+        if (flag.equalsIgnoreCase("addBankCardNext")) {
+            AddBankNextActivity.actionView(this);
         }
     }
 
     protected void initView() {
-        editorCar = (TextView) findViewById(R.id.editor);
-        editorCar.setVisibility(View.GONE);
+        bank = (TextView) findViewById(R.id.add);
+        bank.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("已取消");
+        tvTitle.setText("添加银行卡");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -80,38 +77,22 @@ public class OrderCancelListActivity extends BaseCordovaActivity implements Cord
             }
         });
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mWebView.getWebView().loadUrl("javascript:comeFromFlag('" + mStatus + "','5')");
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
     @Override
     protected void onResume() {
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "orderCancelList.html", this, this, this, this);
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("已取消");
+        MobclickAgent.onPageStart("添加银行卡");
         // 统计时长
         MobclickAgent.onResume(this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "addBankCard.html", this, this, this, this);
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("订单详情");
+        MobclickAgent.onPageEnd("添加银行卡");
         MobclickAgent.onPause(this);
     }
 

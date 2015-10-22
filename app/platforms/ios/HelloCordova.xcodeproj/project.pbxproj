@@ -96,6 +96,7 @@
 		4CE0AE5C1BB241E00081DE22 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0AE5B1BB241E00081DE22 /* AuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CE0AE5F1BB243C20081DE22 /* PersonalCarAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FDB11BD7326B0022B8D6 /* StarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FDB01BD7326B0022B8D6 /* StarView.m */; settings = {ASSET_TAGS = (); }; };
+		4CE2FDEE1BD8D24A0022B8D6 /* PaySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FDED1BD8D24A0022B8D6 /* PaySuccessViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFED1BC0C81100935C9F /* SelectGoodsWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */; settings = {ASSET_TAGS = (); }; };
@@ -318,6 +319,8 @@
 		4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalCarAuthViewController.m; path = auth/PersonalCarAuthViewController.m; sourceTree = "<group>"; };
 		4CE2FDAF1BD7326B0022B8D6 /* StarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarView.h; path = map/StarView.h; sourceTree = "<group>"; };
 		4CE2FDB01BD7326B0022B8D6 /* StarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarView.m; path = map/StarView.m; sourceTree = "<group>"; };
+		4CE2FDEC1BD8D24A0022B8D6 /* PaySuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaySuccessViewController.h; path = order/PaySuccessViewController.h; sourceTree = "<group>"; };
+		4CE2FDED1BD8D24A0022B8D6 /* PaySuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaySuccessViewController.m; path = order/PaySuccessViewController.m; sourceTree = "<group>"; };
 		4CE2FFEB1BC0C81100935C9F /* SelectGoodsWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectGoodsWidget.h; path = map/SelectGoodsWidget.h; sourceTree = "<group>"; };
 		4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectGoodsWidget.m; path = map/SelectGoodsWidget.m; sourceTree = "<group>"; };
 		4CE2FFEE1BC0C83900935C9F /* SelectGoodsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectGoodsTableViewCell.h; path = map/SelectGoodsTableViewCell.h; sourceTree = "<group>"; };
@@ -838,6 +841,8 @@
 				4CB11F5D1BCAA355002280B2 /* GoodsOrderDetailViewController.m */,
 				4CB11F561BCA7D4F002280B2 /* OrderPayViewController.h */,
 				4CB11F571BCA7D4F002280B2 /* OrderPayViewController.m */,
+				4CE2FDEC1BD8D24A0022B8D6 /* PaySuccessViewController.h */,
+				4CE2FDED1BD8D24A0022B8D6 /* PaySuccessViewController.m */,
 				4CB11F491BC806DC002280B2 /* CarOrderDetailViewController.h */,
 				4CB11F4A1BC806DC002280B2 /* CarOrderDetailViewController.m */,
 				5B1CCEFF1BCBFAD300A03305 /* WarehouseOrderDetailViewController.h */,
@@ -1138,6 +1143,7 @@
 				5B3733D91BC1066100807804 /* GoodsDetailViewController.m in Sources */,
 				4C5992971BBBDD5D00CA5039 /* DatePicker.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
+				4CE2FDEE1BD8D24A0022B8D6 /* PaySuccessViewController.m in Sources */,
 				4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */,
 				4CD14AC81BBE8226009FFF0C /* InfoView.m in Sources */,
 				4CB11F3F1BC7A48E002280B2 /* UIImageView+XE.m in Sources */,

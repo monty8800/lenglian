@@ -86,10 +86,6 @@ Charge = React.createClass {
 					<a onClick={ @_sureToCharge } href="#" className="btn">立即充值</a>
 				</div>
 			</div>
-			<div className="u-green ll-font">
-				同意
-				<a href="#">《马甲协议》</a>
-			</div>
 		</div>
 }
 

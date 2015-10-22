@@ -27,9 +27,13 @@ FromTo = React.createClass {
 
 	_addPassBy: ->
 		if @props.type is 'addGoods'
-			GoodsAction.addPassBy()
+			if @state.passBy.size >= 5
+				Plugin.toast.err '最多只能添加5个途径地哦！'
+			else
+				GoodsAction.addPassBy()
 
-	_minusPassBy: (index)->
+	_minusPassBy: (index, e)->
+		e.stopPropagation()
 		if @props.type is 'addGoods'
 			GoodsAction.minusPassBy index
 
@@ -52,13 +56,10 @@ FromTo = React.createClass {
 	render: ->
 		console.log 'state---', @state
 		passBy = @state.passBy.map (address, k)->
-			<section>
-			<div key={k} onClick={@_selectAddress.bind this,  k} className="g-adr-pass ll-font g-adr-pass-line">
+			<div key={k} onClick={@_selectAddress.bind this,  k} className="g-adr-middle ll-font">
 				<p>{if address.lati then address.get('provinceName') + address.get('cityName') + address.get('areaName') + address.get('street') else '途径地'} </p>
-				<i className="icon-mask"></i>
+				<em onClick={@_minusPassBy.bind this, k}></em>
 			</div>
-			<a onClick={@_minusPassBy.bind this, k} className="ll-font">&#xe632;</a>
-			</section>
 		,this
 
 		<div  className="m-releasehead ll-font">

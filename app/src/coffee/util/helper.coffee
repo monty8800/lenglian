@@ -146,6 +146,7 @@ carVehicle = (status) ->
 			when 10 then "9.6米"
 			when 11 then "13~15米"
 			when 12 then "15米以上"
+			when 13 then "3.8米以下"
 	else
 		''
 
@@ -167,6 +168,8 @@ goodsWeight = (index) ->
 			when 13 then '28吨'
 			when 14 then '30吨'
 			when 15 then '30~40吨'
+			when 16 then '40吨以上'
+			when 17 then '2吨以下'
 	else
 		''
 

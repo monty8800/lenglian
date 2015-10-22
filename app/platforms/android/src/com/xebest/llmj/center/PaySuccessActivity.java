@@ -21,10 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 账单
+ * 支付成功
  * Created by kaisun on 15/9/22.
  */
-public class BillListActivity extends BaseCordovaActivity implements CordovaInterface {
+public class PaySuccessActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -32,33 +32,35 @@ public class BillListActivity extends BaseCordovaActivity implements CordovaInte
 
     private TextView tvTitle;
 
+    private TextView addAdd;
+
+    private boolean isOnCreate = false;
+
+    public static boolean isUpdate = false;
+
     /**
      * 活跃当前窗口
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, BillListActivity.class));
+        context.startActivity(new Intent(context, PaySuccessActivity.class));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cwebview);
-
+        setContentView(R.layout.cwebview2);
+        isOnCreate = true;
         initView();
 
     }
 
-    @Override
-    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
-        super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-
-    }
-
     protected void initView() {
+        addAdd = (TextView) findViewById(R.id.sure);
+        addAdd.setText("新增地址");
+        addAdd.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("账单");
+        tvTitle.setText("支付成功");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -67,22 +69,38 @@ public class BillListActivity extends BaseCordovaActivity implements CordovaInte
                 finish();
             }
         });
+        addAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ModifyAddress.actionView(PaySuccessActivity.this, 2);
+            }
+        });
+
+    }
+
+    @Override
+    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        super.jsCallNative(args, callbackContext);
+        String flag = args.getString(1);
     }
 
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("账单");
+        MobclickAgent.onPageStart("支付成功");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "billList.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "paySuccess.html", this, this, this, this);
+        }
+        isOnCreate = false;
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("账单");
+        MobclickAgent.onPageEnd("支付成功");
         MobclickAgent.onPause(this);
     }
 
@@ -104,7 +122,7 @@ public class BillListActivity extends BaseCordovaActivity implements CordovaInte
     @Override
     public Object onMessage(String id, Object data) {
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
-        return super.onMessage(id, data);
+        return null;
     }
 
 }

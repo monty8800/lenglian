@@ -12,6 +12,7 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
+import com.xebest.llmj.wallet.AddBankActivity;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -34,6 +35,8 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
 
     private TextView bank;
 
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -46,7 +49,7 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallet);
-
+        isOnCreate = true;
         initView();
 
     }
@@ -55,7 +58,9 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-
+        if (flag.equalsIgnoreCase("addBankCard")) {
+            AddBankActivity.actionView(this);
+        }
     }
 
     protected void initView() {
@@ -80,7 +85,10 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
         MobclickAgent.onPageStart("充值");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "charge.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "charge.html", this, this, this, this);
+        }
+        isOnCreate = false;
         super.onResume();
     }
 

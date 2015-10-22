@@ -233,7 +233,7 @@ _carOwnerDetail = (carId, targetUserId)->
 			_carDetail = _carDetail.set 'drivingImg', data.imgurl
 			_carDetail = _carDetail.set 'transportImg', td.transportImg
 			_carDetail = _carDetail.set 'wishlst', data.wishlst
-			_carDetail = _carDetail.set 'goodScore', data.goodScore
+			_carDetail = _carDetail.set 'carScore', data.carScore
 			_carDetail = _carDetail.set 'certification', data.certification
 			CarStore.emitChange ['car_owner_detail']
 

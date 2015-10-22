@@ -101,7 +101,7 @@ Detail = React.createClass {
 						</dt>
 						<dd className=" fl">
 							<p>车辆类别: <span>{ Helper.carCategoryMapper detail.category }</span></p>
-							<p>可载货重: <span>{ Helper.goodsWeight detail?.heavy }</span></p>
+							<p>可载重货: <span>{ Helper.goodsWeight detail?.heavy }</span></p>
 							<p>可载泡货: <span>{ detail?.bulky + '方'}</span></p>
 							<p>车辆长度: <span>{ Helper.carVehicle detail?.carVehicle }</span></p>
 						</dd>

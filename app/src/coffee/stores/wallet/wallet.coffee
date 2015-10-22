@@ -82,7 +82,7 @@ getVCodeForBindBankCar = (aBankCardModel)->
 	Http.post Constants.api.VERITY_PHONE_FOR_BANK, {
 		userId:user.id
 		cardNo:aBankCardModel.cardNo
-		cardName:aBankCardModel.cardName
+		cardName:aBankCardModel.onwerName
 		blankName:aBankCardModel.bankName
 		cardType:aBankCardModel.cardType
 		bankMobile:aBankCardModel.bankMobile
@@ -92,6 +92,7 @@ getVCodeForBindBankCar = (aBankCardModel)->
 		bankBranchName:aBankCardModel.bankBranchName
 	},(data)->
 		console.log data,'______ bind card vcode _______'
+		return Plugin.toast.err data.resultMsg if data.resultCode isnt '0000'
 		WalletStore.emitChange {
 			msg: 'getVCodeForBindBankCarSucc'
 			txSNBinding: data.txSNBinding
@@ -106,7 +107,7 @@ bindBankCard = (aBankCardModel,smsCode)->
 	Http.post api, {
 		id: aBankCardModel.txSNBinding						# 不知道是什么ID
 		userId:user.id
-		cardName:aBankCardModel.cardName
+		cardName:aBankCardModel.onwerName
 		cardNo:aBankCardModel.cardNo
 		blankName:aBankCardModel.bankName
 		cardType:aBankCardModel.cardType

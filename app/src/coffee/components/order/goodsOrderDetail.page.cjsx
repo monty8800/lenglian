@@ -184,7 +184,7 @@ GoodsOrderDetail = React.createClass {
 				_statusText =  '洽谈中'
 				_btnText = '接受'
 			when 2
-				_statusText = '等待货主付款'
+				_statusText = '待付款'
 				if parseInt(@state.detail?.get 'payType') is 3
 					_btnText = '确认付款'
 				else
@@ -193,7 +193,7 @@ GoodsOrderDetail = React.createClass {
 				_statusText = '已付款'
 				_btnText = '订单完成'
 			when 4
-				_statusText = '已付款'
+				_statusText = '待评价'
 				if not @state.detail?.get 'mjRateflag'
 					if @state.detail?.get('orderType') in ['GC', 'CG'] 
 						_btnText = '评价司机'

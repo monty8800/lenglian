@@ -28,7 +28,7 @@ updateUser = ->
 	console.log 'new user', _user
 	now = new Date
 	cacheTime = if needCheck() then Constants.cache.USER_INFO_MIN else Constants.cache.USER_INFO
-	if now.getTime() - _updateTime >  cacheTime
+	if _user.id and now.getTime() - _updateTime >  cacheTime
 		requestInfo()
 	else
 		UserStore.emitChange 'user:update'
