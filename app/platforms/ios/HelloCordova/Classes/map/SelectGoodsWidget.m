@@ -35,7 +35,7 @@
     _tabView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     _tabView.dataSource = self;
     _tabView.delegate = self;
-    _tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tabView.separatorStyle = self.type == Cars?UITableViewCellSeparatorStyleNone:UITableViewCellSeparatorStyleSingleLine;
     _tabView.backgroundColor = [UIColor whiteColor];
     [_tabView registerClass:[SelectGoodsTableViewCell class] forCellReuseIdentifier:SELECT_GOODS_CELL];
     [self addSubview:_tabView];
@@ -309,7 +309,7 @@
             break;
             
         case Warehouses:
-            height = 45;
+            height = 65;
             break;
             
         default:
@@ -319,9 +319,24 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SelectGoodsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SELECT_GOODS_CELL];
-    cell.infoList = [_dataList[indexPath.row] objectForKey:@"infoList"];
-    return cell;
+    if (self.type == Cars){
+        SelectGoodsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SELECT_GOODS_CELL];
+        cell.infoList = [_dataList[indexPath.row] objectForKey:@"infoList"];
+        return cell;
+    }else{
+        SelectWarehouseTableViewCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"warehousecell"];
+        if (cell == nil) {
+            cell = [[SelectWarehouseTableViewCell2 alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"warehousecell"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        cell.warehouseDic = @{@"name":_dataList[indexPath.row][@"infoList"][0],@"address":@"这是仓库的详细地址 可能很长很长很长很长不知道最大的可能是多长......."};
+        //@"这是仓库的详细地址 可能很长很长很长很长不知道最大的可能是多长......."};
+//        cell.textLabel.text = @"7890";
+//        cell.detailTextLabel.text = @"这是仓库的详细地址 可能很长很长很长很长不知道最大的可能是多长.......";
+        return cell;
+    }
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

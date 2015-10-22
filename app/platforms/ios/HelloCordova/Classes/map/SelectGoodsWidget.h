@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SelectGoodsTableViewCell.h"
-
+#import "SelectWarehouseTableViewCell2.h"
 typedef enum : NSUInteger {
     Cars,
     Warehouses,

@@ -12,7 +12,7 @@ Post = React.createClass {
 				when 'releaseCar'
 					if user.carStatus isnt 1
 						return Plugin.toast.err '尚未通过车主认证，请认证后再进行发布'
-				when 'addGodds'
+				when 'addGoods'
 					return Plugin.toast.err '尚未通过货主认证，请认证后再进行发布' if user.goodsStatus isnt 1
 				when 'releaseWarehouse'
 					return Plugin.toast.err '尚未通过仓库主认证，请认证后再进行发布' if user.warehouseStatus isnt 1	

@@ -47,7 +47,8 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
 }
 -(void)sureToSearch{
-    
+    NSString *js = [NSString stringWithFormat:@"(function(){window.searchMyCar()})()"];
+    [self.commandDelegate evalJs: js];
 }
 
 -(void)commonCommand:(NSArray *)params {

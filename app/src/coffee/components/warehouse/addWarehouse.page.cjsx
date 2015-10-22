@@ -34,9 +34,10 @@ AddWarehouse = React.createClass {
 		{
 			priceValue1:''
 			priceValue2:''
+			warehouseType1:'0'
+			warehouseType2:'0'
 			increaseServe1:'0'
 			increaseServe2:'0'
-			increaseServe3:'0'
 			temperatureChecked1:'0'
 			temperatureChecked2:'0'
 			temperatureChecked3:'0'
@@ -129,58 +130,91 @@ AddWarehouse = React.createClass {
 			if !@state.params.phone
 				Plugin.toast.show '请输入联系人电话'
 				return
-#仓库类型  目前都指定为驶入式
-#TODO:
-			typeModel = addPropertyModel '1','驶入式','1','仓库类型',''
-			newState.params.warehouseProperty.push typeModel
 
-# 增值服务
+#仓库类型
+			if @state.warehouseType1 is '0' and @state.warehouseType2 is '0'
+				Plugin.toast.show '请选择仓库类型'
+				return
+			else
+				if @state.warehouseType1 is '1'
+					aPropertyModel = addPropertyModel '1','平堆式','1','仓库类型',''
+					newState.params.warehouseProperty.push aPropertyModel
+				if @state.warehouseType2 is '2'
+					aPropertyModel = addPropertyModel '2','货架式','1','仓库类型',''
+					newState.params.warehouseProperty.push aPropertyModel
+				
+
+			# TYPE_1("1", "仓库类型"),
+			# TYPE_2("2", "配套服务"),
+			# TYPE_3("3", "仓库面积"),
+			# TYPE_4("4", "价格"),
+			
+			# TYPE_1_ATTRIBUTE_1("1", "平堆式"),
+			# TYPE_1_ATTRIBUTE_2("2", "货架式"),
+			
+			# TYPE_2_ATTRIBUTE_1("1", "提供拖车"),
+			# TYPE_2_ATTRIBUTE_2("2", "提供装卸"),
+			
+			# TYPE_3_ATTRIBUTE_1("1", "常温"),
+			# TYPE_3_ATTRIBUTE_2("2", "冷藏"),
+			# TYPE_3_ATTRIBUTE_3("3", "冷冻"),
+			# TYPE_3_ATTRIBUTE_4("4", "急冻"),
+			# TYPE_3_ATTRIBUTE_5("5", "深冷"),
+			
+			# TYPE_4_ATTRIBUTE_1("1", "/元/天/平"),
+			# TYPE_4_ATTRIBUTE_2("2", "/元/天/托"),
+			# TYPE_4_ATTRIBUTE_3("3", "/元/天/吨"),
+			# TYPE_4_ATTRIBUTE_4("4", "/元/天/方");
+				
+			
+# 增值服务	
 			if @state.increaseServe1 is '1'
-				aPropertyModel = addPropertyModel '1','城配','2','仓库增值服务',''
+				aPropertyModel = addPropertyModel '1','提供拖车','2','配套服务',''
 				newState.params.warehouseProperty.push aPropertyModel
 			if @state.increaseServe2 is '1'
-				aPropertyModel = addPropertyModel '2','仓配','2','仓库增值服务',''
-				newState.params.warehouseProperty.push aPropertyModel
-			if @state.increaseServe3 is '1'
-				aPropertyModel = addPropertyModel '3','金融','2','仓库增值服务',''
+				aPropertyModel = addPropertyModel '2','提供装卸','2','配套服务',''
 				newState.params.warehouseProperty.push aPropertyModel
 			
 # 温度区域面积
-			if @state.temperatureChecked1 is '1'
-				if !@state.temperatureArea1
-					Plugin.toast.show '常温面积未填写'
-					return
-				else
-					aPropertyModel = addPropertyModel '1','常温','3','仓库面积',@state.temperatureArea1
-					newState.params.warehouseProperty.push aPropertyModel
-			if @state.temperatureChecked2 is '1'
-				if !@state.temperatureArea2
-					Plugin.toast.show '冷藏面积未填写'
-					return
-				else
-					aPropertyModel = addPropertyModel '2','冷藏','3','仓库面积',@state.temperatureArea2
-					newState.params.warehouseProperty.push aPropertyModel
-			if @state.temperatureChecked3 is '1'
-				if !@state.temperatureArea3
-					Plugin.toast.show '冷冻面积未填写'
-					return
-				else
-					aPropertyModel = addPropertyModel '3','冷冻','3','仓库面积',@state.temperatureArea3
-					newState.params.warehouseProperty.push aPropertyModel
-			if @state.temperatureChecked4 is '1'
-				if !@state.temperatureArea4
-					Plugin.toast.show '急冻面积未填写'
-					return
-				else
-					aPropertyModel = addPropertyModel '4','急冻','3','仓库面积',@state.temperatureArea4
-					newState.params.warehouseProperty.push aPropertyModel
-			if @state.temperatureChecked5 is '1'
-				if !@state.temperatureArea5
-					Plugin.toast.show '深冷面积未填写'
-					return
-				else
-					aPropertyModel = addPropertyModel '5','深冷','3','仓库面积',@state.temperatureArea5
-					newState.params.warehouseProperty.push aPropertyModel
+			if @state.temperatureChecked1 is '0' and @state.temperatureChecked2 is '0' and @state.temperatureChecked3 is '0' and @state.temperatureChecked4 is '0' and @state.temperatureChecked5 is '0'
+				 Plugin.toast.show '请填写仓库面积'
+				 return
+			else
+				if @state.temperatureChecked1 is '1'
+					if !@state.temperatureArea1
+						Plugin.toast.show '常温面积未填写'
+						return
+					else
+						aPropertyModel = addPropertyModel '1','常温','3','仓库面积',@state.temperatureArea1
+						newState.params.warehouseProperty.push aPropertyModel
+				if @state.temperatureChecked2 is '1'
+					if !@state.temperatureArea2
+						Plugin.toast.show '冷藏面积未填写'
+						return
+					else
+						aPropertyModel = addPropertyModel '2','冷藏','3','仓库面积',@state.temperatureArea2
+						newState.params.warehouseProperty.push aPropertyModel
+				if @state.temperatureChecked3 is '1'
+					if !@state.temperatureArea3
+						Plugin.toast.show '冷冻面积未填写'
+						return
+					else
+						aPropertyModel = addPropertyModel '3','冷冻','3','仓库面积',@state.temperatureArea3
+						newState.params.warehouseProperty.push aPropertyModel
+				if @state.temperatureChecked4 is '1'
+					if !@state.temperatureArea4
+						Plugin.toast.show '急冻面积未填写'
+						return
+					else
+						aPropertyModel = addPropertyModel '4','急冻','3','仓库面积',@state.temperatureArea4
+						newState.params.warehouseProperty.push aPropertyModel
+				if @state.temperatureChecked5 is '1'
+					if !@state.temperatureArea5
+						Plugin.toast.show '深冷面积未填写'
+						return
+					else
+						aPropertyModel = addPropertyModel '5','深冷','3','仓库面积',@state.temperatureArea5
+						newState.params.warehouseProperty.push aPropertyModel
 			@setState newState
 
 			WarehouseAction.postAddWarehouse @state.params, @state.addWarehouseImageUrl
@@ -195,10 +229,25 @@ AddWarehouse = React.createClass {
 		Plugin.nav.push ['locationView']
 
 # # 仓库详细地址
-	detailAddressVAalueChange : (e) ->
+	detailAddressValueChange : (e) ->
 		newState = Object.create @state
 		newState.detailStreet = e.target.value
 		newState.params.street = e.target.value
+		@setState newState
+
+# 仓库类型
+	warehouseType1 :(e)->
+		if e.target.checked
+			newState.warehouseType1 = '1'
+		else
+			newState.warehouseType1 = '0'
+		@setState newState
+		console.log "仓库类型"
+	warehouseType2 :(e)->
+		if e.target.checked
+			newState.warehouseType2 = '1'
+		else
+			newState.warehouseType2 = '0'
 		@setState newState
 
 # 价格
@@ -251,14 +300,6 @@ AddWarehouse = React.createClass {
 			newState.increaseServe2 = '1'
 		else
 			newState.increaseServe2 = '0'
-		@setState newState
-		console.log "增值服务",@state.params.warehouseProperty
-	increaseServe3 : (e)-> #金融
-		newState = Object.create @state
-		if e.target.checked
-			newState.increaseServe3 = '1'
-		else
-			newState.increaseServe3 = '0'
 		@setState newState
 		console.log "增值服务",@state.params.warehouseProperty
 
@@ -341,12 +382,22 @@ AddWarehouse = React.createClass {
 				</div>
 				<div>
 					<label for="packType"><span>详细地址</span></label>
-					<input type="text" value={ @state.detailStreet  } className="input-weak" placeholder="详细地址" onChange=@detailAddressVAalueChange />
+					<input type="text" value={ @state.detailStreet  } className="input-weak" placeholder="详细地址" onChange=@detailAddressValueChange />
 				</div>
 			</div>
 			<div className="m-releaseitem">
-				<div className="u-arrow-right ll-font">
-					<span>仓库类型</span>
+				<div>
+					<div className="g-radio">
+						<span>仓库类型</span>
+						<div className="radio-box">
+							<label className="mr5">
+		                        <input onChange=@warehouseType1 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '平堆式'}} />
+		                    </label>
+							<label className="mr5">
+		                        <input onChange=@warehouseType2 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '货架式'}} />
+		                    </label>
+						</div>
+					</div>
 				</div>
 				<div>
 					<span>仓库价格</span>
@@ -368,17 +419,14 @@ AddWarehouse = React.createClass {
 				</div>
 				<div>
 					<div className="g-radio">
-						<span>增值服务</span>
+						<span>配套服务</span>
 						<div className="radio-box">
 							<label className="mr5">
-		                        <input onChange=@increaseServe1 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '城配'}} />
+		                        <input onChange=@increaseServe1 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '提供拖车'}} />
 		                    </label>
 							<label className="mr5">
-		                        <input onChange=@increaseServe2 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '仓配'}} />
+		                        <input onChange=@increaseServe2 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '提供装卸'}} />
 		                    </label>
-        					<label className="mr5">
-                                <input onChange=@increaseServe3 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '金融'}} />
-                            </label>
 						</div>
 					</div>
 				</div>
@@ -493,3 +541,14 @@ AddWarehouse = React.createClass {
 }
 
 React.render <AddWarehouse />,document.getElementById('content')
+
+				
+
+				# <div className="u-arrow-right ll-font">
+				# 	<span>仓库类型</span>
+				# </div>
+				# <div className="g-div02">
+				# 	<div className="g-div02-item">
+				# 		<label className="u-label"><input className="ll-font" type="checkbox"/>平堆式</label><label className="u-label"><input className="ll-font" type="checkbox"/>货架式</label>
+				# 	</div>
+				# </div>
