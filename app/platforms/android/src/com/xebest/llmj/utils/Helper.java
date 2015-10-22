@@ -159,6 +159,8 @@ public class Helper {
             return "13~15米";
         } else if (status.equals("12")) {
             return "15米以上";
+        } else if (status.equals("13")) {
+            return "3.8米以下";
         }
         return "";
     }

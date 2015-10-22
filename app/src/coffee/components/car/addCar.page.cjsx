@@ -26,7 +26,7 @@ selList = [
 			{key: 1, value: '普通货车'}
 			{key: 2, value: '冷藏车'}
 			{key: 3, value: '平板'}
-			{key: 4, value: '箱式'}
+			{key: 4, value: '常温箱式'}
 			{key: 5, value: '集装箱'}
 			{key: 6, value: '高栏'}
 		]
@@ -49,39 +49,42 @@ selList = [
 		key: 'weight'
 		value: '可载重货'
 		options: [
+			{key: 17, value: '2吨以下'}
 			{key: 1, value: '2吨'}
 			{key: 2, value: '3吨'}
 			{key: 3, value: '4吨'}
 			{key: 4, value: '5吨'}
-			{key: 4, value: '6吨'}
-			{key: 5, value: '8吨'}
-			{key: 6, value: '10吨'}
-			{key: 7, value: '12吨'}
-			{key: 8, value: '15吨'}
-			{key: 9, value: '18吨'}
-			{key: 10, value: '20吨'}
-			{key: 11, value: '25吨'}
-			{key: 12, value: '28吨'}
-			{key: 13, value: '30吨'}
-			{key: 14, value: '30~40吨'}
+			{key: 5, value: '6吨'}
+			{key: 6, value: '8吨'}
+			{key: 7, value: '10吨'}
+			{key: 8, value: '12吨'}
+			{key: 9, value: '15吨'}
+			{key: 10, value: '18吨'}
+			{key: 11, value: '20吨'}
+			{key: 12, value: '25吨'}
+			{key: 13, value: '28吨'}
+			{key: 14, value: '30吨'}
+			{key: 15, value: '30~40吨'}
+			{key: 16, value: '40吨以上'}
 		]
 	}
 	{
 		key: 'carLength'
 		value: '车辆长度'
 		options: [
+			{key: 13, value: '3.8米以下'}
 			{key: 1, value: '3.8米'}
 			{key: 2, value: '4.2米'}
 			{key: 3, value: '4.8米'}
 			{key: 4, value: '5.8米'}
-			{key: 4, value: '6.2米'}
-			{key: 5, value: '6.8米'}
-			{key: 6, value: '7.4米'}
-			{key: 7, value: '7.8米'}
-			{key: 8, value: '8.6米'}
-			{key: 9, value: '9.6米'}
-			{key: 10, value: '13~15米'}
-			{key: 11, value: '15米以上'}
+			{key: 5, value: '6.2米'}
+			{key: 6, value: '6.8米'}
+			{key: 7, value: '7.4米'}
+			{key: 8, value: '7.8米'}
+			{key: 9, value: '8.6米'}
+			{key: 10, value: '9.6米'}
+			{key: 11, value: '13~15米'}
+			{key: 12, value: '15米以上'}
 		]
 	}
 ]
@@ -100,13 +103,6 @@ AddCar = React.createClass {
 
 	resultCallBack: (result)->
 		if result is 'setAuthPic:done'
-			user = UserStore.getUser()
-			carPic = @state.user.carPic
-			license = @state.user.license
-			transLicensePic = @state.user.transLicensePic
-			console.log '----------carPic:', carPic
-			console.log '----------license:', license
-			console.log '----------transLicensePic:', transLicensePic
 			@setState {
 				user: UserStore.getUser()
 				carNum: @state.carNum
@@ -205,7 +201,7 @@ AddCar = React.createClass {
 		else if not @state.license
 			Plugin.toast.err '请上传行驶证图片'	
 		else if not @state.transLicensePic
-			Plugin.toast.err '请上传道路运输许可证'
+			Plugin.toast.err '运营证'
 		else 
 			CarAction.addCar {
 				bulky: @state.bulky # 可载泡货
@@ -258,7 +254,7 @@ AddCar = React.createClass {
 				type: 'license'
 			}
 			{
-				name: '道路运输许可证'
+				name: '运营证'
 				# url: @state.user.transLicensePic
 				url: @state.transLicensePic
 				optional: false
