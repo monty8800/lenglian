@@ -70,10 +70,12 @@ CarFindGoodsCell = React.createClass {
 			<div className="g-item">
 				
 				<div className="g-adr-start ll-font g-adr-start-line">
-					{@props.goods.get('toProvinceName') + @props.goods.get('toCityName') + @props.goods.get('toAreaName')}
+					<em>{@props.goods.get('toProvinceName') + @props.goods.get('toCityName') + @props.goods.get('toAreaName')}</em>
+					<span></span>
 				</div>
 				<div className="g-adr-end ll-font g-adr-end-line">
-					{@props.goods.get('fromProvinceName') + @props.goods.get('fromCityName') + @props.goods.get('fromAreaName')}
+					<em>{@props.goods.get('fromProvinceName') + @props.goods.get('fromCityName') + @props.goods.get('fromAreaName')}</em>
+					<span></span>
 				</div>
 			</div>
 			
