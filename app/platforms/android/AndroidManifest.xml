@@ -67,7 +67,7 @@
         <activity android:name=".wallet.AddBankActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".wallet.AddBankNextActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".wallet.AddBankVerifyActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.ChargeActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.ChargeActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ModifyAddress" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".order.CarOrderDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".goods.GoodsDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />

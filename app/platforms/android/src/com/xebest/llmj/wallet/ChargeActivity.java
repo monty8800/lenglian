@@ -1,4 +1,4 @@
-package com.xebest.llmj.center;
+package com.xebest.llmj.wallet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,6 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
-import com.xebest.llmj.wallet.AddBankActivity;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -89,6 +88,8 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
             mWebView.init(this, ApiUtils.API_COMMON_URL + "charge.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateUser()");
         super.onResume();
     }
 

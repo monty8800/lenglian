@@ -186,7 +186,6 @@ api = {
 	# server: 'http://192.168.29.203:8072/'	
 	# server:'http://192.168.27.160:8080/llmj-app/' #高
 	# server:'http://192.168.28.12:8080/llmj-app/' #高
-	# server: 'http://192.168.29.210:8072/'
 
 	#短信验证码			
 	SMS_CODE: '/register/sendMobileMsg.shtml'

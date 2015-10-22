@@ -14,6 +14,7 @@ import com.xebest.llmj.application.Application;
 import com.xebest.llmj.center.PaySuccessActivity;
 import com.xebest.llmj.center.ResetPwdActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
+import com.xebest.llmj.wallet.AddBankActivity;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -52,6 +53,9 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
         setContentView(R.layout.car_detail);
         isOnCreate = true;
         initView();
+
+        // 记录到销毁栈中
+        Application.getInstance().addRemoveActivity(this);
     }
 
     @Override
@@ -65,6 +69,8 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
             ResetPwdActivity.actionView(this, "修改支付密码");
         } else if (flag.equalsIgnoreCase("paySuccess")) {
             PaySuccessActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("addBankCard")) {
+            AddBankActivity.actionView(this);
         }
     }
 
