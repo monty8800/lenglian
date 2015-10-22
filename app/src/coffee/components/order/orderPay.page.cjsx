@@ -17,7 +17,7 @@ PaySmsCode = require 'components/order/paySmsCode'
 
 Validator = require 'util/validator'
 
-transData = DB.get 'transData'
+transData = DB.get 'transDataPay'
 
 OrderPay = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]

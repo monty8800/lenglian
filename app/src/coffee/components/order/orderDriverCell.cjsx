@@ -39,7 +39,8 @@ OrderDriverCell = React.createClass {
 
 
 	_goPay: ->
-		DB.put 'transData', {
+		# DB.put 'transData', {
+		DB.put 'transDataPay', {		
 			orderNo: @props.order?.orderNo
 		}
 		Plugin.nav.push ['orderPay']

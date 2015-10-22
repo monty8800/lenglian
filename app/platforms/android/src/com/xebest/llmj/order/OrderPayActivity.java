@@ -11,6 +11,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.center.PaySuccessActivity;
 import com.xebest.llmj.center.ResetPwdActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
@@ -35,6 +36,8 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
 
     private TextView editorCar;
 
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -47,7 +50,7 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.car_detail);
-
+        isOnCreate = true;
         initView();
     }
 
@@ -60,6 +63,8 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
         } else if (flag.equalsIgnoreCase("resetPasswd")) {
             // 修改支付密码
             ResetPwdActivity.actionView(this, "修改支付密码");
+        } else if (flag.equalsIgnoreCase("paySuccess")) {
+            PaySuccessActivity.actionView(this);
         }
     }
 
@@ -84,7 +89,11 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
         MobclickAgent.onPageStart("支付");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "orderPay.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "orderPay.html", this, this, this, this);
+        }
+        isOnCreate = false;
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

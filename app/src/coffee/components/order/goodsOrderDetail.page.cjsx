@@ -79,7 +79,8 @@ GoodsOrderDetail = React.createClass {
 
 
 	_goPay: ->
-		DB.put 'transData', {
+		# DB.put 'transData', {
+		DB.put 'transDataPay', {
 			orderNo: @state.detail?.get 'orderNo'
 		}
 		Plugin.nav.push ['orderPay']
