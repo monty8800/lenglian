@@ -14,13 +14,13 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
-import com.xebest.llmj.adapter.CarAdapter;
+import com.xebest.llmj.adapter.WareHouseAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.goods.SearchGoodsDetailActivity;
-import com.xebest.llmj.model.CarListInfo;
+import com.xebest.llmj.model.WareHouseInfo;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
 import com.xebest.llmj.widget.XListView;
@@ -54,15 +54,15 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
 
     private TextView tvOk;
 
-    private String wareHouseId = "";
+    private String goodsId = "";
 
     private Dialog mDialog;
 
     private XListView mListView;
 
-    private List<CarListInfo> carList = new ArrayList<CarListInfo>();
+    private List<WareHouseInfo> carList = new ArrayList<WareHouseInfo>();
 
-    private CarAdapter carAdapter;
+    private WareHouseAdapter carAdapter;
 
     /**
      * 活跃当前窗口
@@ -115,7 +115,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
         String flag = args.getString(1);
         if (flag.equals("select:warehouse")) {
             // 选择该仓库
-            wareHouseId = args.getString(2);
+            goodsId = args.getString(2);
             new GoodsFoundCar().execute();
         } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
             SearchGoodsDetailActivity.actionView(WareHouseFindGoodsActivity.this);
@@ -161,7 +161,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
     }
 
     /**
-     * 货物列表
+     * 仓库列表
      */
     public class GoodsFoundCar extends AsyncTask<String, Void, String> {
 
@@ -175,12 +175,14 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
         protected String doInBackground(String... params) {
             Map<String, String> map = new HashMap<String, String>();
             map.put("userId", Application.getInstance().userId);
-            map.put("resourceStatus", "1");
+//            map.put("resourceStatus", "1");
             map.put("pageNow", "1");
             map.put("pageSize", "100");
-            map.put("priceType", "1");
-            map.put("coldStoreFlag", "1");
-            return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
+            map.put("status", "2");
+//            map.put("priceType", "1");
+//            map.put("coldStoreFlag", "1");
+            return UploadFile.postWithJsonString(ApiUtils.my_warehouse, new Gson().toJson(map));
+//            return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
         }
 
         @Override
@@ -191,8 +193,8 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     String data = jsonObject.getString("data");
-                    String str = new JSONObject(data).getString("GoodsResource");
-                    List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
+                    String str = new JSONObject(data).getString("myWarehouse");
+                    List<WareHouseInfo> list = JSON.parseArray(str, WareHouseInfo.class);
                     carList.addAll(list);
                     if (list.size() == 0) {
                         Tools.showErrorToast(WareHouseFindGoodsActivity.this, "还没发布库源哦");
@@ -209,7 +211,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
     /**
      * 货源、车源、库源列表
      */
-    public void showDialog(final List<CarListInfo> list) {
+    public void showDialog(final List<WareHouseInfo> list) {
         mDialog = Tools.getCustomDialogBg(getActivity(), R.layout.near_lv_dialog,
             new Tools.BindEventView() {
                 @Override
@@ -235,7 +237,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
                             } else {
                                 mListView.setPullLoadEnable(true);
                             }
-                            carAdapter = new CarAdapter(getActivity());
+                            carAdapter = new WareHouseAdapter(getActivity());
                             mListView.setAdapter(carAdapter);
                             // 车
                             carAdapter.addData(list);
@@ -244,8 +246,8 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
                             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    String goodsId = carList.get(position - 1).getId();
-                                    new CarFoundGoodsTask().execute(goodsId);
+                                    String warehouseId = carList.get(position - 1).getMjWarehouseResourceId();
+                                    new CarFoundGoodsTask().execute(warehouseId);
                                     mDialog.dismiss();
                                 }
                             });
@@ -275,8 +277,8 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
 //            map.put("goodsResouseId", params[0]);
 //            map.put("carResouseId", wareHouseId);
             map.put("userId", Application.getInstance().userId);
-            map.put("warehouseId", wareHouseId);
-            map.put("orderGoodsId", params[0]);
+            map.put("warehouseId", params[0]);
+            map.put("orderGoodsId", goodsId);
 //            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
             return UploadFile.postWithJsonString(ApiUtils.store_found_goods, new Gson().toJson(map));
         }

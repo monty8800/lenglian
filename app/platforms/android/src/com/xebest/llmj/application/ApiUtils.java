@@ -51,4 +51,6 @@ public interface ApiUtils {
     // 修改头像
     String change_head_pic = SERVER + "/loginCtl/changHeadPic.shtml";
 
+    String my_warehouse = SERVER + "/mjWarehouseCtl/queryMjWarehouse.shtml";
+
 }
