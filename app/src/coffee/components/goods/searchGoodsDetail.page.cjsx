@@ -85,6 +85,11 @@ GoodsDetail = React.createClass {
 		console.log 'state', @state
 		toColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 3] then '（需要冷库）' else ''
 		fromColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 4] then '（需要冷库）' else '' 
+
+		_payTypeText = Helper.payTypeMapper @state.goodsDetail.payType
+		if parseInt(@state.goodsDetail.payType) is 3 and @state.goodsDetail.prePay
+			_payTypeText = _payTypeText + @state.goodsDetail.prePay + '元'
+		
 		<div>
 			<div style={{display: if _transData?.orderId then 'block' else 'none'}} className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{ _transData?.orderId }</span></p>
@@ -185,7 +190,7 @@ GoodsDetail = React.createClass {
 				</p>
 				<p>
 					<span>支付方式:</span>
-					<span>{ Helper.payTypeMapper @state.goodsDetail.payType }</span>
+					<span>{ _payTypeText }</span>
 				</p>
 				<p>
 					<span>发票:</span>

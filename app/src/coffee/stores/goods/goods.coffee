@@ -320,6 +320,7 @@ getSearchGoodsDetail = (goodsId,focusid)->
 		_searchGoodsDetail = _searchGoodsDetail.set 'resourceStatus',resource.resourceStatus
 		_searchGoodsDetail = _searchGoodsDetail.set 'goodsType',resource.goodsType	
 		_searchGoodsDetail = _searchGoodsDetail.set 'payType',resource.payType
+		_searchGoodsDetail = _searchGoodsDetail.set 'prePay',resource.advance
 		_searchGoodsDetail = _searchGoodsDetail.set 'refrigeration', resource.coldStoreFlag
 		GoodsStore.emitChange 'getSearchGoodsDetailSucc'
 	,(data)->

@@ -175,7 +175,7 @@ SearchWarehouse = React.createClass {
 				</div>
 				<div className="g-item g-item-des">
 					<p>仓库类型 : <span>{ aResult.wareHouseType }</span></p>
-					<p>库温类型 : <span>{ aResult.cuvinType }</span></p>
+					<p>库温类型 : <span>{ aResult.cuvinExtensive }</span></p>
 					<p>仓库价格 : <span>{ aResult.price }</span></p>
 				</div>
 			</div>

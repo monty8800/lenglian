@@ -139,11 +139,14 @@
                     NSString *weight = [dic objectForKey:@"weight"];
                     
                     if (weight != nil && ![weight isKindOfClass:[NSNull class]] ) {
-                        weightStr = [NSString stringWithFormat:@"货物重量： %@吨", weight];
+                        weightStr = [NSString stringWithFormat:@"货物规格： %@吨", weight];
+                        if ([dic objectForKey:@"cube"] != nil && ![[dic objectForKey:@"cube"] isKindOfClass:[NSNull class]]) {
+                            weightStr = [NSString stringWithFormat:@"%@ %@方",weightStr, [dic objectForKey:@"cube"]];
+                        }
                     }
                     else
                     {
-                        weightStr = [NSString stringWithFormat:@"货物体积： %@方", [dic objectForKey:@"cube"]];
+                        weightStr = [NSString stringWithFormat:@"货物规格： %@方", [dic objectForKey:@"cube"]];
                     }
                     
                     NSMutableArray *infoList = [NSMutableArray new];

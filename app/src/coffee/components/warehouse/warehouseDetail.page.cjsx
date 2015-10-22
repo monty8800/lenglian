@@ -29,7 +29,7 @@ conf = (aProperty) ->
 		when '1' then warehouseType.push aProperty.attributeName
 		when '2' then warehouseIncreaseValue.push aProperty.attributeName
 		when '3' then warehouseArea.push aProperty.attributeName + '   ' + aProperty.value
-		when '4' then warehousePrice.push  aProperty.value + aProperty.attributeName
+		when '4' then warehousePrice.push  aProperty.value + '元/' + aProperty.attributeName
 
 
 WarehouseDetail = React.createClass {

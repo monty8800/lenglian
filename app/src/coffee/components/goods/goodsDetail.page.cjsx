@@ -118,7 +118,7 @@ GoodsDetail = React.createClass {
 						<div className="g-detail-time01">
 							<span className="fl">到货时间:</span>
 							<span className="fr">
-								{ Moment(@state.goodsDetail.arrivalStime).format('YYYY-MM-DD') } 到 { Moment(@state.goodsDetail.arrivalEtime).format('YYYY-MM-DD') }
+								{ Moment(@state.goodsDetail.arrivalStime).format('YYYY-MM-DD') + '到' + Moment(@state.goodsDetail.arrivalEtime).format('YYYY-MM-DD') }
 							</span>
 						</div>					
 				}
