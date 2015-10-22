@@ -126,6 +126,12 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     private BitmapDescriptor goods = BitmapDescriptorFactory
             .fromResource(R.drawable.near_goods);
 
+    private BitmapDescriptor nearCar = BitmapDescriptorFactory
+            .fromResource(R.drawable.near_car);
+
+    private BitmapDescriptor nearStore = BitmapDescriptorFactory
+            .fromResource(R.drawable.near_store);
+
     // 货源信息
     private TextView userName;
     private RatingBar rate;
@@ -415,13 +421,22 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 // 开始添加覆盖物
                 LatLng llA = new LatLng(Double.parseDouble(list.get(i).getLat()), Double.parseDouble(list.get(i).getLng()));
                 OverlayOptions ooA = null;
-                if (list.get(i).getColdStoreFlag() == null || list.get(i).getColdStoreFlag().equals("1")) {
-                    ooA = new MarkerOptions().position(llA).icon(goods)
+                if (status == 1) {
+                    if (list.get(i).getColdStoreFlag() == null || list.get(i).getColdStoreFlag().equals("1")) {
+                        ooA = new MarkerOptions().position(llA).icon(goods)
+                                .zIndex(9).draggable(false);
+                    } else if (list.get(i).getColdStoreFlag() != null && list.get(i).getColdStoreFlag().equals("2")) {
+                        ooA = new MarkerOptions().position(llA).icon(goodsCold)
+                                .zIndex(9).draggable(false);
+                    }
+                } else if (status == 2) {
+                    ooA = new MarkerOptions().position(llA).icon(nearCar)
                             .zIndex(9).draggable(false);
-                } else if (list.get(i).getColdStoreFlag() != null && list.get(i).getColdStoreFlag().equals("2")) {
-                    ooA = new MarkerOptions().position(llA).icon(goodsCold)
+                } else {
+                    ooA = new MarkerOptions().position(llA).icon(nearStore)
                             .zIndex(9).draggable(false);
                 }
+
                 if (ooA != null && mMapView != null && mMapView.getMap() != null) {
                     Marker marker = (Marker) (mMapView.getMap().addOverlay(ooA));
                     marker.setTitle(i + "");
