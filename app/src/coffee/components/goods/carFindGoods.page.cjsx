@@ -8,6 +8,7 @@ PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
 
 Plugin = require 'util/plugin'
+NoResult = require 'components/common/noResult'
 Validator = require 'util/validator'
 Constants = require 'constants/constants'
 
@@ -119,6 +120,7 @@ CarFindGoods = React.createClass {
 			_hasMore = (dataList.size % _pageSize) is 0
 			@setState {
 				goodsList: dataList
+				isShow: dataList.size == 0
 			}
 		else if msg.msg is 'address:changed' and msg.type is 'area'
 			address = AddressStore.getAddress()
@@ -169,6 +171,7 @@ CarFindGoods = React.createClass {
 			goodsList: GoodsStore.getGoodsList()
 			showCarList: false
 			bid: false
+			isShow: false
 		}
 
 		for selection in selectionList
@@ -196,7 +199,7 @@ CarFindGoods = React.createClass {
 			</ul>
 			
 		</div>
-
+		<NoResult isShow={@state.isShow} />
 		<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={_hasMore and not _netBusy}>
 		{ goodsCells }
 		</InfiniteScroll>

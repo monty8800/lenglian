@@ -5,6 +5,7 @@ PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
 InfiniteScroll = require('react-infinite-scroll')(React)
 Constants = require 'constants/constants'
+NoResult = require 'components/common/noResult'
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
 XeImage = require 'util/image'
@@ -102,6 +103,7 @@ FoundCar = React.createClass {
 			hasMore: true
 			dataCount: 0
 			carList: CarStore.getCar()	
+			isShow: false
 		}
 
 	componentDidMount: ->
@@ -114,14 +116,15 @@ FoundCar = React.createClass {
 	_onChange: (params)->
 		if params[0] is 'found_car'
 			list = CarStore.getCar()
-			if list.size < Constants.orderStatus.PAGESIZE
-				hasMore = false
-			else
-				hasMore = true
+			# if list.size < Constants.orderStatus.PAGESIZE
+			# 	hasMore = false
+			# else
+			# 	hasMore = true
 			@setState {
-				hasMore: hasMore
+				hasMore: list.size - @state.dataCount >= Constants.orderStatus.PAGESIZE
 				carList: list
 				dataCount: list.size
+				isShow: list.size == 0
 			}
 		else if params[0] is 'submit_success'
 			list = @state.carList
@@ -139,6 +142,7 @@ FoundCar = React.createClass {
 			<CarItem car={cars} index={index} key={cars?.id} />
 		<section>
 			<ScreenMenu />
+			<NoResult isShow={@state.isShow} />
 			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore} >
 				{carCells}
 			</InfiniteScroll>
