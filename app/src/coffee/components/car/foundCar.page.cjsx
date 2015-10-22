@@ -85,7 +85,7 @@ CarItem = React.createClass {
 			<div className="g-item">
 
 				<div className="g-adr-start ll-font g-adr-start-line">
-					<em>{ @props.car?.destination + '终点'}</em>
+					<em>{ @props.car?.destination }</em>
 					<span></span>
 				</div>
 				<div className="g-adr-end ll-font g-adr-end-line">
