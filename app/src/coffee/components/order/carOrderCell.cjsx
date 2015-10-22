@@ -128,10 +128,12 @@ CarItem = React.createClass {
 				</div>
 				<div className="g-item">
 					<div className="g-adr-start ll-font g-adr-start-line">
-						{item?.destination}
+						<em>{item?.destination}</em>
+						<span></span>
 					</div>
 					<div className="g-adr-end ll-font g-adr-end-line">
-						{item?.setOut}
+						<em>{item?.setOut}</em>
+						<span></span>
 					</div>
 				</div>
 				<div className="g-item g-item-des">

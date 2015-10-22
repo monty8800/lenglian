@@ -330,10 +330,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        cell.warehouseDic = @{@"name":_dataList[indexPath.row][@"infoList"][0],@"address":@"这是仓库的详细地址 可能很长很长很长很长不知道最大的可能是多长......."};
-        //@"这是仓库的详细地址 可能很长很长很长很长不知道最大的可能是多长......."};
-//        cell.textLabel.text = @"7890";
-//        cell.detailTextLabel.text = @"这是仓库的详细地址 可能很长很长很长很长不知道最大的可能是多长.......";
+        cell.warehouseDic = @{@"name":_dataList[indexPath.row][@"infoList"][0],@"address":_dataList[indexPath.row][@"infoList"][1]};
         return cell;
     }
 

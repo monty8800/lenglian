@@ -237,6 +237,7 @@ AddWarehouse = React.createClass {
 
 # 仓库类型
 	warehouseType1 :(e)->
+		newState = Object.create @state
 		if e.target.checked
 			newState.warehouseType1 = '1'
 		else
@@ -244,6 +245,7 @@ AddWarehouse = React.createClass {
 		@setState newState
 		console.log "仓库类型"
 	warehouseType2 :(e)->
+		newState = Object.create @state
 		if e.target.checked
 			newState.warehouseType2 = '1'
 		else

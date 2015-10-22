@@ -246,11 +246,12 @@ GoodsOrderDetail = React.createClass {
 
 			<div className="g-item g-adr-detail ll-font nopadding">			
 				<div className="g-adr-start ll-font g-adr-start-line">
-					{@state.detail?.get('fromProvinceName') + @state.detail?.get('fromCityName') + @state.detail?.get('fromCountyName') + fromColdFlag}
+					<em>{@state.detail?.get('toProvinceName') + @state.detail?.get('toCityName') + @state.detail?.get('toCountyName') + toColdFlag}</em>
+					<span></span>
 				</div>
-				
 				<div className="g-adr-end ll-font g-adr-end-line">
-					{@state.detail?.get('toProvinceName') + @state.detail?.get('toCityName') + @state.detail?.get('toCountyName') + toColdFlag}
+					<em>{@state.detail?.get('fromProvinceName') + @state.detail?.get('fromCityName') + @state.detail?.get('fromCountyName') + fromColdFlag}</em>
+					<span></span>
 				</div>	
 			</div>
 		</div>

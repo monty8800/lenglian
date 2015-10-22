@@ -132,6 +132,7 @@ getSearchWarehouseDetail = (warehouseId,focusid) ->
 		focusid:focusid
 	},(data)->
 		warehouseLoad = data.warehouseLoad
+		_searchWarehouseDetail = _searchWarehouseDetail.set 'userId', warehouseLoad?.userId 			#仓库ID
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'id', warehouseLoad?.id 			#仓库ID
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'name', warehouseLoad?.name			#仓库名称
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'address', warehouseLoad?.address		#仓库名称

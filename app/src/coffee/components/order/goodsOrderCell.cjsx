@@ -51,10 +51,12 @@ GoodsCell = React.createClass {
 			}
 			<div onClick={@_goDetail} className="g-item">
 				<div className="g-adr-start ll-font g-adr-start-line">
-					{@props.order.toProvinceName + @props.order.toCityName + @props.order.toCountyName}
+					<em>{@props.order.toProvinceName + @props.order.toCityName + @props.order.toCountyName}</em>
+					<span></span>
 				</div>
 				<div className="g-adr-end ll-font g-adr-end-line">
-					{@props.order.fromProvinceName + @props.order.fromCityName + @props.order.fromCountyName}
+					<em>{@props.order.fromProvinceName + @props.order.fromCityName + @props.order.fromCountyName}</em>
+					<span></span>
 				</div>
 			</div>
 

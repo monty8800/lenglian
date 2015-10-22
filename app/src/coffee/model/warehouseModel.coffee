@@ -28,7 +28,7 @@ Warehouse = Immutable.Record {
 	certification:null	# 1个人 2公司 0未认证
 	score:null			#评价分数
 	wishlst:0			#是否收藏
-
+	userId:null			#仓库主
 	# volume:0  			# 容量 单位 m³
 	# acreageTotal:0  	#总面积 单位 ㎡
 	# temperatureType: null #温度类型

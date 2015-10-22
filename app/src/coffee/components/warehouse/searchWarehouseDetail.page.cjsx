@@ -16,6 +16,7 @@ Raty = require 'components/common/raty'
 _transData = DB.get('transData')
 _isMine = _transData.isMine is 1
 
+_user = UserStore.getUser()
 
 warehouseStatus = '' #状态
 warehouseType = []	#类型
@@ -83,7 +84,7 @@ WarehouseDetail = React.createClass {
 								<Raty score={@state.warehouseDetail.score}/>
 							 </div>
 						</div>
-						<ul className="g-driver-contact" onClick={ @_fallowButtonClick }>
+						<ul style={{ display: if @state.warehouseDetail?.userId isnt _user.id then 'block' else 'none' }} className="g-driver-contact" onClick={ @_fallowButtonClick }>
 							<li className={ if @state.isFallow then "ll-font" else "ll-font active" } >关注</li>
 						</ul>
 					</div>
