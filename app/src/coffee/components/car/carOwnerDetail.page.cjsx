@@ -53,6 +53,7 @@ Detail = React.createClass {
 			score: 0
 			isInit: true
 			carDetail: CarStore.getCarDetail().toJS()
+			hideFallow:true
 		}
 
 	componentDidMount: ->
@@ -70,6 +71,7 @@ Detail = React.createClass {
 				wishlst: carInfo.wishlst
 				carDetail: carInfo
 				isInit: false
+				hideFallow: carInfo.userId is _user.id
 			}
 		else if params[0] is 'attention_success'
 			@setState {
@@ -105,7 +107,7 @@ Detail = React.createClass {
 								}
 							</div>
 						</div>
-						<ul className="g-driver-contact" onClick={@attention.bind this, @state.wishlst}>
+						<ul style={{ display: if @state.hideFallow then 'none' else 'block' }} className="g-driver-contact" onClick={@attention.bind this, @state.wishlst}>
 							<li className={if @state.wishlst is true then "ll-font" else 'll-font active'}>关注</li>
 						</ul>
 					</div>

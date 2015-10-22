@@ -7,6 +7,7 @@ Immutable = require 'immutable'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
 XeImage = require 'components/common/xeImage'
+UserStore = require 'stores/user/user'
 
 Helper = require 'util/helper'
 Plugin = require 'util/plugin'
@@ -18,7 +19,7 @@ GoodsAction = require 'actions/goods/goods'
 Goods = require 'model/goods'
 DB = require 'util/storage'
 Raty = require 'components/common/raty'
-
+_user = UserStore.getUser()
 _transData = DB.get 'transData'
 
 
@@ -50,6 +51,7 @@ GoodsDetail = React.createClass {
 				toStreet:''
 			}
 			isFallow:false
+			hideFallow:true
 		}
 
 	componentDidMount: ->
@@ -65,6 +67,7 @@ GoodsDetail = React.createClass {
 			newState = Object.create @state
 			newState.goodsDetail = GoodsStore.getSearchGoodsDetail()
 			newState.isFallow = newState.goodsDetail.wishlst
+			newState.hideFallow = newState.goodsDetail?.userId is _user.id
 			@setState newState
 		else if mark is 'fallowOrUnFallowHandleSucc'
 			newState = Object.create @state
@@ -109,7 +112,7 @@ GoodsDetail = React.createClass {
 								<Raty score={ @state.goodsDetail.stars }/>
 							</div>
 						</div>
-						<ul className="g-driver-contact" onClick={ @_fallowButtonClick }>
+						<ul style={{ display: if @state.hideFallow then 'none' else 'block' }} className="g-driver-contact" onClick={ @_fallowButtonClick }>
 							<li className={ if @state.isFallow then "ll-font noborder" else "ll-font active noborder" }>关注</li>
 						</ul>
 					</div>

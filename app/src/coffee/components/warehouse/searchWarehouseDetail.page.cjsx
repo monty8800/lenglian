@@ -36,6 +36,7 @@ WarehouseDetail = React.createClass {
 		{
 			warehouseDetail:{}
 			isFallow:false
+			hideFallow:true
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
@@ -51,6 +52,7 @@ WarehouseDetail = React.createClass {
 			newState = Object.create @state
 			newState.warehouseDetail = detailResult
 			newState.isFallow = detailResult.wishlst
+			newState.hideFallow = detailResult?.userId is _user.id
 			@setState newState
 		else if mark is 'fallowOrUnFallowHandleSucc'
 			newState = Object.create @state
@@ -84,7 +86,7 @@ WarehouseDetail = React.createClass {
 								<Raty score={@state.warehouseDetail.score}/>
 							 </div>
 						</div>
-						<ul style={{ display: if @state.warehouseDetail?.userId isnt _user.id then 'block' else 'none' }} className="g-driver-contact" onClick={ @_fallowButtonClick }>
+						<ul style={{ display: if @state.hideFallow then 'none' else 'block' }} className="g-driver-contact" onClick={ @_fallowButtonClick }>
 							<li className={ if @state.isFallow then "ll-font" else "ll-font active" } >关注</li>
 						</ul>
 					</div>

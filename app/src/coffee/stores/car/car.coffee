@@ -205,6 +205,8 @@ carDetail = (carId)->
 			_carDetail = _carDetail.set 'drivingImg', td.drivingImg
 			_carDetail = _carDetail.set 'transportImg', td.transportImg
 			_carDetail = _carDetail.set 'goodsSourceId', td.goodsSourceId
+			_carDetail = _carDetail.set 'userId', td.userId
+
 			if td.status is 1
 				# 车辆详情是否显示编辑按钮
 				Plugin.nav.push ['carInfoEnable']
@@ -235,6 +237,8 @@ _carOwnerDetail = (carId, targetUserId)->
 			_carDetail = _carDetail.set 'wishlst', data.wishlst
 			_carDetail = _carDetail.set 'carScore', data.carScore
 			_carDetail = _carDetail.set 'certification', data.certification
+			_carDetail = _carDetail.set 'userId', td.userId
+
 			CarStore.emitChange ['car_owner_detail']
 
 # 发布车源
