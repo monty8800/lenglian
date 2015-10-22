@@ -59,6 +59,10 @@ public class OrderCancelListActivity extends BaseCordovaActivity implements Cord
         String flag = args.getString(1);
         if (flag.equalsIgnoreCase("carOwnerOrderDetail")) {
             CarOrderDetailActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("goodsOrderDetail")) {
+            GoodsOrderDetailActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("warehouseOrderDetail")) {
+            WareHouseOrderDetail.actionView(getActivity());
         }
     }
 
