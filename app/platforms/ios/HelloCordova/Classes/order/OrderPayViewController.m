@@ -8,6 +8,7 @@
 
 #import "OrderPayViewController.h"
 #import "AddBankCardViewController.h"
+#import "PaySuccessViewController.h"
 
 @interface OrderPayViewController ()
 
@@ -45,6 +46,11 @@
         if ([params[1] isEqualToString:@"addBankCard"]) {
             AddBankCardViewController *addVC = [AddBankCardViewController new];
             [self.navigationController pushViewController:addVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"paySuccess"])
+        {
+            PaySuccessViewController *successVC = [PaySuccessViewController new];
+            [self.navigationController pushViewController:successVC animated:YES];
         }
     }
 }

@@ -103,11 +103,17 @@ OrderPay = React.createClass {
 				user: UserStore.getUser()
 			}
 		else if params is 'pay:success'
-			Plugin.toast.success '订单支付成功！'
-			Plugin.nav.pop()
+			DB.put 'transData2', {
+				orderNo: transData?.orderNo
+				payAmount: @state.info?.get 'orderAmount'
+			}
+			Plugin.nav.push ['paySuccess']
 		else if params is 'pay:done'
-			Plugin.toast.success '支付成功，订单处理中！'
-			Plugin.nav.pop()
+			DB.put 'transData2', {
+				orderNo: transData?.orderNo
+				payAmount: @state.info?.get 'orderAmount'
+			}
+			Plugin.nav.push ['paySuccess']
 		else if params.msg is 'select:card'
 			@setState {
 				bankCard: params.cardId

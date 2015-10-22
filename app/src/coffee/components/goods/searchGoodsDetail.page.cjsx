@@ -118,10 +118,11 @@ GoodsDetail = React.createClass {
 					<div className="g-adr-start ll-font g-adr-start-line">
 						{
 							if @state.goodsDetail.toProvinceName is @state.goodsDetail.toCityName
-								(@state.goodsDetail.toCityName + @state.goodsDetail.toAreaName + @state.goodsDetail.toStreet) + toColdFlag
+								<em>{(@state.goodsDetail.toCityName + @state.goodsDetail.toAreaName + @state.goodsDetail.toStreet) + toColdFlag}</em>
 							else
-								(@state.goodsDetail.toProvinceName + @state.goodsDetail.toCityName + @state.goodsDetail.toAreaName + @state.goodsDetail.toStreet) + toColdFlag
+								<em>{(@state.goodsDetail.toProvinceName + @state.goodsDetail.toCityName + @state.goodsDetail.toAreaName + @state.goodsDetail.toStreet) + toColdFlag}</em>
 						}
+						<span></span>
 					</div>
 					{
 						if @state.goodsDetail.mjGoodsRoutes.length > 0	
@@ -130,10 +131,11 @@ GoodsDetail = React.createClass {
 					<div className="g-adr-end ll-font g-adr-end-line">
 						{
 							if @state.goodsDetail.fromProvinceName is @state.goodsDetail.fromCityName
-								@state.goodsDetail.fromCityName + @state.goodsDetail.fromAreaName + @state.goodsDetail.fromStreet + fromColdFlag
+								<em>{@state.goodsDetail.fromCityName + @state.goodsDetail.fromAreaName + @state.goodsDetail.fromStreet + fromColdFlag}</em>
 							else
-								@state.goodsDetail.fromProvinceName + @state.goodsDetail.fromCityName + @state.goodsDetail.fromAreaName + @state.goodsDetail.fromStreet + fromColdFlag
+								<em>{@state.goodsDetail.fromProvinceName + @state.goodsDetail.fromCityName + @state.goodsDetail.fromAreaName + @state.goodsDetail.fromStreet + fromColdFlag}</em>
 						}
+						<span></span>
 					</div>
 				</div>
 			</div>

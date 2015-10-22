@@ -44,7 +44,7 @@ AddBankCardNext = React.createClass {
 
 	getInitialState: ->
 		{
-			bankName: _bankCardInfo.bankName or '请选择银行'
+			bankName: _bankCardInfo.bankName or null
 			cardType: _bankCardInfo.cardType
 			bankBranchName: ''
 			bankMobile:''
