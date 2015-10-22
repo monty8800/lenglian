@@ -269,6 +269,7 @@ resetPayPwd = (mobile, code, passwd)->
 
 logout = ->
 	DB.remove 'user'
+	DB.remove 'lastBankCard'
 	_user = new User
 	UserStore.emitChange 'logout'
 	Plugin.run [9, 'user:update', '{}']

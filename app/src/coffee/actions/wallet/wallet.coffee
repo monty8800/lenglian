@@ -40,6 +40,16 @@ WalletAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.GET_SUPPORT_BANK_LIST
 		}
+	withdraw: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.WITHDRAW
+			params: params
+		}
+	selectWithdrawCard: (card)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.SELECT_WITHDRAW_CARD
+			card: card
+		}
 }
 
 module.exports = WalletAction

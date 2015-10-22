@@ -25,7 +25,8 @@ FromTo = React.createClass {
 		DB.put 'transData', type
 		Plugin.nav.push ['selectAddress']
 
-	_addPassBy: ->
+	_addPassBy: (e)->
+		e.stopPropagation()
 		if @props.type is 'addGoods'
 			if @state.passBy.size >= 5
 				Plugin.toast.err '最多只能添加5个途径地哦！'

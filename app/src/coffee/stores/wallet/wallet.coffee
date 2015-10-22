@@ -24,12 +24,19 @@ _aBankCardInfo = new BankCardModel
 localBankList = DB.get 'supportBankList'
 _supportBankList = Immutable.List localBankList?.list
 
+_lastBankCard = new BankCardModel DB.get('lastBankCard')
+
 
 window.tryReloadBandCardsList = ->
 	shouldReload = parseInt (DB.get 'shouldBankCardsListReload')
 	console.log '---------------tryReloadBandCardsList:', shouldReload
 	if shouldReload is 1
 		getBankCardsList()
+
+
+window.updateStore = ->
+	_lastBankCard = new BankCardModel DB.get('lastBankCard')
+	WalletStore.emitChange 'last:bankcard:update'
 
 getBankCardsList = ->
 	user = UserStore.getUser()
@@ -185,6 +192,17 @@ getSupportBankList = ->
 	else
 		WalletStore.emitChange 'get:support:bank:list:done'
 
+withdraw = (params)->
+	console.log 'withdraw'
+	Http.post Constants.api.WITHDRAW, params, (data)->
+		console.log 'withdraw result', data
+		WalletStore.emitChange 'withdraw:done'
+
+selectWithdrawCard = (card)->
+	_lastBankCard = card
+	DB.put 'lastBankCard', _lastBankCard
+	WalletStore.emitChange 'select:withdraw:card'
+
 WalletStore = assign BaseStore, {
 	getBankCardsList: ->
 		_bankCardsList
@@ -194,6 +212,8 @@ WalletStore = assign BaseStore, {
 		_billListResult
 	getSupportBankList: ->
 		_supportBankList
+	getLastBankCard: ->
+		_lastBankCard
 
 }
 
@@ -206,6 +226,8 @@ Dispatcher.register (action)->
 		when Constants.actionType.ADD_BANK_CARD_PRIVET then bindBankCard(action.bankCardModel,action.smsCode)
 		when Constants.actionType.GET_WALLET_IN_OUT then getBillList(action.type)
 		when Constants.actionType.GET_SUPPORT_BANK_LIST then getSupportBankList()
+		when Constants.actionType.WITHDRAW then withdraw(action.params)
+		when Constants.actionType.SELECT_WITHDRAW_CARD then selectWithdrawCard(action.card)
 
 module.exports = WalletStore
 

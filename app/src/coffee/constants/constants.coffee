@@ -168,6 +168,10 @@ actionType = {
 
 	SELECT_PAY_CARD: null
 
+	WITHDRAW: null
+
+	SELECT_WITHDRAW_CARD: null
+
 }
 
 								
@@ -257,6 +261,9 @@ api = {
 
 	#获取支持的银行列表
 	GET_SUPPORT_BANK_LIST: '/mjUserBankCard/queryBankInfo.shtml'
+
+	#提现
+	WITHDRAW: '/mjTransferCtl/transferCash.shtml'
 
 #YYQ
 	# 查询我的仓库

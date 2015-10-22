@@ -10,6 +10,7 @@
 #import "BankCardsListViewController.h"
 #import "BillListViewController.h"
 #import "ChargeViewController.h"
+#import "WithdrawViewController.h"
 @interface WalletViewController ()
 
 @end
@@ -56,6 +57,11 @@
         {
             ChargeViewController *chargeVC = [ChargeViewController new];
             [self.navigationController pushViewController:chargeVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"withdraw"])
+        {
+            WithdrawViewController *withdrawVC = [WithdrawViewController new];
+            [self.navigationController pushViewController:withdrawVC animated:YES];
         }
     }
 }

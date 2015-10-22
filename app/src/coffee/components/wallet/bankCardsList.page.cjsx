@@ -12,6 +12,9 @@ DB = require 'util/storage'
 Plugin = require 'util/plugin'
 user = UserStore.getUser()
 
+transData = DB.get 'transData2'
+DB.remove 'transData2'
+
 
 BankCardsList = React.createClass {
 	_addNewBankCard:->
@@ -21,6 +24,9 @@ BankCardsList = React.createClass {
 		newState = Object.create @state
 		newState.selectIndex = index
 		@setState newState
+		if transData?.type is 'withdraw'
+			WalletAction.selectWithdrawCard @state.bankCardsList[index]
+		
 
 	getInitialState:->
 		{
@@ -41,6 +47,8 @@ BankCardsList = React.createClass {
 			newState = Object.create @state
 			newState.bankCardsList = WalletStore.getBankCardsList()
 			@setState newState
+		else if mark is 'select:withdraw:card'
+			Plugin.nav.pop()
 
 	render : ->
 		bankCardsList = @state.bankCardsList.map (aBankCard,index)->

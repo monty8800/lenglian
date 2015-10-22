@@ -97,6 +97,8 @@
 		4CE0AE5F1BB243C20081DE22 /* PersonalCarAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0AE5E1BB243C20081DE22 /* PersonalCarAuthViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FDB11BD7326B0022B8D6 /* StarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FDB01BD7326B0022B8D6 /* StarView.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FDEE1BD8D24A0022B8D6 /* PaySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FDED1BD8D24A0022B8D6 /* PaySuccessViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CE2FDFC1BD8FE1D0022B8D6 /* WithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FDFB1BD8FE1D0022B8D6 /* WithdrawViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CE2FDFF1BD8FE960022B8D6 /* WithdrawDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FDFE1BD8FE960022B8D6 /* WithdrawDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFED1BC0C81100935C9F /* SelectGoodsWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */; settings = {ASSET_TAGS = (); }; };
@@ -321,6 +323,10 @@
 		4CE2FDB01BD7326B0022B8D6 /* StarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarView.m; path = map/StarView.m; sourceTree = "<group>"; };
 		4CE2FDEC1BD8D24A0022B8D6 /* PaySuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaySuccessViewController.h; path = order/PaySuccessViewController.h; sourceTree = "<group>"; };
 		4CE2FDED1BD8D24A0022B8D6 /* PaySuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaySuccessViewController.m; path = order/PaySuccessViewController.m; sourceTree = "<group>"; };
+		4CE2FDFA1BD8FE1D0022B8D6 /* WithdrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WithdrawViewController.h; path = wallet/WithdrawViewController.h; sourceTree = "<group>"; };
+		4CE2FDFB1BD8FE1D0022B8D6 /* WithdrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WithdrawViewController.m; path = wallet/WithdrawViewController.m; sourceTree = "<group>"; };
+		4CE2FDFD1BD8FE960022B8D6 /* WithdrawDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WithdrawDetailViewController.h; path = wallet/WithdrawDetailViewController.h; sourceTree = "<group>"; };
+		4CE2FDFE1BD8FE960022B8D6 /* WithdrawDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WithdrawDetailViewController.m; path = wallet/WithdrawDetailViewController.m; sourceTree = "<group>"; };
 		4CE2FFEB1BC0C81100935C9F /* SelectGoodsWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectGoodsWidget.h; path = map/SelectGoodsWidget.h; sourceTree = "<group>"; };
 		4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectGoodsWidget.m; path = map/SelectGoodsWidget.m; sourceTree = "<group>"; };
 		4CE2FFEE1BC0C83900935C9F /* SelectGoodsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectGoodsTableViewCell.h; path = map/SelectGoodsTableViewCell.h; sourceTree = "<group>"; };
@@ -634,6 +640,10 @@
 				5B3734031BC2519600807804 /* AddBankCardViewController.h */,
 				5B3734041BC2519600807804 /* AddBankCardViewController.m */,
 				5B1CBCF41BC36D4D00D94095 /* AddBankCardNextViewController.h */,
+				4CE2FDFA1BD8FE1D0022B8D6 /* WithdrawViewController.h */,
+				4CE2FDFD1BD8FE960022B8D6 /* WithdrawDetailViewController.h */,
+				4CE2FDFE1BD8FE960022B8D6 /* WithdrawDetailViewController.m */,
+				4CE2FDFB1BD8FE1D0022B8D6 /* WithdrawViewController.m */,
 				5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */,
 				5B1CBCF71BC36DD100D94095 /* AddBankCarVerifyViewController.h */,
 				5B1CBCF81BC36DD100D94095 /* AddBankCarVerifyViewController.m */,
@@ -1129,6 +1139,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CE2FDFC1BD8FE1D0022B8D6 /* WithdrawViewController.m in Sources */,
 				5B4962381BD0ECB800E93AB2 /* CarOwnerDetailViewController.m in Sources */,
 				4CB4C0E01BBF6FE50095ABE8 /* LocationViewController.m in Sources */,
 				4CB11F581BCA7D4F002280B2 /* OrderPayViewController.m in Sources */,
@@ -1217,6 +1228,7 @@
 				4C3D705C1BBD54B80048E3FF /* XeBubbleView.m in Sources */,
 				4C006DFA1BB02FCC00381462 /* ChangePasswdViewController.m in Sources */,
 				4C65841D1BBE2B3B005FEB16 /* FromToView.m in Sources */,
+				4CE2FDFF1BD8FE960022B8D6 /* WithdrawDetailViewController.m in Sources */,
 				4C6584171BBE2982005FEB16 /* WarehouseBubbleView.m in Sources */,
 				4CD9A94B1BBD366D0098C9B7 /* XeAnnotationView.m in Sources */,
 				5BE0EB221BBE40DA00027BA8 /* ReleaseCarViewController.m in Sources */,

@@ -76,9 +76,6 @@ AddBankCard = React.createClass {
 				</div>
 			</div>
 
-			<div className="u-green" style={{paddingLeft: '0 rem'}}>
-				<label className="u-label" >同意<input  className="ll-font" checkedLink={@linkState 'agree'}  type="checkbox" /><span onClick={@_goAgreement} >《冷链马甲服务协议》</span></label>
-			</div>
 		</div>
 }
 React.render <AddBankCard />,document.getElementById('content')
