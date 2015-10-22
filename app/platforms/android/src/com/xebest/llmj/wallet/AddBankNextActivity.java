@@ -1,4 +1,4 @@
-package com.xebest.llmj.center;
+package com.xebest.llmj.wallet;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.xebest.llmj.center;
+package com.xebest.llmj.wallet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
@@ -22,10 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 充值
+ * 添加银行卡
  * Created by kaisun on 15/9/22.
  */
-public class ChargeActivity extends BaseCordovaActivity implements CordovaInterface {
+public class AddBankActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -40,7 +39,7 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, ChargeActivity.class));
+        context.startActivity(new Intent(context, AddBankActivity.class));
     }
 
     @Override
@@ -50,20 +49,25 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
 
         initView();
 
+        // 添加到移除队列中
+        Application.getInstance().addRemoveActivity(this);
+
     }
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        Toast.makeText(this, "" + args.toString(), Toast.LENGTH_LONG).show();
+        if (flag.equalsIgnoreCase("addBankCardNext")) {
+            AddBankNextActivity.actionView(this);
+        }
     }
 
     protected void initView() {
         bank = (TextView) findViewById(R.id.add);
         bank.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("充值");
+        tvTitle.setText("添加银行卡");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -78,17 +82,17 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("充值");
+        MobclickAgent.onPageStart("添加银行卡");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "charge.html", this, this, this, this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "addBankCard.html", this, this, this, this);
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("充值");
+        MobclickAgent.onPageEnd("添加银行卡");
         MobclickAgent.onPause(this);
     }
 

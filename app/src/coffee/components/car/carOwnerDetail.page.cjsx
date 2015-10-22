@@ -66,7 +66,7 @@ Detail = React.createClass {
 		if params[0] is 'car_owner_detail'
 			carInfo = CarStore.getCarDetail().toJS()
 			@setState {
-				score: carInfo.goodScore
+				score: carInfo.carScore
 				wishlst: carInfo.wishlst
 				carDetail: carInfo
 				isInit: false

@@ -295,7 +295,7 @@ AddCar = React.createClass {
 			<div className="m-releaseitem">
 				<div>
 					<label htmlFor="remark"><span>司机姓名</span> </label>
-					<input ref="driver" valueLink={@linkState 'driver'} type="text" placeholder="请输入随车司机" id="remark"/>
+					<input ref="driver" valueLink={@linkState 'driver'} type="text" placeholder="请输入司机姓名" id="remark"/>
 				</div>
 				<div>
 					<span>联系手机</span>

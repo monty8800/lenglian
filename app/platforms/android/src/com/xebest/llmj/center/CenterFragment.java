@@ -38,6 +38,7 @@ import com.xebest.llmj.car.MyCarActivity;
 import com.xebest.llmj.goods.MyGoodsActivity;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
+import com.xebest.llmj.wallet.WalletActivity;
 import com.xebest.llmj.ware.MyWarehouseActivity;
 import com.xebest.plugin.XEFragment;
 import com.xebest.plugin.XEWebView;

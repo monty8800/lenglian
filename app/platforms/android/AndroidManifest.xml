@@ -36,10 +36,10 @@
         <activity android:name=".car.CarDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ModifyLoginPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ModifyPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.BackPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.BackPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ChangePwdActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".application.LocationActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.WalletActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.WalletActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".car.FoundCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:configChanges="orientation|keyboardHidden" android:name=".car.ReleaseCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".auth.AuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -62,11 +62,11 @@
         <activity android:launchMode="standard" android:name=".goods.ReleaseGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".goods.BiddingActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".goods.MyGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.BillListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.MyBankActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.AddBankActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.AddBankNextActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.AddBankVerifyActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.BillListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.MyBankActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.AddBankActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.AddBankNextActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.AddBankVerifyActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ChargeActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.ModifyAddress" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".order.CarOrderDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -86,5 +86,6 @@
         <activity android:name=".order.OrderPayActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".order.WareHouseOrderDetail" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".MainActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.PaySuccessActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

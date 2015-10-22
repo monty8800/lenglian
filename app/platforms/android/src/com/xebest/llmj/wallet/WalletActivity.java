@@ -1,4 +1,4 @@
-package com.xebest.llmj.center;
+package com.xebest.llmj.wallet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.center.ChangePwdActivity;
+import com.xebest.llmj.center.ChargeActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
@@ -21,10 +23,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 添加银行卡
+ * 我的钱包
  * Created by kaisun on 15/9/22.
  */
-public class AddBankActivity extends BaseCordovaActivity implements CordovaInterface {
+public class WalletActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -39,7 +41,7 @@ public class AddBankActivity extends BaseCordovaActivity implements CordovaInter
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, AddBankActivity.class));
+        context.startActivity(new Intent(context, WalletActivity.class));
     }
 
     @Override
@@ -49,25 +51,25 @@ public class AddBankActivity extends BaseCordovaActivity implements CordovaInter
 
         initView();
 
-        // 添加到移除队列中
-        Application.getInstance().addRemoveActivity(this);
-
     }
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        if (flag.equalsIgnoreCase("addBankCardNext")) {
-            AddBankNextActivity.actionView(this);
+        if (flag.equalsIgnoreCase("changePasswd")) {
+            ChangePwdActivity.actionView(WalletActivity.this);
+        } else if (flag.equalsIgnoreCase("billList")) {
+            BillListActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("toCharge")) {
+            ChargeActivity.actionView(this);
         }
     }
 
     protected void initView() {
         bank = (TextView) findViewById(R.id.add);
-        bank.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("添加银行卡");
+        tvTitle.setText("我的钱包");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -76,23 +78,28 @@ public class AddBankActivity extends BaseCordovaActivity implements CordovaInter
                 finish();
             }
         });
-
+        bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyBankActivity.actionView(WalletActivity.this);
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("添加银行卡");
+        MobclickAgent.onPageStart("我的钱包");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "addBankCard.html", this, this, this, this);
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "wallet.html", this, this, this, this);
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("添加银行卡");
+        MobclickAgent.onPageEnd("我的钱包");
         MobclickAgent.onPause(this);
     }
 
