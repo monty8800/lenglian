@@ -28,10 +28,14 @@ OrderDriverCell = React.createClass {
 				@_goComment()
 
 	_agree: ->
-		OrderAction.goodsAgree {
-			userId: UserStore.getUser()?.id
-			orderNo: @props.order?.orderNo
-		}, @props.order?.orderNo
+		order = @props.order
+		Plugin.alert '确认接受订单?', '提醒', (index)->
+			if index is 1
+				OrderAction.goodsAgree {
+					userId: UserStore.getUser()?.id
+					orderNo: order?.orderNo
+				}, order?.orderNo
+		, ['接受', '取消']
 
 
 	_goPay: ->

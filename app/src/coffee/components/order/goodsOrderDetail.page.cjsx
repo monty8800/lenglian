@@ -58,16 +58,24 @@ GoodsOrderDetail = React.createClass {
 
 	_cancel: ->
 		console.log 'cancel order', @state.detail
-		OrderAction.cancelGoodsOrder {
-			userId: UserStore.getUser()?.id
-			orderNo: @state.detail?.get 'orderNo'
-		}
+		detail = @state.detail
+		Plugin.alert '确认取消订单？', '提醒', (index)->
+			if index is 1
+				OrderAction.cancelGoodsOrder {
+					userId: UserStore.getUser()?.id
+					orderNo: detail?.get 'orderNo'
+				}
+		, ['取消订单', '放弃取消']
 
 	_agree: ->
-		OrderAction.goodsAgree {
-			userId: UserStore.getUser()?.id
-			orderNo: @state.detail?.get 'orderNo'
-		}, @state.detail?.get 'orderNo'
+		detail = @state.detail
+		Plugin.alert '确认接受订单？', '提醒', (index)->
+			if index is 1
+				OrderAction.goodsAgree {
+					userId: UserStore.getUser()?.id
+					orderNo: detail?.get 'orderNo'
+				}, detail?.get 'orderNo'
+		, ['接受', '取消']
 
 
 	_goPay: ->
