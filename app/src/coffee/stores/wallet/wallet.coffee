@@ -106,7 +106,7 @@ bindBankCard = (aBankCardModel,smsCode)->
 	Http.post api, {
 		id: aBankCardModel.txSNBinding						# 不知道是什么ID
 		userId:user.id
-		cardName:aBankCardModel.cardName
+		cardName:aBankCardModel.onwerName
 		cardNo:aBankCardModel.cardNo
 		blankName:aBankCardModel.bankName
 		cardType:aBankCardModel.cardType

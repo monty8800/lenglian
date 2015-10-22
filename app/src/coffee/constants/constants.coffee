@@ -422,7 +422,7 @@ module.exports =
 	debug: true
 	inBrowser: not window.cordova
 	smsType: smsType
-	smsGapTime: 60
+	smsGapTime: 120
 	authType: authType
 	orderStatus: orderStatus
 	cache: cache

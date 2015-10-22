@@ -69,6 +69,7 @@ AddBankCardNext = React.createClass {
 			DB.put 'shouldBankCardsListReload',1
 			Plugin.nav.popTo 2
 
+
 	render : ->
 		console.log 'new state', @state
 		<div>
@@ -77,10 +78,11 @@ AddBankCardNext = React.createClass {
 				<div className="u-arrow-right ll-font">
 					<span>卡类型</span>
 					<i className="arrow-i">{@state.bankName}</i>
-					<select className="select" valueLink={@linkState 'bankName'} name="">
+					<select className="select"  valueLink={@linkState 'bankName'} name="">
 						{
 							@state.bankList.map (bk, i)->
-								<option key={i} value={bk.bankName}>{bk.bankName}</option>
+								<option  key={i} value={bk.bankName}>{bk.bankName}</option>
+							, this
 						}
 					</select>
 				</div>
