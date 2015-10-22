@@ -50,6 +50,9 @@ public class ResetPwdActivity extends BaseCordovaActivity implements CordovaInte
 
         initView();
 
+        // 记录到销毁栈中
+        Application.getInstance().addRemoveActivity(this);
+
     }
 
     protected void initView() {

@@ -27,6 +27,7 @@ _supportBankList = Immutable.List localBankList?.list
 
 window.tryReloadBandCardsList = ->
 	shouldReload = parseInt (DB.get 'shouldBankCardsListReload')
+	console.log '---------------tryReloadBandCardsList:', shouldReload
 	if shouldReload is 1
 		getBankCardsList()
 

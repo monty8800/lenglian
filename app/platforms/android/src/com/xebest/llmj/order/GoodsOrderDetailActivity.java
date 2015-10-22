@@ -50,6 +50,9 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
         setContentView(R.layout.car_detail);
 
         initView();
+
+        // 记录到销毁栈中
+        Application.getInstance().addRemoveActivity(this);
     }
 
     @Override

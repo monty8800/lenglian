@@ -12,7 +12,6 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.center.ChangePwdActivity;
-import com.xebest.llmj.center.ChargeActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 

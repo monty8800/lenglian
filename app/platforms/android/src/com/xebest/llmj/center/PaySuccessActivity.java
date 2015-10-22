@@ -53,6 +53,9 @@ public class PaySuccessActivity extends BaseCordovaActivity implements CordovaIn
         isOnCreate = true;
         initView();
 
+        // 记录到销毁栈中
+        Application.getInstance().addRemoveActivity(this);
+
     }
 
     protected void initView() {
@@ -82,6 +85,10 @@ public class PaySuccessActivity extends BaseCordovaActivity implements CordovaIn
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
+        if (flag.equalsIgnoreCase("go:order:list")) {
+//            MainActivity.actionView(this, 2);
+            Application.getInstance().removeActivity();
+        }
     }
 
     @Override
