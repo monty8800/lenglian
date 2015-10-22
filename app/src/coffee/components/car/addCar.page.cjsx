@@ -196,8 +196,6 @@ AddCar = React.createClass {
 			Plugin.toast.err '请选择车辆类别'
 		else if @state.vehicle is ''
 			Plugin.toast.err '请选择车辆长度'
-		else if not Validator.isEmpty @state.bulky
-			Plugin.toast.err '泡货不能为空'
 		else if not Validator.isEmpty @state.driver
 			Plugin.toast.err '随车司机不能为空'
 		else if not Validator.mobile @state.mobile
@@ -290,17 +288,17 @@ AddCar = React.createClass {
 			<div className="m-releaseitem">
 				<div>
 					<span>可载泡货</span>
-					<input ref="bulky" valueLink={@linkState 'bulky'} type="text" className="weight car"/>
+					<input ref="bulky" valueLink={@linkState 'bulky'} type="text" className="weight car" placeholder="选填" />
 					<span>方</span>
 				</div>
 			</div>
 			<div className="m-releaseitem">
 				<div>
-					<label htmlFor="remark"><span>随车司机</span> </label>
+					<label htmlFor="remark"><span>司机姓名</span> </label>
 					<input ref="driver" valueLink={@linkState 'driver'} type="text" placeholder="请输入随车司机" id="remark"/>
 				</div>
 				<div>
-					<span>联系电话</span>
+					<span>联系手机</span>
 					<input ref="mobile" valueLink={@linkState 'mobile'}></input>
 				</div>
 			</div>	

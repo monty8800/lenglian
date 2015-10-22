@@ -238,7 +238,7 @@ OrderDetail = React.createClass {
 				</p>
 				<p>
 					<span>发布时间:</span>	
-					<span>{Helper.subStr 0, 10, @state.order?.createTime}</span>
+					<span>{Helper.subStr 0, 10, @state.order?.releaseTime}</span>
 				</p>			
 			</div>	
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' then 'block' else 'none'}}>

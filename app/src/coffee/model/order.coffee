@@ -148,6 +148,7 @@ Order = Immutable.Record {
 	orderCarId: null
 	bidPrice: null
 	goodsCubic: null
+	releaseTime: null
 
 }
 

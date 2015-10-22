@@ -379,6 +379,7 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId, orderCarId)-
 		_orderDetail = _orderDetail.set 'mjRateflag', temp.mjRateflag
 		_orderDetail = _orderDetail.set 'orderCarId', temp.orderCarId
 		_orderDetail = _orderDetail.set 'advance', temp.advance
+		_orderDetail = _orderDetail.set 'releaseTime', temp.releaseTime
 		_orderDetail = _orderDetail.set 'goodsCubic', temp.goodsCubic
 		OrderStore.emitChange ['car_owner_order_detail']		
 	, (data)->
