@@ -7,6 +7,7 @@
 //
 
 #import "OrderPayViewController.h"
+#import "AddBankCardViewController.h"
 
 @interface OrderPayViewController ()
 
@@ -36,6 +37,16 @@
     [super viewDidAppear:animated];
     
 //    [self.commandDelegate evalJs:@"(function(){window.updateStore()})()"];
+}
+
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"addBankCard"]) {
+            AddBankCardViewController *addVC = [AddBankCardViewController new];
+            [self.navigationController pushViewController:addVC animated:YES];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

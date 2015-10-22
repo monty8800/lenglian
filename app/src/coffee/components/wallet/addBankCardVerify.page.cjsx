@@ -21,6 +21,8 @@ SmsCode = require 'components/common/smsCode'
 DBBankModel = DB.get 'transData'
 _aBankCardModel = new BankCardModel DBBankModel
 
+Validator = require 'util/validator'
+
 AddBankCardVerify = React.createClass {
 
 	mixins:[PureRenderMixin,LinkedStateMixin]
@@ -29,8 +31,10 @@ AddBankCardVerify = React.createClass {
 		WalletAction.getVCodeForBindBankCar _aBankCardModel
 
 	_verifyNext:->
-		WalletAction.bindBankCard _aBankCardModel,@state.smsCode
-		# Plugin.toast.show 'VerifyNext'
+		if not Validator.smsCode @state.smsCode or not _aBankCardModel.txSNBinding
+			Plugin.toast.err '请输入正确的验证码'
+		else
+			WalletAction.bindBankCard _aBankCardModel,@state.smsCode
 
 	getInitialState: ->
 		{
@@ -44,7 +48,9 @@ AddBankCardVerify = React.createClass {
 		WalletStore.removeChangeListener @_onChange
 
 	_onChange :(mark) ->
-		if mark is 'getVCodeForBindBankCarSucc'
+		console.log 'event change', mark
+		if mark.msg is 'getVCodeForBindBankCarSucc'
+			_aBankCardModel = _aBankCardModel.set 'txSNBinding', mark.txSNBinding
 			console.log '____________get it ________'
 		else if mark is 'bindBankCarSucc'
 			DB.put 'shouldBankCardsListReload',1

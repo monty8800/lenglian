@@ -49,7 +49,7 @@ SmsCode = React.createClass {
 
 	_change: (msg)->
 		console.log 'event change ', msg
-		if msg in ["sms:done", 'getVCodeForBindBankCarSucc']
+		if msg is "sms:done" or msg.msg is 'getVCodeForBindBankCarSucc'
 			_busy = false
 			#开始倒计时
 			@setState {

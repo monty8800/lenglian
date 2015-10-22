@@ -51,7 +51,7 @@ AddBankCard = React.createClass {
 			aBankModel = aBankModel.set 'onwerName', @state.bankCardOnwerName
 			aBankModel = aBankModel.set 'cardNo', @state.bankCardNo
 
-			DB.put 'transData',aBankModel
+			DB.put 'transData',aBankModel.toJS()
 			Plugin.nav.push ['addBankCardNext']
 
 	render : ->

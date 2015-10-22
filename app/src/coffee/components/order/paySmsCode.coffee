@@ -23,10 +23,10 @@ PaySmsCode = React.createClass {
 		PayAction.hidePaySms()
 
 	_confirm: ->
-		if not Validator.smsCode
+		if not Validator.smsCode @state.smsCode
 			Plugin.toast.err '请输入正确的验证码!'
 		else
-			PayAction.payNoti()
+			PayAction.payNoti @state.smsCode
 
 	render: ->
 		user = UserStore.getUser()

@@ -29,5 +29,6 @@ BankCard = Immutable.Record {
 	picPath:null 			#//图片服务器路径
 	bigPicName:null			#//大图片位置
 	smallPicName:null 		#//小图片位置
+	txSNBinding: null  #短信验证码返回的，绑定时的id参数
 }
 module.exports = BankCard

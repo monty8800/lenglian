@@ -1,29 +1,31 @@
 # 货主订单Cell
 React = require 'react'
 
+PayAction = require 'actions/order/pay'
+Plugin = require 'util/plugin'
+
 BankCardList = React.createClass {
+	_select: (cardId)->
+		PayAction.selectCard cardId
+
+	_addNewCard: ->
+		Plugin.nav.push ['addBankCard']
 	render: ->
 		cardList = @props.bankCardList?.map (card, i)->
-			<div className="g-bankList">
-				<p className="g-bank01 ll-font">
-					<span>{card.get 'blankName'}</span>
-					<span className="font24">{'信用卡' + '(尾号' + card.get('cardNo') + ')'}</span>
+			<div className="g-bankList" onClick={@_select.bind this, card.id}>
+				<p className={"g-bank01 ll-font" + if @props.selected is card.id then ' active' else ''}>
+					<span>{card.blankName}</span>
+					<span className="font24">{'信用卡' + '(尾号' + card.cardNo + ')'}</span>
 				</p>
 			</div>
+		, this
 
 		<div className="m-bank">			
 			<h6 className="g-bankTitle">
 				请选择银行卡
 			</h6>
-			<div className="g-bankList">
-				<p className="g-bank01 ll-font active">
-					<span>工商银行</span>
-					<span className="font24">信用卡(尾号2345)</span>
-				</p>
-			</div>
-
 			{cardList}
-			<div className="g-bankList">
+			<div onClick={@_addNewCard} className="g-bankList">
 				<p className="g-bank02">
 					<span>添加银行卡</span>
 				</p>
