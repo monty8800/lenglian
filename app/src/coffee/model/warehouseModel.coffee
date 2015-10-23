@@ -34,9 +34,9 @@ Warehouse = Immutable.Record {
 	# temperatureType: null #温度类型
 	# #acreageNormal:0 	#常温面积 单位 ㎡
 	# #acreageCold:0   	#冷藏面积 单位 ㎡
-	# price:0 			#价格 单位待定 ¥100/天 ¥100/托  
+	price:0 			#价格 单位待定 ¥100/天 ¥100/托  
 	# increaseServe:null  #城配 仓配 金融
-
+	priceUnit:''		#价格单位
 }
 module.exports = Warehouse
 

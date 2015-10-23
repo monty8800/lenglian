@@ -19,17 +19,28 @@ _toShowOrder = _transData.order
 
 warehouseStatus = '' #状态
 warehouseType = []	#类型
-warehousePrice = [] #价格
+warehousePriceValue = '' #价格
+warehousePriceUnit = ''#价格单位
 warehouseIncreaseValue = [] #增值服务
 warehouseArea = [] #面积
 
 conf = (aProperty) ->
 
 	switch aProperty.type
-		when '1' then warehouseType.push aProperty.attributeName
-		when '2' then warehouseIncreaseValue.push aProperty.attributeName
-		when '3' then warehouseArea.push aProperty.attributeName + '   ' + aProperty.value
-		when '4' then warehousePrice.push  aProperty.value + '元/' + aProperty.attributeName
+		when '1' 
+			warehouseType.push aProperty.attributeName
+		when '2' 
+			warehouseIncreaseValue.push aProperty.attributeName
+		when '3' 
+			value = aProperty.attributeName + '   '
+			if aProperty.value
+				value = value + aProperty.value + '平方米'
+			if aProperty.value2
+				value = value + (if aProperty.value then ' ') + aProperty.value2 + '立方米'
+			warehouseArea.push value
+		when '4' 
+			warehousePriceValue = aProperty.value
+			warehousePriceUnit = aProperty.attributeName
 
 
 WarehouseDetail = React.createClass {
@@ -39,6 +50,8 @@ WarehouseDetail = React.createClass {
 		{
 			warehouseDetail:{}
 			isEditing:false
+			price:''
+			priceUnit:''
 			remark:''
 			phone:''
 			contacts:''
@@ -59,6 +72,8 @@ WarehouseDetail = React.createClass {
 			newState.remark = detailResult.remark
 			newState.phone = detailResult.contactTel
 			newState.contacts = detailResult.contact
+			newState.priceUnit = warehousePriceUnit
+			newState.price = warehousePriceValue
 			@setState newState
 			if parseInt(detailResult.status) is 1
 				# 状态是1 仓库才能编辑和删除 原生界面 右上角 原本隐藏的编辑按钮 改为显示
@@ -70,15 +85,36 @@ WarehouseDetail = React.createClass {
 			@setState newState
 		else if mark is 'trySaveEditWarehouse'
 			# TODO:保存之前先做各种判断 是否符合保存条件
-			WarehouseAction.doSaveEditWarehouse @state.remark,@state.phone,@state.contacts,_transData.warehouseId
+			attribute = 1
+			switch @state.priceUnit
+				when '元/天/平'
+					attribute = 1
+				when '元/天/托'
+					attribute = 2
+				when '元/天/吨'
+					attribute = 3
+				when '元/天/方'
+					attribute = 4
+
+			params = {
+				remark:@state.remark
+				phone:@state.phone
+				contacts:@state.contacts
+				warehouseId:_transData.warehouseId
+				warehouseProperty:[{type: "4",attribute: attribute,value: @state.price,valueTwo: "",typeName: "价格",attributeName: @state.priceUnit}]
+			}
+			WarehouseAction.doSaveEditWarehouse params
 
 		else if mark is 'saveEditWarehouseSucc'
 			# 编辑完成  编辑的信息 保留输入框中数据不再允许编辑即可
 			newState = Object.create @state
 			currentWarehouseDetail = newState.warehouseDetail
+			currentWarehouseDetail = currentWarehouseDetail.set 'price',@state.price
+			currentWarehouseDetail = currentWarehouseDetail.set 'priceUnit',@state.priceUnit
 			currentWarehouseDetail = currentWarehouseDetail.set 'remark',@state.remark
 			currentWarehouseDetail = currentWarehouseDetail.set 'contact',@state.contacts
 			currentWarehouseDetail = currentWarehouseDetail.set 'contactTel',@state.phone
+			
 			newState.warehouseDetail = currentWarehouseDetail
 			newState.isEditing = false
 			Plugin.run [1,'warehouseDetail_saveEditSucc']
@@ -95,7 +131,7 @@ WarehouseDetail = React.createClass {
 		warehouseAreaList = warehouseArea.map (aArea,i) ->
 			<p>
 				<span>{if i is 0 then "仓库面积:"}</span>
-				<span>{ aArea + '平方米'}</span>
+				<span>{ aArea }</span>
 			</p>
 		, this
 
@@ -118,10 +154,23 @@ WarehouseDetail = React.createClass {
 							<p>仓库类型: 
 								<span>{ warehouseType.join ' ' }</span>
 							</p>
-							<p>仓库价格: 
-								<span>{ warehousePrice.join ' ' }</span>
-							</p>
-							<p>增值服务: 
+							{
+								if @state.isEditing 
+									<p>仓库价格:
+										<input valueLink={@linkState 'price'} type="text" placeholder="1000" class="u-inp01"/>
+										<select valueLink={@linkState 'priceUnit'} class="weight">
+											<option value='元/天/平'>元/天/平</option>
+											<option value='元/天/托'>元/天/托</option>
+											<option value='元/天/吨'>元/天/吨</option>
+											<option value='元/天/方'>元/天/方</option>
+										</select>
+									</p>
+								else
+									<p>仓库价格:
+										<span>{ @state.price + @state.priceUnit }</span>
+									</p>
+							}
+							<p>配套服务: 
 								<span>{ warehouseIncreaseValue.join ' ' }</span>
 							</p>
 						</dd>
