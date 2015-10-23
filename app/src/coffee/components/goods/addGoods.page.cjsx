@@ -126,9 +126,11 @@ AddGoods = React.createClass {
 		else if not @state.installMinTime or not @state.installMaxTime
 			Plugin.toast.err '请填写装车时间'
 		else if not Validator.price @state.price
-			Plugin.toast.err '请输入正确的价格， 最多两位小数'
-		else if @state.payType is 3 and not Validator.price @state.prePay
-			Plugin.toast.err '请输入正确的预付款， 最多两位小数'
+			Plugin.toast.err '请输入正确的价格， 最多两位小数，最大不超过9999999.99'
+		else if @state.payType is 3 and not Validator.price @state.prePay 
+			Plugin.toast.err '请输入正确的预付款， 最多两位小数，最大不超过9999999'
+		# else if @state.payType is 3 and parseFloat(@state.prePay) > parseFloat(@state.price)
+		# 	Plugin.toast.err '预付款金额不能大于'
 		else if not Validator.name @state.sender
 			Plugin.toast.err '发货人姓名不正确'
 		else if not Validator.mobile @state.senderMobile
@@ -296,6 +298,9 @@ AddGoods = React.createClass {
 				<dl className="clearfix">
 					<dt className="fl"><span>价格类型</span></dt>
 					<dd className="fl">
+						<div className="u-tip01">
+							此价格仅为运费不包含其他费用
+						</div>
 						<div>
 							<label>
 								<input className="mui-checkbox ll-font" onChange={@_selectPriceType1} defaultChecked=true value="1" type="radio" name="xe-checkbox01" dangerouslySetInnerHTML={{__html: '一口价'}} />

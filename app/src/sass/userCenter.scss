@@ -236,6 +236,15 @@
         &:last-child{
             border-bottom: 0;
         }
+        .u-inp01{
+            color: #666;
+            width: 100/$ppr;
+            height: 45/$ppr;
+            padding-left: 10/$ppr;
+            border: 1px solid #e6e6e6;
+            border-radius: 5/$ppr;
+            @include box-sizing($sizing:border-box);
+        }
         .g-adr-start,.g-adr-end,.g-adr-active {
             height: 40/$ppr;
             line-height: 40/$ppr;

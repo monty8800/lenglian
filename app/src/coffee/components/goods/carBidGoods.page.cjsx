@@ -75,7 +75,7 @@ CarBidGoods = React.createClass {
 	_bid: ->
 		console.log 'bid'
 		if not Validator.price @state.price
-			Plugin.toast.err '请输入正确的金额，最多两位小数'
+			Plugin.toast.err '请输入正确的金额，最多两位小数，最大不超过9999999.99'
 		else
 			carId = @state.carId
 			goodsId = @state.goodsId
