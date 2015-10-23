@@ -69,6 +69,7 @@ SelectAddress = React.createClass {
 			#根据上个界面放在transddata中的key，把数据放在value里传回去
 			data = {}
 			data[transData] = arg.address.toJS()
+			console.log '-------------data:', data
 			DB.put 'transData', data
 			Plugin.nav.pop()
 	render: ->

@@ -134,42 +134,44 @@ whoYouAre = (who)->
 carVehicle = (status) ->
 	if status?
 		switch parseInt(status)
-			when 1 then "3.8米"
-			when 2 then "4.2米"
-			when 3 then "4.8米"
-			when 4 then "5.8米"
-			when 5 then "6.2米"
-			when 6 then "6.8米"
-			when 7 then "7.4米"
-			when 8 then "7.8米"
-			when 9 then "8.6米"
-			when 10 then "9.6米"
-			when 11 then "13~15米"
-			when 12 then "15米以上"
-			when 13 then "3.8米以下"
+			when 1 then "3.8米以下"
+			when 2 then "3.8米"
+			when 3 then "4.2米"
+			when 4 then "4.8米"
+			when 5 then "5.8米"
+			when 6 then "6.2米"
+			when 7 then "6.8米"
+			when 8 then "7.4米"
+			when 9 then "7.8米"
+			when 10 then "8.6米"
+			when 11 then "9.6米"
+			when 12 then "13~15米"
+			when 13 then "15米以上"
+			
 	else
 		''
 
 goodsWeight = (index) ->
 	if index?
 		switch parseInt(index)
-			when 1 then '2吨'
-			when 2 then '3吨'
-			when 3 then '4吨'
-			when 4 then '5吨'
-			when 5 then '6吨'
-			when 6 then '8吨'
-			when 7 then '10吨'
-			when 8 then '12吨'
-			when 9 then '15吨'
-			when 10 then '18吨'
-			when 11 then '20吨'
-			when 12 then '25吨'
-			when 13 then '28吨'
-			when 14 then '30吨'
-			when 15 then '30~40吨'
-			when 16 then '40吨以上'
-			when 17 then '2吨以下'
+			when 1 then '2吨以下'
+			when 2 then '2吨'
+			when 3 then '3吨'
+			when 4 then '4吨'
+			when 5 then '5吨'
+			when 6 then '6吨'
+			when 7 then '8吨'
+			when 8 then '10吨'
+			when 9 then '12吨'
+			when 10 then '15吨'
+			when 11 then '18吨'
+			when 12 then '20吨'
+			when 13 then '25吨'
+			when 14 then '28吨'
+			when 15 then '30吨'
+			when 16 then '30~40吨'
+			when 17 then '40吨以上'
+			
 	else
 		''
 
