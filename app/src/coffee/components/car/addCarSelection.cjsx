@@ -22,7 +22,7 @@ Selection = React.createClass {
 			type = 'carLength'
 
 		index = @props.items.options.indexOf item
-
+		console.log '--------index:', index
 		CarAction.AddCarSelection([type, index])
 
 		newState = Object.create @state

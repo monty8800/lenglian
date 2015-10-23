@@ -60,7 +60,7 @@ BillList = React.createClass {
 						</p>
 						<p className="clearfix">
 							<span>{ bill.createTime }</span>
-							<span>{ bill.type }</span>
+							<span>交易结束</span>
 						</p>
 					</dd>
 				</dl>
