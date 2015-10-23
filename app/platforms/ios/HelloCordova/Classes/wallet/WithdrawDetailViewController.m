@@ -30,6 +30,12 @@
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
+    
+    if ([params[0] integerValue] == 3) {
+        if ([params[1] isEqualToString:@"withdraw:done"]) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
