@@ -10,6 +10,7 @@ UserStore = require 'stores/user/user'
 Helper = require 'util/helper'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
+Validator = require 'util/validator'
 
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
@@ -35,8 +36,8 @@ conf = (aProperty) ->
 			value = aProperty.attributeName + '   '
 			if aProperty.value
 				value = value + aProperty.value + '平方米'
-			if aProperty.value2
-				value = value + (if aProperty.value then ' ') + aProperty.value2 + '立方米'
+			if aProperty.valueTwo
+				value = value + (if aProperty.value then ' ') + aProperty.valueTwo + '立方米'
 			warehouseArea.push value
 		when '4' 
 			warehousePriceValue = aProperty.value
@@ -85,6 +86,16 @@ WarehouseDetail = React.createClass {
 			@setState newState
 		else if mark is 'trySaveEditWarehouse'
 			# TODO:保存之前先做各种判断 是否符合保存条件
+			if not @state.price
+				Plugin.toast.err '请输入正确的价格'
+				return
+			if not Validator.name @state.contacts
+				Plugin.toast.err '请输入正确的联系人姓名'
+				return
+			if not Validator.mobile @state.phone
+				Plugin.toast.err '请输入正确的手机号'
+				return
+
 			attribute = 1
 			switch @state.priceUnit
 				when '元/天/平'
@@ -157,8 +168,8 @@ WarehouseDetail = React.createClass {
 							{
 								if @state.isEditing 
 									<p>仓库价格:
-										<input valueLink={@linkState 'price'} type="text" placeholder="1000" class="u-inp01"/>
-										<select valueLink={@linkState 'priceUnit'} class="weight">
+										<input valueLink={@linkState 'price'} type="text" placeholder="请输入价格" className="u-inp01"/>
+										<select valueLink={@linkState 'priceUnit'} className="weight">
 											<option value='元/天/平'>元/天/平</option>
 											<option value='元/天/托'>元/天/托</option>
 											<option value='元/天/吨'>元/天/吨</option>

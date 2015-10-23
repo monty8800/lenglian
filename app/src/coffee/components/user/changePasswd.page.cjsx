@@ -20,6 +20,7 @@ DB = require 'util/storage'
 transData = DB.get 'transData'
 user = UserStore.getUser()
 hasPayPwd = user.hasPayPwd is 1
+Plugin.run [3,'navTitleString',transData.type,user.hasPayPwd]
 
 ResetPwd = React.createClass {
 	_changePwd: ->

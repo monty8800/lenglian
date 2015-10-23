@@ -119,6 +119,7 @@ getDetail = (warehouseId) ->
 			propertyModel = propertyModel.set 'value',prop.value
 			propertyModel = propertyModel.set 'typeName',prop.typeName
 			propertyModel = propertyModel.set 'attributeName',prop.attributeName
+			propertyModel = propertyModel.set 'valueTwo',prop.valueTwo
 			tempArr.push propertyModel
 		_warehouse = _warehouse.set 'warehouseProperty', tempArr	#仓库各种属性的数组 
 		

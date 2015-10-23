@@ -31,7 +31,7 @@ AddBankCardVerify = React.createClass {
 		WalletAction.getVCodeForBindBankCar _aBankCardModel
 
 	_verifyNext:->
-		if not Validator.smsCode @state.smsCode or not _aBankCardModel.txSNBinding
+		if (not Validator.smsCode @state.smsCode) or (not _aBankCardModel.txSNBinding)
 			Plugin.toast.err '请输入正确的验证码'
 		else
 			WalletAction.bindBankCard _aBankCardModel,@state.smsCode
