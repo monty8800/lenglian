@@ -11,9 +11,10 @@ WalletAction = {
 			type:type
 		}
 
-	getBankCardsList: ->
+	getBankCardsList: (params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.GET_BANK_LIST
+			params: params
 		}
 	getBankCardInfo: (cardNo)->
 		Dispatcher.dispatch {
@@ -50,6 +51,12 @@ WalletAction = {
 			actionType: Constants.actionType.SELECT_WITHDRAW_CARD
 			card: card
 		}
+	charge: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CHARGE
+			params: params
+		}
+		
 }
 
 module.exports = WalletAction

@@ -42,7 +42,7 @@ BankCardsList = React.createClass {
 		WalletStore.removeChangeListener @_onChange
 
 	_onChange :(mark) ->
-		if mark is 'getBankCardsListSucc'
+		if mark[0] is 'getBankCardsListSucc'
 			console.log '++++++ get it success'
 			newState = Object.create @state
 			newState.bankCardsList = WalletStore.getBankCardsList()

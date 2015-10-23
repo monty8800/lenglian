@@ -11,7 +11,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
-import com.xebest.llmj.center.ResetPwdActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
@@ -22,10 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 充值
+ * 充值成功
  * Created by kaisun on 15/9/22.
  */
-public class ChargeActivity extends BaseCordovaActivity implements CordovaInterface {
+public class ChargeSuccessActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -35,22 +34,23 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
 
     private TextView bank;
 
-    private boolean isOnCreate = false;
-
     /**
      * 活跃当前窗口
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, ChargeActivity.class));
+        context.startActivity(new Intent(context, ChargeSuccessActivity.class));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallet);
-        isOnCreate = true;
+
         initView();
+
+        // 添加到移除队列中
+        Application.getInstance().addRemoveActivity(this);
 
     }
 
@@ -58,12 +58,9 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        if (flag.equalsIgnoreCase("addBankCard")) {
-            AddBankActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("resetPasswd")) {
-            ResetPwdActivity.actionView(this, "设置支付密码");
-        } else if (flag.equalsIgnoreCase("chargeSuccess")) {
-            ChargeSuccessActivity.actionView(this);
+        if (flag.equalsIgnoreCase("myWallet")) {
+//            AddBankNextActivity.actionView(this);
+            Application.getInstance().removeActivity();
         }
     }
 
@@ -71,7 +68,7 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
         bank = (TextView) findViewById(R.id.add);
         bank.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("充值");
+        tvTitle.setText("充值成功");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -86,23 +83,17 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("充值");
+        MobclickAgent.onPageStart("充值成功");
         // 统计时长
         MobclickAgent.onResume(this);
-        if (isOnCreate) {
-            mWebView.init(this, ApiUtils.API_COMMON_URL + "charge.html", this, this, this, this);
-        }
-        isOnCreate = false;
-
-        mWebView.getWebView().loadUrl("javascript:updateUser()");
-        mWebView.getWebView().loadUrl("javascript:refreshBankList()");
+        mWebView.init(this, ApiUtils.API_COMMON_URL + "chargeSuccess.html", this, this, this, this);
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("充值");
+        MobclickAgent.onPageEnd("充值成功");
         MobclickAgent.onPause(this);
     }
 

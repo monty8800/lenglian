@@ -171,6 +171,7 @@ actionType = {
 	WITHDRAW: null
 
 	SELECT_WITHDRAW_CARD: null
+	CHARGE: null
 
 }
 
@@ -386,6 +387,8 @@ api = {
 	order_finish: '/orderGoods/orderFinish.shtml'
 	# 车主订单状态改变
 	order_state_change: '/ownerOrderCtl/ownerOrderState.shtml'
+
+	charge: '/mjUserRechargeOrderCtl/addMjUserRechargeOrder.shtml'
 
 }
 
