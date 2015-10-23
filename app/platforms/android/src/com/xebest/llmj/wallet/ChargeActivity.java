@@ -57,13 +57,17 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        if (flag.equalsIgnoreCase("addBankCard")) {
-            AddBankActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("resetPasswd")) {
-            ResetPwdActivity.actionView(this, "设置支付密码");
-        } else if (flag.equalsIgnoreCase("chargeSuccess")) {
-            ChargeSuccessActivity.actionView(this);
+        if (args.getString(0).equalsIgnoreCase("2")) {
+            finish();
+        } else {
+            String flag = args.getString(1);
+            if (flag.equalsIgnoreCase("addBankCard")) {
+                AddBankActivity.actionView(this);
+            } else if (flag.equalsIgnoreCase("resetPasswd")) {
+                ResetPwdActivity.actionView(this, "设置支付密码");
+            } else if (flag.equalsIgnoreCase("chargeSuccess")) {
+                ChargeSuccessActivity.actionView(this);
+            }
         }
     }
 

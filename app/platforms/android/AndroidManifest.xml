@@ -88,5 +88,7 @@
         <activity android:name=".MainActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.PaySuccessActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".wallet.ChargeSuccessActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.WithDrawActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.WithDrawDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

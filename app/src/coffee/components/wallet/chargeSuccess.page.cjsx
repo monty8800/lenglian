@@ -3,6 +3,8 @@ require 'user-center-style'
 
 React = require 'react/addons'
 Plugin = require 'util/plugin'
+DB = require 'util/storage'
+money = DB.get 'money'
 
 Info = React.createClass {
 	wallet: ->
@@ -13,8 +15,7 @@ Info = React.createClass {
 				<p className="ll-font">恭喜您，充值成功！</p>
 			</div>
 			<div className="g-paysuccess-item02">
-				<p>订单编号: <span>20150506</span></p>
-				<p>在线支付: <i>&yen;<span>2000.00</span></i></p>
+				<p>在线支付: <i>&yen;<span>{money.toFixed 2}</span></i></p>
 			</div>
 			<div className="u-order-btn">
 				<a href="###" onClick={@wallet}>查看我的钱包</a>

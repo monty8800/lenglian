@@ -388,7 +388,7 @@ api = {
 	# 车主订单状态改变
 	order_state_change: '/ownerOrderCtl/ownerOrderState.shtml'
 
-	charge: '/mjUserRechargeOrderCtl/addMjUserRechargeOrder.shtml'
+	charge_bank: '/mjUserRechargeOrderCtl/addMjUserRechargeOrder.shtml'
 
 }
 
