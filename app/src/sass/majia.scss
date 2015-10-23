@@ -867,7 +867,6 @@
             display: inline-block;
             margin-left: 20/$ppr;
         }
-
     }
     p{
         padding: 20/$ppr;
@@ -890,6 +889,7 @@
         font-size: 30/$ppr;
         line-height: 42/$ppr;
     }
+    
 }
 //paypage alertBox
 .m-gray,.m-gray03{
@@ -1368,6 +1368,11 @@
         @include box-sizing($sizing:border-box);     
         &.g-releaseDl{
             dd{
+                .u-tip01{
+                    font-size: 24/$ppr;
+                    color: #666;
+                    line-height: 32/$ppr;
+                }
                 p{
                     padding:28/$ppr 0;
                     border-bottom: 1px solid #e6e6e6;
@@ -1383,7 +1388,12 @@
         }        
         &:first-child{
             border-top:0;
-        }  
+        } 
+        &.g-storeArea{
+            label{
+                margin-right: 50/$ppr;
+            }
+        }
         span{
             margin-right: 5/$ppr;
             &:first-child{
@@ -1469,8 +1479,13 @@
                 &.car{
                     width: 240/$ppr;
                 }
+                &.short{
+                    width: 100/$ppr;
+                    margin-right: 0;
+                }
             }
         }
+        
         &.choicePic{
             line-height: 84/$ppr;
             position: relative;
@@ -1673,7 +1688,15 @@
     }
 }
 
-
+select.weight{
+    width: 125/$ppr;
+    height: 45/$ppr;
+    border: 1px solid #e6e6e6;
+    border-radius: 5/$ppr;
+    text-indent: 5/$ppr;
+    margin:-10/$ppr 0 -8/$ppr 0;
+    outline: none;
+}
 
 .radio{
     width: 36/$ppr;

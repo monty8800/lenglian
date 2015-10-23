@@ -77,7 +77,7 @@ OrderPay = React.createClass {
 		DB.put 'transData', {
 			type: 'payPwd'
 		}
-		Plugin.nav.push ['resetPasswd']
+		Plugin.nav.push ['changePasswd']
 
 	_callCB: (params)->
 		console.log 'event----', params

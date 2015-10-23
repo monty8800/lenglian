@@ -119,15 +119,22 @@ Selector = React.createClass {
 			newState.show = false
 			@setState newState
 
+	_disableScroll: (e)->
+		e.preventDefault()
+		e.stopPropagation()
+
+	_stopPropagation: (e)->
+		e.stopPropagation()
+
 	render: ->
-		<section style={{display: if @state.show then 'block' else 'none'}}>
+		<section onTouchMove={@_disableScroll} style={{display: if @state.show then 'block' else 'none'}}>
 		    <div className="chadr_box">
-		        <div className="chadr_topbar">
+		        <div  className="chadr_topbar">
 		            <div onClick={@_back} className="ll-font arrow-left"></div>
 		            请选择城市
 		            <div onClick={@_close} className="ll-font ch-close"></div>
 		        </div>
-		        <div className="chadr_con">
+		        <div onTouchMove={@_stopPropagation} className="chadr_con">
 	            	<div className={'ul_con deepth' + @state.deepth}>
 	            		<Page list={@state.provinceList} selectId={@state.address?.provinceId} type='province' />
 	            		<Page list={@state.cityList} selectId={@state.address?.cityId} type='city' />
@@ -135,6 +142,7 @@ Selector = React.createClass {
 	            	</div>
 		        </div>
 		    </div>
+		    <div  className="addr_shelf"></div>
 		</section>
 }
 

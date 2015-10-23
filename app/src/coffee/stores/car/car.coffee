@@ -240,6 +240,8 @@ _carOwnerDetail = (carId, targetUserId)->
 			_carDetail = _carDetail.set 'carScore', data.carScore
 			_carDetail = _carDetail.set 'certification', data.certification
 			_carDetail = _carDetail.set 'userId', td.userId
+			_carDetail = _carDetail.set 'isinvoice', td.isinvoice
+			_carDetail = _carDetail.set 'remark', td.remark
 
 			CarStore.emitChange ['car_owner_detail']
 

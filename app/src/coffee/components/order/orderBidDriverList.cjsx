@@ -24,7 +24,8 @@ OrderBidDriverList = React.createClass {
 		OrderStore.addOneTimeListener @resultCallBack, 'request:bid:list'
 		OrderAction.getBidList {
 			userId: UserStore.getUser()?.id
-			goodsResourceId: @props.order.goodsSourceId
+			# goodsResourceId: @props.order.goodsSourceId
+			orderNo: @props.order.orderNo
 		}
 		
 	getInitialState: ->
