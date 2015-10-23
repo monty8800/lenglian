@@ -53,9 +53,6 @@ BillList = React.createClass {
 		billItems = @state.resultList.map (bill,index)->
 			<div className="m-billItem">
 				<dl className="clearfix">
-					<dt className="fl">
-						<img src="../images/billPic.jpg"/>
-					</dt>
 					<dd className="fl">
 						<p className="clearfix">
 							<span>{ bill.userMobile }</span>

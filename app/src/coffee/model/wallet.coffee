@@ -6,5 +6,11 @@ Wallet = Immutable.Record {
 	level:0					#会员等级
 	bankCardsList:[]		#银行卡列表
 
+	amount: 0
+	createTime: null
+	orderNo: null
+	type: 0
+	userMobile: null
+
 }
 module.exports = Wallet

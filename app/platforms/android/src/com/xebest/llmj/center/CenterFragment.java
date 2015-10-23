@@ -214,7 +214,7 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
     private String resource = "";
 
     public void showWindow() {
-        mDialog = Tools.getCustomDialog(getActivity(), R.layout.choose_cg, new Tools.BindEventView() {
+        mDialog = Tools.getCustomDialogBg(getActivity(), R.layout.choose_cg, new Tools.BindEventView() {
             @Override
             public void bindEvent(View view) {
                 TextView tvCamera = (TextView) view.findViewById(R.id.camera);

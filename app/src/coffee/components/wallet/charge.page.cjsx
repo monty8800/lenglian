@@ -7,6 +7,8 @@ UserStore = require 'stores/user/user'
 WalletStore = require 'stores/wallet/wallet'
 WalletModel = require 'model/wallet'
 WalletAction = require 'actions/wallet/wallet'
+PureRenderMixin = React.addons.PureRenderMixin
+LinkedStateMixin = React.addons.LinkedStateMixin
 
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
@@ -14,8 +16,11 @@ Plugin = require 'util/plugin'
 user = UserStore.getUser()
 
 Charge = React.createClass {
+	mixins: [PureRenderMixin, LinkedStateMixin]
 
-	_sureToCharge:->
+	_sureToCharge: ->
+		console.log '---------pwd:', @state.payPasswd
+		console.log '---------money:', @state.money
 
 	_addNewBankCard:->
 		Plugin.nav.push ['addBankCard']
@@ -24,7 +29,15 @@ Charge = React.createClass {
 		{
 			bankCardsList:[]
 			selectIndex:0
+			payPasswd: ''
+			money: ''
 		}
+
+	_setPayPwd: ->
+		DB.put 'transData', {
+			type: 'payPwd'
+		}
+		Plugin.nav.push ['resetPasswd']
 
 	componentDidMount: ->
 		WalletStore.addChangeListener @_onChange
@@ -43,7 +56,7 @@ Charge = React.createClass {
 
 	render : ->
 		bankCardsList = @state.bankCardsList.map (aBankCard,index)->
-			<div className="g-bankList">
+			<div className="g-bankList" key={index}>
 				<p className={ if @state.selectIndex is index then "g-bank01 ll-font active" else "g-bank01 ll-font" }>
 					<span>{ aBankCard.bankName }</span>
 					<span className="font24">{ aBankCard.cardType }(尾号{ aBankCard.cardNo.substr -4,4 })</span>
@@ -55,19 +68,26 @@ Charge = React.createClass {
 			<div className="m-pay-item">
 				<p className="g-pay clearfix">
 					<span className="fl">充值金额</span>
-					<span className="fr g-pay-money"><span>&yen;</span>193847</span>
+					<span className="fr g-pay-money">
+						<input className="setPas" type="text" valueLink={@linkState 'money'} placeholder="请输入充值金额"/>
+					</span>
 				</p>
 				<p className="g-pay clearfix">
 					<span className="fl">输入支付密码</span>
 					<span className="fr">
-						<input className="setPas" type="password" placeholder=""/>
+						{
+							if user.hasPayPwd is 0
+								<input onClick={@_setPayPwd} className="setPas" type="password" readOnly="readonly" placeholder="去设置支付密码"/>
+							else
+								<input valueLink={@linkState 'payPasswd'} className="setPas" type="password"  placeholder="请输入支付密码"/>
+						}						
 					</span>				
 				</p>
 			</div>
 			<div className="m-pay-item">
 				<p className="g-pay">
 					<span className="font30">当前余额</span>
-					<span className="font24">200元</span>
+					<span className="font24">{(user.balance.toFixed 2) + '元'}</span>
 				</p>
 			</div>
 			<div className="m-bank">			
@@ -83,7 +103,7 @@ Charge = React.createClass {
 			</div>
 			<div className="u-pay-btn">
 				<div className="u-pay-btn">
-					<a onClick={ @_sureToCharge } href="#" className="btn">立即充值</a>
+					<a onClick={@_sureToCharge} href="###" className="btn">立即充值</a>
 				</div>
 			</div>
 		</div>

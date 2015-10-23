@@ -448,17 +448,29 @@ invSt = (params)->
 	else if parseInt(params) is 3
 		_invoiceArray = ['1', '2']
 		CarStore.emitChange ['inv_need_all', _invoiceArray.length]
+	console.log '------------_invoiceArray:', _invoiceArray
 
 invNotSt = (params)->
 	if parseInt(params) is 1
-		_invoiceArray = ['2']
+		array = _invoiceArray.splice ','
+		if array.length is 2
+			_invoiceArray = ['2']
+		else
+			if array[0] is '1'
+				_invoiceArray = []
 		CarStore.emitChange ['inv2_need', _invoiceArray.length]
 	else if parseInt(params) is 2
-		_invoiceArray = ['1']
+		array = _invoiceArray.splice ','
+		if array.length is 2
+			_invoiceArray = ['1']
+		else
+			if array[0] is '2'
+				_invoiceArray = []		
 		CarStore.emitChange ['inv2_not_need', _invoiceArray.length]
 	else if parseInt(params) is 3
 		_invoiceArray = []
 		CarStore.emitChange ['inv2_need_all', _invoiceArray.length]
+	console.log '------------_invoiceArray:', _invoiceArray
 
 CarStore = assign BaseStore, {
 

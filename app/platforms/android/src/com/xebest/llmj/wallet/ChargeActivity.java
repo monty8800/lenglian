@@ -11,6 +11,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.center.ResetPwdActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
@@ -59,6 +60,8 @@ public class ChargeActivity extends BaseCordovaActivity implements CordovaInterf
         String flag = args.getString(1);
         if (flag.equalsIgnoreCase("addBankCard")) {
             AddBankActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("resetPasswd")) {
+            ResetPwdActivity.actionView(this, "设置支付密码");
         }
     }
 

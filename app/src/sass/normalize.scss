@@ -807,12 +807,7 @@ p { margin: 0;}
         line-height: 30/$ppr;
         margin:-15/$ppr 0 0 -15/$ppr;
         @include transition(all,.3s,ease);
-    }
-    &.active{
-        &:after{
-            -webkit-transform:rotate(90deg);
-            transform:rotate(90deg);
-        }
+
     }
 }
 
@@ -1081,12 +1076,12 @@ input[type=text],input[type=tel] {
 
 // 
 .g-tab01 {
-	&.g-tab01-act {
-		&:after {
-			-webkit-transform:rotate(90deg);
-			transform:rotate(90deg);
-		}
-	}
+  &.g-tab01-act {
+    &:after {
+      -webkit-transform:rotate(90deg);
+      transform:rotate(90deg);
+    }
+  }
 }
 .g-tab01-con {
   display: none;

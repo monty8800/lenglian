@@ -6,6 +6,7 @@ User = require 'model/user'
 assign = require 'object-assign'
 Dispatcher = require 'dispatcher/dispatcher'
 Constants = require 'constants/constants'
+BidModel = require 'model/wallet'
 
 WalletModel = require 'model/wallet'
 BankCardModel = require 'model/bankCard'
@@ -139,37 +140,15 @@ getBillList = (type)->
 		userId:user.id
 	},(data)->
 		_billListResult = data.myPayIncomeOrOut
-		if _billListResult.length < 1
-			if parseInt(type) is 1
-				_billListResult = [
-					{
-						amount:-14
-						createTime: "2015-10-07 06:88:59"
-						type: 1				#,//类型 1:充值 2:提现 3:付款 4：收款
-						userMobile: "假数据"
-					}
-					{
-						amount:-1084
-						createTime: "2015-10-8 19:99:59"
-						type: 4				#,//类型 1:充值 2:提现 3:付款 4：收款
-						userMobile: "有真数据的时候不会显示"
-					}
-				]
-			else 
-				_billListResult = [
-					{
-						amount:-14
-						createTime: "2015-10-07 06:88:59"
-						type: 2				#,//类型 1:充值 2:提现 3:付款 4：收款
-						userMobile: "提现"
-					}
-					{
-						amount:-1084
-						createTime: "2015-10-8 19:99:59"
-						type: 3				#,//类型 1:充值 2:提现 3:付款 4：收款
-						userMobile: "付款"
-					}
-				]
+		for bid in _billListResult
+			do (bid) ->
+				bidModel = new BidModel
+				bidModel = bidModel.set 'amount', bid.amount
+				bidModel = bidModel.set 'createTime', bid.createTime
+				bidModel = bidModel.set 'orderNo', bid.orderNo
+				bidModel = bidModel.set 'type', bid.type
+				bidModel = bidModel.set 'userMobile', bid.userMobile
+				_billListResult.push bidModel
 		WalletStore.emitChange "getBillListSucc"
 	,(data)->
 		Plugin.toast.err data.msg
