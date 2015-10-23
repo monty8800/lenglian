@@ -36,7 +36,7 @@
     _infoView.dataList = @[
                            addrStr,
                            [NSString stringWithFormat:@"仓库类型： %@", [data objectForKey:@"wareHouseType"]],
-                           [NSString stringWithFormat:@"库温类型： %@", [data objectForKey:@"cuvinType"]],
+                           [NSString stringWithFormat:@"库温类型： %@", [data objectForKey:@"cuvinExtensive"]],
                            [NSString stringWithFormat:@"仓库价格： %@", [data objectForKey:@"price"]]
                            ];
 }
