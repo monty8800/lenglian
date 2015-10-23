@@ -203,12 +203,18 @@ selectWithdrawCard = (card)->
 
 # 充值
 charge = (params)->
+	Plugin.loading.show '正在充值...'
 	console.log '-------------params:', params
-	Http.post Constants.api.charge params, (data)->
+	Http.post Constants.api.charge_bank, params, (data)->
 		console.log '-----------result:', data
+		Plugin.loading.hide()
 		Plugin.nav.push ['chargeSuccess']
+		DB.put 'money', params.amount
 		Plugin.toast.success '充值成功'
 	, (data)->
+		if data.code is '0006'
+			Plugin.nav.pop()
+		Plugin.loading.hide()
 		Plugin.toast.err data.msg
 
 WalletStore = assign BaseStore, {
