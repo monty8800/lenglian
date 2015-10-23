@@ -58,7 +58,7 @@ Withdraw = React.createClass {
 		if not @state.bankCard.cardNo
 			Plugin.toast.err '请选择提现银行卡'
 		else if not Validator.price @state.amount
-			Plugin.toast.err '请输入正确的提现金额，最多两位小数'
+			Plugin.toast.err '请输入正确的提现金额，最多两位小数，最大不超过9999999.99'
 		else
 			WalletAction.withdraw {
 				userId: @state.user.id

@@ -49,6 +49,9 @@ isEmpty = (input)->
 	return /^\S{1,30}$/.test input
 
 price = (input)->
+	return /^\d{1,7}(\.\d{0,2})?$/.test input
+
+float = (input)->
 	return /^\d+(\.\d{0,2})?$/.test input
 
 bankCard = (input)->
@@ -72,6 +75,6 @@ module.exports = {
 	remark: remark
 	isEmpty: isEmpty
 	price: price
-	float: price
+	float: float
 	bankCard: bankCard
 }

@@ -156,7 +156,7 @@ GoodsOrderDetail = React.createClass {
 				targetPic: if isGC then params.detail.get('carUserHeadPic') else params.detail.get('warehouseUserHeadPic')
 				targetAuth: if isGC then params.detail.get('carUserAuthMode') else params.detail.get('warehouseUserAuthMode')
 				targetScore: if isGC then params.detail.get('carUserScore') else params.detail.get('warehouseUserScore')
-				followed: params.detail.get('mjRateflag')
+				followed: params.detail.get('wishFlag')
 			}
 		else if params.msg is 'follow:done'
 			@setState {
@@ -220,29 +220,26 @@ GoodsOrderDetail = React.createClass {
 		</div>
 
 		<div className="m-item01">
-			{
-				if parseInt(@state.detail?.get 'orderState') isnt 5
-					<div className="g-detail-dirver">
-						<div className="g-detail">					
-							<div onClick={@_toOnwerDetail} className="g-dirver-pic">
-								<XeImage src={@state.targetPic} size='130x130' type='avatar' />
-							</div>
-							<div className="g-dirver-msg">
-								<div className="g-dirver-name">
-									<span>{@state.target}</span><span className="g-dirname-single">{if parseInt(@state.targetAuth) is 1 then '(个体)' else '(公司)'}</span>
-								</div>
-								<div className="g-dirver-dis ll-font">
-									<Raty score={ @state.detail?.get('goodsUserScore') } />
-								</div>
-
-							</div>
-							<ul className="g-driver-contact">
-								<li onClick={@_follow} className={"ll-font " + if @state.followed then '' else 'active'}>关注</li>
-								<li onClick={@_call.bind this, @state.targetMobile} className="ll-font">拨号</li>
-							</ul>
-						</div>
+			<div className="g-detail-dirver">
+				<div className="g-detail">					
+					<div onClick={@_toOnwerDetail} className="g-dirver-pic">
+						<XeImage src={@state.targetPic} size='130x130' type='avatar' />
 					</div>
-			}
+					<div className="g-dirver-msg">
+						<div className="g-dirver-name">
+							<span>{@state.target}</span><span className="g-dirname-single">{if parseInt(@state.targetAuth) is 1 then '(个体)' else '(公司)'}</span>
+						</div>
+						<div className="g-dirver-dis ll-font">
+							<Raty score={ @state.detail?.get('goodsUserScore') } />
+						</div>
+
+					</div>
+					<ul className="g-driver-contact">
+						<li onClick={@_follow} className={"ll-font " + if @state.followed then '' else 'active'}>关注</li>
+						<li onClick={@_call.bind this, @state.targetMobile} className="ll-font">拨号</li>
+					</ul>
+				</div>
+			</div>
 
 			<div className="g-item g-adr-detail ll-font nopadding">			
 				<div className="g-adr-start ll-font g-adr-start-line">
