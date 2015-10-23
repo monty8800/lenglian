@@ -11,7 +11,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
-import com.xebest.llmj.center.ChangePwdActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
@@ -22,10 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 我的钱包
+ * 提现
  * Created by kaisun on 15/9/22.
  */
-public class WalletActivity extends BaseCordovaActivity implements CordovaInterface {
+public class WithDrawActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -42,7 +41,7 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, WalletActivity.class));
+        context.startActivity(new Intent(context, WithDrawActivity.class));
     }
 
     @Override
@@ -52,28 +51,27 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
         isOnCreate = true;
         initView();
 
+        // 添加到移除队列中
+        Application.getInstance().addRemoveActivity(this);
+
     }
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        if (flag.equalsIgnoreCase("changePasswd")) {
-            ChangePwdActivity.actionView(WalletActivity.this);
-        } else if (flag.equalsIgnoreCase("billList")) {
-            BillListActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("toCharge")) {
-            ChargeActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("withdraw")) {
-            // 提现
-            WithDrawActivity.actionView(this);
+        if (flag.equalsIgnoreCase("withdrawDetail")) {
+            WithDrawDetailActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("bankCardsList")) {
+            MyBankActivity.actionView(this);
         }
     }
 
     protected void initView() {
         bank = (TextView) findViewById(R.id.add);
+        bank.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("我的钱包");
+        tvTitle.setText("提现");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -82,33 +80,28 @@ public class WalletActivity extends BaseCordovaActivity implements CordovaInterf
                 finish();
             }
         });
-        bank.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyBankActivity.actionView(WalletActivity.this);
-            }
-        });
+
     }
 
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("我的钱包");
+        MobclickAgent.onPageStart("提现详情");
         // 统计时长
         MobclickAgent.onResume(this);
         if (isOnCreate) {
-            mWebView.init(this, ApiUtils.API_COMMON_URL + "wallet.html", this, this, this, this);
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "withdraw.html", this, this, this, this);
         }
         isOnCreate = false;
-        mWebView.getWebView().loadUrl("javascript:updateStore()");
 
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("我的钱包");
+        MobclickAgent.onPageEnd("提现");
         MobclickAgent.onPause(this);
     }
 

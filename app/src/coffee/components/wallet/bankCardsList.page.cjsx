@@ -18,7 +18,10 @@ DB.remove 'transData2'
 
 BankCardsList = React.createClass {
 	_addNewBankCard:->
-		Plugin.nav.push ['addBankCard']
+		if user.carStatus is 1 or user.goodsStatus is 1 or user.warehouseStatus is 1
+			Plugin.nav.push ['addBankCard']
+		else
+			Plugin.toast.err '您尚未进行任何角色的认证，请认证后再绑定银行卡'
 
 	_bankItemClick:(index)->
 		newState = Object.create @state
@@ -42,7 +45,7 @@ BankCardsList = React.createClass {
 		WalletStore.removeChangeListener @_onChange
 
 	_onChange :(mark) ->
-		if mark is 'getBankCardsListSucc'
+		if mark[0] is 'getBankCardsListSucc'
 			console.log '++++++ get it success'
 			newState = Object.create @state
 			newState.bankCardsList = WalletStore.getBankCardsList()

@@ -9,9 +9,11 @@ WalletModel = require 'model/wallet'
 WalletAction = require 'actions/wallet/wallet'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
+Validator = require 'util/validator'
 
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
+bankList = []
 
 user = UserStore.getUser()
 
@@ -19,11 +21,25 @@ Charge = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 
 	_sureToCharge: ->
-		console.log '---------pwd:', @state.payPasswd
-		console.log '---------money:', @state.money
+		if @state.money.length == 0
+			Plugin.toast.err '请输入充值金额'
+		else if not Validator.price @state.money
+			Plugin.toast.err '输入金额最多两位小数'
+		else if @state.cardId.length == 0
+			Plugin.toast.err '请选择银行卡'
+		else
+			WalletAction.charge {
+				userId: user?.id
+				cardId: @state.cardId
+				amount: @state.money
+			}
+
 
 	_addNewBankCard:->
-		Plugin.nav.push ['addBankCard']
+		if user.carStatus is 1 or user.goodsStatus is 1 or user.warehouseStatus is 1
+			Plugin.nav.push ['addBankCard']
+		else
+			Plugin.toast.err '您尚未进行任何角色的认证，请认证后再绑定银行卡'
 
 	getInitialState:->
 		{
@@ -31,6 +47,8 @@ Charge = React.createClass {
 			selectIndex:0
 			payPasswd: ''
 			money: ''
+			showSms: false
+			cardId: ''
 		}
 
 	_setPayPwd: ->
@@ -39,24 +57,44 @@ Charge = React.createClass {
 		}
 		Plugin.nav.push ['resetPasswd']
 
+	chooseBank: (index) ->
+		console.log '-------index:', index
+		@setState {
+			selectIndex: index
+			cardId: bankList[index].id
+		}
+
 	componentDidMount: ->
 		WalletStore.addChangeListener @_onChange
-		WalletAction.getBankCardsList()
+		# 1 直接请求的  2 添加银行卡回来请求的
+		WalletAction.getBankCardsList(2)
 
 	componentWillUnmount: ->
 		WalletStore.removeChangeListener @_onChange
 
 	_onChange :(mark) ->
-		if mark is 'getBankCardsListSucc'
-			console.log '++++++ get it success'
+		console.log '----------mark:', mark
+		if mark[0] is 'getBankCardsListSucc'
+			bankList = WalletStore.getBankCardsList()
+			size = bankList.length
+			cardId  = ""
+			selectIndex = 0
+			if mark[1] is 1
+				cardId = bankList[0].id
+				selectIndex = 0
+			else
+				cardId = bankList[size - 1].id
+				selectIndex = size - 1
 			newState = Object.create @state
-			newState.bankCardsList = WalletStore.getBankCardsList()
+			newState.cardId = cardId
+			newState.bankCardsList = bankList
+			newState.selectIndex = selectIndex
 			@setState newState
 
 
 	render : ->
 		bankCardsList = @state.bankCardsList.map (aBankCard,index)->
-			<div className="g-bankList" key={index}>
+			<div className="g-bankList" key={index} onClick={@chooseBank.bind this, index}>
 				<p className={ if @state.selectIndex is index then "g-bank01 ll-font active" else "g-bank01 ll-font" }>
 					<span>{ aBankCard.bankName }</span>
 					<span className="font24">{ aBankCard.cardType }(尾号{ aBankCard.cardNo.substr -4,4 })</span>
@@ -71,17 +109,6 @@ Charge = React.createClass {
 					<span className="fr g-pay-money">
 						<input className="setPas" type="text" valueLink={@linkState 'money'} placeholder="请输入充值金额"/>
 					</span>
-				</p>
-				<p className="g-pay clearfix">
-					<span className="fl">输入支付密码</span>
-					<span className="fr">
-						{
-							if user.hasPayPwd is 0
-								<input onClick={@_setPayPwd} className="setPas" type="password" readOnly="readonly" placeholder="去设置支付密码"/>
-							else
-								<input valueLink={@linkState 'payPasswd'} className="setPas" type="password"  placeholder="请输入支付密码"/>
-						}						
-					</span>				
 				</p>
 			</div>
 			<div className="m-pay-item">
@@ -105,7 +132,7 @@ Charge = React.createClass {
 				<div className="u-pay-btn">
 					<a onClick={@_sureToCharge} href="###" className="btn">立即充值</a>
 				</div>
-			</div>
+			</div>	
 		</div>
 }
 

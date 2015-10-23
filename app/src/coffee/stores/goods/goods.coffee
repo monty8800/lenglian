@@ -323,6 +323,7 @@ getSearchGoodsDetail = (goodsId,focusid)->
 		_searchGoodsDetail = _searchGoodsDetail.set 'prePay',resource.advance
 		_searchGoodsDetail = _searchGoodsDetail.set 'refrigeration', resource.coldStoreFlag
 		_searchGoodsDetail = _searchGoodsDetail.set 'userId', resource.userId
+		_searchGoodsDetail = _searchGoodsDetail.set 'price', resource.price
 
 		GoodsStore.emitChange 'getSearchGoodsDetailSucc'
 	,(data)->

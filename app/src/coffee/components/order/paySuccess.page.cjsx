@@ -18,7 +18,6 @@ PaySuccess = React.createClass {
 		<div className="m-paysuccess">
 			<div className="g-paysuccess-item01">
 				<p className="ll-font">恭喜您， 支付成功！</p>
-				<p>我们会尽快通知车主为您发货！</p>
 			</div>
 			<div className="g-paysuccess-item02">
 				<p>订单编号: <span>{transData.orderNo or ''}</span></p>
