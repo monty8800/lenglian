@@ -16,13 +16,16 @@ assign = require 'object-assign'
 
 user = UserStore.getUser()
 
-addPropertyModel = (attribute,attributeName,type,typeName,value) ->
+addPropertyModel = (attribute,attributeName,type,typeName,value,value2) ->
 	areaModel = new WarehousePropertyModel
+	if parseInt(type) is 3
+		areaModel = areaModel.set 'value2',value2
 	areaModel = areaModel.set 'attribute',attribute
 	areaModel = areaModel.set 'attributeName',attributeName
 	areaModel = areaModel.set 'type',type
 	areaModel = areaModel.set 'typeName',typeName
 	areaModel = areaModel.set 'value',value
+	
 
 AddWarehouse = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -30,10 +33,12 @@ AddWarehouse = React.createClass {
 		priceProperty = new WarehousePropertyModel
 		priceProperty = priceProperty.set 'type','4'
 		priceProperty = priceProperty.set 'typeName',"价格"
-		
+		priceProperty = priceProperty.set 'attribute','1'				#平托吨方
+		priceProperty = priceProperty.set 'attributeName','元/天/平'
+
 		{
-			priceValue1:''
-			priceValue2:''
+			priceValue:''
+			priceUnit:''
 			warehouseType1:'0'
 			warehouseType2:'0'
 			increaseServe1:'0'
@@ -43,11 +48,16 @@ AddWarehouse = React.createClass {
 			temperatureChecked3:'0'
 			temperatureChecked4:'0'
 			temperatureChecked5:'0'
-			temperatureArea1:''
-			temperatureArea2:''
-			temperatureArea3:''
-			temperatureArea4:''
-			temperatureArea5:''
+			temperatureArea11:''
+			temperatureArea21:''
+			temperatureArea31:''
+			temperatureArea41:''
+			temperatureArea51:''
+			temperatureArea12:''
+			temperatureArea22:''
+			temperatureArea32:''
+			temperatureArea42:''
+			temperatureArea52:''
 			addWarehouseImageUrl:''
 			priceProperty:priceProperty
 			mainStreet:''
@@ -108,8 +118,6 @@ AddWarehouse = React.createClass {
 			@setState newState
 		# else if mark is "saveAddAWarehouse"
 
-
-
 	_addNewWarehouse : ->
 			newState = Object.create @state
 			newState.params.warehouseProperty = []
@@ -123,57 +131,14 @@ AddWarehouse = React.createClass {
 				Plugin.toast.show '请输入价格'
 				return
 			else
-				newState.params.warehouseProperty.push @state.priceProperty
+				newState.priceProperty = newState.priceProperty.set 'attributeName',@state.priceUnit
+				newState.params.warehouseProperty.push newState.priceProperty
 			if !@state.params.contacts
 				Plugin.toast.show '请输入联系人姓名'
 				return
 			if !@state.params.phone
 				Plugin.toast.show '请输入联系人电话'
 				return
-
-#仓库类型
-			if @state.warehouseType1 is '0' and @state.warehouseType2 is '0'
-				Plugin.toast.show '请选择仓库类型'
-				return
-			else
-				if @state.warehouseType1 is '1'
-					aPropertyModel = addPropertyModel '1','平堆式','1','仓库类型',''
-					newState.params.warehouseProperty.push aPropertyModel
-				if @state.warehouseType2 is '2'
-					aPropertyModel = addPropertyModel '2','货架式','1','仓库类型',''
-					newState.params.warehouseProperty.push aPropertyModel
-				
-
-			# TYPE_1("1", "仓库类型"),
-			# TYPE_2("2", "配套服务"),
-			# TYPE_3("3", "仓库面积"),
-			# TYPE_4("4", "价格"),
-			
-			# TYPE_1_ATTRIBUTE_1("1", "平堆式"),
-			# TYPE_1_ATTRIBUTE_2("2", "货架式"),
-			
-			# TYPE_2_ATTRIBUTE_1("1", "提供拖车"),
-			# TYPE_2_ATTRIBUTE_2("2", "提供装卸"),
-			
-			# TYPE_3_ATTRIBUTE_1("1", "常温"),
-			# TYPE_3_ATTRIBUTE_2("2", "冷藏"),
-			# TYPE_3_ATTRIBUTE_3("3", "冷冻"),
-			# TYPE_3_ATTRIBUTE_4("4", "急冻"),
-			# TYPE_3_ATTRIBUTE_5("5", "深冷"),
-			
-			# TYPE_4_ATTRIBUTE_1("1", "/元/天/平"),
-			# TYPE_4_ATTRIBUTE_2("2", "/元/天/托"),
-			# TYPE_4_ATTRIBUTE_3("3", "/元/天/吨"),
-			# TYPE_4_ATTRIBUTE_4("4", "/元/天/方");
-				
-			
-# 增值服务	
-			if @state.increaseServe1 is '1'
-				aPropertyModel = addPropertyModel '1','提供拖车','2','配套服务',''
-				newState.params.warehouseProperty.push aPropertyModel
-			if @state.increaseServe2 is '1'
-				aPropertyModel = addPropertyModel '2','提供装卸','2','配套服务',''
-				newState.params.warehouseProperty.push aPropertyModel
 			
 # 温度区域面积
 			if @state.temperatureChecked1 is '0' and @state.temperatureChecked2 is '0' and @state.temperatureChecked3 is '0' and @state.temperatureChecked4 is '0' and @state.temperatureChecked5 is '0'
@@ -181,40 +146,61 @@ AddWarehouse = React.createClass {
 				 return
 			else
 				if @state.temperatureChecked1 is '1'
-					if !@state.temperatureArea1
+					if !@state.temperatureArea11 and !@state.temperatureArea12
 						Plugin.toast.show '常温面积未填写'
 						return
 					else
-						aPropertyModel = addPropertyModel '1','常温','3','仓库面积',@state.temperatureArea1
+						aPropertyModel = addPropertyModel '1','常温','3','仓库面积',@state.temperatureArea11,@state.temperatureArea12
 						newState.params.warehouseProperty.push aPropertyModel
 				if @state.temperatureChecked2 is '1'
-					if !@state.temperatureArea2
+					if !@state.temperatureArea21 and !@state.temperatureArea22
 						Plugin.toast.show '冷藏面积未填写'
 						return
 					else
-						aPropertyModel = addPropertyModel '2','冷藏','3','仓库面积',@state.temperatureArea2
+						aPropertyModel = addPropertyModel '2','冷藏','3','仓库面积',@state.temperatureArea21,@state.temperatureArea22
 						newState.params.warehouseProperty.push aPropertyModel
 				if @state.temperatureChecked3 is '1'
-					if !@state.temperatureArea3
+					if !@state.temperatureArea31 and !@state.temperatureArea32
 						Plugin.toast.show '冷冻面积未填写'
 						return
 					else
-						aPropertyModel = addPropertyModel '3','冷冻','3','仓库面积',@state.temperatureArea3
+						aPropertyModel = addPropertyModel '3','冷冻','3','仓库面积',@state.temperatureArea31,@state.temperatureArea32
 						newState.params.warehouseProperty.push aPropertyModel
 				if @state.temperatureChecked4 is '1'
-					if !@state.temperatureArea4
+					if !@state.temperatureArea41 and !@state.temperatureArea42
 						Plugin.toast.show '急冻面积未填写'
 						return
 					else
-						aPropertyModel = addPropertyModel '4','急冻','3','仓库面积',@state.temperatureArea4
+						aPropertyModel = addPropertyModel '4','急冻','3','仓库面积',@state.temperatureArea41,@state.temperatureArea42
 						newState.params.warehouseProperty.push aPropertyModel
 				if @state.temperatureChecked5 is '1'
-					if !@state.temperatureArea5
+					if !@state.temperatureArea51 and !@state.temperatureArea52
 						Plugin.toast.show '深冷面积未填写'
 						return
 					else
-						aPropertyModel = addPropertyModel '5','深冷','3','仓库面积',@state.temperatureArea5
+						aPropertyModel = addPropertyModel '5','深冷','3','仓库面积',@state.temperatureArea51,@state.temperatureArea52
 						newState.params.warehouseProperty.push aPropertyModel
+
+# 增值服务	
+			if @state.increaseServe1 is '1'
+				aPropertyModel = addPropertyModel '1','提供拖车','2','配套服务','',''
+				newState.params.warehouseProperty.push aPropertyModel
+			if @state.increaseServe2 is '1'
+				aPropertyModel = addPropertyModel '2','提供装卸','2','配套服务','',''
+				newState.params.warehouseProperty.push aPropertyModel
+
+#仓库类型
+			if @state.warehouseType1 is '0' and @state.warehouseType2 is '0'
+				Plugin.toast.show '请选择仓库类型'
+				return
+			else
+				if @state.warehouseType1 is '1'
+					aPropertyModel = addPropertyModel '1','平堆式','1','仓库类型','',''
+					newState.params.warehouseProperty.push aPropertyModel
+				if @state.warehouseType2 is '1'
+					aPropertyModel = addPropertyModel '2','货架式','1','仓库类型','',''
+					newState.params.warehouseProperty.push aPropertyModel
+
 			@setState newState
 
 			WarehouseAction.postAddWarehouse @state.params, @state.addWarehouseImageUrl
@@ -253,27 +239,10 @@ AddWarehouse = React.createClass {
 		@setState newState
 
 # 价格
-	priceValueChange1 :(e) ->
+	priceValueChange :(e) ->
 		newState = Object.create @state
-		if @state.priceValue2.length > 0
-			newState.priceValue2 = ''
-		newState.priceValue1 = e.target.value
 		aPriceProperty = newState.priceProperty
-		aPriceProperty = aPriceProperty.set 'value',newState.priceValue1
-		aPriceProperty = aPriceProperty.set 'attribute','1'
-		aPriceProperty = aPriceProperty.set 'attributeName','天/托'
-		newState.priceProperty = aPriceProperty
-		@setState newState
-
-	priceValueChange2 : (e) ->
-		newState = Object.create @state
-		if @state.priceValue1.length > 0
-			newState.priceValue1 = ''
-		newState.priceValue2 = e.target.value
-		aPriceProperty = newState.priceProperty
-		aPriceProperty = aPriceProperty.set 'value',newState.priceValue2
-		aPriceProperty = aPriceProperty.set 'attribute','2'
-		aPriceProperty = aPriceProperty.set 'attributeName','天/平'
+		aPriceProperty = aPriceProperty.set 'value',e.target.value
 		newState.priceProperty = aPriceProperty
 		@setState newState
 
@@ -295,7 +264,7 @@ AddWarehouse = React.createClass {
 		else
 			newState.increaseServe1 = '0'
 		@setState newState
-		console.log "增值服务",@state.params.warehouseProperty
+		console.log "增值服务拖车",@state.params.warehouseProperty
 	increaseServe2 : (e)-> #仓配
 		newState = Object.create @state
 		if e.target.checked
@@ -303,7 +272,7 @@ AddWarehouse = React.createClass {
 		else
 			newState.increaseServe2 = '0'
 		@setState newState
-		console.log "增值服务",@state.params.warehouseProperty
+		console.log "增值服务装卸",@state.params.warehouseProperty
 
 			
 # 仓库面积
@@ -403,8 +372,13 @@ AddWarehouse = React.createClass {
 				</div>
 				<div>
 					<span>仓库价格</span>
-					<input type="text" value={ @state.priceValue1 } className="weight" onChange=@priceValueChange1 /><span className="text-span">天/托</span>
-					<input type="text" value={ @state.priceValue2 } className="weight" onChange=@priceValueChange2 /><span className="text-span">天/平</span>
+					<input onChange=@priceValueChange type="text" className="weight"/>	
+					<select valueLink={@linkState 'priceUnit'} className="weight">
+						<option value="元/天/平">元/天/平</option>
+						<option value="元/天/托">元/天/托</option>
+						<option value="元/天/吨">元/天/吨</option>
+						<option value="元/天/方">元/天/方</option>
+					</select>
 				</div>
 				<div>
 					<div className="g-radio">
@@ -434,75 +408,104 @@ AddWarehouse = React.createClass {
 				</div>
 			</div>
 			<div className="m-releaseitem">
-				<div className="g-releaseDl">
-					<dl className="clearfix">
-						<dt className="fl"><span>仓库面积</span></dt>
-						<dd className="fl">
-							<div>
-								<label>
-			                        <input onChange=@temperatureCheck1 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '常温'}} />
-			                    </label>
-								{
-									if @state.temperatureChecked1 is '0'
-										<input disabled='disabled' className="price" type="text" placeholder="" />
-									else
-										<input valueLink={@linkState 'temperatureArea1'} className="price" type="text" placeholder="" />
-								}
-			                    <span>平方米</span>
-							</div>
-							<div>
-								<label>
-			                        <input onChange=@temperatureCheck2 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '冷藏'}} />
-			                    </label>
-								{
-									if @state.temperatureChecked2 is '0'
-										<input disabled='disabled' className="price" type="text" placeholder="" />
-									else
-										<input valueLink={@linkState 'temperatureArea2'} className="price" type="text" placeholder="" />
-								}
-			                    <span>平方米</span>
-							</div>
-							<div>
-								<label>
-			                        <input onChange=@temperatureCheck3 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '冷冻'}} />
-			                    </label>
-			                    {
-			                    	if @state.temperatureChecked3 is '0'
-			                    		<input disabled='disabled' className="price" type="text" placeholder="" />
-			                    	else
-			                    		<input valueLink={@linkState 'temperatureArea3'} className="price" type="text" placeholder="" />
-			                    }
-			                    <span>平方米</span>
-							</div>
-							<div>
-								<label>
-			                        <input onChange=@temperatureCheck4 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '急冻'}}/>
-			                    </label>
-			                    {
-			                    	if @state.temperatureChecked4 is '0'
-			                    		<input disabled='disabled' className="price" type="text" placeholder="" />
-			                    	else
-			                    		<input valueLink={@linkState 'temperatureArea4'} className="price" type="text" placeholder="" />
-			                    }
-			                    <span>平方米</span>
-							</div>
-							<div>
-								<label>
-			                        <input onChange=@temperatureCheck5 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '深冷'}} />
-			                    </label>
-			                    {
-			                    	if @state.temperatureChecked5 is '0'
-			                    		<input disabled='disabled' className="price" type="text" placeholder="" />
-			                    	else
-			                    		<input valueLink={@linkState 'temperatureArea5'} className="price" type="text" placeholder="" />
-			                    }
-			                    <span>平方米</span>
-							</div>						
-						</dd>
-					</dl>
-				</div>	
+				<div>
+					<span>仓库面积</span>
+				</div>
+				<div className="g-storeArea">
+					<label className="label-checkbox">
+						<input onChange=@temperatureCheck1 type="checkbox" name="xe-checkbox2"/><span className="item-media ll-font"></span><span>常温</span>
+					</label>
+					{
+						if @state.temperatureChecked1 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea11'} type="text" className="weight short"/>
+					}
+					<span className="text-span">平方米</span>
+					{
+						if @state.temperatureChecked1 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea12'} type="text" className="weight short"/>	
+					}
+					<span className="text-span">立方米</span>
+				</div>
+				<div className="g-storeArea">
+					<label className="label-checkbox">
+						<input onChange=@temperatureCheck2 type="checkbox" name="xe-checkbox2"/><span className="item-media ll-font"></span><span>冷藏</span>
+					</label>
+					{
+						if @state.temperatureChecked2 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea21'} type="text" className="weight short"/>
+					}
+					<span className="text-span">平方米</span>
+					{
+						if @state.temperatureChecked2 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea22'} type="text" className="weight short"/>	
+					}
+					<span className="text-span">立方米</span>
+				</div>
+				<div className="g-storeArea">
+					<label className="label-checkbox">
+						<input onChange=@temperatureCheck3 type="checkbox" name="xe-checkbox2"/><span className="item-media ll-font"></span><span>冷冻</span>
+					</label>
+					{
+						if @state.temperatureChecked3 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea31'} type="text" className="weight short"/>
+					}
+					<span className="text-span">平方米</span>
+					{
+						if @state.temperatureChecked3 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea32'} type="text" className="weight short"/>	
+					}
+					<span className="text-span">立方米</span>				</div>
+				<div className="g-storeArea">
+					<label onChange=@temperatureCheck4 className="label-checkbox">
+						<input type="checkbox" name="xe-checkbox2"/><span className="item-media ll-font"></span><span>急冻</span>
+					</label>
+					{
+						if @state.temperatureChecked4 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea41'} type="text" className="weight short"/>
+					}
+					<span className="text-span">平方米</span>
+					{
+						if @state.temperatureChecked4 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea42'} type="text" className="weight short"/>	
+					}
+					<span className="text-span">立方米</span>
+				</div>
+				<div className="g-storeArea">
+					<label className="label-checkbox">
+						<input onChange=@temperatureCheck5 type="checkbox" name="xe-checkbox2"/><span className="item-media ll-font"></span><span>深冷</span>
+					</label>
+					{
+						if @state.temperatureChecked5 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea51'} type="text" className="weight short"/>
+					}
+					<span className="text-span">平方米</span>
+					{
+						if @state.temperatureChecked5 is '0'
+							<input disabled='disabled' type="text" className="weight short"/>
+						else
+							<input valueLink={@linkState 'temperatureArea52'} type="text" className="weight short"/>	
+					}
+					<span className="text-span">立方米</span>
+				</div>
 			</div>
-
 			<div className="m-releaseitem">
 				<div className="choicePic">
 					<span>仓库照片</span> <i>选填</i>					
@@ -544,13 +547,102 @@ AddWarehouse = React.createClass {
 
 React.render <AddWarehouse />,document.getElementById('content')
 
-				
+# <div className="m-releaseitem">
+# 	<div className="g-releaseDl">
+# 		<dl className="clearfix">
+# 			<dt className="fl"><span>仓库面积</span></dt>
+# 			<dd className="fl">
+# 				<div>
+# 					<label>
+#                         <input onChange=@temperatureCheck1 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '常温'}} />
+#                     </label>
+# 					{
+# 						if @state.temperatureChecked1 is '0'
+# 							<input disabled='disabled' className="price" type="text" placeholder="" />
+# 						else
+# 							<input valueLink={@linkState 'temperatureArea1'} className="price" type="text" placeholder="" />
+# 					}
+#                     <span>平方米</span>
+# 				</div>
+# 				<div>
+# 					<label>
+#                         <input onChange=@temperatureCheck2 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '冷藏'}} />
+#                     </label>
+# 					{
+# 						if @state.temperatureChecked2 is '0'
+# 							<input disabled='disabled' className="price" type="text" placeholder="" />
+# 						else
+# 							<input valueLink={@linkState 'temperatureArea2'} className="price" type="text" placeholder="" />
+# 					}
+#                     <span>平方米</span>
+# 				</div>
+# 				<div>
+# 					<label>
+#                         <input onChange=@temperatureCheck3 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '冷冻'}} />
+#                     </label>
+#                     {
+#                     	if @state.temperatureChecked3 is '0'
+#                     		<input disabled='disabled' className="price" type="text" placeholder="" />
+#                     	else
+#                     		<input valueLink={@linkState 'temperatureArea3'} className="price" type="text" placeholder="" />
+#                     }
+#                     <span>平方米</span>
+# 				</div>
+# 				<div>
+# 					<label>
+#                         <input onChange=@temperatureCheck4 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '急冻'}}/>
+#                     </label>
+#                     {
+#                     	if @state.temperatureChecked4 is '0'
+#                     		<input disabled='disabled' className="price" type="text" placeholder="" />
+#                     	else
+#                     		<input valueLink={@linkState 'temperatureArea4'} className="price" type="text" placeholder="" />
+#                     }
+#                     <span>平方米</span>
+# 				</div>
+# 				<div>
+# 					<label>
+#                         <input onChange=@temperatureCheck5 className="mui-checkbox ll-font" name="xe-checkbox01" type="checkbox" dangerouslySetInnerHTML={{__html: '深冷'}} />
+#                     </label>
+#                     {
+#                     	if @state.temperatureChecked5 is '0'
+#                     		<input disabled='disabled' className="price" type="text" placeholder="" />
+#                     	else
+#                     		<input valueLink={@linkState 'temperatureArea5'} className="price" type="text" placeholder="" />
+#                     }
+#                     <span>平方米</span>
+# 				</div>						
+# 			</dd>
+# 		</dl>
+# 	</div>	
+# </div>
 
-				# <div className="u-arrow-right ll-font">
-				# 	<span>仓库类型</span>
-				# </div>
-				# <div className="g-div02">
-				# 	<div className="g-div02-item">
-				# 		<label className="u-label"><input className="ll-font" type="checkbox"/>平堆式</label><label className="u-label"><input className="ll-font" type="checkbox"/>货架式</label>
-				# 	</div>
-				# </div>
+
+# <div>
+# 	<span>仓库价格</span>
+# 	<input type="text" value={ @state.priceValue1 } className="weight" onChange=@priceValueChange1 /><span className="text-span">天/托</span>
+# 	<input type="text" value={ @state.priceValue2 } className="weight" onChange=@priceValueChange2 /><span className="text-span">天/平</span>
+# </div>
+
+
+			# TYPE_1("1", "仓库类型"),
+			# TYPE_2("2", "配套服务"),
+			# TYPE_3("3", "仓库面积"),
+			# TYPE_4("4", "价格"),
+			
+			# TYPE_1_ATTRIBUTE_1("1", "平堆式"),
+			# TYPE_1_ATTRIBUTE_2("2", "货架式"),
+			
+			# TYPE_2_ATTRIBUTE_1("1", "提供拖车"),
+			# TYPE_2_ATTRIBUTE_2("2", "提供装卸"),
+			
+			# TYPE_3_ATTRIBUTE_1("1", "常温"),
+			# TYPE_3_ATTRIBUTE_2("2", "冷藏"),
+			# TYPE_3_ATTRIBUTE_3("3", "冷冻"),
+			# TYPE_3_ATTRIBUTE_4("4", "急冻"),
+			# TYPE_3_ATTRIBUTE_5("5", "深冷"),
+			
+			# TYPE_4_ATTRIBUTE_1("1", "/元/天/平"),
+			# TYPE_4_ATTRIBUTE_2("2", "/元/天/托"),
+			# TYPE_4_ATTRIBUTE_3("3", "/元/天/吨"),
+			# TYPE_4_ATTRIBUTE_4("4", "/元/天/方");

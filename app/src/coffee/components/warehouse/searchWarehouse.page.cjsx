@@ -31,10 +31,8 @@ selectionList = [
 		key: 'wareHouseType'
 		value: '仓库类型'
 		options: [
-			{key: '1', value: '驶入式'}
-			{key: '2', value: '横梁式'}
-			{key: '3', value: '平推式'}
-			{key: '4', value: '自动立体货架式'}
+			{key: '1', value: '平堆式'}
+			{key: '2', value: '货架式'}
 		]
 	}
 	{

@@ -206,6 +206,8 @@ carDetail = (carId)->
 			_carDetail = _carDetail.set 'transportImg', td.transportImg
 			_carDetail = _carDetail.set 'goodsSourceId', td.goodsSourceId
 			_carDetail = _carDetail.set 'userId', td.userId
+			_carDetail = _carDetail.set 'headerImage', data.imgurl
+			_carDetail = _carDetail.set 'carScore', data.carScore
 
 			if td.status is 1
 				# 车辆详情是否显示编辑按钮
@@ -232,7 +234,7 @@ _carOwnerDetail = (carId, targetUserId)->
 			_carDetail = _carDetail.set 'name', data.name
 			_carDetail = _carDetail.set 'driver', td.driver
 			_carDetail = _carDetail.set 'mobile', td.phone
-			_carDetail = _carDetail.set 'drivingImg', data.imgurl
+			_carDetail = _carDetail.set 'headerImage', data.imgurl
 			_carDetail = _carDetail.set 'transportImg', td.transportImg
 			_carDetail = _carDetail.set 'wishlst', data.wishlst
 			_carDetail = _carDetail.set 'carScore', data.carScore

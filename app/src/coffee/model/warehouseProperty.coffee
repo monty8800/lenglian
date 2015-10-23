@@ -3,9 +3,10 @@ Immutable = require 'immutable'
 WarehouseProperty = Immutable.Record {
 	type:null	#1：仓库类型；  2 仓库增值服务； 3：仓库面积; 4 价格
 	attribute:null #
-	value:null 		#
+	value:'' 		#
 	typeName:null	#
 	attributeName:null	#
+	value2:''
 }
 module.exports = WarehouseProperty
 

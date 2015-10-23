@@ -10,6 +10,7 @@
 #import "OrderPayViewController.h"
 #import "DoCommentViewController.h"
 #import "CarOwnerDetailViewController.h"
+#import "SearchWarehouseDetailViewController.h"
 @interface GoodsOrderDetailViewController ()
 
 @end
@@ -53,6 +54,11 @@
         {
             CarOwnerDetailViewController *carOnwerDetailVC = [CarOwnerDetailViewController new];
             [self.navigationController pushViewController:carOnwerDetailVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"warehouseOnwerDetail"])
+        {
+            SearchWarehouseDetailViewController *warehouseOwnerDetailVC = [SearchWarehouseDetailViewController new];
+            [self.navigationController pushViewController:warehouseOwnerDetailVC animated:YES];
         }
     }
 }
