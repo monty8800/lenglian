@@ -176,6 +176,8 @@ withdraw = (params)->
 	Http.post Constants.api.WITHDRAW, params, (data)->
 		console.log 'withdraw result', data
 		WalletStore.emitChange 'withdraw:done'
+	, null
+	, true
 
 selectWithdrawCard = (card)->
 	_lastBankCard = card

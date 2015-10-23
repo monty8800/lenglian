@@ -78,7 +78,7 @@ gulp.task 'prepare', ['webpack'], plugins.shell.task('cordova prepare')
 gulp.task 'clean', plugins.shell.task('rm -rf www/* build/*')
 
 gulp.task 'sass', ['static'], ->
-	plugins.rubySass('src/sass/*.scss').pipe(plugins.cssmin()).pipe(gulp.dest('build/css/'))
+	plugins.rubySass('src/sass/*.scss').pipe(gulp.dest('build/css/'))
 
 gulp.task 'static', ['copy-util'], plugins.shell.task('cp -r src/fonts src/images build/')
 
