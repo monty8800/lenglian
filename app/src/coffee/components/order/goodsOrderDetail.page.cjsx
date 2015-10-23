@@ -305,11 +305,15 @@ GoodsOrderDetail = React.createClass {
 			</p>
 			<p>
 				<span>发票:</span>
-				<span>{Helper.isInvoinceMap @state.detail?.get('isInvoice')}</span>
+				<span>{Helper.isInvoinceMap @state.detail?.get('goodsIsInvoice')}</span>
 			</p>
 			<p>
-				<span>发布时间:</span>
+				<span>订单创建时间:</span>
 				<span>{Moment(@state.detail?.get('createTime')).format('YYYY-MM-DD')}</span>
+			</p>
+			<p>
+				<span>货源发布时间:</span>
+				<span>{Moment(@state.detail?.get('goodsCreateTime')).format('YYYY-MM-DD')}</span>
 			</p>			
 		</div>
 		<div className={if _statusText not in ['订单已评价', '已取消'] then 'm-detail-bottom' else ''}>
