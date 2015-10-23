@@ -62,7 +62,7 @@ Selection = React.createClass {
 	render: ->
 		console.log 'option', @props.selectionMap
 		options = @props.selectionMap.options.map (option, i)->
-			<label className="u-label" key={i}><input checked={option.key in @state.checkedList} onChange={@_handleChange.bind this, option} className="ll-font" type="checkbox" /><div>{option.value}</div></label>
+			<label className="u-label" key={i}><input checked={option.key in @state.checkedList} onChange={@_handleChange.bind this, option} className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html: option.value}} /></label>
 		, this
 		cls = "g-div01 ll-font u-arrow-right"
 		<li>
@@ -71,7 +71,7 @@ Selection = React.createClass {
 			<div className="g-div02" style={{display: if @state.open then 'block' else 'none'}}>
 				<div className="g-div02-item">
 					<label className="u-label" >
-						<input checked={@state.all} onChange={@_handleAll} className="ll-font" type="checkbox" /><div>不限</div>
+						<input checked={@state.all} onChange={@_handleAll} className="ll-font" type="checkbox" dangerouslySetInnerHTML={{__html: '不限'}} />
 					</label>
 					{options}
 				</div>
