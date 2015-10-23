@@ -707,7 +707,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             } else if (status == 3) {
                 map.put("warehouseId", storeId);
                 map.put("orderGoodsId", params[0]);
-                url = ApiUtils.store_found_goods;
+//                url = ApiUtils.store_found_goods;
+                url = ApiUtils.goods_find_store_order;
             } else if (status == 1) {
                 url = ApiUtils.goods_found_car;
                 map.put("goodsResouseId", goodsId);
