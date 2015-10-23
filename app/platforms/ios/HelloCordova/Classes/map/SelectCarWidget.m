@@ -60,25 +60,14 @@
 {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     SelectCarWidget *widget = [[SelectCarWidget alloc] initWithFrame:window.bounds];
+    widget.hidden = YES;
     [window addSubview:widget];
     widget.delegate = delegate;
     widget. carId= carId;
-    [widget showAnim];
+    [widget requestData];
 }
 
-
-
--(void) showAnim {
-    _closeBtn.alpha = 0;
-    _tabView.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:0 animations:^{
-        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 260);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _closeBtn.alpha = 1;
-        }];
-    }];
-    
+-(void) requestData {
     NSDictionary *user = [Global getUser];
     NSString *userId = [user objectForKey:@"id"];
     if (userId != nil) {
@@ -158,7 +147,7 @@
                     {
                         weightStr = [NSString stringWithFormat:@"%@方", [dic objectForKey:@"cube"]];
                     }
-
+                    
                     if (![name isKindOfClass:[NSNull class]]) {
                         descStr = [NSString stringWithFormat:@"货物描述： %@ %@ %@", name, weightStr, typeStr];
                     }
@@ -174,7 +163,7 @@
                     
                     NSString *toStr = [NSString stringWithFormat:@"%@%@%@", [dic objectForKey:@"toProvinceName"], [dic objectForKey:@"toCityName"], [dic objectForKey:@"toAreaName"]];
                     [addressList addObject:@{@"type": @(TO), @"text": toStr}];
-                   
+                    
                     
                     for (NSDictionary *route in [dic objectForKey:@"mjGoodsRoutes"]) {
                         NSString *passby = [NSString stringWithFormat:@"%@%@%@", [route objectForKey:@"provinceName"], [route objectForKey:@"cityName"], [route objectForKey:@"areaName"]];
@@ -183,7 +172,7 @@
                     
                     NSString *fromStr = [NSString stringWithFormat:@"%@%@%@", [dic objectForKey:@"fromProvinceName"], [dic objectForKey:@"fromCityName"], [dic objectForKey:@"fromAreaName"]];
                     [addressList addObject:@{@"type": @(FROM), @"text": fromStr}];
-
+                    
                     
                     
                     
@@ -200,16 +189,12 @@
                 
                 if (goodsList.count > 0) {
                     self.dataList = goodsList;
+                    [self showAnim];
                 }
                 else
                 {
-                    [UIView animateWithDuration:0.15 animations:^{
-                        self.alpha = 0;
-                    } completion:^(BOOL finished) {
-                        [self hide];
-                        [[Global sharedInstance] showErr:@"没有可用货源，请添加货源后重试"];
-                    }];
-                    
+                    [[Global sharedInstance] showErr:@"没有可用货源，请添加货源后重试"];
+                    [self hide];
                 }
                 
                 
@@ -218,11 +203,25 @@
             else
             {
                 [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+                [self hide];
             }
-
+            
         } loading:NO];
     }
-    
+
+}
+
+-(void) showAnim {
+    self.hidden = NO;
+    _closeBtn.alpha = 0;
+    _tabView.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:0 animations:^{
+        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 260);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _closeBtn.alpha = 1;
+        }];
+    }];
     
 }
 

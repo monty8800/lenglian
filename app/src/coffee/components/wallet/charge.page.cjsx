@@ -24,7 +24,7 @@ Charge = React.createClass {
 		if @state.money.length == 0
 			Plugin.toast.err '请输入充值金额'
 		else if not Validator.price @state.money
-			Plugin.toast.err '输入金额最多两位小数'
+			Plugin.toast.err '请输入正确的价格,最多两位小数'
 		else if @state.cardId.length == 0
 			Plugin.toast.err '请选择银行卡'
 		else

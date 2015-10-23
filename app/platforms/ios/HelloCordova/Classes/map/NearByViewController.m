@@ -281,6 +281,17 @@
 }
 
 
+#pragma mark- 移除大头钉
+-(void) removeAnno:(NSString *) annoId {
+    for (int i=0; i<_annoList.count; i++) {
+        XeAnnotation *anno = _annoList[i];
+        if ([[anno.data objectForKey:@"id"] isEqualToString:annoId]) {
+            [_annoList removeObjectAtIndex:i];
+            [_mapView removeAnnotation:anno];
+            return;
+        }
+    }
+}
 
 #pragma mark- 选择代码函数
 -(void)selectWarehouse:(NSString *)warehouseId goods:(NSString *)goodsId {
@@ -292,7 +303,8 @@
     [Net post:ORDER_GOODS_SELECT_WAREHOUSE params:params cb:^(NSDictionary *responseDic) {
         DDLogDebug(@"goods select warehouse result %@", responseDic);
         if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
-            
+            [[Global sharedInstance] showSuccess:@"选择仓库成功！"];
+            [self removeAnno:warehouseId];
         }
         else
         {
@@ -310,7 +322,8 @@
     [Net post:ORDER_GOODS_SELECT_CAR params:params cb:^(NSDictionary *responseDic) {
         DDLogDebug(@"goods select car result %@", responseDic);
         if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
-            
+            [[Global sharedInstance] showSuccess:@"选择车辆成功！"];
+            [self removeAnno:carId];
         }
         else
         {
@@ -338,6 +351,7 @@
             DDLogDebug(@"goods select car result %@", responseDic);
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
                 [[Global sharedInstance] showSuccess:@"抢单成功！"];
+                [self removeAnno:goodsId];
             }
             else
             {
@@ -358,6 +372,7 @@
         DDLogDebug(@"goods select car result %@", responseDic);
         if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
             [[Global sharedInstance] showSuccess:@"抢单成功！"];
+            [self removeAnno:goodsId];
         }
         else
         {

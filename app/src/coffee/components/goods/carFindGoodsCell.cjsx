@@ -80,7 +80,7 @@ CarFindGoodsCell = React.createClass {
 			</div>
 			
 			<div className="g-item g-item-des">
-				<p>货物描述 : <span>{@props.goods.get 'name'}</span><span>{Helper.goodsType @props.goods.get('goodsType')}</span><span>{@props.goods.get('weight') + '吨'}</span></p>
+				<p>货物描述 : <span>{@props.goods.get 'name'}</span><span>{Helper.goodsType @props.goods.get('goodsType')}</span><span>{@props.goods.get('weight') + '吨'}</span><span>{if @props.goods.get('cube') then @props.goods.get('cube') + '方' else ''}</span></p>
 				<p>装货时间 : <span>{moment(installStime).format('YYYY-MM-DD')}</span><span>到</span><span>{moment(installEtime).format('YYYY-MM-DD')}</span></p>
 				{
 					if @props.goods.get('priceType') is '1'

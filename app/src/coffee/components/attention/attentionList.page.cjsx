@@ -9,7 +9,7 @@ XeImage = require 'components/common/xeImage'
 Constants = require 'constants/constants'
 avatar = require 'user-01'
 
-_currentStatus = '1'
+_currentStatus = '2'
 
 Item = React.createClass {
 	render: ->
@@ -31,14 +31,14 @@ Attention = React.createClass {
 		newStatus = Object.create @state
 		newStatus.status = '1'
 		@setState newStatus
-		AttAction.attentionList('1', 1)
+		AttAction.attentionList('2', 1)
 
 	attGoodsOwner: ->
 		_currentStatus = '2'
 		newStatus = Object.create @state
 		newStatus.status = '2'
 		@setState newStatus
-		AttAction.attentionList('2', 1)
+		AttAction.attentionList('1', 1)
    
 	attStoreOwner: ->
 		_currentStatus = '3'

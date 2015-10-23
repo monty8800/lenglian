@@ -553,8 +553,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
 
                     destination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() + list.get(0).getToAreaName());
                     start_point.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() + list.get(0).getFromAreaName());
-                    priceType.setText("价格类型：" + Helper.getPriceType(list.get(0).getPriceType()));
-                    goods_des.setText("货物描述：" + (list.get(0).getName() == null ? "" : list.get(0).getName()) + " " + list.get(0).getWeight() + "吨");
+                    priceType.setText("价格类型：" + Helper.getPriceType(list.get(0).getPriceType()) + " " + list.get(0).getPrice() + "元");
+                    goods_des.setText("货物描述：" + (list.get(0).getName() == null ? "" : list.get(0).getName()) + " " + list.get(0).getWeight() + "吨" + " " + list.get(0).getCube() + "方");
                     int score = Integer.parseInt(list.get(0).getUserScore());
                     if (score == 0) {
                         rate.setVisibility(View.GONE);
@@ -707,7 +707,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             } else if (status == 3) {
                 map.put("warehouseId", storeId);
                 map.put("orderGoodsId", params[0]);
-                url = ApiUtils.store_found_goods;
+//                url = ApiUtils.store_found_goods;
+                url = ApiUtils.goods_find_store_order;
             } else if (status == 1) {
                 url = ApiUtils.goods_found_car;
                 map.put("goodsResouseId", goodsId);

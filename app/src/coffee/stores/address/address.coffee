@@ -46,7 +46,7 @@ addressList = ->
 				tempAddress = tempAddress.set 'cityName', info.cityName
 				tempAddress = tempAddress.set 'areaName', info.areaName
 				tempAddress = tempAddress.set 'lati', info.latitude
-				tempAddress = tempAddress.set 'longi', info.longitue
+				tempAddress = tempAddress.set 'longi', info.longitude
 				_addressList = _addressList.push tempAddress
 		AddressStore.emitChange 'list'
 

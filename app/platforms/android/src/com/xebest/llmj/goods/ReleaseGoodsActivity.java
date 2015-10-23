@@ -177,6 +177,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
             Log.i("info", "--------------client_type:" + client_type);
             Log.i("info", "--------------uuid:" + uuid);
             Log.i("info", "--------------version:" + version);
+            Log.i("info", "----------ttObj:" + ttObj);
 
             driving = new HashMap<String, File>();
             if (files.length() != 0) {

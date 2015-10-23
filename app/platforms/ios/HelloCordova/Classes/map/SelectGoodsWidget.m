@@ -60,26 +60,16 @@
 {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     SelectGoodsWidget *widget = [[SelectGoodsWidget alloc] initWithFrame:window.bounds];
+    widget.hidden = YES;
     [window addSubview:widget];
     widget.delegate = delegate;
     widget.goodsId= goodsId;
     widget.type = type;
-    [widget showAnim];
+    [widget requestData];
 }
 
 
-
--(void) showAnim {
-    _closeBtn.alpha = 0;
-    _tabView.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:0 animations:^{
-        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 280);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _closeBtn.alpha = 1;
-        }];
-    }];
-    
+-(void) requestData {
     NSDictionary *user = [Global getUser];
     NSString *userId = [user objectForKey:@"id"];
     if (userId != nil) {
@@ -97,6 +87,21 @@
         }
         
     }
+
+}
+
+-(void) showAnim {
+    self.hidden = NO;
+    _closeBtn.alpha = 0;
+    _tabView.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:0 animations:^{
+        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 280);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _closeBtn.alpha = 1;
+        }];
+    }];
+    
     
 }
 
@@ -120,12 +125,23 @@
                                        }];
             }
             
-            self.dataList = warehouseList;
+            if (warehouseList.count > 0) {
+                self.dataList = warehouseList;
+                [self showAnim];
+            }
+            else
+            {
+                [[Global sharedInstance] showErr:@"没有可用库源，请添加库源后再试"];
+                [self hide];
+            }
+            
+            
             
         }
         else
         {
             [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+            [self hide];
         }
         
     } loading:NO];
@@ -267,24 +283,20 @@
             
             if (goodsList.count > 0) {
                 self.dataList = goodsList;
+                [self showAnim];
             }
             else
             {
-                [UIView animateWithDuration:0.15 animations:^{
-                    self.alpha = 0;
-                } completion:^(BOOL finished) {
-                    [self hide];
-                    [[Global sharedInstance] showErr:@"没有可用车源，请添加车源后重试"];
-                }];
+                [[Global sharedInstance] showErr:@"没有可用车源，请添加车源后重试"];
+                [self hide];
                 
             }
-            
-            
             
         }
         else
         {
             [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+            [self hide];
         }
         
     } loading:NO];

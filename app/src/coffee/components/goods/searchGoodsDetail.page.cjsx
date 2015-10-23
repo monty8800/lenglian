@@ -78,7 +78,7 @@ GoodsDetail = React.createClass {
 	_fallowButtonClick:->
 		#       (1)focusid 		(2)focustype 关注类型 1:司机 2：货主 3：仓库		(3) 2取消 1添加
 		type = if @state.isFallow then 2 else 1
-		GoodsAction.handleFallow _transData.focusid,2,type
+		GoodsAction.handleFallow _transData.focusid,1,type
 
 	_makePhoneCall:(phone)->
 		if phone

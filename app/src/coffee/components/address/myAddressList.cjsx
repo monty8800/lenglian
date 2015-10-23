@@ -29,7 +29,7 @@ AddressList = React.createClass {
 				addressList: AddressStore.getAddressList()
 			}
 	render: ->
-		console.log 'addressList', @state.addressList
+		console.log 'addressList', @state.addressList.toJS()
 		addressList = @state.addressList?.map (address, i)->
 			<div key={i} onClick={@_select.bind this, address}>{address.provinceName + address.cityName + address.areaName + address.street}</div>
 		, this

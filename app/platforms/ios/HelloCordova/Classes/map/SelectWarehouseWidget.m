@@ -60,24 +60,15 @@
 +(void)show:(id<SelectWarehouseDelegate>)delegate warehouseId:(NSString *)warehouseId {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
      SelectWarehouseWidget *widget = [[SelectWarehouseWidget alloc] initWithFrame:window.bounds];
+    widget.hidden = YES;
     [window addSubview:widget];
     widget.delegate = delegate;
     widget.warehouseId = warehouseId;
-    [widget showAnim];
+    [widget requestData];
     
 }
 
--(void) showAnim {
-    _closeBtn.alpha = 0;
-    _tabView.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:0 animations:^{
-        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 240);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _closeBtn.alpha = 1;
-        }];
-    }];
-    
+-(void) requestData {
     NSDictionary *user = [Global getUser];
     NSString *userId = [user objectForKey:@"id"];
     if (userId != nil) {
@@ -86,26 +77,6 @@
             if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
                 NSMutableArray *goodsList = [NSMutableArray new];
                 for (NSDictionary *dic in [[responseDic objectForKey:@"data"] objectForKey:@"GoodsResource"]) {
-//                    NSString *addr;
-//                    switch ([[dic objectForKey:@"coldStoreFlag"] integerValue]) {
-//                        case 2:
-//                            addr = [NSString stringWithFormat:@"需要仓库地： %@, %@", [dic objectForKey:@"fromProvinceName"], [dic objectForKey:@"toProvinceName"]];
-//                            break;
-//                            
-//                        case 3:
-//                            addr = [NSString stringWithFormat:@"需要仓库地： %@", [dic objectForKey:@"toProvinceName"]];
-//                            break;
-//                            
-//                        case 4:
-//                            addr = [NSString stringWithFormat:@"需要仓库地： %@", [dic objectForKey:@"fromProvinceName"]];
-//                            break;
-//                            
-//                        default:
-//                            addr = @"不需要仓库";
-//                            break;
-//                    }
-//                    
-//                    NSAttributedString *addrStr = [[NSAttributedString alloc] initWithString:addr attributes:@{NSForegroundColorAttributeName: [UIColor WY_ColorWithHex:0x333333], NSFontAttributeName: [UIFont boldSystemFontOfSize:15]}];
                     
                     NSString *typeStr;
                     switch ([[dic objectForKey:@"goodsType"] integerValue]) {
@@ -167,29 +138,40 @@
                                            @"infoList": infoList
                                            }];
                     
-                    if (goodsList.count > 0) {
-                        self.dataList = goodsList;
-                    }
-                    else
-                        
-                    {
-                        [UIView animateWithDuration:0.15 animations:^{
-                            self.alpha = 0;
-                        } completion:^(BOOL finished) {
-                            [self hide];
-                            [[Global sharedInstance] showErr:@"没有可用货源，请添加货源后重试"];
-                        }];
-                        
-                    }
+                }
+                if (goodsList.count > 0) {
+                    self.dataList = goodsList;
+                    [self showAnim];
+                }
+                else
+                    
+                {
+                    [[Global sharedInstance] showErr:@"没有可用货源，请添加货源后重试"];
+                    [self hide];
                     
                 }
             }
             else
             {
                 [[Global sharedInstance] showErr:@"服务器异常！"];
+                [self hide];
             }
         } loading:NO];
     }
+
+}
+
+-(void) showAnim {
+    self.hidden = NO;
+    _closeBtn.alpha = 0;
+    _tabView.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:0 animations:^{
+        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 240);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _closeBtn.alpha = 1;
+        }];
+    }];
     
 
 }

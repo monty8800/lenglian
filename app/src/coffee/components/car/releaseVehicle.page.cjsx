@@ -108,6 +108,7 @@ Vehicle = React.createClass {
 		else if result[0] is 'endAddress'
 			endAddress = DB.get 'transData'
 			add = endAddress.end_address
+			console.log '-------endAdd:', endAddress
 			@setState {
 				destination: add.provinceName + add.cityName + add.areaName + add.street
 				toProvince: add.provinceName
@@ -144,6 +145,10 @@ Vehicle = React.createClass {
 			isinvoice: '2'
 		}
 	_submit: ->
+		console.log '---------@state.toLng:', @state.toLng
+		console.log '---------@state.toLat:', @state.toLat
+		console.log '---------@state.fromLng:', @state.fromLng
+		console.log '---------@state.fromLat:', @state.fromLat
 		if @state.startPoint is ''
 			Plugin.toast.err '请输入出发地'
 		else if @state.currentCar is undefined 
