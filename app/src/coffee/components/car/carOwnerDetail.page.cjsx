@@ -94,7 +94,7 @@ Detail = React.createClass {
 				<div className="g-detail-dirver g-det-pad0">
 					<div className="g-detail">					
 						<div className="g-dirver-pic">
-							<XeImage src={detail?.userImgUrl} size='130x130' type='avatar' />
+							<XeImage src={detail?.headerImage} size='130x130' type='avatar' />
 						</div>	
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">

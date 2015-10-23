@@ -26,8 +26,6 @@ FollowStore = require 'stores/attention/attention'
 Plugin = require 'util/plugin'
 Raty = require 'components/common/raty'
 
-#TODO:  少是否关注字段
-
 GoodsOrderDetail = React.createClass {
 
 	_confirm: ->
@@ -112,7 +110,8 @@ GoodsOrderDetail = React.createClass {
 
 	_call: (mobile)->
 		console.log 'call', mobile
-		window.location.href = 'tel://' + mobile
+		if mobile
+			window.location.href = 'tel://' + mobile
 
 	_follow: ->
 		FollowAction.follow {
@@ -122,15 +121,13 @@ GoodsOrderDetail = React.createClass {
 			type: if @state.followed then 2 else 1
 		}
 
-	_toOnwerDetail:->
-		if isGC
-			# DB.put 'transData', [item.carId, item.userId]
-			# Plugin.nav.push ['carOnwerDetail']
+	_toOnwerDetail:-> 
+		if @state.isGC	#carId dUserId carNo carStatus
+			DB.put 'transData', [@state.id, @state.targetId, @state.ordeNo]
+			Plugin.nav.push ['carOnwerDetail']
 		else
-			# DB.put 'transData', [item.carId, item.userId]
-			# Plugin.nav.push ['warehouseOnwerDetail']
-
-
+			DB.put 'transData', {orderId:@state.ordeNo,warehouseId:@state.id,focusid:@state.targetId }
+			Plugin.nav.push ['warehouseOnwerDetail']
 
 
 	componentDidMount: ->
@@ -150,6 +147,8 @@ GoodsOrderDetail = React.createClass {
 			@setState {
 				detail: params.detail
 				isGC: isGC
+				id:if isGC then params.detail.get('carId') else params.detail.get('warehouseId')
+				ordeNo : params.detail?.get('orderNo')
 				target: if isGC then params.detail.get('carUserName') else params.detail.get('warehouseUserName')
 				targetId: if isGC then params.detail.get('carUserId') else params.detail.get('warehouseUserId')
 				targetMobile: if isGC then params.detail.get('carUserMobile') else params.detail.get('warehouseUserMobile')

@@ -18,11 +18,11 @@ Selection = React.createClass {
 		
 		newState.all = newState.checkedList.length is @props.selectionMap.options.length
 		if newState.all
-			newState.text = '全部'
+			newState.text = '不限'
 		else
 			#取前4个显示
 			newState.text = (option.value for option in @props.selectionMap.options when option.key in newState.checkedList[0..3]).join ','
-		newState.text = '全部' if newState.text?.length < 1
+		newState.text = '不限' if newState.text?.length < 1
 		@setState newState
 		SelectionAction.updateSelection @props.selectionMap.key, if newState.all then '' else newState.checkedList
 
@@ -34,7 +34,7 @@ Selection = React.createClass {
 			newState.checkedList = (option.key for option in @props.selectionMap.options)
 		else
 			newState.checkedList = []
-		newState.text = '全部'
+		newState.text = '不限'
 		
 		@setState newState
 		SelectionAction.updateSelection @props.selectionMap.key, ''
@@ -47,7 +47,7 @@ Selection = React.createClass {
 
 	getInitialState: ->
 		initState = {
-			text: '全部'
+			text: '不限'
 			open: false
 			all: true
 			checkedList: []
@@ -71,7 +71,7 @@ Selection = React.createClass {
 			<div className="g-div02" style={{display: if @state.open then 'block' else 'none'}}>
 				<div className="g-div02-item">
 					<label className="u-label" >
-						<input checked={@state.all} onChange={@_handleAll} className="ll-font" type="checkbox" /><div>全部</div>
+						<input checked={@state.all} onChange={@_handleAll} className="ll-font" type="checkbox" /><div>不限</div>
 					</label>
 					{options}
 				</div>
