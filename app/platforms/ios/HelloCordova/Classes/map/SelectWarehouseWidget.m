@@ -34,7 +34,7 @@
     _tabView.center = self.center;
     _tabView.dataSource = self;
     _tabView.delegate = self;
-    _tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tabView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tabView.backgroundColor = [UIColor whiteColor];
     [_tabView registerClass:[SelectWarehouseTableViewCell class] forCellReuseIdentifier:@"select_warehouse_cell"];
     [self addSubview:_tabView];
@@ -187,7 +187,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+    return 100;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -165,6 +165,10 @@ GoodsDetail = React.createClass {
 				<p>
 					<span>发票:</span>
 					<span>{ Helper.invoiceStatus @state.goodsDetail.invoice }</span>
+				</p>
+				<p>
+					<span>备注:</span>
+					<span>{ @state.goodsDetail.remark }</span>
 				</p>			
 			</div>
 			{
