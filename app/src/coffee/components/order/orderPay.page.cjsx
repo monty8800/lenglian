@@ -65,6 +65,7 @@ OrderPay = React.createClass {
 				userBankCardId: @state.bankCard if @state.payMode isnt 1
 				smsCode: smsCode if @state.payMode isnt 1
 				payPwd: @state.payPasswd
+				money: @state.info?.get('orderAmount')
 			}
 
 	_setPayMode: (mode)->

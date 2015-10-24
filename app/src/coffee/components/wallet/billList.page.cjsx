@@ -13,9 +13,12 @@ Plugin = require 'util/plugin'
 
 user = UserStore.getUser()
 
+_status = 1
+
 BillList = React.createClass {
 
 	_selectOut:->
+		_status = 2
 		newState = Object.create @state
 		newState.resultList = []
 		newState.selectIndex = 2
@@ -23,6 +26,7 @@ BillList = React.createClass {
 		WalletAction.getBillList 2
 
 	_selectIn:->
+		_status = 1
 		newState = Object.create @state
 		newState.resultList = []
 		newState.selectIndex = 1
@@ -56,7 +60,7 @@ BillList = React.createClass {
 					<dd className="fl">
 						<p className="clearfix">
 							<span>{ bill.userMobile }</span>
-							<span className={ if parseInt(bill.type) is 1 or parseInt(bill.type) is 4 then "plus" else "" } >{ bill.amount }</span>
+							<span className={ if parseInt(bill.type) is 1 or parseInt(bill.type) is 4 then "plus" else "" } >{bill.amount}</span>
 						</p>
 						<p className="clearfix">
 							<span>{ bill.createTime }</span>

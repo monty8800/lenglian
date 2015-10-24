@@ -9,7 +9,7 @@ Constants = require 'constants/constants'
 DB = require 'util/storage'
 
 transData = DB.get 'transData2'
-DB.remove 'transData2'
+
 PaySuccess = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	_goOrderList: ->
