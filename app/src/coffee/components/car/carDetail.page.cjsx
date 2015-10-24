@@ -108,6 +108,14 @@ Detail = React.createClass {
 					</dl>			
 				</div>
 			</div>
+
+			<div style={{display: if detail?.isinvoice is '' then 'none' else 'block'}} className="m-detail-info m-nomargin">
+				<p>
+					<span>是否需要发票:</span>
+					<span>{ if detail?.isinvoice is '1' then '需要发票' else '不需要发票'}</span>
+				</p>				
+			</div>
+
 			<div className="m-releaseitem">
 				<div>
 					<label htmlFor="packType"><span>随车司机:</span></label>

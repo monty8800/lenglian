@@ -81,7 +81,8 @@ window.cleanTransData = ->
 
 # 车辆搜索
 window.searchMyCar = ->
-	CarAction.info('0')
+	CarStore.emitChange ['do_search_car']
+	# CarAction.info('0')
 	CarAction.closeCarHea()
 	CarAction.closeCarInvoince()
 	CarAction.closeCarLen()
@@ -208,6 +209,7 @@ carDetail = (carId)->
 			_carDetail = _carDetail.set 'userId', td.userId
 			_carDetail = _carDetail.set 'headerImage', data.imgurl
 			_carDetail = _carDetail.set 'carScore', data.carScore
+			_carDetail = _carDetail.set 'isinvoice', td.isinvoice
 
 			if td.status is 1
 				# 车辆详情是否显示编辑按钮
@@ -476,6 +478,34 @@ invNotSt = (params)->
 		CarStore.emitChange ['inv2_need_all', _invoiceArray.length]
 	console.log '------------_invoiceArray:', _invoiceArray
 
+searchCarList = (params)->
+	console.log '-----asdfadsfsdafasasd:', params
+	Http.post Constants.api.found_car, params, (result) ->
+		console.log '我要找车--', result.length
+		if parseInt(params.startNo) is 0
+			_foundCarList = _foundCarList.clear() 
+		for car in result
+			do (car) ->
+				tempCar = new Car
+				tempCar = tempCar.set 'id', car.id
+				tempCar = tempCar.set 'userId', car.userId
+				tempCar = tempCar.set 'drivePic', car.userImgUrl
+				tempCar = tempCar.set 'name', car.userName
+				tempCar = tempCar.set 'remark', car.carScore
+				tempCar = tempCar.set 'carType', car.carType
+				tempCar = tempCar.set 'vehicle', car.vehicle
+				tempCar = tempCar.set 'carId', car.carId
+				tempCar = tempCar.set 'carScore', car.carScore
+				tempCar = tempCar.set 'startPoint', car.fromProvinceName + 
+						car.fromCityName + car.fromAreaName
+				tempCar = tempCar.set 'destination', car.toProvinceName + 
+						car.toCityName + car.toAreaName
+				tempCar = tempCar.set 'carDesc', car.heavy + '  ' + car.vehicle
+				_foundCarList = _foundCarList.push tempCar
+		CarStore.emitChange ['found_car']
+	, (data) ->
+		Plugin.toast.err data.msg	
+
 CarStore = assign BaseStore, {
 
 	getCar: ->
@@ -526,5 +556,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.UPDATE_STORE then updateStore()
 		when Constants.actionType.INVST then invSt(action.params)
 		when Constants.actionType.INVNOTST then invNotSt(action.params)
+		when Constants.actionType.SEARCH_CAR then searchCarList(action.params)
 
 module.exports = CarStore

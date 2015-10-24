@@ -55,6 +55,10 @@ doPay = (params)->
 					del: params.orderNo
 				}
 				PayStore.emitChange 'pay:success'
+			# TODO data 19 sunkai  20151024
+			else
+				Plugin.toast.success '支付成功'
+				Plugin.nav.push ['paySuccess']
 	, null
 	, true
 

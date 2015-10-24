@@ -4,6 +4,13 @@ Dispatcher = require 'dispatcher/dispatcher'
 Constants = require 'constants/constants'
 
 CarAction = {
+
+	searchCarList: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.SEARCH_CAR
+			params: params
+		}
+
 	info: (params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.FOUND_CAR
@@ -173,7 +180,8 @@ CarAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.INVNOTST
 			params: params
-		}
+		}		
+
 }
 
 module.exports = CarAction

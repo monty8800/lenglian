@@ -174,6 +174,7 @@ actionType = {
 	CHARGE: null
 	CHARGE_RECORD: null
 	PRESENT_RECORD: null
+	SEARCH_CAR: null
 
 }
 

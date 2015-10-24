@@ -20,6 +20,62 @@ UserStore = require 'stores/user/user'
 Auth = require 'util/auth'
 _user = UserStore.getUser()
 
+Selection = require 'components/common/selection'
+SelectionStore = require 'stores/common/selection'
+
+selectionList = [
+	{
+		key: 'vehicle'
+		value: '车辆长度'
+		options: [
+			{key: '1', value: '3.8米以下'}
+			{key: '2', value: '3.8米'}
+			{key: '3', value: '4.2米'}
+			{key: '4', value: '4.8米'}
+			{key: '5', value: '5.8米'}
+			{key: '6', value: '6.2米'}
+			{key: '7', value: '6.8米'}
+			{key: '8', value: '7.4米'}
+			{key: '9', value: '7.8米'}
+			{key: '10', value: '8.6米'}
+			{key: '11', value: '9.6米'}
+			{key: '12', value: '13~15米'}
+			{key: '13', value: '15以上米'}
+		]
+	}
+	{
+		key: 'heavy'
+		value: '可载重货'
+		options: [
+			{key: '1', value: ''}
+			{key: '2', value: '2吨以下'}
+			{key: '3', value: '3吨'}
+			{key: '4', value: '4吨'}
+			{key: '5', value: '5吨'}
+			{key: '6', value: '6吨'}
+			{key: '7', value: '8吨'}
+			{key: '8', value: '10吨'}
+			{key: '9', value: '12吨'}
+			{key: '10', value: '15吨'}
+			{key: '11', value: '18吨'}
+			{key: '12', value: '20吨'}
+			{key: '13', value: '25吨'}
+			{key: '14', value: '28吨'}
+			{key: '15', value: '30吨'}
+			{key: '16', value: '30~40吨'}
+			{key: '17', value: '40吨以上'}
+		]
+	}
+	{
+		key: 'isInvoice'
+		value: '提供发票'
+		options: [
+			{key: '1', value: '是'}
+			{key: '2', value: '否'}
+		]
+	}
+]
+
 CarItem = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 
@@ -94,59 +150,100 @@ CarItem = React.createClass {
 				</div>   	
 			</div>
 			<div className="g-item g-item-des">
-				<p>车辆描述 : <span>{Helper.carTypeMapper @props.car.carType}{Helper.carVehicle2 @props.car.vehicle}</span></p>
+				<p>车辆描述 : <span>{Helper.carTypeMapper @props.car.carType}{Helper.carVehicle @props.car.vehicle}</span></p>
 			</div>
 		</div>   		
 }
 
+_skip = 0
+_pageSize = 10
+_hasMore = true
+_netBusy = false
+
 FoundCar = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	getInitialState: ->
-		{
-			hasMore: true
-			dataCount: 0
+		initState = {
 			carList: CarStore.getCar()	
+			showCarList: false
 			isShow: false
 		}
 
+		for selection in selectionList
+			initState[selection.key] = (option.key for option in selection.options)
+		console.log 'initState', initState
+		return initState		
+
 	componentDidMount: ->
-		# CarAction.info(0)
+		SelectionStore.addChangeListener @_onChange
 		CarStore.addChangeListener @_onChange
+		@_loadMore
 
 	componentWillUnmount: ->
 		CarStore.removeChangeListener @_onChange
+		SelectionStore.removeChangeListener @_onChange
 
 	_onChange: (params)->
 		if params[0] is 'found_car'
 			list = CarStore.getCar()
+			_netBusy = false
+			_skip = list.size
+			_hasMore = (list.size % _pageSize) is 0
 			@setState {
-				hasMore: list.size - @state.dataCount >= Constants.orderStatus.PAGESIZE
 				carList: list
-				dataCount: list.size
 				isShow: list.size == 0
 			}
-			console.log '-------------hasMore:', @state.hasMore
 		else if params[0] is 'submit_success'
 			list = @state.carList
-			console.log '----submit_success--callback--:', params[1]
 			newState = Object.create @state
 			newState.carList = list.splice params[1], 1
 			@setState newState
+		else if params[0] is 'do_search_car'
+			_skip = 0
+			_hasMore = true
+			@_loadMore()
+		else if params.type
+			console.log '------------params.type:', params.type
+			newState = Object.create @state
+			newState[params.type] = params.list
+			@setState newState
 
 	_loadMore: ->
-		console.log '-----adfsdsfasdf'
-		CarAction.info(@state.dataCount)
+		CarAction.searchCarList {
+			userId: _user?.id
+			startNo: _skip
+			pageSize: Constants.orderStatus.PAGESIZE	
+			vehicle: @state.vehicle
+			heavy: @state.heavy	
+			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
+		}
 
 	render: ->
 		carCells = @state.carList.map (cars, index)->
 			<CarItem car={cars} index={index} key={cars?.id} />
 		<section>
-			<ScreenMenu />
+			<div className="m-nav03">
+				<ul>
+					{
+						for s, i in selectionList
+							<Selection selectionMap=s  key={i} />
+					}
+				</ul>			
+			</div>	
 			<NoResult isShow={@state.isShow} />
-			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore} >
-				{carCells}
+			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={_hasMore}>
+				{ carCells }
 			</InfiniteScroll>
-		</section>
+		</section>	
+		# carCells = @state.carList.map (cars, index)->
+		# 	<CarItem car={cars} index={index} key={cars?.id} />
+		# <section>
+		# 	<ScreenMenu />
+		# 	<NoResult isShow={@state.isShow} />
+		# 	<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore} >
+		# 		{carCells}
+		# 	</InfiniteScroll>
+		# </section>
 }
 
 React.render <FoundCar />, document.getElementById('content')

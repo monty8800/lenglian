@@ -138,7 +138,7 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
         MobclickAgent.onResume(this);
 
         if (isOnCreate) {
-            mWebView.init(this, ApiUtils.API_COMMON_URL + "foundCar.html", this, this, this, this);
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "foundCar2.html", this, this, this, this);
         }
         isOnCreate = false;
 

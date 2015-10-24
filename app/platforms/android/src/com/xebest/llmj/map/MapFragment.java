@@ -334,13 +334,26 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 storeBottomView.setVisibility(View.GONE);
                 break;
             case R.id.select_goods: // 抢单
-                new CarResourceTask().execute();
+                if (Application.getInstance().carStatus == 1) {
+                    new CarResourceTask().execute();
+                } else {
+                    Tools.showErrorToast(getActivity(), "还未认证车主");
+                }
                 break;
             case R.id.select_driver: // 选择司机
-                new SelectDriverTask().execute();
+                if (Application.getInstance().goodsStatus == 1) {
+                    new SelectDriverTask().execute();
+                } else {
+                    Tools.showErrorToast(getActivity(), "还未认证货主");
+                }
                 break;
             case R.id.select_store: // 选择仓库
-                new SelectDriverTask().execute();
+                if (Application.getInstance().goodsStatus == 1) {
+                    new SelectDriverTask().execute();
+                } else {
+                    Tools.showErrorToast(getActivity(), "还未认证货主");
+                }
+
                 break;
         }
     }
