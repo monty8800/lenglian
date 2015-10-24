@@ -45,7 +45,6 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     [super webViewDidFinishLoad:webView];
     DDLogDebug(@"_show order type %d", (int)_showOrderType);
-
     if (_showOrderType == 0 || _showOrderType == 1 || _showOrderType == 2) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.commandDelegate evalJs:[NSString stringWithFormat:@"comeFromFlag(%d, %d)",(int)_showOrderType, 5]];
@@ -57,7 +56,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
 //    NSString *js = @"(function(){window.updateStore()})()";
 //    [self.commandDelegate evalJs: js];
 }

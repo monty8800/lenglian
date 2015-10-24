@@ -89,6 +89,9 @@ WarehouseDetail = React.createClass {
 			if not @state.price
 				Plugin.toast.err '请输入正确的价格'
 				return
+			if Validator.price @state.price
+				Plugin.toast.err '价格格式不正确'
+			
 			if not Validator.name @state.contacts
 				Plugin.toast.err '请输入正确的联系人姓名'
 				return

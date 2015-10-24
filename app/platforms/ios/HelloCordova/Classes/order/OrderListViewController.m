@@ -55,11 +55,14 @@
     NSLog(@"_______%d",(int)type);
     AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (appdelegate.orderVCLoaded) {
-        _showOrderType = -1;
+//TODO:检查这里 -1 YYQ
+//        _showOrderType = -1;
         [self.commandDelegate evalJs:[NSString stringWithFormat:@"comeFromFlag(%d)",(int)type]];
     }else{
-        _showOrderType = type;
+
     }
+    _showOrderType = type;
+
 #if DEBUG
     if (type == 0) {
         self.title = @"货主订单";
