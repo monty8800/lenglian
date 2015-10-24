@@ -22,14 +22,14 @@
 
 //TODO: 没有切图，对勾
 -(void) createUI {
-    _infoView = [[InfoView alloc] initWithFrame:CGRectMake(20, 12, SCREEN_WIDTH-80, 60 )];
+    _infoView = [[InfoView alloc] initWithFrame:CGRectMake(20, 12, SCREEN_WIDTH-80, 80 )];
     _infoView.tabView.scrollEnabled = NO;
     _infoView.userInteractionEnabled = NO;
     [self.contentView addSubview:_infoView];
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 79, SCREEN_WIDTH-40, 1)];
-    line.backgroundColor = [UIColor WY_ColorWithHex:0xececec];
-    [self.contentView addSubview:line];
+//    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 79, SCREEN_WIDTH-40, 1)];
+//    line.backgroundColor = [UIColor WY_ColorWithHex:0xececec];
+//    [self.contentView addSubview:line];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
