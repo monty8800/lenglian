@@ -205,6 +205,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         store_time = (TextView) view.findViewById(R.id.store_time);
         userLogo = (CircleImageView) view.findViewById(R.id.user_logo);
 
+        status = 1;
+
         return view;
     }
 
@@ -214,7 +216,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         baiduMap = mMapView.getMap();
-
         mMapView.getMap().setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -520,7 +521,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     }
                     storeBottomView.setVisibility(View.VISIBLE);
                     storeAddress.setText("仓库地址：" + list.get(0).getProvinceName() + list.get(0).getCityName() +
-                            list.get(0).getAreaName() + list.get(0).getName());
+                            list.get(0).getAreaName());
 //                    storeType.setText("仓库类型：" + Helper.getStoreType(list.get(0).getWareHouseType()));
                     storeType.setText("仓库类型：" + list.get(0).getWareHouseType());
                     storeTemperatureType.setText("库温类型：" + list.get(0).getCuvinType());
@@ -554,7 +555,14 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     destination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() + list.get(0).getToAreaName());
                     start_point.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() + list.get(0).getFromAreaName());
                     priceType.setText("价格类型：" + Helper.getPriceType(list.get(0).getPriceType()) + " " + list.get(0).getPrice() + "元");
-                    goods_des.setText("货物描述：" + (list.get(0).getName() == null ? "" : list.get(0).getName()) + " " + list.get(0).getWeight() + "吨" + " " + list.get(0).getCube() + "方");
+                    if (list.get(0).getCube() != null && list.get(0).getWeight() != null) {
+                        goods_des.setText("货物描述：" + (list.get(0).getName() == null ? "" : list.get(0).getName()) + " " + list.get(0).getWeight() + "吨" + " " + list.get(0).getCube() + "方");
+                    } else if (list.get(0).getCube() == null) {
+                        goods_des.setText("货物描述：" + (list.get(0).getName() == null ? "" : list.get(0).getName()) + " " + list.get(0).getWeight() + "吨");
+                    } else if (list.get(0).getWeight() == null) {
+                        goods_des.setText("货物描述：" + (list.get(0).getName() == null ? "" : list.get(0).getName()) + " " + list.get(0).getCube() + "方");
+                    }
+
                     int score = Integer.parseInt(list.get(0).getUserScore());
                     if (score == 0) {
                         rate.setVisibility(View.GONE);
@@ -591,8 +599,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             map.put("resourceStatus", "1");
             map.put("pageNow", "1");
             map.put("pageSize", "100");
-            map.put("priceType", "1");
-            map.put("coldStoreFlag", "1");
+//            map.put("priceType", "1");
+//            map.put("coldStoreFlag", "1");
             return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
         }
 

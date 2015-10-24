@@ -228,7 +228,7 @@ OrderDetail = React.createClass {
 				</p>
 				<p>
 					<span>价格类型:</span>
-					<span>{Helper.priceTypeMapper @state.order?.priceType} {@state.order?.price}元</span>
+					<span>{Helper.priceTypeMapper @state.order?.priceType}{@state.order?.price}元</span>
 				</p>
 				<p>
 					<span>支付方式:</span>
@@ -246,7 +246,7 @@ OrderDetail = React.createClass {
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' then 'block' else 'none'}}>
 				<div className="g-pay-btn">
 					<a href="###" className="u-btn02" style={{display: if @state.order?.orderType is 'GC' then 'block' else 'none' }} onClick={@operation.bind this, 1, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>确定</a>
-					<a href="###" style={{display: if @state.order?.priceType is '1' then 'block' else 'none' }} className="u-btn02" onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>取消</a>
+					<a href="###" className="u-btn-cancel u-btn02" style={{display: if @state.order?.priceType is '1' then 'block' else 'none' }} onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>取消</a>
 				</div>
 			</div>
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '4' and @state.mjRateflag is false then 'block' else 'none'}}>

@@ -56,7 +56,16 @@ WalletAction = {
 			actionType: Constants.actionType.CHARGE
 			params: params
 		}
-		
+
+	chargeRecord: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CHARGE_RECORD
+		}
+	presentRecord: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.PRESENT_RECORD
+		}
+
 }
 
 module.exports = WalletAction

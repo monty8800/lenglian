@@ -21,6 +21,9 @@ _bankCardsList = []
 
 _billListResult = []
 
+_chargeRecordList = []
+_presentRecordList = []
+
 _aBankCardInfo = new BankCardModel
 
 localBankList = DB.get 'supportBankList'
@@ -217,6 +220,37 @@ charge = (params)->
 		Plugin.loading.hide()
 		Plugin.toast.err data.msg
 
+# 充值记录
+chargeRecord = ->
+	console.log '---------chargeRecord'
+	Http.post Constants.api.charge_record, {
+		userId: UserStore.getUser().id
+		pageNow: 1
+		pageSize: 100
+	}, (data)->
+		_chargeRecordList = []
+		for charge in data.rechargeRecord
+			wallet = new BidModel
+			wallet = wallet.set 'amount', charge.amount
+			wallet = wallet.set 'createTime', charge.createTime
+			_chargeRecordList.push wallet
+		WalletStore.emitChange ['charge_record']
+
+presentRecord = ->
+	console.log '---------presentRecord'	
+	Http.post Constants.api.present_record, {
+		userId: UserStore.getUser().id
+		pageNow: 1
+		pageSize: 100
+	}, (data) ->
+		_chargeRecordList = []
+		for charge in data.presentRecord
+			wallet = new BidModel
+			wallet = wallet.set 'amount', charge.amount
+			wallet = wallet.set 'createTime', charge.createTime
+			_chargeRecordList.push wallet
+		WalletStore.emitChange ['present_record']
+
 WalletStore = assign BaseStore, {
 	getBankCardsList: ->
 		_bankCardsList
@@ -228,6 +262,8 @@ WalletStore = assign BaseStore, {
 		_supportBankList
 	getLastBankCard: ->
 		_lastBankCard
+	getRecordList: ->
+		_chargeRecordList
 
 }
 
@@ -243,6 +279,8 @@ Dispatcher.register (action)->
 		when Constants.actionType.WITHDRAW then withdraw(action.params)
 		when Constants.actionType.SELECT_WITHDRAW_CARD then selectWithdrawCard(action.card)
 		when Constants.actionType.CHARGE then charge(action.params)
+		when Constants.actionType.CHARGE_RECORD then chargeRecord()
+		when Constants.actionType.PRESENT_RECORD then presentRecord()
 
 module.exports = WalletStore
 

@@ -172,6 +172,8 @@ actionType = {
 
 	SELECT_WITHDRAW_CARD: null
 	CHARGE: null
+	CHARGE_RECORD: null
+	PRESENT_RECORD: null
 
 }
 
@@ -389,6 +391,10 @@ api = {
 	order_state_change: '/ownerOrderCtl/ownerOrderState.shtml'
 
 	charge_bank: '/mjUserRechargeOrderCtl/addMjUserRechargeOrder.shtml'
+
+	charge_record: '/myWalletCtl/queryRechargeRecord.shtml'
+
+	present_record: '/myWalletCtl/queryPresentRecord.shtml'
 
 }
 

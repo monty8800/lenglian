@@ -94,7 +94,7 @@ CarItem = React.createClass {
 				</div>   	
 			</div>
 			<div className="g-item g-item-des">
-				<p>车辆描述 : <span>{Helper.carTypeMapper @props.car.carType}{Helper.carVehicle @props.car.vehicle}</span></p>
+				<p>车辆描述 : <span>{Helper.carTypeMapper @props.car.carType}{Helper.carVehicle2 @props.car.vehicle}</span></p>
 			</div>
 		</div>   		
 }

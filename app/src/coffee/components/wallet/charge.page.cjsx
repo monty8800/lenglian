@@ -22,13 +22,16 @@ Charge = React.createClass {
 
 	_sureToCharge: ->
 		if @state.money.length == 0
-			Plugin.toast.err '请输入充值金额'
-		else if not Validator.price @state.money
-			Plugin.toast.err '请输入正确的价格,最多两位小数'
-		else if @state.cardId.length == 0
-			Plugin.toast.err '请选择银行卡'
+			return Plugin.toast.err '请输入充值金额'
+		_tem = @state.money.split '.'
+		if _tem.length > 1
+			if not Validator.price @state.money
+				return Plugin.toast.err '请输入正确的金额, 最多两位小数'
 		else
-			WalletAction.charge {
+			return Plugin.toast.err '请输入正确的金额'
+		if @state.cardId.length == 0
+			return Plugin.toast.err '请选择银行卡'
+		WalletAction.charge {
 				userId: user?.id
 				cardId: @state.cardId
 				amount: @state.money

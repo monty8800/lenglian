@@ -147,6 +147,21 @@ carVehicle = (status) ->
 			when 11 then "9.6米"
 			when 12 then "13~15米"
 			when 13 then "15米以上"
+
+carVehicle2 = (status) ->
+	if status?
+		switch parseInt(status)
+			when 1 then "3.8米"
+			when 2 then "4.2米"
+			when 3 then "4.8米"
+			when 4 then "5.8米"
+			when 5 then "6.2米"
+			when 6 then "6.8米"
+			when 7 then "7.4米"
+			when 8 then "7.8米"
+			when 9 then "8.6米"
+			when 10 then "9.6米"
+			when 11 then "13~15米"
 			
 	else
 		''
@@ -194,5 +209,6 @@ module.exports =
 	isInvoinceMap: isInvoince
 	whoYouAreMapper: whoYouAre
 	carVehicle: carVehicle
+	carVehicle2: carVehicle2
 	goodsWeight: goodsWeight
 	maxLength: maxLength
