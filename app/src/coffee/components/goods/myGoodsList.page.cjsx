@@ -215,12 +215,14 @@ GoodsList = React.createClass {
 		if parseInt(ct) is 0 then ct = ''  else ct = getStamp(ct)
 		GoodsAction.getGoodsList 1,10,stu,pt,ct
 
+	_disableScroll: (e)->
+		e.preventDefault()
 		
 	render : ->
 		console.log 'state', @state
 		<div>
 			<div className="viewport">
-				<div className="m-tab02">
+				<div onTouchMove={@_disableScroll} className="m-tab02">
 					<ul>
 						<li onClick={ @_topTypeClick.bind this,1 } className={ if @state.showType is 1 then "active ll-font u-arrow-right" else "ll-font u-arrow-right" }>货源状态
 							<div style={display: if @state.showType is 1 then 'block' else 'none'} className="m-dropDown">
@@ -253,7 +255,7 @@ GoodsList = React.createClass {
 				<GoodsListItem list={ @state.goodsList } />
 
 			</div>
-			<div style={display: if @state.shouldShowMenu isnt 0 then 'block' else 'none'} className="m-gray02"></div>
+			<div onTouchMove={@_disableScroll} style={display: if @state.shouldShowMenu isnt 0 then 'block' else 'none'} className="m-gray02"></div>
 		</div>
 }
 

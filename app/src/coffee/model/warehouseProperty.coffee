@@ -6,7 +6,7 @@ WarehouseProperty = Immutable.Record {
 	value:'' 		#
 	typeName:null	#
 	attributeName:null	#
-	value2:''
+	valueTwo:''
 }
 module.exports = WarehouseProperty
 

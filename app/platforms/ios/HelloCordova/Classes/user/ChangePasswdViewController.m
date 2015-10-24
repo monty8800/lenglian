@@ -30,7 +30,7 @@
 }
 
 -(void) createUI {
-    self.title = @"修改密码";
+//    self.title = @"修改密码";
 }
 
 -(void)commonCommand:(NSArray *)params {
@@ -39,6 +39,19 @@
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"change_login_pwd_success"]) {
             [self.navigationController popViewControllerAnimated:YES];
+        }
+    }else if ([params[0] integerValue] == 3){
+        if ([params[1] isEqualToString:@"navTitleString"]) {
+            if ([params[2] isEqualToString:@"payPwd"]) {
+                if ([params[2] integerValue] == 1) {//hasPayPwd
+                    self.title = @"修改支付密码";
+                    
+                }else{
+                    self.title = @"设置支付密码";
+                }
+            }else{
+                self.title = @"修改密码";
+            }
         }
     }
 }

@@ -16,10 +16,10 @@ assign = require 'object-assign'
 
 user = UserStore.getUser()
 
-addPropertyModel = (attribute,attributeName,type,typeName,value,value2) ->
+addPropertyModel = (attribute,attributeName,type,typeName,value,valueTwo) ->
 	areaModel = new WarehousePropertyModel
 	if parseInt(type) is 3
-		areaModel = areaModel.set 'value2',value2
+		areaModel = areaModel.set 'valueTwo',valueTwo
 	areaModel = areaModel.set 'attribute',attribute
 	areaModel = areaModel.set 'attributeName',attributeName
 	areaModel = areaModel.set 'type',type

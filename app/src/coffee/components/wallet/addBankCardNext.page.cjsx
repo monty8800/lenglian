@@ -23,7 +23,7 @@ _bankCardInfo = new BankCardModel DBBankModel
 AddBankCardNext = React.createClass {
 	mixins:[PureRenderMixin,LinkedStateMixin]
 	_addBankCardVerify:->
-		if @state.bankName is '请选择银行'
+		if not _bankCardInfo.zfNo
 			Plugin.toast.err '请选择银行'
 		else if @state.bankBranchName.length < 4
 			Plugin.toast.err '请输入正确的开户行'
@@ -44,13 +44,29 @@ AddBankCardNext = React.createClass {
 
 	getInitialState: ->
 		{
-			bankName: _bankCardInfo.bankName or null
+			bankName: _bankCardInfo.bankName or '请选择银行'
 			cardType: _bankCardInfo.cardType
 			bankBranchName: ''
 			bankMobile:''
 			userIdNumber:''
 			bankList: WalletStore.getSupportBankList()
 		}
+
+	_selectBank: (e)->
+		bankName = e.target.value
+		console.log 'bank name', bankName
+		bank = @state.bankList.findLast (bk, key)->
+			console.log 'key', key, 'bk', bk
+			bk.bankName is bankName
+
+		@setState {
+			bankName: bank?.bankName or '请选择银行'
+		}
+		_bankCardInfo = _bankCardInfo.merge {
+			bankName: bank?.bankName
+			zfNo: bank?.zfNo
+		}
+
 
 	componentDidMount: ->
 		WalletStore.addChangeListener @_onChange
@@ -78,7 +94,8 @@ AddBankCardNext = React.createClass {
 				<div className="u-arrow-right ll-font">
 					<span>卡类型</span>
 					<i className="arrow-i">{@state.bankName}</i>
-					<select className="select"  valueLink={@linkState 'bankName'} name="">
+					<select className="select"  defaultValue={@state.bankName} onChange={@_selectBank} name="">
+						<option value="-1">请选择银行</option>
 						{
 							@state.bankList.map (bk, i)->
 								<option  key={i} value={bk.bankName}>{bk.bankName}</option>

@@ -132,13 +132,25 @@ Detail = React.createClass {
 			</div>
 			<div className="m-detail-info m-nomargin">
 				<p>
-					<span>随车司机:</span>
+					<span>司机姓名:</span>
 					<span>{detail?.driver}</span>
 				</p>
 				<p>
 					<span>联系电话:</span>
 					<span>{detail?.mobile}</span>
-				</p>			
+				</p>
+				<p>
+					<span>需要发票:</span>
+					<span>{Helper.isInvoinceMap detail?.isinvoice}</span>
+				</p>
+				{
+					if detail?.remark
+						<p>
+							<span>备注:</span>
+							<span>{detail?.remark}</span>
+						</p>
+				}
+			
 			</div>
 		</div>
 }

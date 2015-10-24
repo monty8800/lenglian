@@ -159,8 +159,7 @@ getBillList = (type)->
 		type:type
 		userId:user.id
 	},(data)->
-		_billListResult = data.myPayIncomeOrOut
-		for bid in _billListResult
+		for bid in data.myPayIncomeOrOut
 			do (bid) ->
 				bidModel = new BidModel
 				bidModel = bidModel.set 'amount', bid.amount

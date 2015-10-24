@@ -370,6 +370,7 @@
                              };
     [Net post:ORDER_WAREHOUSE_SELECT_GOODS params:params cb:^(NSDictionary *responseDic) {
         DDLogDebug(@"goods select car result %@", responseDic);
+        
         if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
             [[Global sharedInstance] showSuccess:@"抢单成功！"];
             [self removeAnno:goodsId];

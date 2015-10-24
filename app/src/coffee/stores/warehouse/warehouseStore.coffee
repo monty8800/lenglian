@@ -119,6 +119,7 @@ getDetail = (warehouseId) ->
 			propertyModel = propertyModel.set 'value',prop.value
 			propertyModel = propertyModel.set 'typeName',prop.typeName
 			propertyModel = propertyModel.set 'attributeName',prop.attributeName
+			propertyModel = propertyModel.set 'valueTwo',prop.valueTwo
 			tempArr.push propertyModel
 		_warehouse = _warehouse.set 'warehouseProperty', tempArr	#仓库各种属性的数组 
 		
@@ -284,16 +285,10 @@ window.editWarehouse = ->
 window.trySaveEditWarehouse = ()->
 	WarehouseStore.emitChange 'trySaveEditWarehouse'
 
-doSaveEditWarehouse = (remark,phone,contacts,warehouseId)->
+doSaveEditWarehouse = (params)->
 	user = UserStore.getUser()
-	Http.post Constants.api.UPDATE_WAREHOUSE, {
-		remark:remark
-		phone:phone
-		contacts:contacts
-		warehouseId:warehouseId
-		userId:user.id
-	},(data)->
-
+	params.userId = user.id
+	Http.post Constants.api.UPDATE_WAREHOUSE, params,(data)->
 		WarehouseStore.emitChange "saveEditWarehouseSucc"
 	,(data)->
 		Plugin.toast.err data.msg
@@ -326,6 +321,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.RELEASE_WAREHOUSE then releaseWarehouse(action.warehouseId)
 		when Constants.actionType.WAREHOUSE_SEARCH_DETAIL then getSearchWarehouseDetail(action.warehouseId,action.focusid)
 		when Constants.actionType.attention then handleFallow(action.focusid,action.focustype,action.type)
-		when Constants.actionType.UPDATE_WAREHOUSE then doSaveEditWarehouse(action.remark,action.phone,action.contacts,action.warehouseId)
+		when Constants.actionType.UPDATE_WAREHOUSE then doSaveEditWarehouse(action)
 
 module.exports = WarehouseStore
