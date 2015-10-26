@@ -54,7 +54,7 @@ doPay = (params)->
 				DB.put 'transData', {
 					del: params.orderNo
 				}
-				PayStore.emitChange 'pay:suXccess'
+				PayStore.emitChange 'pay:success'
 			when 19
 				Plugin.toast.err '支付金额已经超出账号总收入'
 	, null
