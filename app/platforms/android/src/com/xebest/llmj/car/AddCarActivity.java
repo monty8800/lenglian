@@ -131,6 +131,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
             JSONObject data = args.getJSONObject(2);
             final JSONArray files = args.getJSONArray(3);
             final String ttData = data.getString("data");
+            String sign = data.getString("sign");
             JSONObject ttObj = new JSONObject(ttData);
             final String client_type = data.getString("client_type");
             final String version = data.getString("version");
@@ -150,6 +151,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
             content.put("version", version);
             content.put("userId", Application.getInstance().userId);
             content.put("data", ttData);
+            content.put("sign", sign);
 
             driving = new HashMap<String, File>();
             idCard = new HashMap<String, File>();

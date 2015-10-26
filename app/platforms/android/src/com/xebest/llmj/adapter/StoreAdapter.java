@@ -65,9 +65,16 @@ public class StoreAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.type.setText("货物种类：" + Helper.getGoodsType(info.getGoodsType() + ""));
-        holder.name.setText("货物名称：" + info.getName());
-        holder.weight.setText("货物重量：" + info.getWeight() == null ? "" : info.getWeight());
+        holder.type.setText("货物名称：" + info.getName());
+        holder.name.setText("货物种类：" + Helper.getGoodsType(info.getGoodsType() + ""));
+        if (info.getWeight() != null && !info.getWeight().equals("") && info.getCube() != null && !info.getCube().equals("")) {
+            holder.weight.setText("货物规格：" + info.getWeight() + "吨 " + info.getCube() + "方");
+        } else if (info.getWeight() != null && !info.getWeight().equals("")) {
+            holder.weight.setText("货物规格：" + info.getWeight() + "吨");
+        } else if (info.getCube() != null && !info.getCube().equals("")) {
+            holder.weight.setText("货物规格：" + info.getCube() + "方");
+        }
+
 
         return convertView;
     }

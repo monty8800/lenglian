@@ -169,6 +169,8 @@ public class CompanyGoodsAuthActivity extends BaseCordovaActivity implements Cor
             content.put("version", version);
             content.put("userId", Application.getInstance().userId);
             content.put("data", ttData);
+            String sign = data.getString("sign");
+            content.put("sign", sign);
 
             driving = new HashMap<String, File>();
             String path = files.getJSONObject(0).getString("path");
