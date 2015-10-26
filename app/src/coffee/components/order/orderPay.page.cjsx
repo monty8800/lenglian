@@ -132,12 +132,12 @@ OrderPay = React.createClass {
 			</p>
 			<p className="g-pay clearfix">
 				<span className="fl g-payPass">输入支付密码</span>
-				<span className="fr">
+				<span className="fr g-payText">
 					{
 						if user.hasPayPwd is 0
-							<input onClick={@_setPayPwd} className="setPas" type="password" readOnly="readonly" placeholder="去设置支付密码"/>
+							<input onClick={@_setPayPwd} className="input-weak" type="password" readOnly="readonly" placeholder="去设置支付密码"/>
 						else
-							<input valueLink={@linkState 'payPasswd'} className="setPas" type="password"  placeholder="请输入支付密码"/>
+							<input valueLink={@linkState 'payPasswd'} className="input-weak" type="password"  placeholder="请输入支付密码"/>
 					}
 				</span>	
 			</p>

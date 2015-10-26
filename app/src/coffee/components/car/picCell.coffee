@@ -16,11 +16,11 @@ PicCell = React.createClass {
 		if @props.url
 			content = <img onError={@_pic404} src={'file://' + @props.url} />
 		else
-			content = <a href="###"><span className="ll-font"></span><p dangerouslySetInnerHTML={{__html:@props.name}}></p></a>
+			content = <div className="m-file-btn"><div className="m-file-icon ll-font"></div><p>{@props.name}</p></div>
 
-		<li onClick={@_selectPic.bind this, @props.type}>
+		<div className="m-file-div" onClick={@_selectPic.bind this, @props.type}>
 			{ content }
-		</li>
+		</div>
 		
 }
 

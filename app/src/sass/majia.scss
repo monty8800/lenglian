@@ -723,17 +723,26 @@
     background: #fff;
     border-top:1px solid #e6e6e6;   
     .g-pay{
-        padding: 0 20/$ppr;
         font-size: 32/$ppr;
         color: $text-color-333;
-        height: 90/$ppr;
-        line-height: 90/$ppr;
+        padding: 30/$ppr 20/$ppr;
+        //height: 90/$ppr;
+        //line-height: 90/$ppr;
         font-weight: bold;
         border-bottom: 1px solid #e6e6e6;
         overflow: hidden;
         @include box-sizing($sizing:border-box);
         .g-pay-money{
             color:$com-color;
+        }
+        .g-payText {
+            color: #7f7f7f;
+            font-weight: normal;
+            //height: 90/$ppr;
+            .input-weak {
+                text-align: right; 
+                font-weight: normal;
+            }
         }
         .setPas{
             max-width: 300/$ppr;
@@ -750,7 +759,6 @@
         .font24{
             font-size: 24/$ppr;
             margin-left: 12/$ppr;
-            line-height: 96/$ppr;
         }
         &.offMoney{
             position: relative;

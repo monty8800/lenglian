@@ -301,10 +301,8 @@ AddCar = React.createClass {
 			<div className="u-green ll-font u-tip">
 				温馨提示：单张图片大小不能超过1M
 			</div>
-			<div className="g-uploadPic">
-				<ul className="clearfix">
+			<div className="m-file-upload m-file-many">
 					{ cells }
-				</ul>
 			</div>
 			<div className="u-pay-btn">
 				<div className="u-pay-btn">
