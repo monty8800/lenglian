@@ -59,6 +59,7 @@ FromTo = React.createClass {
 		passBy = @state.passBy.map (address, k)->
 			<div key={k} onClick={@_selectAddress.bind this,  k} className="g-adr-middle ll-font">
 				<p>{if address.lati then address.get('provinceName') + address.get('cityName') + address.get('areaName') + address.get('street') else '途径地'} </p>
+				<i className="icon-mask"></i>
 				<em onClick={@_minusPassBy.bind this, k}></em>
 			</div>
 		,this

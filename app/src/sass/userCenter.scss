@@ -240,13 +240,14 @@
             color: #666;
             width: 100/$ppr;
             height: 45/$ppr;
-            padding-left: 10/$ppr;
+            line-height: 1;
+            padding:7/$ppr 0 6/$ppr 10/$ppr;
             border: 1px solid #e6e6e6;
             border-radius: 5/$ppr;
             @include box-sizing($sizing:border-box);
         }
         .g-adr-start,.g-adr-end,.g-adr-active {
-            height: 40/$ppr;
+            //height: 40/$ppr;
             line-height: 40/$ppr;
             position: relative;
             padding-left: 40/$ppr;
@@ -262,6 +263,7 @@
                 left: 0;
                 top: 0;
                 color: #eb4f38;
+                z-index: 3;
             }
         }
 //      .g-adr-middle{
@@ -272,11 +274,22 @@
             &:after {
                 content: "";
                 width: 2/$ppr;
-                height: 12/$ppr;
+                height: 100%;
                 position: absolute;
                 left: 19/$ppr;
                 bottom: 0;
                 background: #eb4f38;
+                z-index: 1
+            }
+            span {
+                width: 24/$ppr;
+                height: 24/$ppr;
+                position: absolute;
+                left: 9/$ppr;
+                top: 0/$ppr;
+                border-radius: 50%;
+                background: #fff;
+                z-index: 2;
             }
         }
         .g-adr-end-line{
@@ -284,11 +297,22 @@
             &:after {
                 content: "";
                 width: 2/$ppr;
-                height: 12/$ppr;
+                height: 100%;
                 position: absolute;
                 left: 19/$ppr;
                 top: 0;
                 background: #11cd6e;
+                z-index: 1;
+            }
+            span {
+                width: 24/$ppr;
+                height: 24/$ppr;
+                position: absolute;
+                left: 9/$ppr;
+                top: 10/$ppr;
+                border-radius: 50%;
+                background: #fff;
+                z-index: 2;
             }
         }
     
@@ -342,12 +366,14 @@
                 }
             }
             dd{
-                max-width: 380/$ppr;
+                width: 100%;
+                max-width: 380/$ppr;                
                 p{
                     
                     line-height: 50/$ppr;
                     font-size: 28/$ppr;
                     color: #666;
+                    position: relative;
                 }
             }
         }
