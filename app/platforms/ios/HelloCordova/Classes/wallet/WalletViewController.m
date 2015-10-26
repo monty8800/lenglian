@@ -11,6 +11,8 @@
 #import "BillListViewController.h"
 #import "ChargeViewController.h"
 #import "WithdrawViewController.h"
+#import "ChargeRecordViewController.h"
+
 @interface WalletViewController ()
 
 @end
@@ -62,6 +64,11 @@
         {
             WithdrawViewController *withdrawVC = [WithdrawViewController new];
             [self.navigationController pushViewController:withdrawVC animated:YES];
+        }
+        else if ([params[1] isEqualToString:@"chargeRecord"]){
+            ChargeRecordViewController *chargeRecordVC = [ChargeRecordViewController new];
+            chargeRecordVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:chargeRecordVC animated:YES];
         }
     }
 }

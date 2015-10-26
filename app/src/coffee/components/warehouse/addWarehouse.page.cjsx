@@ -38,7 +38,7 @@ AddWarehouse = React.createClass {
 
 		{
 			priceValue:''
-			priceUnit:''
+			priceUnit:'元/天/平'
 			warehouseType1:'0'
 			warehouseType2:'0'
 			increaseServe1:'0'
@@ -118,6 +118,13 @@ AddWarehouse = React.createClass {
 			@setState newState
 		# else if mark is "saveAddAWarehouse"
 
+	_hasSrting: (string)->
+		Letters = "1234567890."
+		for st in string
+			if (Letters.indexOf st) is -1
+				return true
+		return false
+
 	_addNewWarehouse : ->
 			newState = Object.create @state
 			newState.params.warehouseProperty = []
@@ -131,6 +138,16 @@ AddWarehouse = React.createClass {
 				Plugin.toast.show '请输入价格'
 				return
 			else
+				if @_hasSrting @state.priceProperty.value
+					# 有除了数字和小数点外的其他字符串
+					Plugin.toast.err '价格格式不正确'
+					return
+				if partArr.length > 2 or (priceStr.substr 0,1) is '.' or ((priceStr.substr 0,1) is '0' and (priceStr.substr 1,1) isnt '.')
+					Plugin.toast.err '价格格式不正确'
+					return
+				if (priceStr.indexOf '.') + 2 > priceStr.length
+					Plugin.toast.err '价格只能保留两位小数'
+					return
 				newState.priceProperty = newState.priceProperty.set 'attributeName',@state.priceUnit
 				newState.params.warehouseProperty.push newState.priceProperty
 			if !@state.params.contacts
@@ -240,11 +257,28 @@ AddWarehouse = React.createClass {
 
 # 价格
 	priceValueChange :(e) ->
+		priceString = e.target.value
+		if @_hasSrting priceString
+			return
+		if priceString is '.'
+			return
+		if priceString.length > 1
+			if (priceString.substr 0,1) is '0' and  (priceString.substr 1,1) isnt '.'
+				return
+		if (priceString.split '.').length > 2
+			return
+		if (priceString.indexOf '.') isnt -1
+			if (priceString.indexOf '.') + 3 < priceString.length
+				return
 		newState = Object.create @state
 		aPriceProperty = newState.priceProperty
 		aPriceProperty = aPriceProperty.set 'value',e.target.value
 		newState.priceProperty = aPriceProperty
+		newState.priceValue = e.target.value
 		@setState newState
+
+
+		
 
 # 发票
 	_needInvoice : (e)->
@@ -370,10 +404,11 @@ AddWarehouse = React.createClass {
 						</div>
 					</div>
 				</div>
-				<div>
+				<div className="u-arrow-right ll-font">
 					<span>仓库价格</span>
-					<input onChange=@priceValueChange type="text" className="weight"/>	
-					<select valueLink={@linkState 'priceUnit'} className="weight">
+					<input onChange=@priceValueChange type="text" value={@state.priceValue} className="weight"/>	
+					<i className="arrow-i">{@state.priceUnit}</i>
+					<select valueLink={@linkState 'priceUnit'} className="select weight">
 						<option value="元/天/平">元/天/平</option>
 						<option value="元/天/托">元/天/托</option>
 						<option value="元/天/吨">元/天/吨</option>

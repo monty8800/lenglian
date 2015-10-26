@@ -212,7 +212,7 @@ public class ReleaseWarehouseActivity extends BaseCordovaActivity implements Cor
             map.put("goodsUserId", Application.getInstance().userId);
             map.put("goodsResouseId", params[0]);
             map.put("carResouseId", wareHouseId);
-
+            map.put("userId", Application.getInstance().userId);
             return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
         }
 
