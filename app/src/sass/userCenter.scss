@@ -240,8 +240,7 @@
             color: #666;
             width: 100/$ppr;
             height: 45/$ppr;
-            line-height: 1;
-            padding:7/$ppr 0 6/$ppr 10/$ppr;
+            padding-left: 10/$ppr;
             border: 1px solid #e6e6e6;
             border-radius: 5/$ppr;
             @include box-sizing($sizing:border-box);
@@ -343,14 +342,12 @@
                 }
             }
             dd{
-                width: 100%;
-                max-width: 380/$ppr;                
+                max-width: 380/$ppr;
                 p{
                     
                     line-height: 50/$ppr;
                     font-size: 28/$ppr;
                     color: #666;
-                    position: relative;
                 }
             }
         }
