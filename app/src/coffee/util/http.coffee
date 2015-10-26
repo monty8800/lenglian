@@ -35,13 +35,16 @@ postFile = (api, params, files, cb, err)->
 	DB.put 'version', version
 	DB.put 'client_type', client_type
 
+	sign = md5.update(uuid + Constants.token + data + client_type, 'utf8').digest('hex').toLowerCase()
+
 	console.group()
 	paramDic = {
 		uuid: uuid
 		version: version
 		client_type: client_type
 		data: data
-		userId: _user?.id or '' 
+		userId: _user?.id or ''
+		sign: sign
 	}
 	
 	api = Constants.api.server + api if api.indexOf('http') isnt 0 and not Constants.inBrowser
@@ -110,7 +113,7 @@ post = (api, params, cb, err, showLoading, key, iv)->
 	DB.put 'version', version
 	DB.put 'client_type', client_type
 
-	sign = md5.update(uuid + Constants.token + data + client_type).digest('base64')
+	sign = md5.update(uuid + Constants.token + data + client_type, 'utf8').digest('hex').toLowerCase()
 
 	console.group()
 	paramDic = {

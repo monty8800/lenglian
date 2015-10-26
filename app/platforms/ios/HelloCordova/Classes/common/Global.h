@@ -25,6 +25,8 @@
 
 #define IMG_SERVER @"http://qa-pic.lenglianmajia.com/"
 
+#define TOKEN @"da971f8e9e024f579800cf20c146e6df"
+
 
 #define SERVER @"http://192.168.26.177:7080/llmj-app/"
 //#define SERVER @"http://192.168.29.149:8072/"

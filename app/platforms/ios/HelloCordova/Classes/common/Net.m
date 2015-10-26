@@ -77,7 +77,12 @@
         userId = @"";
     }
     
-    [op addParams:@{@"userId": userId, @"data": [params WY_ToJson]}];
+    NSString *data = [params WY_ToJson];
+    
+    NSString *plainText = [NSString stringWithFormat:@"%@%@%@%@", [Global sharedInstance].uuid, TOKEN, data, CLIENT_TYPE];
+    NSString *sign = [[plainText WY_MD5] lowercaseString];
+    
+    [op addParams:@{@"userId": userId, @"data": data, @"sign": sign}];
     
     DDLogDebug(@"请求接口%@, 参数%@", api, op);
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
