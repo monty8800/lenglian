@@ -64,6 +64,13 @@ WarehouseDetail = React.createClass {
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
 
+	_hasSrting: (string)->
+		Letters = "1234567890."
+		for st in string
+			if (Letters.indexOf st) is -1
+				return true
+		return false
+
 	_onChange: (mark) ->
 		if mark is 'getWarehouseDetailWithId'
 			detailResult = WarehouseStore.getDetail()
@@ -86,11 +93,24 @@ WarehouseDetail = React.createClass {
 			@setState newState
 		else if mark is 'trySaveEditWarehouse'
 			# TODO:保存之前先做各种判断 是否符合保存条件
-			if not @state.price
+			priceStr = @state.price
+			if not priceStr
+				# 未输入
 				Plugin.toast.err '请输入正确的价格'
 				return
-			if Validator.price @state.price
+			partArr = priceStr.split '.'
+			if @_hasSrting priceStr
+				# 有除了数字和小数点外的其他字符串
 				Plugin.toast.err '价格格式不正确'
+				return
+			if partArr.length > 2 or (priceStr.substr 0,1) is '.' or ((priceStr.substr 0,1) is '0' and (priceStr.substr 1,1) isnt '.')
+				# 多个小数点 或 小数点打头 或 0打头 第二位不是"."
+				Plugin.toast.err '价格格式不正确'
+				return
+			if (priceStr.indexOf '.') + 2 > priceStr.length
+				Plugin.toast.err '价格只能保留两位小数'
+				return
+				
 			
 			if not Validator.name @state.contacts
 				Plugin.toast.err '请输入正确的联系人姓名'
@@ -134,6 +154,27 @@ WarehouseDetail = React.createClass {
 			Plugin.run [1,'warehouseDetail_saveEditSucc']
 
 			@setState newState
+
+
+	_priceInputChange:(e)->
+		priceString = e.target.value
+		if @_hasSrting e.target.value
+			return
+		if priceString is '.'
+			return
+		if priceString.length > 1
+			if (priceString.substr 0,1) is '0' and  (priceString.substr 1,1) isnt '.'
+				return
+		if (priceString.split '.').length > 2
+			return
+		if (priceString.indexOf '.') isnt -1
+			if (priceString.indexOf '.') + 3 < priceString.length
+				return
+		@setState {
+			price: e.target.value
+		}
+
+		
 	_deleteWarehouse: ->
 		toDeleteWarehouseId = @state.warehouseDetail.id
 		Plugin.alert '确定删除吗', '提示', (index)->
@@ -170,9 +211,10 @@ WarehouseDetail = React.createClass {
 							</p>
 							{
 								if @state.isEditing 
-									<p>仓库价格:
-										<input valueLink={@linkState 'price'} type="text" placeholder="请输入价格" className="u-inp01"/>
-										<select valueLink={@linkState 'priceUnit'} className="weight">
+									<p className="u-arrow-right ll-font">仓库价格:
+										<input onChange={@_priceInputChange} value={@state.price} type="text" placeholder="请输入价格" className="u-inp01"/>
+										<i className="arrow-i">{@state.priceUnit}</i>
+										<select valueLink={@linkState 'priceUnit'} className="select weight">
 											<option value='元/天/平'>元/天/平</option>
 											<option value='元/天/托'>元/天/托</option>
 											<option value='元/天/吨'>元/天/吨</option>
@@ -199,10 +241,13 @@ WarehouseDetail = React.createClass {
 					<span>仓库地址:</span>
 					<span>{
 						detailAddr = @state.warehouseDetail
-						if detailAddr.provinceName is detailAddr.cityName
-							detailAddr.provinceName + detailAddr.areaName + detailAddr.street 
+						if detailAddr
+							if detailAddr.provinceName is detailAddr.cityName
+								detailAddr.provinceName + detailAddr.areaName + detailAddr.street 
+							else
+								detailAddr.provinceName + detailAddr.cityName + detailAddr.areaName + detailAddr.street 
 						else
-							detailAddr.provinceName + detailAddr.cityName + detailAddr.areaName + detailAddr.street 
+							''
 					}</span>
 				</p>		
 			</div>
@@ -217,7 +262,7 @@ WarehouseDetail = React.createClass {
 					<span>联系人:</span>
 					{
 						if @state.isEditing
-							<input valueLink={@linkState 'contacts'} type="text" placeholder="请输入联系人" id="packType"/>	
+							<input valueLink={@linkState 'contacts'} className="u-inp01" type="text" placeholder="请输入联系人" id="packType"/>	
 						else
 							<span>{ @state.warehouseDetail.contact }</span>
 					}
@@ -226,7 +271,7 @@ WarehouseDetail = React.createClass {
 					<span>联系手机:</span>
 					{
 						if @state.isEditing
-							<input valueLink={@linkState 'phone'} type="text" placeholder="请输入联系人电话" id="packType"/>	
+							<input valueLink={@linkState 'phone'} className="u-inp01" type="text" placeholder="请输入联系人电话" id="packType"/>	
 						else
 							<span>{ @state.warehouseDetail.contactTel }</span>
 					}
@@ -235,7 +280,7 @@ WarehouseDetail = React.createClass {
 					<span>备注说明:</span>
 					{
 						if @state.isEditing
-							<input valueLink={@linkState 'remark'} type="text" placeholder="请输入备注信息" id="packType"/>	
+							<input valueLink={@linkState 'remark'} className="u-inp01" type="text" placeholder="请输入备注信息" id="packType"/>	
 						else
 							<span>{ @state.warehouseDetail.remark }</span>
 					}

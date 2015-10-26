@@ -14,6 +14,7 @@ GoodsAction = require 'actions/goods/goods'
 XeImage = require 'components/common/xeImage'
 UserStore = require 'stores/user/user'
 Helper = require 'util/helper'
+InfiniteScroll = require('react-infinite-scroll')(React)
 
 PureRenderMixin = React.addons.PureRenderMixin
 DB = require 'util/storage'
@@ -59,9 +60,10 @@ selectionList = [
 
 SearchWarehouse = React.createClass {
 	_doSearchWarehouse: ->
+		# @state.pageSize
 		WarehouseAction.searchWarehouse {
 			startNo: @state.startNo
-			pageSize: @state.pageSize
+			pageSize: 10
 			cuvinType: @state.cuvinType
 			wareHouseType: @state.wareHouseType
 			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
@@ -71,8 +73,9 @@ SearchWarehouse = React.createClass {
 			searchResult:[]
 			userGoodsSource:[]
 			startNo: 0
-			pageSize: 10
+			pageSize: 100
 			resultCount:-1
+			hasMore:true
 		}
 
 		for selection in selectionList
@@ -97,6 +100,7 @@ SearchWarehouse = React.createClass {
 			newState = Object.create @state
 			newState.searchResult = WarehouseStore.getWarehouseSearchResult()
 			newState.resultCount = newState.searchResult.length
+			newState.pageSize = newState.pageSize + 10
 			@setState newState
 
 		else if mark is 'do:search:warehouse'
@@ -193,10 +197,12 @@ SearchWarehouse = React.createClass {
 				<div className="g-bgPic"></div>
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
 			</div>
-			<CSSTransitionGroup transitionName="list">
-			{ searchResultList }
-			</CSSTransitionGroup>
-			
+
+			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore} >
+				<CSSTransitionGroup transitionName="list">
+					{ searchResultList }
+				</CSSTransitionGroup>
+			</InfiniteScroll>
 
 		</div>
 }
