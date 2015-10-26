@@ -20,6 +20,7 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by kaisun on 15/9/22.
@@ -85,14 +86,29 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
         if (flag.equalsIgnoreCase("user:update")) {
-            ((Application) getApplication()).setUserId("");
-            SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
-            editor.putString("userId", "");
-            editor.putInt("goodsStatus", -1);
-            editor.putInt("warehouseStatus", -1);
-            editor.putInt("carStatus", -1);
-            editor.commit();
-            finish();
+            String temp = args.getString(2);
+            if (temp.equals("{}")) {
+                ((Application) getApplication()).setUserId("");
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
+                editor.putString("userId", "");
+                editor.putInt("goodsStatus", -1);
+                editor.putInt("warehouseStatus", -1);
+                editor.putInt("carStatus", -1);
+                editor.commit();
+                finish();
+            } else {
+                JSONObject jsonObject = new JSONObject(temp);
+                ((Application) getApplication()).setUserId(jsonObject.getString("id"));
+                Application.getInstance().setGoodsStatus(Integer.parseInt(jsonObject.getString("goodsStatus")));
+                Application.getInstance().setWarehouseStatus(Integer.parseInt(jsonObject.getString("warehouseStatus")));
+                Application.getInstance().setCarStatus(Integer.parseInt(jsonObject.getString("carStatus")));
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
+                editor.putString("userId", jsonObject.getString("id"));
+                editor.putInt("goodsStatus", jsonObject.getInt("goodsStatus"));
+                editor.putInt("warehouseStatus", jsonObject.getInt("warehouseStatus"));
+                editor.putInt("carStatus", jsonObject.getInt("carStatus"));
+                editor.commit();
+            }
         } else if (flag.equalsIgnoreCase("changePasswd")) {
             ChangePwdActivity.actionView(MoreActivity.this);
         } else if (flag.equalsIgnoreCase("resetPasswd")) {
