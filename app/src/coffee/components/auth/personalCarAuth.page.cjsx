@@ -149,9 +149,9 @@ Auth = React.createClass {
 					<h6 className="xert-h6 xert-h6-large01">车主身份证号码</h6>
 						{
 							if @state.user.idCardNo and @state.user.certification isnt 0
-								<input value=@state.user.idCardNo readOnly="readOnly" className="input-weak" type="text" placeholder="请输入车主姓名" />
+								<input value=@state.user.idCardNo readOnly="readOnly" className="input-weak" type="text" placeholder="请输入车主身份证" />
 							else
-								<input valueLink={@linkState 'idNum'} className="input-weak" type="text" placeholder="请输入车主姓名" />
+								<input valueLink={@linkState 'idNum'} className="input-weak" type="text" placeholder="请输入车主身份证" />
 						}
 					
 				</li>
