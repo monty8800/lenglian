@@ -184,7 +184,7 @@ Auth = React.createClass {
 			{cells}
 		</div>
 		{
-			if @state.user.goodsStatus is 0
+			if @state.user.goodsStatus in [0, 3]
 				<div className="u-certBtn-con">
 					<a className="u-btn" onClick={@_auth}>提交认证</a>
 				</div>		

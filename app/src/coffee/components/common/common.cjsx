@@ -1,4 +1,5 @@
 require 'majia-style'
+require 'anim-style'
 
 fastClick = require 'fastclick'
 

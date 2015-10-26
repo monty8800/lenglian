@@ -3,6 +3,7 @@ require 'user-center-style'
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 InfiniteScroll = require('react-infinite-scroll')(React)
 MessageStore = require 'stores/attention/message'
 MessageAction = require 'actions/attention/message'
@@ -92,7 +93,9 @@ Message = React.createClass {
 				</ul>
 			</div>	
 			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore}>
+			<CSSTransitionGroup transitionName="list">
 				{msgs}
+			</CSSTransitionGroup>
 			</InfiniteScroll>
 		</div>
 }

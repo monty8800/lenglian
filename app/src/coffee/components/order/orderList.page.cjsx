@@ -95,8 +95,9 @@ OrderDoc = React.createClass {
 						goodsOrderList = @state.orderList.map (order, i)->
 							<GoodsItem order={order} key={order.orderNo} />
 						<div>
-						
+						<CSSTransitionGroup transitionName="list">
 						{goodsOrderList}
+						</CSSTransitionGroup>
 						
 						</div>
 					when 'store'

@@ -93,6 +93,7 @@
     
     NSDate *minTime = [NSDate dateWithTimeIntervalSince1970:[[data objectForKey:@"installStime"] doubleValue] / 1000 ];
     NSDate *maxTime = [NSDate dateWithTimeIntervalSince1970:[[data objectForKey:@"installEtime"] doubleValue] / 1000 ];
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd";
     

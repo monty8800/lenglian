@@ -5,6 +5,7 @@ React = require 'react/addons'
 Immutable = require 'immutable'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 
 Helper = require 'util/helper'
 Plugin = require 'util/plugin'
@@ -81,7 +82,9 @@ GoodsListItem = React.createClass {
 			</div>
 		,this
 		<div>
+		<CSSTransitionGroup transitionName="list">
 			{ listItem }
+		</CSSTransitionGroup>
 		</div>
 }
 

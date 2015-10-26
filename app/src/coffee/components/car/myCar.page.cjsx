@@ -2,6 +2,7 @@ require 'components/common/common'
 require 'user-center-style'
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 InfiniteScroll = require('react-infinite-scroll')(React)
 Constants = require 'constants/constants'
 XeImage = require 'components/common/xeImage'
@@ -178,7 +179,9 @@ Car = React.createClass {
 				</ul>   
 			</div> 
 			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore}>
+			<CSSTransitionGroup transitionName="list">
 				{cars}
+			</CSSTransitionGroup>
 			</InfiniteScroll>
 		</div>
 }

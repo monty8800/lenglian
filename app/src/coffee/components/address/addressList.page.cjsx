@@ -1,6 +1,6 @@
 require 'components/common/common'
 require 'index-style'
-require 'anim-style'
+
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin

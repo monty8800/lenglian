@@ -1,7 +1,9 @@
 require 'components/common/common'
 require 'index-style'
+
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 InfiniteScroll = require('react-infinite-scroll')(React)
 AttAction = require 'actions/attention/attention'
 AttStore = require 'stores/attention/attention'
@@ -95,7 +97,9 @@ Attention = React.createClass {
 				</ul>
 			</div>
 			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore}>
+			<CSSTransitionGroup transitionName="list">
 				{atts}
+			</CSSTransitionGroup>
 			</InfiniteScroll>
 		</div>
 }

@@ -6,6 +6,7 @@ React = require 'react/addons'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 DB = require 'util/storage'
 
 Plugin = require 'util/plugin'
@@ -38,7 +39,9 @@ WarehouseItem = React.createClass {
 			</div>
 		, this
 		<div>
+		<CSSTransitionGroup transitionName="list">
 			{items}
+		</CSSTransitionGroup>
 		</div>
 }
 

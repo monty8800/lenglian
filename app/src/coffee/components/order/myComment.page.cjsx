@@ -8,6 +8,7 @@ Helper = require 'util/helper'
 CommentStore = require 'stores/order/commentStore'
 CommentAction = require 'actions/order/commentAction'
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 DB = require 'util/storage'
 headerImg = require 'user-01.jpg'
 Raty = require 'components/common/raty'
@@ -41,7 +42,9 @@ CommentItem = React.createClass {
 			</div>
 		,this
 		<div>
+		<CSSTransitionGroup transitionName="list">
 			{ items }
+		</CSSTransitionGroup>
 		</div>
 		
 }
