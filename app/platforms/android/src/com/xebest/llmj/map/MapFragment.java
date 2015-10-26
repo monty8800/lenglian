@@ -415,6 +415,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             map.put("leftLat", leftLat + "");
             map.put("rightLng", rightLng + "");
             map.put("rightLat", rightLat + "");
+            map.put("userId", Application.getInstance().userId);
             String result = UploadFile.postWithJsonString(url, new Gson().toJson(map));
             Log.i("info", "-------------result:" + result);
             return result;
@@ -512,6 +513,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             }
             Map<String, String> map = new HashMap<String, String>();
             map.put("id", params[0]);
+            map.put("userId", Application.getInstance().userId);
             String result = UploadFile.postWithJsonString(url, new Gson().toJson(map));
             return result;
         }
