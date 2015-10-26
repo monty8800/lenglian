@@ -26,7 +26,8 @@ Selection = require 'components/common/selection'
 SelectionStore = require 'stores/common/selection'
 
 _selectedWarehouseId = ''
-
+_isBusy = false
+_hasMore = true
 
 selectionList = [
 	{
@@ -61,9 +62,11 @@ selectionList = [
 SearchWarehouse = React.createClass {
 	_doSearchWarehouse: ->
 		# @state.pageSize
+		_isBusy = true
+		warehouseTypeArr = @state.wareHouseType
 		WarehouseAction.searchWarehouse {
 			startNo: @state.startNo
-			pageSize: 10
+			pageSize: @state.pageSize
 			cuvinType: @state.cuvinType
 			wareHouseType: @state.wareHouseType
 			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
@@ -73,9 +76,8 @@ SearchWarehouse = React.createClass {
 			searchResult:[]
 			userGoodsSource:[]
 			startNo: 0
-			pageSize: 100
-			resultCount:-1
-			hasMore:true
+			pageSize: 10
+			showHasNone:false
 		}
 
 		for selection in selectionList
@@ -86,27 +88,34 @@ SearchWarehouse = React.createClass {
 
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
-		GoodsStore.addChangeListener @_onChange
-		SelectionStore.addChangeListener @_onChange
+		# GoodsStore.addChangeListener @_onChange
+		# SelectionStore.addChangeListener @_onChange
 		@_doSearchWarehouse()
 		
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
-		GoodsStore.removeChangeListener @_onChange
-		SelectionStore.removeChangeListener @_onChange
+		# GoodsStore.removeChangeListener @_onChange
+		# SelectionStore.removeChangeListener @_onChange
 
 	_onChange: (mark)->
+		console.log 'mark______load'+mark
 		if mark is 'searchWarehouseSucc'
+			_isBusy = false
 			newState = Object.create @state
 			newState.searchResult = WarehouseStore.getWarehouseSearchResult()
-			newState.resultCount = newState.searchResult.length
-			newState.pageSize = newState.pageSize + 10
+			newState.showHasNone = newState.searchResult.length is 0
+			newState.startNo = newState.searchResult.length
+			_hasMore = (newState.searchResult.length % @state.pageSize) is 0
 			@setState newState
 
 		else if mark is 'do:search:warehouse'
+			newState = Object.create @state
+			newState.searchResult = []
+			newState.startNo = 0
+			@setState newState
 			@_doSearchWarehouse()
 
-		else if mark.type
+		else if mark.type in ['wareHouseType','cuvinType','isInvoice']
 			newState = Object.create @state
 			newState[mark.type] = mark.list
 			console.log '__selection_newState', newState
@@ -131,14 +140,6 @@ SearchWarehouse = React.createClass {
 					Plugin.toast.err '尚未通过货主认证，请认证后再试'
 		e.stopPropagation()
 
-	_loadMore : ->
-		WarehouseAction.searchWarehouse {
-			startNo: @state.startNo
-			pageSize: @state.pageSize
-			cuvinType: @state.cuvinType
-			wareHouseType: @state.wareHouseType
-			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
-		}
 
 	render: ->
 		searchResultList = @state.searchResult.map (aResult, i)->
@@ -193,12 +194,12 @@ SearchWarehouse = React.createClass {
 					}
 				</ul>			
 			</div>
-			<div style={{display: if @state.resultCount is 0 then 'block' else 'none'}} className="m-searchNoresult">
+			<div style={{display: if @state.showHasNone then 'block' else 'none'}} className="m-searchNoresult">
 				<div className="g-bgPic"></div>
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
 			</div>
 
-			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore} >
+			<InfiniteScroll pageStart=0 loadMore={@_doSearchWarehouse} hasMore={_hasMore and not _isBusy} >
 				<CSSTransitionGroup transitionName="list">
 					{ searchResultList }
 				</CSSTransitionGroup>

@@ -159,7 +159,6 @@ getSearchWarehouseDetail = (warehouseId,focusid) ->
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'userName', data?.name
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'wishlst', data?.wishlst
 		_searchWarehouseDetail = _searchWarehouseDetail.set 'userHeaderImageUrl', data?.imgurl		#仓库主头像
-		console.log _searchWarehouseDetail.wishlst + 'oooooooooooooo'
 		propertyArr = warehouseLoad?.warehouseProperty or []
 		tempArr = []
 		for prop in propertyArr
@@ -176,8 +175,9 @@ getSearchWarehouseDetail = (warehouseId,focusid) ->
 
 searchWarehouse = (params)->
 	Http.post Constants.api.SEARCH_WAREHOUSE,params,(data)->
-		Plugin.loading.hide()
-		_warehouseSearchResult = data	#搜索仓库 返回的data本身就是数组
+		console.log '搜索仓库成功_____',data.length
+		_warehouseSearchResult = [] if params.startNo is 0
+		_warehouseSearchResult =  _warehouseSearchResult.concat data	#搜索仓库 返回的data本身就是数组
 		WarehouseStore.emitChange 'searchWarehouseSucc'
 	,null
 
@@ -185,7 +185,8 @@ warehouseSearchGoods = (params)->
 	params.priceType = 1
 	params.coldStoreFlag = 1
 	Http.post Constants.api.WAREHOUSE_SEARCH_GOODS,params,(data)->
-		_warehouseSearchGoodsResult = data.goods
+		_warehouseSearchGoodsResult = [] if params.startNo is 0
+		_warehouseSearchGoodsResult = _warehouseSearchGoodsResult.concat data.goods
 		WarehouseStore.emitChange 'warehouseSearchGoodsSucc'
 
 

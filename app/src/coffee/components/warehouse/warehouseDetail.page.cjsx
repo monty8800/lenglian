@@ -40,7 +40,12 @@ conf = (aProperty) ->
 				value = value + (if aProperty.value then ' ') + aProperty.valueTwo + '立方米'
 			warehouseArea.push value
 		when '4' 
-			warehousePriceValue = aProperty.value
+			pi = aProperty.value.indexOf '.'
+			if pi isnt -1
+				if aProperty.value.length > pi + 2
+					warehousePriceValue = aProperty.value.substr 0,(pi + 3)
+				else
+					warehousePriceValue = aProperty.value
 			warehousePriceUnit = aProperty.attributeName
 
 
@@ -107,7 +112,7 @@ WarehouseDetail = React.createClass {
 				# 多个小数点 或 小数点打头 或 0打头 第二位不是"."
 				Plugin.toast.err '价格格式不正确'
 				return
-			if (priceStr.indexOf '.') + 2 > priceStr.length
+			if (priceStr.indexOf '.') + 2 < priceStr.length
 				Plugin.toast.err '价格只能保留两位小数'
 				return
 				

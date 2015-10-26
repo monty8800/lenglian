@@ -138,14 +138,15 @@ AddWarehouse = React.createClass {
 				Plugin.toast.show '请输入价格'
 				return
 			else
-				if @_hasSrting @state.priceProperty.value
+				priceStr = @state.priceProperty.value
+				if @_hasSrting priceStr
 					# 有除了数字和小数点外的其他字符串
 					Plugin.toast.err '价格格式不正确'
 					return
-				if partArr.length > 2 or (priceStr.substr 0,1) is '.' or ((priceStr.substr 0,1) is '0' and (priceStr.substr 1,1) isnt '.')
+				if (priceStr.split '.').length > 2 or (priceStr.substr 0,1) is '.' or ((priceStr.substr 0,1) is '0' and (priceStr.substr 1,1) isnt '.')
 					Plugin.toast.err '价格格式不正确'
 					return
-				if (priceStr.indexOf '.') + 2 > priceStr.length
+				if (priceStr.indexOf '.') + 2 < priceStr.length
 					Plugin.toast.err '价格只能保留两位小数'
 					return
 				newState.priceProperty = newState.priceProperty.set 'attributeName',@state.priceUnit
