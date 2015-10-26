@@ -38,6 +38,8 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
 
     private TextView editorCar;
 
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -50,7 +52,7 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.car_detail);
-
+        isOnCreate = true;
         initView();
 
         // 记录到销毁栈中
@@ -105,7 +107,10 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
         MobclickAgent.onPageStart("订单详情");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "goodsOrderDetail.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "goodsOrderDetail.html", this, this, this, this);
+        }
+        isOnCreate = false;
         super.onResume();
     }
 

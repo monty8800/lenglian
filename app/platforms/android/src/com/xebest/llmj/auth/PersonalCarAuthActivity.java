@@ -193,7 +193,7 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
 
 
             driving = new HashMap<String, File>();
-            String pathD = files.getJSONObject(0).getString("path");
+            String pathD = files.getJSONObject(1).getString("path");
             if (pathD != null && !pathD.equals("")) {
                 if (pathD.contains("|")) {
                     driving.put("drivingImg", new File(licenseNet));
@@ -202,7 +202,7 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
             }
 
             idCard = new HashMap<String, File>();
-            String pathI = files.getJSONObject(1).getString("path");
+            String pathI = files.getJSONObject(0).getString("path");
             if (pathI != null && !pathI.equals("")) {
                 if (pathI.contains("|")) {
                     idCard.put("idcardImg", new File(idCardNet));
