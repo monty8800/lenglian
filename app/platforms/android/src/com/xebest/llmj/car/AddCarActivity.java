@@ -148,6 +148,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
             content.put("client_type", client_type);
             content.put("uuid", uuid);
             content.put("version", version);
+            content.put("userId", Application.getInstance().userId);
             content.put("data", ttData);
 
             driving = new HashMap<String, File>();

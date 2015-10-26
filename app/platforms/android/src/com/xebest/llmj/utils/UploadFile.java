@@ -192,9 +192,12 @@ public class UploadFile {
 
     public static String postWithJsonString(String api, String jsonStr) {
         Map<String, String> finalParams = new HashMap<String, String>();
-        finalParams.put("client_type", "3");
+        finalParams.put("client_type", ApiUtils.client_type);
+        finalParams.put("userId", Application.getInstance().userId);
         finalParams.put("uuid", Application.getInstance().UUID);
         finalParams.put("version", Application.getInstance().VERSIONCODE + "");
+        finalParams.put("sign", Tools.md5(Application.getInstance().UUID + ApiUtils.encryption
+                + jsonStr + ApiUtils.client_type));
         finalParams.put("data", jsonStr);
         Log.i("info", "--------jsonStr-----" + jsonStr);
         String result = httpPost(api, finalParams);

@@ -177,6 +177,7 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
             content.put("client_type", client_type);
             content.put("uuid", uuid);
             content.put("version", version);
+            content.put("userId", Application.getInstance().userId);
             content.put("data", ttData);
 
             idCard = new HashMap<String, File>();

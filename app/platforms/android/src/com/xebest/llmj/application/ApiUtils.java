@@ -53,4 +53,8 @@ public interface ApiUtils {
 
     String my_warehouse = SERVER + "/mjWarehouseCtl/queryMjWarehouse.shtml";
 
+    String encryption = "da971f8e9e024f579800cf20c146e6df";
+
+    String client_type = "3";
+
 }
