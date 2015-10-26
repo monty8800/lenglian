@@ -7,7 +7,7 @@ Plugin = require 'util/plugin'
 User = require 'model/user'
 
 crypto = require 'crypto'
-md5 = crypto.createHash 'md5'
+
 
 localUser = DB.get 'user'
 _user = new User localUser
@@ -35,6 +35,7 @@ postFile = (api, params, files, cb, err)->
 	DB.put 'version', version
 	DB.put 'client_type', client_type
 
+	md5 = crypto.createHash 'md5'
 	sign = md5.update(uuid + Constants.token + data + client_type, 'utf8').digest('hex').toLowerCase()
 
 	console.group()
@@ -113,6 +114,7 @@ post = (api, params, cb, err, showLoading, key, iv)->
 	DB.put 'version', version
 	DB.put 'client_type', client_type
 
+	md5 = crypto.createHash 'md5'
 	sign = md5.update(uuid + Constants.token + data + client_type, 'utf8').digest('hex').toLowerCase()
 
 	console.group()
