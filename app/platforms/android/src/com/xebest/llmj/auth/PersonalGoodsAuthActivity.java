@@ -179,6 +179,8 @@ public class PersonalGoodsAuthActivity extends BaseCordovaActivity implements Co
             content.put("version", version);
             content.put("userId", Application.getInstance().userId);
             content.put("data", ttData);
+            String sign = data.getString("sign");
+            content.put("sign", sign);
 
             idCard = new HashMap<String, File>();
             String path = files.getJSONObject(0).getString("path");

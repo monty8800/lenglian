@@ -166,6 +166,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             JSONObject data = args.getJSONObject(2);
             final JSONArray files = args.getJSONArray(3);
             final String ttData = data.getString("data");
+            String sign = data.getString("sign");
             JSONObject ttObj = new JSONObject(ttData);
             final String client_type = data.getString("client_type");
             final String version = data.getString("version");
@@ -185,6 +186,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             content.put("version", version);
             content.put("userId", Application.getInstance().userId);
             content.put("data", ttData);
+            content.put("sign", sign);
 
             driving = new HashMap<String, File>();
             String path = files.getJSONObject(0).getString("path");

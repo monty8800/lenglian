@@ -188,6 +188,8 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
             content.put("version", version);
             content.put("userId", Application.getInstance().userId);
             content.put("data", ttData);
+            String sign = data.getString("sign");
+            content.put("sign", sign);
 
 
             driving = new HashMap<String, File>();

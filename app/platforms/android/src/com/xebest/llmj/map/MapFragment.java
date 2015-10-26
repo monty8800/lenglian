@@ -338,6 +338,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             case R.id.select_goods: // 抢单
                 if (Application.getInstance().userId.equals("")) {
                     Tools.showErrorToast(getActivity(), "请先登录");
+                    return;
                 }
                 if (Application.getInstance().carStatus == 1) {
                     new CarResourceTask().execute();
@@ -348,6 +349,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             case R.id.select_driver: // 选择司机
                 if (Application.getInstance().userId.equals("")) {
                     Tools.showErrorToast(getActivity(), "请先登录");
+                    return;
                 }
                 if (Application.getInstance().goodsStatus == 1) {
                     new SelectDriverTask().execute();
@@ -358,6 +360,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             case R.id.select_store: // 选择仓库
                 if (Application.getInstance().userId.equals("")) {
                     Tools.showErrorToast(getActivity(), "请先登录");
+                    return;
                 }
                 if (Application.getInstance().goodsStatus == 1) {
                     new SelectDriverTask().execute();

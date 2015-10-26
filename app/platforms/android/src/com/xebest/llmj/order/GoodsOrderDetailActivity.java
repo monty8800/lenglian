@@ -11,9 +11,11 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.car.CarOwnerDetailActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.goods.SearchGoodsDetailActivity;
 import com.xebest.llmj.ware.SearchWarehouseDetailActivity;
+import com.xebest.llmj.ware.WarehouseOnwerDetailActivity;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -73,6 +75,10 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
                 OrderPayActivity.actionView(getActivity());
             } else if (flag.equals("doComment")) {
                 DoCommentActivity.actionView(getActivity());
+            } else if (flag.equalsIgnoreCase("carOnwerDetail")) {
+                CarOwnerDetailActivity.actionView(getActivity());
+            } else if (flag.equalsIgnoreCase("warehouseOnwerDetail")) {
+                WarehouseOnwerDetailActivity.actionView(getActivity());
             }
         }
 
