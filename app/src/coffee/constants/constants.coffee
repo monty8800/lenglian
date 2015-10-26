@@ -175,6 +175,7 @@ actionType = {
 	CHARGE_RECORD: null
 	PRESENT_RECORD: null
 	SEARCH_CAR: null
+	AUTO_LOGIN: null
 
 }
 

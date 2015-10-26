@@ -187,4 +187,3 @@ Car = React.createClass {
 }
 
 React.render <Car />, document.getElementById('content')
-

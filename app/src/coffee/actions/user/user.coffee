@@ -86,6 +86,10 @@ UserAction = {
 			params: params
 			files: files
 		}
+	autoLogin: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.AUTO_LOGIN
+		}
 }
 
 module.exports = UserAction

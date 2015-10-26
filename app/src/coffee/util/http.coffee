@@ -6,6 +6,8 @@ Plugin = require 'util/plugin'
 # request = require 'superagent'
 User = require 'model/user'
 
+UserAction = require 'actions/user/user'
+
 crypto = require 'crypto'
 
 
@@ -144,6 +146,7 @@ post = (api, params, cb, err, showLoading, key, iv)->
 			Plugin.loading.hide() if showLoading
 			if data.code isnt '0000'
 				return err data if err
+				UserAction.logout() if data.code is '0006'
 				console.error "错误码: #{data.code}, 错误信息: #{data.msg}"
 				if Constants.inBrowser
 					alert "接口：#{api},错误信息：#{data.msg}"

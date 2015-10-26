@@ -89,7 +89,6 @@ public class WarehouseOnwerDetailActivity extends BaseCordovaActivity implements
         if (flag.equals("warehouseDetail")) {
             WarehouseDetailActivity.actionView(WarehouseOnwerDetailActivity.this);
         }
-
     }
 
     @Override

@@ -61,7 +61,7 @@ public class WarehouseDetailActivity extends BaseCordovaActivity implements Cord
 
     protected void initView() {
         tvOk = (TextView) findViewById(R.id.near);
-        tvOk.setText("完成");
+        tvOk.setText("编辑");
         tvOk.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("仓库详情");
@@ -73,6 +73,17 @@ public class WarehouseDetailActivity extends BaseCordovaActivity implements Cord
                 finish();
             }
         });
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tvOk.getText().equals("编辑")) {
+                    tvOk.setText("完成");
+                    mWebView.getWebView().loadUrl("javascript:editWarehouse()");
+                } else {
+                    mWebView.getWebView().loadUrl("javascript:trySaveEditWarehouse()");
+                }
+            }
+        });
     }
 
     @Override
@@ -81,6 +92,23 @@ public class WarehouseDetailActivity extends BaseCordovaActivity implements Cord
         String flag = args.getString(0);
         if (flag.equals("2")) {
             finish();
+        } else {
+            String temp = args.getString(1);
+            if (temp.equalsIgnoreCase("warehouseDetail_saveEditSucc")) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvOk.setText("编辑");
+                    }
+                });
+            } else if (temp.equalsIgnoreCase("warehouseDetail_showEditButton")) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvOk.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
         }
 
     }
