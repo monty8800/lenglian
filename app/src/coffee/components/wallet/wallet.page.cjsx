@@ -17,10 +17,18 @@ Wallet = React.createClass {
 		Plugin.nav.push [page]
 		
 	_toCharge:-> 
-		Plugin.nav.push ['toCharge']
+		if UserStore.getUser()?.certification is 2
+			Plugin.toast.err '企业用户暂不开放充值功能'
+		else if UserStore.getUser()?.certification is 0
+			Plugin.toast.err '用户尚未通过任何角色认证，请认证后再试'
+		else
+			Plugin.nav.push ['toCharge']
 
 	_withdraw: ->
-		Plugin.nav.push ['withdraw']
+		if UserStore.getUser()?.certification is 0
+			Plugin.toast.err '用户尚未通过任何角色认证，请认证后再试'
+		else
+			Plugin.nav.push ['withdraw']
 
 	_showBillCurrentMonth: ->
 		Plugin.nav.push ['billList']
