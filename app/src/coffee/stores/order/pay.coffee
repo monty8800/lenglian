@@ -54,19 +54,9 @@ doPay = (params)->
 				DB.put 'transData', {
 					del: params.orderNo
 				}
-				PayStore.emitChange 'pay:success'
-			# TODO data 19 sunkai  20151024
-			else
-				DB.put 'transData', {
-					del: params.orderNo
-				}
-				PayStore.emitChange 'pay:success'
-				DB.put 'transData2', {
-					orderNo: params.orderNo
-					payAmount: params.money
-				}
-				Plugin.toast.success '支付成功'
-				Plugin.nav.push ['paySuccess']
+				PayStore.emitChange 'pay:suXccess'
+			when 19
+				Plugin.toast.err '支付金额已经超出账号总收入'
 	, null
 	, true
 

@@ -48,12 +48,12 @@ AuthStatus = React.createClass {
 				when 1 then return 'active01'
 				when 2 then return 'active02'
 				else return 'active03'
-		<div className="g-userInfo">
-			<ul>
+		<div className="g-userInfo">	
+			<ul>					
 				<li onClick={@_goAuth.bind this, 'WarehouseAuth'}>
 					<p className={'ll-font ' + statusMapper user.warehouseStatus } dangerouslySetInnerHTML={{__html:'<span></span>&#xe615;'}}></p>
 					<p>{'仓库' + Helper.authStatus user.warehouseStatus}</p>
-				</li>
+				</li>	
 				<li onClick={@_goAuth.bind this, 'GoodsAuth'}>
 					<p className={'ll-font ' + statusMapper user.goodsStatus} dangerouslySetInnerHTML={{__html:'<span></span>&#xe61a;'}}></p>
 					<p>{'货源' + Helper.authStatus user.goodsStatus}</p>

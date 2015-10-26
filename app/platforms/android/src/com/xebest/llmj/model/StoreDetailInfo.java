@@ -37,6 +37,17 @@ public class StoreDetailInfo {
 
     private String wareHouseType;
 
+    private String cuvinExtensive;
+
+    public void setCuvinExtensive(String cuvinExtensive) {
+        this.cuvinExtensive = cuvinExtensive;
+    }
+
+    public String getCuvinExtensive() {
+
+        return cuvinExtensive;
+    }
+
     public void setUserImgUrl(String userImgUrl) {
         this.userImgUrl = userImgUrl;
     }

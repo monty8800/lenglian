@@ -100,7 +100,14 @@ public class Application extends android.app.Application {
 
         SharedPreferences sp = getSharedPreferences("userInfo", 0);
         String id = sp.getString("userId", "");
+        int goodStatus = sp.getInt("goodsStatus", -1);
+        int warehouseStatuss = sp.getInt("warehouseStatus", -1);
+        int carStatuss = sp.getInt("carStatus", -1);
         userId = id;
+        if (goodStatus != -1) goodsStatus = goodStatus;
+        if (warehouseStatuss != -1) warehouseStatus = warehouseStatuss;
+        if (carStatuss != -1) carStatus = carStatuss;
+
 
         initImageLoader(getApplicationContext());
 

@@ -118,6 +118,9 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
             Application.getInstance().setCarStatus(Integer.parseInt(jsonObject.getString("carStatus")));
             SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
             editor.putString("userId", jsonObject.getString("id"));
+            editor.putInt("goodsStatus", jsonObject.getInt("goodsStatus"));
+            editor.putInt("warehouseStatus", jsonObject.getInt("warehouseStatus"));
+            editor.putInt("carStatus", jsonObject.getInt("carStatus"));
             editor.commit();
         }
         else if (flag.equalsIgnoreCase("login")) {
