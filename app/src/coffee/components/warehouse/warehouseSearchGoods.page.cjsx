@@ -6,6 +6,7 @@ require 'user-center-style'
 XeImage = require 'components/common/xeImage'
 Helper = require 'util/helper'
 React = require 'react/addons'
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 Auth = require 'util/auth'
 headerImg = require 'user-01.jpg'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
@@ -165,7 +166,9 @@ SearchResultList = React.createClass {
 			</div>
 		,this
 		<div>
+		<CSSTransitionGroup transitionName="list">
 			{items}
+		</CSSTransitionGroup>
 		</div>
 }
 

@@ -4,6 +4,7 @@ require 'majia-style'
 ImageHelper = require 'util/image'
 Auth = require 'util/auth'
 React = require 'react/addons'
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 Moment = require 'moment'
 headerImg = require 'user-01.jpg'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
@@ -192,7 +193,9 @@ SearchWarehouse = React.createClass {
 				<div className="g-bgPic"></div>
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
 			</div>
+			<CSSTransitionGroup transitionName="list">
 			{ searchResultList }
+			</CSSTransitionGroup>
 			
 
 		</div>

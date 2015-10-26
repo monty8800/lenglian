@@ -6,6 +6,7 @@ Immutable = require 'immutable'
 
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 
 Plugin = require 'util/plugin'
 NoResult = require 'components/common/noResult'
@@ -201,7 +202,9 @@ CarFindGoods = React.createClass {
 		</div>
 		<NoResult isShow={@state.isShow} />
 		<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={_hasMore and not _netBusy}>
+		<CSSTransitionGroup transitionName="list">
 		{ goodsCells }
+		</CSSTransitionGroup>
 		</InfiniteScroll>
 
 		<AddressSelector />

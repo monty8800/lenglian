@@ -1,6 +1,7 @@
 # 车主订单Cell
 require 'components/common/common'
-React = require 'react'
+React = require 'react/addons'
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
 OrderAction = require 'actions/order/order'
@@ -145,7 +146,11 @@ CarItem = React.createClass {
 				</div>
 			</div>
 		, this
-		<div>{items}</div>
+		<div>
+		<CSSTransitionGroup transitionName="list">
+		{items}
+		</CSSTransitionGroup>
+		</div>
 }
 
 module.exports = CarItem

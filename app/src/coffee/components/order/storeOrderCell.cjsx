@@ -1,5 +1,6 @@
 # 仓库订单Cell
-React = require 'react'
+React = require 'react/addons'
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
 DRIVER_LOGO = require 'user-01.jpg'
@@ -98,7 +99,11 @@ StoreCell = React.createClass {
 				</div>
 			</div>
 		, this
-		<div>{items}</div>
+		<div>
+		<CSSTransitionGroup transitionName="list">
+		{items}
+		</CSSTransitionGroup>
+		</div>
 }
 
 module.exports = StoreCell

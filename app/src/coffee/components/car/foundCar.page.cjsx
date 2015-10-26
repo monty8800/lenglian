@@ -2,6 +2,7 @@ require 'components/common/common'
 require 'index-style'
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 LinkedStateMixin = React.addons.LinkedStateMixin
 InfiniteScroll = require('react-infinite-scroll')(React)
 Constants = require 'constants/constants'
@@ -144,7 +145,9 @@ FoundCar = React.createClass {
 			<ScreenMenu />
 			<NoResult isShow={@state.isShow} />
 			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore} >
+			<CSSTransitionGroup transitionName="list">
 				{carCells}
+			</CSSTransitionGroup>
 			</InfiniteScroll>
 		</section>
 }
