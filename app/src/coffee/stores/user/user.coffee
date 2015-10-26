@@ -19,6 +19,11 @@ _user = new User localUser
 now = new Date
 _updateTime = now.getTime()
 
+XeCrypto = require 'util/crypto'
+
+#过期自动匿名登陆
+
+
 needCheck = ->
 	return _user.carStatus is 2 or _user.goodsStatus is 2 or _user.warehouseStatus is 2 or (not _user.name and not _user.company)
 
@@ -200,12 +205,18 @@ login = (mobile, passwd)->
 		usercode: mobile
 		password: passwd
 	}, (data)->
+		tmpPasswd = (Math.random() + '')[-16..]
+		encryptPasswd = XeCrypto.aesEncrypt tmpPasswd, passwd
+		result = (new Buffer(encryptPasswd + tmpPasswd)).toString('base64')
+		console.log 'tmpPasswd:', tmpPasswd, ' encryptPasswd:', encryptPasswd, ' result:', result
 		_user = _user.set 'carStatus', parseInt(data.carStatus)
 		_user = _user.set 'certification', parseInt(data.certification)
 		_user = _user.set 'goodsStatus', parseInt(data.goodsStatus)
 		_user = _user.set 'avatar', data.imgurl
 		_user = _user.set 'id', data.userId
 		_user = _user.set 'mobile', data.usercode
+		_user = _user.set 'passwd', result
+		_user = _user.set 'lastLogin', (new Date).getTime()
 		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
 		DB.put 'user', _user.toJS()
 		DB.put 'LAST_LOGIN_MOBILE', mobile
