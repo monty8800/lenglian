@@ -72,8 +72,12 @@
                                                                                         @"version": [Global sharedInstance].version,
                                                                                         @"client_type": CLIENT_TYPE
                                                                                         } httpMethod:@"POST"];
+    NSString *userId = [[Global getUser] objectForKey:@"id"];
+    if (userId == nil) {
+        userId = @"";
+    }
     
-    [op addParams:@{@"data": [params WY_ToJson]}];
+    [op addParams:@{@"userId": userId, @"data": [params WY_ToJson]}];
     
     DDLogDebug(@"请求接口%@, 参数%@", api, op);
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {

@@ -315,7 +315,7 @@
 
 -(void)selectCar:(NSString *)carId goods:(NSString *)goodsId {
     NSDictionary *params = @{
-                             @"goodsUserId": [[Global getUser] objectForKey:@"id"],
+                             @"userId": [[Global getUser] objectForKey:@"id"],
                              @"goodsResouseId": goodsId,
                              @"carResouseId": carId
                              };

@@ -4,6 +4,10 @@ DB = require 'util/storage'
 UUID = require 'util/uuid'
 Plugin = require 'util/plugin'
 # request = require 'superagent'
+User = require 'model/user'
+
+localUser = DB.get 'user'
+_user = new User localUser
 
 postFile = (api, params, files, cb, err)->
 	data = JSON.stringify params
@@ -34,6 +38,7 @@ postFile = (api, params, files, cb, err)->
 		version: version
 		client_type: client_type
 		data: data
+		userId: _user?.id or '' 
 	}
 	
 	api = Constants.api.server + api if api.indexOf('http') isnt 0 and not Constants.inBrowser
@@ -108,6 +113,7 @@ post = (api, params, cb, err, showLoading, key, iv)->
 		version: version
 		client_type: client_type
 		data: data
+		userId: _user?.id or ''
 	}
 	
 	api = Constants.api.server + api if api.indexOf('http') isnt 0 and not Constants.inBrowser
