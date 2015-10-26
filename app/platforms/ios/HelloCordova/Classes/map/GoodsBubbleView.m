@@ -81,10 +81,12 @@
         [_btn setTitle:@"竞价" forState:UIControlStateNormal];
     }
     
+
+    
     NSMutableString *desc = [[NSMutableString alloc] initWithString:@"货物描述： "];
-//    if (![[data objectForKey:@"name"] isKindOfClass:[NSNull class]]) {
-//        [desc appendString:[data objectForKey:@"name"]];
-//    }
+    if (![[data objectForKey:@"name"] isKindOfClass:[NSNull class]]) {
+        [desc appendString:[data objectForKey:@"name"]];
+    }
     
     [desc appendFormat:@"%@", [Global goodsType:[[data objectForKey:@"goodsType"] integerValue]]];
     [desc appendFormat:@" %@吨", [data objectForKey:@"weight"]];
