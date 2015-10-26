@@ -22,7 +22,31 @@ _updateTime = now.getTime()
 XeCrypto = require 'util/crypto'
 
 #过期自动匿名登陆
+if _user.passwd and (new Date).getTime() - _user.lastLogin or 0 > Constants.KEEP_LOGIN_TIME
+	result = (new Buffer(_user.passwd, 'base64')).toString('utf8')
+	tmpPasswd = result[-16..]
+	encryptPasswd = result[0...-16]
+	plainPasswd = XeCrypto.aesDecrypt tmpPasswd, encryptPasswd
+	console.log 'plainPasswd', plainPasswd
 
+
+	Http.post Constants.api.LOGIN, {
+		usercode: _user.mobile
+		password: plainPasswd
+	}, (data)->
+		_user = _user.set 'carStatus', parseInt(data.carStatus)
+		_user = _user.set 'certification', parseInt(data.certification)
+		_user = _user.set 'goodsStatus', parseInt(data.goodsStatus)
+		_user = _user.set 'avatar', data.imgurl
+		_user = _user.set 'id', data.userId
+		_user = _user.set 'lastLogin', (new Date).getTime()
+		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
+		DB.put 'user', _user.toJS()
+		Plugin.run [9, 'user:update', _user.toJS()]
+	, (data)->
+		Plugin.toast.err '会话已过期，请重新登录'
+		logout()
+	, false
 
 needCheck = ->
 	return _user.carStatus is 2 or _user.goodsStatus is 2 or _user.warehouseStatus is 2 or (not _user.name and not _user.company)
@@ -222,7 +246,6 @@ login = (mobile, passwd)->
 		DB.put 'LAST_LOGIN_MOBILE', mobile
 		UserStore.emitChange 'login:done'
 		Plugin.run [9, 'user:update', _user.toJS()]
-
 	, null
 	, true
 

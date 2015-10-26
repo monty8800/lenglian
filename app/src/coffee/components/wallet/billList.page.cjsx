@@ -60,7 +60,7 @@ BillList = React.createClass {
 					<dd className="fl">
 						<p className="clearfix">
 							<span>{ bill.userMobile }</span>
-							<span className={ if parseInt(bill.type) is 1 or parseInt(bill.type) is 4 then "plus" else "" } >{bill.amount}</span>
+							<span className={ if parseInt(bill.type) is 1 or parseInt(bill.type) is 4 then "plus" else "" } >{bill.amount.toFixed(2) + '元'}</span>
 						</p>
 						<p className="clearfix">
 							<span>{ bill.createTime }</span>

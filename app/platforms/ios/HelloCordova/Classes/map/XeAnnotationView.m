@@ -37,6 +37,7 @@
             
         case WAREHOUSE:
             image = [UIImage imageNamed:@"map_warehouse"];
+            break;
             
         case GOODS_NEED_WAREHOUSE:
             image = [UIImage imageNamed:@"map_goods_need_warehouse"];
