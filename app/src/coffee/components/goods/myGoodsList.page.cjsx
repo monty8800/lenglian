@@ -38,6 +38,18 @@ GoodsListItem = React.createClass {
 			else
 				_statusText = Helper.goodsStatus item.resourceStatus
 
+			toText = ''
+			if item.toProvinceName is item.toCityName
+				toText = (item.toCityName or '') + (item.toAreaName or '') + (item.toStreet or '')
+			else
+				toText = (item.toProvinceName or '') + (item.toCityName or '') + (item.toAreaName or '') + (item.toStreet or '')
+
+			fromText = ''
+			if item.fromProvinceName is item.fromCityName
+				fromText = (item.fromCityName or '') + (item.fromAreaName or '') + (item.fromStreet or '')
+			else
+				fromText = (item.fromProvinceName or '') + (item.fromCityName or '') + (item.fromAreaName or '') + (item.fromStreet or '')			
+
 			<div className="m-item03" onClick={ @_toGoodsDetail.bind this,i }>
 				<div className="g-itemList">
 					<h5>
@@ -49,21 +61,9 @@ GoodsListItem = React.createClass {
 						
 				</div>			
 				<div className="g-itemList g-item g-adr-detail ll-font">			
-					<div className="g-adr-start ll-font g-adr-start-line">
-						{
-							if item.toProvinceName is item.toCityName
-								(item.toCityName or '') + (item.toAreaName or '') + (item.toStreet or '')
-							else
-								(item.toProvinceName or '') + (item.toCityName or '') + (item.toAreaName or '') + (item.toStreet or '')
-						}
+					<div className="g-adr-start ll-font g-adr-start-line" dangerouslySetInnerHTML={{__html: toText + '<span></span>'}}>
 					</div>
-					<div className="g-adr-end ll-font g-adr-end-line">
-						{
-							if item.fromProvinceName is item.fromCityName
-								(item.fromCityName or '') + (item.fromAreaName or '') + (item.fromStreet or '')
-							else
-								(item.fromProvinceName or '') + (item.fromCityName or '') + (item.fromAreaName or '') + (item.fromStreet or '')
-						}
+					<div className="g-adr-end ll-font g-adr-end-line" dangerouslySetInnerHTML={{__html: fromText + '<span></span>'}}>
 					</div>
 				</div>			
 				<div className="g-itemList">

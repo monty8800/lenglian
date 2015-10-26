@@ -22,7 +22,8 @@ _updateTime = now.getTime()
 XeCrypto = require 'util/crypto'
 
 #过期自动匿名登陆
-if _user.passwd and (new Date).getTime() - _user.lastLogin or 0 > Constants.KEEP_LOGIN_TIME
+
+autoLogin = ->
 	result = (new Buffer(_user.passwd, 'base64')).toString('utf8')
 	tmpPasswd = result[-16..]
 	encryptPasswd = result[0...-16]
@@ -47,6 +48,9 @@ if _user.passwd and (new Date).getTime() - _user.lastLogin or 0 > Constants.KEEP
 		Plugin.toast.err '会话已过期，请重新登录'
 		logout()
 	, false
+
+if _user.passwd and (new Date).getTime() - _user.lastLogin or 0 > Constants.KEEP_LOGIN_TIME
+	autoLogin()
 
 needCheck = ->
 	return _user.carStatus is 2 or _user.goodsStatus is 2 or _user.warehouseStatus is 2 or (not _user.name and not _user.company)
@@ -219,8 +223,14 @@ register = (mobile, code, passwd)->
 		mobileCode: code
 		password: passwd
 	}, (data)->
+		tmpPasswd = (Math.random() + '')[-16..]
+		encryptPasswd = XeCrypto.aesEncrypt tmpPasswd, passwd
+		result = (new Buffer(encryptPasswd + tmpPasswd)).toString('base64')
 		_user = _user.set 'id', data.userId
+		_user = _user.set 'mobile', mobile
+		_user = _user.set 'passwd', result
 		DB.put 'user', _user.toJS()
+		autoLogin()
 		UserStore.emitChange 'register:done'
 
 login = (mobile, passwd)->
@@ -350,6 +360,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.CLEAR_AUTH_PIC then clearAuthPic(action.type)
 		when Constants.actionType.UPDATE_USER then updateUserProps(action.properties)
 		when Constants.actionType.COMPANY_AUTH then companyAuth(action.params, action.files)
+		when Constants.actionType.AUTO_LOGIN then autoLogin()
 		when Constants.actionType.UPDATE_STORE then updateStore()
 
 module.exports = UserStore
