@@ -426,6 +426,7 @@ cache = {
 	USER_INFO: 3 * 60 * 1000 #更新用户信息的间隔
 	USER_INFO_MIN: 30 * 1000 #更新用户信息最小间隔
 	SUPPORT_BANK_LIST: 7 * 24 * 60 * 60 * 1000 #支持银行列表
+	KEEP_LOGIN_TIME: 29 * 24 * 60 * 60 * 1000 #保持用户登陆的时间
 }
 
 carPicSize = '200x200'
@@ -444,3 +445,4 @@ module.exports =
 	cache: cache
 	imageServer: imageServer
 	carPicSize: carPicSize
+	token: 'da971f8e9e024f579800cf20c146e6df'

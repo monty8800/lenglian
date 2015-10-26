@@ -6,6 +6,9 @@ Plugin = require 'util/plugin'
 # request = require 'superagent'
 User = require 'model/user'
 
+crypto = require 'crypto'
+md5 = crypto.createHash 'md5'
+
 localUser = DB.get 'user'
 _user = new User localUser
 
@@ -107,6 +110,8 @@ post = (api, params, cb, err, showLoading, key, iv)->
 	DB.put 'version', version
 	DB.put 'client_type', client_type
 
+	sign = md5.update(uuid + Constants.token + data + client_type).digest('base64')
+
 	console.group()
 	paramDic = {
 		uuid: uuid
@@ -114,6 +119,7 @@ post = (api, params, cb, err, showLoading, key, iv)->
 		client_type: client_type
 		data: data
 		userId: _user?.id or ''
+		sign: sign
 	}
 	
 	api = Constants.api.server + api if api.indexOf('http') isnt 0 and not Constants.inBrowser
