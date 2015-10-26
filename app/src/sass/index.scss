@@ -11,7 +11,7 @@
 
 .m-nav {
 	padding:20/$ppr 0 20/$ppr 20/$ppr;
-   
+
 	ul{
 		
 	}
@@ -788,7 +788,7 @@
 }
 
 .m-dis-item {
-	padding:20/$ppr 30/$ppr;
+	padding:20/$ppr 30/$ppr 20/$ppr 10/$ppr;
 	border-top: 1px solid #e6e6e6;
 	border-bottom:1px solid #e6e6e6;
 	background: #fff;
@@ -798,12 +798,13 @@
 		margin-top: 20/$ppr;
 	}
 	.item-pic {
-		width: 100/$ppr;
-		padding:15/$ppr 30/$ppr 0 0;
+		width: 140/$ppr;
+		padding:15/$ppr 10/$ppr 0 0;
 		p{
 			&:first-child {
-				width:100%;
+				width:100/$ppr;
 				height: 100/$ppr;
+				padding: 0 20/$ppr;
 				img {
 					width: 100%;
 					border-radius: 50%;
@@ -823,7 +824,7 @@
 	}
 
 	.item-msg {
-		margin-left: 130/$ppr;
+		margin-left: 150/$ppr;
 		padding-left: 30/$ppr;
 		border-left: 1px solid #e6e6e6;
 

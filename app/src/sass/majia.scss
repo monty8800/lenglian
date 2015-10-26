@@ -10,7 +10,7 @@
     url('../fonts/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
 }
 
-.ll-font            
+.ll-font
 {
     font-family: 'll-font' !important;
     font-size: 16/$ppr;
@@ -60,7 +60,7 @@
     &.nopadding{
         padding:0 0 0 20/$ppr;
     }
-	.g-adr-start,.g-adr-end,.g-adr-active {
+	.g-adr-start,.g-adr-end,.g-adr-middle,.g-adr-active {
 		//height: 40/$ppr;
 		line-height: 40/$ppr;
 		position: relative;
@@ -81,7 +81,7 @@
 		}
 	}
 	.g-adr-middle{
-	    display: none;
+//	    display: none;
 	}
 
 	.g-adr-start-line{
@@ -89,7 +89,7 @@
 		&:after {
 			content: "";
 			width: 2/$ppr;
-			height: 100%;
+			height: 12/$ppr;
 			position: absolute;
 			left: 19/$ppr;
 			bottom: 0;
@@ -112,7 +112,8 @@
 		&:after {
 			content: "";
 			width: 2/$ppr;
-			height: 100%;
+//			height: 100%;
+            height: 12/$ppr;
 			position: absolute;
 			left: 19/$ppr;
 			top: 0;
@@ -641,10 +642,10 @@
         margin-bottom:0;
     }
     p{
-        padding-right: 20/$ppr;
+        padding: 20/$ppr 20/$ppr 20/$ppr 0;
         border-bottom: 1px solid #e6e6e6;
-        height: 88/$ppr;
-        line-height: 88/$ppr;
+//      height: 88/$ppr;
+        line-height: 48/$ppr;
         &:last-child{
             border-bottom: none;
         }
@@ -660,9 +661,9 @@
                 float: right;
                 max-width: 450/$ppr;
                 text-align: right;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow:ellipsis;
+//              overflow: hidden;
+//              white-space: nowrap;
+//              text-overflow:ellipsis;
                 color: #333;
             }
         }
@@ -889,7 +890,6 @@
         font-size: 30/$ppr;
         line-height: 42/$ppr;
     }
-    
 }
 //paypage alertBox
 .m-gray,.m-gray03{
@@ -1690,12 +1690,6 @@
 
 select.weight{
     width: 125/$ppr;
-    height: 45/$ppr;
-    border: 1px solid #e6e6e6;
-    border-radius: 5/$ppr;
-    text-indent: 5/$ppr;
-    margin:-10/$ppr 0 -8/$ppr 0;
-    outline: none;
 }
 
 .radio{

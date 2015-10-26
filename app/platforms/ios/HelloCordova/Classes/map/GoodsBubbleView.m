@@ -85,7 +85,7 @@
     
     NSMutableString *desc = [[NSMutableString alloc] initWithString:@"货物描述： "];
     if (![[data objectForKey:@"name"] isKindOfClass:[NSNull class]]) {
-        [desc appendString:[data objectForKey:@"name"]];
+        [desc appendString:[NSString stringWithFormat:@"%@ ", [data objectForKey:@"name"]]];
     }
     
     [desc appendFormat:@"%@", [Global goodsType:[[data objectForKey:@"goodsType"] integerValue]]];
