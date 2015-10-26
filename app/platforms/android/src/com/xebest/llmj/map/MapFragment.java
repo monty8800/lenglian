@@ -115,6 +115,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
 
     private String goodsId = "";
 
+    private String signStr = "";
+
     private List<NearInfo> list = new ArrayList<NearInfo>();
 
     private List<CarListInfo> carList = new ArrayList<CarListInfo>();
@@ -410,13 +412,25 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             } else if (status == 3) {
                 url = ApiUtils.SERVER + "/findNear/nearWarehouse.shtml";
             }
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("leftLng", leftLng + "");
-            map.put("leftLat", leftLat + "");
-            map.put("rightLng", rightLng + "");
-            map.put("rightLat", rightLat + "");
-            map.put("userId", Application.getInstance().userId);
-            String result = UploadFile.postWithJsonString(url, new Gson().toJson(map));
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("leftLng", leftLng);
+            map.put("leftLat", leftLat);
+            map.put("rightLng", rightLng);
+            map.put("rightLat", rightLat);
+            final String str = Application.getInstance().UUID + ApiUtils.encryption
+                    + new Gson().toJson(map) + ApiUtils.client_type;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    signStr = Tools.md5(str);
+                }
+            });
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String result = UploadFile.postWithJsonString2(url, new Gson().toJson(map), signStr);
             Log.i("info", "-------------result:" + result);
             return result;
         }
@@ -514,7 +528,21 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             Map<String, String> map = new HashMap<String, String>();
             map.put("id", params[0]);
             map.put("userId", Application.getInstance().userId);
-            String result = UploadFile.postWithJsonString(url, new Gson().toJson(map));
+            final String str = Application.getInstance().UUID + ApiUtils.encryption
+                    + new Gson().toJson(map) + ApiUtils.client_type;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    signStr = Tools.md5(str);
+                }
+            });
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String result = UploadFile.postWithJsonString2(url, new Gson().toJson(map), signStr);
+//            String result = UploadFile.postWithJsonString(url, new Gson().toJson(map));
             return result;
         }
 
@@ -625,7 +653,21 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             map.put("pageSize", "100");
 //            map.put("priceType", "1");
 //            map.put("coldStoreFlag", "1");
-            return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
+            final String str = Application.getInstance().UUID + ApiUtils.encryption
+                    + new Gson().toJson(map) + ApiUtils.client_type;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    signStr = Tools.md5(str);
+                }
+            });
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return UploadFile.postWithJsonString2(ApiUtils.STORE_LIST, new Gson().toJson(map), signStr);
+//            return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
         }
 
         @Override
@@ -753,7 +795,22 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 map.put("carResouseId", params[0]);
             }
 
-            return UploadFile.postWithJsonString(url, new Gson().toJson(map));
+            final String str = Application.getInstance().UUID + ApiUtils.encryption
+                    + new Gson().toJson(map) + ApiUtils.client_type;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    signStr = Tools.md5(str);
+                }
+            });
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return UploadFile.postWithJsonString2(url, new Gson().toJson(map), signStr);
+
+//            return UploadFile.postWithJsonString(url, new Gson().toJson(map));
         }
 
         @Override
@@ -775,47 +832,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             Tools.dismissLoading();
         }
 
-    }
-
-    /**
-     * 库找货下单
-     */
-    public class StoreFoundGoodsTash extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Tools.createLoadingDialog(getActivity(), "正在提交...");
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("userId", Application.getInstance().userId);
-            map.put("carResourceId", carId);
-            map.put("orderGoodsId", params[0]);
-            return UploadFile.postWithJsonString(ApiUtils.car_found_goods, new Gson().toJson(map));
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.i("info", "-------------result:" + s);
-            if (s != null && s != "") {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    String code = jsonObject.getString("code");
-                    if (code.equals("0000")) {
-                        Tools.showSuccessToast(getActivity(), "下单成功");
-                    } else {
-                        Tools.showErrorToast(getActivity(), jsonObject.getString("msg"));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            Tools.dismissLoading();
-        }
     }
 
     /**
@@ -834,7 +850,21 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             Map<String, String> map = new HashMap<String, String>();
             map.put("userId", Application.getInstance().userId);
             map.put("goodsResourceId", goodsId);
-            return UploadFile.postWithJsonString(ApiUtils.car_resource, new Gson().toJson(map));
+            final String str = Application.getInstance().UUID + ApiUtils.encryption
+                    + new Gson().toJson(map) + ApiUtils.client_type;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    signStr = Tools.md5(str);
+                }
+            });
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return UploadFile.postWithJsonString2(ApiUtils.car_resource, new Gson().toJson(map), signStr);
+//            return UploadFile.postWithJsonString(ApiUtils.car_resource, new Gson().toJson(map));
         }
 
         @Override
@@ -935,8 +965,21 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
 //            map.put("carResouseId", params[0]);
             map.put("carResourceId", params[0]);
             map.put("goodsResourceId", goodsId);
-            return UploadFile.postWithJsonString(ApiUtils.car_found_goods, new Gson().toJson(map));
-//            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
+            final String str = Application.getInstance().UUID + ApiUtils.encryption
+                    + new Gson().toJson(map) + ApiUtils.client_type;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    signStr = Tools.md5(str);
+                }
+            });
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return UploadFile.postWithJsonString2(ApiUtils.car_found_goods, new Gson().toJson(map), signStr);
+//            return UploadFile.postWithJsonString(ApiUtils.car_found_goods, new Gson().toJson(map));
         }
 
         @Override

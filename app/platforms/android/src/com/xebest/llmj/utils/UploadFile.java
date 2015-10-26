@@ -196,8 +196,22 @@ public class UploadFile {
         finalParams.put("userId", Application.getInstance().userId);
         finalParams.put("uuid", Application.getInstance().UUID);
         finalParams.put("version", Application.getInstance().VERSIONCODE + "");
-        finalParams.put("sign", Tools.md5(Application.getInstance().UUID + ApiUtils.encryption
-                + jsonStr + ApiUtils.client_type));
+        String signStr = Tools.md5(Application.getInstance().UUID + ApiUtils.encryption
+                + jsonStr + ApiUtils.client_type);
+        finalParams.put("sign", signStr);
+        finalParams.put("data", jsonStr);
+        Log.i("info", "--------jsonStr-----" + jsonStr);
+        String result = httpPost(api, finalParams);
+        return result;
+    }
+
+    public static String postWithJsonString2(String api, String jsonStr, String sign) {
+        Map<String, String> finalParams = new HashMap<String, String>();
+        finalParams.put("client_type", ApiUtils.client_type);
+        finalParams.put("userId", Application.getInstance().userId);
+        finalParams.put("uuid", Application.getInstance().UUID);
+        finalParams.put("version", Application.getInstance().VERSIONCODE + "");
+        finalParams.put("sign", sign);
         finalParams.put("data", jsonStr);
         Log.i("info", "--------jsonStr-----" + jsonStr);
         String result = httpPost(api, finalParams);
