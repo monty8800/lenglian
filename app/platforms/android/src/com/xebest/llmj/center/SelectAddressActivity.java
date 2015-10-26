@@ -81,9 +81,10 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        if (args.toString().contains("2")) {
+        String flag = args.getString(1);
+        if (flag.equalsIgnoreCase("2")) {
             finish();
-        } else if (args.toString().contains("location")) {
+        } else if (flag.equalsIgnoreCase("location")) {
             LocationActivity.actionView(this);
         }
 
