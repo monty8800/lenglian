@@ -95,9 +95,19 @@ public class WarehouseDetailActivity extends BaseCordovaActivity implements Cord
         } else {
             String temp = args.getString(1);
             if (temp.equalsIgnoreCase("warehouseDetail_saveEditSucc")) {
-                tvOk.setText("编辑");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvOk.setText("编辑");
+                    }
+                });
             } else if (temp.equalsIgnoreCase("warehouseDetail_showEditButton")) {
-                tvOk.setVisibility(View.VISIBLE);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvOk.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         }
 
