@@ -3,6 +3,7 @@ package com.xebest.llmj.center;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -85,6 +86,12 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
         String flag = args.getString(1);
         if (flag.equalsIgnoreCase("user:update")) {
             ((Application) getApplication()).setUserId("");
+            SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
+            editor.putString("userId", "");
+            editor.putInt("goodsStatus", -1);
+            editor.putInt("warehouseStatus", -1);
+            editor.putInt("carStatus", -1);
+            editor.commit();
             finish();
         } else if (flag.equalsIgnoreCase("changePasswd")) {
             ChangePwdActivity.actionView(MoreActivity.this);

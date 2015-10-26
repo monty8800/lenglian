@@ -11,6 +11,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.center.ChangePwdActivity;
 import com.xebest.llmj.center.PaySuccessActivity;
 import com.xebest.llmj.center.ResetPwdActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
@@ -71,6 +72,9 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
             PaySuccessActivity.actionView(this);
         } else if (flag.equalsIgnoreCase("addBankCard")) {
             AddBankActivity.actionView(this);
+        } else if (flag.equalsIgnoreCase("changePasswd")) {
+//            ResetPwdActivity.actionView(this, "设置支付密码");
+            ChangePwdActivity.actionView(this);
         }
     }
 

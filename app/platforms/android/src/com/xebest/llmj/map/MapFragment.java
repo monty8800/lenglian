@@ -334,6 +334,9 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 storeBottomView.setVisibility(View.GONE);
                 break;
             case R.id.select_goods: // 抢单
+                if (Application.getInstance().userId.equals("")) {
+                    Tools.showErrorToast(getActivity(), "请先登录");
+                }
                 if (Application.getInstance().carStatus == 1) {
                     new CarResourceTask().execute();
                 } else {
@@ -341,6 +344,9 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 }
                 break;
             case R.id.select_driver: // 选择司机
+                if (Application.getInstance().userId.equals("")) {
+                    Tools.showErrorToast(getActivity(), "请先登录");
+                }
                 if (Application.getInstance().goodsStatus == 1) {
                     new SelectDriverTask().execute();
                 } else {
@@ -348,6 +354,9 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 }
                 break;
             case R.id.select_store: // 选择仓库
+                if (Application.getInstance().userId.equals("")) {
+                    Tools.showErrorToast(getActivity(), "请先登录");
+                }
                 if (Application.getInstance().goodsStatus == 1) {
                     new SelectDriverTask().execute();
                 } else {
@@ -395,11 +404,11 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         protected String doInBackground(String... params) {
             String url = "";
             if (status == 1) {
-                url = "http://192.168.26.177:7080/llmj-app/findNear/nearGoods.shtml";
+                url = ApiUtils.SERVER + "/findNear/nearGoods.shtml";
             } else if (status == 2) {
-                url = "http://192.168.26.177:7080/llmj-app/findNear/nearCar.shtml";
+                url = ApiUtils.SERVER + "/findNear/nearCar.shtml";
             } else if (status == 3) {
-                url = "http://192.168.26.177:7080/llmj-app/findNear/nearWarehouse.shtml";
+                url = ApiUtils.SERVER + "/findNear/nearWarehouse.shtml";
             }
             Map<String, String> map = new HashMap<String, String>();
             map.put("leftLng", leftLng + "");
@@ -537,7 +546,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                             list.get(0).getAreaName());
 //                    storeType.setText("仓库类型：" + Helper.getStoreType(list.get(0).getWareHouseType()));
                     storeType.setText("仓库类型：" + list.get(0).getWareHouseType());
-                    storeTemperatureType.setText("库温类型：" + list.get(0).getCuvinType());
+                    storeTemperatureType.setText("库温类型：" + list.get(0).getCuvinExtensive());
                     storePrice.setText("价格：" + list.get(0).getPrice());
                 } else if (status == 1) {// 货
                     JSONObject jsonObject1 = new JSONObject(data);
@@ -720,18 +729,24 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         protected String doInBackground(String... params) {
             String url = "";
             Map<String, String> map = new HashMap<String, String>();
-            map.put("userId", Application.getInstance().userId);
             if (status == 2) {
-                map.put("carResourceId", carId);
-                map.put("goodsResourceId", params[0]);
-                url = ApiUtils.car_found_goods;
+//                map.put("carResourceId", carId);
+//                map.put("goodsResourceId", params[0]);
+//                url = ApiUtils.car_found_goods;
+                map.put("goodsUserId", Application.getInstance().userId);
+                map.put("goodsResouseId", params[0]);
+                map.put("carResouseId", carId);
+                url = ApiUtils.goods_found_car;
             } else if (status == 3) {
+                map.put("userId", Application.getInstance().userId);
                 map.put("warehouseId", storeId);
                 map.put("orderGoodsId", params[0]);
 //                url = ApiUtils.store_found_goods;
                 url = ApiUtils.goods_find_store_order;
             } else if (status == 1) {
-                url = ApiUtils.goods_found_car;
+                url = ApiUtils.car_found_goods;
+//                url = ApiUtils.goods_found_car;
+                map.put("userId", Application.getInstance().userId);
                 map.put("goodsResouseId", goodsId);
                 map.put("carResouseId", params[0]);
             }
@@ -900,7 +915,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     }
 
     /**
-     * 货找车提交订单
+     * 车找货提交订单
      */
     private class GoodsFindCarTask extends AsyncTask<String, Void, String> {
 
@@ -914,9 +929,12 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         protected String doInBackground(String... params) {
             Map<String, String> map = new HashMap<String, String>();
             map.put("userId", Application.getInstance().userId);
-            map.put("goodsResouseId", goodsId);
-            map.put("carResouseId", params[0]);
-            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
+//            map.put("goodsResouseId", goodsId);
+//            map.put("carResouseId", params[0]);
+            map.put("carResourceId", params[0]);
+            map.put("goodsResourceId", goodsId);
+            return UploadFile.postWithJsonString(ApiUtils.car_found_goods, new Gson().toJson(map));
+//            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
         }
 
         @Override
