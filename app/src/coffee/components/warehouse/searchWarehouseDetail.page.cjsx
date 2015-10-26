@@ -26,10 +26,20 @@ warehouseArea = [] #面积
 
 conf = (aProperty) ->
 	switch aProperty.type
-		when '1' then warehouseType.push aProperty.attributeName
-		when '2' then warehouseIncreaseValue.push aProperty.attributeName
-		when '3' then warehouseArea.push aProperty.attributeName + '   ' + aProperty.value
-		when '4' then warehousePrice.push  aProperty.value + aProperty.attributeName
+		when '1'
+			warehouseType.push aProperty.attributeName
+		when '2' 
+			warehouseIncreaseValue.push aProperty.attributeName
+		when '3' 
+			value = aProperty.attributeName + '   '
+			if aProperty.value
+				value = value + aProperty.value + '平方米'
+			if aProperty.valueTwo
+				value = value + (if aProperty.value then ' ') + aProperty.valueTwo + '立方米'
+			warehouseArea.push value
+			# warehouseArea.push aProperty.attributeName + '   ' + aProperty.value
+		when '4' 
+			warehousePrice.push  aProperty.value + aProperty.attributeName
 
 WarehouseDetail = React.createClass {
 	getInitialState: ->

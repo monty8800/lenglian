@@ -112,7 +112,7 @@ WarehouseDetail = React.createClass {
 				# 多个小数点 或 小数点打头 或 0打头 第二位不是"."
 				Plugin.toast.err '价格格式不正确'
 				return
-			if (priceStr.indexOf '.') + 2 < priceStr.length
+			if (priceStr.indexOf '.') + 3 < priceStr.length
 				Plugin.toast.err '价格只能保留两位小数'
 				return
 				

@@ -146,7 +146,7 @@ AddWarehouse = React.createClass {
 				if (priceStr.split '.').length > 2 or (priceStr.substr 0,1) is '.' or ((priceStr.substr 0,1) is '0' and (priceStr.substr 1,1) isnt '.')
 					Plugin.toast.err '价格格式不正确'
 					return
-				if (priceStr.indexOf '.') + 2 < priceStr.length
+				if (priceStr.indexOf '.') + 3 < priceStr.length
 					Plugin.toast.err '价格只能保留两位小数'
 					return
 				newState.priceProperty = newState.priceProperty.set 'attributeName',@state.priceUnit
