@@ -24,6 +24,7 @@ User = Immutable.Record {
 	balance: 0 #账户余额
 
 	lastLogin: null #上次登陆时间
+	lastUpdate: null #上次更新时间
 
 	#认证需要的相关图片
 	carPic: null #车辆图片
