@@ -213,13 +213,15 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
                 }
             }
 
-            operate = new HashMap<String, File>();
-            String pathD = files.getJSONObject(2).getString("path");
-            if (pathD != null && !pathD.equals("")) {
-                if (pathD.contains("|")) {
-                    operate.put("doorImg", new File(companyNet));
-                } else {
-                    operate.put("doorImg", new File(pathD));
+            if (files.length() > 2) {
+                String pathD = files.getJSONObject(2).getString("path");
+                if (pathD != null && !pathD.equals("")) {
+                    operate = new HashMap<String, File>();
+                    if (pathD.contains("|")) {
+                        operate.put("doorImg", new File(companyNet));
+                    } else {
+                        operate.put("doorImg", new File(pathD));
+                    }
                 }
             }
 
