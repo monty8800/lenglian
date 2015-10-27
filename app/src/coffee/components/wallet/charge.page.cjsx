@@ -106,7 +106,7 @@ Charge = React.createClass {
 				<p className="g-pay clearfix">
 					<span className="fl">充值金额</span>
 					<span className="fr g-pay-money">
-						<input className="setPas" type="text" valueLink={@linkState 'money'} placeholder="请输入充值金额"/>
+						<input className="input-weak" type="text" valueLink={@linkState 'money'} placeholder="请输入充值金额"/>
 					</span>
 				</p>
 			</div>
