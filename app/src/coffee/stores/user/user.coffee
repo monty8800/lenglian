@@ -338,7 +338,7 @@ window.updateUserProps = updateUserProps
 
 UserStore = assign BaseStore, {
 	getUser: ->
-		_user
+		new User (DB.get 'user')
 
 	getMenus: ->
 		_menus
