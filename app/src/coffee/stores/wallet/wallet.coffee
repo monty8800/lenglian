@@ -233,7 +233,8 @@ chargeRecord = ->
 			wallet = wallet.set 'state', charge.state
 			_chargeRecordList.push wallet
 		WalletStore.emitChange ['charge_record']
-
+		
+# 提现记录
 presentRecord = ->
 	console.log '---------presentRecord'	
 	Http.post Constants.api.present_record, {
