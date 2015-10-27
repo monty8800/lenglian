@@ -37,9 +37,9 @@ getWarehouseList = (status,pageNow,pageSize)->
 	},(data)->
 		DB.remove 'shouldWarehouseListReload'
 		warehouses = data.myWarehouse
-		if pageNow is '1'
+		if parseInt(pageNow) is 1
 			_warehouseList = []
-		
+		tempWarehouseArr = []
 		for aWarehouse in warehouses
 			warehouseModel = new WarehouseModel
 			warehouseModel = warehouseModel.set 'provinceName',aWarehouse.provinceName
@@ -48,8 +48,9 @@ getWarehouseList = (status,pageNow,pageSize)->
 			warehouseModel = warehouseModel.set 'name',aWarehouse.name
 			warehouseModel = warehouseModel.set 'street',aWarehouse.street
 			warehouseModel = warehouseModel.set 'id',aWarehouse.id
-			
-			_warehouseList.push warehouseModel
+			tempWarehouseArr.push warehouseModel
+
+		_warehouseList = _warehouseList.concat tempWarehouseArr
 
 		WarehouseStore.emitChange 'getMyWarehouseList'
 	, null
