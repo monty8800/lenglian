@@ -16,15 +16,9 @@ _user = UserStore.getUser()
 
 _messageList = Immutable.List()
 
-getMsgList = (status, pageNow)->
-	Http.post Constants.api.message_list, {
-		userId: _user?.id
-		userRole: status
-		pageNow: pageNow
-		pageSize: Constants.orderStatus.PAGESIZE
-	}, (result) ->
-		if parseInt(pageNow) is 1
-			_messageList = _messageList.clear()
+getMsgList = (params)->
+	Http.post Constants.api.message_list, params, (result) ->
+		_messageList = Immutable.List() if params.pageNow is 1
 		for msg in result.myMessage
 			do (msg) ->
 				_msg = new Message
@@ -41,6 +35,6 @@ MessageStore = assign BaseStore, {
 
 Dispatcher.register (action) ->
 	switch action.actionType
-		when Constants.actionType.MSG_LIST then getMsgList(action.status, action.pageNow)
+		when Constants.actionType.MSG_LIST then getMsgList(action.params)
 
 module.exports = MessageStore
