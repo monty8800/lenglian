@@ -231,7 +231,7 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
                             if (list.size() < 10) {
                                 mListView.setPullLoadEnable(false);
                             } else {
-                                mListView.setPullLoadEnable(true);
+                                mListView.setPullLoadEnable(false);
                             }
                             carAdapter = new CarAdapter(getActivity());
                             mListView.setAdapter(carAdapter);
