@@ -30,6 +30,7 @@ Order = Immutable.Record {
 	goodsPersonUserId: null
 	coldStoreFlag: 1
 
+
 	# 货主订单
 	acceptMode: null
 	advance: null

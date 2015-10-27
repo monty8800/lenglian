@@ -81,7 +81,10 @@ OrderDriverCell = React.createClass {
 						statusBtn = <span>等待仓库同意</span>
 			when 2
 				if parseInt(@props.order?.payType) is 3
-					statusBtn = <a onClick={@_receiver} className="u-btn02">确认付款</a>
+					if parseInt(@props.order?.payState) is 2
+						statusBtn = <span>支付处理中</span>
+					else
+						statusBtn = <a onClick={@_receiver} className="u-btn02">确认付款</a>
 				else
 					statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
 			when 3

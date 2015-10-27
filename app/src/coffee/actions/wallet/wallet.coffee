@@ -5,10 +5,10 @@ Constants = require 'constants/constants'
 
 WalletAction = {
 	
-	getBillList:(type)->
+	getBillList:(params)->
 		Dispatcher.dispatch {
 			actionType:Constants.actionType.GET_WALLET_IN_OUT
-			type:type
+			params: params
 		}
 
 	getBankCardsList: (params)->

@@ -186,6 +186,7 @@ GoodsOrderDetail = React.createClass {
 			when 2
 				_statusText = '待付款'
 				if parseInt(@state.detail?.get 'payType') is 3
+					_statusText = '订单处理中' if parseInt(@state.detail?.get 'payState') is 2
 					_btnText = '确认付款'
 				else
 					_btnText = "订单完成"
@@ -320,7 +321,7 @@ GoodsOrderDetail = React.createClass {
 					</div>
 			}
 			{
-				if orderState isnt 5 and not (orderState is 1 and acceptMode isnt 1) and not (orderState is 4 and @state.detail?.get 'mjRateflag')
+				if orderState isnt 5 and not (orderState is 1 and acceptMode isnt 1) and not (orderState is 4 and @state.detail?.get 'mjRateflag') and not (orderState is 2 and parseInt(@state.detail?.get 'payState') is 2)
 					<div className="g-pay-btn">
 						<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
 					</div>
