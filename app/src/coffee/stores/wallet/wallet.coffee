@@ -230,6 +230,7 @@ chargeRecord = ->
 			wallet = new BidModel
 			wallet = wallet.set 'amount', charge.amount
 			wallet = wallet.set 'createTime', charge.createTime
+			wallet = wallet.set 'state', charge.state
 			_chargeRecordList.push wallet
 		WalletStore.emitChange ['charge_record']
 
@@ -245,6 +246,7 @@ presentRecord = ->
 			wallet = new BidModel
 			wallet = wallet.set 'amount', charge.amount
 			wallet = wallet.set 'createTime', charge.createTime
+			wallet = wallet.set 'state', charge.state
 			_chargeRecordList.push wallet
 		WalletStore.emitChange ['present_record']
 

@@ -171,6 +171,24 @@ goodsWeight = (index) ->
 	else
 		''
 
+recordStatus = (_status, state) ->
+	if parseInt(_status) is 1
+		#充值
+		if parseInt(state) is 1
+			return '充值成功'
+		else if parseInt(state) is 2
+			return '充值中'
+		else if parseInt(state) is 3
+			return '充值失败'
+	else if parseInt(_status) is 2
+		# 提现
+		if parseInt(state) is 1
+			return '提现成功'
+		else if parseInt(state) is 2
+			return '提现中'
+		else if parseInt(state) is 3
+			return '提现失败'
+
 
 module.exports = 
 	carTypeMapper: carType 				# 车辆类型
@@ -192,3 +210,4 @@ module.exports =
 	carVehicle: carVehicle
 	goodsWeight: goodsWeight
 	maxLength: maxLength
+	recordStatus: recordStatus

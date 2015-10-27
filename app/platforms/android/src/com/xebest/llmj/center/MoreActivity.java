@@ -110,7 +110,13 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
                 editor.commit();
             }
         } else if (flag.equalsIgnoreCase("changePasswd")) {
-            ChangePwdActivity.actionView(MoreActivity.this);
+            String arms = args.getString(2);
+            if (arms.contains("payPwd")) {
+                ChangePwdActivity.actionView(MoreActivity.this, "修改支付密码");
+            } else {
+                ChangePwdActivity.actionView(MoreActivity.this, "修改登录密码");
+            }
+
         } else if (flag.equalsIgnoreCase("resetPasswd")) {
             ResetPwdActivity.actionView(MoreActivity.this, "找回支付密码");
         } else if (flag.equalsIgnoreCase("login")) {
