@@ -211,13 +211,15 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
                 }
             }
 
-            operate = new HashMap<String, File>();
-            String pathT = files.getJSONObject(2).getString("path");
-            if (pathT != null && !pathT.equals("")) {
-                if (pathT.contains("|")) {
-                    operate.put("taxiLicenseImg", new File(operationNet));
-                } else {
-                    operate.put("taxiLicenseImg", new File(pathT));
+            if (files.length() > 2) {
+                String pathT = files.getJSONObject(2).getString("path");
+                if (pathT != null && !pathT.equals("")) {
+                    operate = new HashMap<String, File>();
+                    if (pathT.contains("|")) {
+                        operate.put("taxiLicenseImg", new File(operationNet));
+                    } else {
+                        operate.put("taxiLicenseImg", new File(pathT));
+                    }
                 }
             }
 

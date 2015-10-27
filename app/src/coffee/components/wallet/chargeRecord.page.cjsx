@@ -4,6 +4,7 @@ require 'user-center-style'
 React = require 'react/addons'
 CSSTransitionGroup = React.addons.CSSTransitionGroup
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 UserStore = require 'stores/user/user'
 WalletStore = require 'stores/wallet/wallet'
 WalletModel = require 'model/wallet'
