@@ -67,9 +67,10 @@ WarehouseOrderDetail = React.createClass {
 			type = 2 # 关注 则取消关注
 		else
 			type = 1 # 未关注 则添加关注
+			# focustype 1:货主 2：司机 3：仓库
 		OrderAction.attention({
 			focusid: @state.orderDetail?.goodsPersonUserId 
-			focustype: '1'
+			focustype: '1'			#仓库订单 交易对象必定是货 
 			userId: UserStore.getUser()?.id
 			type: type
 		})

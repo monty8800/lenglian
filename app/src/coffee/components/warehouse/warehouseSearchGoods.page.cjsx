@@ -24,8 +24,8 @@ DB = require 'util/storage'
 Plugin = require 'util/plugin'
 
 _selectedGoodsId = ''
-_hasMore = true
 _isBusy = false
+_hasMore = true
 
 selectionList = [
 	{
@@ -81,7 +81,6 @@ WarehouseSearchGoods = React.createClass {
 				when 4 then beginTimestamp = currentTimestamp - 7 * 24 * 60 * 60
 				when 5 then beginTimestamp = currentTimestamp - 14 * 24 * 60 * 60
 
-		
 		WarehouseAction.warehouseSearchGoods {
 			startNo: @state.startNo
 			pageSize: @state.pageSize
@@ -90,15 +89,13 @@ WarehouseSearchGoods = React.createClass {
 			beginTime: beginTimestamp
 			endTime: if parseInt(beginTimestamp) > 0 then currentTimestamp else ''
 		}
-		# # alert Moment().unix();
-		# endTime:Math.round(new Date().getTime()/1000)
 
 	_resultItemClick:(aResult)->
 		Auth.needLogin ->
 			DB.put 'transData',{goodsId:aResult.id,focusid:aResult.userId}
 			Plugin.nav.push ['searchGoodsDetail']
 
-	_bindGoodsCreateOrder:(aResult)->
+	_bindGoodsCreateOrder:(aResult,e)->
 		console.log 'select ', aResult
 		Auth.needLogin ->
 			user = UserStore.getUser()
@@ -106,9 +103,6 @@ WarehouseSearchGoods = React.createClass {
 				Plugin.toast.err '不能选择自己的货物'
 			else
 				if user.warehouseStatus is 1
-					# if @state.userGoodsSource.length < 1
-					# 	Plugin.toast.show '没有货源适合这个仓库'
-					# 	return
 
 	#TODO:仓库找货  在弹出我的仓库列表的弹窗前 先判断有没有仓库
 					_selectedGoodsId = aResult.id
@@ -131,7 +125,6 @@ WarehouseSearchGoods = React.createClass {
 
 		for selection in selectionList
 			initState[selection.key] = ''	#(option.key for option in selection.options)
-		console.log 'initState', initState
 		return initState
 
 
@@ -154,13 +147,14 @@ WarehouseSearchGoods = React.createClass {
 		else if msg is 'do:warehouse:search:goods'
 			newState = Object.create @state
 			newState.startNo = 0
+			_hasMore = true
 			@setState newState
 			@_doWarehouseSearchGoods()
 		else if msg is 'warehouseSearchGoodsSucc'
 			_isBusy = false
 			newState = Object.create @state
 			newState.searchResult = WarehouseStore.getWarehouseSearchGoodsResult()
-			_hasMore = (newState.searchResult.length % @state.pageSize) is 0
+			_hasMore = parseInt(newState.searchResult.length) - parseInt(@state.startNo) is parseInt(@state.pageSize)
 			newState.startNo = newState.searchResult.length
 			newState.showHasNone = newState.searchResult.length is 0
 			@setState newState

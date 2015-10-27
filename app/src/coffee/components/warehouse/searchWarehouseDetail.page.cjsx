@@ -107,10 +107,11 @@ WarehouseDetail = React.createClass {
 					<h3>{ @state.warehouseDetail.name }	</h3>
 					<p>地址：{ 
 						detailAddr = @state.warehouseDetail
-						if detailAddr.provinceName is detailAddr.cityName
-							detailAddr.provinceName + detailAddr.areaName + detailAddr.street 
-						else
-							detailAddr.provinceName + detailAddr.cityName + detailAddr.areaName + detailAddr.street 
+						if detailAddr
+							if detailAddr.provinceName is detailAddr.cityName
+								detailAddr.provinceName + detailAddr.areaName + detailAddr.street 
+							else
+								detailAddr.provinceName + detailAddr.cityName + detailAddr.areaName + detailAddr.street 
 					}</p>
 				</div>
 				<div className="g-pro-detail clearfix">
