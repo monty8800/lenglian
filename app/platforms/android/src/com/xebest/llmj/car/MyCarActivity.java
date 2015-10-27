@@ -115,6 +115,8 @@ public class MyCarActivity extends BaseCordovaActivity implements CordovaInterfa
             mWebView.getWebView().loadUrl("javascript:updateMyCarList('1')");
         }
         isAdd = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

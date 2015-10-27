@@ -124,6 +124,8 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
         editor.putString("mStreet", "");
         editor.putString("mStreetNumber", "");
         editor.commit();
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

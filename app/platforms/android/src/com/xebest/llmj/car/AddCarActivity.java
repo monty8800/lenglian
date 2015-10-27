@@ -198,6 +198,8 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
             mWebView.init(this, ApiUtils.API_COMMON_URL + "addCar.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         // 更新定位信息
         super.onResume();
     }

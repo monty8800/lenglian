@@ -29,6 +29,8 @@ public class CarOwnerDetailActivity extends BaseCordovaActivity implements Cordo
 
     private TextView tvTitle;
 
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -41,7 +43,7 @@ public class CarOwnerDetailActivity extends BaseCordovaActivity implements Cordo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.car_owner);
-
+        isOnCreate = true;
         initView();
     }
 
@@ -64,7 +66,11 @@ public class CarOwnerDetailActivity extends BaseCordovaActivity implements Cordo
         MobclickAgent.onPageStart("车主详情");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "carOwnerDetail.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "carOwnerDetail.html", this, this, this, this);
+        }
+        isOnCreate = false;
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

@@ -35,6 +35,8 @@ public class LoginActivity extends BaseCordovaActivity implements CordovaInterfa
 
     private TextView tvTitle;
 
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -47,7 +49,7 @@ public class LoginActivity extends BaseCordovaActivity implements CordovaInterfa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cwebview);
-
+        isOnCreate = true;
         initView();
 
     }
@@ -71,7 +73,11 @@ public class LoginActivity extends BaseCordovaActivity implements CordovaInterfa
         MobclickAgent.onPageStart("登录");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "login.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "login.html", this, this, this, this);
+        }
+        isOnCreate = false;
+
         super.onResume();
     }
 

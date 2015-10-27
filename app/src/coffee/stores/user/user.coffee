@@ -16,8 +16,6 @@ _htmlPage = paths[paths.length-1]
 localUser = DB.get 'user'
 _user = new User localUser
 
-now = new Date
-_updateTime = now.getTime()
 
 XeCrypto = require 'util/crypto'
 
@@ -61,7 +59,7 @@ updateUser = ->
 	console.log 'new user', _user
 	now = new Date
 	cacheTime = if needCheck() then Constants.cache.USER_INFO_MIN else Constants.cache.USER_INFO
-	if _user.id and now.getTime() - _updateTime >  cacheTime
+	if _user.id and  now.getTime() - _user.lastUpdate >  cacheTime
 		requestInfo()
 	else
 		UserStore.emitChange 'user:update'
@@ -165,7 +163,7 @@ requestInfo = ->
 		userId: _user.id
 	}, (data)->
 		now = new Date
-		_updateTime = now.getTime()
+		_user = _user.set 'lastUpdate', now.getTime()
 		_user = _user.set 'orderDoneCount', parseInt(data.myOrderCount)
 		# _user = _user.set 'orderBreakCount', 2   
 		_user = _user.set 'mobile', data.usercode
@@ -181,7 +179,8 @@ requestInfo = ->
 		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
 		_user = _user.set 'warehouseCause', data.warehouseCause
 		_user = _user.set 'name', data.userName #个人名或者公司名，服务器合并到这个字段返回
-		_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus)
+		if _user.hasPayPwd is 0
+			_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus) 
 		_user = _user.set 'balance', data.balance
 		DB.put 'user', _user.toJS()
 		Plugin.run [9, 'user:update', _user.toJS()]
@@ -339,7 +338,7 @@ window.updateUserProps = updateUserProps
 
 UserStore = assign BaseStore, {
 	getUser: ->
-		_user
+		new User (DB.get 'user')
 
 	getMenus: ->
 		_menus

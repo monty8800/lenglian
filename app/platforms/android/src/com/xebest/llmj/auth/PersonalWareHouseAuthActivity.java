@@ -258,6 +258,8 @@ public class PersonalWareHouseAuthActivity extends BaseCordovaActivity implement
             mWebView.init(this, ApiUtils.API_COMMON_URL + "personalWarehouseAuth.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

@@ -235,7 +235,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
                             if (list.size() < 10) {
                                 mListView.setPullLoadEnable(false);
                             } else {
-                                mListView.setPullLoadEnable(true);
+                                mListView.setPullLoadEnable(false);
                             }
                             carAdapter = new WareHouseAdapter(getActivity());
                             mListView.setAdapter(carAdapter);

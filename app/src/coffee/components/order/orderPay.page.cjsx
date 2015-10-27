@@ -150,7 +150,7 @@ OrderPay = React.createClass {
 			</p>
 		</div>
 		{
-			if user.certification is 1
+			if parseInt(@state.info?.get('certification')) is 1
 				<BankCardList selected={@state.bankCard} bankCardList={@state.info?.get 'bankCardList'} />
 		}
 

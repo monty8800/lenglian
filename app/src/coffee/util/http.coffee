@@ -11,8 +11,7 @@ UserAction = require 'actions/user/user'
 crypto = require 'crypto'
 
 
-localUser = DB.get 'user'
-_user = new User localUser
+
 
 postFile = (api, params, files, cb, err)->
 	data = JSON.stringify params
@@ -41,6 +40,8 @@ postFile = (api, params, files, cb, err)->
 	sign = md5.update(uuid + Constants.token + data + client_type, 'utf8').digest('hex').toLowerCase()
 
 	console.group()
+	localUser = DB.get 'user'
+	_user = new User localUser
 	paramDic = {
 		uuid: uuid
 		version: version
@@ -120,6 +121,8 @@ post = (api, params, cb, err, showLoading, key, iv)->
 	sign = md5.update(uuid + Constants.token + data + client_type, 'utf8').digest('hex').toLowerCase()
 
 	console.group()
+	localUser = DB.get 'user'
+	_user = new User localUser
 	paramDic = {
 		uuid: uuid
 		version: version

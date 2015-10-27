@@ -89,7 +89,7 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
     public void onResume() {
         // 统计页面
         MobclickAgent.onPageStart("个人中心");
-        mWebView.getWebView().loadUrl("javascript:updateUser()");
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

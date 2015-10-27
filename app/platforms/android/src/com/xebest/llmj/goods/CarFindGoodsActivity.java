@@ -234,7 +234,7 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
                                 if (list.size() < 10) {
                                     mListView.setPullLoadEnable(false);
                                 } else {
-                                    mListView.setPullLoadEnable(true);
+                                    mListView.setPullLoadEnable(false);
                                 }
 
                                 // 货
