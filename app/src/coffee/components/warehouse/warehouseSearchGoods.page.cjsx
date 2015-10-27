@@ -138,7 +138,6 @@ WarehouseSearchGoods = React.createClass {
 		# SelectionStore.removeChangeListener @_onChange
 		
 	_onChange:(msg) ->
-		console.log 'event change (((()))))', msg
 		if msg.type in ['goodsType','releaseTime','isInvoice']
 			newState = Object.create @state
 			newState[msg.type] = msg.list

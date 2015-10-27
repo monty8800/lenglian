@@ -6,25 +6,73 @@ React = require 'react/addons'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
 PureRenderMixin = React.addons.PureRenderMixin
+InfiniteScroll = require('react-infinite-scroll')(React)
 CSSTransitionGroup = React.addons.CSSTransitionGroup
 DB = require 'util/storage'
 
 Plugin = require 'util/plugin'
 
-pageNow = '1'
-pageSize = '10'
-showType = '1' 		# 1-空闲中  2-已发布 3-使用中
+_pageNow = 1
+_pageSize = 10
+ 		# 1-空闲中  2-已发布 3-使用中 showType = '1'
 
+_hasMore = true
+_isBusy = false
 
-WarehouseItem = React.createClass {
-	goToDetail: (index)->
-		DB.put 'transData', {warehouseId:@props.list[index].id,isMine:1}
+WarehouseList = React.createClass {
+	mixins : [PureRenderMixin]
+
+	_topTypeClick : (index)->
+		if index is @state.showType
+			return
+		_hasMore = true
+		_pageNow = 1
+		newState = Object.create @state
+		newState.showType = index
+		newState.warehouseList = []
+		@setState newState
+		_isBusy = true
+		WarehouseAction.getWarehouseList index,_pageNow,_pageSize
+
+	_goToDetail: (index)->
+		DB.put 'transData', { warehouseId:@state.warehouseList[index].id,isMine:1 }
 		Plugin.nav.push ['warehouseDetail']
 
+	getInitialState: ->
+		{
+			warehouseList:[]
+			showType:'1'
+		}
+	componentDidMount: ->
+		WarehouseStore.addChangeListener @_onChange
+		_isBusy = true
+		WarehouseAction.getWarehouseList '1',_pageNow,_pageSize
+
+	componentWillUnmount: ->
+		WarehouseStore.removeChangeListener @_onChange
+
+	_onChange: (mark)->
+		if mark is 'getMyWarehouseList'	
+			_isBusy = false	
+			_pageNow++
+			warehouseList = WarehouseStore.getWarehouseList()
+			_hasMore = warehouseList.length - @state.warehouseList.length is _pageSize
+			newState = Object.create @state
+			newState.showType = WarehouseStore.getShowType()
+			newState.warehouseList = WarehouseStore.getWarehouseList()
+			@setState newState
+			console.log @state.warehouseList.length+ '++++++++++++++____________'
+
+	_loadMore:()->
+		if parseInt(_pageNow) > 1
+			_isBusy = true
+			WarehouseAction.getWarehouseList @state.showType,_pageNow,_pageSize
+
+
 	render: ->
-		list = @props.list
-		items = list.map (aWarehouse,i) ->
-			<div className="m-store" onClick={ @goToDetail.bind this, i }>
+		items = @state.warehouseList.map (aWarehouse,i) ->
+			console.log 'render go ________'
+			<div className="m-store" onClick={ @_goToDetail.bind this, i }>
 				<div>
 					<p>{ aWarehouse.name }</p>
 					<span>
@@ -38,45 +86,7 @@ WarehouseItem = React.createClass {
 				</div>
 			</div>
 		, this
-		<div>
-		<CSSTransitionGroup transitionName="list">
-			{items}
-		</CSSTransitionGroup>
-		</div>
-}
 
-WarehouseList = React.createClass {
-	mixins : [PureRenderMixin]
-
-	_topTypeClick : (index)->
-		if index is @state.showType
-			return
-		newState = Object.create @state
-		newState.showType = index
-		newState.warehouseList = []
-		@setState newState
-		WarehouseAction.getWarehouseList index,'1','10'
-
-	getInitialState: ->
-		{
-			warehouseList:[]
-			showType:'1'
-		}
-	componentDidMount: ->
-		WarehouseStore.addChangeListener @_onChange
-		WarehouseAction.getWarehouseList '1','1','10'
-
-	componentWillUnmount: ->
-		WarehouseStore.removeChangeListener @_onChange
-
-	_onChange: (mark)->
-		if mark is 'getMyWarehouseList'		
-			@setState { 
-				warehouseList:WarehouseStore.getWarehouseList()
-				showType:WarehouseStore.getShowType()
-			}	
-
-	render: ->
 		<div>
 			<div className="m-tab01">
 				<ul>
@@ -106,7 +116,13 @@ WarehouseList = React.createClass {
 					</li>
 				</ul>
 			</div>
-			<WarehouseItem list={ @state.warehouseList }/>
+			<div>
+				<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={_hasMore and not _isBusy} >
+					<CSSTransitionGroup transitionName="list">
+						{items}
+					</CSSTransitionGroup>
+				</InfiniteScroll>
+			</div>
 		</div>
 		
 }
