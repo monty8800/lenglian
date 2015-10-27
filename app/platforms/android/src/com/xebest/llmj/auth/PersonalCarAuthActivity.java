@@ -222,7 +222,7 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
                     }
                 }
             }
-            
+
             Log.i("info", "--------------content:" + content);
             Log.i("info", "--------------content:");
 

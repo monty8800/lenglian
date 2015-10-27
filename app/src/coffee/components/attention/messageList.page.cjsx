@@ -8,8 +8,18 @@ InfiniteScroll = require('react-infinite-scroll')(React)
 MessageStore = require 'stores/attention/message'
 MessageAction = require 'actions/attention/message'
 Constants = require 'constants/constants'
+UserStore = require 'stores/user/user'
 
-_currentStatus = '2'
+Immutable = require 'immutable'
+
+InfiniteScroll = require('react-infinite-scroll')(React)
+
+_role = 2
+_page = 1
+_pageSize = 20
+_hasMore = true
+_busy = false
+_count = 0
 
 Item = React.createClass {
 	render: ->
@@ -19,60 +29,48 @@ Item = React.createClass {
 }
 
 Message = React.createClass {
-
-	attDriver: ->
-		_currentStatus = '1'
-		newState = Object.create @state
-		newState.type = '1'
-		pageNow: 1
-		@setState newState
-		MessageAction?.msgList('2', 1)
-
-	attGoodsOwner: ->
-		_currentStatus = '2'
-		newState = Object.create @state
-		newState.type = '2'
-		pageNow: 1
-		@setState newState
-		MessageAction?.msgList('1', 1)
-
-	attStoreOwner: ->
-		_currentStatus = '3'
-		newState = Object.create @state
-		newState.type = '3'
-		pageNow: 1
-		@setState newState
-		MessageAction?.msgList('3', 1)
+	_selectRole: (role)->
+		_role = role
+		_page = 1
+		_count = 0
+		_hasMore = true
+		@setState {
+			msgList: Immutable.List()
+		}
+		@_requestData()
 
 
 	getInitialState: ->
 		{
-			type: '1'
-			hasMore: true
-			pageNow: 1
-			dataCount: 0
 			msgList: MessageStore?.getMsgList()
 		}
 
 	componentDidMount: ->
 		MessageStore.addChangeListener @resultCallBack
-		# MessageAction?.msgList('2')
 
 	componentWillUnMount: ->
 		MessageStore.removeChangeListener @resultCallBack
 
 	resultCallBack: ->
 		list = MessageStore?.getMsgList()
-		pageNow = @state.pageNow + 1
+		_busy = false
+		_hasMore = list.size - _count >= _pageSize
+		_count = list.size
+		_page++
 		@setState {
-			hasMore: list.size - @state.dataCount >= Constants.orderStatus.PAGESIZE
-			pageNow: pageNow
-			dataCount: list.size
-			msgList: MessageStore?.getMsgList()
+			msgList: list
 		}
 
-	_loadMore: ->
-		MessageAction.msgList(_currentStatus, @state.pageNow)
+	_requestData: ->
+		return null if _busy
+		_busy = true
+		params = {
+			userId: UserStore.getUser()?.id
+			userRole: _role
+			pageNow: _page
+			pageSize: _pageSize
+		}
+		MessageAction.msgList params
 
 	minxins: [PureRenderMixin]
 	render: ->
@@ -81,18 +79,18 @@ Message = React.createClass {
 		<div>
 			<div className="m-tab01">
 				<ul>
-					<li onClick={ @attDriver }>
-						<span className={ if @state.type is '1' then "active" else ''}>司机</span>
+					<li onClick={ @_selectRole.bind this, 2 }>
+						<span className={ if _role is 2 then "active" else ''}>司机</span>
 					</li>
-					<li onClick={ @attGoodsOwner }>
-						<span className={ if @state.type is '2' then "active" else ''}>货主</span>
+					<li onClick={ @_selectRole.bind this, 1 }>
+						<span className={ if _role is 1 then "active" else ''}>货主</span>
 					</li>
-					<li onClick={ @attStoreOwner }>
-						<span className={ if @state.type is '3' then "active" else ''}>仓库</span>
+					<li onClick={ @_selectRole.bind this, 3 }>
+						<span className={ if _role is 3 then "active" else ''}>仓库</span>
 					</li>
 				</ul>
 			</div>	
-			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={@state.hasMore}>
+			<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={_hasMore and not _busy}>
 			<CSSTransitionGroup transitionName="list">
 				{msgs}
 			</CSSTransitionGroup>

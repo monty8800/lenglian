@@ -4,11 +4,10 @@ Dispatcher = require 'dispatcher/dispatcher'
 Constants = require 'constants/constants'
 
 MessageAction = {
-	msgList: (statu, pageNow)->
+	msgList: (params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.MSG_LIST
-			status: statu
-			pageNow: pageNow
+			params: params
 		}
 }
 

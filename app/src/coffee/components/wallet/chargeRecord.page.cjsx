@@ -2,9 +2,9 @@ require 'components/common/common'
 require 'user-center-style'
 
 React = require 'react/addons'
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 PureRenderMixin = React.addons.PureRenderMixin
 CSSTransitionGroup = React.addons.CSSTransitionGroup
-InfiniteScroll = require('react-infinite-scroll')(React)
 UserStore = require 'stores/user/user'
 WalletStore = require 'stores/wallet/wallet'
 WalletModel = require 'model/wallet'
@@ -12,52 +12,69 @@ WalletAction = require 'actions/wallet/wallet'
 Helper = require 'util/helper'
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
+Immutable = require 'immutable'
 user = UserStore.getUser()
 
-_status = 1
+InfiniteScroll = require('react-infinite-scroll')(React)
+
+
+_status = 1 #1充值，2提现
+_page = 1
+_pageSize = 10
+_count = 0
+_busy = false
+_hasMore = true
 
 Record = React.createClass {
 
 	getInitialState: ->
 		{				
-			type: 1
 			recordList: WalletStore.getRecordList()
 		}
 
 	componentDidMount: ->
-		WalletAction.chargeRecord()
 		WalletStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->
 		WalletStore.removeChangeListener @resultCallBack
 
 	resultCallBack: (params)->
-		if params[0] is 'charge_record'
+		if params[0] in ['charge_record', 'present_record']
+			recordList = WalletStore.getRecordList()
+			_busy = false
+			_hasMore = parseInt(recordList.size) - parseInt(_count) >= parseInt(_pageSize)
+			_count = recordList.size
+			_page++
+			console.log 'page', _page, '_busy', _busy, '_hasMore', _hasMore, 'count', _count
 			@setState {
-				type: 1
-				recordList: WalletStore.getRecordList()
+				recordList: recordList
 			}
-		else if params[0] is 'present_record'
-			@setState {
-				type: 2
-				recordList: WalletStore.getRecordList()
-			}
-
-	charge: ->
-		_status = 1
+			
+	_selectType: (type)->
+		_status = type
 		@setState {
-			type: 1
+			recordList: Immutable.List()
 		}
-		WalletAction.chargeRecord()
-	withdraw: ->
-		_status = 2
-		@setState {
-			type: 2
-		}		
-		WalletAction.presentRecord()
+		_page = 1
+		_count = 0
+		_hasMore = true
+		@_requestData()
+
+	_requestData: ->
+		return null if _busy
+		_busy = true
+		params = {
+			userId: user?.id
+			pageNow: _page
+			pageSize: _pageSize
+		}
+
+		if _status is 1
+			WalletAction.chargeRecord params
+		else
+			WalletAction.presentRecord params
 
 	render: ->
-
 		cells = @state.recordList.map (item, index) ->
 			<div className="m-moneyRecord" key={index}>
 				<div className="g-recordItem clearfix">
@@ -79,16 +96,20 @@ Record = React.createClass {
 		<div>
 			<div className="m-tab01">
 				<ul>
-					<li onClick={@charge}>
-						<span className={ if @state.type is 1 then "active" else ""}>充值</span>
+					<li onClick={@_selectType.bind this, 1}>
+						<span className={ if _status is 1 then "active" else ""}>充值</span>
 					</li>
-					<li onClick={@withdraw}>
-						<span className={ if @state.type is 2 then "active" else ""}>提现</span>
+					<li onClick={@_selectType.bind this, 2}>
+						<span className={ if _status is 2 then "active" else ""}>提现</span>
 					</li>
 				</ul>
 			</div>
 			<div>
+			<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={_hasMore and not _busy}>
+			<CSSTransitionGroup transitionName="list">
 				{cells}
+			</CSSTransitionGroup>
+			</InfiniteScroll>
 			</div>
 
 		</div>	
