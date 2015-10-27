@@ -19,7 +19,7 @@ UserStore = require 'stores/user/user'
 
 _bankCardsList = []
 
-_billListResult = []
+_billListResult = Immutable.List()
 
 _chargeRecordList = []
 _presentRecordList = []
@@ -153,13 +153,10 @@ bindBankCard = (aBankCardModel,smsCode)->
 		Plugin.toast.err data.msg
 	,true
 
-getBillList = (type)->
+getBillList = (params)->
 	user = UserStore.getUser()
-	Http.post Constants.api.GET_WALLET_IN_OUT, {
-		type:type
-		userId:user.id
-	},(data)->
-		_billListResult = []
+	Http.post Constants.api.GET_WALLET_IN_OUT, params, (data)->
+		_billListResult = Immutable.List() if params.pageNow is 1
 		for bid in data.myPayIncomeOrOut
 			do (bid) ->
 				bidModel = new BidModel
@@ -168,7 +165,7 @@ getBillList = (type)->
 				bidModel = bidModel.set 'orderNo', bid.orderNo
 				bidModel = bidModel.set 'type', bid.type
 				bidModel = bidModel.set 'userMobile', bid.userMobile
-				_billListResult.push bidModel
+				_billListResult = _billListResult.push bidModel
 		WalletStore.emitChange "getBillListSucc"
 	,(data)->
 		Plugin.toast.err data.msg
@@ -274,7 +271,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.GET_BANK_CARD_INFO then getBankCardInfo(action.cardNo)
 		when Constants.actionType.VERITY_PHONE_FOR_BANK then getVCodeForBindBankCar(action.bankCardModel)
 		when Constants.actionType.ADD_BANK_CARD_PRIVET then bindBankCard(action.bankCardModel,action.smsCode)
-		when Constants.actionType.GET_WALLET_IN_OUT then getBillList(action.type)
+		when Constants.actionType.GET_WALLET_IN_OUT then getBillList(action.params)
 		when Constants.actionType.GET_SUPPORT_BANK_LIST then getSupportBankList()
 		when Constants.actionType.WITHDRAW then withdraw(action.params)
 		when Constants.actionType.SELECT_WITHDRAW_CARD then selectWithdrawCard(action.card)

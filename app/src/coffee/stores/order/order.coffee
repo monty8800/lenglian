@@ -89,6 +89,7 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'goodsName',order.goodsName
 				tempOrder = tempOrder.set 'goodsType',order.goodsType
 				tempOrder = tempOrder.set 'advance',order.advance
+				tempOrder = tempOrder.set 'payState', order.payState
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['goods']
 	, (err) ->
@@ -135,6 +136,7 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'goodsCubic', order.goodsCubic
 				tempOrder = tempOrder.set 'goodsPersonName', order.goodsPersonName
 				tempOrder = tempOrder.set 'advance', order.advance
+				tempOrder = tempOrder.set 'payState', order.payState
 
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['car']
@@ -177,6 +179,7 @@ getStoreOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'mjRateflag', order.mjRateflag
 				tempOrder = tempOrder.set 'goodsWeight', order.goodsWeight
 				tempOrder = tempOrder.set 'goodsCubic', order.goodsCubic
+				tempOrder = tempOrder.set 'payState', order.payState
 
 				console.log '_________________________________________________',order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder

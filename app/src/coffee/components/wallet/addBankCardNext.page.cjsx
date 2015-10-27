@@ -117,7 +117,7 @@ AddBankCardNext = React.createClass {
 				</div>
 			</div>
 			<div className="u-pay-btn">
-				<a onClick={ @_addBankCardVerify } href="#" className="btn noUse">下一步</a>
+				<a onClick={ @_addBankCardVerify } href="#" className="btn noUse" style={{color: '#fff'}}>下一步</a>
 			</div>
 		</div>
 }

@@ -24,6 +24,7 @@
     [self createUI];
 }
 
+
 -(void) createUI {
     UIImage *image;
     switch (_type) {
