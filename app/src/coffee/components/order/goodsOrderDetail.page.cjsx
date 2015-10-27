@@ -114,9 +114,10 @@ GoodsOrderDetail = React.createClass {
 			window.location.href = 'tel://' + mobile
 
 	_follow: ->
+		# focustype 1:货主 2：司机 3：仓库
 		FollowAction.follow {
 			focusid: @state.targetId
-			focustype: if @state.isGC then 1 else 3
+			focustype: if @state.isGC then 2 else 3
 			userId: UserStore.getUser()?.id
 			type: if @state.followed then 2 else 1
 		}

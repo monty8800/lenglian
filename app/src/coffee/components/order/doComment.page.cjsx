@@ -27,7 +27,11 @@ DoComment = React.createClass {
 		CommentAction.submitComment userRole,targetId,targetRole,startStage,orderNo,commentValue
 	textareaValueChange : (e)->
 		newState = Object.create @state
-		newState.commentValue = e.target.value
+		if e.target.value.length > 30
+			Plugin.toast.err '评价内容最多30个字'
+			newState.commentValue = e.target.value.substr 0,30
+		else
+			newState.commentValue = e.target.value
 		@setState newState
 
 	getInitialState: ->
@@ -71,7 +75,7 @@ DoComment = React.createClass {
 				<div>
 					<p dangerouslySetInnerHTML = {{ __html : target + "等待着您宝贵的评价！"}}/> 
 					<div className="u-comment">
-						<textarea placeholder="写点评论吧！" className="text" onChange=@textareaValueChange></textarea>
+						<textarea placeholder="写点评论吧！" value={@state.commentValue} className="text" onChange=@textareaValueChange></textarea>
 					</div>
 					
 				</div>

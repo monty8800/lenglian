@@ -28,6 +28,7 @@ SelectionStore = require 'stores/common/selection'
 _selectedWarehouseId = ''
 _isBusy = false
 _hasMore = true
+_currentCount = 0
 
 selectionList = [
 	{
@@ -103,15 +104,17 @@ SearchWarehouse = React.createClass {
 			_isBusy = false
 			newState = Object.create @state
 			newState.searchResult = WarehouseStore.getWarehouseSearchResult()
+			_hasMore = parseInt(newState.searchResult.length) - parseInt(_currentCount) is 10
+			_currentCount = newState.searchResult.length
 			newState.showHasNone = newState.searchResult.length is 0
 			newState.startNo = newState.searchResult.length
-			_hasMore = (newState.searchResult.length % @state.pageSize) is 0
 			@setState newState
 
 		else if mark is 'do:search:warehouse'
 			newState = Object.create @state
 			newState.searchResult = []
 			newState.startNo = 0
+			_hasMore = true
 			@setState newState
 			@_doSearchWarehouse()
 
