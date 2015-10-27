@@ -339,6 +339,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
 
                     break;
                 case IMAGE_CODE:
+
                     Bitmap bm = null;
                     //  外界的程序访问ContentProvider所提供数据 可以通过ContentResolver接口
                     ContentResolver resolver = getContentResolver();
@@ -351,7 +352,17 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
                         Cursor cursor = managedQuery(originalUri, proj, null, null, null);
                         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                         cursor.moveToFirst();
+
                         String path = cursor.getString(column_index);
+
+                        if (path == null) {
+                            String name = System.currentTimeMillis() + ".jpg";
+                            path = Environment.getExternalStorageDirectory()
+                                    + "/" + localTempImgDir + "/" + name;
+                            Log.i("info", "--------root:" + path);
+                            FileOutputStream fout = new FileOutputStream(new File(path));
+                            bm.compress(Bitmap.CompressFormat.JPEG, 100, fout);
+                        }
 
                         // 压缩过后的图片
                         Bitmap bitmap1 = Tools.getimage(path);

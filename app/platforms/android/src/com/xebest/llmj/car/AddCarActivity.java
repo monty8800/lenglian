@@ -341,6 +341,15 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
                         cursor.moveToFirst();
                         String path = cursor.getString(column_index);
 
+                        if (path == null) {
+                            String name = System.currentTimeMillis() + ".jpg";
+                            path = Environment.getExternalStorageDirectory()
+                                    + "/" + localTempImgDir + "/" + name;
+                            Log.i("info", "--------root:" + path);
+                            FileOutputStream fout = new FileOutputStream(new File(path));
+                            bm.compress(Bitmap.CompressFormat.JPEG, 100, fout);
+                        }
+
                         // 压缩过后的图片
                         Bitmap bitmap1 = Tools.getimage(path);
 
