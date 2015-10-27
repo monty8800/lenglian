@@ -34,7 +34,7 @@
     _tabView.center = self.center;
     _tabView.dataSource = self;
     _tabView.delegate = self;
-    _tabView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tabView.backgroundColor = [UIColor whiteColor];
     [_tabView registerClass:[SelectWarehouseTableViewCell class] forCellReuseIdentifier:@"select_warehouse_cell"];
     [self addSubview:_tabView];
@@ -120,7 +120,37 @@
                         weightStr = [NSString stringWithFormat:@"货物规格： %@方", [dic objectForKey:@"cube"]];
                     }
                     
+                    NSString *toProvince = [dic objectForKey:@"toProvinceName"];
+                    NSString *fromProvince = [dic objectForKey:@"fromProvinceName"];
+                    
+                    
+                    NSString *addr;
+                    
                     NSMutableArray *infoList = [NSMutableArray new];
+                    switch ([[dic objectForKey:@"coldStoreFlag"] integerValue]) {
+                        case 1:
+                            addr = [NSString stringWithFormat:@"%@, %@", fromProvince, toProvince];
+                            break;
+                            
+                        case 2:
+                            addr = fromProvince;
+                            break;
+                            
+                        case 3:
+                            addr = toProvince;
+                            break;
+                            
+                        case 4:
+                            addr = @"不需要仓库";
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    
+                    NSAttributedString *warhouseStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"需要仓库地： %@", addr] attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:16]}];
+                    
+                    [infoList addObject:warhouseStr];
                     
                     NSString *name = [dic objectForKey:@"name"];
                     if (![name isKindOfClass:[NSNull class]]) {

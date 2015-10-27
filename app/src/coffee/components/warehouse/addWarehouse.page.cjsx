@@ -134,11 +134,15 @@ AddWarehouse = React.createClass {
 			if !@state.params.street
 				Plugin.toast.show '请输入仓详细地址'
 				return
-			if !@state.priceProperty.value
+			if !@state.priceValue
 				Plugin.toast.show '请输入价格'
 				return
 			else
-				priceStr = @state.priceProperty.value
+				# aPriceProperty = newState.priceProperty
+				# aPriceProperty = aPriceProperty.set 'value',e.target.value
+				# newState.priceProperty = aPriceProperty
+				
+				priceStr = @state.priceValue
 				if @_hasSrting priceStr
 					# 有除了数字和小数点外的其他字符串
 					Plugin.toast.err '价格格式不正确'
@@ -146,9 +150,11 @@ AddWarehouse = React.createClass {
 				if (priceStr.split '.').length > 2 or (priceStr.substr 0,1) is '.' or ((priceStr.substr 0,1) is '0' and (priceStr.substr 1,1) isnt '.')
 					Plugin.toast.err '价格格式不正确'
 					return
-				if (priceStr.indexOf '.') + 3 < priceStr.length
-					Plugin.toast.err '价格只能保留两位小数'
-					return
+				if (priceStr.indexOf '.') isnt -1
+					if (priceStr.indexOf '.')+ 3 < priceStr.length
+						Plugin.toast.err '价格只能保留两位小数'
+						return
+				newState.priceProperty = newState.priceProperty.set 'value',priceStr
 				newState.priceProperty = newState.priceProperty.set 'attributeName',@state.priceUnit
 				newState.params.warehouseProperty.push newState.priceProperty
 			if !@state.params.contacts
@@ -272,9 +278,6 @@ AddWarehouse = React.createClass {
 			if (priceString.indexOf '.') + 3 < priceString.length
 				return
 		newState = Object.create @state
-		aPriceProperty = newState.priceProperty
-		aPriceProperty = aPriceProperty.set 'value',e.target.value
-		newState.priceProperty = aPriceProperty
 		newState.priceValue = e.target.value
 		@setState newState
 
