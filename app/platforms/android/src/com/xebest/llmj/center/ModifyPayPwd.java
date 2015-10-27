@@ -29,6 +29,8 @@ public class ModifyPayPwd extends BaseCordovaActivity implements CordovaInterfac
 
     private TextView tvTitle;
 
+    private boolean isOncreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -41,7 +43,7 @@ public class ModifyPayPwd extends BaseCordovaActivity implements CordovaInterfac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cwebview);
-
+        isOncreate = true;
         initView();
 
     }
@@ -65,7 +67,12 @@ public class ModifyPayPwd extends BaseCordovaActivity implements CordovaInterfac
         MobclickAgent.onPageStart("修改支付密码");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "changePasswd.html", this, this, this, this);
+        if (isOncreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "changePasswd.html", this, this, this, this);
+        }
+        isOncreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

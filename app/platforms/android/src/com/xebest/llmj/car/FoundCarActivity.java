@@ -241,7 +241,7 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
                             if (list.size() < 10) {
                                 mListView.setPullLoadEnable(false);
                             } else {
-                                mListView.setPullLoadEnable(true);
+                                mListView.setPullLoadEnable(false);
                             }
                             carAdapter = new CarAdapter(getActivity());
                             mListView.setAdapter(carAdapter);

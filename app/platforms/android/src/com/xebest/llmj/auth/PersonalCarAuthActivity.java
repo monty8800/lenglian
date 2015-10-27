@@ -289,6 +289,8 @@ public class PersonalCarAuthActivity extends BaseCordovaActivity implements Cord
             mWebView.init(this, ApiUtils.API_COMMON_URL + "personalCarAuth.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

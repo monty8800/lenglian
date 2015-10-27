@@ -726,7 +726,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                         if (list.size() < 10) {
                             mListView.setPullLoadEnable(false);
                         } else {
-                            mListView.setPullLoadEnable(true);
+                            mListView.setPullLoadEnable(false);
                         }
                         if (status == 1) {
                             // 货
@@ -917,7 +917,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                                 if (list.size() < 10) {
                                     mListView.setPullLoadEnable(false);
                                 } else {
-                                    mListView.setPullLoadEnable(true);
+                                    mListView.setPullLoadEnable(false);
                                 }
 
                                 // 货

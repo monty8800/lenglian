@@ -103,6 +103,8 @@ public class AddressActivity extends BaseCordovaActivity implements CordovaInter
         }
         isUpdate = false;
 
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
+
         super.onResume();
     }
 

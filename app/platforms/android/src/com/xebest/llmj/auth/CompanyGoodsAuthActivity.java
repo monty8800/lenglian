@@ -248,6 +248,8 @@ public class CompanyGoodsAuthActivity extends BaseCordovaActivity implements Cor
             mWebView.init(this, ApiUtils.API_COMMON_URL + "companyGoodsAuth.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

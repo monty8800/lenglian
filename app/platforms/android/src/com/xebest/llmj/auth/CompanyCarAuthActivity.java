@@ -291,6 +291,8 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
             mWebView.init(this, ApiUtils.API_COMMON_URL + "companyCarAuth.html", this, this, this, this);
         }
         isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

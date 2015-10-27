@@ -76,7 +76,7 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
         }
         isOnCreate = false;
 
-        mWebView.getWebView().loadUrl("javascript:updateUser()");
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 
