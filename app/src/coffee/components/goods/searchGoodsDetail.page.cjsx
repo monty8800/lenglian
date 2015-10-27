@@ -86,8 +86,8 @@ GoodsDetail = React.createClass {
 
 	render : ->
 		console.log 'state', @state
-		toColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 3] then '（需要冷库）' else ''
-		fromColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [2, 4] then '（需要冷库）' else '' 
+		toColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [4, 3] then '（需要冷库）' else ''
+		fromColdFlag = if parseInt(@state.goodsDetail.refrigeration) in [4, 2] then '（需要冷库）' else '' 
 
 		_payTypeText = Helper.payTypeMapper @state.goodsDetail.payType
 		if parseInt(@state.goodsDetail.payType) is 3 and @state.goodsDetail.prePay

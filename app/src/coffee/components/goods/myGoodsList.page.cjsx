@@ -21,6 +21,8 @@ DB = require 'util/storage'
 Moment = require 'moment'
 
 
+_firstLoad = true
+
 GoodsListItem = React.createClass {
 	_toGoodsDetail: (index) ->
 		goodsId = @props.list[index].id
@@ -127,6 +129,7 @@ GoodsList = React.createClass {
 
 	_onChange: (mark)->
 		if mark is 'getUserGoodsListSucc'
+			_firstLoad = false
 			newState = Object.create @state
 			newState.goodsList = GoodsStore.getMyGoodsList()		
 			@setState newState
@@ -255,6 +258,11 @@ GoodsList = React.createClass {
 					</ul>
 				</div>
 				
+				<div style={{display: if @state.goodsList.length is 0 and not _firstLoad then 'block' else 'none'}} className="m-searchNoresult">
+					<div className="g-bgPic"></div>
+					<p className="g-txt">很抱歉，没能找到您要的结果</p>
+				</div>
+
 				<GoodsListItem list={ @state.goodsList } />
 
 			</div>

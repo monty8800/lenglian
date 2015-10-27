@@ -174,8 +174,8 @@ GoodsOrderDetail = React.createClass {
 		}
 
 	render : ->
-		toColdFlag = if parseInt(@state.detail?.get('coldStoreFlag')) in [2, 3] then '（需要冷库）' else ''
-		fromColdFlag = if parseInt(@state.detail?.get('coldStoreFlag')) in [2, 4] then '（需要冷库）' else ''
+		toColdFlag = if parseInt(@state.detail?.get('coldStoreFlag')) in [4, 3] then '（需要冷库）' else ''
+		fromColdFlag = if parseInt(@state.detail?.get('coldStoreFlag')) in [4, 2] then '（需要冷库）' else ''
 		_statusText = null
 		_btnText = null
 		orderState = parseInt(@state.detail?.get 'orderState')

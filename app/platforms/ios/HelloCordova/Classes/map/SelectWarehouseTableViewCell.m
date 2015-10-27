@@ -27,9 +27,9 @@
     _infoView.userInteractionEnabled = NO;
     [self.contentView addSubview:_infoView];
     
-//    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 79, SCREEN_WIDTH-40, 1)];
-//    line.backgroundColor = [UIColor WY_ColorWithHex:0xececec];
-//    [self.contentView addSubview:line];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 98, SCREEN_WIDTH-40, 1)];
+    line.backgroundColor = [UIColor WY_ColorWithHex:0xececec];
+    [self.contentView addSubview:line];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }

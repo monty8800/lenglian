@@ -282,10 +282,10 @@ AddGoods = React.createClass {
 						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="1" defaultChecked=true type="radio" name="xe-checkbox" dangerouslySetInnerHTML={{__html: '否'}} />
 					</label>
 					<label className="mr5">
-						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="2"  type="radio" name="xe-checkbox" dangerouslySetInnerHTML={{__html: '是'}} />
+						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="4"  type="radio" name="xe-checkbox" dangerouslySetInnerHTML={{__html: '是'}} />
 					</label>
 					<label className="mr5">
-						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="4"  type="radio" name="xe-checkbox"  dangerouslySetInnerHTML={{__html: '发地'}} />
+						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="2"  type="radio" name="xe-checkbox"  dangerouslySetInnerHTML={{__html: '发地'}} />
 					</label>
 					<label className="mr5">
 						<input className="mui-checkbox ll-font" onChange={@_selectRefrigeration} value="3"  type="radio" name="xe-checkbox" dangerouslySetInnerHTML={{__html: '终点'}} />

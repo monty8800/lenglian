@@ -37,7 +37,7 @@ Goods = Immutable.Record {
 	arrivalStime:null			#到货开始时间
 	arrivalEtime:null			#到货结束时间
 
-	refrigeration: 1 			#需要冷库 1不需要，2需要，3目的地需要，4起始地需要
+	refrigeration: 1 			#需要冷库 1不需要，4需要，3目的地需要，2起始地需要
 	resourceStatus:null			#货源状态 1-求车(库)中 2-有人响应 3-已成交
 	priceType:null 				#价格类型 1一口价， 2竞价
 	price: null
