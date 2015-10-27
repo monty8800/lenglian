@@ -57,13 +57,15 @@ WalletAction = {
 			params: params
 		}
 
-	chargeRecord: ->
+	chargeRecord: (params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.CHARGE_RECORD
+			params: params
 		}
-	presentRecord: ->
+	presentRecord: (params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.PRESENT_RECORD
+			params: params
 		}
 
 }
