@@ -3,6 +3,8 @@ require 'user-center-style'
 
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+CSSTransitionGroup = React.addons.CSSTransitionGroup
+InfiniteScroll = require('react-infinite-scroll')(React)
 UserStore = require 'stores/user/user'
 WalletStore = require 'stores/wallet/wallet'
 WalletModel = require 'model/wallet'

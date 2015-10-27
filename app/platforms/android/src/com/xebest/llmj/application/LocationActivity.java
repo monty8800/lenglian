@@ -274,6 +274,10 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
 
             mStreetNumber = location.getStreetNumber();
 
+            if (String.valueOf(latitude).equals("") || String.valueOf(lontitud) == null
+                    || String.valueOf(latitude) == null || String.valueOf(lontitud) == null) {
+                return;
+            }
             initOverlay(latitude, lontitud);
 
             loc.setText(location.getAddrStr());
