@@ -21,8 +21,8 @@ _bankCardsList = []
 
 _billListResult = Immutable.List()
 
-_chargeRecordList = []
-_presentRecordList = []
+_chargeRecordList = Immutable.List()
+_presentRecordList = Immutable.List()
 
 _aBankCardInfo = new BankCardModel
 
@@ -218,37 +218,29 @@ charge = (params)->
 		Plugin.toast.err data.msg
 
 # 充值记录
-chargeRecord = ->
+chargeRecord = (params)->
 	console.log '---------chargeRecord'
-	Http.post Constants.api.charge_record, {
-		userId: UserStore.getUser().id
-		pageNow: 1
-		pageSize: 100
-	}, (data)->
-		_chargeRecordList = []
+	Http.post Constants.api.charge_record, params, (data)->
+		_chargeRecordList = Immutable.List() if params.pageNow is 1
 		for charge in data.rechargeRecord
 			wallet = new BidModel
 			wallet = wallet.set 'amount', charge.amount
 			wallet = wallet.set 'createTime', charge.createTime
 			wallet = wallet.set 'state', charge.state
-			_chargeRecordList.push wallet
+			_chargeRecordList = _chargeRecordList.push wallet
 		WalletStore.emitChange ['charge_record']
-		
+
 # 提现记录
-presentRecord = ->
+presentRecord = (params)->
 	console.log '---------presentRecord'	
-	Http.post Constants.api.present_record, {
-		userId: UserStore.getUser().id
-		pageNow: 1
-		pageSize: 100
-	}, (data) ->
-		_chargeRecordList = []
+	Http.post Constants.api.present_record, params, (data)->
+		_chargeRecordList = Immutable.List() if params.pageNow is 1
 		for charge in data.presentRecord
 			wallet = new BidModel
 			wallet = wallet.set 'amount', charge.amount
 			wallet = wallet.set 'createTime', charge.createTime
 			wallet = wallet.set 'state', charge.state
-			_chargeRecordList.push wallet
+			_chargeRecordList = _chargeRecordList.push wallet
 		WalletStore.emitChange ['present_record']
 
 WalletStore = assign BaseStore, {
@@ -279,8 +271,8 @@ Dispatcher.register (action)->
 		when Constants.actionType.WITHDRAW then withdraw(action.params)
 		when Constants.actionType.SELECT_WITHDRAW_CARD then selectWithdrawCard(action.card)
 		when Constants.actionType.CHARGE then charge(action.params)
-		when Constants.actionType.CHARGE_RECORD then chargeRecord()
-		when Constants.actionType.PRESENT_RECORD then presentRecord()
+		when Constants.actionType.CHARGE_RECORD then chargeRecord(action.params)
+		when Constants.actionType.PRESENT_RECORD then presentRecord(action.params)
 
 module.exports = WalletStore
 

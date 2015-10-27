@@ -121,7 +121,7 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请输入终点'
 		else if not @state.type
 			Plugin.toast.err '请选择货物类型'
-		else if not Validator.float(@state.weight)  or (@state.cube?.length > 0 and not Validator.float @state.cube)
+		else if (@state.weight?.length > 0 and not Validator.float(@state.weight))  or (@state.cube?.length > 0 and not Validator.float @state.cube)
 			Plugin.toast.err '请填写正确的货物规格, 最多两位小数'
 		else if not @state.installMinTime or not @state.installMaxTime
 			Plugin.toast.err '请填写装车时间'
