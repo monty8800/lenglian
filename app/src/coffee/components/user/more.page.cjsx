@@ -16,7 +16,7 @@ More = React.createClass {
 		return Plugin.nav.push [page] if page is 'aboutUs'
 		DB.put 'transData', transData or {}
 		Auth.needLogin ->
-			Plugin.nav.push [page]
+			Plugin.nav.push [page, transData]
 	_logout: ->
 		if not UserStore.getUser()?.id
 			Plugin.toast.show '尚未登录'

@@ -147,6 +147,15 @@ OrderDetail = React.createClass {
 		if parseInt(@state.order?.payType) is 3 and @state.order?.advance
 			_payTypeText = _payTypeText + @state.order?.advance + '元'
 
+		console.log '-----------goodsRouteList:', @state.order.goodsRouteList
+		routeList = []
+		if @state.order.goodsRouteList isnt null and @state.order.goodsRouteList isnt ''
+			routeList = @state.order.goodsRouteList.split ','
+		routes = routeList.map (item, index)->
+			<div className="g-adr-middle ll-font g-adr-middle-line" key={index}>
+				{item}				
+			</div>
+
 		<div>
 			<div className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{@state.order.orderNo}</span></p>
@@ -154,7 +163,7 @@ OrderDetail = React.createClass {
 			</div>
 			<div className="m-item01">
 				<div className="g-detail-dirver">
-					<div className="g-detail">					
+					<div className="g-detail">
 						<div onClick={@_goPage} className="g-dirver-pic">
 							<XeImage src={@state.order?.goodsPersonHeadPic} size='130x130' type='avatar' />
 						</div>
@@ -180,6 +189,11 @@ OrderDetail = React.createClass {
 						<em>{@state.order.destination}</em>
 						<span></span>
 					</div>
+					{
+						if routeList.length > 0
+							routes
+					}
+					
 					<div className="g-adr-end ll-font g-adr-end-line">
 						<em>{@state.order.setOut}</em>
 						<span></span>
@@ -239,7 +253,7 @@ OrderDetail = React.createClass {
 					<span>{Helper.isInvoinceMap @state.order?.isInvoice}</span>
 				</p>
 				<p>
-					<span>发布时间:</span>	
+					<span>货源发布时间:</span>	
 					<span>{Helper.subStr 0, 10, @state.order?.releaseTime}</span>
 				</p>			
 			</div>	

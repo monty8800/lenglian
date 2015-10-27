@@ -55,16 +55,22 @@ Record = React.createClass {
 		WalletAction.presentRecord()
 
 	render: ->
+
 		cells = @state.recordList.map (item, index) ->
 			<div className="m-moneyRecord" key={index}>
 				<div className="g-recordItem clearfix">
 					<div className="fl">
 						<p className="f30">{if _status is 1 then '充值' else '提现'}</p>
-						<p className="time">{Helper.subStr 0, 10, item.createTime}</p>
+						<p className="time">{item.createTime}</p>
 					</div>
 					<div className="fr right">
-						<p>{'+' + item.amount.toFixed 2}</p>
-						<p className="f-state">{if _status is 1 then '充值成功' else '提现成功'}</p>
+						{
+							if _status is 1
+								<p>{'+' + item.amount.toFixed 2}</p>
+							else
+								<p>{'-' + item.amount.toFixed 2}</p>		
+						}
+						<p className="f-state">{Helper.recordStatus _status, item?.state}</p>
 					</div>
 				</div>
 			</div>				

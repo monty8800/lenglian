@@ -57,6 +57,9 @@ float = (input)->
 bankCard = (input)->
 	return /^\d{16,19}$/.test input
 
+bulky = (input)->
+	return parseFloat(input) isnt 0 and /^\d{1,3}(\.\d{0,2})?$/.test input
+
 module.exports = {
 	mobile: mobile #手机号
 	passwd: passwd #登录注册密码
@@ -77,4 +80,5 @@ module.exports = {
 	price: price
 	float: float
 	bankCard: bankCard
+	bulky: bulky
 }

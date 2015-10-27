@@ -170,18 +170,26 @@ AddCar = React.createClass {
 		}
 
 	handleSubmit: ->
-		bulky = @state.bulky
-		if bulky.length isnt 0
-			h = bulky.split '.'
-			console.log '-------hhhh:', h
-			if h.length > 2
-				return Plugin.toast.err '只能包含一个小数点哦'
-			else if h.length > 1
-				index = bulky.indexOf '.'
-				last = bulky.substr index + 1, bulky.length
-				console.log '------hasdfads:', last
-				if last.length > 2
-					return Plugin.toast.err '只能有两位小数哦'
+		# bulky = @state.bulky
+		# if bulky.length isnt 0
+		# 	if parseInt(bulky) is 0
+		# 		return Plugin.toast.err '泡货不能为0方哦'	
+		# 	h = bulky.split '.'
+		# 	console.log '-------hhhh:', h
+		# 	if h.length > 2
+		# 		return Plugin.toast.err '泡货只能包含一个小数点哦'
+		# 	else if h.length > 1
+		# 		index = bulky.indexOf '.'
+		# 		last = bulky.substr index + 1, bulky.length
+		# 		first = bulky.substr 0, index
+		# 		console.log '------hasdfads:', first
+		# 		if parseInt(first) > 999
+		# 			return Plugin.toast.err '泡货最大为999.99方'
+		# 		if last.length > 2
+		# 			return Plugin.toast.err '泡货只能有两位小数哦'
+		# 	else
+		# 		if parseInt(bulky) > 999
+		# 			return Plugin.toast.err '泡货最大为999.99方'
 		if not Validator.carNum @state.carNo
 			Plugin.toast.err '请输入正确的车牌号'
 		else if @state.category is ''
@@ -192,8 +200,10 @@ AddCar = React.createClass {
 			Plugin.toast.err '请选择车辆类别'
 		else if @state.vehicle is ''
 			Plugin.toast.err '请选择车辆长度'
+		else if @state.bulky.length isnt 0 and not Validator.bulky @state.bulky
+			Plugin.toast.err '请输入正确的泡货,最多两位小数,最大不超过999.99'
 		else if not Validator.isEmpty @state.driver
-			Plugin.toast.err '随车司机不能为空'
+			Plugin.toast.err '司机姓名不能为空'
 		else if not Validator.mobile @state.mobile
 			Plugin.toast.err '请输入正确的手机号'
 		# else if not @state.user.carPic
@@ -201,7 +211,7 @@ AddCar = React.createClass {
 		else if not @state.license
 			Plugin.toast.err '请上传行驶证图片'	
 		else if not @state.transLicensePic
-			Plugin.toast.err '运营证'
+			Plugin.toast.err '请上传运营证图片'
 		else 
 			CarAction.addCar {
 				bulky: @state.bulky # 可载泡货

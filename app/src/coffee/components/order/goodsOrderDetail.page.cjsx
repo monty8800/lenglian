@@ -308,10 +308,6 @@ GoodsOrderDetail = React.createClass {
 				<span>{Helper.isInvoinceMap @state.detail?.get('goodsIsInvoice')}</span>
 			</p>
 			<p>
-				<span>订单创建时间:</span>
-				<span>{Moment(@state.detail?.get('createTime')).format('YYYY-MM-DD')}</span>
-			</p>
-			<p>
 				<span>货源发布时间:</span>
 				<span>{Moment(@state.detail?.get('goodsCreateTime')).format('YYYY-MM-DD')}</span>
 			</p>			

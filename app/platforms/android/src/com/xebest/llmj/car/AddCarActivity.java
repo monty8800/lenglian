@@ -153,11 +153,11 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
             content.put("data", ttData);
             content.put("sign", sign);
 
-            driving = new HashMap<String, File>();
             idCard = new HashMap<String, File>();
             operate = new HashMap<String, File>();
 
-            if (files.getJSONObject(0).getString("path") != null && !files.getJSONObject(0).getString("path").equalsIgnoreCase("null")) {
+            if (files.getJSONObject(0).getString("path") != null && !files.getJSONObject(0).getString("path").equalsIgnoreCase("null") && !files.getJSONObject(0).getString("path").equalsIgnoreCase("")) {
+                driving = new HashMap<String, File>();
                 driving.put("imgUrl", new File(files.getJSONObject(0).getString("path")));
             }
 
