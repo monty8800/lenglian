@@ -25,6 +25,28 @@ FollowStore = require 'stores/attention/attention'
 
 Plugin = require 'util/plugin'
 Raty = require 'components/common/raty'
+GoodsRouteList = React.createClass {
+	render : ->
+		items = @props.list.map (item,i)->
+			<div className="g-adr-middle ll-font">
+				{item}
+			</div>
+		,this
+		<div>
+			{items}
+		</div>
+}
+GoodsRoutes = React.createClass {
+	render : ->
+		items = @props.list.map (item,i)->
+			<div className="g-adr-middle ll-font">
+				{item}			
+			</div>
+		,this
+		<div>
+			{items}
+		</div>
+}
 
 GoodsOrderDetail = React.createClass {
 
@@ -157,6 +179,7 @@ GoodsOrderDetail = React.createClass {
 				targetAuth: if isGC then params.detail.get('carUserAuthMode') else params.detail.get('warehouseUserAuthMode')
 				targetScore: if isGC then params.detail.get('carUserScore') else params.detail.get('warehouseUserScore')
 				followed: params.detail.get('wishFlag')
+				goodsRouteList:if isGC then params.detail.get('goodsRouteList') else null
 			}
 		else if params.msg is 'follow:done'
 			@setState {
@@ -231,7 +254,7 @@ GoodsOrderDetail = React.createClass {
 							<span>{@state.target}</span><span className="g-dirname-single">{if parseInt(@state.targetAuth) is 1 then '(个体)' else '(公司)'}</span>
 						</div>
 						<div className="g-dirver-dis ll-font">
-							<Raty score={ @state.detail?.get('goodsUserScore') } />
+							<Raty score={ @state.targetScore } />
 						</div>
 
 					</div>
@@ -247,6 +270,10 @@ GoodsOrderDetail = React.createClass {
 					<em>{@state.detail?.get('toProvinceName') + @state.detail?.get('toCityName') + @state.detail?.get('toCountyName') + toColdFlag}</em>
 					<span></span>
 				</div>
+				{
+					if @state.goodsRouteList
+						<GoodsRouteList list={@state.goodsRouteList.split ','} />
+				}
 				<div className="g-adr-end ll-font g-adr-end-line">
 					<em>{@state.detail?.get('fromProvinceName') + @state.detail?.get('fromCityName') + @state.detail?.get('fromCountyName') + fromColdFlag}</em>
 					<span></span>

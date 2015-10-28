@@ -5,6 +5,7 @@ XeImage = require 'components/common/xeImage'
 OrderAction = require 'actions/order/order'
 
 UserStore = require 'stores/user/user'
+Raty = require 'components/common/raty'
 
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
@@ -107,7 +108,9 @@ OrderDriverCell = React.createClass {
 					<div className="g-dirver-name">
 						<span>{@props.order?.userName}</span>
 					</div>
-					<div className="g-dirver-dis ll-font">&#xe609;&#xe609;&#xe609;&#xe609;&#xe609;</div>
+					<div className="g-dirver-dis ll-font">
+						<Raty score={ @props.order?.userScore }/>
+					</div>
 				</div>
 				<div className="g-dirver-btn">
 					{statusBtn}			

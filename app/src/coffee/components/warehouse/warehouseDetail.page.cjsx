@@ -42,10 +42,14 @@ conf = (aProperty) ->
 		when '4' 
 			pi = aProperty.value.indexOf '.'
 			if pi isnt -1
+				# 有小数
 				if aProperty.value.length > pi + 2
 					warehousePriceValue = aProperty.value.substr 0,(pi + 3)
 				else
 					warehousePriceValue = aProperty.value
+			else
+				# 整数
+				warehousePriceValue = aProperty.value
 			warehousePriceUnit = aProperty.attributeName
 
 

@@ -159,7 +159,7 @@ WarehouseOrderDetail = React.createClass {
 								<span>{ @state.orderDetail.goodsPersonName }</span><span className="g-dirname-single">{ Helper.whoYouAreMapper @state.orderDetail.goodsPersonAuthMode}</span>
 							</div>
 							<div className="g-dirver-dis ll-font">
-								<Raty score={ @state.data.goodsScore } />
+								<Raty score={ @state.data.goodScore } />
 							</div>
 						</div>
 						<ul className="g-driver-contact">

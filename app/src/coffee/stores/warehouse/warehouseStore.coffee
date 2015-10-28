@@ -167,6 +167,7 @@ getSearchWarehouseDetail = (warehouseId,focusid) ->
 			propertyModel = propertyModel.set 'type',prop.type
 			propertyModel = propertyModel.set 'attribute',prop.attribute
 			propertyModel = propertyModel.set 'value',prop.value
+			propertyModel = propertyModel.set 'valueTwo',prop.valueTwo
 			propertyModel = propertyModel.set 'typeName',prop.typeName
 			propertyModel = propertyModel.set 'attributeName',prop.attributeName
 			tempArr.push propertyModel

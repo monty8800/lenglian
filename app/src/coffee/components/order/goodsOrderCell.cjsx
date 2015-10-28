@@ -21,7 +21,7 @@ GoodsCell = React.createClass {
 			selectBid: null
 		}
 
-	_showBid: ->
+	_showBid: ()->
 		console.log 'show bid'
 		if not @state.selectBid and @props.order?.priceType isnt '1' and parseInt(@props.order?.orderState) is 1
 			@setState {
