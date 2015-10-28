@@ -317,12 +317,12 @@ GoodsOrderDetail = React.createClass {
 		<div className={if _statusText not in ['订单已评价', '已取消'] then 'm-detail-bottom' else ''}>
 			{
 				if orderState is 1
-					<div className={if acceptMode is 1 then "g-cancle-btn" else 'g-pay-btn'}>
+					<div className={if acceptMode is 1 and parseInt(@state.detail?.get 'priceType') is 1 then "g-cancle-btn" else 'g-pay-btn'}>
 						<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
 					</div>
 			}
 			{
-				if orderState isnt 5 and not (orderState is 1 and acceptMode isnt 1) and not (orderState is 4 and @state.detail?.get 'mjRateflag') and not (orderState is 2 and parseInt(@state.detail?.get 'payState') is 2)
+				if orderState isnt 5 and not (orderState is 1 and (acceptMode isnt 1 or parseInt(@state.detail?.get 'priceType') isnt 1)) and not (orderState is 4 and @state.detail?.get 'mjRateflag') and not (orderState is 2 and parseInt(@state.detail?.get 'payState') is 2)
 					<div className="g-pay-btn">
 						<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
 					</div>
