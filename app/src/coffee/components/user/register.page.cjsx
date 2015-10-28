@@ -80,11 +80,11 @@ Register = React.createClass {
 			<ul>
 				<li>
 					<span className="ll-font u-user-icon u-reg-icon"></span>
-					<input type="tel" maxLength="11" placeholder="请输入手机号" valueLink={@linkState 'mobile'} />
+					<input type="tel" className="input-weak" maxLength="11" placeholder="请输入手机号" valueLink={@linkState 'mobile'} />
 					<SmsCode mobile={@state.mobile} type={Constants.smsType.register} />
 				</li>
 				<li>
-					<input type="text" placeholder="请输入手机验证码" valueLink={@linkState 'code'} />
+					<input type="text" className="input-weak" placeholder="请输入手机验证码" valueLink={@linkState 'code'} />
 				</li>
 			</ul>
 		</div>

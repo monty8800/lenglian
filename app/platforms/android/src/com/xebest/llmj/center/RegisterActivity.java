@@ -84,16 +84,21 @@ public class RegisterActivity extends BaseCordovaActivity implements CordovaInte
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        if (args.toString().contains("user:update")) {
-            finish();
-        } else if (args.toString().contains("2")) {
+        String flag = args.getString(0);
+        if (flag.equals("2")) {
             // 跳过认证
             MainActivity.actionView(RegisterActivity.this, 3);
-        } else if (args.toString().contains("auth")) {
-            AuthActivity.actionView(RegisterActivity.this);
-        } else if (args.toString().contains("toAgreement")) {
-            AgreementActivity.actionView(RegisterActivity.this);
+        } else {
+            if (args.toString().contains("user:update")) {
+//                finish();
+            } else if (args.toString().contains("2")) {
+            } else if (args.toString().contains("auth")) {
+                AuthActivity.actionView(RegisterActivity.this);
+            } else if (args.toString().contains("toAgreement")) {
+                AgreementActivity.actionView(RegisterActivity.this);
+            }
         }
+
     }
 
     @Override

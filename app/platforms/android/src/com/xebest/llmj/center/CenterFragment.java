@@ -366,6 +366,7 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
         super.onConfigurationChanged(config);
     }
 
+    String signStr = "";
     /**
      * 修改头像
      */
@@ -384,6 +385,23 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
             map.put("uuid", Application.getInstance().UUID);
             map.put("version", Application.getInstance().VERSIONCODE);
             map.put("client_type", "3");
+            final String str = Application.getInstance().UUID + ApiUtils.encryption
+                    + new Gson().toJson(data).toString() + ApiUtils.client_type;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (str != null) {
+                        signStr = Tools.md5(str);
+                    }
+                }
+            });
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            map.put("sign", Tools.md5(signStr));
+            map.put("userId", Application.getInstance().userId);
             map.put("data", new Gson().toJson(data));
             Map<String, File> fileMap = new HashMap<String, File>();
             fileMap.put("file", new File(params[0]));

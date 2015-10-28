@@ -965,6 +965,7 @@ input[type=text],input[type=tel],input[type=password] {
     border-radius: 5/$ppr;
     margin:-12/$ppr 0;
     line-height: 55/$ppr;
+    overflow: hidden;
 }
 // input.input-weak:focus {
 //     background: #ececec;
