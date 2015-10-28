@@ -57,9 +57,14 @@ public class AddBankNextActivity extends BaseCordovaActivity implements CordovaI
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        if (flag.equals("addBankCardVerify")) {
-            AddBankVerifyActivity.actionView(AddBankNextActivity.this);
+        String temp = args.getString(0);
+        if (temp.equals("2")) {
+            Application.getInstance().removeActivity();
+        } else {
+            String flag = args.getString(1);
+            if (flag.equals("addBankCardVerify")) {
+                AddBankVerifyActivity.actionView(AddBankNextActivity.this);
+            }
         }
 
     }

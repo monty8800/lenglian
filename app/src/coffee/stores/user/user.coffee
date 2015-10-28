@@ -289,6 +289,7 @@ setPayPwd = (payPwd, oldPwd)->
 		payPassword: payPwd
 		oldPayPwd: oldPwd if oldPwd
 	}, (result)->
+		console.log '-------setPayPwd--------', result
 		if result.status is 1
 			_user = _user.set 'hasPayPwd', 1
 			DB.put 'user', _user.toJS()
