@@ -28,6 +28,7 @@ _hasMore = true
 _isBusy = false
 _pageSize = 10
 _pageNow = 1
+_currentCount = 0
 
 
 getStamp = (index)->
@@ -77,9 +78,13 @@ GoodsList = React.createClass {
 
 			newState = Object.create @state
 			resultList = GoodsStore.getMyGoodsList()
-			_showNoResult = resultList.length is 0
-			_hasMore = parseInt(resultList.length) - parseInt(newState.goodsList.length) is parseInt(_pageSize)
+			_hasMore = parseInt(resultList.length) - parseInt(_currentCount) is parseInt(_pageSize)
+
+				# parseInt(resultList.length) - parseInt(newState.goodsList.length) is parseInt(_pageSize)
 			newState.goodsList = resultList
+			_showNoResult = resultList.length is 0
+			_currentCount = resultList.length
+
 			@setState newState
 		else if mark is 'myGoodsList:reloaded'
 			@setState {
@@ -109,6 +114,7 @@ GoodsList = React.createClass {
 		if @state.selectedMenu1 is index
 			return
 		_pageNow = 1
+		_currentCount = 0
 		newState = Object.create @state
 		newState.selectedMenu1 = index
 		newState.goodsList = Immutable.List()
@@ -125,11 +131,11 @@ GoodsList = React.createClass {
 		_isBusy = true
 		_hasMore = true
 
-
 	_subMenu2Click :(index) ->
 		if @state.selectedMenu2 is index
 			return
 		_pageNow = 1
+		_currentCount = 0
 		newState = Object.create @state
 		newState.selectedMenu2 = index
 		newState.shouldShowMenu = 0
@@ -150,6 +156,7 @@ GoodsList = React.createClass {
 		if @state.selectedMenu3 is index
 			return
 		_pageNow = 1
+		_currentCount = 0
 		newState = Object.create @state
 		newState.selectedMenu3 = index
 		newState.shouldShowMenu = 0

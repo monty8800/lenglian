@@ -60,7 +60,7 @@ Order = Immutable.Record {
 	userId: null
 	userMobile: null
 	userName: null
-	userScore: 0
+	userScore: null
 	warehouseName: null
 	warehousePriceSquare: null
 	warehousePriceTorr: null

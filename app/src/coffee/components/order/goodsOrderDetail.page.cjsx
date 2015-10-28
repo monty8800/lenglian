@@ -25,6 +25,28 @@ FollowStore = require 'stores/attention/attention'
 
 Plugin = require 'util/plugin'
 Raty = require 'components/common/raty'
+GoodsRouteList = React.createClass {
+	render : ->
+		items = @props.list.map (item,i)->
+			<div className="g-adr-middle ll-font">
+				{item}
+			</div>
+		,this
+		<div>
+			{items}
+		</div>
+}
+GoodsRoutes = React.createClass {
+	render : ->
+		items = @props.list.map (item,i)->
+			<div className="g-adr-middle ll-font">
+				{item}			
+			</div>
+		,this
+		<div>
+			{items}
+		</div>
+}
 
 GoodsOrderDetail = React.createClass {
 
@@ -157,6 +179,7 @@ GoodsOrderDetail = React.createClass {
 				targetAuth: if isGC then params.detail.get('carUserAuthMode') else params.detail.get('warehouseUserAuthMode')
 				targetScore: if isGC then params.detail.get('carUserScore') else params.detail.get('warehouseUserScore')
 				followed: params.detail.get('wishFlag')
+				goodsRouteList:if isGC then params.detail.get('goodsRouteList') else null
 			}
 		else if params.msg is 'follow:done'
 			@setState {
@@ -231,7 +254,7 @@ GoodsOrderDetail = React.createClass {
 							<span>{@state.target}</span><span className="g-dirname-single">{if parseInt(@state.targetAuth) is 1 then '(个体)' else '(公司)'}</span>
 						</div>
 						<div className="g-dirver-dis ll-font">
-							<Raty score={ @state.detail?.get('goodsUserScore') } />
+							<Raty score={ @state.targetScore } />
 						</div>
 
 					</div>
@@ -247,6 +270,10 @@ GoodsOrderDetail = React.createClass {
 					<em>{@state.detail?.get('toProvinceName') + @state.detail?.get('toCityName') + @state.detail?.get('toCountyName') + toColdFlag}</em>
 					<span></span>
 				</div>
+				{
+					if @state.goodsRouteList
+						<GoodsRouteList list={@state.goodsRouteList.split ','} />
+				}
 				<div className="g-adr-end ll-font g-adr-end-line">
 					<em>{@state.detail?.get('fromProvinceName') + @state.detail?.get('fromCityName') + @state.detail?.get('fromCountyName') + fromColdFlag}</em>
 					<span></span>
@@ -317,12 +344,12 @@ GoodsOrderDetail = React.createClass {
 		<div className={if _statusText not in ['订单已评价', '已取消'] then 'm-detail-bottom' else ''}>
 			{
 				if orderState is 1
-					<div className={if acceptMode is 1 then "g-cancle-btn" else 'g-pay-btn'}>
+					<div className={if acceptMode is 1 and parseInt(@state.detail?.get 'priceType') is 1 then "g-cancle-btn" else 'g-pay-btn'}>
 						<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
 					</div>
 			}
 			{
-				if orderState isnt 5 and not (orderState is 1 and acceptMode isnt 1) and not (orderState is 4 and @state.detail?.get 'mjRateflag') and not (orderState is 2 and parseInt(@state.detail?.get 'payState') is 2)
+				if orderState isnt 5 and not (orderState is 1 and (acceptMode isnt 1 or parseInt(@state.detail?.get 'priceType') isnt 1)) and not (orderState is 4 and @state.detail?.get 'mjRateflag') and not (orderState is 2 and parseInt(@state.detail?.get 'payState') is 2)
 					<div className="g-pay-btn">
 						<a onClick={@_confirm} className="u-btn02">{_btnText}</a>
 					</div>

@@ -90,6 +90,7 @@ getGoodsOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'goodsType',order.goodsType
 				tempOrder = tempOrder.set 'advance',order.advance
 				tempOrder = tempOrder.set 'payState', order.payState
+				tempOrder = tempOrder.set 'userScore', order.userScore
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['goods']
 	, (err) ->

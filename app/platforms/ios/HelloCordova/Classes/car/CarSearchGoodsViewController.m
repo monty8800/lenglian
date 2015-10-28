@@ -51,7 +51,6 @@
     if ([params[0] integerValue] == 3) {
         if ([params [1] isEqualToString:@"order:car:select:goods:done"]) {
             [self.navigationController popToRootViewControllerAnimated:YES];
-            //TODO: 跳转到订单页面
         }
         else if ([params[1] isEqualToString:@"select:car"])
         {
