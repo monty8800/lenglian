@@ -100,6 +100,8 @@ OrderPay = React.createClass {
 				showSms: false
 			}
 		else if params is 'user:update'
+			console.log '--------------orderPayUser:', UserStore.getUser().toJS()
+			console.log '--------------hasPayPwd:', UserStore.getUser().hasPayPwd
 			@setState {
 				user: UserStore.getUser()
 			}

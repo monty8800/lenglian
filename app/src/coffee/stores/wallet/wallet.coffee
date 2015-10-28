@@ -33,6 +33,9 @@ _lastBankCard = new BankCardModel DB.get('lastBankCard')
 
 
 window.tryReloadBandCardsList = ->
+	console.log '--------tryReloadBandCardsList--'
+	flag = DB.get 'shouldBankCardsListReload'
+	console.log '-------------flag-----'. flag
 	shouldReload = parseInt (DB.get 'shouldBankCardsListReload')
 	console.log '---------------tryReloadBandCardsList:', shouldReload
 	if shouldReload is 1

@@ -175,7 +175,7 @@ OrderDetail = React.createClass {
 							<div className="g-dirver-dis ll-font">
 								{
 									if not @state.isInit
-										<Raty score=8 />
+										<Raty score={@state.order.goodScore} />
 								}
 							</div>
 						</div>

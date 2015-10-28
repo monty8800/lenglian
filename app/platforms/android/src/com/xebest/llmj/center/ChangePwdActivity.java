@@ -34,6 +34,8 @@ public class ChangePwdActivity extends BaseCordovaActivity implements CordovaInt
 
     private static String mTitle = "";
 
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -47,7 +49,7 @@ public class ChangePwdActivity extends BaseCordovaActivity implements CordovaInt
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cwebview);
-
+        isOnCreate = true;
         initView();
 
     }
@@ -89,7 +91,12 @@ public class ChangePwdActivity extends BaseCordovaActivity implements CordovaInt
         MobclickAgent.onPageStart(mTitle);
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "changePasswd.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "changePasswd.html", this, this, this, this);
+        }
+        isOnCreate = false;
+
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
     }
 

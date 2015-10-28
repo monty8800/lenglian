@@ -60,7 +60,8 @@ ResetPwd = React.createClass {
 			Plugin.toast.success '密码修改成功！'
 		else if msg is 'setPayPwd:done'
 			if hasPayPwd
-				Plugin.nav.pop()
+				# Plugin.nav.pop()
+				console.log '-----------setPwdSuccess:', UserStore.getUser().toJS()
 				Plugin.toast.success '修改支付密码成功！'
 			else
 				Plugin.nav.pop()

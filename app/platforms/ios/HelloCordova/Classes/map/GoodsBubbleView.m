@@ -47,7 +47,6 @@
 }
 
 -(void)setData:(NSDictionary *)data {
-//TODO: 更新界面
     [super setData:data];
     
     [_avatar XE_setImage:[data objectForKey:@"userImgUrl"] size:s130x130 type:Avatar];

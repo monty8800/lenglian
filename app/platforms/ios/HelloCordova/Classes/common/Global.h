@@ -78,7 +78,7 @@
 
 
 #define CLIENT_TYPE @"2"  //客户端类型
-#define UMENG_KEY @"559500cc67e58ee95500064a"  //友盟的key
+#define UMENG_KEY @"56303ec167e58e51530059f4"  //友盟的key
 //效果图与实际屏幕比例
 #define REALSCREEN_MULTIPBY  (SCREEN_WIDTH / 320)
 

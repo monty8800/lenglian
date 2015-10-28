@@ -82,6 +82,7 @@ AddBankCardNext = React.createClass {
 				bankList: WalletStore.getSupportBankList()
 			}
 		else if mark is 'bindBankCarSucc'
+			Plugin.toast.success '绑定成功！'
 			DB.put 'shouldBankCardsListReload',1
 			Plugin.nav.popTo 2
 
