@@ -15,7 +15,7 @@ public interface ApiUtils {
 
     String SERVER_Z = "http://192.168.29.204:8072/";
 
-    String SERVER_P = "http://192.168.29.149:8072/";
+    String SERVER_P = "http://192.168.29.203:8072/";
 
     // 查询货源列表
     String STORE_LIST = SERVER + "mjGoodsResource/queryMjGoodsResourceList.shtml";

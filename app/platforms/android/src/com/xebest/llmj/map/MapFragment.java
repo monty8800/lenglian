@@ -425,7 +425,9 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    signStr = Tools.md5(str);
+                    if (str != null) {
+                        signStr = Tools.md5(str);
+                    }
                 }
             });
             try {
@@ -536,7 +538,9 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    signStr = Tools.md5(str);
+                    if (str != null) {
+                        signStr = Tools.md5(str);
+                    }
                 }
             });
             try {
@@ -654,8 +658,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             map.put("resourceStatus", "1");
             map.put("pageNow", "1");
             map.put("pageSize", "100");
-//            map.put("priceType", "1");
-//            map.put("coldStoreFlag", "1");
+            map.put("priceType", "1");
+            map.put("coldStoreFlag", "1");
             final String str = Application.getInstance().UUID + ApiUtils.encryption
                     + new Gson().toJson(map) + ApiUtils.client_type;
             getActivity().runOnUiThread(new Runnable() {
@@ -684,7 +688,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
                     carList.addAll(list);
                     if (list.size() == 0) {
-                        Tools.showErrorToast(getActivity(), "还没发布货源哦");
+                        Tools.showErrorToast(getActivity(), "还没发布一口价的货源哦");
                         return;
                     }
                     carBottomView.setVisibility(View.GONE);
@@ -783,6 +787,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 map.put("goodsUserId", Application.getInstance().userId);
                 map.put("goodsResouseId", params[0]);
                 map.put("carResouseId", carId);
+                map.put("userId", Application.getInstance().userId);
                 url = ApiUtils.goods_found_car;
             } else if (status == 3) {
                 map.put("userId", Application.getInstance().userId);
@@ -874,6 +879,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Log.i("info", "-------ssss:" + s);
+            Tools.dismissLoading();
             if (s == null || s.equals("")) {
                 return;
             }
@@ -882,14 +888,17 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 String data = jsonObject.getString("data");
                 List<Goods> list = JSON.parseArray(data, Goods.class);
                 Log.i("info", "--------list:" + list.size());
-                if (list.size() == 0) return;
+                if (list.size() == 0) {
+                    Tools.showErrorToast(getActivity(), "还没发布车源哦");
+                    return;
+                }
                 showDialogGoods(list);
                 goodsBottomView.setVisibility(View.GONE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            Tools.dismissLoading();
+
         }
     }
 
