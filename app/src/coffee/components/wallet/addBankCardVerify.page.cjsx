@@ -53,6 +53,7 @@ AddBankCardVerify = React.createClass {
 			_aBankCardModel = _aBankCardModel.set 'txSNBinding', mark.txSNBinding
 			console.log '____________get it ________'
 		else if mark is 'bindBankCarSucc'
+			Plugin.toast.success '绑定成功！'
 			DB.put 'shouldBankCardsListReload',1
 			Plugin.nav.popTo 3
 

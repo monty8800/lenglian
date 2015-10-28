@@ -35,15 +35,15 @@
 
 -(void)commonCommand:(NSArray *)params{
     [super commonCommand:params];
-    if ([params[0] integerValue] == 2) {
-        if ([params[1] integerValue] > 0) {
-            NSInteger distance = [params[1] integerValue];
-            NSArray *currentControllers = self.navigationController.viewControllers;
-            if (distance < currentControllers.count) {
-                [self.navigationController popToViewController:currentControllers[currentControllers.count - distance - 1] animated:YES];
-            }
-        }
-    }
+//    if ([params[0] integerValue] == 2) {
+//        if ([params[1] integerValue] > 0) {
+//            NSInteger distance = [params[1] integerValue];
+//            NSArray *currentControllers = self.navigationController.viewControllers;
+//            if (distance < currentControllers.count) {
+//                [self.navigationController popToViewController:currentControllers[currentControllers.count - distance - 1] animated:YES];
+//            }
+//        }
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
