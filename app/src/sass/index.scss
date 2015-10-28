@@ -411,16 +411,19 @@
 			top: 22/$ppr;
 			text-align: center;
 			font-size: 36/$ppr;
+			display: block;
 			&:after {
 				color: $main-color;
 			}
 			&.u-user-icon {
 				&:after {
-					content: "\e621"; 
+					content: "\e621";
+					display: block;
 				}
 				&.u-reg-icon {
 					&:after {
 						content: "\e623";
+						display: block;
 					}
 				}
 			}

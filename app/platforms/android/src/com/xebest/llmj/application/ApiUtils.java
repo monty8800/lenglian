@@ -42,7 +42,6 @@ public interface ApiUtils {
 
     String goods_find_store_order = SERVER + "/mjOrderWarhouse/addGoodsFoundWarhouseOrder.shtml";
 
-
     String storePath = Environment.getExternalStorageDirectory() + "";
 
     // SD 跟目录
