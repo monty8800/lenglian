@@ -74,7 +74,7 @@ SelectAddress = React.createClass {
 			Plugin.nav.pop()
 	render: ->
 		<section>
-		<div className="m-releasehead02 ll-font">
+		<div className="m-releasehead02">
 			<div onClick={@_locate} className="g-adr-item u-arrow-right ll-font">
 				{@state.address}
 			</div>

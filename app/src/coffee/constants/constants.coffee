@@ -423,7 +423,7 @@ orderStatus = {
 }
 
 cache = {
-	CITY_LIST: 7 * 24 * 60 #* 60 * 1000
+	CITY_LIST: 7 * 24 * 60 * 60 * 1000
 	USER_INFO: 3 * 60 * 1000 #更新用户信息的间隔
 	USER_INFO_MIN: 30 * 1000 #更新用户信息最小间隔
 	SUPPORT_BANK_LIST: 7 * 24 * 60 * 60 * 1000 #支持银行列表
