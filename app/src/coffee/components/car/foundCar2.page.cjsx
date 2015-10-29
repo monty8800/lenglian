@@ -120,7 +120,7 @@ CarItem = React.createClass {
 			<div className="g-item-dirver">
 				<div className="g-dirver">								
 					<div className="g-dirver-pic">
-						<XeImage src={@props.car?.drivingImg} size='130x130' type='avatar' />
+						<XeImage src={@props.car?.drivePic} size='130x130' type='avatar' />
 					</div>       
 					<div className="g-dirver-msg">  
 						<div className="g-dirver-name">

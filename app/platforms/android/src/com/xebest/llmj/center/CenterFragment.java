@@ -420,6 +420,4 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
         }
     }
 
-// 18513468467黄呼叫
-    // 13729999996
 }

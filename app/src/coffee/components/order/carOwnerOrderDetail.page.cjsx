@@ -77,7 +77,7 @@ OrderDetail = React.createClass {
 		# 关注类型 1:货主 2：司机 3：仓库
 		OrderAction.attention({
 			focusid: goodsPersonUserId
-			focustype: '1'	#车主订单 交易对象必定是货主 (司机)
+			focustype: '1'	#车主订单 交易对象必定是货主
 			userId: _user?.id
 			type: type
 		})
