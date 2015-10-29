@@ -247,7 +247,7 @@ login = (mobile, passwd)->
 		encryptPasswd = XeCrypto.aesEncrypt tmpPasswd, passwd
 		result = (new Buffer(encryptPasswd + tmpPasswd)).toString('base64')
 		console.log 'tmpPasswd:', tmpPasswd, ' encryptPasswd:', encryptPasswd, ' result:', result
-		_user = _user.set 'carStatus', parseInt(data.carStatus) if parseInt(carStatus) isnt 0
+		_user = _user.set 'carStatus', parseInt(data.carStatus) if parseInt(data.carStatus) isnt 0
 		_user = _user.set 'certification', parseInt(data.certification) if parseInt(data.certification) isnt 0
 		_user = _user.set 'goodsStatus', parseInt(data.goodsStatus) if parseInt(data.goodsStatus) isnt 0
 		_user = _user.set 'avatar', data.imgurl

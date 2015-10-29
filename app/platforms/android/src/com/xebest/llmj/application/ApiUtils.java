@@ -38,7 +38,8 @@ public interface ApiUtils {
 
     String order_trade = SERVER + "/carFindGoods/orderTrade.shtml";
 
-    String API_PIC = "http://qa-pic.lenglianmajia.com/head/130/130/";
+//    String API_PIC = "http://qa-pic.lenglianmajia.com/head/130/130/";
+    String API_PIC = "http://pic.lenglianmajia.com/head/130/130/";
 
     String goods_find_store_order = SERVER + "/mjOrderWarhouse/addGoodsFoundWarhouseOrder.shtml";
 
