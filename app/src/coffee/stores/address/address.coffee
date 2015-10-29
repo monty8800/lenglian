@@ -47,7 +47,7 @@ addressList = ->
 				tempAddress = tempAddress.set 'areaName', info.areaName
 				tempAddress = tempAddress.set 'lati', info.latitude
 				tempAddress = tempAddress.set 'longi', info.longitude
-				_addressList = _addressList.push tempAddress
+				_addressList = _addressList.push tempAddress if info.latitude
 		AddressStore.emitChange 'list'
 
 delAddress = (addressId)->
