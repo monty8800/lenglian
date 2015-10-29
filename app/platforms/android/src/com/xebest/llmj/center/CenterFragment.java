@@ -36,6 +36,7 @@ import com.xebest.llmj.auth.PersonalGoodsAuthActivity;
 import com.xebest.llmj.auth.PersonalWareHouseAuthActivity;
 import com.xebest.llmj.car.MyCarActivity;
 import com.xebest.llmj.goods.MyGoodsActivity;
+import com.xebest.llmj.utils.MD5Util;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
 import com.xebest.llmj.wallet.WalletActivity;
@@ -387,11 +388,15 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
             map.put("client_type", "3");
             final String str = Application.getInstance().UUID + ApiUtils.encryption
                     + new Gson().toJson(data).toString() + ApiUtils.client_type;
+//            final String str = ApiUtils.client_type;
+            Log.i("info", "-----------str:" + str);
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     if (str != null) {
-                        signStr = Tools.md5(str);
+//                        signStr = Tools.md5(str);
+                        signStr = MD5Util.md5(str);
+                        Log.i("info", "-----str2:" + Tools.md5(str));
                     }
                 }
             });
@@ -400,7 +405,8 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            map.put("sign", Tools.md5(signStr));
+//            map.put("sign", Tools.md5(signStr));
+            map.put("sign", signStr);
             map.put("userId", Application.getInstance().userId);
             map.put("data", new Gson().toJson(data));
             Map<String, File> fileMap = new HashMap<String, File>();
