@@ -17,6 +17,7 @@ WalletAction = require 'actions/wallet/wallet'
 WalletStore = require 'stores/wallet/wallet'
 Validator = require 'util/validator'
 
+
 Withdraw = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	componentDidMount: ->
@@ -53,6 +54,12 @@ Withdraw = React.createClass {
 			type: 'withdraw'
 		}
 		Plugin.nav.push ['bankCardsList']
+
+	_setPayPwd: ->
+		DB.put 'transData', {
+			type: 'payPwd'
+		}
+		Plugin.nav.push ['changePasswd']
 
 	_confirm: ->
 		if not @state.bankCard.cardNo
@@ -104,7 +111,12 @@ Withdraw = React.createClass {
 		<div className="m-releaseitem">
 			<div>
 				<label htmlFor="packType"><span>支付密码</span></label>
-				<input type="password" valueLink={@linkState 'payPasswd'} placeholder='请输入支付密码' />
+				{
+					if @state.user?.hasPayPwd is 1
+						<input type="password" valueLink={@linkState 'payPasswd'} placeholder='请输入支付密码' />
+					else
+						<input onClick={@_setPayPwd} type="password" readOnly="readOnly" placeholder='设置支付密码' />
+				}
 			</div>
 		</div>
 
