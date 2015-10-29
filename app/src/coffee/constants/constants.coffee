@@ -186,7 +186,8 @@ api = {
 	#服务器地址
 
 	
-	server: 'http://192.168.26.177:7080/llmj-app/'
+	# server: 'http://192.168.26.177:7080/llmj-app/'
+	server: 'http://m.lenglianmajia.com/'
 
 	#注意！⚠️浏览器里请去gulpfile里面改接口地址，这里改不起作用
 

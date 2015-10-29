@@ -11,6 +11,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.center.ResetPwdActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
@@ -64,6 +65,8 @@ public class WithDrawActivity extends BaseCordovaActivity implements CordovaInte
             WithDrawDetailActivity.actionView(this);
         } else if (flag.equalsIgnoreCase("bankCardsList")) {
             MyBankActivity.actionView(this);
+        } else if (flag.equals("changePasswd")) {
+            ResetPwdActivity.actionView(this, "设置支付密码");
         }
     }
 
