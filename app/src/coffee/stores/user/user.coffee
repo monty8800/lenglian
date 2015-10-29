@@ -40,6 +40,8 @@ autoLogin = ->
 		_user = _user.set 'id', data.userId
 		_user = _user.set 'lastLogin', (new Date).getTime()
 		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
+		if _user.hasPayPwd is 0
+			_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus)
 		DB.put 'user', _user.toJS()
 		Plugin.run [9, 'user:update', _user.toJS()]
 	, (data)->
@@ -251,6 +253,8 @@ login = (mobile, passwd)->
 		_user = _user.set 'passwd', result
 		_user = _user.set 'lastLogin', (new Date).getTime()
 		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
+		if _user.hasPayPwd is 0
+			_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus)
 		DB.put 'user', _user.toJS()
 		DB.put 'LAST_LOGIN_MOBILE', mobile
 		UserStore.emitChange 'login:done'

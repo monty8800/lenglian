@@ -37,7 +37,7 @@ conf = (aProperty) ->
 			if aProperty.value
 				value = value + aProperty.value + '平方米'
 			if aProperty.valueTwo
-				value = value + (if aProperty.value then ' ') + aProperty.valueTwo + '立方米'
+				value = value + (if aProperty.value then ' ' else '') + aProperty.valueTwo + '立方米'
 			warehouseArea.push value
 		when '4' 
 			pi = aProperty.value.indexOf '.'
@@ -193,6 +193,14 @@ WarehouseDetail = React.createClass {
 		, ['确定', '取消']
 
 	render :->
+		warehouseAddress = ''
+		detailAddr = @state.warehouseDetail
+		if detailAddr
+			if detailAddr.provinceName is detailAddr.cityName
+				warehouseAddress = detailAddr.provinceName + detailAddr.areaName + detailAddr.street 
+			else
+				warehouseAddress = detailAddr.provinceName + detailAddr.cityName + detailAddr.areaName + detailAddr.street 
+
 		warehouseAreaList = warehouseArea.map (aArea,i) ->
 			<p>
 				<span>{if i is 0 then "仓库面积:"}</span>

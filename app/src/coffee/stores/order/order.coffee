@@ -185,7 +185,7 @@ getStoreOrderList = (status, currentPage)->
 				console.log '_________________________________________________',order.goodsPersonUserId
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['store']
-	, (err)->
+	, (data)->
 		Plugin.toast.err data.msg
 
 # 竞价列表

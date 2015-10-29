@@ -35,7 +35,7 @@ conf = (aProperty) ->
 			if aProperty.value
 				value = value + aProperty.value + '平方米'
 			if aProperty.valueTwo
-				value = value + (if aProperty.value then ' ') + aProperty.valueTwo + '立方米'
+				value = value + (if aProperty.value then ' ' else '') + aProperty.valueTwo + '立方米'
 			warehouseArea.push value
 			# warehouseArea.push aProperty.attributeName + '   ' + aProperty.value
 		when '4' 
