@@ -234,6 +234,7 @@ register = (mobile, code, passwd)->
 		_user = _user.set 'passwd', result
 		DB.put 'user', _user.toJS()
 		DB.put 'LAST_LOGIN_MOBILE', mobile
+		Plugin.run [9, 'user:update', _user.toJS()]
 		autoLogin()
 		UserStore.emitChange 'register:done'
 

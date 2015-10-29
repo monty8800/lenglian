@@ -13,6 +13,7 @@
 
 +(void)postFile:(NSString *)api params:(NSDictionary *)params files:(NSArray *)files cb:(SimpleNetHandler)cb
 {
+    DDLogDebug(@"post file params %@, files %@", params, files);
     MKNetworkEngine *engine = [Global sharedInstance].netEngine;
     MKNetworkOperation *op = [[MKNetworkOperation alloc] initWithURLString:api params:nil httpMethod:@"POST"];
     [op addData:[[NSData alloc] init] forKey:@"dummy-data"];
