@@ -433,7 +433,9 @@ cache = {
 carPicSize = '200x200'
 
 # imageServer = 'http://qa-pic.lenglianmajia.com/'
+
 # 正式环境图片服务器路径
+
 imageServer = 'http://pic.lenglianmajia.com/'
 
 module.exports = 
