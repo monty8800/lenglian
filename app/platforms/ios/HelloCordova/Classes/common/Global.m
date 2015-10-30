@@ -7,7 +7,12 @@
 //
 
 #import "Global.h"
-
+#import "ZipArchive.h"
+@interface Global ()<UIScrollViewDelegate>
+{
+    UIScrollView *guideScrollView;
+}
+@end
 @implementation Global
 
 +(Global *)sharedInstance {
@@ -29,7 +34,7 @@
         
         NSDictionary* infoDict =[[NSBundle mainBundle] infoDictionary];
         self.version =[infoDict objectForKey:@"CFBundleShortVersionString"];
-        self.wwwVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"wwwVersion"];
+        self.wwwVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefault_wwwVersion];
         self.netEngine = [[MKNetworkEngine alloc] init];
     }
     return self;
@@ -41,6 +46,11 @@
     [MobClick startWithAppkey:UMENG_KEY reportPolicy:BATCH channelId:@"our_web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
+//配置在线参数
+    [MobClick updateOnlineConfig];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(UmengOnLine:) name:UMOnlineConfigDidFinishedNotification object:nil];
+    
+
 }
 
 +(void) setUpLogger {
@@ -265,6 +275,216 @@
 -(void)hide {
     DDLogDebug(@"hide loading");
     [Loading hide];
+}
+
+#pragma mark - 热更新
+
++(void)UmengOnLine:(NSNotification *)notify{
+    
+    NSDictionary *paramsOnLine = notify.userInfo;//[MobClick getConfigParams];
+    NSString *jsonStr = paramsOnLine[@"ios"];
+    if (!jsonStr) {
+        return;
+    }
+    NSError *error = nil;
+    NSData *dates = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData: dates
+                                                              options: NSJSONReadingAllowFragments
+                                                                error: &error];
+    NSLog(@"_____ %@",resultDic);
+    
+    [[Global sharedInstance] hanldProjectWithParamsOnLine:resultDic];
+}
+
+-(void) hanldProjectWithParamsOnLine:(NSDictionary *)paramsDic{
+    
+    NSString *currentAppVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *newestAppVersion = paramsDic[@"version"];
+    NSComparisonResult result = [currentAppVersion compare:newestAppVersion];
+    switch (result) {
+        case NSOrderedAscending:
+            NSLog(@"升序");
+            NSLog(@"app store 有新版本");
+            [self updateWithDic:paramsDic];
+            break;
+        case NSOrderedSame:
+            NSLog(@"same");
+            [self checkHotVersion:paramsDic];
+            break;
+        case NSOrderedDescending:
+            NSLog(@"降序");
+            break;
+        default:
+            break;
+    }
+}
+-(void)updateWithDic:(NSDictionary *)paramsDic{
+//    通知AppDelegate 提示用户更新
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"Notification_findNewVersion" object:paramsDic];
+}
+-(void)checkHotVersion:(NSDictionary *)paramsDic{
+    if (!([paramsDic[@"hotUpdateSwitch"] integerValue] == 1 && [paramsDic[@"file"] length] > 0)){
+        //        热更新开关
+        return;
+    }
+    NSString *wwwVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefault_wwwVersion];
+    if (wwwVersion == nil) {
+        wwwVersion = @"0";
+    }
+    //    初次安装 应该是空字符串
+    NSString *newestHotVersion = paramsDic[@"hot_version"];
+    NSComparisonResult res = [wwwVersion compare:newestHotVersion];
+    switch (res) {
+        case NSOrderedAscending:
+            NSLog(@"升序 热更新");
+            [self downloadSourceWithPath:paramsDic[@"file"] newestVersion:newestHotVersion];
+            break;
+        case NSOrderedSame:
+            NSLog(@"same");
+            break;
+        case NSOrderedDescending:
+            NSLog(@"降序");
+            break;
+        default:
+            break;
+    }
+}
+-(void)downloadSourceWithPath:(NSString *)path newestVersion:(NSString *)newestHotVersion{
+    //    下载zip文件
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        NSURL *url = [NSURL URLWithString:path];
+        NSError *error = nil;
+        NSData *resdata = [NSData dataWithContentsOfURL:url options:0 error:&error];
+        if(!error)
+        {
+            NSString *targetPath = [[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"update"] stringByAppendingPathComponent:newestHotVersion];
+            
+            if ([[NSFileManager defaultManager] fileExistsAtPath:targetPath]) {
+                NSLog(@"exit");
+                //               update文件夹存在
+            }else{
+                BOOL bo = [[NSFileManager defaultManager] createDirectoryAtPath:targetPath withIntermediateDirectories:YES attributes:nil error:nil];
+                if (bo) {
+                    NSLog(@"update不存在 创建success");
+                }else{
+                    NSLog(@"update不存在 创建faile");
+                    return;
+                }
+            }
+            //            设置下载zip文件路径
+            NSString *zipPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"www.zip"];
+            //            zip写入Cashes
+            [resdata writeToFile:zipPath options:0 error:&error];
+            if(!error)
+            {
+                //                解压
+                ZipArchive *za = [[ZipArchive alloc] init];
+                if ([za UnzipOpenFile: zipPath]) {
+                    BOOL ret = [za UnzipFileTo: targetPath overWrite: YES];
+                    if (NO == ret){
+                        NSLog(@"下载 失败");
+                    }else{
+                        [za UnzipCloseFile];
+                        [[NSUserDefaults standardUserDefaults] setObject:newestHotVersion forKey:kUserDefault_wwwVersion];
+                        NSLog(@"##### 热更新完成 下次启动使用最新程序 ####");
+                        NSLog(@"\n zipPath  \n %@ \n\n",zipPath);
+                    }
+                }
+                else
+                {
+                    NSLog(@"Error saving file %@",error);
+                }
+            }
+            else
+            {
+                NSLog(@"Error downloading zip file: %@", error);
+            }
+        }
+    });
+    
+}
++(NSString *)filterHtmlMarkWithContent:(NSString *)content{
+    NSRegularExpression *regularExpretion = [NSRegularExpression regularExpressionWithPattern:@"<[^>]*>|/n" options:0 error:nil];
+    content = [regularExpretion stringByReplacingMatchesInString:content options:NSMatchingReportProgress range:NSMakeRange(0, content.length) withTemplate:@""];
+    return content;
+}
+
+
+#pragma mark - 用户引导界面
+-(void)showGuideViews
+{
+    NSString *oldVersion = [[NSUserDefaults standardUserDefaults]objectForKey:kUserDefault_Version];
+    //        NSUserDefaults中没有储存版本号 或者版本号跟当前版本号不一致 则显示 引导页面
+    if (oldVersion == nil || ![oldVersion isEqual:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]]) {
+        
+    }else{
+        return;
+    }
+    NSInteger pageNum = 5;
+    guideScrollView = [[UIScrollView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.frame];
+    guideScrollView.contentSize = CGSizeMake(IPHONEWIDTH * pageNum, IPHONEHEIGHT);
+    guideScrollView.delegate = self;
+    guideScrollView.backgroundColor = [UIColor redColor];
+    guideScrollView.showsHorizontalScrollIndicator = NO;
+    guideScrollView.pagingEnabled = YES;
+    
+    UIButton *gonow = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    NSString *widthStr = @"";
+    if (IPHONESCREEN3p5) {
+        widthStr = @"guide_3_5";
+        [gonow setFrame:CGRectMake(0, 0, 135, 40)];
+        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 65)];
+    }else if (IPHONESCREEN4){
+        widthStr = @"guide_4_0";
+        [gonow setFrame:CGRectMake(0, 0, 135, 40)];
+        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 65)];
+    }else if (IPHONESCREEN4p7){
+        widthStr = @"guide_4_7";
+        [gonow setFrame:CGRectMake(0, 0, 160, 60)];
+        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 75)];
+    }else if (IPHONESCREEN5p5){
+        widthStr = @"guide_5_5";
+        [gonow setFrame:CGRectMake(0, 0, 180, 60)];
+        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 85)];
+    }
+    
+    [gonow setBackgroundColor:[UIColor clearColor]];
+    
+    [gonow addTarget:self action:@selector(hiddenGuideView) forControlEvents:UIControlEventTouchUpInside];
+    
+    for (int i = 0; i < pageNum; i ++) {
+        UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(IPHONEWIDTH * i, 0, IPHONEWIDTH, IPHONEHEIGHT)];
+        [imgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_%d.jpg",widthStr,i+1]]];
+        imgView.userInteractionEnabled = YES;
+        if (i == pageNum - 1 ) {
+            [imgView addSubview:gonow];
+        }
+        [guideScrollView addSubview:imgView];
+    }
+    [[UIApplication sharedApplication].keyWindow addSubview:guideScrollView];
+}
+
+-(void)hiddenGuideView
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] forKey:kUserDefault_Version];
+    [UIView animateWithDuration:0.8 animations:^{
+        [guideScrollView setTransform:CGAffineTransformMakeScale(1.3, 1.3)];
+        guideScrollView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [guideScrollView removeFromSuperview];
+    }];
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:guideScrollView]) {
+        if (guideScrollView.contentOffset.x < IPHONEWIDTH) {
+            [guideScrollView setBackgroundColor:[UIColor  WY_ColorWithHex:0xe54835]];
+        }else{
+            [guideScrollView setBackgroundColor:[UIColor WY_ColorWithHex:0x7d58ca]];
+        }
+    }
 }
 
 @end

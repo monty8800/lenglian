@@ -31,7 +31,10 @@
     self = [super init];
     if (self) {
         if ([Global sharedInstance].wwwVersion != nil) {
-            self.wwwFolderName = [NSString stringWithFormat:@"file://%@/%@/www",  UPDATE_FOLDER, [Global sharedInstance].wwwVersion];
+            if ([[Global sharedInstance].wwwVersion hasPrefix:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]]) {
+                self.wwwFolderName = [NSString stringWithFormat:@"file://%@/%@/www",  UPDATE_FOLDER, [Global sharedInstance].wwwVersion];
+                NSLog(@"$$$$$$$$$   %@",self.wwwFolderName);
+            }
         }
     }
     

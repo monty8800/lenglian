@@ -139,8 +139,10 @@
     
     //hello world
     //self.window.rootViewController = [HelloViewController new];
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(findNewVersion:) name:@"Notification_findNewVersion" object:nil];
+
     [self.window makeKeyAndVisible];
+//    [[Global sharedInstance] showGuideViews];
 
     return YES;
 }
@@ -288,6 +290,27 @@
     OrderListViewController *orderVC = (OrderListViewController *)((UINavigationController *)self.tabVC.viewControllers[2]).topViewController;
     [orderVC showWithType:index];
     [self hideOrderMenu];
+}
+
+-(void)findNewVersion:(NSNotification *)notify{
+    NSString *newVersionURL = notify.object[@"newVersionURL"];
+    NSInteger len = [newVersionURL length];
+    if (len < 1) {
+        return;
+    }
+    UIViewController *vc = (UIViewController *)((UINavigationController *)((UITabBarController *)self.window.rootViewController).selectedViewController).topViewController;
+    if ([notify.object[@"force"] integerValue] == 1) {
+        [YwenAlert alert:@"发现新版本" vc:vc confirmStr:@"立即更新" confirmCb:^{
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:newVersionURL]];
+            [self findNewVersion:notify];
+        }];
+    }else{
+        [YwenAlert alert:@"发现新版本" vc:vc confirmStr:@"立即更新" confirmCb:^{
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:newVersionURL]];
+        } cancelStr:@"取消" cancelCb:^{
+            
+        }];
+    }
 }
 
 @end

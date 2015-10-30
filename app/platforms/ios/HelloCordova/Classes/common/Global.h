@@ -83,6 +83,9 @@
 #define REALSCREEN_MULTIPBY  (SCREEN_WIDTH / 320)
 
 #define UPDATE_FOLDER [[CDVViewController applicationDocumentsDirectory] stringByAppendingPathComponent:@"update"]  //存放www的升级目录11
+#define kUserDefault_Version @"Version"   //userdefault中存储的版本号 用来决定是否显示引导页
+#define kUserDefault_wwwVersion @"wwwVersion"   //userdefault中存储的www版本号
+
 
 #define AUTH_PIC_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
@@ -91,6 +94,15 @@
 
 //百度地图key
 #define BAIDU_MAP_AK @"zG8D9l28S3b9CaZiFRlmYkhl"
+
+
+#define KEY_WINDOW          [[UIApplication sharedApplication]keyWindow]
+#define IPHONEWIDTH         [UIScreen mainScreen].bounds.size.width
+#define IPHONEHEIGHT        [UIScreen mainScreen].bounds.size.height
+#define IPHONESCREEN5p5     IPHONEHEIGHT == 736.00
+#define IPHONESCREEN4p7     IPHONEHEIGHT == 667.00
+#define IPHONESCREEN4       IPHONEHEIGHT == 568.00
+#define IPHONESCREEN3p5     IPHONEHEIGHT == 480.00
 
 typedef void (^LocationCB)(BMKUserLocation *location);
 typedef void (^ReverseGeoCB)(BMKReverseGeoCodeResult *result);
@@ -129,6 +141,8 @@ typedef void(^GeoCB) (BMKGeoCodeResult *result);
 +(void) checkUpdate;
 
 +(void) setupBaiduMap;
+
+-(void)showGuideViews;
 
 +(void) getLocation:(LocationCB) cb;
 +(void) reverseGeo:(CLLocationCoordinate2D) point cb:(ReverseGeoCB) cb;
