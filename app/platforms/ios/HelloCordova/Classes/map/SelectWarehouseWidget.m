@@ -109,7 +109,7 @@
                     
                     NSString *weight = [dic objectForKey:@"weight"];
                     
-                    if (weight != nil && ![weight isKindOfClass:[NSNull class]] ) {
+                    if (weight != nil && ![weight isKindOfClass:[NSNull class]] && weight.length > 0 ) {
                         weightStr = [NSString stringWithFormat:@"货物规格： %@吨", weight];
                         if ([dic objectForKey:@"cube"] != nil && ![[dic objectForKey:@"cube"] isKindOfClass:[NSNull class]]) {
                             weightStr = [NSString stringWithFormat:@"%@ %@方",weightStr, [dic objectForKey:@"cube"]];
@@ -120,8 +120,8 @@
                         weightStr = [NSString stringWithFormat:@"货物规格： %@方", [dic objectForKey:@"cube"]];
                     }
                     
-                    NSString *toProvince = [dic objectForKey:@"toProvinceName"];
-                    NSString *fromProvince = [dic objectForKey:@"fromProvinceName"];
+                    NSString *toArea = [dic objectForKey:@"toAreaName"];
+                    NSString *fromArea = [dic objectForKey:@"fromAreaName"];
                     
                     
                     NSString *addr;
@@ -133,15 +133,15 @@
                             break;
                             
                         case 2:
-                            addr = fromProvince;
+                            addr = fromArea;
                             break;
                             
                         case 3:
-                            addr = toProvince;
+                            addr = toArea;
                             break;
                             
                         case 4:
-                            addr = [NSString stringWithFormat:@"%@, %@", fromProvince, toProvince];
+                            addr = [NSString stringWithFormat:@"%@, %@", fromArea, toArea];
                             break;
                             
                         default:
@@ -154,6 +154,9 @@
                     
                     NSString *name = [dic objectForKey:@"name"];
                     if (![name isKindOfClass:[NSNull class]]) {
+                        if (name.length == 0) {
+                            name = @"无名称";
+                        }
                         [infoList addObject:[NSString stringWithFormat:@"货物名称： %@", name]];
                     }
                     

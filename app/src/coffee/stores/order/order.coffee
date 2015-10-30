@@ -60,7 +60,7 @@ getGoodsOrderList = (status, currentPage)->
 	}, (data)->
 		console.log 'goods order list result', data
 		orderList = data.pv.records
-		_orderList = _orderList.clear()
+		_orderList = Immutable.List() if currentPage is 1
 		for order in orderList
 			do (order) ->
 				tempOrder = new OrderModel
@@ -107,7 +107,7 @@ getCarOwnerOrderList = (status, currentPage)->
 		orderState: status # 全部空 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消
 	}, (data) ->
 		orderList = data.myCarInfo
-		_orderList = _orderList.clear()
+		_orderList = Immutable.List() if currentPage is 1
 		for order in orderList
 			do (order) ->
 				tempOrder = new OrderModel
@@ -154,7 +154,7 @@ getStoreOrderList = (status, currentPage)->
 		pageSize: Constants.orderStatus.PAGESIZE
 	} ,(data)->
 		orderList = data.orderList
-		_orderList = _orderList.clear()
+		_orderList = Immutable.List() if currentPage is 1
 		for order in orderList
 			do (order)->
 				tempOrder = new OrderModel
@@ -400,7 +400,7 @@ cancel_car_orderlist = (page)->
 		orderState: '5' # 全部空 订单状态 1:洽谈中 2:待付款 3:已付款 4:待评价 5:已取消
 	}, (data) ->
 		orderList = data.myCarInfo
-		_orderList = _orderList.clear()
+		_orderList = _orderList.clear() if page is 1
 		for order in orderList
 			do (order) ->
 				tempOrder = new OrderModel
