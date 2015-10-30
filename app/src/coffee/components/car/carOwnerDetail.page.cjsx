@@ -135,9 +135,9 @@ Detail = React.createClass {
 					<span>司机姓名:</span>
 					<span>{detail?.driver}</span>
 				</p>
-				<p>
+				<p>	
 					<span>联系电话:</span>
-					<span>{if UserStore.getUser()?.certification is '0' then '认证后可见' else detail?.mobile }</span>
+					<span>{ if parseInt(UserStore.getUser()?.certification) is 0 then '认证后可见' else detail?.mobile }</span>
 				</p>
 				<p>
 					<span>需要发票:</span>

@@ -36,10 +36,12 @@ CarFindGoodsCell = React.createClass {
 		e.stopPropagation()
 
 	_goodsDetail: ->
+		_id = @props.goods.get 'id'
+		_focusid = @props.goods.get 'userId'
 		Auth.needLogin ->
 			DB.put 'transData', {
-				goodsId: @props.goods.get 'id'
-				focusid: @props.goods.get 'userId'
+				goodsId: _id
+				focusid: _focusid
 			}
 			Plugin.nav.push ['searchGoodsDetail']
 		# Auth.needLogin ->
