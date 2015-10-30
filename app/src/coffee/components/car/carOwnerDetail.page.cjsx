@@ -137,7 +137,7 @@ Detail = React.createClass {
 				</p>
 				<p>
 					<span>联系电话:</span>
-					<span>{detail?.mobile}</span>
+					<span>{if UserStore.getUser()?.certification is '0' then '认证后可见' else detail?.mobile }</span>
 				</p>
 				<p>
 					<span>需要发票:</span>

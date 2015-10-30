@@ -156,7 +156,6 @@ OrderPay = React.createClass {
 				<BankCardList selected={@state.bankCard} bankCardList={@state.info?.get 'bankCardList'} />
 		}
 
-
 		<div className="u-pay-btn">
 			<div className="u-pay-btn">
 				<a onClick={@_showPaySms} className="btn">立即支付</a>

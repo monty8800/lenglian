@@ -65,9 +65,11 @@ public class WareHouseOrderDetail extends BaseCordovaActivity implements Cordova
             if (flag.equalsIgnoreCase("searchWarehouseDetail")) {
                 SearchWarehouseDetailActivity.actionView(WareHouseOrderDetail.this);
             } else if (args.getString(0).equals("2")) {
-                finish();
+//                finish();
             } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
                 SearchGoodsDetailActivity.actionView(WareHouseOrderDetail.this);
+            } else if (flag.equals("doComment")) {
+                DoCommentActivity.actionView(getActivity());
             }
         }
 
@@ -77,7 +79,7 @@ public class WareHouseOrderDetail extends BaseCordovaActivity implements Cordova
         editorCar = (TextView) findViewById(R.id.editor);
         editorCar.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("仓库详情");
+        tvTitle.setText("订单详情");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {

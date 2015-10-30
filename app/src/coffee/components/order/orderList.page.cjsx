@@ -53,7 +53,7 @@ OrderDoc = React.createClass {
 
 	componentDidMount: ->
 		# 浏览器调试(临时)	
-		OrderAction.browerTemp(1)
+		# OrderAction.browerTemp(1)
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->
@@ -95,10 +95,9 @@ OrderDoc = React.createClass {
 						goodsOrderList = @state.orderList.map (order, i)->
 							<GoodsItem order={order} key={order.orderNo} />
 						<div>
-						<CSSTransitionGroup transitionName="list">
-						{goodsOrderList}
-						</CSSTransitionGroup>
-						
+							<CSSTransitionGroup transitionName="list">
+							{goodsOrderList}
+							</CSSTransitionGroup>
 						</div>
 					when 'store'
 						<StoreItem items=@state.orderList />

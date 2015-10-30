@@ -57,6 +57,7 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
 
         // 记录到销毁栈中
         Application.getInstance().addRemoveActivity(this);
+
     }
 
     @Override
@@ -70,7 +71,7 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
             if (flag.equalsIgnoreCase("searchWarehouseDetail")) {
                 SearchWarehouseDetailActivity.actionView(GoodsOrderDetailActivity.this);
             } else if (args.getString(0).equals("2")) {
-                finish();
+//                finish();
             } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
                 SearchGoodsDetailActivity.actionView(GoodsOrderDetailActivity.this);
             } else if (flag.equalsIgnoreCase("orderPay")) {
