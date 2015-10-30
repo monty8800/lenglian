@@ -60,14 +60,15 @@ Auth = React.createClass {
 			Plugin.toast.err '请输入正确的组织资格代码'
 		else if not Validator.transLicenseNo @state.transLicenseNo
 			Plugin.toast.err '请输入正确的道路运输许可证'
+		else if not Validator.tel @state.tel
+			Plugin.toast.err '请输入正确的固定电话'	
 		else if not @state.user.businessLicense
 			Plugin.toast.err '请上传营业执照照片'
 		else if not @state.user.transLicensePic
 			Plugin.toast.err '请上传道路运输许可证照片'
-		else if not @state.user.companyPic
-			Plugin.toast.err '请上传门头照片'
-		else if not Validator.tel @state.tel
-			Plugin.toast.err '请输入正确的固定电话'
+		# else if not @state.user.companyPic
+		# 	Plugin.toast.err '请上传门头照片'
+					
 		else
 			UserAction.companyAuth {
 				type: Constants.authType.CAR
