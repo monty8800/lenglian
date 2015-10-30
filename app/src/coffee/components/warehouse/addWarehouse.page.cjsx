@@ -571,7 +571,7 @@ AddWarehouse = React.createClass {
 				</div>
 			</div>
 			<div className="m-releaseitem">
-				<div className="u-voice ll-font">
+				<div className="ll-font">
 					<label for="remark"><span>备注说明</span> </label>
 					<input type="text" onChange={ @markChange } className="input-weak" placeholder="请输入备注消息" id="remark"/>
 				</div>
