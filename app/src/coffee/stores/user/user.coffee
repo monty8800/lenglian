@@ -198,6 +198,8 @@ requestInfo = ->
 				requestPersonalAuthInfo 1
 			else if _user.warehouseStatus is 1
 				requestPersonalAuthInfo 3
+			else
+				UserStore.emitChange 'user:update'
 		else if _user.certification is 2
 			if _user.carStatus is 1
 				requestCompanyAuthInfo 2
@@ -205,6 +207,8 @@ requestInfo = ->
 				requestCompanyAuthInfo 1
 			else if _user.warehouseStatus is 1
 				requestCompanyAuthInfo 3
+			else
+				UserStore.emitChange 'user:update'
 		else
 			UserStore.emitChange 'user:update'
 		# checkPayPwd() if _user.hasPayPwd isnt 1

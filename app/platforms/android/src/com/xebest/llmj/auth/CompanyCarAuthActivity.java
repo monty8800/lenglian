@@ -215,7 +215,7 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
 
             if (files.length() > 2) {
                 String pathD = files.getJSONObject(2).getString("path");
-                if (pathD != null && !pathD.equals("")) {
+                if (pathD != null && !pathD.equals("") && !pathD.equals("null")) {
                     operate = new HashMap<String, File>();
                     if (pathD.contains("|")) {
                         operate.put("doorImg", new File(companyNet));
@@ -486,5 +486,4 @@ public class CompanyCarAuthActivity extends BaseCordovaActivity implements Cordo
     public void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
     }
-
 }

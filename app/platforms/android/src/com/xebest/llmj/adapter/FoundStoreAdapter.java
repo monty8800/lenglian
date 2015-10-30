@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by kaisun on 15/10/3.
  */
-public class StoreAdapter extends BaseAdapter {
+public class FoundStoreAdapter extends BaseAdapter {
 
     private List<CarListInfo> list;
     private Context mContext;
@@ -28,7 +28,7 @@ public class StoreAdapter extends BaseAdapter {
         }
     }
 
-    public StoreAdapter(Context context) {
+    public FoundStoreAdapter(Context context) {
         this.mContext = context;
         list = new ArrayList<CarListInfo>();
     }
@@ -53,18 +53,27 @@ public class StoreAdapter extends BaseAdapter {
         CarListInfo info = list.get(position);
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.store_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.found_store_item, null);
             holder = new ViewHolder();
             convertView.setTag(holder);
 
             holder.type = (TextView) convertView.findViewById(R.id.goods_type);
             holder.name = (TextView) convertView.findViewById(R.id.goods_name);
             holder.weight = (TextView) convertView.findViewById(R.id.goods_weight);
+            holder.startAddress = (TextView) convertView.findViewById(R.id.start_store_address);
+            holder.endAddress = (TextView) convertView.findViewById(R.id.end_store_address);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        holder.startAddress.setText("起始地需要仓库地：" + info.getFromAreaName());
+        if (info.getToAreaName().equals("") || info.getToAreaName() == null) {
+            holder.endAddress.setVisibility(View.GONE);
+        } else {
+            holder.endAddress.setVisibility(View.VISIBLE);
+            holder.endAddress.setText("目的地需要仓库地：" + info.getToAreaName());
+        }
         holder.type.setText("货物名称：" + info.getName());
         holder.name.setText("货物种类：" + Helper.getGoodsType(info.getGoodsType() + ""));
         if (info.getWeight() != null && !info.getWeight().equals("") && info.getCube() != null && !info.getCube().equals("")) {
@@ -82,6 +91,8 @@ public class StoreAdapter extends BaseAdapter {
         private TextView type;
         private TextView name;
         private TextView weight;
+        private TextView startAddress;
+        private TextView endAddress;
     }
 
 }

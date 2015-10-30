@@ -129,7 +129,7 @@
                     NSMutableArray *infoList = [NSMutableArray new];
                     switch ([[dic objectForKey:@"coldStoreFlag"] integerValue]) {
                         case 1:
-                            addr = [NSString stringWithFormat:@"%@, %@", fromProvince, toProvince];
+                            addr = @"不需要仓库";
                             break;
                             
                         case 2:
@@ -141,7 +141,7 @@
                             break;
                             
                         case 4:
-                            addr = @"不需要仓库";
+                            addr = [NSString stringWithFormat:@"%@, %@", fromProvince, toProvince];
                             break;
                             
                         default:
