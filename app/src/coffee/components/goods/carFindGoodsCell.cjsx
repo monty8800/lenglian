@@ -36,11 +36,12 @@ CarFindGoodsCell = React.createClass {
 		e.stopPropagation()
 
 	_goodsDetail: ->
-		DB.put 'transData', {
-			goodsId: @props.goods.get 'id'
-			focusid: @props.goods.get 'userId'
-		}
-		Plugin.nav.push ['searchGoodsDetail']
+		Auth.needLogin ->
+			DB.put 'transData', {
+				goodsId: @props.goods.get 'id'
+				focusid: @props.goods.get 'userId'
+			}
+			Plugin.nav.push ['searchGoodsDetail']
 		# Auth.needLogin ->
 		# 	return Plugin.toast.err '尚未通过车主认证，请认证后再试' if UserStore.getUser()?.carStatus isnt 1
 		# 	Plugin.run [3, 'select:car', @props.goods.get('id'), if @props.goods.get('priceType') isnt '1' then true else false]
