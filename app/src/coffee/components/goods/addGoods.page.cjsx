@@ -242,7 +242,7 @@ AddGoods = React.createClass {
 			</div>
 			<div>
 				<label htmlFor="proName"><span>货物名称</span></label>
-				<input valueLink={@linkState 'name'} type="text" placeholder="选填" id="proName"/>
+				<input className="input-weak" valueLink={@linkState 'name'} type="text" placeholder="选填" id="proName"/>
 			</div>
 			<div>
 				<span>货物规格</span>
@@ -251,7 +251,7 @@ AddGoods = React.createClass {
 			</div>
 			<div>
 				<label htmlFor="packType"><span>包装类型</span></label>
-				<input valueLink={@linkState 'packType'} type="text" placeholder="选填" id="packType"/>
+				<input className="input-weak" valueLink={@linkState 'packType'} type="text" placeholder="选填" id="packType"/>
 			</div>
 			<div className="choicePic">
 				<span>货物照片</span> 

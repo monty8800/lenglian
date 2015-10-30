@@ -155,6 +155,7 @@
     if (userStr) {
         NSDictionary *user = [NSJSONSerialization JSONObjectWithData:[userStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
         if ([user isKindOfClass:[NSDictionary class]]) {
+            DDLogDebug(@"user in native is %@", user);
             return user;
         }
         else

@@ -103,11 +103,9 @@ Charge = React.createClass {
 
 		<div>
 			<div className="m-pay-item">
-				<p className="g-pay clearfix">
-					<span className="fl">充值金额</span>
-					<span className="fr g-pay-money">
-						<input className="input-weak" type="text" valueLink={@linkState 'money'} placeholder="请输入充值金额"/>
-					</span>
+				<p className="g-pay">
+					<span>充值金额</span>
+					<input className="input-weak" type="text" valueLink={@linkState 'money'} placeholder="请输入充值金额"/>
 				</p>
 			</div>
 			<div className="m-pay-item">

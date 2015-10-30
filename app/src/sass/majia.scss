@@ -167,7 +167,7 @@
             left:0;
         }
     }
-
+    
     .g-adr-store{
 //      height: 80/$ppr;
         line-height: 40/$ppr;
@@ -193,7 +193,7 @@
                 font-family: arial;
             }
         }
-
+        
     }
     .g-item {
         padding:0/$ppr 20/$ppr 20/$ppr 0;
@@ -445,7 +445,7 @@
     p:last-child{
         color: $main-color;
         font-size:26/$ppr;
-    }
+    }    
 }
 
 .g-detail-dirver{
@@ -491,7 +491,7 @@
             color: $text-color-fd8;
             line-height: 1;
             padding-top: 10/$ppr;
-        }
+        } 
         .g-driver-contact{
             position: absolute;
             right: 10/$ppr;
@@ -516,7 +516,7 @@
                         position: absolute;
                         left: 40/$ppr;
                         top:0;
-                        line-height: 30/$ppr;
+                        line-height: 30/$ppr;  
                     }
                 }
                 &:first-child{
@@ -536,10 +536,10 @@
                         color: #666;
                     }
                 }
-
+                
             }
         }
-    }
+    } 
     &.g-det-pad0 {
         padding-top:0;
         padding-bottom: 0;
@@ -578,7 +578,7 @@
          -webkit-transform:rotate(45deg);
                  transform:rotate(45deg);
     }
-
+   
 }
 .g-detail-time01,.g-detail-time02{
     padding-right:20/$ppr;
@@ -698,7 +698,7 @@
                 position: absolute;
                 right: 0;
                 top:22/$ppr;
-                line-height: 30/$ppr;
+                line-height: 30/$ppr;   
             }
         }
         &:last-child {
@@ -730,14 +730,14 @@
     .g-pay-btn{
         position: absolute;
         right: 20/$ppr;
-        top:16/$ppr;
+        top:16/$ppr;        
     }
 }
 //pay page
 .m-pay-item{
     margin-top:20/$ppr;
     background: #fff;
-    border-top:1px solid #e6e6e6;
+    border-top:1px solid #e6e6e6;   
     .g-pay{
         font-size: 32/$ppr;
         color: $text-color-333;
@@ -748,16 +748,29 @@
         border-bottom: 1px solid #e6e6e6;
         overflow: hidden;
         @include box-sizing($sizing:border-box);
+        @include flexbox();
         .g-pay-money{
             color:$com-color;
+            width: 100%;
+            display: block;
+            @include flex(1);
+            text-align: right;
+
+        }
+        .input-weak{
+            width: 100%;
+            display: block;
+            @include flex(1);
         }
         .g-payPass {
             width: 225/$ppr;
         }
         .g-payText {
             color: #7f7f7f;
+            width: 230/$ppr;
+            background:red;
             font-weight: normal;
-            // height: 90/$ppr;
+            height: 90/$ppr;
             .input-weak {
                 text-align: right;
                 font-weight: normal;
@@ -770,7 +783,7 @@
             text-align: right;
             font-size: 30/$ppr;
             font-weight: normal;
-            line-height: 90/$ppr;
+            line-height: 32/$ppr;
         }
         .font30,.font24{
             font-size: 30/$ppr;
@@ -798,7 +811,7 @@
                 &:after{
                     content:"\e602";
                     color: $main-color ;
-                }
+                }                
             }
         }
     }
@@ -827,7 +840,7 @@
     .g-bankTitle{
         height: 90/$ppr;
         line-height: 90/$ppr;
-        font-size: 30/$ppr;
+        font-size: 30/$ppr;               
     }
     .g-bankList{
         padding-left:30/$ppr;
@@ -843,7 +856,7 @@
             }
             &.noborder{
                 border-top: 0;
-            }
+            }                    
         }
         .g-bank01{
             position: relative;
@@ -862,7 +875,7 @@
                 color: $main-color;
                 content: "\e608";
             }
-
+            
         }
     }
 }
@@ -879,13 +892,13 @@
                 font-size:36/$ppr;
                 line-height: 36/$ppr;
                 color: $text-color-fd8;
-                position: absolute;
-                left: 0;
-                top: 42/$ppr;
+                position: absolute;     
+                left: 0; 
+                top: 42/$ppr;          
             }
-        }
+        }               
     }
-
+      
 }
 
 .u-pay-btn{
@@ -957,7 +970,7 @@
         font-size: 30/$ppr;
         &.g-texttitle{
             line-height: 86/$ppr;
-            border-bottom:1px solid #d6d7d9;
+            border-bottom:1px solid #d6d7d9;            
         }
         &.g-text01{
             padding: 20/$ppr 0;
@@ -970,8 +983,8 @@
             border-top: 1px solid #d6d7d9;
 //          height: 90/$ppr;
             line-height: 90/$ppr;
-        }
-    }
+        } 
+    } 
     .g-password{
         width: 404/$ppr;
         height: 70/$ppr;
@@ -982,8 +995,8 @@
         text-indent: 10/$ppr;
         font-size: 30/$ppr;
         line-height: 40/$ppr;
-    }
-
+    }  
+    
 }
 
 .m-payalert{
@@ -1044,10 +1057,10 @@
             text-align: center;
             font-size: 34/$ppr;
             color: $text-color-333;
-            border-top: 1px solid #d6d7d9;
+            border-top: 1px solid #d6d7d9; 
             display: block;
         }
-
+        
     }
 }
 .g-paybtn{
@@ -1150,7 +1163,7 @@
 //      border:2/$ppr solid #808080;
 //      border-radius: 10/$ppr;
         a{
-            position: absolute;
+            position: absolute;  
             top: 0;
             left: 0;
             width: 200/$ppr;
@@ -1163,7 +1176,7 @@
             border:2/$ppr solid #808080;
             border-radius: 5/$ppr;
         }
-
+            
     }
 }
 
@@ -1171,13 +1184,13 @@
 .m-releasehead{
     padding: 0 70/$ppr 0 20/$ppr;
     background-color: #2b7df6;
-    font-size:32/$ppr;
+    font-size:32/$ppr; 
     position:relative;
     .g-adr-end,.g-adr-start,.g-adr-middle,.g-adr-pass{
         padding-left: 50/$ppr;
         position:relative;
         @include box-sizing($sizing:border-box);
-        font-size:32/$ppr;
+        font-size:32/$ppr;      
         &:before{
             width: 40/$ppr;
             height: 40/$ppr;
@@ -1202,11 +1215,11 @@
             color: #fff;
             @include box-sizing(border-box);
         }
-    }
+    }   
     .g-adr-pass{
         &:before{
            content: "\e60d";
-           color: #fff;
+           color: #fff; 
         }
     }
     .g-adr-middle{
@@ -1278,7 +1291,7 @@
     .g-adr-start{
         &:before{
            content: "\e620";
-           color: #9dd5fd;
+           color: #9dd5fd; 
         }
         p{
             border-bottom: none;
@@ -1289,14 +1302,14 @@
                 content: "\e60a";
             }
         }
-    }
+    }  
     .g-adr-end{
         &.g-adr-car{
             &:before{
                 content: "\e620";
             }
         }
-    }
+    } 
     .g-adr-end-line,.g-adr-pass-line,.g-adr-start-line{
 //      padding-bottom: 8/$ppr;
         &:after {
@@ -1385,7 +1398,7 @@
     }
 }
 
-
+  
 .m-releaseitem{
     margin-top:20/$ppr;
     background: #fff;
@@ -1396,10 +1409,10 @@
         min-height: 20/$ppr;
         padding:28/$ppr 0;
         font-size:32/$ppr;
-        color:$text-color-333;
+        color:$text-color-333;           
         position:relative;
         border-top: 1px solid #e6e6e6;
-        @include box-sizing($sizing:border-box);
+        @include box-sizing($sizing:border-box);     
         &.g-releaseDl{
             dd{
                 .u-tip01{
@@ -1419,10 +1432,10 @@
                     }
                 }
             }
-        }
+        }        
         &:first-child{
             border-top:0;
-        }
+        } 
         &.g-storeArea{
             label{
                 margin-right: 50/$ppr;
@@ -1436,21 +1449,21 @@
                 width: 145/$ppr;
                 margin-right: 0;
                 vertical-align: top;
-            }
+            }  
             // &:last-child{
             //     display: inline-block;
             //     max-width: 450/$ppr;
             //     white-space: nowrap;
             //     text-overflow: ellipsis;
             //     //overflow: hidden;
-            // }
-        }
+            // }             
+        }  
         &.g-testCode{
             position: relative;
             height: 88/$ppr;
             span{
                 &:first-child{
-                    width: 80/$ppr;
+                    width: 80/$ppr; 
                     position:relative;
                     &.icon{
                         &:before{
@@ -1469,7 +1482,7 @@
                             &:before{
                                 content: "\e61e";
                                 color:#2884ec;
-                            }
+                            }                        
                         }
                         &.icon-pas02{
                             &:before{
@@ -1482,8 +1495,8 @@
                                 content: "\e624";
                                 color:#0cd13b;
                             }
-                        }
-                    }
+                        }                     
+                    }                    
                 }
             }
             .g-dirver-btn{
@@ -1496,7 +1509,7 @@
                     color: #fff;
                 }
             }
-        }
+        }   
         input{
             &::-webkit-input-placeholder { color: #acabab; }
             &:-moz-placeholder { color:  #acabab;}
@@ -1519,7 +1532,7 @@
                 }
             }
         }
-
+        
         &.choicePic{
             line-height: 84/$ppr;
             position: relative;
@@ -1541,7 +1554,7 @@
                 right: 20/$ppr;
                 top: 20/$ppr;
                 margin: 0;
-                border: 1px solid #E6E6E6;
+                border: 1px solid #E6E6E6; 
 //              padding: 15/$ppr;
                 @include box-sizing($sizing:border-box);
                 span{
@@ -1564,16 +1577,16 @@
                         color: #fff;
                         font-weight: normal;
                     }
-                }
+                } 
                 img{
                     width: 100%;
                     height: 100%;
-                }
+                }       
             }
         }
        i{
            color: #acabab;
-           font-size: 30/$ppr;
+           font-size: 30/$ppr; 
         }
         .star{
            color: #666;
@@ -1582,7 +1595,7 @@
 //      .iconFont{
 //          font-size: 28/$ppr;
 //          padding-top: 20/$ppr;
-//      }
+//      }        
         &.g-releaseDl{
             dl{
                 dd{
@@ -1599,7 +1612,7 @@
                             padding-bottom:0;
                             border-bottom: 0;
                         }
-
+                        
                         .price{
                             width: 218/$ppr;
                             height: 50/$ppr;
@@ -1609,18 +1622,18 @@
 //                          text-align: center;
                             margin-top: -9/$ppr;
                             margin-bottom: -9/$ppr;
-
+                            
                         }
                         &:first-child{
 //                              padding-top:0;
                             &:before{
                                 top:-2/$ppr;
                             }
-                        }
+                        }                                                                                           
                     }
                 }
             }
-        }
+        }        
     }
     .g-div02 {
         padding:0 20/$ppr 30/$ppr 20/$ppr;
@@ -1646,7 +1659,7 @@
     }
     .g-div02-btn {
         text-align: center;
-    }
+    }  
     .u-personIcon{
         &:after{
             width: 36/$ppr;
@@ -1674,7 +1687,7 @@
             &:after{
                  content: "\e62e";
                  color: #ccc;
-            }
+            }          
         }
         .input-weak {
             width: 400/$ppr;
@@ -1758,7 +1771,7 @@ select.weight{
 .m-releasehead02{
     padding: 0 20/$ppr 0 20/$ppr;
     background-color: #2b7df6;
-    font-size:32/$ppr;
+    font-size:32/$ppr;    
     .g-adr-item{
         font-size:32/$ppr;
         border-top: 1px solid #9dd5fd;
@@ -1823,7 +1836,7 @@ select.weight{
             border-bottom:1px solid #b1e9ff;
         }
     }
-
+    
 }
 
 .u-comment{
@@ -1843,7 +1856,7 @@ select.weight{
         outline: none;
 
     }
-
+    
 }
 .g-radio {
     @include flexbox();
@@ -1869,7 +1882,7 @@ select.weight{
                 height: 100%;
             }
         }
-
+        
     }
 }
 
@@ -1879,9 +1892,9 @@ select.weight{
     font-size: 26/$ppr;
     line-height: 36/$ppr;
     color: $text-color-333;
-    .g-aboutCon{
-        text-indent: 50/$ppr;
-        margin-bottom: 36/$ppr;
+    .g-aboutCon{    
+        text-indent: 50/$ppr;        
+        margin-bottom: 36/$ppr;       
     }
     .g-titleItem{
         font-size: 26/$ppr;
@@ -1908,5 +1921,18 @@ select.weight{
         text-align: center;
     }
 }
+
+// *******
+
+.add-flex {
+    @include flexbox();
+
+    .input-weak {
+        display: block;
+        width: 100%;
+        @include flex(1);
+    }
+}
+
 
 

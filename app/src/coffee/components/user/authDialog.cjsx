@@ -5,7 +5,7 @@ Dialog = React.createClass {
 	_goPage: (page)->
 		Plugin.nav.push [page]
 	_skip: ->
-		Plugin.nav.pop()
+		Plugin.nav.popTo 2
 	render: ->
 		<section>
 		<div className="m-gray"></div>

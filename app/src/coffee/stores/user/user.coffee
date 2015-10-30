@@ -22,6 +22,7 @@ XeCrypto = require 'util/crypto'
 #过期自动匿名登陆
 
 autoLogin = ->
+	console.log 'lastLogin', _user?.lastLogin
 	result = (new Buffer(_user.passwd, 'base64')).toString('utf8')
 	tmpPasswd = result[-16..]
 	encryptPasswd = result[0...-16]
@@ -33,23 +34,24 @@ autoLogin = ->
 		usercode: _user.mobile
 		password: plainPasswd
 	}, (data)->
-		_user = _user.set 'carStatus', parseInt(data.carStatus)
-		_user = _user.set 'certification', parseInt(data.certification)
-		_user = _user.set 'goodsStatus', parseInt(data.goodsStatus)
+		_user = _user.set 'carStatus', parseInt(data.carStatus) if parseInt(data.carStatus) isnt 0
+		_user = _user.set 'certification', parseInt(data.certification) if parseInt(data.certification) isnt 0
+		_user = _user.set 'goodsStatus', parseInt(data.goodsStatus) if parseInt(data.goodsStatus) isnt 0
 		_user = _user.set 'avatar', data.imgurl
 		_user = _user.set 'id', data.userId
 		_user = _user.set 'lastLogin', (new Date).getTime()
-		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
+		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus) if parseInt(data.warehouseStatus) isnt 0
 		if _user.hasPayPwd is 0
 			_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus)
 		DB.put 'user', _user.toJS()
 		Plugin.run [9, 'user:update', _user.toJS()]
 	, (data)->
+		console.log JSON.stringify(data)
 		Plugin.toast.err '会话已过期，请重新登录'
 		logout()
 	, false
 
-if _user.passwd and (new Date).getTime() - _user.lastLogin or 0 > Constants.KEEP_LOGIN_TIME
+if _user.passwd and ((new Date).getTime() - _user.lastLogin > Constants.cache.KEEP_LOGIN_TIME)
 	autoLogin()
 
 needCheck = ->
@@ -61,7 +63,7 @@ updateUser = ->
 	console.log 'new user', _user
 	now = new Date
 	cacheTime = if needCheck() then Constants.cache.USER_INFO_MIN else Constants.cache.USER_INFO
-	if _user.id and  now.getTime() - _user.lastUpdate >  cacheTime
+	if _user.id and  (now.getTime() - _user.lastUpdate >  cacheTime)
 		requestInfo()
 	else
 		UserStore.emitChange 'user:update'
@@ -231,6 +233,8 @@ register = (mobile, code, passwd)->
 		_user = _user.set 'mobile', mobile
 		_user = _user.set 'passwd', result
 		DB.put 'user', _user.toJS()
+		DB.put 'LAST_LOGIN_MOBILE', mobile
+		Plugin.run [9, 'user:update', _user.toJS()]
 		autoLogin()
 		UserStore.emitChange 'register:done'
 
@@ -244,15 +248,15 @@ login = (mobile, passwd)->
 		encryptPasswd = XeCrypto.aesEncrypt tmpPasswd, passwd
 		result = (new Buffer(encryptPasswd + tmpPasswd)).toString('base64')
 		console.log 'tmpPasswd:', tmpPasswd, ' encryptPasswd:', encryptPasswd, ' result:', result
-		_user = _user.set 'carStatus', parseInt(data.carStatus)
-		_user = _user.set 'certification', parseInt(data.certification)
-		_user = _user.set 'goodsStatus', parseInt(data.goodsStatus)
+		_user = _user.set 'carStatus', parseInt(data.carStatus) if parseInt(data.carStatus) isnt 0
+		_user = _user.set 'certification', parseInt(data.certification) if parseInt(data.certification) isnt 0
+		_user = _user.set 'goodsStatus', parseInt(data.goodsStatus) if parseInt(data.goodsStatus) isnt 0
 		_user = _user.set 'avatar', data.imgurl
 		_user = _user.set 'id', data.userId
 		_user = _user.set 'mobile', data.usercode
 		_user = _user.set 'passwd', result
 		_user = _user.set 'lastLogin', (new Date).getTime()
-		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
+		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus) if parseInt(data.warehouseStatus) isnt 0
 		if _user.hasPayPwd is 0
 			_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus)
 		DB.put 'user', _user.toJS()
