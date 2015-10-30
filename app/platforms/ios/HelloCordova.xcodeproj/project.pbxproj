@@ -102,6 +102,11 @@
 		4CE2FFED1BC0C81100935C9F /* SelectGoodsWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEC1BC0C81100935C9F /* SelectGoodsWidget.m */; };
 		4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFEF1BC0C83900935C9F /* SelectGoodsTableViewCell.m */; };
 		4CE2FFF41BC102F000935C9F /* LocationBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */; };
+		5B0C9A4A1BE2087D00110711 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C9A401BE2087D00110711 /* ioapi.c */; };
+		5B0C9A4B1BE2087D00110711 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C9A421BE2087D00110711 /* mztools.c */; };
+		5B0C9A4C1BE2087D00110711 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C9A441BE2087D00110711 /* unzip.c */; };
+		5B0C9A4D1BE2087D00110711 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C9A461BE2087D00110711 /* zip.c */; };
+		5B0C9A4E1BE2087D00110711 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C9A491BE2087D00110711 /* ZipArchive.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		5B1A51BB1BCF9E250031761B /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A51BA1BCF9E250031761B /* AgreementViewController.m */; };
 		5B1C0B691BCA553300DA196C /* SearchGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */; };
@@ -335,6 +340,17 @@
 		4CE2FFF21BC102F000935C9F /* LocationBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationBubbleView.h; path = map/LocationBubbleView.h; sourceTree = "<group>"; };
 		4CE2FFF31BC102F000935C9F /* LocationBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationBubbleView.m; path = map/LocationBubbleView.m; sourceTree = "<group>"; };
 		555391413AAD4C94B9C1B273 /* XEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEViewController.m; path = "com.xebest.xe-plugin/XEViewController.m"; sourceTree = "<group>"; };
+		5B0C9A3F1BE2087D00110711 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		5B0C9A401BE2087D00110711 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		5B0C9A411BE2087D00110711 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		5B0C9A421BE2087D00110711 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		5B0C9A431BE2087D00110711 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		5B0C9A441BE2087D00110711 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		5B0C9A451BE2087D00110711 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		5B0C9A461BE2087D00110711 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		5B0C9A471BE2087D00110711 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		5B0C9A481BE2087D00110711 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		5B0C9A491BE2087D00110711 /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5B1A51B91BCF9E250031761B /* AgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AgreementViewController.h; path = user/AgreementViewController.h; sourceTree = "<group>"; };
 		5B1A51BA1BCF9E250031761B /* AgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AgreementViewController.m; path = user/AgreementViewController.m; sourceTree = "<group>"; };
@@ -458,6 +474,7 @@
 				4CDD99711BAF9B59008B4AC6 /* home */,
 				4C5C87411B74800500609666 /* hello */,
 				4C59DE3D1B5E4D9D0063D9CE /* common */,
+				5B0C9A3D1BE2087D00110711 /* hotUpdate */,
 				1D3623240D0F684500981E51 /* AppDelegate.h */,
 				1D3623250D0F684500981E51 /* AppDelegate.m */,
 			);
@@ -601,6 +618,7 @@
 			isa = PBXGroup;
 			children = (
 				4C59DE3E1B5E4FF30063D9CE /* Global.h */,
+				4C59DE3F1B5E4FF30063D9CE /* Global.m */,
 				4C5992A31BBCD0D900CA5039 /* ContactsViewController.h */,
 				4C5992A41BBCD0D900CA5039 /* ContactsViewController.m */,
 				4CB11F3D1BC7A48E002280B2 /* UIImageView+XE.h */,
@@ -617,7 +635,6 @@
 				4C59DE441B5E519C0063D9CE /* BaseViewController.h */,
 				4C59DE451B5E519C0063D9CE /* BaseViewController.m */,
 				4C59DE421B5E50AA0063D9CE /* XELogFormatter.m */,
-				4C59DE3F1B5E4FF30063D9CE /* Global.m */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -911,6 +928,32 @@
 			name = auth;
 			sourceTree = "<group>";
 		};
+		5B0C9A3D1BE2087D00110711 /* hotUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				5B0C9A3E1BE2087D00110711 /* minizip */,
+				5B0C9A481BE2087D00110711 /* ZipArchive.h */,
+				5B0C9A491BE2087D00110711 /* ZipArchive.mm */,
+			);
+			path = hotUpdate;
+			sourceTree = "<group>";
+		};
+		5B0C9A3E1BE2087D00110711 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				5B0C9A3F1BE2087D00110711 /* crypt.h */,
+				5B0C9A401BE2087D00110711 /* ioapi.c */,
+				5B0C9A411BE2087D00110711 /* ioapi.h */,
+				5B0C9A421BE2087D00110711 /* mztools.c */,
+				5B0C9A431BE2087D00110711 /* mztools.h */,
+				5B0C9A441BE2087D00110711 /* unzip.c */,
+				5B0C9A451BE2087D00110711 /* unzip.h */,
+				5B0C9A461BE2087D00110711 /* zip.c */,
+				5B0C9A471BE2087D00110711 /* zip.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
 		5BE263291BB3A5A400167D4F /* warehouse */ = {
 			isa = PBXGroup;
 			children = (
@@ -1202,6 +1245,7 @@
 				5B255FE31BC60F8B000958A8 /* ChargeViewController.m in Sources */,
 				4C3353EA1BBEB18E0020EB06 /* SelectWarehouseWidget.m in Sources */,
 				5BEB92681BB64BBE003970B3 /* AddWarehouseViewController.m in Sources */,
+				5B0C9A4D1BE2087D00110711 /* zip.c in Sources */,
 				5B3734051BC2519600807804 /* AddBankCardViewController.m in Sources */,
 				4CB4C0ED1BBFD50A0095ABE8 /* SelectCarWidget.m in Sources */,
 				5BDFC3871BBFC86100712DBB /* MyGoodsListViewController.m in Sources */,
@@ -1218,11 +1262,14 @@
 				4C3353ED1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m in Sources */,
 				5B52F73B1BDDBDC300102037 /* ChargeRecordViewController.m in Sources */,
 				4C6584141BBE295C005FEB16 /* GoodsBubbleView.m in Sources */,
+				5B0C9A4A1BE2087D00110711 /* ioapi.c in Sources */,
 				4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */,
+				5B0C9A4B1BE2087D00110711 /* mztools.c in Sources */,
 				5B2AA1EC1BC4FB440083175E /* BillListViewController.m in Sources */,
 				4CB4C0E31BBF7E3B0095ABE8 /* SelectCarTableViewCell.m in Sources */,
 				4C5992A81BBCD3BE00CA5039 /* Contacts.m in Sources */,
 				4C5992A51BBCD0D900CA5039 /* ContactsViewController.m in Sources */,
+				5B0C9A4E1BE2087D00110711 /* ZipArchive.mm in Sources */,
 				4C59DE431B5E50AA0063D9CE /* XELogFormatter.m in Sources */,
 				E858DD5946754C3C80EE0FDA /* XEPlugin.m in Sources */,
 				4C006E061BB037BB00381462 /* LoginViewController.m in Sources */,
@@ -1238,6 +1285,7 @@
 				4C6584171BBE2982005FEB16 /* WarehouseBubbleView.m in Sources */,
 				4CD9A94B1BBD366D0098C9B7 /* XeAnnotationView.m in Sources */,
 				5BE0EB221BBE40DA00027BA8 /* ReleaseCarViewController.m in Sources */,
+				5B0C9A4C1BE2087D00110711 /* unzip.c in Sources */,
 				4CDD99811BAFA98D008B4AC6 /* NearByViewController.m in Sources */,
 				4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */,
 				5B1A51BB1BCF9E250031761B /* AgreementViewController.m in Sources */,
