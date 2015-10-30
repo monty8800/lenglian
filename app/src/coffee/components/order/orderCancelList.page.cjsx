@@ -14,12 +14,22 @@ GoodsItem = require 'components/order/goodsOrderCell'
 StoreItem = require 'components/order/storeOrderCell'
 
 
-#TODO: 分页
+InfiniteScroll = require('react-infinite-scroll')(React)
+
+_status = Constants.orderStatus.st_01
+_page = 1
+_pageSize = Constants.orderStatus.PAGESIZE
+_busy = true
+_hasMore = true
+_count = 0
+
 OrderCancelList = React.createClass {
 	minxins: [PureRenderMixin]
 
 	_getCancelList: ->
-		OrderAction.getOrderList(Constants.orderStatus.st_05, 1)
+		return null if _busy
+		_busy = true
+		OrderAction.getOrderList(Constants.orderStatus.st_05, _page)
 
 	getInitialState: ->
 		{				
@@ -38,8 +48,13 @@ OrderCancelList = React.createClass {
 		# type: 'car'司机订单  'goods'货主订单  'store'仓库订单
 		console.log 'params in order list', params
 		if params[0] is 'car' || params[0] is 'goods' || params[0] is 'store'
+			orderList = OrderStore.getOrderList()
+			_busy = false
+			_page++
+			_hasMore = orderList.size - _count >= _pageSize
+			_count = orderList.size
 			@setState {
-				orderList: OrderStore.getOrderList().toJS()
+				orderList: orderList.toJS()
 				orderType: params[0]
 			}
 		console.log '---------size:', @state.orderList.size
@@ -49,6 +64,7 @@ OrderCancelList = React.createClass {
 		console.log '___state', @state
 		<div>
 			<div className="m-tab01"> 
+				<InfiniteScroll pageStart=0 loadMore={@_getCancelList} hasMore={_hasMore and not _busy}>
 				{
 					switch @state.orderType
 						when 'car'
@@ -65,6 +81,7 @@ OrderCancelList = React.createClass {
 							<StoreItem items=@state.orderList />
 								
 				}
+				</InfiniteScroll>
 			</div>
 		</div>
 }
