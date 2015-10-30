@@ -13,12 +13,13 @@ Plugin = require 'util/plugin'
 Validator = require 'util/validator'
 Constants = require 'constants/constants'
 Moment = require 'moment'
+UserStore = require 'stores/user/user'
 
 GoodsStore = require 'stores/goods/goods'
 GoodsAction = require 'actions/goods/goods'
 Goods = require 'model/goods'
 DB = require 'util/storage'
-
+_user = UserStore.getUser()
 
 GoodsRoutes = React.createClass {
 	render : ->
@@ -66,8 +67,11 @@ GoodsDetail = React.createClass {
 		, ['确定', '取消']
 
 	_makePhoneCall:(phone)->
-		if phone
-  			window.location.href = 'tel:' + phone
+		if parseInt(_user.certification) is 0
+			Plugin.toast.err '认证后可见'
+		else 
+			if phone
+	  			window.location.href = 'tel:' + phone
 
 
 	render : ->

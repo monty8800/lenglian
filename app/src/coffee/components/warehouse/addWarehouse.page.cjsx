@@ -205,7 +205,7 @@ AddWarehouse = React.createClass {
 						aPropertyModel = addPropertyModel '5','深冷','3','仓库面积',@state.temperatureArea51,@state.temperatureArea52
 						newState.params.warehouseProperty.push aPropertyModel
 
-# 增值服务	
+# 配套服务	
 			if @state.increaseServe1 is '1'
 				aPropertyModel = addPropertyModel '1','提供拖车','2','配套服务','',''
 				newState.params.warehouseProperty.push aPropertyModel
@@ -294,7 +294,7 @@ AddWarehouse = React.createClass {
 		newState.params.isinvoice = '2'
 		@setState newState
 
-#增值服务
+#配套服务
 	increaseServe1 : (e)-> #城配
 		newState = Object.create @state
 		if e.target.checked
@@ -302,7 +302,7 @@ AddWarehouse = React.createClass {
 		else
 			newState.increaseServe1 = '0'
 		@setState newState
-		console.log "增值服务拖车",@state.params.warehouseProperty
+		console.log "配套服务拖车",@state.params.warehouseProperty
 	increaseServe2 : (e)-> #仓配
 		newState = Object.create @state
 		if e.target.checked
@@ -310,7 +310,7 @@ AddWarehouse = React.createClass {
 		else
 			newState.increaseServe2 = '0'
 		@setState newState
-		console.log "增值服务装卸",@state.params.warehouseProperty
+		console.log "配套服务装卸",@state.params.warehouseProperty
 
 			
 # 仓库面积

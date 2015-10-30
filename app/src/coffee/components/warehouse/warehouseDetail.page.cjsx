@@ -22,7 +22,7 @@ warehouseStatus = '' #状态
 warehouseType = []	#类型
 warehousePriceValue = '' #价格
 warehousePriceUnit = ''#价格单位
-warehouseIncreaseValue = [] #增值服务
+warehouseIncreaseValue = [] #配套服务
 warehouseArea = [] #面积
 
 conf = (aProperty) ->

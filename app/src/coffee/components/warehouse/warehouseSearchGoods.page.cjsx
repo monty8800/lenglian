@@ -235,7 +235,7 @@ WarehouseSearchGoods = React.createClass {
 				</div>
 				<div className="g-item g-item-des">
 					<p>货物名称 : <span>{ aResult.name }</span></p>
-					<p>货物类型 : <span>{ Helper.goodsType aResult.goodsType }</span><span>{aResult.weight + '吨'}</span><span>{ if aResult.cube then aResult.cube + '方'}</span></p>
+					<p>货物类型 : <span>{ Helper.goodsType aResult.goodsType }</span><span>{if parseFloat(aResult.weight) > 0 then aResult.weight + '吨' else ''}</span><span>{ if parseFloat(aResult.cube) > 0 then aResult.cube + '方' else ''}</span></p>
 					<p>装货时间 : <span>{ Moment(aResult.installStime).format('YYYY-MM-DD') }</span></p>
 				</div>
 			</div>

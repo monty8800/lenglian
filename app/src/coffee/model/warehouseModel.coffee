@@ -61,7 +61,7 @@ module.exports = Warehouse
 #         "attributeName": "城配",
 #         "id": "ce38bc3d49cf4bcc95708bbb459f80a3",
 #         "type": "2",
-#         "typeName": "仓库增值服务"
+#         "typeName": "仓库配套服务"
 #       },
 #       {
 #         "attribute": "1",

@@ -81,8 +81,11 @@ GoodsDetail = React.createClass {
 		GoodsAction.handleFallow _transData.focusid,1,type
 
 	_makePhoneCall:(phone)->
-		if phone
-			window.location.href = 'tel:' + phone
+		if parseInt(_user.certification) is 0
+			Plugin.toast.err '认证后方可拨号'
+		else 
+			if phone
+				window.location.href = 'tel:' + phone
 
 	render : ->
 		console.log 'state', @state

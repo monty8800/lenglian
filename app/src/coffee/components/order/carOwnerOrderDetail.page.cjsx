@@ -227,7 +227,7 @@ OrderDetail = React.createClass {
 					</div>
 					<div className="g-pro-text fl">
 						<p>货物种类: <span>{@state.order?.goodsType}</span></p>
-						<p>货物规格: <span>{@state.order?.goodsWeight + '吨'}{@state.order?.goodsCubic + '方'}</span></p>
+						<p>货物规格: <span>{if @state.order?.goodsWeight then @state.order?.goodsWeight + '吨' else ''}{@state.order?.goodsCubic + '方'}</span></p>
 						<p>包装类型: <span>{@state.order?.goodsPackingType}</span></p>
 					</div>
 				</div>

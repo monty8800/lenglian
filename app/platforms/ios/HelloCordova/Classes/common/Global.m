@@ -293,7 +293,7 @@
                                                               options: NSJSONReadingAllowFragments
                                                                 error: &error];
     NSLog(@"__在线参数___ %@",resultDic);
-
+    
     [[Global sharedInstance] hanldProjectWithParamsOnLine:resultDic];
 }
 
@@ -302,14 +302,6 @@
     NSString *currentAppVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *newestAppVersion = paramsDic[@"version"];
     NSComparisonResult result = [currentAppVersion compare:newestAppVersion];
-    if (result != NSOrderedAscending) {
-        if ([paramsDic[@"backToRelease"] integerValue] == 1) {
-            [[NSUserDefaults standardUserDefaults]setObject:nil forKey:kUserDefault_wwwVersion];
-            return;
-        }else{
-            
-        }
-    }
     switch (result) {
         case NSOrderedAscending:
             NSLog(@"升序");
@@ -318,7 +310,6 @@
             break;
         case NSOrderedSame:
             NSLog(@"same 检查热更新");
-            
             [self checkHotVersion:paramsDic];
             break;
         case NSOrderedDescending:
@@ -398,7 +389,7 @@
                         [za UnzipCloseFile];
                         [[NSUserDefaults standardUserDefaults] setObject:newestHotVersion forKey:kUserDefault_wwwVersion];
                         NSLog(@"##### 热更新完成 下次启动使用最新程序 ####");
-                        NSLog(@"\n zipPath  \n %@ \n\n",zipPath);
+                        NSLog(@"热更新版本%@\n zipPath  \n %@ \n\n",newestHotVersion,zipPath);
                     }
                 }
                 else

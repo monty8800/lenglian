@@ -1,6 +1,7 @@
 require 'components/common/common'
 require 'user-center-style'
 require 'majia-style'
+require 'index-style'
 
 React = require 'react/addons'
 
@@ -21,7 +22,7 @@ _user = UserStore.getUser()
 warehouseStatus = '' #状态
 warehouseType = []	#类型
 warehousePrice = [] #价格
-warehouseIncreaseValue = [] #增值服务
+warehouseIncreaseValue = [] #配套服务
 warehouseArea = [] #面积
 
 conf = (aProperty) ->
@@ -80,6 +81,11 @@ WarehouseDetail = React.createClass {
 		tempratureArea = warehouseArea.map (aArea,i)->
 			<p>{aArea}</p>
 		, this
+		phoneNum = ''
+		if parseInt(_user.certification) is 0 
+			phoneNum = '认证后可见'
+		else
+			phoneNum = @state.warehouseDetail.contactTel
 		<div>
 			<div style={{display: if _transData?.orderId then 'block' else 'none'}} className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{ _transData?.orderId }</span></p>
@@ -130,7 +136,7 @@ WarehouseDetail = React.createClass {
 			</div>
 			<div className="m-detail-info m-nomargin">			
 				<p>
-					<span>增值服务:</span>
+					<span>配套服务:</span>
 					<span>{ warehouseIncreaseValue.join ' ' }</span>
 				</p>
 				<p>
@@ -139,7 +145,7 @@ WarehouseDetail = React.createClass {
 				</p>
 				<p>
 					<span>联系电话:</span>
-					<span>{ @state.warehouseDetail.contactTel }</span>
+					<span>{ phoneNum }</span>
 				</p>	
 				<p>
 					<span>仓库价格:</span>
