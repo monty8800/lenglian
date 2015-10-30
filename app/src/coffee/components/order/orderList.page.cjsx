@@ -12,48 +12,43 @@ CarItem = require 'components/order/carOrderCell'
 GoodsItem = require 'components/order/goodsOrderCell'
 StoreItem = require 'components/order/storeOrderCell'
 
+InfiniteScroll = require('react-infinite-scroll')(React)
+
+_status = Constants.orderStatus.st_01
+_page = 1
+_pageSize = Constants.orderStatus.PAGESIZE
+_busy = true
+_hasMore = true
+_count = 0
+
 
 OrderDoc = React.createClass {
 	minxins: [PureRenderMixin]
 
-	# 洽谈中
-	status_01: ->
-		newState = Object.create @state
-		newState.type = Constants.orderStatus.st_01
-		@setState newState
-		OrderAction.getOrderList(Constants.orderStatus.st_01, 1)
-
-	# 待付款
-	status_02: ->
-		newState = Object.create @state
-		newState.type = Constants.orderStatus.st_02
-		@setState newState
-		OrderAction.getOrderList(Constants.orderStatus.st_02, 1)
-
-	# 已付款
-	status_03: ->
-		newState = Object.create @state
-		newState.type = Constants.orderStatus.st_03
-		@setState newState
-		OrderAction.getOrderList(Constants.orderStatus.st_03, 1)
-
-	# 待评价
-	status_04: ->
-		newState = Object.create @state
-		newState.type = Constants.orderStatus.st_04
-		@setState newState
-		OrderAction.getOrderList(Constants.orderStatus.st_04, 1)
+	_changeStatus: (status)->
+		_status = status
+		_page = 1
+		_count = 0
+		_hasMore = true
+		@setState {
+			orderList: []
+		}
+		@_requestData()
 
 	getInitialState: ->
 		{				
 			orderType: ''
-			type: Constants.orderStatus.st_01
 			orderList: OrderStore.getOrderList().toJS()
 		}
 
+	_requestData: ->
+		return null if _busy
+		_busy = true
+		OrderAction.getOrderList _status, _page
+
 	componentDidMount: ->
 		# 浏览器调试(临时)	
-		OrderAction.browerTemp(1)
+		# OrderAction.browerTemp(1)
 		OrderStore.addChangeListener @resultCallBack
 
 	componentWillNotMount: ->
@@ -65,7 +60,12 @@ OrderDoc = React.createClass {
 		if params[0] is 'car' or params[0] is 'goods' or params[0] is 'store'
 			newState = Object.create @state
 			newState.orderType = params[0]
-			newState.orderList = OrderStore.getOrderList().toJS()
+			orderList = OrderStore.getOrderList()
+			newState.orderList = orderList.toJS()
+			_page++
+			_busy = false
+			_hasMore = orderList.size - _count >= _pageSize
+			_count = orderList.size
 			@setState newState
 
 	render: ->
@@ -73,20 +73,21 @@ OrderDoc = React.createClass {
 		<div>
 			<div className="m-tab01">
 				<ul>
-					<li onClick={@status_01}>
-						<span className={ if @state.type is '1' then "active" else ""}>洽谈中</span>
+					<li onClick={@_changeStatus.bind this, Constants.orderStatus.st_01}>
+						<span className={ if _status is '1' then "active" else ""}>洽谈中</span>
 					</li>
-					<li onClick={@status_02}>
-						<span className={ if @state.type is '2' then "active" else ""}>待付款</span>
+					<li onClick={@_changeStatus.bind this, Constants.orderStatus.st_02}>
+						<span className={ if _status is '2' then "active" else ""}>待付款</span>
 					</li>
-					<li onClick={@status_03}>
-						<span className={ if @state.type is '3' then "active" else ""}>已付款</span>
+					<li onClick={@_changeStatus.bind this, Constants.orderStatus.st_03}>
+						<span className={ if _status is '3' then "active" else ""}>已付款</span>
 					</li>
-					<li onClick={@status_04}>
-						<span className={ if @state.type is '4' then "active" else ""}>已完成</span>
+					<li onClick={@_changeStatus.bind this, Constants.orderStatus.st_04}>
+						<span className={ if _status is '4' then "active" else ""}>已完成</span>
 					</li>
 				</ul>
 			</div> 
+			<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={_hasMore and not _busy}>
 			{
 				switch @state.orderType
 					when 'car'
@@ -95,15 +96,15 @@ OrderDoc = React.createClass {
 						goodsOrderList = @state.orderList.map (order, i)->
 							<GoodsItem order={order} key={order.orderNo} />
 						<div>
-						<CSSTransitionGroup transitionName="list">
-						{goodsOrderList}
-						</CSSTransitionGroup>
-						
+							<CSSTransitionGroup transitionName="list">
+							{goodsOrderList}
+							</CSSTransitionGroup>
 						</div>
 					when 'store'
 						<StoreItem items=@state.orderList />
 							
 			}
+			</InfiniteScroll>
 		</div>
 }
 
