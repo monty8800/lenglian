@@ -193,6 +193,7 @@ WarehouseDetail = React.createClass {
 		, ['确定', '取消']
 
 	render :->
+		console.log '__________ %',@state.warehouseDetail.imageUrl
 		warehouseAddress = ''
 		detailAddr = @state.warehouseDetail
 		if detailAddr

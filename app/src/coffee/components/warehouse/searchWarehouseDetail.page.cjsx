@@ -77,6 +77,9 @@ WarehouseDetail = React.createClass {
 		
 
 	render: ->
+		tempratureArea = warehouseArea.map (aArea,i)->
+			<p>{aArea}</p>
+		, this
 		<div>
 			<div style={{display: if _transData?.orderId then 'block' else 'none'}} className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{ _transData?.orderId }</span></p>
@@ -120,8 +123,8 @@ WarehouseDetail = React.createClass {
 					</div>
 					<div className="g-pro-text fl">
 						<p>仓库状态: <span>{ Helper.warehouseStatus @state.warehouseDetail.status }</span></p>
-						<p>仓库类型: <span>{ warehouseType.join ' ' }</span></p>
-						<p>仓库面积: <span>{ warehouseArea.join ' '}</span></p>
+						<p>仓库类型: <span>{ warehouseType.join ',' }</span></p>
+						<p>仓库面积: { tempratureArea }</p>
 					</div>
 				</div>
 			</div>

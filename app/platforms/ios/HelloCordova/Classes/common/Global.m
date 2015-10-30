@@ -292,8 +292,8 @@
     NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData: dates
                                                               options: NSJSONReadingAllowFragments
                                                                 error: &error];
-    NSLog(@"_____ %@",resultDic);
-    
+    NSLog(@"__在线参数___ %@",resultDic);
+
     [[Global sharedInstance] hanldProjectWithParamsOnLine:resultDic];
 }
 
@@ -302,14 +302,23 @@
     NSString *currentAppVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *newestAppVersion = paramsDic[@"version"];
     NSComparisonResult result = [currentAppVersion compare:newestAppVersion];
+    if (result != NSOrderedAscending) {
+        if ([paramsDic[@"backToRelease"] integerValue] == 1) {
+            [[NSUserDefaults standardUserDefaults]setObject:nil forKey:kUserDefault_wwwVersion];
+            return;
+        }else{
+            
+        }
+    }
     switch (result) {
         case NSOrderedAscending:
             NSLog(@"升序");
-            NSLog(@"app store 有新版本");
+            NSLog(@"app store 有新版本 不再支持旧版本的热更新");
             [self updateWithDic:paramsDic];
             break;
         case NSOrderedSame:
-            NSLog(@"same");
+            NSLog(@"same 检查热更新");
+            
             [self checkHotVersion:paramsDic];
             break;
         case NSOrderedDescending:
