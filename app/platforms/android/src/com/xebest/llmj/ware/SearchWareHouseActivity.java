@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
-import com.xebest.llmj.adapter.CarAdapter;
+import com.xebest.llmj.adapter.FoundStoreAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.center.LoginActivity;
@@ -60,7 +60,8 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
 
     private List<CarListInfo> carList = new ArrayList<CarListInfo>();
 
-    private CarAdapter carAdapter;
+//    private CarAdapter carAdapter;
+    private FoundStoreAdapter foundStoreAdapter;
 
     /**
      * 活跃当前窗口
@@ -233,11 +234,13 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
                             } else {
                                 mListView.setPullLoadEnable(false);
                             }
-                            carAdapter = new CarAdapter(getActivity());
-                            mListView.setAdapter(carAdapter);
+//                            carAdapter = new CarAdapter(getActivity());
+                            foundStoreAdapter = new FoundStoreAdapter(getActivity());
+//                            mListView.setAdapter(carAdapter);
+                            mListView.setAdapter(foundStoreAdapter);
                             // 车
-                            carAdapter.addData(list);
-                            carAdapter.notifyDataSetChanged();
+                            foundStoreAdapter.addData(list);
+                            foundStoreAdapter.notifyDataSetChanged();
 
                             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override

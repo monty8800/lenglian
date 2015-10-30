@@ -78,9 +78,16 @@ public class CarAdapter extends BaseAdapter {
 
         holder.priceType.setText("价格类型：" + Helper.getPriceType(info.getPriceType()) + " " + price);
 
+        String desc = "";
         // 货物类型 + 重量
-        holder.goodsDes.setText("货物描述：" + info.getName() + " " + (info.getWeight() == null ? "" : info.getWeight()) + "吨 " + Helper.getGoodsType(info.getGoodsType() + "")
-                    + " " + Helper.payType(info.getPayType() + ""));
+        if (info.getWeight() == null || info.getWeight().equals("")) {
+            desc = "货物描述：" + info.getName() + " " + info.getCube() + "方 " + Helper.getGoodsType(info.getGoodsType() + "");
+        } else if (info.getCube() == null || info.getCube().equals("")) {
+            desc = "货物描述：" + info.getName() + " " + info.getWeight() + "吨 " + Helper.getGoodsType(info.getGoodsType() + "");
+        } else if (info.getWeight() != null && !info.getWeight().equals("") && info.getCube() != null && !info.getCube().equals("")) {
+            desc = "货物描述：" + info.getName() + " " + info.getWeight() + "吨 " + info.getCube() + "方 " + Helper.getGoodsType(info.getGoodsType() + "");
+        }
+        holder.goodsDes.setText(desc);
 
         return convertView;
     }
