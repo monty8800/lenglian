@@ -213,11 +213,8 @@ requestInfo = ->
 			UserStore.emitChange 'user:update'
 		# checkPayPwd() if _user.hasPayPwd isnt 1
 
-smsCode = (mobile, type)->
-	Http.post Constants.api.SMS_CODE, {
-		mobile: mobile
-		type: type
-	}, (data)->
+smsCode = (params)->
+	Http.post Constants.api.SMS_CODE, params, (data)->
 		console.log '验证码', data[-6..]
 		UserStore.emitChange 'sms:done'
 	, (data)->
@@ -360,7 +357,7 @@ UserStore = assign BaseStore, {
 Dispatcher.register (action)->
 	switch action.actionType
 		when Constants.actionType.USER_INFO then requestInfo()
-		when Constants.actionType.SMS_CODE then smsCode(action.mobile, action.type)
+		when Constants.actionType.SMS_CODE then smsCode(action.params)
 		when Constants.actionType.REGISTER then register(action.mobile, action.code, action.passwd)
 		when Constants.actionType.LOGIN then login(action.mobile, action.passwd)
 		when Constants.actionType.RESET_PWD then resetPwd(action.mobile, action.code, action.passwd)

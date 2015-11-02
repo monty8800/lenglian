@@ -24,7 +24,11 @@ SmsCode = React.createClass {
 		if @props.smsFunc
 			@props.smsFunc()
 		else
-			UserAction.smsCode @props.mobile, @props.type
+			UserAction.smsCode {
+				mobile: @props.mobile
+				type: @props.type
+				bindBandCarId: @props.bankCard if @props.type is 5
+			}
 		_busy = true
 		setTimeout ->
 			_busy = false if _busy is true
