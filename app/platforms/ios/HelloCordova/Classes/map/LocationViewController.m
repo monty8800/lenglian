@@ -105,6 +105,21 @@
     }
 }
 
+-(void)mapView:(BMKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+    _pt = [_mapView convertCoordinate:_pointAnno.coordinate toPointToView:_mapView];
+}
+
+-(void)mapView:(BMKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    _pointAnno.coordinate = [_mapView convertPoint:_pt toCoordinateFromView:self.view];
+    __block __weak LocationViewController *weakSelf = self;
+    [Global reverseGeo:_pointAnno.coordinate cb:^(BMKReverseGeoCodeResult *result) {
+        [weakSelf updateAddress:result];
+    }];
+}
+
+
+
 -(void) updateAddress:(BMKReverseGeoCodeResult *) result {
     _pointAnno.title = result.address;
     _address = result.addressDetail;

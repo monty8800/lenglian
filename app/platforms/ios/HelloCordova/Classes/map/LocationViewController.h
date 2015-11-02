@@ -23,6 +23,7 @@
     BMKPointAnnotation *_pointAnno;
     BMKAddressComponent *_address;
     LocationBubbleView *_bubble;
+    CGPoint _pt;
 }
 
 @property (weak, nonatomic) id<LocationDelegate> delegate;
