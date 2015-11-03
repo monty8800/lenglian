@@ -8,6 +8,7 @@
 
 #import "SearchGoodsDetailViewController.h"
 
+
 @interface SearchGoodsDetailViewController ()
 
 @end
@@ -32,10 +33,60 @@
 -(void) createUI {
     self.title = @"货源详情";
 }
+
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    if ([params[0] integerValue] == 3) {
+        if ([params [1] isEqualToString:@"order:car:select:goods:done"]) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        else if ([params[1] isEqualToString:@"select:car"])
+        {
+            [SelectGoodsWidget show:self goods:params[2] type:Cars];
+            _bid = [params[3] boolValue];
+        }
+    }
+    else if ([params[0] integerValue] == 1)
+    {
+        if ([params[1] isEqualToString:@"carBidGoods"]) {
+            CarbidGoodsViewController *bidVC = [CarbidGoodsViewController new];
+            [self.navigationController pushViewController:bidVC animated:YES];
+        }
+    }
+}
+
+-(void)selectGoods:(NSString *)goodsId car:(NSString *)carId
+{
+    if (_bid) {
+        NSString *js = [NSString stringWithFormat:@"(function(){window.goBid('%@', '%@')})()", carId, goodsId];
+        [self.commandDelegate evalJs: js];
+    }
+    else{
+        NSDictionary *params = @{
+                                 @"userId": [[Global getUser] objectForKey:@"id"],
+                                 @"goodsResourceId": goodsId,
+                                 @"carResourceId": carId
+                                 };
+        [Net post:ORDER_CAR_SELECT_GOODS params:params cb:^(NSDictionary *responseDic) {
+            DDLogDebug(@"goods select car result %@", responseDic);
+            if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
+                [[Global sharedInstance] showSuccess:@"抢单成功！"];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            else
+            {
+                [[Global sharedInstance] showErr:[responseDic objectForKey:@"msg"]];
+            }
+        } loading:YES];
+    }
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

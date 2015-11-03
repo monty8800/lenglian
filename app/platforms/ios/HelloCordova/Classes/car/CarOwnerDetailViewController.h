@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "Net.h"
+#import "SelectCarWidget.h"
 
-@interface CarOwnerDetailViewController : BaseViewController
+
+@interface CarOwnerDetailViewController : BaseViewController<SelectCarDelegate>
 
 @end
