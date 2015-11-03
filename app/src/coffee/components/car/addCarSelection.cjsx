@@ -5,7 +5,7 @@ CarAction = require 'actions/car/car'
 
 Selection = React.createClass {
 
-	_open: ->
+	_open: ->	
 		newState = Object.create @state
 		newState.open = not @state.open
 		@setState newState

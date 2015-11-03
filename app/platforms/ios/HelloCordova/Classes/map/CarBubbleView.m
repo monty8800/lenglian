@@ -10,6 +10,7 @@
 #import "SelectCarWidget.h"
 #import "Global.h"
 
+
 @implementation CarBubbleView
 
 /*
@@ -133,14 +134,11 @@
         [[Global sharedInstance] showErr:@"错误的车辆数据！"];
         return;
     }
-    NSDictionary *user = [Global getUser];
-    BOOL goodsAuth = [[user objectForKey:@"goodsStatus"] integerValue] == 1;
-    if (!goodsAuth) {
-        [[Global sharedInstance] showErr:@"尚未进行货主认证，请认证之后再进行操作"];
-        return;
-    }
     
-    [SelectCarWidget show:(id<SelectCarDelegate>)([Global sharedInstance].mapVC) carId:[self.data objectForKey:@"id"]];
+    [self checkAuth:GoodsAuth cb:^{
+        [SelectCarWidget show:(id<SelectCarDelegate>)([Global sharedInstance].mapVC) carId:[self.data objectForKey:@"id"]];
+    }];
+    
 }
 
 @end

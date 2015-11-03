@@ -307,7 +307,7 @@ AddCar = React.createClass {
 					<span>联系手机</span>
 					<input ref="mobile" valueLink={@linkState 'mobile'}></input>
 				</div>
-			</div>	
+			</div>z	
 			<div className="u-green ll-font u-tip">
 				温馨提示：单张图片大小不能超过1M
 			</div>

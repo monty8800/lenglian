@@ -202,6 +202,7 @@ AddGoods = React.createClass {
 			}, files
 
 	getInitialState: ->
+		user = UserStore.getUser()
 		{
 			name: null #货物名称
 			type: 1 #货物类型 1常温，2冷藏，3冷冻，4急冻， 5深冷
@@ -220,10 +221,10 @@ AddGoods = React.createClass {
 			prePay: null #预付款
 			invoice: 2 #是否需要发票 1需要 2不需要
 
-			sender: null #发货人
-			senderMobile: null #发货人电话
-			reciver: null #收货人
-			reciverMobile: null #收货人电话
+			sender: user.name #发货人
+			senderMobile: user.mobile #发货人电话
+			reciver: user.name #收货人
+			reciverMobile: user.mobile #收货人电话
 
 			remark: '' #备注
 		}

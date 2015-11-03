@@ -85,6 +85,9 @@ OrderDoc = React.createClass {
 					<li onClick={@_changeStatus.bind this, Constants.orderStatus.st_04}>
 						<span className={ if _status is '4' then "active" else ""}>已完成</span>
 					</li>
+					<li onClick={@_changeStatus.bind this, Constants.orderStatus.st_05}>
+						<span className={ if _status is '5' then "active" else ""}>已取消</span>
+					</li>
 				</ul>
 			</div> 
 			<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={_hasMore and not _busy}>

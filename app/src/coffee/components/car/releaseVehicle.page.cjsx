@@ -145,12 +145,10 @@ Vehicle = React.createClass {
 			isinvoice: '2'
 		}
 	_submit: ->
-		console.log '---------@state.toLng:', @state.toLng
-		console.log '---------@state.toLat:', @state.toLat
-		console.log '---------@state.fromLng:', @state.fromLng
-		console.log '---------@state.fromLat:', @state.fromLat
 		if @state.startPoint is ''
 			Plugin.toast.err '请输入出发地'
+		else if @state.destination is ''
+			Plugin.toast.err '请输入目的地'
 		else if @state.currentCar is undefined 
 			Plugin.toast.err '请选择要发布的车辆'
 		else if @state.currentCar is '' 
@@ -204,7 +202,7 @@ Vehicle = React.createClass {
 					<i className="icon-mask"></i>
 				</div>
 				<div className="g-adr-start ll-font g-adr-start-line  g-adr-car" onClick={@_goPage.bind this, 'select_end_address'}>
-					<p>{@state.destination or '终点(选填)'}</p>
+					<p>{@state.destination or '终点'}</p>
 					<i className="icon-mask"></i>
 				</div>
 			</div>	
