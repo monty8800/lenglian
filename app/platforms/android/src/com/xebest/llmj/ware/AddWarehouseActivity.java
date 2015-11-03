@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
-import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.CarAdapter;
 import com.xebest.llmj.application.ApiUtils;
@@ -463,7 +462,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
                 mWebView.getWebView().loadUrl("javascript:authDone()");
                 Tools.showSuccessToast(AddWarehouseActivity.this, "添加成功!");
                 finish();
-                MainActivity.actionView(AddWarehouseActivity.this, 3);
+//                MainActivity.actionView(AddWarehouseActivity.this, 3);
             } else {
                 Tools.showErrorToast(AddWarehouseActivity.this, msg);
             }

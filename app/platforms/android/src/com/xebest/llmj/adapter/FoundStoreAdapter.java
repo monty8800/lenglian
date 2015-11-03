@@ -67,13 +67,22 @@ public class FoundStoreAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.startAddress.setText("起始地需要仓库地：" + info.getFromAreaName());
-        if (info.getToAreaName().equals("") || info.getToAreaName() == null) {
+        // 1 都不需要  2起始地需要  3 目的地需要  4 都需要
+        if (Integer.parseInt(info.getColdStoreFlag()) == 2) {
             holder.endAddress.setVisibility(View.GONE);
-        } else {
+            holder.startAddress.setVisibility(View.VISIBLE);
+            holder.startAddress.setText("起始地需要仓库：" + info.getFromAreaName());
+        } else if (Integer.parseInt(info.getColdStoreFlag()) == 3) {
             holder.endAddress.setVisibility(View.VISIBLE);
-            holder.endAddress.setText("目的地需要仓库地：" + info.getToAreaName());
+            holder.startAddress.setVisibility(View.GONE);
+            holder.endAddress.setText("目的地需要仓库：" + info.getToAreaName());
+        } else if (Integer.parseInt(info.getColdStoreFlag()) == 4) {
+            holder.startAddress.setText("起始地需要仓库：" + info.getFromAreaName());
+            holder.endAddress.setText("目的地需要仓库：" + info.getToAreaName());
+            holder.startAddress.setVisibility(View.VISIBLE);
+            holder.endAddress.setVisibility(View.VISIBLE);
         }
+
         holder.type.setText("货物名称：" + info.getName());
         holder.name.setText("货物种类：" + Helper.getGoodsType(info.getGoodsType() + ""));
         if (info.getWeight() != null && !info.getWeight().equals("") && info.getCube() != null && !info.getCube().equals("")) {

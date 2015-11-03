@@ -47,8 +47,8 @@ selectionList = [
 		key: 'heavy'
 		value: '可载重货'
 		options: [
-			{key: '1', value: ''}
-			{key: '2', value: '2吨以下'}
+			{key: '1', value: '2吨以下'}
+			{key: '2', value: '2吨'}
 			{key: '3', value: '3吨'}
 			{key: '4', value: '4吨'}
 			{key: '5', value: '5吨'}
@@ -139,7 +139,7 @@ CarItem = React.createClass {
 				</div>  
 			</div>   
 			<div className="g-item">
-
+						
 				<div className="g-adr-start ll-font g-adr-start-line">
 					<em>{ @props.car?.destination }</em>
 					<span></span>

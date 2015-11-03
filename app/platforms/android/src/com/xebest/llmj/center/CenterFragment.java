@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -274,6 +275,12 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                     // 压缩过后的图片
                     Bitmap bitmap2 = Tools.getimage(pat);
 
+                    // MI 4W
+                    String model = Build.MODEL;
+                    if (model.equalsIgnoreCase("SM-N9100") || model.equalsIgnoreCase("Coolpad")) {
+                        bitmap2 = Tools.rotaingImageView(90, bitmap2);
+                    }
+
                     // 将压缩过后的图片存放到该目录下
                     File ff = new File(pat);
                     FileOutputStream out = null;
@@ -316,6 +323,17 @@ public class CenterFragment extends XEFragment implements CordovaInterface {
                         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                         cursor.moveToFirst();
                         String path = cursor.getString(column_index);
+
+                        // 适配不同手机相册bug
+                        if (path == null) {
+                            String name = System.currentTimeMillis() + ".jpg";
+                            path = Environment.getExternalStorageDirectory()
+                                    + "/" + localTempImgDir + "/" + name;
+                            Log.i("info", "--------root:" + path);
+                            FileOutputStream fout = new FileOutputStream(new File(path));
+                            bm.compress(Bitmap.CompressFormat.JPEG, 100, fout);
+                        }
+
 
                         // 压缩过后的图片
                         Bitmap bitmap1 = Tools.getimage(path);
