@@ -84,6 +84,7 @@
 //效果图与实际屏幕比例
 #define REALSCREEN_MULTIPBY  (SCREEN_WIDTH / 320)
 
+//热更新
 #define UPDATE_FOLDER [[CDVViewController applicationDocumentsDirectory] stringByAppendingPathComponent:@"update"]  //存放www的升级目录11
 #define kUserDefault_Version @"Version"   //userdefault中存储的版本号 用来决定是否显示引导页
 #define kUserDefault_wwwVersion @"wwwVersion"   //userdefault中存储的www版本号

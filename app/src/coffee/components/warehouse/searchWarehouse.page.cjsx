@@ -135,12 +135,10 @@ SearchWarehouse = React.createClass {
 			if user.id is aResult.userId
 				Plugin.toast.err '不能选择自己的仓库'
 			else
-				if user.goodsStatus is 1
-	#TODO:弹出选择货物的弹窗前 先判断有没有货
+				Auth.needAuth 'goods',->
 					_selectedWarehouseId = aResult.id
 					Plugin.run [3, 'select:goods', _selectedWarehouseId]
-				else 
-					Plugin.toast.err '尚未通过货主认证，请认证后再试'
+
 		e.stopPropagation()
 
 

@@ -27,7 +27,7 @@ needAuth = (type, cb)->
 			else
 				cb()
 		when 'goods'
-			if user.carStatus is 0
+			if user.goodsStatus is 0
 				Plugin.alert '尚未通过货主认证，是否去认证？', '提示', (index)->
 					if index is 1
 						switch user.certification
@@ -35,12 +35,12 @@ needAuth = (type, cb)->
 							when 1 then Plugin.nav.push ['personalGoodsAuth']
 							when 2 then Plugin.nav.push ['companyGoodsAuth']
 				, ['去认证', '取消']
-			else if user.carStatus is 2
+			else if user.goodsStatus is 2
 				Plugin.toast.err '货主还在认证中'
 			else
 				cb()
 		when 'warehouse'
-			if user.carStatus is 0
+			if user.warehouseStatus is 0
 				Plugin.alert '尚未通过仓库主认证，是否去认证？', '提示', (index)->
 					if index is 1
 						switch user.certification
@@ -48,12 +48,20 @@ needAuth = (type, cb)->
 							when 1 then Plugin.nav.push ['personalWarehouseAuth']
 							when 2 then Plugin.nav.push ['companyWarehouseAuth']
 				, ['去认证', '取消']
-			else if user.carStatus is 2
+			else if user.warehouseStatus is 2
 				Plugin.toast.err '仓库主还在认证中'
 			else
 				cb()
+		when 'any'
+			Plugin.alert (if cb then cb else '尚未通过任何角色认证，是否去认证？'), '提示', (index)->
+				if index is 1
+					Plugin.nav.push ['auth']
+			, ['去认证', '取消']
+			
 
 
 module.exports = {
 	needLogin: needLogin
+	needAuth: needAuth
 }
+
