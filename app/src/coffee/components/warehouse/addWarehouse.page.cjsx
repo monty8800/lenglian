@@ -131,6 +131,9 @@ AddWarehouse = React.createClass {
 			if !@state.params.name
 				Plugin.toast.show '请输入仓库名'
 				return
+			if @state.params.name.length > 15
+				Plugin.toast.show '仓库名称不能多于15个字符'
+				return
 			if !@state.params.street
 				Plugin.toast.show '请输入仓详细地址'
 				return

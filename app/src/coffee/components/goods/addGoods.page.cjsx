@@ -121,8 +121,12 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请输入终点'
 		else if not @state.type
 			Plugin.toast.err '请选择货物类型'
+		else if @state.name.length > 10
+			Plugin.toast.err '货物名称不能多于10个字符'
 		else if (@state.weight?.length > 0 and not Validator.float(@state.weight))  or (@state.cube?.length > 0 and not Validator.float @state.cube)
 			Plugin.toast.err '请填写正确的货物规格, 最多两位小数'
+		else if @state.packType.length > 10
+			Plugin.toast.err '包装类型不能多于10个字符'
 		else if not @state.installMinTime or not @state.installMaxTime
 			Plugin.toast.err '请填写装车时间'
 		else if not Validator.price @state.price
@@ -223,6 +227,51 @@ AddGoods = React.createClass {
 
 			remark: '' #备注
 		}
+
+
+	_weightChange :(e)->		
+		if Helper.isPriceFormat e.target.value,3
+			@setState {
+				weight:e.target.value
+			}
+
+	_cubeChange : (e) ->
+		if Helper.isPriceFormat e.target.value,3
+			@setState {
+				cube:e.target.value
+			}
+	_priceChange :(e) ->
+		if Helper.isPriceFormat e.target.value,6
+			@setState {
+				price:e.target.value
+			}
+	_prePayChange :(e)->
+		if Helper.isPriceFormat e.target.value,6
+			@setState {
+				prePay:e.target.value
+			}
+
+	_weightInputOnblur : ->
+		value = Helper.priceFormatOnblur @state.weight
+		@setState {
+			weight:value
+		}
+	_cubeInputOnblur : ->
+		value = Helper.priceFormatOnblur @state.cube
+		@setState {
+			cube:value
+		}
+	_priceIpnutOnblur:->
+		value = Helper.priceFormatOnblur @state.price
+		@setState {
+			price:value
+		}
+	_prePayIpnutOnblur :->
+		value = Helper.priceFormatOnblur @state.prePay
+		@setState {
+			prePay:value
+		}
+
 	render: ->
 		console.log 'state', @state
 		<section>
@@ -246,8 +295,8 @@ AddGoods = React.createClass {
 			</div>
 			<div>
 				<span>货物规格</span>
-				<input valueLink={@linkState 'weight'} type="text" className="weight"/><span>吨</span>
-				<input valueLink={@linkState 'cube'} type="text"  className="weight"/><span>方</span>
+				<input onChange={@_weightChange} value=@state.weight onBlur={@_weightInputOnblur} type="text" className="weight"/><span>吨</span>
+				<input onChange={@_cubeChange} value=@state.cube onBlur={@_cubeInputOnblur} type="text"  className="weight"/><span>方</span>
 			</div>
 			<div>
 				<label htmlFor="packType"><span>包装类型</span></label>
@@ -307,10 +356,10 @@ AddGoods = React.createClass {
 							</label>
 							{
 								if parseInt(@state.priceType) is 1
-									<input type="number" valueLink={@linkState 'price'} placeholder="请输入一口价" className="price input-weak"/>
+									<input type="text" onChange={@_priceChange} value={@state.price} onBlur={@_priceIpnutOnblur} placeholder="请输入一口价" className="price input-weak"/>
 								else
 									<input disabled='disabled' type="number" placeholder="请输入一口价" className="price input-weak"/>
-							}
+							}元
 						</div>
 						<div>
 							<label>
@@ -318,10 +367,10 @@ AddGoods = React.createClass {
 							</label>
 							{
 								if parseInt(@state.priceType) is 2
-									<input type="number" valueLink={@linkState 'price'} placeholder="请输入基础价" className="price input-weak"/>
+									<input type="text" onChange={@_priceChange} value={@state.price} onBlur={@_priceIpnutOnblur} placeholder="请输入基础价" className="price input-weak"/>
 								else
 									<input disabled='disabled' type="number" placeholder="请输入基础价" className="price input-weak"/>
-							}
+							}元
 						</div>					
 					</dd>
 				</dl>
@@ -347,7 +396,7 @@ AddGoods = React.createClass {
 							<label>
 								<input className="mui-checkbox ll-font" value="3" onChange={@_selectPayType} type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '预付款'}} />
 							</label>
-							<input valueLink={@linkState 'prePay'} type="number" placeholder="请输入预付款" className="price"/>
+							<input onChange={@_prePayChange} value={@state.prePay} onBlur={@_prePayIpnutOnblur} type="text" placeholder="请输入预付款" className="price"/>元
 						</div>						
 					</dd>
 				</dl>

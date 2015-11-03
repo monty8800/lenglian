@@ -18,6 +18,9 @@ _pageSize = 10
 
 _hasMore = true
 _isBusy = false
+_isAfterRelease = false
+_releaseIndex = -2
+_leftWarehouseList = []
 
 WarehouseList = React.createClass {
 	mixins : [PureRenderMixin]
@@ -54,6 +57,9 @@ WarehouseList = React.createClass {
 	_onChange: (mark)->
 		if mark is 'getMyWarehouseList'	
 			_isBusy = false	
+			if _isAfterRelease
+				_pageNow = 1
+				_isAfterRelease = false
 			_pageNow++
 			warehouseList = WarehouseStore.getWarehouseList()
 			_hasMore = warehouseList.length - @state.warehouseList.length is _pageSize
@@ -62,11 +68,23 @@ WarehouseList = React.createClass {
 			newState.warehouseList = WarehouseStore.getWarehouseList()
 			@setState newState
 			console.log @state.warehouseList.length+ '++++++++++++++____________'
+		else if mark is 'warehouseReleaseSucc'
+			_isAfterRelease = true
+			_leftWarehouseList = Object.create @state.warehouseList
+			_leftWarehouseList.splice _releaseIndex,1
+			@setState {
+				warehouseList:_leftWarehouseList
+			}
 
 	_loadMore:()->
 		if parseInt(_pageNow) > 1
 			_isBusy = true
 			WarehouseAction.getWarehouseList @state.showType,_pageNow,_pageSize
+
+	_sureToRelease:(index, e)->
+		_releaseIndex = index
+		WarehouseAction.releaseWarehouse @state.warehouseList[index].id
+		e.stopPropagation()
 
 
 	render: ->
@@ -83,6 +101,10 @@ WarehouseList = React.createClass {
 								aWarehouse.provinceName + aWarehouse.cityName + aWarehouse.areaName + aWarehouse.street 
 						}
 					</span>
+					{
+						if @state.showType is '1'
+							<a onClick={ @_sureToRelease.bind this, i } class="u-release-btn">发布</a>
+					}
 				</div>
 			</div>
 		, this

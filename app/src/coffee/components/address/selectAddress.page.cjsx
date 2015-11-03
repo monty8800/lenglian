@@ -54,6 +54,9 @@ SelectAddress = React.createClass {
 	_locate: ->
 		Plugin.nav.push ['location']
 
+	_toAddAddress:->
+		Plugin.nav.push ['toAddAddress']
+
 	_change: (arg)->
 		console.log 'change arg', arg
 		if arg is 'address:update'
@@ -82,7 +85,8 @@ SelectAddress = React.createClass {
 				<input type="text" valueLink={@linkState 'street'} className="input-weak" placeholder="详细地址" />
 			</div>
 		</div>
-		<AddressList />	
+		<AddressList />
+		<div onClick={@_toAddAddress} className="u-adr-btn">添加常用地址</div>		
 		</section>
 }
 
