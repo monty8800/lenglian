@@ -39,9 +39,9 @@
 
 -(void) createUI {
     self.navigationItem.title = @"订单";
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"已取消" style:UIBarButtonItemStylePlain target:self action:@selector(goCancelList)];
-    rightBtn.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = rightBtn;
+//    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"已取消" style:UIBarButtonItemStylePlain target:self action:@selector(goCancelList)];
+//    rightBtn.tintColor = [UIColor whiteColor];
+//    self.navigationItem.rightBarButtonItem = rightBtn;
 }
 
 -(void) goCancelList {
