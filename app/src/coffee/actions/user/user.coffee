@@ -8,11 +8,10 @@ UserAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.USER_INFO
 		}
-	smsCode: (mobile, type)->
+	smsCode: (params)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.SMS_CODE
-			mobile: mobile
-			type: type
+			params: params
 		}
 	register: (mobile, code, passwd)->
 		Dispatcher.dispatch {

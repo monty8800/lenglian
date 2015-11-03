@@ -10,6 +10,7 @@ UserStore = require 'stores/user/user'
 DB = require 'util/storage'
 Plugin = require 'util/plugin'
 UserAction = require 'actions/user/user'
+Auth = require 'util/auth'
 
 Wallet = React.createClass {
 	_goPage: (page, transData)->
@@ -20,13 +21,14 @@ Wallet = React.createClass {
 		if UserStore.getUser()?.certification is 2
 			Plugin.toast.err '企业用户暂不开放充值功能'
 		else if UserStore.getUser()?.certification is 0
-			Plugin.toast.err '用户尚未通过任何角色认证，请认证后再试'
-		else
+			Auth.needAuth 'any'
+		else if UserStore.getUser()?.certification is  1
 			Plugin.nav.push ['toCharge']
-
+		
+		
 	_withdraw: ->
 		if UserStore.getUser()?.certification is 0
-			Plugin.toast.err '用户尚未通过任何角色认证，请认证后再试'
+			Auth.needAuth 'any'
 		else
 			Plugin.nav.push ['withdraw']
 

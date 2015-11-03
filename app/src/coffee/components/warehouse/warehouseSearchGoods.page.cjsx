@@ -102,17 +102,12 @@ WarehouseSearchGoods = React.createClass {
 			if user.id is aResult.userId
 				Plugin.toast.err '不能选择自己的货物'
 			else
-				if user.warehouseStatus is 1
-
-	#TODO:仓库找货  在弹出我的仓库列表的弹窗前 先判断有没有仓库
+				Auth.needAuth 'warehouse',->
 					_selectedGoodsId = aResult.id
 					console.log _selectedGoodsId,'____仓库找货 货源ID_'
 					# # GoodsAction.getGoodsList '0','10','1'		#1 求库中的货源
 					Plugin.run [3, 'select:warehouse', _selectedGoodsId]
-				else 
-					Plugin.toast.err '尚未通过仓库主认证，请认证后再试'
 		e.stopPropagation()
-
 
 
 	getInitialState: ->

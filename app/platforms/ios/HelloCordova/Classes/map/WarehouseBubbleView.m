@@ -46,13 +46,11 @@
         [[Global sharedInstance] showErr:@"错误的仓库数据！"];
         return;
     }
-    NSDictionary *user = [Global getUser];
-    BOOL goodsAuth = [[user objectForKey:@"goodsStatus"] integerValue] == 1;
-    if (!goodsAuth) {
-        [[Global sharedInstance] showErr:@"尚未进行货主认证，请认证之后再进行操作"];
-        return;
-    }
-    [SelectWarehouseWidget show: (id<SelectWarehouseDelegate>)([Global sharedInstance].mapVC) warehouseId: [self.data objectForKey:@"id"]];
+    
+    [self checkAuth:GoodsAuth cb:^{
+        [SelectWarehouseWidget show: (id<SelectWarehouseDelegate>)([Global sharedInstance].mapVC) warehouseId: [self.data objectForKey:@"id"]];
+    }];
+    
 }
 
 @end

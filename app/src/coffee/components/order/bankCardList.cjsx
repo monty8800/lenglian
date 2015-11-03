@@ -4,6 +4,7 @@ React = require 'react'
 PayAction = require 'actions/order/pay'
 Plugin = require 'util/plugin'
 UserStore = require 'stores/user/user'
+Auth = require 'util/auth'
 
 BankCardList = React.createClass {
 	_select: (cardId)->
@@ -14,7 +15,7 @@ BankCardList = React.createClass {
 		if user.carStatus is 1 or user.goodsStatus is 1 or user.warehouseStatus is 1
 			Plugin.nav.push ['addBankCard']
 		else
-			Plugin.toast.err '您尚未进行任何角色的认证，请认证后再绑定银行卡'
+			Auth.needAuth 'any','您尚未进行任何角色的认证，请认证后再绑定银行卡'
 	render: ->
 		cardList = @props.bankCardList?.map (card, i)->
 			<div className="g-bankList" onClick={@_select.bind this, card.id}>

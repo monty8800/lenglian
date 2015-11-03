@@ -229,36 +229,43 @@
         else if ([params[1] isEqualToString:@"auth"])
         {
             AuthViewController *authVC = [AuthViewController new];
+            authVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:authVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"personalCarAuth"])
         {
             PersonalCarAuthViewController *pCarVC = [PersonalCarAuthViewController new];
+            pCarVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:pCarVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"personalWarehouseAuth"])
         {
             PersonalWarehouseAuthViewController *pWarehouseVC = [PersonalWarehouseAuthViewController new];
+            pWarehouseVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:pWarehouseVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"personalGoodsAuth"])
         {
             PersonalGoodsAuthViewController *pGoodsVC = [PersonalGoodsAuthViewController new];
+            pGoodsVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:pGoodsVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"companyCarAuth"])
         {
             CompanyCarAuthViewController *cCarAuth = [CompanyCarAuthViewController new];
+            cCarAuth.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:cCarAuth animated:YES];
         }
         else if ([params[1] isEqualToString:@"companyGoodsAuth"])
         {
             CompanyGoodsAuthViewController *cGoodsAuth = [CompanyGoodsAuthViewController new];
+            cGoodsAuth.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:cGoodsAuth animated:YES];
         }
         else if ([params[1] isEqualToString:@"companyWarehouseAuth"])
         {
             CompanyWarehouseAuthViewController *cWarehouseVC = [CompanyWarehouseAuthViewController new];
+            cWarehouseVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:cWarehouseVC animated:YES];
         }
         else if ([params[1] isEqualToString:@"location"])

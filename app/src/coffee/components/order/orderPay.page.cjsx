@@ -164,7 +164,7 @@ OrderPay = React.createClass {
 		
 		{
 			if @state.showSms
-				<PaySmsCode />
+				<PaySmsCode  bankCard={@state.bankCard} />
 		}	
 		</section>
 }

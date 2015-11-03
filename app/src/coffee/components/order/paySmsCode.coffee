@@ -38,7 +38,7 @@ PaySmsCode = React.createClass {
 				<div className="g-payinput">
 					<input valueLink={@linkState 'smsCode'} type="number" className="g-codeinput fl"/>
 					<a className="g-paytime fr">
-						<SmsCode mobile={user.mobile} styleType='pay' type={Constants.smsType.payOrder} />
+						<SmsCode mobile={user.mobile} bankCard={@props.bankCard} styleType='pay' type={Constants.smsType.payOrder} />
 					</a>
 				</div>
 			</div>
