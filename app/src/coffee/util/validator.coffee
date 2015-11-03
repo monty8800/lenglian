@@ -1,5 +1,5 @@
 mobile = (input)->
-	return /^1(3|4|5|6|7|8)\d(-|\s)?\d{4}(-|\s)?\d{4}$/.test input
+	return /^1\d{2}(-|\s)?\d{4}(-|\s)?\d{4}$/.test input
 
 passwd = (input)->
 	return /^[\da-zA-Z]{6,12}$/.test input
@@ -20,7 +20,7 @@ vinNum = (input)->
 	return /^\S{1,20}$/.test input
 
 name = (input)->
-	return /^[\u4E00-\u9FA5]{2,30}$/.test input
+	return /^\S{2,30}$/.test input
 
 company = (input)->
 	return /^\S{1,50}$/.test input
