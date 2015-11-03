@@ -7,7 +7,7 @@
 //
 
 #import "SelectAddressViewController.h"
-
+#import "ModifyAddressViewController.h"
 @interface SelectAddressViewController ()
 
 @end
@@ -46,6 +46,12 @@
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"toAddAddress"]) {
+            ModifyAddressViewController *addressVC = [ModifyAddressViewController new];
+            [self.navigationController pushViewController:addressVC animated:YES];
+        }
+    }
 }
 
 -(void)select:(BMKAddressComponent *)address coor:(CLLocationCoordinate2D)coor {

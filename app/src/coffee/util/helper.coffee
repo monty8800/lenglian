@@ -189,6 +189,42 @@ recordStatus = (_status, state) ->
 		else if parseInt(state) is 3
 			return '提现失败'
 
+hasSrting = (string)->
+	Letters = "1234567890."
+	for st in string
+		if (Letters.indexOf st) is -1
+			return true
+	return false
+
+isPriceFormat = (value,maxLength) ->
+	if hasSrting value
+		return false
+	if value is '.'
+		return false
+	if value.length > 1
+		if (value.substr 0,1) is '0' and  (value.substr 1,1) isnt '.'
+			return false
+	if (value.split '.').length > 2
+		return false
+	if (value.indexOf '.') isnt -1
+		if (value.indexOf '.') + 3 < value.length
+			return false
+	else
+		if value.length > maxLength
+			if (value.substr maxLength,1) isnt '.'
+				return false
+	return true
+
+priceFormatOnblur = (value)->
+	if value in ['0','0.','0.0','0.00']
+		return ''
+	else if (value.substr (value.length-1),1) is '.'
+		value = value.substr 0,value.length-1     #() + '00'
+	else 
+		value = value
+
+	# else if (value.substr (value.length-2),1) is '.'
+	# 	value = value + '0'
 
 module.exports = 
 	carTypeMapper: carType 				# 车辆类型
@@ -211,3 +247,5 @@ module.exports =
 	goodsWeight: goodsWeight
 	maxLength: maxLength
 	recordStatus: recordStatus
+	isPriceFormat:isPriceFormat			#是否是正确的价格格式
+	priceFormatOnblur : priceFormatOnblur	#价格编辑结束格式化价格
