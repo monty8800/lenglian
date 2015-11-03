@@ -25,10 +25,7 @@
             </intent-filter>
         </activity>
         <meta-data android:name="UMENG_APPKEY" android:value="5601399667e58eaa030036a9" />
-        <!-- debug -->
         <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="rrq8hCpdFLvkaRkE40LKbINB" />
-        <!-- release -->
-        <!--<meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="C8lVOIxyVIlwmIRgqumvV1VN" />-->
         <activity android:name=".center.MsgActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.AddressActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.AttentionActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -96,14 +93,9 @@
         <activity android:name=".wallet.ChargeRecordActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".ware.WarehouseOnwerDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".application.BackupLocationActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-
-
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote">
+        <service android:enabled="true" android:name="com.baidu.location.f" android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2"></action>
+                <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
         </service>
     </application>

@@ -53,16 +53,46 @@
     
     _nameLabel.text = [data objectForKey:@"userName"];
     
+    NSInteger coldStoreFlag = [[data objectForKey:@"coldStoreFlag"] integerValue];
+    
     _starView.score = [[data objectForKey:@"userScore"] integerValue];
+    NSMutableString *toAddr = [[NSMutableString alloc] initWithFormat:@"%@%@%@",[data objectForKey:@"toProvinceName"], [data objectForKey:@"toCityName"], [data objectForKey:@"toAreaName"]];
+    
+    
+    NSMutableString *fromAddr = [[NSMutableString alloc] initWithFormat: @"%@%@%@", [data objectForKey:@"fromProvinceName"], [data objectForKey:@"fromCityName"], [data objectForKey:@"fromAreaName"]];
+    
+    switch (coldStoreFlag) {
+        case 4:
+        {
+            [toAddr appendString:@"（需要冷库）"];
+            [fromAddr appendString:@"（需要冷库）"];
+        }
+            break;
+            
+        case 3:
+        {
+            [toAddr appendString:@"（需要冷库）"];
+            break;
+        }
+            
+        case 2:
+        {
+            [fromAddr appendString:@"（需要冷库）"];
+            break;
+        }
+            
+        default:
+            break;
+    }
     
     _fromToView.addressList = @[
                                 @{
                                     @"type": @(TO),
-                                    @"text": [NSString stringWithFormat:@"%@%@%@",[data objectForKey:@"toProvinceName"], [data objectForKey:@"toCityName"], [data objectForKey:@"toAreaName"]]
+                                    @"text": toAddr
                                     },
                                 @{
                                     @"type": @(FROM),
-                                    @"text": [NSString stringWithFormat:@"%@%@%@", [data objectForKey:@"fromProvinceName"], [data objectForKey:@"fromCityName"], [data objectForKey:@"fromAreaName"]]
+                                    @"text": fromAddr
                                     }
                                 ];
     
