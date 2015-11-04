@@ -52,6 +52,7 @@
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"toAddAddress"]) {
             ModifyAddressViewController *addressVC = [ModifyAddressViewController new];
+            addressVC.title = @"新增地址";
             [self.navigationController pushViewController:addressVC animated:YES];
         }
     }
