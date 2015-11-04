@@ -22,6 +22,8 @@ Raty = require 'components/common/raty'
 _user = UserStore.getUser()
 _transData = DB.get 'transData'
 
+Auth = require 'util/auth'
+
 
 GoodsRoutes = React.createClass {
 	render : ->
@@ -86,6 +88,13 @@ GoodsDetail = React.createClass {
 		else 
 			if phone
 				window.location.href = 'tel:' + phone
+	_showWidget: (e)->
+		goods = @state.goodsDetail
+		Auth.needLogin ->
+			Auth.needAuth 'car',->
+				return Plugin.toast.err '不能选择自己的货源哦' if goods.userId is UserStore.getUser()?.id
+				Plugin.run [3, 'select:car', goods.id, if parseInt(goods.priceType) isnt 1 then true else false]
+		e.stopPropagation()
 
 	render : ->
 		console.log 'state', @state
@@ -208,6 +217,9 @@ GoodsDetail = React.createClass {
 					<span>备注:</span>
 					<span>{ @state.goodsDetail.remark }</span>
 				</p>			
+			</div>
+			<div className="m-detail-bottom">
+				<p onClick={@_showWidget} className="btn-choose">{if parseInt(@state.goodsDetail.priceType) is 2 then '竞价' else '抢单'}</p>
 			</div>
 		</div>
 }

@@ -7,7 +7,7 @@
 //
 
 #import "SelectAddressViewController.h"
-
+#import "ModifyAddressViewController.h"
 @interface SelectAddressViewController ()
 
 @end
@@ -39,13 +39,23 @@
     rightBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = rightBtn;
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.commandDelegate evalJs:@"(function(){window.tryReloadAddressList()})()"];
+}
 -(void) clickDone {
     [self.commandDelegate evalJs:@"(function(){window.selectCurrent()})()"];
 }
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
+    if ([params[0] integerValue] == 1) {
+        if ([params[1] isEqualToString:@"toAddAddress"]) {
+            ModifyAddressViewController *addressVC = [ModifyAddressViewController new];
+            addressVC.title = @"新增地址";
+            [self.navigationController pushViewController:addressVC animated:YES];
+        }
+    }
 }
 
 -(void)select:(BMKAddressComponent *)address coor:(CLLocationCoordinate2D)coor {

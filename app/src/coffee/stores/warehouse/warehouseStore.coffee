@@ -264,10 +264,11 @@ releaseWarehouse = (warehouseId)->
 		warehouseId:warehouseId
 		userId:user.id
 	},(data)->
-		Plugin.toast.show '发布成功'
+		Plugin.toast.success '发布成功'
 		WarehouseStore.emitChange "warehouseReleaseSucc"
 	,(data)->
 		Plugin.toast.err data.msg
+	,true
 
 handleFallow = (focusid,focustype,type)->
 	user = UserStore.getUser()

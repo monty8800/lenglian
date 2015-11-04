@@ -49,6 +49,12 @@ addressList = ->
 				tempAddress = tempAddress.set 'longi', info.longitude
 				_addressList = _addressList.push tempAddress if info.latitude
 		AddressStore.emitChange 'list'
+		DB.remove 'shouldReloadAddressList'
+
+window.tryReloadAddressList = ->
+	if (parseInt (DB.get 'shouldReloadAddressList')) is 1
+		addressList()
+
 
 delAddress = (addressId)->
 	console.log '-----删除地址--', addressId
