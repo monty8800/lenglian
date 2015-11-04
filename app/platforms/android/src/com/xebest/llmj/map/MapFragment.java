@@ -610,9 +610,18 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                         loader.DisplayImage(ApiUtils.API_PIC + im, userLogo);
 //                        ImageLoader.getInstance().displayImage(ApiUtils.API_PIC + im, userLogo, Application.getInstance().options);
                     }
+                    String startStore = "";
+                    String endStore = "";
+                    if (Integer.parseInt(list.get(0).getColdStoreFlag()) == 2) {
+                        startStore = "(需要冷库)";
+                    } else if (Integer.parseInt(list.get(0).getColdStoreFlag()) == 3) {
+                        endStore = "(需要冷库)";
+                    } else if (Integer.parseInt(list.get(0).getColdStoreFlag()) == 4) {
+                        startStore = endStore = "(需要冷库)";
+                    }
 
-                    destination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() + list.get(0).getToAreaName());
-                    start_point.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() + list.get(0).getFromAreaName());
+                    destination.setText(list.get(0).getToProvinceName() + list.get(0).getToCityName() + list.get(0).getToAreaName() + endStore);
+                    start_point.setText(list.get(0).getFromProvinceName() + list.get(0).getFromCityName() + list.get(0).getFromAreaName() + startStore);
                     priceType.setText("价格类型：" + Helper.getPriceType(list.get(0).getPriceType()) + " " + list.get(0).getPrice() + "元");
                     if (list.get(0).getCube() != null && list.get(0).getWeight() != null) {
                         goods_des.setText("货物描述：" + (list.get(0).getName() == null ? "" : list.get(0).getName()) + " " + list.get(0).getWeight() + "吨" + " " + list.get(0).getCube() + "方");
@@ -897,7 +906,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
 
         }
     }

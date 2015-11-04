@@ -1,4 +1,4 @@
-git/*
+/*
        Licensed to the Apache Software Foundation (ASF) under one
        or more contributor license agreements.  See the NOTICE file
        distributed with this work for additional information
@@ -16,13 +16,13 @@ git/*
 */
 package org.apache.cordova;
 
-import java.util.List;
-import java.util.Map;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Main interface for interacting with a Cordova webview - implemented by CordovaWebViewImpl.

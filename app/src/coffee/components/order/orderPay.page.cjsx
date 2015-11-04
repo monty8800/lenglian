@@ -126,6 +126,7 @@ OrderPay = React.createClass {
 	render : ->
 		console.log 'state---', @state
 		user = @state.user
+		console.log '-------------user:', user.toJS()
 		<section>
 		<div className="m-pay-item">
 			<p className="g-pay clearfix">

@@ -11,8 +11,8 @@ public interface ApiUtils {
     // html文件公用头路径
     String API_COMMON_URL = "file:///android_asset/www/";
 
-//    String SERVER = "http://192.168.26.177:7080/llmj-app/";
-    String SERVER = "http://m.lenglianmajia.com/";
+    String SERVER = "http://192.168.26.177:7080/llmj-app/";
+//    String SERVER = "http://m.lenglianmajia.com/";
 //    String SERVER_Z = "http://192.168.29.204:8072/";
 
     String SERVER_P = "http://192.168.29.203:8072/";
@@ -56,5 +56,7 @@ public interface ApiUtils {
     String encryption = "da971f8e9e024f579800cf20c146e6df";
 
     String client_type = "3";
+
+    String IS_FIRST_IN = "is_first_in";
 
 }

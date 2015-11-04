@@ -11,8 +11,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
-import com.xebest.llmj.application.BackupLocationActivity;
 import com.xebest.llmj.car.AddCarActivity;
+import com.xebest.llmj.car.FoundCarActivity;
 import com.xebest.llmj.car.ReleaseCarActivity;
 import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.goods.CarFindGoodsActivity;
@@ -63,9 +63,7 @@ public class HomeFragment extends XEFragment implements CordovaInterface {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
         if (flag.equals("searchCar")) {
-//            FoundCarActivity.actionView(getActivity());
-            // TODO
-            BackupLocationActivity.actionView(getActivity());
+            FoundCarActivity.actionView(getActivity());
         } else if (flag.equals("addCar")) {
             AddCarActivity.actionView(getActivity());
         } else if (flag.equals("releaseCar")) {

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +27,6 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
@@ -43,7 +42,8 @@ import java.util.List;
 /**
  * Created by kaisun on 15/9/22.
  */
-public class LocationActivity extends Activity implements OnGetGeoCoderResultListener {
+public class LocationActivity extends Activity implements OnGetGeoCoderResultListener,
+        BaiduMap.OnMapStatusChangeListener, View.OnClickListener {
 
     private Marker mMarkerA;
     private MapView mMapView = null;
@@ -79,18 +79,21 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
 
     private String mStreetNumber = "";
 
+    private ImageView ivMark;
+    private TextView tvDetail;
+
     /**
      * 活跃当前窗口
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, LocationActivity.class));
+        context.startActivity(new Intent(context, BackupLocationActivity.class));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.location);
+        setContentView(R.layout.location_new);
 
         initView();
 
@@ -132,7 +135,8 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span = 1000;
+        // 定位频率
+        int span = 0;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
@@ -172,18 +176,35 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
 
         mStreetNumber = result.getAddressDetail().streetNumber;
 
-        if (result.getAddress() != null) {
-            loc.setText(result.getAddress());
-        }
         if (result != null && result.getAddressDetail() != null && result.getAddressDetail().street != null &&
                 result.getAddressDetail().streetNumber != null) {
-            des.setText(result.getAddressDetail().street + result.getAddressDetail().streetNumber);
+            tvDetail.setVisibility(View.VISIBLE);
+            tvDetail.setText(result.getAddress());
         }
 
-        if (result.getLocation() == null) return;
-        mInfoWindow = new InfoWindow(view, result.getLocation(), -120);
-        if (mInfoWindow != null) {
-            mBaiduMap.showInfoWindow(mInfoWindow);
+//        if (result.getAddress() != null) {
+//            loc.setText(result.getAddress());
+//        }
+//        if (result != null && result.getAddressDetail() != null && result.getAddressDetail().street != null &&
+//                result.getAddressDetail().streetNumber != null) {
+//            des.setText(result.getAddressDetail().street + result.getAddressDetail().streetNumber);
+//        }
+//
+//        if (result.getLocation() == null) return;
+//        mInfoWindow = new InfoWindow(view, result.getLocation(), -120);
+//        if (mInfoWindow != null) {
+//            mBaiduMap.showInfoWindow(mInfoWindow);
+//        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.mark) {
+            if (tvDetail.isShown()) {
+                tvDetail.setVisibility(View.GONE);
+            } else {
+                tvDetail.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -280,8 +301,19 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
             }
             initOverlay(latitude, lontitud);
 
-            loc.setText(location.getAddrStr());
-            des.setText(location.getLocationDescribe());
+            if (addr == null) {
+                // 反编码得到物理地址
+                LatLng ll = new LatLng(latitude, lontitud);
+                mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                        .location(ll));
+            } else {
+                tvDetail.setVisibility(View.VISIBLE);
+                tvDetail.setText(location.getAddrStr());
+//                loc.setText(location.getAddrStr());
+//                des.setText(location.getLocationDescribe());
+            }
+
+            ivMark.setVisibility(View.VISIBLE);
 
         }
     }
@@ -295,44 +327,28 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
 
         mBaiduMap.setMapStatus(mMapStatusUpdate);
 
-        OverlayOptions ooA = new MarkerOptions().position(llA).icon(bdA)
-                .zIndex(9).draggable(true);
-        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
+        // 开启定位图层
+        mBaiduMap.setMyLocationEnabled(true);
 
-        mBaiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
-            @Override
-            public void onMarkerDrag(Marker marker) {
+        //定位图层显示方式
+//        MyLocationConfiguration.LocationMode mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
 
-            }
+//        mBaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(mCurrentMode, true, null));
 
-            @Override
-            public void onMarkerDragEnd(Marker marker) {
-
-                LatLng ll = marker.getPosition();
-
-                mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                        .location(ll));
-
-                // 重新设置地图中心点
-                MapStatus mMapStatus = new MapStatus.Builder().target(ll).zoom(14.0f).build();
-
-                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-
-                mBaiduMap.setMapStatus(mMapStatusUpdate);
-
-            }
-
-            @Override
-            public void onMarkerDragStart(Marker marker) {
-                mBaiduMap.hideInfoWindow();
-            }
-        });
+//        OverlayOptions ooA = new MarkerOptions().position(llA).icon(bdA)
+//                .zIndex(9).draggable(false);
+//        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
 
     }
 
     public void initView() {
         mMapView = (MapView) findViewById(R.id.bmapView);
+        mMapView.getMap().setOnMapStatusChangeListener(this);
         btnSubmit = (Button) findViewById(R.id.submit);
+
+        ivMark = (ImageView) findViewById(R.id.mark);
+        tvDetail = (TextView) findViewById(R.id.detailAddress);
+        ivMark.setOnClickListener(this);
 
         mBaiduMap = mMapView.getMap();
 
@@ -345,7 +361,6 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
         loc = (TextView) view.findViewById(R.id.loc);
         des = (TextView) view.findViewById(R.id.des);
 
-
         findViewById(R.id.tvTitle).setVisibility(View.VISIBLE);
         ((TextView) findViewById(R.id.tvTitle)).setText("定位");
 
@@ -356,21 +371,12 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
             }
         });
 
-        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                LatLng ll = marker.getPosition();
-                mInfoWindow = new InfoWindow(view, ll, -120);
-                mBaiduMap.showInfoWindow(mInfoWindow);
-                return false;
-            }
-        });
     }
 
     @Override
     public void onResume() {
         // 统计页面 pwd
-        MobclickAgent.onPageStart("附近");
+        MobclickAgent.onPageStart("定位");
         super.onResume();
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
         mMapView.onResume();
@@ -385,7 +391,7 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd("附近");
+        MobclickAgent.onPageEnd("定位");
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mMapView.onPause();
     }
@@ -398,4 +404,29 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
         bdA.recycle();
     }
 
+    @Override
+    public void onMapStatusChangeStart(MapStatus mapStatus) {
+        Log.i("info", "-------onMapStatusChangeStart--");
+//        if (mInfoWindow != null) {
+//            mBaiduMap.hideInfoWindow();
+//        }
+        tvDetail.setVisibility(View.GONE);
+    }
+
+    //    MapStatus mMapStatus;
+//    MapStatusUpdate mMapStatusUpdate;
+    @Override
+    public void onMapStatusChange(MapStatus mapStatus) {
+//        mMapStatus = new MapStatus.Builder().target(mapStatus.target).zoom(14.0f).build();
+//        mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+//        mBaiduMap.setMapStatus(mMapStatusUpdate);
+    }
+
+    @Override
+    public void onMapStatusChangeFinish(MapStatus mapStatus) {
+        Log.i("info", "-------onMapStatusChangeFinish--");
+        LatLng pcenter = mapStatus.target;
+        mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                .location(pcenter));
+    }
 }

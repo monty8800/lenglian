@@ -189,15 +189,19 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
             if (s != null && s != "") {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
-                    String data = jsonObject.getString("data");
-                    String str = new JSONObject(data).getString("GoodsResource");
-                    List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
-                    carList.addAll(list);
-                    if (list.size() == 0) {
-                        Tools.showErrorToast(SearchWareHouseActivity.this, "还没发布货源哦");
-                        return;
+                    if (jsonObject.getString("code").equals("0000")) {
+                        String data = jsonObject.getString("data");
+                        String str = new JSONObject(data).getString("GoodsResource");
+                        List<CarListInfo> list = JSON.parseArray(str, CarListInfo.class);
+                        carList.addAll(list);
+                        if (list.size() == 0) {
+                            Tools.showErrorToast(SearchWareHouseActivity.this, "还没发布货源哦");
+                            return;
+                        }
+                        showDialog(list);
+                    } else {
+                        Tools.showErrorToast(SearchWareHouseActivity.this, jsonObject.getString("msg"));
                     }
-                    showDialog(list);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
