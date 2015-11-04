@@ -25,6 +25,7 @@ carId = _detailParams[0]
 dUserId = _detailParams[1]
 carNo = _detailParams[2]
 carStatus = _detailParams[3]
+Auth = require 'util/auth'
 
 Detail = React.createClass {
 
@@ -81,6 +82,21 @@ Detail = React.createClass {
 			@setState {
 				wishlst: false
 			}
+
+	# # 选择此车
+	# _select: (e)->
+	# 	carId = @state.carDetail.id
+	# 	carUserId = @state.carDetail.userId
+
+	# 	Auth.needLogin ->
+	# 		Auth.needAuth 'goods',->
+	# 		# 判断该车源是否是自己发布的，如果是自己发布的提示不能选择
+	# 			return Plugin.toast.err '不能选择自己的车源哦' if carUserId is _user?.id
+	# 			console.log '-------carUserId:', carUserId
+	# 			console.log '-------userId:', _user.id
+	# 			console.log '-------select_car', carId
+	# 			Plugin.nav.push ['select_goods', carId]
+	# 	e.stopPropagation()
 
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	render: ->
@@ -152,6 +168,7 @@ Detail = React.createClass {
 				}
 			
 			</div>
+
 		</div>
 }
 
