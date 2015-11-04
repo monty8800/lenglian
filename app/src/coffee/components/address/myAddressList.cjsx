@@ -1,6 +1,7 @@
 require 'anim-style'
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
+DB = require 'util/storage'
 
 AddressStore = require 'stores/address/address'
 AddressAction = require 'actions/address/address'
@@ -9,6 +10,7 @@ AddressList = React.createClass {
 	mixins: [PureRenderMixin]
 
 	getInitialState: ->
+		DB.remove 'shouldReloadAddressList'
 		{
 			addressList: AddressStore.getAddressList()
 		}

@@ -39,7 +39,10 @@
     rightBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = rightBtn;
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.commandDelegate evalJs:@"(function(){window.tryReloadAddressList()})()"];
+}
 -(void) clickDone {
     [self.commandDelegate evalJs:@"(function(){window.selectCurrent()})()"];
 }
