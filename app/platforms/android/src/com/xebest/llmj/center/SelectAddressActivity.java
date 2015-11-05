@@ -126,6 +126,7 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
         editor.commit();
 
         mWebView.getWebView().loadUrl("javascript:updateStore()");
+        mWebView.getWebView().loadUrl("javascript:tryReloadAddressList()");
         super.onResume();
     }
 

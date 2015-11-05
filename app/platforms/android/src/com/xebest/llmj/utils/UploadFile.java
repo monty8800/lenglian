@@ -200,7 +200,7 @@ public class UploadFile {
                 + jsonStr + ApiUtils.client_type);
         finalParams.put("sign", signStr);
         finalParams.put("data", jsonStr);
-        Log.i("info", "--------jsonStr-----" + jsonStr);
+        Log.e("info", "--------------get data from net - finalParams:" + finalParams);
         String result = httpPost(api, finalParams);
         return result;
     }

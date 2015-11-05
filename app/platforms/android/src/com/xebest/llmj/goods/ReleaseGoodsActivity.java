@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
-import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
@@ -84,6 +83,8 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
 
     private String startDate = "";
     private String endDate = "";
+
+    private boolean isBusy = false;
 
     /**
      * 活跃当前窗口
@@ -197,6 +198,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
             content.put("sign", sign);
             content.put("data", ttData);
 
+            if (isBusy) return;
             new RequestTask().execute();
         }
     }
@@ -439,6 +441,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            isBusy = true;
             Tools.createLoadingDialog(ReleaseGoodsActivity.this, "提交中...");
         }
 
@@ -470,12 +473,15 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
             Tools.dismissLoading();
             if (success) {
                 mWebView.getWebView().loadUrl("javascript:authDone()");
+                mWebView.getWebView().loadUrl("javascript:addGoodsSucc()");
                 Tools.showSuccessToast(ReleaseGoodsActivity.this, "添加成功!");
                 finish();
-                MainActivity.actionView(ReleaseGoodsActivity.this, 3);
+//                MainActivity.actionView(ReleaseGoodsActivity.this, 3);
             } else {
                 Tools.showErrorToast(ReleaseGoodsActivity.this, msg);
             }
+
+            isBusy = false;
         }
     }
 

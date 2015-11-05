@@ -72,6 +72,9 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
 
     Add add;
 
+    // is net work is working
+    private boolean isBusy = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -169,6 +172,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
             Log.i("info", "--------------content:");
 
 
+            if (isBusy) return;
             new RequestTask().execute();
 
         }
@@ -406,6 +410,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            isBusy = true;
             Tools.createLoadingDialog(AddCarActivity.this, "提交中...");
         }
 // 13729999995
@@ -433,7 +438,6 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             Tools.dismissLoading();
             if (success) {
                 // 调用js方法更新User
@@ -445,6 +449,7 @@ public class AddCarActivity extends BaseCordovaActivity implements CordovaInterf
             } else {
                 Tools.showErrorToast(AddCarActivity.this, msg);
             }
+            isBusy = false;
         }
     }
 

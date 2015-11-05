@@ -88,6 +88,7 @@ Address = React.createClass {
 		else if arg is 'address:new:success'
 			Plugin.toast.success '添加地址成功！'
 			Plugin.nav.push ['add_success']
+			DB.put 'shouldReloadAddressList',1
 			Plugin.nav.pop()
 
 	render: ->

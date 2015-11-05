@@ -39,7 +39,10 @@
     rightBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = rightBtn;
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.commandDelegate evalJs:@"(function(){window.tryReloadAddressList()})()"];
+}
 -(void) clickDone {
     [self.commandDelegate evalJs:@"(function(){window.selectCurrent()})()"];
 }
@@ -49,6 +52,7 @@
     if ([params[0] integerValue] == 1) {
         if ([params[1] isEqualToString:@"toAddAddress"]) {
             ModifyAddressViewController *addressVC = [ModifyAddressViewController new];
+            addressVC.title = @"新增地址";
             [self.navigationController pushViewController:addressVC animated:YES];
         }
     }

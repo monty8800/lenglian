@@ -189,24 +189,27 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            Tools.dismissLoading();
             if (s == null || s.equals("")) {
                 return;
             }
             try {
                 JSONObject jsonObject = new JSONObject(s);
-                String data = jsonObject.getString("data");
-                List<Goods> list = JSON.parseArray(data, Goods.class);
-                Log.i("info", "--------list:" + list.size());
-                if (list.size() == 0) {
-                    Tools.showSuccessToast(CarFindGoodsActivity.this, "没有可选择的车辆哦");
+                if (jsonObject.getString("code").equals("0000")) {
+                    String data = jsonObject.getString("data");
+                    List<Goods> list = JSON.parseArray(data, Goods.class);
+                    Log.i("info", "--------list:" + list.size());
+                    if (list.size() == 0) {
+                        Tools.showSuccessToast(CarFindGoodsActivity.this, "没有可选择的车辆哦");
+                    } else {
+                        showDialogGoods(list);
+                    }
                 } else {
-                    showDialogGoods(list);
+                    Tools.showErrorToast(CarFindGoodsActivity.this, jsonObject.getString("msg"));
                 }
-                Tools.dismissLoading();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 

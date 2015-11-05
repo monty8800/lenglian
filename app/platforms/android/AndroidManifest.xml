@@ -93,6 +93,7 @@
         <activity android:name=".wallet.ChargeRecordActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".ware.WarehouseOnwerDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".application.BackupLocationActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".application.GuideActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <service android:enabled="true" android:name="com.baidu.location.f" android:process=":remote">
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" />

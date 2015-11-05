@@ -92,6 +92,8 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
 
     private Application mApplication;
 
+    private boolean isBusy = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -195,6 +197,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
 
             Log.i("info", "--------------content:" + content);
             Log.i("info", "--------------content:");
+            if (isBusy) return;
             new RequestTask().execute();
         }
     }
@@ -428,6 +431,7 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            isBusy = true;
             Tools.createLoadingDialog(AddWarehouseActivity.this, "提交中...");
         }
 
@@ -460,12 +464,14 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             if (success) {
                 // 调用js方法更新User
                 mWebView.getWebView().loadUrl("javascript:authDone()");
+                mWebView.getWebView().loadUrl("javascript:addWarehouseSucc()");
                 Tools.showSuccessToast(AddWarehouseActivity.this, "添加成功!");
                 finish();
 //                MainActivity.actionView(AddWarehouseActivity.this, 3);
             } else {
                 Tools.showErrorToast(AddWarehouseActivity.this, msg);
             }
+            isBusy = false;
         }
     }
 
