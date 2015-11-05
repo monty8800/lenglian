@@ -56,11 +56,11 @@ AuthStatus = React.createClass {
 				</li>	
 				<li onClick={@_goAuth.bind this, 'GoodsAuth'}>
 					<p className={'ll-font ' + statusMapper user.goodsStatus} dangerouslySetInnerHTML={{__html:'<span></span>&#xe61a;'}}></p>
-					<p>{'货源' + Helper.authStatus user.goodsStatus}</p>
+					<p>{'货主' + Helper.authStatus user.goodsStatus}</p>
 				</li>
 				<li onClick={@_goAuth.bind this, 'CarAuth'}>
 					<p className={'ll-font ' + statusMapper user.carStatus} dangerouslySetInnerHTML={{__html: '<span></span>&#xe60e;'}}></p>
-					<p>{'车源' + Helper.authStatus user.carStatus}</p>
+					<p>{'车主' + Helper.authStatus user.carStatus}</p>
 				</li>
 			</ul>
 		</div>
