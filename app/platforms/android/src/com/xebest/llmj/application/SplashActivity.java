@@ -28,11 +28,10 @@ public class SplashActivity extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-//                MainActivity.actionView(SplashActivity.this, 0);
                 SharedPreferences sp = getSharedPreferences(ApiUtils.IS_FIRST_IN, 0);
                 Boolean firstTime = sp.getBoolean("first", true);
                 if (firstTime) {
-//                    // 进入引导页
+//                  // 进入引导页
                     GuideActivity.actionView(SplashActivity.this);
                 } else {
                     MainActivity.actionView(SplashActivity.this, 0);

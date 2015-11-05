@@ -42,15 +42,24 @@ Address = React.createClass {
 				AddressAction.delAddress(item.id)
 		, ['确定', '取消']
 
+	getDefaultProps: ->
+		console.log '---------getDefaultProps----'
+
 	getInitialState: ->
+		console.log '---------getInitialState----'
 		addressList: AddressStore.getAddressList()
 
+	componentWillMount: ->
+		console.log '---------componentWillMount----'
+
 	componentDidMount: ->
+		console.log '---------componentDidMount----'
 		AddressStore.addChangeListener @resultCallBack
 		AddressAction.addressList()
 		DB.remove 'transData'
   
 	componentWillUnMount: ->
+		console.log '---------componentWillUnMount----'
 		AddressStore.removeChangeListener @resultCallBack
 
 	resultCallBack: (who)->
@@ -72,6 +81,7 @@ Address = React.createClass {
 
 	minxins: [PureRenderMixin]
 	render: ->
+		console.log '---------render----'
 		_addressList = @state.addressList
 		items = @state.addressList.map (item, i) -> 
 			<div key={ i }>

@@ -16,7 +16,6 @@ UserAction = require 'actions/user/user'
 
 Constants = require 'constants/constants'
 
-
 Auth = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 

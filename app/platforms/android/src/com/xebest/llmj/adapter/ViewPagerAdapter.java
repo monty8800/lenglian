@@ -16,7 +16,7 @@ import com.xebest.llmj.application.ApiUtils;
 import java.util.List;
 
 /**
- * 欢迎界面的的pagerAdapter
+ * 欢迎界面 - pagerAdapter
  * Created by kaisun on 15/9/15.
  */
 public class ViewPagerAdapter extends PagerAdapter {
