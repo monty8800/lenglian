@@ -213,10 +213,13 @@ GoodsDetail = React.createClass {
 					<span>发票:</span>
 					<span>{ Helper.invoiceStatus @state.goodsDetail.invoice }</span>
 				</p>
-				<p>
-					<span>备注:</span>
-					<span>{ @state.goodsDetail.remark }</span>
-				</p>			
+				{
+					if @state.goodsDetail?.remark 
+						<p>
+							<span>备注:</span>
+							<span>{ @state.goodsDetail?.remark }</span>
+						</p>
+				}			
 			</div>
 			<div className="m-detail-bottom">
 				<p onClick={@_showWidget} className="btn-choose">{if parseInt(@state.goodsDetail.priceType) is 2 then '竞价' else '抢单'}</p>

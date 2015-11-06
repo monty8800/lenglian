@@ -84,16 +84,16 @@ OrderDetail = React.createClass {
 
 	# 车主详情
 	_goPage: ->
-		item = @state.order.toJS()
-		id = item?.goodsSourceId
-		focusid = item?.goodsPersonUserId
-		DB.put 'transData', {
-			goodsId: id
-			focusid: focusid
-			orderNo: item.orderNo
-			orderStatus: title
-		}
-		Plugin.nav.push ['searchGoodsDetail']
+		# item = @state.order.toJS()
+		# id = item?.goodsSourceId
+		# focusid = item?.goodsPersonUserId
+		# DB.put 'transData', {
+		# 	goodsId: id
+		# 	focusid: focusid
+		# 	orderNo: item.orderNo
+		# 	orderStatus: title
+		# }
+		# Plugin.nav.push ['searchGoodsDetail']
 
 
 	_comment: (targetId, orderNo)->

@@ -49,10 +49,16 @@ window.refreshBankList = ->
 	if params.flag is true
 		WalletAction.getBankCardsList(2)
 
-
 window.updateStore = ->
 	_lastBankCard = new BankCardModel DB.get('lastBankCard')
 	WalletStore.emitChange 'last:bankcard:update'
+
+window.changeStatusToNormal = ->
+	WalletStore.emitChange 'bankCards_status_normal'
+
+window.changeStatusToDelete = ->
+	WalletStore.emitChange 'bankCards_status_delete'
+
 
 getBankCardsList = (flag)->
 	# 1 直接请求的  2 添加银行卡回来请求的
@@ -246,6 +252,19 @@ presentRecord = (params)->
 			_chargeRecordList = _chargeRecordList.push wallet
 		WalletStore.emitChange ['present_record']
 
+removeBankCard = (cardId)->
+	user = UserStore.getUser()
+	params = {
+		# id:cardId
+		userId:user.id
+	}
+	Http.post Constants.api.REMOVE_BANK_CARD, params, (data)->
+		WalletStore.emitChange 'bankCard_delete_succ'
+	,(data)->
+		WalletStore.emitChange 'bankCard_delete_faile'
+		Plugin.toast.err data.msg
+	,true
+
 WalletStore = assign BaseStore, {
 	getBankCardsList: ->
 		_bankCardsList
@@ -276,6 +295,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.CHARGE then charge(action.params)
 		when Constants.actionType.CHARGE_RECORD then chargeRecord(action.params)
 		when Constants.actionType.PRESENT_RECORD then presentRecord(action.params)
+		when Constants.actionType.REMOVE_BANK_CARD then removeBankCard(action.cardId)
 
 module.exports = WalletStore
 

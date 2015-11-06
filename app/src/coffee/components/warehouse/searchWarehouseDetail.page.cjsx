@@ -155,10 +155,13 @@ WarehouseDetail = React.createClass {
 					<span>发票:</span>
 					<span>{ Helper.invoiceStatus @state.warehouseDetail.invoice}</span>
 				</p>	
-				<p>
-					<span>备注说明:</span>
-					<span>{ @state.warehouseDetail.remark }</span>
-				</p>				
+				{
+					if @state.warehouseDetail?.remark 
+						<p>
+							<span>备注:</span>
+							<span>{ @state.warehouseDetail?.remark }</span>
+						</p>
+				}				
 			</div>
 		
 		</div>

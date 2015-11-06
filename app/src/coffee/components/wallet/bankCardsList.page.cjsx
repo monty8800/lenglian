@@ -15,7 +15,7 @@ Auth = require 'util/auth'
 
 transData = DB.get 'transData2'
 DB.remove 'transData2'
-
+_toDeleteIndex = -1
 
 BankCardsList = React.createClass {
 	_addNewBankCard:->
@@ -31,11 +31,22 @@ BankCardsList = React.createClass {
 		if transData?.type is 'withdraw'
 			WalletAction.selectWithdrawCard @state.bankCardsList[index]
 		
+	_deleteBankCard:(index)->
+		_toDeleteIndex = index
+		toDeleteBankCardId = @state.bankCardsList[index].id
+		Plugin.alert '确认删除吗?', '提示', (index)->
+			if index is 1
+				WalletAction.removeBankCard toDeleteBankCardId
+				console.log 'deletedeletedelete'
+		, ['确定', '取消']
+
+
 
 	getInitialState:->
 		{
 			bankCardsList:[]
 			selectIndex:0
+			isDeleteStatus:false
 		}
 
 	componentDidMount: ->
@@ -53,25 +64,54 @@ BankCardsList = React.createClass {
 			@setState newState
 		else if mark is 'select:withdraw:card'
 			Plugin.nav.pop()
+		else if mark is 'bankCards_status_delete'
+			@setState {
+				isDeleteStatus:true
+			}
+		else if mark is 'bankCards_status_normal'
+			@setState {
+				isDeleteStatus:false
+			}
+		else if mark is 'bankCard_delete_faile'
+			newBankCardList = Object.create @state.bankCardsList
+			newBankCardList.splice _toDeleteIndex,1
+			@setState {
+				bankCardsList:newBankCardList
+			}
+			
 
 	render : ->
 		bankCardsList = @state.bankCardsList.map (aBankCard,index)->
-			<div onClick={ @_bankItemClick.bind this,index } className="g-bankList">
-				<p className={ if @state.selectIndex is index then "g-bank01 ll-font active" else "g-bank01 ll-font" }>
-					<span>{ aBankCard.bankName }</span>
-					<span className="font24">{ aBankCard.cardType }(尾号{ aBankCard.cardNo.substr -4,4 })</span>
-				</p>
-			</div>
+			if @state.isDeleteStatus
+				<div onClick={ @_deleteBankCard.bind this,index } className="g-bankList">
+					<p className="g-bank03 ll-font">
+						<em className="ll-font"></em>
+						<span>{ aBankCard.bankName }</span>
+						<span className="font24">{ aBankCard.cardType }(尾号{ aBankCard.cardNo.substr -4,4 })</span>
+					</p>
+				</div>
+			else
+				<div onClick={ @_bankItemClick.bind this,index } className="g-bankList">
+					<p className={ if @state.selectIndex is index then "g-bank01 ll-font active" else "g-bank01 ll-font" }>
+						<span>{ aBankCard.bankName }</span>
+						<span className="font24">{ aBankCard.cardType }(尾号{ aBankCard.cardNo.substr -4,4 })</span>
+					</p>
+				</div>
 		,this
 
-		<div className="m-bank">
-			{ bankCardsList }
-			<div onClick={ @_addNewBankCard } className="g-bankList">
-				<p className="g-bank02">
-					<span>添加银行卡</span>
-				</p>
+		if @state.isDeleteStatus
+			<div className="m-bank f-delete">
+				{ bankCardsList }
 			</div>
-		</div>
+		else 
+			<div className="m-bank">
+				{ bankCardsList }
+				<div onClick={ @_addNewBankCard } className="g-bankList">
+					<p className="g-bank02">
+						<span>添加银行卡</span>
+					</p>
+				</div>
+			</div>
 }
 React.render <BankCardsList />,document.getElementById('content')
 
