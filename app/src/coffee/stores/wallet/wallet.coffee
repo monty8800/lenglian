@@ -255,13 +255,12 @@ presentRecord = (params)->
 removeBankCard = (cardId)->
 	user = UserStore.getUser()
 	params = {
-		# id:cardId
+		id:cardId
 		userId:user.id
 	}
 	Http.post Constants.api.REMOVE_BANK_CARD, params, (data)->
 		WalletStore.emitChange 'bankCard_delete_succ'
 	,(data)->
-		WalletStore.emitChange 'bankCard_delete_faile'
 		Plugin.toast.err data.msg
 	,true
 

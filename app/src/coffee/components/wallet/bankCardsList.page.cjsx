@@ -72,7 +72,7 @@ BankCardsList = React.createClass {
 			@setState {
 				isDeleteStatus:false
 			}
-		else if mark is 'bankCard_delete_faile'
+		else if mark is 'bankCard_delete_succ'
 			newBankCardList = Object.create @state.bankCardsList
 			newBankCardList.splice _toDeleteIndex,1
 			@setState {
