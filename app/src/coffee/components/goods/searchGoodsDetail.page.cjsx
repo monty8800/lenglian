@@ -1,5 +1,6 @@
 require 'components/common/common'
 require 'user-center-style'
+require 'app-style'
 
 React = require 'react/addons'
 Immutable = require 'immutable'
@@ -188,7 +189,7 @@ GoodsDetail = React.createClass {
 				</div>
 			</div>
 
-			<div className="m-detail-info m-nomargin">			
+			<div className="m-detail-info m-nomargin padding86">			
 				<p>
 					<span>发货人:</span>
 					<span onClick={ @_makePhoneCall.bind this, @state.goodsDetail.senderMobile } className="ll-font g-info-name">{ @state.goodsDetail.sender }</span>
