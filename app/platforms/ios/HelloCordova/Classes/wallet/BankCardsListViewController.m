@@ -9,6 +9,9 @@
 #import "BankCardsListViewController.h"
 #import "AddBankCardViewController.h"
 @interface BankCardsListViewController ()
+{
+    UIButton *_deleteBtn;
+}
 
 @end
 
@@ -31,13 +34,30 @@
 
 -(void) createUI {
     self.title = @"我的银行卡";
-}
+    _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_deleteBtn setFrame:CGRectMake(0, 0, 40, 44)];
+    [_deleteBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+    [_deleteBtn addTarget:self action:@selector(deleteBankCard:) forControlEvents:UIControlEventTouchUpInside];
+    [_deleteBtn setHidden:NO];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_deleteBtn];
 
+}
+-(void)deleteBankCard:(UIButton *)button{
+    if ([button.titleLabel.text isEqualToString:@"删除"]) {
+        [_deleteBtn setTitle:@"完成" forState:UIControlStateNormal];
+        NSString *js = [NSString stringWithFormat:@"(function(){window.changeStatusToDelete()})()"];
+        [self.commandDelegate evalJs:js];
+    }else{
+        [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+        NSString *js = [NSString stringWithFormat:@"(function(){window.changeStatusToNormal ()})()"];
+        [self.commandDelegate evalJs:js];
+    }
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.commandDelegate evalJs:@"(function(){window.tryReloadBandCardsList()})()"];
 }
-
 
 -(void)commonCommand:(NSArray *)params{
     [super commonCommand:params];

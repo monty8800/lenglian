@@ -422,7 +422,7 @@
     }else{
         return;
     }
-    NSInteger pageNum = 5;
+    NSInteger pageNum = 4;
     guideScrollView = [[UIScrollView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.frame];
     guideScrollView.contentSize = CGSizeMake(IPHONEWIDTH * pageNum, IPHONEHEIGHT);
     guideScrollView.delegate = self;
@@ -481,9 +481,9 @@
 {
     if ([scrollView isEqual:guideScrollView]) {
         if (guideScrollView.contentOffset.x < IPHONEWIDTH) {
-            [guideScrollView setBackgroundColor:[UIColor  WY_ColorWithHex:0xe54835]];
+            [guideScrollView setBackgroundColor:[UIColor  WY_ColorWithHex:0x2ebaf4]];
         }else{
-            [guideScrollView setBackgroundColor:[UIColor WY_ColorWithHex:0x7d58ca]];
+            [guideScrollView setBackgroundColor:[UIColor WY_ColorWithHex:0xf88764]];
         }
     }
 }
