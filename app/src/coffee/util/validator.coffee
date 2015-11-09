@@ -17,7 +17,7 @@ carNum = (input)->
 	return /^[\u4E00-\u9FA5][\da-zA-Z]{6}$/.test input
 
 vinNum = (input)->
-	return /^[\da-zA-Z]{17}$/.test input
+	return /^(?![0-9]+$)(?![a-zA-Z]+$)[\da-zA-Z]{17}$/.test input
 
 name = (input)->
 	return /^\S{2,30}$/.test input
