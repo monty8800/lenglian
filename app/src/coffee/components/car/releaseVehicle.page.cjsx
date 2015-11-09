@@ -202,7 +202,7 @@ Vehicle = React.createClass {
 					<i className="icon-mask"></i>
 				</div>
 				<div className="g-adr-start ll-font g-adr-start-line  g-adr-car" onClick={@_goPage.bind this, 'select_end_address'}>
-					<p>{@state.destination or '终点(必填)'}</p>
+					<p>{@state.destination or '目的地（必填）'}</p>
 					<i className="icon-mask"></i>
 				</div>
 			</div>	

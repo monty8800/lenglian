@@ -435,24 +435,23 @@
     NSString *widthStr = @"";
     if (IPHONESCREEN3p5) {
         widthStr = @"guide_3_5";
-        [gonow setFrame:CGRectMake(0, 0, 135, 40)];
-        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 65)];
+        [gonow setFrame:CGRectMake(0, 0, 135, 55)];
+        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 55)];
     }else if (IPHONESCREEN4){
         widthStr = @"guide_4_0";
-        [gonow setFrame:CGRectMake(0, 0, 135, 40)];
-        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 65)];
+        [gonow setFrame:CGRectMake(0, 0, 135, 55)];
+        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 60)];
     }else if (IPHONESCREEN4p7){
         widthStr = @"guide_4_7";
-        [gonow setFrame:CGRectMake(0, 0, 160, 60)];
-        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 75)];
+        [gonow setFrame:CGRectMake(0, 0, 160, 65)];
+        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 70)];
     }else if (IPHONESCREEN5p5){
         widthStr = @"guide_5_5";
         [gonow setFrame:CGRectMake(0, 0, 180, 60)];
-        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 85)];
+        [gonow setCenter:CGPointMake(IPHONEWIDTH/2, IPHONEHEIGHT - 76)];
     }
     
     [gonow setBackgroundColor:[UIColor clearColor]];
-    
     [gonow addTarget:self action:@selector(hiddenGuideView) forControlEvents:UIControlEventTouchUpInside];
     
     for (int i = 0; i < pageNum; i ++) {

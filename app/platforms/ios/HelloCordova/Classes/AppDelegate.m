@@ -142,7 +142,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(findNewVersion:) name:@"Notification_findNewVersion" object:nil];
 
     [self.window makeKeyAndVisible];
-//    [[Global sharedInstance] showGuideViews];
+    [[Global sharedInstance] showGuideViews];
 
     return YES;
 }
