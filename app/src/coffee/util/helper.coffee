@@ -54,12 +54,6 @@ isInvoince = (status) ->
 		else
 			''
 
-authStatus = (status)->
-	switch parseInt(status)
-		when 1 then '已认证'
-		when 2 then '认证中'
-		else '未认证'
-
 carStatus = (status)->
 	switch parseInt(status)
 		when 1 then '空闲中'
@@ -226,6 +220,57 @@ priceFormatOnblur = (value)->
 	# else if (value.substr (value.length-2),1) is '.'
 	# 	value = value + '0'
 
+authStatus = (status, cls)->
+	if cls
+		switch parseInt(status)
+			when 0 then 'active02'
+			when 1 then 'active01'
+			when 2 then 'active03'
+			else 'active03'
+	else
+		switch parseInt(status)
+			when 0 then '认证中'
+			when 1 then '已认证'
+			when 2 then '驳回'
+			else '未认证'
+
+isTrue = (flag)->
+	return flag isnt undefined and flag isnt null and flag isnt ''
+
+# 认证状态
+authStatusMap = (user, index, isCls)->
+	if user.certification is 1 # 个人
+		if index is 1 # 仓库
+			authStatus user?.personalWarehouseStatus, isCls
+		else if index is 2 # 货主
+			authStatus user?.personalGoodsStatus, isCls
+		else if index is 3 # 车主		
+			authStatus user?.personalCarStatus, isCls
+	else if user.certification is 2 # 企业
+		if index is 1 # 仓库
+			authStatus user?.enterpriseWarehouseStatus, isCls
+		else if index is 2 # 货主
+			authStatus user?.enterpriseGoodsStatus, isCls
+		else if index is 3 # 车主		
+			authStatus user?.enterpriseCarStatus, isCls		
+	else # 哎，都有可能
+		if index is 1 # 仓库
+			if isTrue user?.personalWarehouseStatus
+				authStatus user?.personalWarehouseStatus, isCls
+			else 
+				authStatus user?.enterpriseWarehouseStatus, isCls
+		else if index is 2 # 货主
+			if isTrue user?.personalGoodsStatus
+				authStatus user?.personalGoodsStatus, isCls
+			else
+				authStatus user?.enterpriseGoodsStatus, isCls
+		else if index is 3 # 车主
+			if isTrue user?.personalCarStatus
+				authStatus user?.personalCarStatus, isCls
+			else
+				authStatus user?.enterpriseCarStatus, isCls
+		
+
 module.exports = 
 	carTypeMapper: carType 				# 车辆类型
 	carCategoryMapper: carCategory 		# 车辆类别
@@ -249,3 +294,4 @@ module.exports =
 	recordStatus: recordStatus
 	isPriceFormat:isPriceFormat			#是否是正确的价格格式
 	priceFormatOnblur : priceFormatOnblur	#价格编辑结束格式化价格
+	authStatusMap: authStatusMap

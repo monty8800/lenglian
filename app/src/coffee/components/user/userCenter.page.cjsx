@@ -43,24 +43,30 @@ AuthStatus = React.createClass {
 
 	render: ->
 		user = @props.user
-		statusMapper = (status)->
-			switch status
-				when 1 then return 'active01'
-				when 2 then return 'active02'
-				else return 'active03'
+		# statusMapper = (status)->
+		# 	switch status
+		# 		when 1 then return 'active01'
+		# 		when 2 then return 'active02'
+		# 		else return 'active03'
+		# <p>{'仓库' + Helper.authStatus user.warehouseStatus}</p>
+		# className={'ll-font ' + statusMapper user.warehouseStatus }
+		# <p>{'货主' + Helper.authStatus user.goodsStatus}</p>
+		# className={'ll-font ' + statusMapper user.goodsStatus}
+		# <p>{'车主' + Helper.authStatus user.carStatus}</p>
+		# className={'ll-font ' + statusMapper user.carStatus}
 		<div className="g-userInfo">	
 			<ul>					
 				<li onClick={@_goAuth.bind this, 'WarehouseAuth'}>
-					<p className={'ll-font ' + statusMapper user.warehouseStatus } dangerouslySetInnerHTML={{__html:'<span></span>&#xe615;'}}></p>
-					<p>{'仓库' + Helper.authStatus user.warehouseStatus}</p>
+					<p className={'ll-font ' + Helper.authStatusMap user, 1, true } dangerouslySetInnerHTML={{__html:'<span></span>&#xe615;'}}></p>
+					<p>{'仓库' + Helper.authStatusMap user, 1}</p>
 				</li>	
 				<li onClick={@_goAuth.bind this, 'GoodsAuth'}>
-					<p className={'ll-font ' + statusMapper user.goodsStatus} dangerouslySetInnerHTML={{__html:'<span></span>&#xe61a;'}}></p>
-					<p>{'货主' + Helper.authStatus user.goodsStatus}</p>
+					<p className={'ll-font ' + Helper.authStatusMap user, 2, true} dangerouslySetInnerHTML={{__html:'<span></span>&#xe61a;'}}></p>
+					<p>{'货主' + Helper.authStatusMap user, 2}</p>
 				</li>
 				<li onClick={@_goAuth.bind this, 'CarAuth'}>
-					<p className={'ll-font ' + statusMapper user.carStatus} dangerouslySetInnerHTML={{__html: '<span></span>&#xe60e;'}}></p>
-					<p>{'车主' + Helper.authStatus user.carStatus}</p>
+					<p className={'ll-font ' + Helper.authStatusMap user, 3, true} dangerouslySetInnerHTML={{__html: '<span></span>&#xe60e;'}}></p>
+					<p>{'车主' + Helper.authStatusMap user, 3}</p>
 				</li>
 			</ul>
 		</div>

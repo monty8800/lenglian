@@ -88,6 +88,8 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
             String temp = args.getString(1);
             if (temp.equalsIgnoreCase("location")) {
                 LocationActivity.actionView(this);
+            } else if (temp.equalsIgnoreCase("toAddAddress")) {
+                ModifyAddress.actionView(SelectAddressActivity.this, 2);
             }
         }
 

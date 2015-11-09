@@ -3,6 +3,7 @@ package com.xebest.llmj.center;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by kaisun on 15/9/22.
@@ -90,7 +92,19 @@ public class RegisterActivity extends BaseCordovaActivity implements CordovaInte
             MainActivity.actionView(RegisterActivity.this, 3);
         } else {
             if (args.toString().contains("user:update")) {
-//                finish();
+                String userInfo = args.getString(2);
+                JSONObject jsonObject = new JSONObject(userInfo);
+                // 存放userId
+                ((Application) getApplication()).setUserId(jsonObject.getString("id"));
+                Application.getInstance().setGoodsStatus(Integer.parseInt(jsonObject.getString("goodsStatus")));
+                Application.getInstance().setWarehouseStatus(Integer.parseInt(jsonObject.getString("warehouseStatus")));
+                Application.getInstance().setCarStatus(Integer.parseInt(jsonObject.getString("carStatus")));
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
+                editor.putString("userId", jsonObject.getString("id"));
+                editor.putInt("goodsStatus", jsonObject.getInt("goodsStatus"));
+                editor.putInt("warehouseStatus", jsonObject.getInt("warehouseStatus"));
+                editor.putInt("carStatus", jsonObject.getInt("carStatus"));
+                editor.commit();
             } else if (args.toString().contains("2")) {
             } else if (args.toString().contains("auth")) {
                 AuthActivity.actionView(RegisterActivity.this);

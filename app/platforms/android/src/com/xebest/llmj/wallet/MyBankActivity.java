@@ -69,7 +69,7 @@ public class MyBankActivity extends BaseCordovaActivity implements CordovaInterf
 
     protected void initView() {
         bank = (TextView) findViewById(R.id.add);
-        bank.setVisibility(View.GONE);
+        bank.setText("删除");
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("我的银行卡");
         mWebView = (XEWebView) findViewById(R.id.wb);
@@ -84,6 +84,18 @@ public class MyBankActivity extends BaseCordovaActivity implements CordovaInterf
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bank.getText().toString().equals("删除")) {
+                    bank.setText("完成");
+                    mWebView.getWebView().loadUrl("javascript:window.changeStatusToDelete()");
+                } else {
+                    bank.setText("删除");
+                    mWebView.getWebView().loadUrl("javascript:window.changeStatusToNormal()");
+                }
             }
         });
     }

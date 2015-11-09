@@ -49,5 +49,19 @@ User = Immutable.Record {
 	street: null #公司详细地址
 	tel: null #公司电话
 
+	personalGoodsStatus: null
+	personalGoodsCause: null
+	personalCarStatus: null
+	personalCarCause: null
+	personalWarehouseStatus: null
+	personalWarehouseCause: null
+
+	enterpriseGoodsStatus: null
+	enterpriseGoodsCause: null
+	enterpriseCarStatus: null
+	enterpriseCarCause: null
+	enterpriseWarehouseStatus: null
+	enterpriseWarehouseCause: null
+
 }
 module.exports = User
