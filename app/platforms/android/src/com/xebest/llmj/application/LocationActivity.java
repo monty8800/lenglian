@@ -19,8 +19,6 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
@@ -55,8 +53,8 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
 
 
     // 初始化全局 bitmap 信息，不用时及时 recycle
-    private BitmapDescriptor bdA = BitmapDescriptorFactory
-            .fromResource(R.drawable.my_location);
+//    private BitmapDescriptor bdA = BitmapDescriptorFactory
+//            .fromResource(R.drawable.my_location);
 
     private View view;
 
@@ -87,7 +85,7 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, BackupLocationActivity.class));
+        context.startActivity(new Intent(context, LocationActivity.class));
     }
 
     @Override
@@ -95,6 +93,7 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_new);
 
+        Application.getInstance().addRemoveActivity(this);
         initView();
 
         // 声明LocationClient类
@@ -319,12 +318,13 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
     }
 
     public void initOverlay(double lat, double lon) {
+        Log.i("info", "-------initOverlay");
         LatLng llA = new LatLng(lat, lon);
 
         MapStatus mMapStatus = new MapStatus.Builder().target(llA).zoom(14.0f).build();
-
+        if (mMapStatus == null) return;
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-
+        if (mMapStatusUpdate == null || mBaiduMap == null) return;
         mBaiduMap.setMapStatus(mMapStatusUpdate);
 
         // 开启定位图层
@@ -367,7 +367,8 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
         findViewById(R.id.rlBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+//                finish();
+                Application.getInstance().removeActivity();
             }
         });
 
@@ -385,7 +386,7 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
     @Override
     protected void onStop() {
         super.onStop();
-        mMapView.getMap().setMyLocationEnabled(false);
+
     }
 
     @Override
@@ -399,9 +400,10 @@ public class LocationActivity extends Activity implements OnGetGeoCoderResultLis
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mMapView.getMap().setMyLocationEnabled(false);
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
-        bdA.recycle();
+//        bdA.recycle();
     }
 
     @Override

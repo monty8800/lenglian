@@ -19,7 +19,7 @@
         android:id="@+id/detailAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试通过了嘛"
+        android:text=""
         android:layout_above="@+id/mark"
         android:layout_centerHorizontal="true"
         android:visibility="gone"

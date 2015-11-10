@@ -17,6 +17,13 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.FoundStoreAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.auth.AuthActivity;
+import com.xebest.llmj.auth.CompanyCarAuthActivity;
+import com.xebest.llmj.auth.CompanyGoodsAuthActivity;
+import com.xebest.llmj.auth.CompanyWareHouseAuthActivity;
+import com.xebest.llmj.auth.PersonalCarAuthActivity;
+import com.xebest.llmj.auth.PersonalGoodsAuthActivity;
+import com.xebest.llmj.auth.PersonalWareHouseAuthActivity;
 import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.model.CarListInfo;
@@ -121,6 +128,40 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
         } else if (flag.equalsIgnoreCase("login")) {
             LoginActivity.actionView(SearchWareHouseActivity.this);
         }
+        // 未认证
+        else if (flag.equalsIgnoreCase("auth")) {
+            AuthActivity.actionView(getActivity());
+        }
+        // 个人车主认证
+        else if (flag.equalsIgnoreCase("personalCarAuth")) {
+            PersonalCarAuthActivity.actionView(this);
+        }
+
+        // 个人货主认证
+        else if (flag.equalsIgnoreCase("personalGoodsAuth")) {
+            PersonalGoodsAuthActivity.actionView(this);
+        }
+
+        // 个人仓库认证
+        else if (flag.equalsIgnoreCase("personalWarehouseAuth")) {
+            PersonalWareHouseAuthActivity.actionView(this);
+        }
+
+        // 公司车主认证
+        else if (flag.equalsIgnoreCase("companyCarAuth")) {
+            CompanyCarAuthActivity.actionView(this);
+        }
+
+        // 公司货主认证
+        else if (flag.equalsIgnoreCase("companyGoodsAuth")) {
+            CompanyGoodsAuthActivity.actionView(this);
+        }
+
+        // 公司仓库认证
+        else if (flag.equalsIgnoreCase("companyWarehouseAuth")) {
+            CompanyWareHouseAuthActivity.actionView(this);
+        }
+
     }
 
     @Override

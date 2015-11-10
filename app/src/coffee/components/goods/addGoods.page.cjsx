@@ -1,6 +1,5 @@
 require 'components/common/common'
 
-
 React = require 'react/addons'
 Immutable = require 'immutable'
 
@@ -123,6 +122,8 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请选择货物类型'
 		else if @state.name isnt '' and @state.name.length > 10
 			Plugin.toast.err '货物名称不能多于10个字符'
+		else if @state.weight?.length is 0 and @state.cube?.length is 0
+			Plugin.toast.err '请填写正确的货物规格, 最多两位小数'
 		else if (@state.weight?.length > 0 and not Validator.float(@state.weight))  or (@state.cube?.length > 0 and not Validator.float @state.cube)
 			Plugin.toast.err '请填写正确的货物规格, 最多两位小数'
 		else if @state.packType?.length > 10
