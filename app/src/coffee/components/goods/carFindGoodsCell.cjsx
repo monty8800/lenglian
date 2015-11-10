@@ -51,9 +51,9 @@ CarFindGoodsCell = React.createClass {
 		installEtime = @props.goods.get('installEtime')
 		userAvatar = @props.goods.get 'userImgUrl'
 		<div onClick={@_goodsDetail} className="m-item01 m-item03">
-			<div className="g-item-dirver">
-				<div className="g-dirver">					
-					<div className="g-dirver-pic">
+			<div className="g-item-dirver"> 
+				<div className="g-dirver"> 					
+					<div className="g-dirver-pic"> 
 						<XeImage src={userAvatar} size='130x130' type='avatar' />
 					</div>
 					<div className="g-dirver-msg">

@@ -189,11 +189,17 @@ requestInfo = ->
 
 		# marked 🐶 🐻 🐷
 		_user = _user.set 'personalGoodsStatus', parseInt(data?.personalGoodsStatus)
+		_user = _user.set 'personalGoodsCause', data?.personalGoodsCause
 		_user = _user.set 'personalCarStatus', parseInt(data?.personalCarStatus)
+		_user = _user.set 'personalCarCause', data?.personalCarCause
 		_user = _user.set 'personalWarehouseStatus', parseInt(data?.personalWarehouseStatus)
+		_user = _user.set 'personalWarehouseCause', data?.personalWarehouseCause
 		_user = _user.set 'enterpriseGoodsStatus', parseInt(data?.enterpriseGoodsStatus)
+		_user = _user.set 'enterpriseGoodsCause', data?.personalWarehouseCause
 		_user = _user.set 'enterpriseCarStatus', parseInt(data?.enterpriseCarStatus)
+		_user = _user.set 'enterpriseCarCause', data?.personalWarehouseCause
 		_user = _user.set 'enterpriseWarehouseStatus', parseInt(data?.enterpriseWarehouseStatus)
+		_user = _user.set 'enterpriseWarehouseCause', data?.personalWarehouseCause
 
 		DB.put 'user', _user.toJS()
 		Plugin.run [9, 'user:update', _user.toJS()]

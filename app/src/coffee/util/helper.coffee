@@ -226,7 +226,7 @@ authStatus = (status, cls)->
 			when 0 then 'active02'
 			when 1 then 'active01'
 			when 2 then 'active03'
-			else 'active03'
+			else 'active04'
 	else
 		switch parseInt(status)
 			when 0 then '认证中'
@@ -269,6 +269,38 @@ authStatusMap = (user, index, isCls)->
 				authStatus user?.personalCarStatus, isCls
 			else
 				authStatus user?.enterpriseCarStatus, isCls
+
+authResMap = (user, index)->
+	if user.certification is 1 # 个人
+		if index is 1 # 仓库
+			return user.personalWarehouseCause
+		else if index is 2 # 货主
+			return user.personalGoodsCause
+		else if index is 3 # 车主		
+			return user.personalCarCause
+	else if user.certification is 2 # 企业
+		if index is 1 # 仓库
+			return user.enterpriseWarehouseCause
+		else if index is 2 # 货主
+			return user.enterpriseGoodsCause
+		else if index is 3 # 车主		
+			return user.enterpriseCarCause
+	else # 哎，都有可能
+		if index is 1 # 仓库
+			if isTrue user?.personalWarehouseStatus
+				return user.personalWarehouseCause
+			else 
+				return user.enterpriseWarehouseCause
+		else if index is 2 # 货主
+			if isTrue user?.personalGoodsStatus
+				return user.personalGoodsCause
+			else
+				return user.enterpriseGoodsCause
+		else if index is 3 # 车主
+			if isTrue user?.personalCarStatus
+				return user.personalCarCause
+			else
+				return user.enterpriseCarCause
 		
 
 module.exports = 
@@ -295,3 +327,4 @@ module.exports =
 	isPriceFormat:isPriceFormat			#是否是正确的价格格式
 	priceFormatOnblur : priceFormatOnblur	#价格编辑结束格式化价格
 	authStatusMap: authStatusMap
+	authResMap: authResMap

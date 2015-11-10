@@ -26,20 +26,27 @@ AuthStatus = React.createClass {
 			return Plugin.toast.show '有认证正在审核中，无法继续认证!' if unAuth
 
 		Auth.needLogin ->
-			# switch auth
-			# 	when 'CarAuth'
-			# 		return null if user.carStatus in [1, 2]
-			# 	when 'WarehouseAuth'
-			# 		return null if user.warehouseStatus in [1, 2]
-			# 	when 'GoodsAuth'
-			# 		return null if user.goodsStatus in [1, 2]
-
-			if user.certification is 0
-				Plugin.nav.push ['auth']
-			else if user.certification is 1
-				Plugin.nav.push ['personal' + auth]
+			switch auth
+				when 'CarAuth'
+					index = 3
+				when 'WarehouseAuth'
+					index = 1
+				when 'GoodsAuth'
+					index = 2
+			str = Helper.authResMap user, index
+			if str is undefined
+				if user.certification is 0			
+					Plugin.nav.push ['auth']
+				else if user.certification is 1
+					Plugin.nav.push ['personal' + auth]
+				else
+					Plugin.nav.push ['company' + auth]
 			else
-				Plugin.nav.push ['company' + auth]
+				Plugin.alert str, '驳回原因', (index)->
+					# console.log 'click index', index
+					# if index is 1
+					# 	UserAction.logout()
+				, ['确定']				
 
 	render: ->
 		user = @props.user
