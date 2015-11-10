@@ -386,6 +386,8 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId, orderCarId)-
 		_orderDetail = _orderDetail.set 'releaseTime', temp.releaseTime
 		_orderDetail = _orderDetail.set 'goodsCubic', temp.goodsCubic
 		_orderDetail = _orderDetail.set 'goodsRouteList', temp.goodsRouteList
+		_orderDetail = _orderDetail.set 'goodsRemark', temp.goodsRemark
+
 		OrderStore.emitChange ['car_owner_order_detail']		
 	, (data)->
 		Plugin.toast.err data.msg

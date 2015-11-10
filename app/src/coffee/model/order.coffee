@@ -28,6 +28,7 @@ Order = Immutable.Record {
 	goodsPersonHeadPic: null # 货主头像
 	goodsDesc: null # 货物描述
 	goodsPersonUserId: null
+	goodsRemark:null	#货物备注
 	coldStoreFlag: 1
 
 

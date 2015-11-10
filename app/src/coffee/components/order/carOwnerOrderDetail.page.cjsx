@@ -256,7 +256,14 @@ OrderDetail = React.createClass {
 				<p>
 					<span>货源发布时间:</span>	
 					<span>{Helper.subStr 0, 10, @state.order?.releaseTime}</span>
-				</p>			
+				</p>	
+				{ 
+					if @state.order?.goodsRemark
+						<p>
+							<span>货物备注:</span>	
+							<span>{ @state.order?.goodsRemark }</span>
+						</p>
+				}
 			</div>	
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' then 'block' else 'none'}}>
 				<div className="g-pay-btn">

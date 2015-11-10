@@ -126,7 +126,7 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请填写正确的货物规格, 最多两位小数'
 		else if (@state.weight?.length > 0 and not Validator.float(@state.weight))  or (@state.cube?.length > 0 and not Validator.float @state.cube)
 			Plugin.toast.err '请填写正确的货物规格, 最多两位小数'
-		else if @state.packType.length > 10
+		else if @state.packType?.length > 10
 			Plugin.toast.err '包装类型不能多于10个字符'
 		else if not @state.installMinTime or not @state.installMaxTime
 			Plugin.toast.err '请填写装车时间'

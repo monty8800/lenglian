@@ -26,12 +26,15 @@ Charge = React.createClass {
 			return Plugin.toast.err '请输入充值金额'
 		if not Validator.price @state.money
 			return Plugin.toast.err '请输入正确的金额, 最多两位小数, 最大9999999.99'
+		if @state.payPassword.length == 0
+			return Plugin.toast.err '请输入支付密码'
 		if @state.cardId.length == 0
 			return Plugin.toast.err '请选择银行卡'
 		WalletAction.charge {
 				userId: user?.id
 				cardId: @state.cardId
 				amount: @state.money
+				payPassword: @state.payPassword
 			}
 
 
@@ -45,7 +48,7 @@ Charge = React.createClass {
 		{
 			bankCardsList:[]
 			selectIndex:0
-			payPasswd: ''
+			payPassword: ''
 			money: ''
 			showSms: false
 			cardId: ''
@@ -107,6 +110,12 @@ Charge = React.createClass {
 				<p className="g-pay">
 					<span>充值金额</span>
 					<input className="input-weak" type="text" valueLink={@linkState 'money'} placeholder="请输入充值金额"/>
+				</p>
+			</div>
+			<div className="m-pay-item">
+				<p className="g-pay">
+					<span>支付密码</span>
+					<input className="input-weak" type="password" valueLink={@linkState 'payPassword'} placeholder="请输入支付密码"/>
 				</p>
 			</div>
 			<div className="m-pay-item">
