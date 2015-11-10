@@ -186,6 +186,15 @@ requestInfo = ->
 		if _user.hasPayPwd is 0
 			_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus) 
 		_user = _user.set 'balance', data.balance
+
+		# marked 🐶 🐻 🐷
+		_user = _user.set 'personalGoodsStatus', parseInt(data?.personalGoodsStatus)
+		_user = _user.set 'personalCarStatus', parseInt(data?.personalCarStatus)
+		_user = _user.set 'personalWarehouseStatus', parseInt(data?.personalWarehouseStatus)
+		_user = _user.set 'enterpriseGoodsStatus', parseInt(data?.enterpriseGoodsStatus)
+		_user = _user.set 'enterpriseCarStatus', parseInt(data?.enterpriseCarStatus)
+		_user = _user.set 'enterpriseWarehouseStatus', parseInt(data?.enterpriseWarehouseStatus)
+
 		DB.put 'user', _user.toJS()
 		Plugin.run [9, 'user:update', _user.toJS()]
 

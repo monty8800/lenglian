@@ -121,7 +121,7 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请输入终点'
 		else if not @state.type
 			Plugin.toast.err '请选择货物类型'
-		else if @state.name?.length > 10
+		else if @state.name isnt '' and @state.name.length > 10
 			Plugin.toast.err '货物名称不能多于10个字符'
 		else if (@state.weight?.length > 0 and not Validator.float(@state.weight))  or (@state.cube?.length > 0 and not Validator.float @state.cube)
 			Plugin.toast.err '请填写正确的货物规格, 最多两位小数'
@@ -204,7 +204,7 @@ AddGoods = React.createClass {
 	getInitialState: ->
 		user = UserStore.getUser()
 		{
-			name: null #货物名称
+			name: '' #货物名称
 			type: 1 #货物类型 1常温，2冷藏，3冷冻，4急冻， 5深冷
 			weight: '' #货物重量
 			cube: ''   #货物体积
