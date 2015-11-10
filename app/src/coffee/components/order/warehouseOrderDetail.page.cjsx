@@ -213,7 +213,15 @@ WarehouseOrderDetail = React.createClass {
 				<p>
 					<span>发布时间:</span>
 					<span>{ if @state.orderDetail.goodsCreateTime then Moment(@state.orderDetail.goodsCreateTime ).format('YYYY-MM-DD') else ''}</span>
-				</p>			
+				</p>
+				{
+					if @state.orderDetail.remark
+						<p>
+							<span>货物备注:</span>
+							<span>{ @state.orderDetail.remark }</span>
+						</p>
+				}
+							
 			</div>
 			{
 				if parseInt(@state.orderDetail?.orderState) is 1 

@@ -339,7 +339,14 @@ GoodsOrderDetail = React.createClass {
 			<p>
 				<span>货源发布时间:</span>
 				<span>{Moment(@state.detail?.get('goodsCreateTime')).format('YYYY-MM-DD')}</span>
-			</p>			
+			</p>
+			{
+				if @state.detail?.get('goodsRemark')
+					<p>
+						<span>货物备注:</span>
+						<span>{ @state.detail?.get('goodsRemark') }</span>
+					</p>
+			}			
 		</div>
 		<div className={if _statusText not in ['订单已评价', '已取消'] then 'm-detail-bottom' else ''}>
 			{
