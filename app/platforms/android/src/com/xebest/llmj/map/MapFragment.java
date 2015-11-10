@@ -468,7 +468,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     if (list.get(i).getColdStoreFlag() == null || list.get(i).getColdStoreFlag().equals("1")) {
                         ooA = new MarkerOptions().position(llA).icon(goods)
                                 .zIndex(9).draggable(false);
-                    } else if (list.get(i).getColdStoreFlag() != null && list.get(i).getColdStoreFlag().equals("2")) {
+                    } else { //  if (list.get(i).getColdStoreFlag() != null && list.get(i).getColdStoreFlag().equals("2"))
                         ooA = new MarkerOptions().position(llA).icon(goodsCold)
                                 .zIndex(9).draggable(false);
                     }

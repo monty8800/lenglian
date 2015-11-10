@@ -115,7 +115,8 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
             String mArea = sp.getString("mArea", "");
             String mStreet = sp.getString("mStreet", "");
             String mStreetNumber = sp.getString("mStreetNumber", "");
-            mWebView.getWebView().loadUrl("javascript:(function(){window.updateAddress({provinceName:'" + mProvince + "', cityName:'" + mCity + "', areaName:'" + mArea + "', street: '" + mStreet + "', lati:'" + mLatitude + "', longi:'" + mLontitud + "'})})()");
+            String str = mStreet + mStreetNumber;
+            mWebView.getWebView().loadUrl("javascript:(function(){window.updateAddress({provinceName:'" + mProvince + "', cityName:'" + mCity + "', areaName:'" + mArea + "', street: '" + str + "', lati:'" + mLatitude + "', longi:'" + mLontitud + "'})})()");
         }
         SharedPreferences.Editor editor = getSharedPreferences("location", 0).edit();
         editor.putString("mLatitude", "");
