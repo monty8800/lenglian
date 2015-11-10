@@ -145,7 +145,7 @@ AddGoods = React.createClass {
 		else if not Validator.mobile @state.reciverMobile
 			Plugin.toast.err '收货人手机号不正确'
 		else if @state.remark?.length > 0 and not Validator.remark @state.remark
-			Plugin.toast.err '备注要1~30个字符哦'
+			Plugin.toast.err '备注信息不能多于30个字符'
 		else
 			files = []
 			files.push {
