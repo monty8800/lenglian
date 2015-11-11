@@ -62,9 +62,10 @@ public class WarehouseOnwerDetailActivity extends BaseCordovaActivity implements
 
     protected void initView() {
         addCar = (TextView) findViewById(R.id.add);
+        addCar.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("库主详情");
-        tvTitle.setVisibility(View.GONE);
+//        tvTitle.setVisibility(View.GONE);
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {

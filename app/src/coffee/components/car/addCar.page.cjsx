@@ -182,6 +182,8 @@ AddCar = React.createClass {
 			Plugin.toast.err '请选择车辆长度'
 		else if @state.bulky.length isnt 0 and not Validator.bulky @state.bulky
 			Plugin.toast.err '请输入正确的泡货,最多两位小数,最大不超过999.99'
+		else if @state.driver is ''
+			Plugin.toast.err '请填写正确的司机姓名'
 		else if not Validator.name @state.driver
 			Plugin.toast.err '请填写正确的司机姓名'
 		else if not Validator.mobile @state.mobile
@@ -285,7 +287,7 @@ AddCar = React.createClass {
 					<span>联系手机</span>
 					<input ref="mobile" valueLink={@linkState 'mobile'}></input>
 				</div>
-			</div>z	
+			</div>
 			<div className="u-green ll-font u-tip">
 				温馨提示：单张图片大小不能超过1M
 			</div>
