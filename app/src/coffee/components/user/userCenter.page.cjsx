@@ -37,7 +37,7 @@ AuthStatus = React.createClass {
 			str = Helper.authResMap user, index
 			console.log '--------------str:', str
 			if str is undefined or str is '' or str is null
-				if user.certification is 0			
+				if user.certification is 0									
 					Plugin.nav.push ['auth']
 				else if user.certification is 1
 					Plugin.nav.push ['personal' + auth]

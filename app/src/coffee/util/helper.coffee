@@ -315,7 +315,7 @@ authResMap = (user, index)->
 					return user.enterpriseCarCause
 		
 
-module.exports = 
+module.exports = 			
 	carTypeMapper: carType 				# 车辆类型
 	carCategoryMapper: carCategory 		# 车辆类别
 	warehouseStatus: warehouseStatus 	#仓库状态
