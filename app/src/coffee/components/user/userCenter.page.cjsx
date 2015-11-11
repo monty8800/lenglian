@@ -44,12 +44,7 @@ AuthStatus = React.createClass {
 				else
 					Plugin.nav.push ['company' + auth]
 			else
-				navigator.notification.alert str, null, '驳回原因', '确定'
-				# Plugin.alert str, '驳回原因', (index)->
-					# console.log 'click index', index
-					# if index is 1
-					# 	UserAction.logout()
-				# , ['确定']				
+				navigator.notification.alert str, null, '驳回原因', '确定'			
 
 	render: ->
 		user = @props.user
