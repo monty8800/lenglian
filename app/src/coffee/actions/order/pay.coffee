@@ -23,10 +23,10 @@ PayAction = {
 			actionType: Constants.actionType.DO_PAY
 			params: params
 		}
-	selectCard: (cardId)->
+	selectCard: (card)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.SELECT_PAY_CARD
-			cardId: cardId
+			card: card
 		}
 }
 

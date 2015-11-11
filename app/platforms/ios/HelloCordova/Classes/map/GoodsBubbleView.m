@@ -113,7 +113,7 @@
 
     
     NSMutableString *desc = [[NSMutableString alloc] initWithString:@"货物描述： "];
-    if (![[data objectForKey:@"name"] isKindOfClass:[NSNull class]]) {
+    if ([data objectForKey:@"name"] != nil && ![[data objectForKey:@"name"] isKindOfClass:[NSNull class]]) {
         [desc appendString:[NSString stringWithFormat:@"%@ ", [data objectForKey:@"name"]]];
     }
     

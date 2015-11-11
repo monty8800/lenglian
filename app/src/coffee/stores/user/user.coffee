@@ -230,7 +230,7 @@ requestInfo = ->
 
 smsCode = (params)->
 	Http.post Constants.api.SMS_CODE, params, (data)->
-		console.log '验证码', data[-6..]
+		console.log '验证码', data[-7..-1]
 		UserStore.emitChange 'sms:done'
 	, (data)->
 		Plugin.toast.err data.msg
