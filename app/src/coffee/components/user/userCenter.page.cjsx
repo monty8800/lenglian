@@ -37,14 +37,23 @@ AuthStatus = React.createClass {
 			str = Helper.authResMap user, index
 			console.log '--------------str:', str
 			if str is undefined or str is '' or str is null
-				if user.certification is 0			
+				if user.certification is 0									
 					Plugin.nav.push ['auth']
 				else if user.certification is 1
 					Plugin.nav.push ['personal' + auth]
 				else
 					Plugin.nav.push ['company' + auth]
 			else
-				navigator.notification.alert str, null, '驳回原因', '确定'			
+				Plugin.alert str, '驳回原因', (index)->
+					if index is 1
+						if user.certification is 0			
+							Plugin.nav.push ['auth']
+						else if user.certification is 1
+							Plugin.nav.push ['personal' + auth]
+						else
+							Plugin.nav.push ['company' + auth]
+				, ['重新认证', '取消']			
+				# navigator.notification.alert str, null, '驳回原因', '确定'			
 
 	render: ->
 		user = @props.user

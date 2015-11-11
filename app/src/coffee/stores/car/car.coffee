@@ -210,7 +210,8 @@ carDetail = (carId)->
 			_carDetail = _carDetail.set 'headerImage', data.imgurl
 			_carDetail = _carDetail.set 'carScore', data.carScore
 			_carDetail = _carDetail.set 'isinvoice', td.isinvoice
-
+			_carDetail = _carDetail.set 'mark', td.remark
+			
 			if td.status is 1
 				# 车辆详情是否显示编辑按钮
 				Plugin.nav.push ['carInfoEnable']

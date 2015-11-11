@@ -273,37 +273,49 @@ authStatusMap = (user, index, isCls)->
 authResMap = (user, index)->
 	if user.certification is 1 # 个人
 		if index is 1 # 仓库
-			return user.personalWarehouseCause
+			if user.personalWarehouseStatus is 2
+				return user.personalWarehouseCause
 		else if index is 2 # 货主
-			return user.personalGoodsCause
+			if user.personalGoodsStatus is 2
+				return user.personalGoodsCause
 		else if index is 3 # 车主		
-			return user.personalCarCause
+			if user.personalCarStatus is 2
+				return user.personalCarCause
 	else if user.certification is 2 # 企业
 		if index is 1 # 仓库
-			return user.enterpriseWarehouseCause
+			if user.enterpriseWarehouseStatus is 2
+				return user.enterpriseWarehouseCause
 		else if index is 2 # 货主
-			return user.enterpriseGoodsCause
+			if user.enterpriseGoodsStatus is 2
+				return user.enterpriseGoodsCause
 		else if index is 3 # 车主		
-			return user.enterpriseCarCause
+			if user.enterpriseCarStatus is 2
+				return user.enterpriseCarCause
 	else # 哎，都有可能
 		if index is 1 # 仓库
 			if isTrue user?.personalWarehouseStatus
-				return user.personalWarehouseCause
+				if user.personalWarehouseStatus is 2
+					return user.personalWarehouseCause
 			else 
-				return user.enterpriseWarehouseCause
+				if user.enterpriseWarehouseStatus is 2
+					return user.enterpriseWarehouseCause
 		else if index is 2 # 货主
 			if isTrue user?.personalGoodsStatus
-				return user.personalGoodsCause
+				if user.personalGoodsStatus is 2
+					return user.personalGoodsCause
 			else
-				return user.enterpriseGoodsCause
+				if user.enterpriseGoodsStatus is 2
+					return user.enterpriseGoodsCause
 		else if index is 3 # 车主
 			if isTrue user?.personalCarStatus
-				return user.personalCarCause
+				if user.personalCarStatus is 2
+					return user.personalCarCause
 			else
-				return user.enterpriseCarCause
+				if user.enterpriseCarStatus is 2
+					return user.enterpriseCarCause
 		
 
-module.exports = 
+module.exports = 			
 	carTypeMapper: carType 				# 车辆类型
 	carCategoryMapper: carCategory 		# 车辆类别
 	warehouseStatus: warehouseStatus 	#仓库状态
