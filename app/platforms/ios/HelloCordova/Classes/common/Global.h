@@ -13,11 +13,10 @@
 #import <UMengAnalytics-NO-IDFA/MobClick.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import "XELogFormatter.h"
-#import <MKNetworkKit/MKNetworkKit.h>
 #import "XEPlugin.h"
 #import <YwenKit/YwenKit.h>
 #import <BaiduMapAPI/BMapKit.h>
-#import <MKNetworkKit.h>
+#import <YwenNetworkit.h>
 
 
 
@@ -31,9 +30,11 @@
 
 //server: 'http://192.168.29.22:8072/'
 #if DEBUG
-#define SERVER @"http://192.168.26.177:7080/llmj-app/"
 
+#define SERVER @"http://192.168.26.177:7080/llmj-app/"
 //#define SERVER @"http://m.lenglianmajia.com/"
+
+
 //#define SERVER @"http://192.168.29.149:8072/"
 //#define SERVER @"http://192.168.29.210:8072/"
 //#define SERVER @"http://192.168.29.204:8072/"
@@ -143,7 +144,7 @@ typedef void(^GeoCB) (BMKGeoCodeResult *result);
 
 @property (weak, nonatomic) UIViewController *mapVC; //地图vc
 
-@property (strong, nonatomic) MKNetworkEngine *netEngine; 
+@property (strong, nonatomic) YwenNetworkit *netEngine;
 
 
 +(Global *) sharedInstance;

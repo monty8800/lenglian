@@ -132,7 +132,7 @@
                              @"rightLng": [NSString stringWithFormat:@"%f", rightTop.longitude],
                              @"rightLat": [NSString stringWithFormat:@"%f", rightTop.latitude],
                              };
-    [[Global sharedInstance].netEngine cancelAllOperations]; //取消之前的请求，避免根据tabindex进行switch，错误的数据会引发崩溃
+//    [[Global sharedInstance].netEngine ]; //取消之前的请求，避免根据tabindex进行switch，错误的数据会引发崩溃
     [Net post: api params: params cb:^(NSDictionary *responseDic) {
         DDLogDebug(@"result---- %@", responseDic);
         if ([[responseDic objectForKey:@"code"] isEqualToString:@"0000"]) {
