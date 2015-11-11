@@ -29,7 +29,6 @@
 
 #define TOKEN @"da971f8e9e024f579800cf20c146e6df"
 
-//server: 'http://192.168.29.22:8072/'
 #if DEBUG
 #define SERVER @"http://192.168.26.177:7080/llmj-app/"
 
