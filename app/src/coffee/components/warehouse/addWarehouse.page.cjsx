@@ -389,7 +389,7 @@ AddWarehouse = React.createClass {
 			<div className="m-releaseitem">
 				<div>
 					<label for="packType"><span>仓库名称</span></label>
-					<input type="text" className="input-weak" placeholder="仓库名" onChange=@warehouseNameValueChange />
+					<input type="text" className="input-weak" placeholder="仓库名称" onChange=@warehouseNameValueChange />
 				</div>
 				<div>
 					<label for="packType"><span>仓库地址</span></label>

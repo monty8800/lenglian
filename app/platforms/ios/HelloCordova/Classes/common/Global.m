@@ -35,7 +35,7 @@
         NSDictionary* infoDict =[[NSBundle mainBundle] infoDictionary];
         self.version =[infoDict objectForKey:@"CFBundleShortVersionString"];
         self.wwwVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefault_wwwVersion];
-        self.netEngine = [[MKNetworkEngine alloc] init];
+        self.netEngine = [[YwenNetworkit alloc] init];
     }
     return self;
 }

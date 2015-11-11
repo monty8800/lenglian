@@ -9,7 +9,7 @@ Car = Immutable.Record {
 	startPoint: '' # 起点
 	destination: '' # 目的地
 	carDesc: '' # 车辆描述
-
+	mark:''	#备注
 
 	# 我的车辆列表数据结构
 	carNo: '' # 车牌号

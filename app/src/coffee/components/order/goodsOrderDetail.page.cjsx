@@ -245,24 +245,28 @@ GoodsOrderDetail = React.createClass {
 
 		<div className="m-item01">
 			<div className="g-detail-dirver">
-				<div className="g-detail">					
-					<div onClick={@_toOnwerDetail} className="g-dirver-pic">
-						<XeImage src={@state.targetPic} size='130x130' type='avatar' />
-					</div>
-					<div className="g-dirver-msg">
-						<div className="g-dirver-name">
-							<span>{@state.target}</span><span className="g-dirname-single">{if parseInt(@state.targetAuth) is 1 then '(个体)' else '(公司)'}</span>
-						</div>
-						<div className="g-dirver-dis ll-font">
-							<Raty score={ @state.targetScore } />
-						</div>
+				{
+					if parseInt(@state.detail?.get('priceType')) is 1 or orderState isnt 1
+						<div className="g-detail">					
+							<div onClick={@_toOnwerDetail} className="g-dirver-pic">
+								<XeImage src={@state.targetPic} size='130x130' type='avatar' />
+							</div>
+							<div className="g-dirver-msg">
+								<div className="g-dirver-name">
+									<span>{@state.target}</span><span className="g-dirname-single">{if parseInt(@state.targetAuth) is 1 then '(个体)' else '(公司)'}</span>
+								</div>
+								<div className="g-dirver-dis ll-font">
+									<Raty score={ @state.targetScore } />
+								</div>
 
-					</div>
-					<ul className="g-driver-contact">
-						<li onClick={@_follow} className={"ll-font " + if @state.followed then '' else 'active'}>关注</li>
-						<li onClick={@_call.bind this, @state.targetMobile} className="ll-font">拨号</li>
-					</ul>
-				</div>
+							</div>
+							<ul className="g-driver-contact">
+								<li onClick={@_follow} className={"ll-font " + if @state.followed then '' else 'active'}>关注</li>
+								<li onClick={@_call.bind this, @state.targetMobile} className="ll-font">拨号</li>
+							</ul>
+						</div>
+				}
+
 			</div>
 
 			<div className="g-item g-adr-detail ll-font nopadding">			

@@ -1,6 +1,8 @@
 require 'components/common/common'
 
 require 'majia-style'
+require 'app-style'
+
 React = require 'react/addons'
 PureRenderMixin = React.addons.PureRenderMixin
 LinkedStateMixin = React.addons.LinkedStateMixin
@@ -143,6 +145,10 @@ WarehouseOrderDetail = React.createClass {
 		if parseInt(@state.orderDetail?.payType) is 3 and @state.orderDetail?.advance
 			_payTypeText = _payTypeText + @state.orderDetail?.advance + '元'
 
+		bottomClassName = "m-detail-info m-nomargin"
+		if parseInt(@state.orderDetail?.orderState) is 1 or parseInt(@state.orderDetail?.orderState) is 4
+			bottomClassName = "m-detail-info m-nomargin padding70"
+
 		<div>
 			<div className="m-orderdetail clearfix">
 				<p className="fl">订单号：<span>{ _transData?.orderNo }</span></p>
@@ -189,7 +195,7 @@ WarehouseOrderDetail = React.createClass {
 					</div>
 				</div>
 			</div>
-			<div className="m-detail-info m-nomargin">			
+			<div className={ bottomClassName }>
 				<p>
 					<span>发货人:</span>
 					<span onClick={ @_makePhoneCall.bind this, @state.orderDetail.shipperMobile } className="ll-font g-info-name">{ @state.orderDetail.shipper }</span>
