@@ -26,6 +26,7 @@ AuthStatus = React.createClass {
 			return Plugin.toast.show '有认证正在审核中，无法继续认证!' if unAuth
 
 		Auth.needLogin ->
+			str = ''
 			switch auth
 				when 'CarAuth'
 					index = 3
@@ -34,7 +35,8 @@ AuthStatus = React.createClass {
 				when 'GoodsAuth'
 					index = 2
 			str = Helper.authResMap user, index
-			if str is undefined
+			console.log '--------------str:', str
+			if str is undefined or str is '' or str is null
 				if user.certification is 0			
 					Plugin.nav.push ['auth']
 				else if user.certification is 1
@@ -42,11 +44,12 @@ AuthStatus = React.createClass {
 				else
 					Plugin.nav.push ['company' + auth]
 			else
-				Plugin.alert str, '驳回原因', (index)->
+				navigator.notification.alert str, null, '驳回原因', '确定'
+				# Plugin.alert str, '驳回原因', (index)->
 					# console.log 'click index', index
 					# if index is 1
 					# 	UserAction.logout()
-				, ['确定']				
+				# , ['确定']				
 
 	render: ->
 		user = @props.user
