@@ -105,6 +105,12 @@ OrderPay = React.createClass {
 			@setState {
 				user: UserStore.getUser()
 			}
+			setTimeout ->
+				PayAction.getPayInfo {
+					userId: UserStore.getUser()?.id
+					orderNo: transData?.orderNo
+				}
+			, 200
 		else if params is 'pay:success'
 			DB.put 'transData2', {
 				orderNo: transData?.orderNo
@@ -123,6 +129,8 @@ OrderPay = React.createClass {
 				payMode: 2
 				mobile: params.mobile
 			}
+
+
 
 	render : ->
 		console.log 'state---', @state

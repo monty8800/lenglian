@@ -14,6 +14,8 @@ Plugin = require 'util/plugin'
 PayStore = assign BaseStore, {
 }
 
+
+
 getPayInfo = (params)->
 	Http.post Constants.api.GET_PAY_INFO, params, (data)->
 		console.log 'get pay info result', data
