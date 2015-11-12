@@ -230,5 +230,3 @@ GoodsDetail = React.createClass {
 }
 
 React.render <GoodsDetail />,document.getElementById('content')
-
-
