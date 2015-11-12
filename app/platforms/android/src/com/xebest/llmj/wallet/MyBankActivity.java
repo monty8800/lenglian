@@ -11,6 +11,13 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
+import com.xebest.llmj.auth.AuthActivity;
+import com.xebest.llmj.auth.CompanyCarAuthActivity;
+import com.xebest.llmj.auth.CompanyGoodsAuthActivity;
+import com.xebest.llmj.auth.CompanyWareHouseAuthActivity;
+import com.xebest.llmj.auth.PersonalCarAuthActivity;
+import com.xebest.llmj.auth.PersonalGoodsAuthActivity;
+import com.xebest.llmj.auth.PersonalWareHouseAuthActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
@@ -62,6 +69,37 @@ public class MyBankActivity extends BaseCordovaActivity implements CordovaInterf
             String flag = args.getString(1);
             if (flag.equalsIgnoreCase("addBankCard")) {
                 AddBankActivity.actionView(this);
+            } else if (flag.equalsIgnoreCase("auth")) {
+                AuthActivity.actionView(getActivity());
+            }
+            // 个人车主认证
+            else if (flag.equalsIgnoreCase("personalCarAuth")) {
+                PersonalCarAuthActivity.actionView(MyBankActivity.this);
+            }
+
+            // 个人货主认证
+            else if (flag.equalsIgnoreCase("personalGoodsAuth")) {
+                PersonalGoodsAuthActivity.actionView(MyBankActivity.this);
+            }
+
+            // 个人仓库认证
+            else if (flag.equalsIgnoreCase("personalWarehouseAuth")) {
+                PersonalWareHouseAuthActivity.actionView(MyBankActivity.this);
+            }
+
+            // 公司车主认证
+            else if (flag.equalsIgnoreCase("companyCarAuth")) {
+                CompanyCarAuthActivity.actionView(MyBankActivity.this);
+            }
+
+            // 公司货主认证
+            else if (flag.equalsIgnoreCase("companyGoodsAuth")) {
+                CompanyGoodsAuthActivity.actionView(MyBankActivity.this);
+            }
+
+            // 公司仓库认证
+            else if (flag.equalsIgnoreCase("companyWarehouseAuth")) {
+                CompanyWareHouseAuthActivity.actionView(MyBankActivity.this);
             }
         }
 

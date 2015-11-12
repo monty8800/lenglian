@@ -188,7 +188,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     LoginActivity.actionView(MainActivity.this);
                     return;
                 }
-                orderCancel.setVisibility(View.VISIBLE);
+                orderCancel.setVisibility(View.GONE);
                 if (currentIndex == -1) {
                     showPopMenu(orderView);
                 } else {
