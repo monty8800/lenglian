@@ -34,11 +34,11 @@ PaySmsCode = React.createClass {
 		<div className="m-gray"></div>
 		<div className="m-payalert">
 			<div className="g-paycode">
-				<p>交易需要短信确认，认证码将发送至手机：<span>{user.mobile[0..2]}<span>****</span>{user.mobile[-4..]}</span></p>
+				<p>交易需要短信确认，认证码将发送至手机：<span>{@props.mobile[0..2]}<span>****</span>{@props.mobile[-4..]}</span></p>
 				<div className="g-payinput">
 					<input valueLink={@linkState 'smsCode'} type="number" className="g-codeinput fl"/>
 					<a className="g-paytime fr">
-						<SmsCode mobile={user.mobile} bankCard={@props.bankCard} styleType='pay' type={Constants.smsType.payOrder} />
+						<SmsCode mobile={@props.mobile} bankCard={@props.bankCard} styleType='pay' type={Constants.smsType.payOrder} />
 					</a>
 				</div>
 			</div>

@@ -31,10 +31,11 @@ payNoti = (smsCode)->
 		smsCode: smsCode
 	}
 
-selectPayCard = (cardId)->
+selectPayCard = (card)->
 	PayStore.emitChange {
 		msg: 'select:card'
-		cardId: cardId
+		cardId: card.id
+		mobile: card.bankMobile
 	}
 
 doPay = (params)->
@@ -66,7 +67,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.HIDE_PAY_SMS then hidePaySms()
 		when Constants.actionType.PAY_NOTI then payNoti(action.smsCode)
 		when Constants.actionType.DO_PAY then doPay(action.params)
-		when Constants.actionType.SELECT_PAY_CARD then selectPayCard(action.cardId)
+		when Constants.actionType.SELECT_PAY_CARD then selectPayCard(action.card)
 
 
 module.exports = PayStore

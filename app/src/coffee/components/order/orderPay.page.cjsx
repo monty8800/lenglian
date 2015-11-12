@@ -121,6 +121,7 @@ OrderPay = React.createClass {
 			@setState {
 				bankCard: params.cardId
 				payMode: 2
+				mobile: params.mobile
 			}
 
 	render : ->
@@ -165,7 +166,7 @@ OrderPay = React.createClass {
 		
 		{
 			if @state.showSms
-				<PaySmsCode  bankCard={@state.bankCard} />
+				<PaySmsCode  bankCard={@state.bankCard} mobile={@state.mobile} />
 		}	
 		</section>
 }

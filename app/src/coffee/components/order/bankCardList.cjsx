@@ -7,8 +7,8 @@ UserStore = require 'stores/user/user'
 Auth = require 'util/auth'
 
 BankCardList = React.createClass {
-	_select: (cardId)->
-		PayAction.selectCard cardId
+	_select: (card)->
+		PayAction.selectCard card
 
 	_addNewCard: ->
 		user = UserStore.getUser()
@@ -18,7 +18,7 @@ BankCardList = React.createClass {
 			Auth.needAuth 'any','您尚未进行任何角色的认证，请认证后再绑定银行卡'
 	render: ->
 		cardList = @props.bankCardList?.map (card, i)->
-			<div className="g-bankList" onClick={@_select.bind this, card.id}>
+			<div className="g-bankList" onClick={@_select.bind this, card}>
 				<p className={"g-bank01 ll-font" + if @props.selected is card.id then ' active' else ''}>
 					<span>{card.blankName}</span>
 					<span className="font24">{'信用卡' + '(尾号' + card.cardNo + ')'}</span>
