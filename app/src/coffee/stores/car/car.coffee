@@ -15,6 +15,8 @@ _user = UserStore.getUser()
 
 _car = new Car
 
+_carSourceDetail = Immutable.Map()
+
 _carList = Immutable.List()
 
 _freeCarList = Immutable.List()
@@ -505,7 +507,11 @@ searchCarList = (params)->
 				_foundCarList = _foundCarList.push tempCar
 		CarStore.emitChange ['found_car']
 	, (data) ->
-		Plugin.toast.err data.msg	
+		Plugin.toast.err data.msg
+
+carSourceDetail = (params)->
+	Http.post Constants.api.CAR_SOURCE_DETAIL, params, (data)->
+
 
 CarStore = assign BaseStore, {
 
@@ -558,5 +564,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.INVST then invSt(action.params)
 		when Constants.actionType.INVNOTST then invNotSt(action.params)
 		when Constants.actionType.SEARCH_CAR then searchCarList(action.params)
+		when Constants.actionType.CAR_SOURCE_DETAIL then carSourceDetail(action.params)
 
 module.exports = CarStore

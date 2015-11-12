@@ -176,6 +176,8 @@ actionType = {
 	PRESENT_RECORD: null
 	SEARCH_CAR: null
 
+	CAR_SOURCE_DETAIL: null
+
 }
 
 								
@@ -269,6 +271,9 @@ api = {
 
 	#提现
 	WITHDRAW: '/mjTransferCtl/transferCash.shtml'
+
+	#车源信息
+	CAR_SOURCE_DETAIL: '/mjCarinfoCtl/queryMjCarResource.shtml'
 
 #YYQ
 	# 查询我的仓库

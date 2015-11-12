@@ -41,6 +41,7 @@ Car = Immutable.Record {
 	headerImage:null
 
 	isinvoice: null
+
 }
 
 module.exports = Car

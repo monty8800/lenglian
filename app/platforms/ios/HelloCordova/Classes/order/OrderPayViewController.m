@@ -40,6 +40,7 @@
 //    [self.commandDelegate evalJs:@"(function(){window.updateStore()})()"];
 }
 
+
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
     if ([params[0] integerValue] == 1) {
@@ -53,6 +54,10 @@
             [self.navigationController pushViewController:successVC animated:YES];
         }
     }
+}
+
+-(void)navBack {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

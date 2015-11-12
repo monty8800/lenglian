@@ -230,6 +230,12 @@ carBidGoods = (params)->
 		# 	Plugin.toast.err data.msg
 	, true
 
+goPay = (orderNo)->
+	DB.put 'transDataPay', {
+		orderNo: orderNo
+	}
+	Plugin.nav.push ['orderPay']
+
 selectBidCar = (params, orderId)->
 	Http.post Constants.api.SELECT_BID_CAR, params, (data)->
 		Plugin.toast.success '接受订单成功！'
@@ -241,6 +247,9 @@ selectBidCar = (params, orderId)->
 
 		console.log '_orderList after', _orderList
 		OrderStore.emitChange ['goods']
+
+		if _htmlPage in ['orderList.html', 'goodsOrderDetail.html']
+			goPay orderId
 
 goodsAgree = (params, orderId)->
 	Http.post Constants.api.ORDER_GOODS_AGREE, params, (data)->
@@ -256,6 +265,10 @@ goodsAgree = (params, orderId)->
 			DB.put 'transData', {
 				del: orderId
 			}
+
+		if _htmlPage in ['orderList.html', 'goodsOrderDetail.html']
+			goPay orderId
+		else
 			Plugin.nav.pop()
 
 orderGoodsFinish = (params, orderId)->

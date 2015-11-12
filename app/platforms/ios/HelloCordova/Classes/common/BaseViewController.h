@@ -9,11 +9,14 @@
 #import "XEViewController.h"
 #import "Global.h"
 
+
 @interface BaseViewController : XEViewController
 {
     UILabel *_titleLabel;
     
     NSInteger _navDeepth;
 }
+
+-(void) navBack;
 
 @end

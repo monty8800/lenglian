@@ -146,8 +146,9 @@ GoodsOrderDetail = React.createClass {
 
 	_toOnwerDetail:-> 
 		if @state.isGC	#carId dUserId carNo carStatus
-			DB.put 'transData', [@state.id, @state.targetId, @state.ordeNo]
-			Plugin.nav.push ['carOnwerDetail']
+			DB.put 'transData', [@state.id, @state.targetId, @state.ordeNo, @state.sourceId]
+			# Plugin.nav.push ['carOnwerDetail']
+			Plugin.nav.push ['carSourceDetail']
 		else
 			DB.put 'transData', {orderId:@state.ordeNo,warehouseId:@state.id,focusid:@state.targetId }
 			Plugin.nav.push ['warehouseOnwerDetail']
@@ -171,6 +172,7 @@ GoodsOrderDetail = React.createClass {
 				detail: params.detail
 				isGC: isGC
 				id:if isGC then params.detail.get('carId') else params.detail.get('warehouseId')
+				sourceId: params.detail.get(if isGC then 'carSourceId' else 'warehouseSourceId')
 				ordeNo : params.detail?.get('orderNo')
 				target: if isGC then params.detail.get('carUserName') else params.detail.get('warehouseUserName')
 				targetId: if isGC then params.detail.get('carUserId') else params.detail.get('warehouseUserId')

@@ -68,6 +68,7 @@
 		4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523351BB6A229008205E3 /* SelectAddressViewController.m */; };
 		4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523391BB6B16D008205E3 /* AddGoodsViewController.m */; };
 		4C946F3A1BCBFD4B0042444D /* DoCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C946F391BCBFD4B0042444D /* DoCommentViewController.m */; };
+		4CA930EF1BF4436200CD5462 /* CarSourceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA930EE1BF4436200CD5462 /* CarSourceDetailViewController.m */; };
 		4CA94EB31BCCF1EC00694178 /* OrderCancelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA94EB21BCCF1EC00694178 /* OrderCancelListViewController.m */; };
 		4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */; };
 		4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020E1BB3FE8B002A0A5C /* BaseAuthViewController.m */; };
@@ -274,6 +275,8 @@
 		4C946F391BCBFD4B0042444D /* DoCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoCommentViewController.m; sourceTree = "<group>"; };
 		4C9A184B1BB680710072F940 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationViewController.h; path = map/LocationViewController.h; sourceTree = "<group>"; };
 		4C9A184C1BB680710072F940 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationViewController.m; path = map/LocationViewController.m; sourceTree = "<group>"; };
+		4CA930ED1BF4436200CD5462 /* CarSourceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarSourceDetailViewController.h; path = car/CarSourceDetailViewController.h; sourceTree = "<group>"; };
+		4CA930EE1BF4436200CD5462 /* CarSourceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarSourceDetailViewController.m; path = car/CarSourceDetailViewController.m; sourceTree = "<group>"; };
 		4CA94EB11BCCF1EC00694178 /* OrderCancelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderCancelListViewController.h; path = order/OrderCancelListViewController.h; sourceTree = "<group>"; };
 		4CA94EB21BCCF1EC00694178 /* OrderCancelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderCancelListViewController.m; path = order/OrderCancelListViewController.m; sourceTree = "<group>"; };
 		4CAB020A1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalGoodsAuthViewController.h; path = auth/PersonalGoodsAuthViewController.h; sourceTree = "<group>"; };
@@ -689,6 +692,8 @@
 			children = (
 				4C822F601BB1354700112533 /* CarListViewController.h */,
 				4C822F611BB1354700112533 /* CarListViewController.m */,
+				4CA930ED1BF4436200CD5462 /* CarSourceDetailViewController.h */,
+				4CA930EE1BF4436200CD5462 /* CarSourceDetailViewController.m */,
 				5BDFC3821BBFBDD000712DBB /* CarDetailViewController.h */,
 				5BDFC3831BBFBDD000712DBB /* CarDetailViewController.m */,
 				5B69AE821BBD116000A14101 /* AddCarViewController.h */,
@@ -1020,7 +1025,6 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				46784D3F004139CECED40842 /* Copy Pods Resources */,
 				4C59DE4D1B5E81290063D9CE /* ShellScript */,
-				2EE5032169544D9745E37B5A /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1136,21 +1140,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		2EE5032169544D9745E37B5A /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		304B58A110DAC018002A0835 /* Copy www directory */ = {
@@ -1273,6 +1262,7 @@
 				4CD14ACB1BBE9189009FFF0C /* InfoTableViewCell.m in Sources */,
 				4CB11F5E1BCAA355002280B2 /* GoodsOrderDetailViewController.m in Sources */,
 				98E34A78F1384916B5B36C72 /* CDVNotification.m in Sources */,
+				4CA930EF1BF4436200CD5462 /* CarSourceDetailViewController.m in Sources */,
 				4CE2FFF01BC0C83900935C9F /* SelectGoodsTableViewCell.m in Sources */,
 				4C6584201BBE2BC1005FEB16 /* FromToTableViewCell.m in Sources */,
 				4C3353ED1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m in Sources */,

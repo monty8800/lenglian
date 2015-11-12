@@ -180,8 +180,13 @@ CarAction = {
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.INVNOTST
 			params: params
-		}		
+		}
 
+	carSourceDetail: (params)->	
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CAR_SOURCE_DETAIL
+			params: params
+		}
 }
 
 module.exports = CarAction

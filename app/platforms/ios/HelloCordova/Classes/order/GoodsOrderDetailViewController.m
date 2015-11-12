@@ -11,6 +11,8 @@
 #import "DoCommentViewController.h"
 #import "CarOwnerDetailViewController.h"
 #import "SearchWarehouseDetailViewController.h"
+#import "CarSourceDetailViewController.h"
+
 @interface GoodsOrderDetailViewController ()
 
 @end
@@ -60,6 +62,12 @@
             SearchWarehouseDetailViewController *warehouseOwnerDetailVC = [SearchWarehouseDetailViewController new];
             [self.navigationController pushViewController:warehouseOwnerDetailVC animated:YES];
         }
+        else if ([params[1] isEqualToString:@"carSourceDetail"])
+        {
+            CarSourceDetailViewController *carSourceVC = [CarSourceDetailViewController new];
+            [self.navigationController pushViewController:carSourceVC animated:YES];
+        }
+        
     }
 }
 
