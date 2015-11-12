@@ -511,6 +511,8 @@ searchCarList = (params)->
 
 carSourceDetail = (params)->
 	Http.post Constants.api.CAR_SOURCE_DETAIL, params, (data)->
+		_carSourceDetail = Immutable.Map data
+		CarStore.emitChange 'car:source:detail:done'
 
 
 CarStore = assign BaseStore, {
@@ -526,6 +528,9 @@ CarStore = assign BaseStore, {
 
 	getFreeCar: ->
 		_freeCarList
+
+	getCarSourceDetail: ->
+		_carSourceDetail
 
 	getOrderSelectCarList: ->
 		_orderSelectCarList

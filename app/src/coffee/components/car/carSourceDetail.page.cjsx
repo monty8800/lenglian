@@ -25,7 +25,7 @@ carId = _detailParams[0]
 dUserId = _detailParams[1]
 carNo = _detailParams[2]
 carStatus = _detailParams[3]
-carSourceId = _detailParams[4]
+carSourceId = _detailParams[3]
 Auth = require 'util/auth'
 
 Detail = React.createClass {
@@ -54,7 +54,7 @@ Detail = React.createClass {
 			wishlst: false
 			score: 0
 			isInit: true
-			carDetail: CarStore.getCarSourceDetail()
+			# carDetail: CarStore.getCarSourceDetail()
 			hideFallow:true
 		}
 
@@ -68,14 +68,15 @@ Detail = React.createClass {
 		CarStore.removeChangeListener @_onChange
 
 	_onChange: (params)->
-		if params[0] is 'car:source:detail:done'
+		console.log 'event change', params
+		if params is 'car:source:detail:done'
 			carInfo = CarStore.getCarSourceDetail()
 			@setState {
-				score: carInfo.carScore
-				wishlst: carInfo.wishlst
+				score: carInfo?.get('carScore')
+				wishlst: carInfo?.get('wishlst')
 				carDetail: carInfo
 				isInit: false
-				hideFallow: carInfo.userId is _user.id
+				hideFallow: carInfo?.get('carResource')?['car']?['userId'] is _user.id
 			}
 		else if params[0] is 'attention_success'
 			@setState {
@@ -104,20 +105,21 @@ Detail = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	render: ->
 		detail = @state.carDetail
+		console.log 'detail----', detail
 		<div>
 			<div className="m-orderdetail clearfix" style={{display: if carNo is undefined then 'none' else 'block'}}>
 				<p className="fl">订单号：<span>{carNo}</span></p>
-				<p className="fr">{carStatus}</p>
+				<p className="fr">{Helper.navStatus detail?.get('carResource')?['car']?['status']}</p>
 			</div>
 			<div className="m-item01">
 				<div className="g-detail-dirver g-det-pad0">
 					<div className="g-detail">					
 						<div className="g-dirver-pic">
-							<XeImage src={detail?.headerImage} size='130x130' type='avatar' />
+							<XeImage src={detail?.get('imgurl')} size='130x130' type='avatar' />
 						</div>	
 						<div className="g-dirver-msg">
 							<div className="g-dirver-name">
-								<span>{detail.name}</span><span className="g-dirname-single">{if detail.certificationis is '1' then '(个体)' else if detail.certificationis is '2' then '(企业 )'}</span>
+								<span>{detail?.get('name')}</span><span className="g-dirname-single">{if detail?.get('certification') is '1' then '(个体)' else if detail?.get('certification') is '2' then '(企业 )'}</span>
 							</div>
 							<div className="g-dirver-dis ll-font">
 								{
@@ -134,39 +136,39 @@ Detail = React.createClass {
 			</div>
 			<div className="m-item01">
 				<div className="g-pro-p">
-					<p className="g-pro-name">车牌号码: <span>{detail?.get('car')['carno']}</span></p>
-					<p className="g-pro-name">车辆类型: <span>{Helper.carTypeMapper detail?.get('car')['type']}</span></p>
+					<p className="g-pro-name">车牌号码: <span>{detail?.get('carResource')?['car']?['carno']}</span></p>
+					<p className="g-pro-name">车辆类型: <span>{Helper.carTypeMapper detail?.get('carResource')?['car']?['type']}</span></p>
 				</div>
 				<div className="g-pro-detail clearfix">
 					<div className="g-pro-pic fl">
-						<XeImage src={detail?.get('car')['imgurl']} size=Constants.carPicSize />
+						<XeImage src={detail?.get('carResource')?['car']?['imgurl']} size=Constants.carPicSize />
 					</div>
 					<div className="g-pro-text fl">
-						<p>车辆类别: <span>{Helper.carCategoryMapper detail?.get('car')['category']}</span></p>
-						<p>可载重货: <span>{Helper.goodsWeight detail?.get('car')['heavy']}</span></p>
-						<p>可载泡货: <span>{ if detail?.get('car')['bulky'] is '' then '' else detail?.get('car')['bulky'] + '方'}</span></p>
-						<p>车辆长度: <span>{Helper.carVehicle detail?.get('car')['carVehicle']}</span></p>
+						<p>车辆类别: <span>{Helper.carCategoryMapper detail?.get('carResource')?['car']?['category']}</span></p>
+						<p>可载重货: <span>{Helper.goodsWeight detail?.get('carResource')?['car']?['heavy']}</span></p>
+						<p>可载泡货: <span>{ if detail?.get('carResource')?['car']?['bulky'] is '' then '' else detail?.get('carResource')?['car']?['bulky'] + '方'}</span></p>
+						<p>车辆长度: <span>{Helper.carVehicle detail?.get('carResource')?['car']?['carVehicle']}</span></p>
 					</div>
 				</div>
 			</div>
 			<div className="m-detail-info m-nomargin">
 				<p>
 					<span>司机姓名:</span>
-					<span>{detail?.get('car')['driver']}</span>
+					<span>{detail?.get('carResource')['car']?['driver']}</span>
 				</p>
 				<p>	
 					<span>联系电话:</span>
-					<span>{ if parseInt(UserStore.getUser()?.certification) is 0 then '认证后可见' else detail?.mobile }</span>
+					<span>{ if parseInt(UserStore.getUser()?.certification) is 0 then '认证后可见' else detail?.get('carResource')?['car']?['phone'] }</span>
 				</p>
 				<p>
 					<span>需要发票:</span>
-					<span>{Helper.isInvoinceMap detail?.get('isinvoice')}</span>
+					<span>{Helper.isInvoinceMap detail?.get('carResource')?('isinvoice')}</span>
 				</p>
 				{
-					if detail?.remark
+					if detail?.get('carResource')?['remark']
 						<p>
 							<span>备注:</span>
-							<span>{detail?.get('remark')}</span>
+							<span>{detail?.get('carResource')?['remark']}</span>
 						</p>
 				}
 			
