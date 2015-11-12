@@ -68,6 +68,8 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
 
     private XListView mListView;
 
+    private static int mFlag = -1;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -118,6 +120,7 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
+        Log.i("info", "----------" + flag);
         if (flag.equalsIgnoreCase("select:car")) {
             // true 抢单  false竞价
             isBidding = args.getBoolean(3);
@@ -128,7 +131,7 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
         } else if (flag.equalsIgnoreCase("login")) {
             LoginActivity.actionView(SearchGoodsDetailActivity.this);
         } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
-            SearchGoodsDetailActivity.actionView(this);
+//            SearchGoodsDetailActivity.actionView(this);
         }
 
         // 未认证
