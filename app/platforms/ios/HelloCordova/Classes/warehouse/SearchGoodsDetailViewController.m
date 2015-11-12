@@ -45,6 +45,11 @@
             [SelectGoodsWidget show:self goods:params[2] type:Cars];
             _bid = [params[3] boolValue];
         }
+        else if ([params[1] isEqualToString:@"select:warehouse"])
+        {
+            [SelectGoodsWidget show:self goods:params[2] type:Warehouses];
+            _bid = [params[3] boolValue];
+        }
     }
     else if ([params[0] integerValue] == 1)
     {
