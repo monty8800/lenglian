@@ -42,6 +42,7 @@ CarFindGoodsCell = React.createClass {
 			DB.put 'transData', {
 				goodsId: _id
 				focusid: _focusid
+				flag: 'car'
 			}
 			Plugin.nav.push ['searchGoodsDetail']
 

@@ -136,15 +136,15 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请输入正确的预付款， 最多两位小数，最大不超过9999999'
 		# else if @state.payType is 3 and parseFloat(@state.prePay) > parseFloat(@state.price)
 		# 	Plugin.toast.err '预付款金额不能大于'
-		else if not Validator.name @state.sender
+		else if not (Validator.name @state.sender) or not @state.sender 
 			Plugin.toast.err '发货人姓名不正确'
-		else if not Validator.mobile @state.senderMobile
+		else if not Validator.mobile @state.senderMobile 
 			Plugin.toast.err '发货人手机号不正确'
-		else if not Validator.name @state.reciver
+		else if not (Validator.name @state.reciver) or not @state.reciver 
 			Plugin.toast.err '收货人姓名不正确'
 		else if not Validator.mobile @state.reciverMobile
 			Plugin.toast.err '收货人手机号不正确'
-		else if @state.remark?.length > 0 and not Validator.remark @state.remark
+		else if @state.remark?.length > 30
 			Plugin.toast.err '备注信息不能多于30个字符'
 		else
 			files = []

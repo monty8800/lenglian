@@ -91,10 +91,11 @@ GoodsDetail = React.createClass {
 				window.location.href = 'tel:' + phone
 	_showWidget: (e)->
 		goods = @state.goodsDetail
+		flag = _transData.flag
 		Auth.needLogin ->
-			Auth.needAuth 'car',->
+			Auth.needAuth flag,->
 				return Plugin.toast.err '不能选择自己的货源哦' if goods.userId is UserStore.getUser()?.id
-				Plugin.run [3, 'select:car', goods.id, if parseInt(goods.priceType) isnt 1 then true else false]
+				Plugin.run [3, 'select:' + flag, goods.id, if parseInt(goods.priceType) isnt 1 then true else false]
 		e.stopPropagation()
 
 	render : ->
@@ -229,5 +230,3 @@ GoodsDetail = React.createClass {
 }
 
 React.render <GoodsDetail />,document.getElementById('content')
-
-

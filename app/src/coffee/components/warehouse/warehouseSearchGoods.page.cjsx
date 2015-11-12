@@ -92,7 +92,7 @@ WarehouseSearchGoods = React.createClass {
 
 	_resultItemClick:(aResult)->
 		Auth.needLogin ->
-			DB.put 'transData',{goodsId:aResult.id,focusid:aResult.userId}
+			DB.put 'transData',{goodsId:aResult.id, focusid:aResult.userId, flag: 'warehouse'}
 			Plugin.nav.push ['searchGoodsDetail']
 
 	_bindGoodsCreateOrder:(aResult,e)->

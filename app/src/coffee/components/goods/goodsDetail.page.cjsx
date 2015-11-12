@@ -170,10 +170,13 @@ GoodsDetail = React.createClass {
 					<span>发票:</span>
 					<span>{ Helper.invoiceStatus @state.goodsDetail.invoice }</span>
 				</p>
-				<p>
-					<span>备注:</span>
-					<span>{ @state.goodsDetail.remark }</span>
-				</p>			
+				{
+					if @state.goodsDetail.remark
+						<p>
+							<span>备注:</span>
+							<span>{ @state.goodsDetail.remark }</span>
+						</p>	
+				}
 			</div>
 			{
 				if parseInt(@state.goodsDetail.resourceStatus) is 1

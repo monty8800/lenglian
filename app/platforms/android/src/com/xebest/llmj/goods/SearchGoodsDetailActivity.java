@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.GoodsAdapter;
+import com.xebest.llmj.adapter.WareHouseAdapter;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.auth.AuthActivity;
@@ -28,6 +29,7 @@ import com.xebest.llmj.auth.PersonalWareHouseAuthActivity;
 import com.xebest.llmj.center.LoginActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.llmj.model.Goods;
+import com.xebest.llmj.model.WareHouseInfo;
 import com.xebest.llmj.utils.Tools;
 import com.xebest.llmj.utils.UploadFile;
 import com.xebest.llmj.widget.XListView;
@@ -40,6 +42,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +70,10 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
     private Dialog mDialog;
 
     private XListView mListView;
+
+    private List<WareHouseInfo> carList = new ArrayList<WareHouseInfo>();
+
+    private WareHouseAdapter carAdapter;
 
     /**
      * 活跃当前窗口
@@ -118,22 +125,26 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
+        Log.i("info", "----------" + flag);
         if (flag.equalsIgnoreCase("select:car")) {
             // true 抢单  false竞价
             isBidding = args.getBoolean(3);
             goodsId = args.getString(2);
             new CarResourceTask().execute();
+        } else if (flag.equalsIgnoreCase("select:warehouse")) {
+            goodsId = args.getString(2);
+            new GoodsFoundCar().execute();
         } else if (flag.equals("carBidGoods")) {
             BiddingActivity.actionView(SearchGoodsDetailActivity.this, "", "");
         } else if (flag.equalsIgnoreCase("login")) {
             LoginActivity.actionView(SearchGoodsDetailActivity.this);
         } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
-            SearchGoodsDetailActivity.actionView(this);
+//            SearchGoodsDetailActivity.actionView(this);
         }
 
         // 未认证
         else if (flag.equalsIgnoreCase("auth")) {
-            AuthActivity.actionView(getActivity());
+            AuthActivity.actionView(this);
         }
         // 个人车主认证
         else if (flag.equalsIgnoreCase("personalCarAuth")) {
@@ -208,7 +219,7 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Tools.createLoadingDialog(getActivity(), "加载中...");
+            Tools.createLoadingDialog(SearchGoodsDetailActivity.this, "加载中...");
         }
 
         @Override
@@ -247,11 +258,11 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
     }
 
     public void showDialogGoods(final List<Goods> list) {
-        mDialog = Tools.getCustomDialogBg(getActivity(), R.layout.near_lv_dialog,
+        mDialog = Tools.getCustomDialogBg(this, R.layout.near_lv_dialog,
                 new Tools.BindEventView() {
                     @Override
                     public void bindEvent(final View view) {
-                        getActivity().runOnUiThread(new Runnable() {
+                        SearchGoodsDetailActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 mListView = (XListView) view.findViewById(R.id.xlv);
@@ -274,7 +285,7 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
                                 }
 
                                 // 货
-                                GoodsAdapter adapter = new GoodsAdapter(getActivity());
+                                GoodsAdapter adapter = new GoodsAdapter(SearchGoodsDetailActivity.this);
                                 mListView.setAdapter(adapter);
                                 // 车
                                 adapter.addData(list);
@@ -307,7 +318,7 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Tools.createLoadingDialog(getActivity(), "提交中...");
+            Tools.createLoadingDialog(SearchGoodsDetailActivity.this, "提交中...");
         }
 
         @Override
@@ -328,9 +339,9 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
                     String code = jsonObject.getString("code");
                     if (code.equals("0000")) {
                         finish();
-                        Tools.showSuccessToast(getActivity(), "下单成功");
+                        Tools.showSuccessToast(SearchGoodsDetailActivity.this, "下单成功");
                     } else {
-                        Tools.showErrorToast(getActivity(), jsonObject.getString("msg"));
+                        Tools.showErrorToast(SearchGoodsDetailActivity.this, jsonObject.getString("msg"));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -339,6 +350,155 @@ public class SearchGoodsDetailActivity extends BaseCordovaActivity implements Co
             }
         }
 
+    }
+
+    /**
+     * 仓库列表
+     */
+    public class GoodsFoundCar extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Tools.createLoadingDialog(SearchGoodsDetailActivity.this, "正在加载...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("userId", Application.getInstance().userId);
+//            map.put("resourceStatus", "1");
+            map.put("pageNow", "1");
+            map.put("pageSize", "100");
+            map.put("status", "2");
+//            map.put("priceType", "1");
+//            map.put("coldStoreFlag", "1");
+            return UploadFile.postWithJsonString(ApiUtils.my_warehouse, new Gson().toJson(map));
+//            return UploadFile.postWithJsonString(ApiUtils.STORE_LIST, new Gson().toJson(map));
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Tools.dismissLoading();
+            if (s != null && s != "") {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    if (jsonObject.getString("code").equals("0000")) {
+                        String data = jsonObject.getString("data");
+                        String str = new JSONObject(data).getString("myWarehouse");
+                        List<WareHouseInfo> list = JSON.parseArray(str, WareHouseInfo.class);
+                        carList.addAll(list);
+                        if (list.size() == 0) {
+                            Tools.showErrorToast(SearchGoodsDetailActivity.this, "还没发布库源哦");
+                            return;
+                        }
+                        showDialog(list);
+                    } else {
+                        Tools.showErrorToast(SearchGoodsDetailActivity.this, jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 货源、车源、库源列表
+     */
+    public void showDialog(final List<WareHouseInfo> list) {
+        mDialog = Tools.getCustomDialogBg(SearchGoodsDetailActivity.this, R.layout.near_lv_dialog,
+                new Tools.BindEventView() {
+                    @Override
+                    public void bindEvent(final View view) {
+                        SearchGoodsDetailActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mListView = (XListView) view.findViewById(R.id.xlv);
+                                mListView.setPullRefreshEnable(false);
+                                mListView.setXListViewListener(new XListView.IXListViewListener() {
+                                    @Override
+                                    public void onRefresh() {
+
+                                    }
+
+                                    @Override
+                                    public void onLoadMore() {
+
+                                    }
+                                });
+                                if (list.size() < 10) {
+                                    mListView.setPullLoadEnable(false);
+                                } else {
+                                    mListView.setPullLoadEnable(false);
+                                }
+                                carAdapter = new WareHouseAdapter(SearchGoodsDetailActivity.this);
+                                mListView.setAdapter(carAdapter);
+                                // 车
+                                carAdapter.addData(list);
+                                carAdapter.notifyDataSetChanged();
+
+                                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        String warehouseId = carList.get(position - 1).getMjWarehouseResourceId();
+                                        new CarFoundGoodsTask().execute(warehouseId);
+                                        mDialog.dismiss();
+                                    }
+                                });
+
+                            }
+                        });
+
+                    }
+                });
+
+
+    }
+
+    /**
+     * 车找货下单
+     */
+    public class CarFoundGoodsTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Tools.createLoadingDialog(SearchGoodsDetailActivity.this, "正在提交...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Map<String, String> map = new HashMap<String, String>();
+//            map.put("goodsUserId", Application.getInstance().userId);
+//            map.put("goodsResouseId", params[0]);
+//            map.put("carResouseId", wareHouseId);
+            map.put("userId", Application.getInstance().userId);
+            map.put("warehouseId", params[0]);
+            map.put("orderGoodsId", goodsId);
+//            return UploadFile.postWithJsonString(ApiUtils.goods_found_car, new Gson().toJson(map));
+            return UploadFile.postWithJsonString(ApiUtils.store_found_goods, new Gson().toJson(map));
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s != null && s != "") {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String code = jsonObject.getString("code");
+                    if (code.equals("0000")) {
+                        Tools.showSuccessToast(SearchGoodsDetailActivity.this, "下单成功");
+                    } else {
+                        Tools.showErrorToast(SearchGoodsDetailActivity.this, jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            Tools.dismissLoading();
+        }
     }
 
 }
