@@ -112,7 +112,7 @@ Detail = React.createClass {
 				<p className="fr">{Helper.navStatus detail?.get('carResource')?['car']?['status']}</p>
 			</div>
 			<div className="m-item01">
-				<div className="g-detail-dirver g-det-pad0">
+				<div className="g-detail-dirver">
 					<div className="g-detail">					
 						<div className="g-dirver-pic">
 							<XeImage src={detail?.get('imgurl')} size='130x130' type='avatar' />
@@ -132,6 +132,17 @@ Detail = React.createClass {
 							<li className={if @state.wishlst is true then "ll-font" else 'll-font active'}>关注</li>
 						</ul>
 					</div>
+				</div>
+
+				<div className="g-item g-adr-detail ll-font nopadding">			
+					<div className="g-adr-start ll-font g-adr-start-line">
+						<em>{detail?.get('carResource')?['toProvinceName'] + detail?.get('carResource')?['toCityName'] + detail?.get('carResource')?['toAreaName'] + detail?.get('carResource')?['toStreet'] }</em>
+						<span></span>
+					</div>
+					<div className="g-adr-end ll-font g-adr-end-line">
+						<em>{detail?.get('carResource')?['fromProvinceName'] + detail?.get('carResource')?['fromCityName'] + detail?.get('carResource')?['fromAreaName'] + detail?.get('carResource')?['fromStreet'] }</em>
+						<span></span>
+					</div>	
 				</div>
 			</div>
 			<div className="m-item01">
