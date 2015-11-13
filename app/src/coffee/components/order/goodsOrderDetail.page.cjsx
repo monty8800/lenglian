@@ -273,7 +273,7 @@ GoodsOrderDetail = React.createClass {
 
 			<div className="g-item g-adr-detail ll-font nopadding">			
 				<div className="g-adr-start ll-font g-adr-start-line">
-					<em>{@state.detail?.get('toProvinceName') + @state.detail?.get('toCityName') + @state.detail?.get('toCountyName') + toColdFlag}</em>
+					<em>{@state.detail?.get('toProvinceName') + @state.detail?.get('toCityName') + @state.detail?.get('toCountyName') + @state.detail?.get('toStreet') + toColdFlag}</em>
 					<span></span>
 				</div>
 				{
@@ -281,7 +281,7 @@ GoodsOrderDetail = React.createClass {
 						<GoodsRouteList list={@state.goodsRouteList.split ','} />
 				}
 				<div className="g-adr-end ll-font g-adr-end-line">
-					<em>{@state.detail?.get('fromProvinceName') + @state.detail?.get('fromCityName') + @state.detail?.get('fromCountyName') + fromColdFlag}</em>
+					<em>{@state.detail?.get('fromProvinceName') + @state.detail?.get('fromCityName') + @state.detail?.get('fromCountyName') + @state.detail?.get('fromStreet') + fromColdFlag}</em>
 					<span></span>
 				</div>	
 			</div>

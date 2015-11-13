@@ -400,6 +400,8 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId, orderCarId)-
 		_orderDetail = _orderDetail.set 'goodsCubic', temp.goodsCubic
 		_orderDetail = _orderDetail.set 'goodsRouteList', temp.goodsRouteList
 		_orderDetail = _orderDetail.set 'goodsRemark', temp.goodsRemark
+		_orderDetail = _orderDetail.set 'goodsFromStreet', temp.goodsFromStreet
+		_orderDetail = _orderDetail.set 'goodsToStreet', temp.goodsToStreet
 
 		OrderStore.emitChange ['car_owner_order_detail']		
 	, (data)->
