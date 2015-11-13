@@ -8,14 +8,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
-import com.xebest.llmj.car.CarOwnerDetailActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
-import com.xebest.llmj.goods.SearchGoodsDetailActivity;
-import com.xebest.llmj.ware.SearchWarehouseDetailActivity;
-import com.xebest.llmj.ware.WarehouseOnwerDetailActivity;
 import com.xebest.plugin.XEWebView;
 
 import org.apache.cordova.CallbackContext;
@@ -25,10 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 货物订单详情
+ * CarSourceDetail
  * Created by kaisun on 15/9/22.
  */
-public class GoodsOrderDetailActivity extends BaseCordovaActivity implements CordovaInterface {
+public class CarSourceDetailActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -45,7 +42,7 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, GoodsOrderDetailActivity.class));
+        context.startActivity(new Intent(context, CarSourceDetailActivity.class));
     }
 
     @Override
@@ -57,50 +54,38 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
 
         // 记录到销毁栈中
         Application.getInstance().addRemoveActivity(this);
-
     }
 
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String back = args.getString(0);
-        if (back.equals("2")) {
-            finish();
-        } else {
-            String flag = args.getString(1);
-            if (flag.equalsIgnoreCase("searchWarehouseDetail")) {
-                SearchWarehouseDetailActivity.actionView(GoodsOrderDetailActivity.this);
-            } else if (args.getString(0).equals("2")) {
-//                finish();
-            } else if (flag.equalsIgnoreCase("searchGoodsDetail")) {
-                SearchGoodsDetailActivity.actionView(GoodsOrderDetailActivity.this);
-            } else if (flag.equalsIgnoreCase("orderPay")) {
-                OrderPayActivity.actionView(getActivity());
-            } else if (flag.equals("doComment")) {
-                DoCommentActivity.actionView(getActivity());
-            } else if (flag.equalsIgnoreCase("carOnwerDetail")) {
-                CarOwnerDetailActivity.actionView(getActivity());
-            } else if (flag.equalsIgnoreCase("warehouseOnwerDetail")) {
-                WarehouseOnwerDetailActivity.actionView(getActivity());
-            } else if (flag.equalsIgnoreCase("carSourceDetail")) {
-                // TODO
-                CarSourceDetailActivity.actionView(this);
-            }
-        }
-
+//        String flag = args.getString(1);
+//        if (flag.equalsIgnoreCase("carOwnerOrderDetail")) {
+//            CarOrderDetailActivity.actionView(this);
+//        } else if (flag.equalsIgnoreCase("resetPasswd")) {
+//            // 修改支付密码
+//            ResetPwdActivity.actionView(this, "修改支付密码");
+//        } else if (flag.equalsIgnoreCase("paySuccess")) {
+//            PaySuccessActivity.actionView(this);
+//        } else if (flag.equalsIgnoreCase("addBankCard")) {
+//            AddBankActivity.actionView(this);
+//        } else if (flag.equalsIgnoreCase("changePasswd")) {
+//            ChangePwdActivity.actionView(this, "设置支付密码");
+//        }
     }
 
     protected void initView() {
         editorCar = (TextView) findViewById(R.id.editor);
         editorCar.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("订单详情");
+        tvTitle.setText("车源详情");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+//                finish();
+                MainActivity.actionView(CarSourceDetailActivity.this, 2);
             }
         });
     }
@@ -108,11 +93,11 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("订单详情");
+        MobclickAgent.onPageStart("车主详情");
         // 统计时长
         MobclickAgent.onResume(this);
         if (isOnCreate) {
-            mWebView.init(this, ApiUtils.API_COMMON_URL + "goodsOrderDetail.html", this, this, this, this);
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "carSourceDetail.html", this, this, this, this);
         }
         isOnCreate = false;
 
@@ -123,7 +108,7 @@ public class GoodsOrderDetailActivity extends BaseCordovaActivity implements Cor
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("订单详情");
+        MobclickAgent.onPageEnd("支付");
         MobclickAgent.onPause(this);
     }
 

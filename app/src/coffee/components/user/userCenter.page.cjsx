@@ -20,20 +20,28 @@ XeImage = require 'components/common/xeImage'
 AuthStatus = React.createClass {
 	_goAuth: (auth)->
 		user = @props.user
-		unAuth = (auth is 'CarAuth' and user.carStatus isnt 1) or (auth is 'WarehouseAuth' and user.warehouseStatus isnt 1) or (auth is 'GoodsAuth' and user.goodsStatus isnt 1)
+		# unAuth = (auth is 'CarAuth' and user.carStatus isnt 1) or (auth is 'WarehouseAuth' and user.warehouseStatus isnt 1) or (auth is 'GoodsAuth' and user.goodsStatus isnt 1)
 
-		if user.carStatus is 2 or user.goodsStatus is 2 or user.warehouseStatus is 2
-			return Plugin.toast.show '有认证正在审核中，无法继续认证!' if unAuth
+		# if user?.personalGoodsStatus is 0 or user?.personalCarStatus is 0 or user?.personalWarehouseStatus or user?.enterpriseGoodsStatus is 0 or user?.enterpriseCarStatus is 0 or user?.enterpriseWarehouseStatus is 0
+			# return Plugin.toast.show '有认证正在审核中，无法继续认证!'
+		# if user.carStatus is 2 or user.goodsStatus is 2 or user.warehouseStatus is 2
+			# return Plugin.toast.show '有认证正在审核中，无法继续认证!' if unAuth
 
 		Auth.needLogin ->
 			str = ''
 			switch auth
 				when 'CarAuth'
 					index = 3
+					if user?.personalCarStatus is 0 or user?.enterpriseCarStatus is 0
+						return Plugin.toast.show '有认证正在审核中，无法继续认证!'
 				when 'WarehouseAuth'
 					index = 1
+					if user?.personalWarehouseStatus is 0 or user?.enterpriseWarehouseStatus is 0
+						return Plugin.toast.show '有认证正在审核中，无法继续认证!'
 				when 'GoodsAuth'
 					index = 2
+					if user?.personalGoodsStatus is 0 or user?.enterpriseGoodsStatus is 0
+						return Plugin.toast.show '有认证正在审核中，无法继续认证!'
 			str = Helper.authResMap user, index
 			console.log '--------------str:', str
 			if str is undefined or str is '' or str is null

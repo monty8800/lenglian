@@ -112,7 +112,8 @@ public class ModifyAddress extends BaseCordovaActivity implements CordovaInterfa
             String mArea = sp.getString("mArea", "");
             String mStreet = sp.getString("mStreet", "");
             String mStreetNumber = sp.getString("mStreetNumber", "");
-            mWebView.getWebView().loadUrl("javascript:(function(){window.updateAddress({provinceName:'" + mProvince + "', cityName:'" + mCity + "', areaName:'" + mArea + "', street: '" + mStreet + "', lati:'" + mLatitude + "', longi:'" + mLontitud + "'})})()");
+            String mStr = mStreet + mStreetNumber;
+            mWebView.getWebView().loadUrl("javascript:(function(){window.updateAddress({provinceName:'" + mProvince + "', cityName:'" + mCity + "', areaName:'" + mArea + "', street: '" + mStr + "', lati:'" + mLatitude + "', longi:'" + mLontitud + "'})})()");
         }
         SharedPreferences.Editor editor = getSharedPreferences("location", 0).edit();
         editor.putString("mLatitude", "");

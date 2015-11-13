@@ -44,6 +44,8 @@ public class Application extends android.app.Application {
 
     public int VERSIONCODE = 0;
 
+    public String VERSIONNAME = "";
+
     private static Application instance;
 
     public double latitude = 0.00;
@@ -95,6 +97,8 @@ public class Application extends android.app.Application {
         UUID = java.util.UUID.randomUUID().toString();
 
         VERSIONCODE = getAppVersionCode();
+
+        VERSIONNAME = getAppVersionName();
 
         mLocationClient.start();
 
@@ -169,6 +173,21 @@ public class Application extends android.app.Application {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    /**
+     * 版本名称
+     * @return
+     */
+    private String getAppVersionName() {
+        PackageManager pm = getPackageManager();
+        try {
+            PackageInfo info = pm.getPackageInfo(this.getPackageName(), 0);
+            return info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "1.0.0";
         }
     }
 

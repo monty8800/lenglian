@@ -93,5 +93,6 @@
         <activity android:name=".wallet.ChargeRecordActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".ware.WarehouseOnwerDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".application.GuideActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.CarSourceDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

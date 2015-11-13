@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
@@ -89,7 +90,8 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+//                finish();
+                MainActivity.actionView(OrderPayActivity.this, 2);
             }
         });
     }
