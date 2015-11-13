@@ -31,6 +31,9 @@ Order = Immutable.Record {
 	goodsRemark:null	#货物备注
 	coldStoreFlag: 1
 
+	goodsFromStreet: null #出发地详细地址
+	goodsToStreet: null #目的地详细地址
+
 
 	# 货主订单
 	acceptMode: null

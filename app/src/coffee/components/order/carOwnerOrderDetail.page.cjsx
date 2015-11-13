@@ -187,7 +187,7 @@ OrderDetail = React.createClass {
 				</div>
 				<div className="g-item g-adr-detail ll-font nopadding">			
 					<div className="g-adr-start ll-font g-adr-start-line">
-						<em>{@state.order.destination}</em>
+						<em>{@state.order.destination + '-' + @state.order.goodsToStreet}</em>
 						<span></span>
 					</div>
 					{
@@ -196,7 +196,7 @@ OrderDetail = React.createClass {
 					}
 					
 					<div className="g-adr-end ll-font g-adr-end-line">
-						<em>{@state.order.setOut}</em>
+						<em>{@state.order.setOut + '-' + @state.order.goodsFromStreet}</em>
 						<span></span>
 					</div>	
 				</div>
@@ -232,7 +232,7 @@ OrderDetail = React.createClass {
 					</div>
 				</div>
 			</div>
-			<div className={if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' || @state.order?.orderState is '4' then 'm-detail-info' else 'm-detail-info m-nomargin'} >
+			<div className={if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' || @state.order?.orderState is '4' then 'm-detail-info' else 'm-detail-info'} >
 				<p>
 					<span>发货人:</span>
 					<span onClick={@_tel.bind this, @state.order.shipperMobile} className="ll-font g-info-name">{@state.order?.shipper}</span>

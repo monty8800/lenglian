@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
@@ -26,7 +27,6 @@ import org.json.JSONObject;
  * Created by kaisun on 15/9/22.
  */
 public class MoreActivity extends BaseCordovaActivity implements CordovaInterface {
-
 
     private XEWebView mWebView;
 
@@ -101,18 +101,34 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
                 editor.putInt("warehouseStatus", -1);
                 editor.putInt("carStatus", -1);
                 editor.commit();
+
+                // 退出登录把订单标识符置为-1
+                MainActivity.currentIndex = -1;
                 finish();
             } else {
                 JSONObject jsonObject = new JSONObject(temp);
                 ((Application) getApplication()).setUserId(jsonObject.getString("id"));
-                Application.getInstance().setGoodsStatus(Integer.parseInt(jsonObject.getString("goodsStatus")));
-                Application.getInstance().setWarehouseStatus(Integer.parseInt(jsonObject.getString("warehouseStatus")));
-                Application.getInstance().setCarStatus(Integer.parseInt(jsonObject.getString("carStatus")));
+//                Application.getInstance().setGoodsStatus(Integer.parseInt(jsonObject.getString("goodsStatus")));
+//                Application.getInstance().setWarehouseStatus(Integer.parseInt(jsonObject.getString("warehouseStatus")));
+//                Application.getInstance().setCarStatus(Integer.parseInt(jsonObject.getString("carStatus")));
                 SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
                 editor.putString("userId", jsonObject.getString("id"));
-                editor.putInt("goodsStatus", jsonObject.getInt("goodsStatus"));
-                editor.putInt("warehouseStatus", jsonObject.getInt("warehouseStatus"));
-                editor.putInt("carStatus", jsonObject.getInt("carStatus"));
+//            editor.putInt("goodsStatus", jsonObject.getInt("goodsStatus"));
+//            editor.putInt("warehouseStatus", jsonObject.getInt("warehouseStatus"));
+//            editor.putInt("carStatus", jsonObject.getInt("carStatus"));
+
+                if (jsonObject.getString("personalGoodsStatus").equals("1") || jsonObject.getString("enterpriseGoodsStatus").equals("1")) {
+                    editor.putInt("goodsStatus", 1);
+                    Application.getInstance().setGoodsStatus(1);
+                }
+                if (jsonObject.getString("personalCarStatus").equals("1") || jsonObject.getString("enterpriseCarStatus").equals("1")) {
+                    editor.putInt("carStatus", 1);
+                    Application.getInstance().setCarStatus(1);
+                }
+                if (jsonObject.getString("personalWarehouseStatus").equals("1") || jsonObject.getString("enterpriseWarehouseStatus").equals("1")) {
+                    editor.putInt("warehouseStatus", 1);
+                    Application.getInstance().setWarehouseStatus(1);
+                }
                 editor.commit();
             }
         } else if (flag.equalsIgnoreCase("changePasswd")) {

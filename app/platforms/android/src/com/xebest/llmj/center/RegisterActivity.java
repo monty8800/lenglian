@@ -96,14 +96,28 @@ public class RegisterActivity extends BaseCordovaActivity implements CordovaInte
                 JSONObject jsonObject = new JSONObject(userInfo);
                 // 存放userId
                 ((Application) getApplication()).setUserId(jsonObject.getString("id"));
-                Application.getInstance().setGoodsStatus(Integer.parseInt(jsonObject.getString("goodsStatus")));
-                Application.getInstance().setWarehouseStatus(Integer.parseInt(jsonObject.getString("warehouseStatus")));
-                Application.getInstance().setCarStatus(Integer.parseInt(jsonObject.getString("carStatus")));
+//                Application.getInstance().setGoodsStatus(Integer.parseInt(jsonObject.getString("goodsStatus")));
+//                Application.getInstance().setWarehouseStatus(Integer.parseInt(jsonObject.getString("warehouseStatus")));
+//                Application.getInstance().setCarStatus(Integer.parseInt(jsonObject.getString("carStatus")));
                 SharedPreferences.Editor editor = getActivity().getSharedPreferences("userInfo", 0).edit();
                 editor.putString("userId", jsonObject.getString("id"));
-                editor.putInt("goodsStatus", jsonObject.getInt("goodsStatus"));
-                editor.putInt("warehouseStatus", jsonObject.getInt("warehouseStatus"));
-                editor.putInt("carStatus", jsonObject.getInt("carStatus"));
+//            editor.putInt("goodsStatus", jsonObject.getInt("goodsStatus"));
+//            editor.putInt("warehouseStatus", jsonObject.getInt("warehouseStatus"));
+//            editor.putInt("carStatus", jsonObject.getInt("carStatus"));
+
+                if (jsonObject.getString("personalGoodsStatus").equals("1") || jsonObject.getString("enterpriseGoodsStatus").equals("1")) {
+                    editor.putInt("goodsStatus", 1);
+                    Application.getInstance().setGoodsStatus(1);
+                }
+                if (jsonObject.getString("personalCarStatus").equals("1") || jsonObject.getString("enterpriseCarStatus").equals("1")) {
+                    editor.putInt("carStatus", 1);
+                    Application.getInstance().setCarStatus(1);
+                }
+                if (jsonObject.getString("personalWarehouseStatus").equals("1") || jsonObject.getString("enterpriseWarehouseStatus").equals("1")) {
+                    editor.putInt("warehouseStatus", 1);
+                    Application.getInstance().setWarehouseStatus(1);
+                }
+
                 editor.commit();
             } else if (args.toString().contains("2")) {
             } else if (args.toString().contains("auth")) {
