@@ -30,18 +30,19 @@
 
 #if DEBUG
 
-//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
 #define SERVER @"http://m.lenglianmajia.com/"
 
-
+//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
 //#define SERVER @"http://192.168.29.149:8072/"
 //#define SERVER @"http://192.168.29.210:8072/"
 //#define SERVER @"http://192.168.29.204:8072/"
 //#define SERVER @"http://192.168.29.22:8072/"
-
 //#define SERVER @"http://192.168.29.203:8072/"
+
 #else
+
 #define SERVER @"http://m.lenglianmajia.com/"
+
 #endif
 
 //附近
