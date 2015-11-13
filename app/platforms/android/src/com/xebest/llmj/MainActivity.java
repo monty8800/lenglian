@@ -93,7 +93,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public int mOrderStatus = -1;
 
-    public int currentIndex = -1;
+    public static int currentIndex = -1;
 
     public int flag = -1;
 

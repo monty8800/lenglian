@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
@@ -26,7 +27,6 @@ import org.json.JSONObject;
  * Created by kaisun on 15/9/22.
  */
 public class MoreActivity extends BaseCordovaActivity implements CordovaInterface {
-
 
     private XEWebView mWebView;
 
@@ -101,6 +101,9 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
                 editor.putInt("warehouseStatus", -1);
                 editor.putInt("carStatus", -1);
                 editor.commit();
+
+                // 退出登录把订单标识符置为-1
+                MainActivity.currentIndex = -1;
                 finish();
             } else {
                 JSONObject jsonObject = new JSONObject(temp);
