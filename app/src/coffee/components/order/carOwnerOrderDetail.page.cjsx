@@ -187,7 +187,7 @@ OrderDetail = React.createClass {
 				</div>
 				<div className="g-item g-adr-detail ll-font nopadding">			
 					<div className="g-adr-start ll-font g-adr-start-line">
-						<em>{@state.order.destination}</em>
+						<em>{@state.order.destination + '-' + @state.order.goodsToStreet}</em>
 						<span></span>
 					</div>
 					{
@@ -196,7 +196,7 @@ OrderDetail = React.createClass {
 					}
 					
 					<div className="g-adr-end ll-font g-adr-end-line">
-						<em>{@state.order.setOut}</em>
+						<em>{@state.order.setOut + '-' + @state.order.goodsFromStreet}</em>
 						<span></span>
 					</div>	
 				</div>
