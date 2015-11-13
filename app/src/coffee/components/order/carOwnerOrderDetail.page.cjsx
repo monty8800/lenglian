@@ -232,7 +232,7 @@ OrderDetail = React.createClass {
 					</div>
 				</div>
 			</div>
-			<div className={if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' || @state.order?.orderState is '4' then 'm-detail-info' else 'm-detail-info m-nomargin'} >
+			<div className={if @state.order?.orderState is '1' && @state.order?.orderType is 'GC' || @state.order?.orderState is '4' then 'm-detail-info' else 'm-detail-info'} >
 				<p>
 					<span>发货人:</span>
 					<span onClick={@_tel.bind this, @state.order.shipperMobile} className="ll-font g-info-name">{@state.order?.shipper}</span>

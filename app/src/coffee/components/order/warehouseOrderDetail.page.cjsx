@@ -176,7 +176,7 @@ WarehouseOrderDetail = React.createClass {
 				</div>
 				<div className="g-item g-adr-detail ll-font nopadding">			
 					<div className="g-adr-store ll-font">
-						{ @state.orderDetail.warehousePlace }
+						{ @state.orderDetail.warehousePlace + @state.orderDetail.warehouseDetailedAddress}
 					</div>
 				</div>
 			</div>

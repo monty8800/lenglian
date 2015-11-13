@@ -174,10 +174,10 @@ AddCar = React.createClass {
 			Plugin.toast.err '请输入正确的车牌号'
 		else if @state.category is ''
 			Plugin.toast.err '请选择车辆类型'
+		else if @state.type is ''
+			Plugin.toast.err '请选择车辆类别'			
 		else if @state.heavy is ''
 			Plugin.toast.err '可载重货不能为空'
-		else if @state.type is ''
-			Plugin.toast.err '请选择车辆类别'
 		else if @state.vehicle is ''
 			Plugin.toast.err '请选择车辆长度'
 		else if @state.bulky.length isnt 0 and not Validator.bulky @state.bulky
