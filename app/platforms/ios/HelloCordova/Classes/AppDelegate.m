@@ -28,13 +28,13 @@
 #import "AppDelegate.h"
 
 #import "Global.h"
-
+#import "LoginViewController.h"
 #import "hello/HelloViewController.h"
 #import "home/HomeViewController.h"
 #import "map/NearByViewController.h"
 #import "order/OrderListViewController.h"
 #import "user/UserCenterViewController.h"
-
+#import "LoginViewController.h"
 #import <Cordova/CDVPlugin.h>
 @interface AppDelegate ()
 {
@@ -140,7 +140,7 @@
     //hello world
     //self.window.rootViewController = [HelloViewController new];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(findNewVersion:) name:@"Notification_findNewVersion" object:nil];
-
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogout) name:@"Notification_user_logout" object:nil];
     [self.window makeKeyAndVisible];
     [[Global sharedInstance] showGuideViews];
 
@@ -198,6 +198,14 @@
 #pragma mark - handle orderMenu
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    if (viewController == [tabBarController.viewControllers objectAtIndex:0] || viewController == [tabBarController.viewControllers objectAtIndex:1] || viewController == [tabBarController.viewControllers objectAtIndex:3]){
+        [self hideOrderMenu];
+        return YES;
+    }else{
+        
+    }
+    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults]objectForKey:@"user"];
+
     if ([tabBarController.viewControllers[tabBarController.selectedIndex] isEqual:viewController] && tabBarController.selectedIndex == 2) {
         if (!_alphaView) {
             [self showOrderMenu];
@@ -208,6 +216,13 @@
     }
     
     if (viewController == [tabBarController.viewControllers objectAtIndex:2]){
+        if (!userDic) {
+            LoginViewController *loginVC = [LoginViewController new];
+            UINavigationController *currentNav = (UINavigationController *)tabBarController.viewControllers[tabBarController.selectedIndex];
+            loginVC.hidesBottomBarWhenPushed = YES;
+            [currentNav pushViewController:loginVC animated:YES];
+            return NO;
+        }
         if (_orderVCShouldLoad) {
             if (_alphaView) {
                 [self hideOrderMenu];
@@ -291,7 +306,10 @@
     [orderVC showWithType:index];
     [self hideOrderMenu];
 }
-
+-(void)userLogout{
+    _orderVCLoaded = NO;
+    _orderVCShouldLoad = NO;
+}
 -(void)findNewVersion:(NSNotification *)notify{
     NSString *newVersionURL = notify.object[@"newVersionURL"];
     NSInteger len = [newVersionURL length];

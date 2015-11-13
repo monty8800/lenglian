@@ -38,6 +38,8 @@
 //#define SERVER @"http://192.168.29.210:8072/"
 //#define SERVER @"http://192.168.29.204:8072/"
 //#define SERVER @"http://192.168.29.22:8072/"
+
+//#define SERVER @"http://192.168.29.203:8072/"
 #else
 #define SERVER @"http://m.lenglianmajia.com/"
 #endif

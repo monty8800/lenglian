@@ -46,6 +46,10 @@
             AboutUsViewController *aboutUsVC = [AboutUsViewController new];
             [self.navigationController pushViewController:aboutUsVC animated:YES];
         }
+    }else if ([params[0] integerValue] == 7){
+        if ([params[1] isEqualToString:@"orderList_userChange"]) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"Notification_user_logout" object:nil];
+        }
     }
 }
 

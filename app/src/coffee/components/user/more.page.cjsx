@@ -42,7 +42,9 @@ More = React.createClass {
 		@setState {
 			loggedIn: if UserStore.getUser()?.id then true else false
 		}
-		Plugin.toast.success '成功退出登录！' if msg is 'logout'
+		if msg is 'logout'
+			Plugin.run ['7','orderList_userChange']
+			Plugin.toast.success '成功退出登录！' 
 
 	render: ->
 		logoutBtn = null
