@@ -56,10 +56,10 @@
     AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (appdelegate.orderVCLoaded) {
 //TODO:检查这里 -1 YYQ
-//        _showOrderType = -1;
+        _showOrderType = -1;
         [self.commandDelegate evalJs:[NSString stringWithFormat:@"comeFromFlag(%d)",(int)type]];
     }else{
-
+        [self.webView reload];
     }
     _showOrderType = type;
 

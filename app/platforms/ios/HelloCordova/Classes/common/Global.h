@@ -23,15 +23,15 @@
 #pragma mark- api
 
 
-#define IMG_SERVER @"http://qa-pic.lenglianmajia.com/"
-//#define IMG_SERVER @"http://pic.lenglianmajia.com/"
+//#define IMG_SERVER @"http://qa-pic.lenglianmajia.com/"
+#define IMG_SERVER @"http://pic.lenglianmajia.com/"
 
 #define TOKEN @"da971f8e9e024f579800cf20c146e6df"
 
 #if DEBUG
 
-#define SERVER @"http://192.168.26.177:7080/llmj-app/"
-//#define SERVER @"http://m.lenglianmajia.com/"
+//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
+#define SERVER @"http://m.lenglianmajia.com/"
 
 
 //#define SERVER @"http://192.168.29.149:8072/"
