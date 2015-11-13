@@ -9,7 +9,7 @@ Plugin = require 'util/plugin'
 UserStore = require 'stores/user/user'
 
 PicCell = require 'components/auth/PicCell'
-
+ 
 Validator = require 'util/validator'
 
 UserAction = require 'actions/user/user'

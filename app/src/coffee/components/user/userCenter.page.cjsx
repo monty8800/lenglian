@@ -9,7 +9,7 @@ UserStore = require 'stores/user/user'
 UserAction = require 'actions/user/user'
 Plugin = require 'util/plugin'
 
-Auth = require 'util/auth'
+Auth = require 'util/auth'			
 
 Helper = require 'util/helper'
 

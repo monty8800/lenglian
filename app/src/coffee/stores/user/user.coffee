@@ -55,7 +55,11 @@ if _user.passwd and ((new Date).getTime() - _user.lastLogin > Constants.cache.KE
 	autoLogin()
 
 needCheck = ->
-	return _user.carStatus is 2 or _user.goodsStatus is 2 or _user.warehouseStatus is 2 or (not _user.name and not _user.company)
+	return valideParams _user.personalWarehouseStatus or valideParams _user.personalGoodsStatus or valideParams _user.personalCarStatus or valideParams _user.enterpriseGoodsStatus or valideParams _user.enterpriseCarStatus or valideParams _user.enterpriseWarehouseStatus or (not _user.name and not _user.company)
+	# return _user.carStatus is 2 or _user.goodsStatus is 2 or _user.warehouseStatus is 2 or (not _user.name and not _user.company)
+
+valideParams = (params)->
+	return params is undefined or params is null
 
 updateUser = ->
 	localUser = DB.get 'user'
@@ -206,27 +210,48 @@ requestInfo = ->
 
 		#跨手机，跨账号同步数据
 		#个人数据
-		if _user.certification is 1
-			if _user.carStatus is 1
+		# if _user.certification is 1
+		# 	if _user.carStatus is 1
+		# 		requestPersonalAuthInfo 2
+		# 	else if _user.goodsStatus is 1
+		# 		requestPersonalAuthInfo 1
+		# 	else if _user.warehouseStatus is 1
+		# 		requestPersonalAuthInfo 3
+		# 	else
+		# 		UserStore.emitChange 'user:update'
+		# else if _user.certification is 2
+		# 	if _user.carStatus is 1
+		# 		requestCompanyAuthInfo 2
+		# 	else if _user.goodsStatus is 1
+		# 		requestCompanyAuthInfo 1
+		# 	else if _user.warehouseStatus is 1
+		# 		requestCompanyAuthInfo 3
+		# 	else
+		# 		UserStore.emitChange 'user:update'
+		# else
+		# 	UserStore.emitChange 'user:update'
+		# checkPayPwd() if _user.hasPayPwd isnt 1
+
+		if _user.certification is 1 # 个人
+			if _user.personalCarStatus is 1
 				requestPersonalAuthInfo 2
-			else if _user.goodsStatus is 1
+			else if _user.personalGoodsStatus is 1
 				requestPersonalAuthInfo 1
-			else if _user.warehouseStatus is 1
+			else if _user.personalWarehouseStatus is 1
 				requestPersonalAuthInfo 3
 			else
 				UserStore.emitChange 'user:update'
 		else if _user.certification is 2
-			if _user.carStatus is 1
+			if _user.enterpriseCarStatus is 1
 				requestCompanyAuthInfo 2
-			else if _user.goodsStatus is 1
+			else if _user.enterpriseGoodsStatus is 1
 				requestCompanyAuthInfo 1
-			else if _user.warehouseStatus is 1
+			else if _user.enterpriseWarehouseStatus is 1
 				requestCompanyAuthInfo 3
 			else
 				UserStore.emitChange 'user:update'
 		else
 			UserStore.emitChange 'user:update'
-		# checkPayPwd() if _user.hasPayPwd isnt 1
 
 smsCode = (params)->
 	Http.post Constants.api.SMS_CODE, params, (data)->
