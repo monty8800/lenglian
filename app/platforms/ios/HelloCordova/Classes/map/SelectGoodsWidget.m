@@ -116,7 +116,7 @@
                 NSAttributedString *warehouseName = [[NSAttributedString alloc] initWithString:[dic objectForKey:@"name"] attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
                 
                 NSString *address = [NSString stringWithFormat:@"%@%@%@%@", [dic objectForKey:@"provinceName"], [dic objectForKey:@"cityName"], [dic objectForKey:@"areaName"], [dic objectForKey:@"street"]];
-                //TODO:  把仓库id换成库员id
+                
                 [warehouseList addObject:@{
                                        @"infoList":@[warehouseName, address],
                                        @"data": @{
