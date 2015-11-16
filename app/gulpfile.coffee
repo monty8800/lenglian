@@ -23,8 +23,13 @@ gulp.task 'webpack:build', ['pre-build'], (cb)->
 				'NODE_ENV': JSON.stringify 'production'
 			}
 		}),
-		# new webpack.optimize.DedupePlugin(),
-		# new webpack.optimize.UglifyJsPlugin()
+		new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.UglifyJsPlugin {
+			compress: {
+				drop_console: true
+			}
+			outSourceMap: false
+		}
 	) 
 	webpack myConfig, (err, stats)->
 			plugins.util.PluginError 'webpack', err  if err

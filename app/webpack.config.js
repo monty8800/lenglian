@@ -38,6 +38,7 @@ var config = {
     target: 'web',
     cache: true,
     entry: {
+        // lib: ['zepto', 'fastclick', 'crypto']
     },
     resolve: {
         root: __dirname,
@@ -63,7 +64,7 @@ var config = {
         path: path.join(__dirname, 'www'),
         publicPath: '/',
         filename: '[name].js',
-        library: ['Example', '[name]'],
+        // library: ['Example', '[name]'],
         pathInfo: true
     },
 
@@ -103,7 +104,11 @@ var config = {
         }]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('common', 'common.js'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common',
+            filename: 'common.js',
+            minChunks: 2
+        }),
         new ExtractTextPlugin("[name].css", {
             allChunks: true
         }),

@@ -23,25 +23,29 @@
 #pragma mark- api
 
 
-//#define IMG_SERVER @"http://qa-pic.lenglianmajia.com/"
-#define IMG_SERVER @"http://pic.lenglianmajia.com/"
+
 
 #define TOKEN @"da971f8e9e024f579800cf20c146e6df"
 
 #if DEBUG
 
-//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
 #define SERVER @"http://m.lenglianmajia.com/"
 
+//#define IMG_SERVER @"http://qa-pic.lenglianmajia.com/"
+#define IMG_SERVER @"http://pic.lenglianmajia.com/"
 
+//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
 //#define SERVER @"http://192.168.29.149:8072/"
 //#define SERVER @"http://192.168.29.210:8072/"
 //#define SERVER @"http://192.168.29.204:8072/"
 //#define SERVER @"http://192.168.29.22:8072/"
-
 //#define SERVER @"http://192.168.29.203:8072/"
+
 #else
+
 #define SERVER @"http://m.lenglianmajia.com/"
+#define IMG_SERVER @"http://pic.lenglianmajia.com/"
+
 #endif
 
 //附近

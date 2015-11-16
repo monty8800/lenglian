@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		01D42DAFEB5C4DFFA0D0D827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0597205F9D5541F28FAC3AC4 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -35,6 +36,8 @@
 		4C3353EA1BBEB18E0020EB06 /* SelectWarehouseWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3353E91BBEB18E0020EB06 /* SelectWarehouseWidget.m */; };
 		4C3353ED1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3353EC1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m */; };
 		4C3D705C1BBD54B80048E3FF /* XeBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D705B1BBD54B80048E3FF /* XeBubbleView.m */; };
+		4C42E4D61BF986F600374B1C /* BaiduMapAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C42E4D31BF9846100374B1C /* BaiduMapAPI.framework */; };
+		4C42E4D81BF9874F00374B1C /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C42E4D71BF9874F00374B1C /* mapapi.bundle */; };
 		4C59928D1BBB7B2500CA5039 /* Net.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C59928C1BBB7B2500CA5039 /* Net.m */; };
 		4C5992971BBBDD5D00CA5039 /* DatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5992961BBBDD5D00CA5039 /* DatePicker.m */; };
 		4C5992A51BBCD0D900CA5039 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5992A41BBCD0D900CA5039 /* ContactsViewController.m */; };
@@ -56,13 +59,11 @@
 		4C822F621BB1354700112533 /* CarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F611BB1354700112533 /* CarListViewController.m */; };
 		4C822F661BB135E500112533 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F651BB135E500112533 /* AddressListViewController.m */; };
 		4C822F6A1BB136C000112533 /* FollowListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F691BB136C000112533 /* FollowListViewController.m */; };
-		4C822F6C1BB152B600112533 /* BaiduMapAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C822F6B1BB152B600112533 /* BaiduMapAPI.framework */; };
 		4C822F6E1BB153B000112533 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C822F6D1BB153B000112533 /* CoreLocation.framework */; };
 		4C822F701BB153C300112533 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C822F6F1BB153C300112533 /* QuartzCore.framework */; };
 		4C822F721BB153D100112533 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C822F711BB153D100112533 /* OpenGLES.framework */; };
 		4C822F741BB153E400112533 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C822F731BB153E400112533 /* SystemConfiguration.framework */; };
 		4C822F761BB153F800112533 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C822F751BB153F800112533 /* Security.framework */; };
-		4C822F791BB15F5F00112533 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C822F781BB15F5F00112533 /* mapapi.bundle */; };
 		4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C822F7B1BB1755A00112533 /* SelectTab.m */; };
 		4C8392CC1BB286D60000466D /* ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8392CB1BB286D60000466D /* ImagePicker.m */; };
 		4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523351BB6A229008205E3 /* SelectAddressViewController.m */; };
@@ -215,6 +216,8 @@
 		4C3353EC1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectWarehouseTableViewCell.m; path = map/SelectWarehouseTableViewCell.m; sourceTree = "<group>"; };
 		4C3D705A1BBD54B80048E3FF /* XeBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XeBubbleView.h; path = map/XeBubbleView.h; sourceTree = "<group>"; };
 		4C3D705B1BBD54B80048E3FF /* XeBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XeBubbleView.m; path = map/XeBubbleView.m; sourceTree = "<group>"; };
+		4C42E4D31BF9846100374B1C /* BaiduMapAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI.framework; path = "HelloCordova/lib/Release-iphoneos/BaiduMapAPI.framework"; sourceTree = "<group>"; };
+		4C42E4D71BF9874F00374B1C /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = "HelloCordova/lib/Release-iphoneos/BaiduMapAPI.framework/Resources/mapapi.bundle"; sourceTree = "<group>"; };
 		4C59928B1BBB7B2500CA5039 /* Net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Net.h; path = common/Net.h; sourceTree = "<group>"; };
 		4C59928C1BBB7B2500CA5039 /* Net.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Net.m; path = common/Net.m; sourceTree = "<group>"; };
 		4C5992951BBBDD5D00CA5039 /* DatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatePicker.h; path = common/DatePicker.h; sourceTree = "<group>"; };
@@ -262,7 +265,6 @@
 		4C822F711BB153D100112533 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		4C822F731BB153E400112533 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4C822F751BB153F800112533 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		4C822F781BB15F5F00112533 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = "HelloCordova/lib/Release-iphoneall/BaiduMapAPI.framework/Resources/mapapi.bundle"; sourceTree = "<group>"; };
 		4C822F7A1BB1755A00112533 /* SelectTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectTab.h; path = map/SelectTab.h; sourceTree = "<group>"; };
 		4C822F7B1BB1755A00112533 /* SelectTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectTab.m; path = map/SelectTab.m; sourceTree = "<group>"; };
 		4C8392CA1BB286D60000466D /* ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePicker.h; path = common/ImagePicker.h; sourceTree = "<group>"; };
@@ -440,13 +442,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C42E4D61BF986F600374B1C /* BaiduMapAPI.framework in Frameworks */,
 				4C5992AA1BBCE7B200CA5039 /* AddressBook.framework in Frameworks */,
 				4C822F761BB153F800112533 /* Security.framework in Frameworks */,
 				4C822F741BB153E400112533 /* SystemConfiguration.framework in Frameworks */,
 				4C822F721BB153D100112533 /* OpenGLES.framework in Frameworks */,
 				4C822F701BB153C300112533 /* QuartzCore.framework in Frameworks */,
 				4C822F6E1BB153B000112533 /* CoreLocation.framework in Frameworks */,
-				4C822F6C1BB152B600112533 /* BaiduMapAPI.framework in Frameworks */,
 				5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */,
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -538,6 +540,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C42E4D31BF9846100374B1C /* BaiduMapAPI.framework */,
 				4C5992A91BBCE7B200CA5039 /* AddressBook.framework */,
 				4C822F751BB153F800112533 /* Security.framework */,
 				4C822F731BB153E400112533 /* SystemConfiguration.framework */,
@@ -904,7 +907,7 @@
 		4CDD99831BAFE4CA008B4AC6 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				4C822F781BB15F5F00112533 /* mapapi.bundle */,
+				4C42E4D71BF9874F00374B1C /* mapapi.bundle */,
 				4CDD99841BAFE4EC008B4AC6 /* images.xcassets */,
 			);
 			name = assets;
@@ -1025,7 +1028,6 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				46784D3F004139CECED40842 /* Copy Pods Resources */,
 				4C59DE4D1B5E81290063D9CE /* ShellScript */,
-				E9E08915E2C24016F4AED25F /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1107,7 +1109,7 @@
 				3088BBBE154F3926009F9C59 /* Default-Landscape~ipad.png in Resources */,
 				3088BBBF154F3926009F9C59 /* Default-Portrait@2x~ipad.png in Resources */,
 				4CDD99851BAFE4EC008B4AC6 /* images.xcassets in Resources */,
-				4C822F791BB15F5F00112533 /* mapapi.bundle in Resources */,
+				4C42E4D81BF9874F00374B1C /* mapapi.bundle in Resources */,
 				7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */,
 				3088BBC0154F3926009F9C59 /* Default-Portrait~ipad.png in Resources */,
 				30B4F30019D5E07200D9F7D8 /* Default-667h.png in Resources */,
@@ -1185,21 +1187,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
-		};
-		E9E08915E2C24016F4AED25F /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1335,12 +1322,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: xiao chen (4GQ54CCFW2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: xiao chen (DF7D3DZVHK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xiao chen (4GQ54CCFW2)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HelloCordova/lib/Release-iphoneall",
+					"$(PROJECT_DIR)/HelloCordova/lib/Release-iphoneos",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1387,7 +1375,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "84275f2f-7ff1-467e-81af-1120bb1638f4";
+				PROVISIONING_PROFILE = "28d38a00-1c9b-41f1-ad8d-a5225f894b12";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1400,12 +1388,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: xiao chen (4GQ54CCFW2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: xiao chen (DF7D3DZVHK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xiao chen (4GQ54CCFW2)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HelloCordova/lib/Release-iphoneall",
+					"$(PROJECT_DIR)/HelloCordova/lib/Release-iphoneos",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloCordova/HelloCordova-Prefix.pch";
@@ -1445,7 +1434,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "84275f2f-7ff1-467e-81af-1120bb1638f4";
+				PROVISIONING_PROFILE = "28d38a00-1c9b-41f1-ad8d-a5225f894b12";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

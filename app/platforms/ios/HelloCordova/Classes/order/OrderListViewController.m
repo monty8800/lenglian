@@ -44,15 +44,15 @@
 //    self.navigationItem.rightBarButtonItem = rightBtn;
 }
 
--(void) goCancelList {
-    OrderCancelListViewController *cancelListVC = [OrderCancelListViewController new];
-    cancelListVC.hidesBottomBarWhenPushed = YES;
-    cancelListVC.showOrderType = _showOrderType;
-    [self.navigationController pushViewController:cancelListVC animated:YES];
-}
+//-(void) goCancelList {
+//    OrderCancelListViewController *cancelListVC = [OrderCancelListViewController new];
+//    cancelListVC.hidesBottomBarWhenPushed = YES;
+//    cancelListVC.showOrderType = _showOrderType;
+//    [self.navigationController pushViewController:cancelListVC animated:YES];
+//}
 
 -(void)showWithType:(NSInteger )type{
-    NSLog(@"_______%d",(int)type);
+    NSLog(@"___show Order Type____%d",(int)type);
     AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (appdelegate.orderVCLoaded) {
 //TODO:检查这里 -1 YYQ
@@ -62,8 +62,6 @@
         [self.webView reload];
     }
     _showOrderType = type;
-
-#if DEBUG
     if (type == 0) {
         self.title = @"货主订单";
     }else if (type == 1){
@@ -71,7 +69,6 @@
     }else if (type == 2){
         self.title = @"仓库订单";
     }
-#endif
 
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
