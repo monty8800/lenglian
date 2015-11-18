@@ -68,6 +68,8 @@ public class WithDrawActivity extends BaseCordovaActivity implements CordovaInte
         } else if (flag.equals("changePasswd")) {
 //            ResetPwdActivity.actionView(this, "设置支付密码");
             ChangePwdActivity.actionView(this, "设置支付密码");
+        } else if (flag.equalsIgnoreCase("bankCardsList")) {
+            
         }
     }
 
