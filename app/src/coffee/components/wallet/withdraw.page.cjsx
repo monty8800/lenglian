@@ -53,7 +53,7 @@ Withdraw = React.createClass {
 		DB.put 'transData2', {
 			type: 'withdraw'
 		}
-		Plugin.nav.push ['bankCardsList']
+		Plugin.nav.push ['withdrawBankCardList']
 
 	_setPayPwd: ->
 		DB.put 'transData', {

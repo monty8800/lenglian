@@ -19,7 +19,7 @@ DB.remove 'transData2'
 DB.remove 'bindCardType'
 _toDeleteIndex = -1
 
-_bindType = 1
+_bindType = 2
 
 BankCardsList = React.createClass {
 	_addNewBankCard:->
@@ -119,27 +119,6 @@ BankCardsList = React.createClass {
 		,this
 
 		<section>
-			<div className="m-tab01">
-				<ul>
-				<li onClick={@_setBindType.bind this, 1}>
-				{
-					if _bindType is 1
-						<span className="active">快捷银行卡</span>
-					else
-						'快捷银行卡'
-				}
-				</li>
-				<li onClick={@_setBindType.bind this, 2}>
-				{
-					if _bindType is 2
-						<span className="active">提现银行卡</span>
-					else
-						'提现银行卡'
-					
-				}
-				</li>
-				</ul>
-			</div>
 			{
 				if @state.isDeleteStatus
 					<div className="m-bank f-delete">

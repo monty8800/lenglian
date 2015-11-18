@@ -136,7 +136,7 @@
     NSDictionary *user = [Global getUser];
     NSString *userId = [user objectForKey:@"id"];
     
-    NSString *data = [NSString stringWithFormat:@"{userId: '%@'}", userId];
+    NSString *data = [@{@"userId": userId} WY_ToJson];
     
     NSString *plainText = [NSString stringWithFormat:@"%@%@%@%@", [Global sharedInstance].uuid, TOKEN, data, CLIENT_TYPE];
     NSString *sign = [[plainText WY_MD5] lowercaseString];
@@ -145,7 +145,7 @@
                              @"uuid": [Global sharedInstance].uuid,
                              @"client_type": CLIENT_TYPE,
                              @"version": [Global sharedInstance].version,
-                             @"data": [NSString stringWithFormat:@"{userId: '%@'}", userId],
+                             @"data": data,
                              @"sign": sign,
                              @"userId": userId
                              };

@@ -187,19 +187,55 @@ requestInfo = ->
 			_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus) 
 		_user = _user.set 'balance', data.balance
 
+		pGoodsStatus = parseInt(data?.personalGoodsStatus)
+		pCarStatus = parseInt(data?.personalCarStatus)
+		pWarehouseStatus = parseInt(data?.personalWarehouseStatus)
+
+		cGoodsStatus = parseInt(data?.enterpriseGoodsStatus)
+		cCarStatus = parseInt(data?.enterpriseCarStatus)
+		cWarehouseStatus = parseInt(data?.enterpriseWarehouseStatus)
+
+		if _user.certification is 0 #认证中的话，接口返回的不准，自己判断
+			if 0 in [pGoodsStatus, pCarStatus, pWarehouseStatus]
+				_user = _user.set 'certification', 1
+			else if 0 in [cGoodsStatus, cCarStatus, cWarehouseStatus]
+				_user = _user.set 'certification', 2
+
 		# marked 🐶 🐻 🐷
-		_user = _user.set 'personalGoodsStatus', parseInt(data?.personalGoodsStatus)
+		_user = _user.set 'personalGoodsStatus', pGoodsStatus if pGoodsStatus in [0..2]
 		_user = _user.set 'personalGoodsCause', data?.personalGoodsCause
-		_user = _user.set 'personalCarStatus', parseInt(data?.personalCarStatus)
+		_user = _user.set 'personalCarStatus', pCarStatus if pCarStatus in [0..2]
 		_user = _user.set 'personalCarCause', data?.personalCarCause
-		_user = _user.set 'personalWarehouseStatus', parseInt(data?.personalWarehouseStatus)
+		_user = _user.set 'personalWarehouseStatus', pWarehouseStatus if pWarehouseStatus in [0..2]
 		_user = _user.set 'personalWarehouseCause', data?.personalWarehouseCause
-		_user = _user.set 'enterpriseGoodsStatus', parseInt(data?.enterpriseGoodsStatus)
+		_user = _user.set 'enterpriseGoodsStatus', cGoodsStatus if cGoodsStatus in [0..2]
 		_user = _user.set 'enterpriseGoodsCause', data?.personalWarehouseCause
-		_user = _user.set 'enterpriseCarStatus', parseInt(data?.enterpriseCarStatus)
+		_user = _user.set 'enterpriseCarStatus', cCarStatus if cCarStatus in [0..2]
 		_user = _user.set 'enterpriseCarCause', data?.personalWarehouseCause
-		_user = _user.set 'enterpriseWarehouseStatus', parseInt(data?.enterpriseWarehouseStatus)
+		_user = _user.set 'enterpriseWarehouseStatus', cWarehouseStatus if cWarehouseStatus in [0..2]
 		_user = _user.set 'enterpriseWarehouseCause', data?.personalWarehouseCause
+
+		#兼容以前代码
+		codeMap = {
+			'goodsStatus': [pGoodsStatus, cGoodsStatus]
+			'carStatus': [pCarStatus, cCarStatus]
+			'warehouseStatus': [pWarehouseStatus, cWarehouseStatus]
+		}
+
+		for k in Object.keys(codeMap)
+			v = codeMap[k]
+			console.log 'k is ', k, 'v is ', v
+			if _user.certification is 0
+				_user = _user.set k, 0
+			else
+				value = v[_user.certification - 1]
+				switch value
+					when 0 then _user = _user.set k, 2
+					when 1 then _user = _user.set k, 1
+					when 2 then _user = _user.set k, 3
+					else _user = _user.set k, 0
+				
+			
 
 		DB.put 'user', _user.toJS()
 		Plugin.run [9, 'user:update', _user.toJS()]

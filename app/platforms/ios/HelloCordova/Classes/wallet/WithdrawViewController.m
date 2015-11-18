@@ -10,10 +10,12 @@
 #import "WithdrawDetailViewController.h"
 #import "BankCardsListViewController.h"
 #import "ChangePasswdViewController.h"
+#import "WithdrawBankCardViewController.h"
 
 @interface WithdrawViewController ()
 
 @end
+
 
 @implementation WithdrawViewController
 
@@ -38,9 +40,9 @@
             WithdrawDetailViewController *detailVC = [WithdrawDetailViewController new];
             [self.navigationController pushViewController: detailVC animated:YES];
         }
-        else if ([params[1] isEqualToString:@"bankCardsList"])
+        else if ([params[1] isEqualToString:@"withdrawBankCardList"])
         {
-            BankCardsListViewController *bankCardListVC = [BankCardsListViewController new];
+            WithdrawBankCardViewController *bankCardListVC = [WithdrawBankCardViewController new];
             [self.navigationController pushViewController:bankCardListVC animated:YES];
         }
 //        else if ([params[1] isEqualToString:@"changePasswd"])

@@ -16,6 +16,7 @@ DB = require 'util/storage'
 Plugin = require 'util/plugin'
 bankList = []
 
+DB.remove 'bindCardType'
 user = UserStore.getUser()
 
 Charge = React.createClass {
@@ -40,6 +41,7 @@ Charge = React.createClass {
 
 	_addNewBankCard:->
 		if user.carStatus is 1 or user.goodsStatus is 1 or user.warehouseStatus is 1
+			DB.put 'bindCardType', '1'
 			Plugin.nav.push ['addBankCard']
 		else
 			Auth.needAuth 'any','您尚未进行任何角色的认证，请认证后再绑定银行卡'
@@ -70,7 +72,11 @@ Charge = React.createClass {
 	componentDidMount: ->
 		WalletStore.addChangeListener @_onChange
 		# 1 直接请求的  2 添加银行卡回来请求的
-		WalletAction.getBankCardsList(2)
+		WalletAction.getBankCardsList {
+			userId: UserStore.getUser()?.id
+			status: 1
+			bindType: 2
+			}, 2
 
 	componentWillUnmount: ->
 		WalletStore.removeChangeListener @_onChange
