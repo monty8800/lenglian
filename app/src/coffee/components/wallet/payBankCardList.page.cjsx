@@ -15,8 +15,6 @@ Auth = require 'util/auth'
 
 transData = DB.get 'transData2'
 DB.remove 'transData2'
-
-DB.remove 'bindCardType'
 _toDeleteIndex = -1
 
 _bindType = 1
@@ -24,7 +22,6 @@ _bindType = 1
 BankCardsList = React.createClass {
 	_addNewBankCard:->
 		if user.carStatus is 1 or user.goodsStatus is 1 or user.warehouseStatus is 1
-			DB.put 'bindCardType', "#{_bindType}"
 			Plugin.nav.push ['addBankCard']
 		else
 			Auth.needAuth 'any','您尚未进行任何角色的认证，请认证后再绑定银行卡'
@@ -119,27 +116,6 @@ BankCardsList = React.createClass {
 		,this
 
 		<section>
-			<div className="m-tab01">
-				<ul>
-				<li onClick={@_setBindType.bind this, 1}>
-				{
-					if _bindType is 1
-						<span className="active">快捷银行卡</span>
-					else
-						'快捷银行卡'
-				}
-				</li>
-				<li onClick={@_setBindType.bind this, 2}>
-				{
-					if _bindType is 2
-						<span className="active">提现银行卡</span>
-					else
-						'提现银行卡'
-					
-				}
-				</li>
-				</ul>
-			</div>
 			{
 				if @state.isDeleteStatus
 					<div className="m-bank f-delete">

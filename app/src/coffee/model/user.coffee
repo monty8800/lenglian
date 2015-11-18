@@ -49,7 +49,7 @@ User = Immutable.Record {
 	street: null #公司详细地址
 	tel: null #公司电话
 
-	personalGoodsStatus: null
+	personalGoodsStatus: null #0审核中， 1审核通过， 2审核驳回
 	personalGoodsCause: null
 	personalCarStatus: null
 	personalCarCause: null

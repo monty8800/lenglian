@@ -68,6 +68,8 @@
 		4C8523361BB6A229008205E3 /* SelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523351BB6A229008205E3 /* SelectAddressViewController.m */; };
 		4C85233A1BB6B16D008205E3 /* AddGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8523391BB6B16D008205E3 /* AddGoodsViewController.m */; };
 		4C946F3A1BCBFD4B0042444D /* DoCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C946F391BCBFD4B0042444D /* DoCommentViewController.m */; };
+		4CA134591BFC6D80006B8E10 /* PayBankCardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA134581BFC6D80006B8E10 /* PayBankCardListViewController.m */; };
+		4CA1345C1BFC6DAD006B8E10 /* WithdrawBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA1345B1BFC6DAD006B8E10 /* WithdrawBankCardViewController.m */; };
 		4CA930EF1BF4436200CD5462 /* CarSourceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA930EE1BF4436200CD5462 /* CarSourceDetailViewController.m */; };
 		4CA94EB31BCCF1EC00694178 /* OrderCancelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA94EB21BCCF1EC00694178 /* OrderCancelListViewController.m */; };
 		4CAB020C1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB020B1BB3FDC1002A0A5C /* PersonalGoodsAuthViewController.m */; };
@@ -276,6 +278,10 @@
 		4C946F391BCBFD4B0042444D /* DoCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoCommentViewController.m; sourceTree = "<group>"; };
 		4C9A184B1BB680710072F940 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationViewController.h; path = map/LocationViewController.h; sourceTree = "<group>"; };
 		4C9A184C1BB680710072F940 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationViewController.m; path = map/LocationViewController.m; sourceTree = "<group>"; };
+		4CA134571BFC6D80006B8E10 /* PayBankCardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayBankCardListViewController.h; path = wallet/PayBankCardListViewController.h; sourceTree = "<group>"; };
+		4CA134581BFC6D80006B8E10 /* PayBankCardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PayBankCardListViewController.m; path = wallet/PayBankCardListViewController.m; sourceTree = "<group>"; };
+		4CA1345A1BFC6DAD006B8E10 /* WithdrawBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WithdrawBankCardViewController.h; path = wallet/WithdrawBankCardViewController.h; sourceTree = "<group>"; };
+		4CA1345B1BFC6DAD006B8E10 /* WithdrawBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WithdrawBankCardViewController.m; path = wallet/WithdrawBankCardViewController.m; sourceTree = "<group>"; };
 		4CA930ED1BF4436200CD5462 /* CarSourceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarSourceDetailViewController.h; path = car/CarSourceDetailViewController.h; sourceTree = "<group>"; };
 		4CA930EE1BF4436200CD5462 /* CarSourceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarSourceDetailViewController.m; path = car/CarSourceDetailViewController.m; sourceTree = "<group>"; };
 		4CA94EB11BCCF1EC00694178 /* OrderCancelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderCancelListViewController.h; path = order/OrderCancelListViewController.h; sourceTree = "<group>"; };
@@ -662,6 +668,10 @@
 				4C822F4F1BB0F48D00112533 /* WalletViewController.m */,
 				5B3734001BC24C7C00807804 /* BankCardsListViewController.h */,
 				5B3734011BC24C7C00807804 /* BankCardsListViewController.m */,
+				4CA1345A1BFC6DAD006B8E10 /* WithdrawBankCardViewController.h */,
+				4CA1345B1BFC6DAD006B8E10 /* WithdrawBankCardViewController.m */,
+				4CA134571BFC6D80006B8E10 /* PayBankCardListViewController.h */,
+				4CA134581BFC6D80006B8E10 /* PayBankCardListViewController.m */,
 				5B3734031BC2519600807804 /* AddBankCardViewController.h */,
 				5B3734041BC2519600807804 /* AddBankCardViewController.m */,
 				5B1CBCF41BC36D4D00D94095 /* AddBankCardNextViewController.h */,
@@ -1237,6 +1247,7 @@
 				4CAB02151BB40093002A0A5C /* CompanyCarAuthViewController.m in Sources */,
 				5BEB926C1BB651A0003970B3 /* CommentViewController.m in Sources */,
 				338E8C95CE52435A98516A44 /* CDVLogger.m in Sources */,
+				4CA134591BFC6D80006B8E10 /* PayBankCardListViewController.m in Sources */,
 				4CE2FFED1BC0C81100935C9F /* SelectGoodsWidget.m in Sources */,
 				4CAB020F1BB3FE8B002A0A5C /* BaseAuthViewController.m in Sources */,
 				4C134C281BB8EC4200490AF5 /* ModifyAddressViewController.m in Sources */,
@@ -1289,6 +1300,7 @@
 				4C3D705C1BBD54B80048E3FF /* XeBubbleView.m in Sources */,
 				4C006DFA1BB02FCC00381462 /* ChangePasswdViewController.m in Sources */,
 				4C65841D1BBE2B3B005FEB16 /* FromToView.m in Sources */,
+				4CA1345C1BFC6DAD006B8E10 /* WithdrawBankCardViewController.m in Sources */,
 				4CE2FDFF1BD8FE960022B8D6 /* WithdrawDetailViewController.m in Sources */,
 				4C6584171BBE2982005FEB16 /* WarehouseBubbleView.m in Sources */,
 				4CD9A94B1BBD366D0098C9B7 /* XeAnnotationView.m in Sources */,
@@ -1321,7 +1333,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: xiao chen (DF7D3DZVHK)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: xiao chen (4GQ54CCFW2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xiao chen (4GQ54CCFW2)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1374,7 +1386,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "28d38a00-1c9b-41f1-ad8d-a5225f894b12";
+				PROVISIONING_PROFILE = "0b9cd531-f72f-4224-b27a-02cea1c91b3f";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1387,7 +1399,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: xiao chen (DF7D3DZVHK)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: xiao chen (4GQ54CCFW2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xiao chen (4GQ54CCFW2)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1433,7 +1445,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "28d38a00-1c9b-41f1-ad8d-a5225f894b12";
+				PROVISIONING_PROFILE = "0b9cd531-f72f-4224-b27a-02cea1c91b3f";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

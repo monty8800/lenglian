@@ -47,7 +47,11 @@ window.refreshBankList = ->
 	params = DB.get 'isRefresh'
 	console.log '----------refreshBankList----', params
 	if params.flag is true
-		WalletAction.getBankCardsList(2)
+		WalletAction.getBankCardsList {
+			userId: UserStore.getUser()?.id
+			status: 1
+			bindType: 1
+			}, 2
 
 window.updateStore = ->
 	_lastBankCard = new BankCardModel DB.get('lastBankCard')
@@ -60,12 +64,10 @@ window.changeStatusToDelete = ->
 	WalletStore.emitChange 'bankCards_status_delete'
 
 
-getBankCardsList = (flag)->
+getBankCardsList = (params, flag)->
 	# 1 直接请求的  2 添加银行卡回来请求的
 	user = UserStore.getUser()
-	Http.post Constants.api.GET_BANK_LIST, {
-		userId:user.id
-	},(data)->
+	Http.post Constants.api.GET_BANK_LIST, params, (data)->
 		_bankCardsList = []	#不用分页  所以请求到结果先清空数组
 		for obj in data
 			aBankCardModel = new BankCardModel
@@ -113,6 +115,7 @@ getBankCardInfo = (cardNo)->
 
 getVCodeForBindBankCar = (aBankCardModel)->
 	user = UserStore.getUser()
+	bindType = DB.get 'bindCardType'
 	Http.post Constants.api.VERITY_PHONE_FOR_BANK, {
 		userId:user.id
 		cardNo:aBankCardModel.cardNo
@@ -123,7 +126,8 @@ getVCodeForBindBankCar = (aBankCardModel)->
 		userIdNumber:aBankCardModel.userIdNumber
 		bankCode:aBankCardModel.bankCode
 		zfNo:aBankCardModel.zfNo
-		bankBranchName:aBankCardModel.bankBranchName
+		bankBranchName:aBankCardModel.bankBranchName if bindType is 2
+		bindType: bindType
 	},(data)->
 		console.log data,'______ bind card vcode _______'
 		return Plugin.toast.err data.resultMsg if data.resultCode isnt '0000'
@@ -137,6 +141,7 @@ getVCodeForBindBankCar = (aBankCardModel)->
 
 bindBankCard = (aBankCardModel,smsCode)->
 	user = UserStore.getUser()
+	bindType = DB.get 'bindCardType'
 	api = if user.certification is 2 then Constants.api.ADD_BANK_CARD_COMMPANY else Constants.api.ADD_BANK_CARD_PRIVET
 	Http.post api, {
 		id: aBankCardModel.txSNBinding						# 不知道是什么ID
@@ -145,12 +150,13 @@ bindBankCard = (aBankCardModel,smsCode)->
 		cardNo:aBankCardModel.cardNo
 		blankName:aBankCardModel.bankName
 		cardType:aBankCardModel.cardType
-		bankMobile:aBankCardModel.bankMobile
+		bankMobile:aBankCardModel.bankMobile if bindType is 1
 		userIdNumber:aBankCardModel.userIdNumber
-		mobileCode:smsCode if smsCode
+		mobileCode:smsCode if smsCode and bindType is 1
 		bankCode:aBankCardModel.bankCode
 		zfNo:aBankCardModel.zfNo
-		bankBranchName:aBankCardModel.bankBranchName
+		bankBranchName:aBankCardModel.bankBranchName if bindType is 2
+		bindType: bindType
 	},(data)->
 		console.log data,'______ 使用验证码 绑定手机号 _______'
 		DB.put 'isRefresh', {
@@ -283,7 +289,7 @@ WalletStore = assign BaseStore, {
 
 Dispatcher.register (action)->
 	switch action.actionType
-		when Constants.actionType.GET_BANK_LIST then getBankCardsList(action.params)
+		when Constants.actionType.GET_BANK_LIST then getBankCardsList(action.params, action.flag)
 		when Constants.actionType.GET_BANK_CARD_INFO then getBankCardInfo(action.cardNo)
 		when Constants.actionType.VERITY_PHONE_FOR_BANK then getVCodeForBindBankCar(action.bankCardModel)
 		when Constants.actionType.ADD_BANK_CARD_PRIVET then bindBankCard(action.bankCardModel,action.smsCode)

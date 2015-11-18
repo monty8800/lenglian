@@ -20,14 +20,16 @@ Validator = require 'util/validator'
 DBBankModel = DB.get 'transData'
 _bankCardInfo = new BankCardModel DBBankModel
 
+_bindType = DB.get 'bindCardType'
+
 AddBankCardNext = React.createClass {
 	mixins:[PureRenderMixin,LinkedStateMixin]
 	_addBankCardVerify:->
 		if not _bankCardInfo.zfNo
 			Plugin.toast.err '请选择银行'
-		else if @state.bankBranchName.length < 4
+		else if @state.bankBranchName.length < 4 and _bindType is 2
 			Plugin.toast.err '请输入正确的开户行'
-		else if not Validator.mobile @state.bankMobile
+		else if not Validator.mobile(@state.bankMobile) and _bindType is 1
 			Plugin.toast.err '请输入正确的手机号'
 		else if not Validator.idCard @state.userIdNumber
 			Plugin.toast.err '请输入正确的身份证号码'
@@ -36,7 +38,7 @@ AddBankCardNext = React.createClass {
 			_bankCardInfo = _bankCardInfo.set 'bankMobile',@state.bankMobile
 			_bankCardInfo = _bankCardInfo.set 'userIdNumber',@state.userIdNumber
 			_bankCardInfo = _bankCardInfo.set 'bankName', @state.bankName
-			if user.certification is 2
+			if user.certification is 2 or _bindType is 2
 				WalletAction.bindBankCard _bankCardInfo, null
 			else
 				DB.put 'transData',_bankCardInfo.toJS()
@@ -88,7 +90,7 @@ AddBankCardNext = React.createClass {
 
 
 	render : ->
-		console.log 'new state', @state
+		console.log 'new state', @state, '_bindType', _bindType
 		<div>
 			<div className="m-releaseitem">
 
@@ -104,14 +106,21 @@ AddBankCardNext = React.createClass {
 						}
 					</select>
 				</div>
-				<div>
-					<label htmlFor="packType"><span>开户行:</span></label>
-					<input valueLink={@linkState 'bankBranchName'} type="text" placeholder="请输入开户行" id="packType"/>
-				</div>
-				<div>
-					<label htmlFor="packType"><span>手机号:</span></label>
-					<input valueLink={@linkState 'bankMobile'} type="text" placeholder="银行预留手机号码" id="packType"/>
-				</div>
+				{
+					if _bindType is 2
+						<div>
+							<label htmlFor="packType"><span>开户行:</span></label>
+							<input valueLink={@linkState 'bankBranchName'} type="text" placeholder="请输入开户行" id="packType"/>
+						</div>
+				}
+				{
+					if _bindType is 1
+						<div>
+							<label htmlFor="packType"><span>手机号:</span></label>
+							<input valueLink={@linkState 'bankMobile'} type="text" placeholder="银行预留手机号码" id="packType"/>
+						</div>
+				}
+
 				<div>
 					<label htmlFor="packType"><span>身份证号:</span></label>
 					<input valueLink={@linkState 'userIdNumber'} type="text" placeholder="持卡人身份证号码" id="packType"/>

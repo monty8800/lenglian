@@ -11,10 +11,11 @@ WalletAction = {
 			params: params
 		}
 
-	getBankCardsList: (params)->
+	getBankCardsList: (params, flag)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.GET_BANK_LIST
 			params: params
+			flag: flag
 		}
 	getBankCardInfo: (cardNo)->
 		Dispatcher.dispatch {

@@ -218,7 +218,7 @@ AddGoods = React.createClass {
 			refrigeration: 1 #需要冷库 1不需要，2需要，3目的地需要，4起始地需要
 			priceType: 1 #价格类型 1一口价， 2竞价
 			price: null
-			payType: 1 #支付方式 1货到付款， 2回单付款， 3预付款
+			payType: 3 #支付方式 1货到付款， 2回单付款， 3预付款
 			prePay: null #预付款
 			invoice: 2 #是否需要发票 1需要 2不需要
 
@@ -385,18 +385,8 @@ AddGoods = React.createClass {
 					<dt className="fl"><span>支付方式</span></dt>
 					<dd className="fl">
 						<div>
-							<label >
-								<input className="mui-checkbox ll-font" value="1" onChange={@_selectPayType} defaultChecked=true type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '货到付款'}} />
-							</label>
-						</div>
-						<div>
 							<label>
-								<input className="mui-checkbox ll-font" value="2" onChange={@_selectPayType} type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '回单付款'}} />
-							</label>
-						</div>
-						<div>
-							<label>
-								<input className="mui-checkbox ll-font" value="3" onChange={@_selectPayType} type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '预付款'}} />
+								<input className="mui-checkbox ll-font" value="3" onChange={@_selectPayType} defaultChecked=true type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '预付款'}} />
 							</label>
 							<input onChange={@_prePayChange} value={@state.prePay} onBlur={@_prePayIpnutOnblur} type="text" placeholder="请输入预付款" className="price"/>元
 						</div>						

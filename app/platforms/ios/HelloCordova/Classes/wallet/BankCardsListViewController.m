@@ -37,19 +37,19 @@
     _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_deleteBtn setFrame:CGRectMake(0, 0, 40, 44)];
     [_deleteBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
-    [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+    [_deleteBtn setTitle:@"编辑" forState:UIControlStateNormal];
     [_deleteBtn addTarget:self action:@selector(deleteBankCard:) forControlEvents:UIControlEventTouchUpInside];
     [_deleteBtn setHidden:NO];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_deleteBtn];
 
 }
 -(void)deleteBankCard:(UIButton *)button{
-    if ([button.titleLabel.text isEqualToString:@"删除"]) {
+    if ([button.titleLabel.text isEqualToString:@"编辑"]) {
         [_deleteBtn setTitle:@"完成" forState:UIControlStateNormal];
         NSString *js = [NSString stringWithFormat:@"(function(){window.changeStatusToDelete()})()"];
         [self.commandDelegate evalJs:js];
     }else{
-        [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_deleteBtn setTitle:@"编辑" forState:UIControlStateNormal];
         NSString *js = [NSString stringWithFormat:@"(function(){window.changeStatusToNormal ()})()"];
         [self.commandDelegate evalJs:js];
     }

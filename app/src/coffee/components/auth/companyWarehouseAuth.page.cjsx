@@ -53,8 +53,8 @@ Auth = React.createClass {
 		else if msg is 'auth:done'
 			UserAction.updateUser {
 				company: @state.companyName
-				# warehouseStatus: 2
-				enterpriseWarehouseStatus: 1
+				warehouseStatus: 2
+				enterpriseWarehouseStatus: 0
 				certification: 2
 				address: @state.address
 				street: @state.street
