@@ -237,12 +237,40 @@ android {
                 signingConfig signingConfigs.release
             }
         }
+
         addSigningProps(cdvReleaseSigningPropertiesFile, signingConfigs.release)
     }
     if (cdvDebugSigningPropertiesFile) {
         addSigningProps(cdvDebugSigningPropertiesFile, signingConfigs.debug)
     }
+
+    // 多渠道打包配置tips
+    productFlavors {
+        openqq {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "openqq"]
+        }
+        wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        }
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        leshi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "leshi"]
+        }
+        androidshop {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "androidshop"]
+        }
+        anzhi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "anzhi"]
+        }
+        helper91 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "helper91"]
+        }
+    }
+
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')

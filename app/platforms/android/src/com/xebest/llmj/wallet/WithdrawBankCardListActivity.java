@@ -11,7 +11,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
-import com.xebest.llmj.center.ChangePwdActivity;
 import com.xebest.llmj.common.BaseCordovaActivity;
 import com.xebest.plugin.XEWebView;
 
@@ -22,10 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * 提现
+ * 添加银行卡
  * Created by kaisun on 15/9/22.
  */
-public class WithDrawActivity extends BaseCordovaActivity implements CordovaInterface {
+public class WithdrawBankCardListActivity extends BaseCordovaActivity implements CordovaInterface {
 
     private XEWebView mWebView;
 
@@ -42,7 +41,7 @@ public class WithDrawActivity extends BaseCordovaActivity implements CordovaInte
      * @param context
      */
     public static void actionView(Context context) {
-        context.startActivity(new Intent(context, WithDrawActivity.class));
+        context.startActivity(new Intent(context, WithdrawBankCardListActivity.class));
     }
 
     @Override
@@ -53,7 +52,7 @@ public class WithDrawActivity extends BaseCordovaActivity implements CordovaInte
         initView();
 
         // 添加到移除队列中
-        Application.getInstance().addRemoveActivity(this);
+//        Application.getInstance().addRemoveActivity(this);
 
     }
 
@@ -61,15 +60,9 @@ public class WithDrawActivity extends BaseCordovaActivity implements CordovaInte
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(1);
-        if (flag.equalsIgnoreCase("withdrawDetail")) {
-            WithDrawDetailActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("bankCardsList")) {
-            MyBankActivity.actionView(this);
-        } else if (flag.equals("changePasswd")) {
-//            ResetPwdActivity.actionView(this, "设置支付密码");
-            ChangePwdActivity.actionView(this, "设置支付密码");
-        } else if (flag.equalsIgnoreCase("withdrawBankCardList")) {
-            WithdrawBankCardListActivity.actionView(this);
+        if (flag.equalsIgnoreCase("addBankCard")) {
+//            AddBankNextActivity.actionView(this);
+            AddBankActivity.actionView(this);
         }
     }
 
@@ -77,7 +70,7 @@ public class WithDrawActivity extends BaseCordovaActivity implements CordovaInte
         bank = (TextView) findViewById(R.id.add);
         bank.setVisibility(View.GONE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("提现");
+        tvTitle.setText("银行卡列表");
         mWebView = (XEWebView) findViewById(R.id.wb);
         backView = findViewById(R.id.rlBack);
         backView.setOnClickListener(new View.OnClickListener() {
@@ -92,22 +85,23 @@ public class WithDrawActivity extends BaseCordovaActivity implements CordovaInte
     @Override
     protected void onResume() {
         // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-        MobclickAgent.onPageStart("提现详情");
+        MobclickAgent.onPageStart("添加银行卡");
         // 统计时长
         MobclickAgent.onResume(this);
         if (isOnCreate) {
-            mWebView.init(this, ApiUtils.API_COMMON_URL + "withdraw.html", this, this, this, this);
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "withdrawBankCardList.html", this, this, this, this);
         }
         isOnCreate = false;
-
-        mWebView.getWebView().loadUrl("javascript:updateStore()");
+//         刷新银行卡列表
+//        mWebView.getWebView().loadUrl("javascript:tryReloadBandCardsList()");
+        mWebView.getWebView().loadUrl("javascript:refreshBList()");
         super.onResume();
     }
 
     public void onPause() {
         super.onPause();
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
-        MobclickAgent.onPageEnd("提现");
+        MobclickAgent.onPageEnd("添加银行卡");
         MobclickAgent.onPause(this);
     }
 

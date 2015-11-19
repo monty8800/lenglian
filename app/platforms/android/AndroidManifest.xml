@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <meta-data android:name="UMENG_APPKEY" android:value="5601399667e58eaa030036a9" />
+        <meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}" />
         <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="C8lVOIxyVIlwmIRgqumvV1VN" />
         <activity android:name=".center.MsgActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".center.AddressActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -94,5 +95,6 @@
         <activity android:name=".ware.WarehouseOnwerDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".application.GuideActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".order.CarSourceDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.WithdrawBankCardListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>
