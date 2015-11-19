@@ -75,7 +75,7 @@ Charge = React.createClass {
 		WalletAction.getBankCardsList {
 			userId: UserStore.getUser()?.id
 			status: 1
-			bindType: 2
+			bindType: 1
 			}, 2
 
 	componentWillUnmount: ->
