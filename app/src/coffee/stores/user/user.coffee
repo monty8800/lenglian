@@ -16,6 +16,8 @@ _htmlPage = paths[paths.length-1]
 localUser = DB.get 'user'
 _user = new User localUser
 
+_needRegisterCode = DB.get 'need_register_code'
+
 
 XeCrypto = require 'util/crypto'
 
@@ -272,11 +274,12 @@ smsCode = (params)->
 		Plugin.toast.err data.msg
 		UserStore.emitChange 'sms:failed'
 
-register = (mobile, code, passwd)->
+register = (mobile, code, passwd, inviteCode)->
 	Http.post Constants.api.REGISTER, {
 		usercode: mobile
 		mobileCode: code
 		password: passwd
+		inviteCode: inviteCode if inviteCode
 	}, (data)->
 		tmpPasswd = (Math.random() + '')[-16..]
 		encryptPasswd = XeCrypto.aesEncrypt tmpPasswd, passwd
@@ -397,19 +400,28 @@ updateUserProps = (properties)->
 
 window.updateUserProps = updateUserProps
 
+needRegisterCode = ->
+	Http.post Constants.api.NEED_REGISTER_CODE, {}, (data)->
+		console.log 'needRegisterCode', data
+		DB.put 'need_register_code', data.flag
+		_needRegisterCode = parseInt data.flag
+		UserStore.emitChange 'need_register_code'
 UserStore = assign BaseStore, {
 	getUser: ->
 		new User (DB.get 'user')
 
 	getMenus: ->
 		_menus
+
+	needRegisterCode: ->
+		_needRegisterCode is 1
 }
 
 Dispatcher.register (action)->
 	switch action.actionType
 		when Constants.actionType.USER_INFO then requestInfo()
 		when Constants.actionType.SMS_CODE then smsCode(action.params)
-		when Constants.actionType.REGISTER then register(action.mobile, action.code, action.passwd)
+		when Constants.actionType.REGISTER then register(action.mobile, action.code, action.passwd, action.inviteCode)
 		when Constants.actionType.LOGIN then login(action.mobile, action.passwd)
 		when Constants.actionType.RESET_PWD then resetPwd(action.mobile, action.code, action.passwd)
 		when Constants.actionType.CHANGE_PWD then changePwd(action.oldPasswd, action.newPasswd)
@@ -422,5 +434,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.COMPANY_AUTH then companyAuth(action.params, action.files)
 		when Constants.actionType.AUTO_LOGIN then autoLogin()
 		when Constants.actionType.UPDATE_STORE then updateStore()
+		when Constants.actionType.NEED_REGISTER_CODE then needRegisterCode()
 
 module.exports = UserStore

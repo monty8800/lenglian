@@ -178,6 +178,8 @@ actionType = {
 
 	CAR_SOURCE_DETAIL: null
 
+	NEED_REGISTER_CODE: null
+
 }
 
 								
@@ -274,6 +276,9 @@ api = {
 
 	#车源信息
 	CAR_SOURCE_DETAIL: '/mjCarinfoCtl/queryMjCarResource.shtml'
+
+	#是否需要注册码
+	NEED_REGISTER_CODE: '/register/toRegister.shtml'
 
 #YYQ
 	# 查询我的仓库
@@ -433,6 +438,7 @@ cache = {
 	USER_INFO_MIN: 30 * 1000 #更新用户信息最小间隔
 	SUPPORT_BANK_LIST: 7 * 24 * 60 * 60 * 1000 #支持银行列表
 	KEEP_LOGIN_TIME: 29 * 24 * 60 * 60 * 1000 #保持用户登陆的时间
+	NEED_REGISTER_CODE: 0.5 * 60 * 60 * 1000 #检查是否需要注册码
 }
 
 carPicSize = '200x200'

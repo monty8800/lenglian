@@ -26,6 +26,9 @@ Register = React.createClass {
 		else if not Validator.smsCode @state.code
 			Plugin.toast.err '请输入正确长度的验证码'
 			return
+		else if @state.inviteCode.length < 1 and @state.needRegisterCode
+			Plugin.toast.err '请输入注册邀请码'
+			return
 		else if not Validator.passwd @state.passwd
 			Plugin.toast.err '密码格式不正确'
 			return
@@ -36,7 +39,7 @@ Register = React.createClass {
 			Plugin.toast.err '请同意服务协议'
 			return
 		else
-			UserAction.register @state.mobile, @state.code, @state.passwd
+			UserAction.register @state.mobile, @state.code, @state.passwd, @state.inviteCode
 
 	_toAgreement:->
 		Plugin.nav.push ['toAgreement']
@@ -50,6 +53,7 @@ Register = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
 	componentDidMount: ->
 		UserStore.addChangeListener @_change
+		UserAction.needRegisterCode()
 
 	componentWillUnmount: ->
 		UserStore.removeChangeListener @_change
@@ -61,17 +65,23 @@ Register = React.createClass {
 			newState = Object.create @state
 			newState.success = true
 			@setState newState
+		else if msg is 'need_register_code'
+			@setState {
+				needRegisterCode: UserStore.needRegisterCode()
+			}
 
 	getInitialState: ->
 		{
 			mobile: ''
 			code: ''
 			passwd: ''
+			inviteCode: ''
 			rePasswd: ''
 			showPwd: false
 			showRePwd: false
 			agree: true
 			success: false
+			needRegisterCode: UserStore.needRegisterCode()
 		}
 	render: ->
 		console.log 'this', this
@@ -85,6 +95,9 @@ Register = React.createClass {
 				</li>
 				<li>
 					<input type="text" className="input-weak" placeholder="请输入手机验证码" valueLink={@linkState 'code'} />
+				</li>
+				<li>
+					<input type="text" className="input-weak" placeholder="请输入注册邀请码" valueLink={@linkState 'inviteCode'} />
 				</li>
 			</ul>
 		</div>

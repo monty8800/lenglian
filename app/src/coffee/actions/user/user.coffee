@@ -13,12 +13,18 @@ UserAction = {
 			actionType: Constants.actionType.SMS_CODE
 			params: params
 		}
-	register: (mobile, code, passwd)->
+	register: (mobile, code, passwd, inviteCode)->
 		Dispatcher.dispatch {
 			actionType: Constants.actionType.REGISTER
 			mobile: mobile
 			code: code
 			passwd: passwd
+			inviteCode: inviteCode
+		}
+
+	needRegisterCode: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.NEED_REGISTER_CODE
 		}
 
 	login: (mobile, passwd)->
