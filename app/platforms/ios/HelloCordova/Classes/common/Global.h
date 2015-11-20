@@ -27,7 +27,7 @@
 
 #define TOKEN @"da971f8e9e024f579800cf20c146e6df"
 
-#if DEBUG
+#ifdef DEBUG
 
 #define SERVER @"http://m.lenglianmajia.com/"
 

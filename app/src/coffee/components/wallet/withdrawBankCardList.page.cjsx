@@ -97,6 +97,10 @@ BankCardsList = React.createClass {
 			@setState {
 				bankCardsList:newBankCardList
 			}
+		else if mark is 'reloadBandCardsListAction'
+			@_getBankCardList()
+			
+		
 			
 
 	render : ->

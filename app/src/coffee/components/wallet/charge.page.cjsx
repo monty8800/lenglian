@@ -99,6 +99,12 @@ Charge = React.createClass {
 			newState.bankCardsList = bankList
 			newState.selectIndex = selectIndex
 			@setState newState
+		else if mark is 'reloadBandCardsListAction'
+			WalletAction.getBankCardsList {
+				userId: UserStore.getUser()?.id
+				status: 1
+				bindType: 1
+				}, 2
 
 
 	render : ->
