@@ -14,6 +14,10 @@
         <option name="COMPILE_JAVA_TASK_NAME" value="compileAndroidshopDebugSources" />
         <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleAndroidshopDebugTest" />
         <option name="COMPILE_JAVA_TEST_TASK_NAME" value="compileAndroidshopDebugTestSources" />
+        <afterSyncTasks>
+          <task>generateAndroidshopDebugSources</task>
+          <task>generateAndroidshopDebugTestSources</task>
+        </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/res" />
       </configuration>
@@ -100,15 +104,15 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="umeng-analytics-v5.5.3" level="project" />
+    <orderEntry type="library" exported="" name="fastjson-1.1.34.android" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.2.1" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.2-SNAPSHOT-with-sources" level="project" />
     <orderEntry type="library" exported="" name="Volley" level="project" />
-    <orderEntry type="library" exported="" name="fastjson-1.1.34.android" level="project" />
-    <orderEntry type="library" exported="" name="IndoorscapeAlbumPlugin" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.1" level="project" />
-    <orderEntry type="library" exported="" name="umeng-analytics-v5.5.3" level="project" />
+    <orderEntry type="library" exported="" name="IndoorscapeAlbumPlugin" level="project" />
     <orderEntry type="library" exported="" name="BaiduLBS_Android" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.2.1" level="project" />
     <orderEntry type="module" module-name="CordovaLib" exported="" />
   </component>
 </module>

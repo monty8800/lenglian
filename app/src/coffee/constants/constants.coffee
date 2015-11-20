@@ -189,8 +189,8 @@ api = {
 	#服务器地址
 
 	
-	server: 'http://192.168.26.177:7080/llmj-app/'
-	# server: 'http://m.lenglianmajia.com/'
+	# server: 'http://192.168.26.177:7080/llmj-app/'
+	server: 'http://m.lenglianmajia.com/'
 
 	#注意！⚠️浏览器里请去gulpfile里面改接口地址，这里改不起作用
 
@@ -443,9 +443,9 @@ cache = {
 
 carPicSize = '200x200'
 
-imageServer = 'http://qa-pic.lenglianmajia.com/'
+# imageServer = 'http://qa-pic.lenglianmajia.com/'
 # 正式环境图片服务器路径
-# imageServer = 'http://pic.lenglianmajia.com/'
+imageServer = 'http://pic.lenglianmajia.com/'
 
 module.exports = 
 	api: api
