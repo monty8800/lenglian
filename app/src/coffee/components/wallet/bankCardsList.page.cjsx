@@ -77,7 +77,8 @@ BankCardsList = React.createClass {
 
 	_onChange :(mark) ->
 		if mark[0] is 'getBankCardsListSucc'
-			console.log '++++++ get it success'
+			bindType = mark[2]
+			console.log '++++++ get it success', bindType
 			newState = Object.create @state
 			newState.bankCardsList = WalletStore.getBankCardsList()
 			@setState newState
