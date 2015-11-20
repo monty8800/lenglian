@@ -28,7 +28,7 @@ _address = new AddressModel localAddress
 
 
 addressList = ->
-	console.log '请求网络数据'
+	console.log '请求网络数据', Constants.api.address_list
 	Http.post Constants.api.address_list, {
 		userId: _user?.id
 	}, (result) ->

@@ -39,7 +39,12 @@ window.tryReloadBandCardsList = ->
 	shouldReload = parseInt (DB.get 'shouldBankCardsListReload')
 	console.log '---------------tryReloadBandCardsList:', shouldReload
 	if shouldReload is 1
-		getBankCardsList()
+		# getBankCardsList()
+		getBankCardsList {
+			userId: UserStore.getUser()?.id
+			status: 1
+			bindType: 1
+		}
 
 # 充值绑定银行卡
 window.refreshBankList = ->
@@ -63,6 +68,12 @@ window.changeStatusToNormal = ->
 window.changeStatusToDelete = ->
 	WalletStore.emitChange 'bankCards_status_delete'
 
+window.refreshBList = ->
+	getBankCardsList {
+		userId: UserStore.getUser()?.id
+		status: 1
+		bindType: 2
+	}
 
 getBankCardsList = (params, flag)->
 	# 1 直接请求的  2 添加银行卡回来请求的

@@ -6,7 +6,7 @@ apiServer = 'http://192.168.26.177:7080/llmj-app/'
 # apiServer = 'http://192.168.29.203:8072/' #盘代军
 # apiServer = 'http://192.168.27.160:8080/llmj-app/' #高
 
-# apiServer = 'http://m.lenglianmajia.com/'
+#apiServer = 'http://m.lenglianmajia.com/'
 
 
 #webpack
