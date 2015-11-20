@@ -39,12 +39,12 @@ window.tryReloadBandCardsList = ->
 	shouldReload = parseInt (DB.get 'shouldBankCardsListReload')
 	console.log '---------------tryReloadBandCardsList:', shouldReload
 	if shouldReload is 1
-		# getBankCardsList()
-		getBankCardsList {
-			userId: UserStore.getUser()?.id
-			status: 1
-			bindType: 1
-		}
+		getBankCardsList()
+		# getBankCardsList {
+		# 	userId: UserStore.getUser()?.id
+		# 	status: 1
+		# 	bindType: 1
+		# }
 
 # 充值绑定银行卡
 window.refreshBankList = ->
