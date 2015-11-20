@@ -279,7 +279,7 @@ register = (mobile, code, passwd, inviteCode)->
 		usercode: mobile
 		mobileCode: code
 		password: passwd
-		inviteCode: inviteCode if inviteCode
+		inviteCode: inviteCode if inviteCode?.length > 0
 	}, (data)->
 		tmpPasswd = (Math.random() + '')[-16..]
 		encryptPasswd = XeCrypto.aesEncrypt tmpPasswd, passwd
