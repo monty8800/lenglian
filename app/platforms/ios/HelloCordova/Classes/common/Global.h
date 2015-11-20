@@ -29,12 +29,12 @@
 
 #ifdef DEBUG
 
-#define SERVER @"http://m.lenglianmajia.com/"
+//#define SERVER @"http://m.lenglianmajia.com/"
 
-//#define IMG_SERVER @"http://qa-pic.lenglianmajia.com/"
-#define IMG_SERVER @"http://pic.lenglianmajia.com/"
+#define IMG_SERVER @"http://qa-pic.lenglianmajia.com/"
+//#define IMG_SERVER @"http://pic.lenglianmajia.com/"
 
-//#define SERVER @"http://192.168.26.177:7080/llmj-app/"
+#define SERVER @"http://192.168.26.177:7080/llmj-app/"
 //#define SERVER @"http://192.168.29.149:8072/"
 //#define SERVER @"http://192.168.29.210:8072/"
 //#define SERVER @"http://192.168.29.204:8072/"

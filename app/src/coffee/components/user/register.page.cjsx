@@ -26,9 +26,9 @@ Register = React.createClass {
 		else if not Validator.smsCode @state.code
 			Plugin.toast.err '请输入正确长度的验证码'
 			return
-		# else if @state.inviteCode.length < 1 and @state.needRegisterCode
-		# 	Plugin.toast.err '请输入注册邀请码'
-		# 	return
+		else if @state.inviteCode.length > 0 and (not Validator.inviteCode(@state.inviteCode)) and @state.needRegisterCode
+			Plugin.toast.err '请输入正确的注册邀请码'
+			return
 		else if not Validator.passwd @state.passwd
 			Plugin.toast.err '密码格式不正确'
 			return
