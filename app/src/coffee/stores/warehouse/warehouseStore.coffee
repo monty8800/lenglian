@@ -244,7 +244,7 @@ deleteWarehouseRequest = (warehouseId)->
 		Plugin.nav.pop()
 	,(data)->
 		Plugin.loading.hide()
-		Plugin.err.show data.msg
+		Plugin.toast.err data.msg
 		console.log '仓库删除失败'
 	,true
 

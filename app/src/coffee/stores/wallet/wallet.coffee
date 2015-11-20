@@ -33,13 +33,14 @@ _lastBankCard = new BankCardModel DB.get('lastBankCard')
 
 
 window.tryReloadBandCardsList = ->
-	console.log '--------tryReloadBandCardsList--'
 	flag = DB.get 'shouldBankCardsListReload'
-	console.log '-------------flag-----'. flag
 	shouldReload = parseInt (DB.get 'shouldBankCardsListReload')
-	console.log '---------------tryReloadBandCardsList:', shouldReload
 	if shouldReload is 1
-		getBankCardsList()
+		# tryReloadBandCardsListAction
+		WalletStore.emitChange "reloadBandCardsListAction"
+
+
+		# getBankCardsList()
 		# getBankCardsList {
 		# 	userId: UserStore.getUser()?.id
 		# 	status: 1
@@ -96,7 +97,7 @@ getBankCardsList = (params, flag)->
 		DB.remove 'shouldBankCardsListReload'
 
 	,(date)->
-		Plugin.err.show date.msg
+		Plugin.toast.err date.msg
 
 getBankCardInfo = (cardNo)->
 	user = UserStore.getUser()

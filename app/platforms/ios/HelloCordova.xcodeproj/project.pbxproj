@@ -1386,7 +1386,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "0b9cd531-f72f-4224-b27a-02cea1c91b3f";
+				PROVISIONING_PROFILE = "84275f2f-7ff1-467e-81af-1120bb1638f4";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1445,7 +1445,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "0b9cd531-f72f-4224-b27a-02cea1c91b3f";
+				PROVISIONING_PROFILE = "84275f2f-7ff1-467e-81af-1120bb1638f4";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
