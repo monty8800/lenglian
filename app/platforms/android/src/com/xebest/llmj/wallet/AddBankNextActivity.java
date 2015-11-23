@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -64,6 +65,9 @@ public class AddBankNextActivity extends BaseCordovaActivity implements CordovaI
             String flag = args.getString(1);
             if (flag.equals("addBankCardVerify")) {
                 AddBankVerifyActivity.actionView(AddBankNextActivity.this);
+            } else if (flag.equalsIgnoreCase("branchCard")) {
+                // 选择支行
+                startActivityForResult(new Intent(this, BranchBankListActivity.class), 100110);
             }
         }
 
@@ -123,4 +127,13 @@ public class AddBankNextActivity extends BaseCordovaActivity implements CordovaI
         return super.onMessage(id, data);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == 100110 && resultCode == RESULT_OK) {
+            if (intent == null) return;
+            String name = intent.getStringExtra("branchName");
+            Log.i("info", "-------name:" + name);
+        }
+    }
 }
