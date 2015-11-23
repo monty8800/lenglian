@@ -4,3 +4,4 @@ pod "YwenNetworkit"
 pod 'UMengAnalytics-NO-IDFA'
 pod 'CocoaLumberjack', '2.0.0'
 pod 'SDWebImage', '~>3.6'
+pod 'FMDB'
