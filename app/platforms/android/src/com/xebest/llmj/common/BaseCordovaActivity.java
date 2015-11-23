@@ -42,6 +42,8 @@ public class BaseCordovaActivity extends CordovaActivity implements XECommand, X
             WebView.setWebContentsDebuggingEnabled(true);
         }
 
+
+
     }
 
     @Override

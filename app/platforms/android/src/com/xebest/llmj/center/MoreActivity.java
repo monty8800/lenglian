@@ -49,7 +49,6 @@ public class MoreActivity extends BaseCordovaActivity implements CordovaInterfac
         setContentView(R.layout.cwebview);
         isOnCreate = true;
         initView();
-
     }
 
     protected void initView() {
