@@ -26,7 +26,7 @@ gulp.task 'webpack:build', ['pre-build'], (cb)->
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin {
 			compress: {
-				# drop_console: true
+				drop_console: true
 			}
 			outSourceMap: false
 		}
