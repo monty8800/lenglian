@@ -76,6 +76,12 @@ AddBankCardNext = React.createClass {
 
 
 	componentDidMount: ->
+		setBranchBank = (branchBank)->
+			@setState {
+				bankBranchName: branchBank
+			}
+		window.setBranchBank = setBranchBank.bind this
+
 		WalletStore.addChangeListener @_onChange
 		WalletAction.getSupportBankList()
 
