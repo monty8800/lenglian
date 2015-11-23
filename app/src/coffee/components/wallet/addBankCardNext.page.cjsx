@@ -21,6 +21,7 @@ DBBankModel = DB.get 'transData'
 _bankCardInfo = new BankCardModel DBBankModel
 
 _bindType = DB.get 'bindCardType'
+_bindType = 2
 
 AddBankCardNext = React.createClass {
 	mixins:[PureRenderMixin,LinkedStateMixin]
@@ -43,6 +44,10 @@ AddBankCardNext = React.createClass {
 			else
 				DB.put 'transData',_bankCardInfo.toJS()
 				Plugin.nav.push ['addBankCardVerify']
+
+	branchCard: ->
+		return Plugin.toast.show '请选择银行类型' if @state.bankName is '请选择银行'
+		Plugin.nav.push ['branchCard', @state.bankName]
 
 	getInitialState: ->
 		{
@@ -108,9 +113,9 @@ AddBankCardNext = React.createClass {
 				</div>
 				{
 					if _bindType is 2
-						<div>
+						<div onClick={@branchCard}>
 							<label htmlFor="packType"><span>开户行:</span></label>
-							<input valueLink={@linkState 'bankBranchName'} type="text" placeholder="请输入开户行" id="packType"/>
+							<input readOnly='readOnly' valueLink={@linkState 'bankBranchName'} type="text" placeholder="请选择开户行" id="packType"/>
 						</div>
 				}
 				{
