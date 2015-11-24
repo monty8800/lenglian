@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "SelectBranchBankViewController.h"
 
-@interface AddBankCardNextViewController : BaseViewController
+@interface AddBankCardNextViewController : BaseViewController<SelectBranchBankDelegate>
 
 @end
