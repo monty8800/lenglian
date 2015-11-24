@@ -42,7 +42,7 @@ public class SQLdm {
                 //得到资源
                 AssetManager am= context.getAssets();
                 //得到数据库的输入流
-                InputStream is=am.open("test.db");
+                InputStream is=am.open("bank.db");
                 Log.i("test", is+"");
                 //用输出流写到SDcard上面
                 FileOutputStream fos=new FileOutputStream(jhPath);

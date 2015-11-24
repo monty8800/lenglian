@@ -35,6 +35,8 @@ public class AddBankNextActivity extends BaseCordovaActivity implements CordovaI
 
     private TextView bank;
 
+    private boolean isOnCreate = false;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -47,7 +49,7 @@ public class AddBankNextActivity extends BaseCordovaActivity implements CordovaI
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallet);
-
+        isOnCreate = true;
         initView();
 
         // 添加到移除队列中
@@ -66,8 +68,11 @@ public class AddBankNextActivity extends BaseCordovaActivity implements CordovaI
             if (flag.equals("addBankCardVerify")) {
                 AddBankVerifyActivity.actionView(AddBankNextActivity.this);
             } else if (flag.equalsIgnoreCase("branchCard")) {
+                String bankName = args.getString(2);
                 // 选择支行
-                startActivityForResult(new Intent(this, BranchBankListActivity.class), 100110);
+                Intent intent = new Intent(this, BranchBankListActivity.class);
+                intent.putExtra("bankName", bankName);
+                startActivityForResult(intent, 100110);
             }
         }
 
@@ -95,7 +100,10 @@ public class AddBankNextActivity extends BaseCordovaActivity implements CordovaI
         MobclickAgent.onPageStart("添加银行卡");
         // 统计时长
         MobclickAgent.onResume(this);
-        mWebView.init(this, ApiUtils.API_COMMON_URL + "addBankCardNext.html", this, this, this, this);
+        if (isOnCreate) {
+            mWebView.init(this, ApiUtils.API_COMMON_URL + "addBankCardNext.html", this, this, this, this);
+        }
+        isOnCreate = false;
         super.onResume();
     }
 
@@ -134,6 +142,7 @@ public class AddBankNextActivity extends BaseCordovaActivity implements CordovaI
             if (intent == null) return;
             String name = intent.getStringExtra("branchName");
             Log.i("info", "-------name:" + name);
+            
         }
     }
 }
