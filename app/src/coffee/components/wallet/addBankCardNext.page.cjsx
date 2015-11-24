@@ -68,6 +68,7 @@ AddBankCardNext = React.createClass {
 
 		@setState {
 			bankName: bank?.bankName or '请选择银行'
+			bankBranchName: ''
 		}
 		_bankCardInfo = _bankCardInfo.merge {
 			bankName: bank?.bankName
