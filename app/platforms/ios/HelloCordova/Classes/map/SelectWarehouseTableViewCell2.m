@@ -27,6 +27,12 @@
     [self.contentView addSubview:_addressLabel];
     [_addressLabel setNumberOfLines:0];
     
+    _selectedImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 16, 13)];
+    [_selectedImageView setCenter:CGPointMake(SCREEN_WIDTH-40 - 20, 65/2)];
+    [_selectedImageView setHidden:YES];
+    [_selectedImageView setImage:[UIImage imageNamed:@"icon_selected"]];
+    [self.contentView addSubview:_selectedImageView];
+    
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH-40, 1)];
     line.backgroundColor = [UIColor WY_ColorWithHex:0xececec];
     [self.contentView addSubview:line];
@@ -42,6 +48,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    [_selectedImageView setHidden:!selected];
 
     // Configure the view for the selected state
 }

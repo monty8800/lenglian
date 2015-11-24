@@ -16,6 +16,8 @@
 {
     InfoView *_infoView;
     FromToView *_fromToView;
+    UIImageView *_selectedImageView;
+
 }
 
 @property (strong, nonatomic) NSArray *infoList;

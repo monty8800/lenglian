@@ -31,10 +31,14 @@
     _infoView.userInteractionEnabled = NO;
     [self.contentView addSubview:_infoView];
     
+    _selectedImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [_selectedImageView setCenter:CGPointMake(SCREEN_WIDTH-40 - 20, 130/2)];
+    [_selectedImageView setHidden:YES];
+    [self.contentView addSubview:_selectedImageView];
+    
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 129, SCREEN_WIDTH-40, 1)];
     line.backgroundColor = [UIColor WY_ColorWithHex:0xececec];
     [self.contentView addSubview:line];
-    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
 }
@@ -52,9 +56,9 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    [_selectedImageView setHidden:!selected];
     // Configure the view for the selected state
 }
 

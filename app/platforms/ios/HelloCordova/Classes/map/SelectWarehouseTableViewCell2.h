@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SelectWarehouseTableViewCell2 : UITableViewCell
-
+{
+    UIImageView *_selectedImageView;
+}
 @property (nonatomic,strong)UILabel *nameLabel;
 
 @property (nonatomic,strong)UILabel *addressLabel;
