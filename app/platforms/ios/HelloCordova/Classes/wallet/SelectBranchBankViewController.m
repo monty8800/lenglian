@@ -19,6 +19,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 44)];
+    [titleLabel WY_SetFontSize:19 textColor:0xffffff];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.navigationItem.titleView = titleLabel;
+    titleLabel.text = @"选择支行";
+    
     UIBarButtonItem *backItem = [[UIBarButtonItem  alloc] initWithImage:[[UIImage imageNamed:@"nav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(navBack)];
     self.navigationItem.leftBarButtonItem = backItem;
     
