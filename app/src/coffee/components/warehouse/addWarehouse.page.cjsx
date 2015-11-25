@@ -125,6 +125,15 @@ AddWarehouse = React.createClass {
 				return true
 		return false
 
+	_onlyNum :(string)->
+		if string is ''
+			return true
+		Letters = "1234567890"
+		for st in string
+			if (Letters.indexOf st) is -1
+				return false
+		return true
+
 	_addNewWarehouse : ->
 			newState = Object.create @state
 			newState.params.warehouseProperty = []
@@ -361,6 +370,99 @@ AddWarehouse = React.createClass {
 		else
 			newState.temperatureChecked5 = '0'
 		@setState newState
+
+
+	temperatureArea11Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea11:eareValue
+		}
+	temperatureArea12Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea12:eareValue
+		}
+	temperatureArea21Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea21:eareValue
+		}
+	temperatureArea22Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea22:eareValue
+		}
+	temperatureArea31Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea31:eareValue
+		}
+	temperatureArea32Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea32:eareValue
+		}
+	temperatureArea41Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea41:eareValue
+		}
+	temperatureArea12Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea42:eareValue
+		}
+	temperatureArea51Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea51:eareValue
+		}
+	temperatureArea52Change :(e) ->
+		eareValue = e.target.value
+		if not @_onlyNum eareValue 
+			return;
+		if parseFloat(eareValue) - 999999 > 0
+			eareValue = 999999
+		@setState {
+			temperatureArea52:eareValue
+		}
+
 #图片 调用原生相机
 	_takePhoto : ()->
 		Plugin.run [8,'addWarehouse']
@@ -464,14 +566,14 @@ AddWarehouse = React.createClass {
 						if @state.temperatureChecked1 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea11'} type="text" className="weight short"/>
+							<input onChange=@temperatureArea11Change value={@state.temperatureArea11} type="tel" className="weight short"/>
 					}
 					<span className="text-span">平方米</span>
 					{
 						if @state.temperatureChecked1 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea12'} type="text" className="weight short"/>	
+							<input onChange=@temperatureArea12Change value={@state.temperatureArea12} type="tel" className="weight short"/>	
 					}
 					<span className="text-span">立方米</span>
 				</div>
@@ -483,14 +585,14 @@ AddWarehouse = React.createClass {
 						if @state.temperatureChecked2 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea21'} type="text" className="weight short"/>
+							<input onChange=@temperatureArea21Change value={@state.temperatureArea21} type="tel" className="weight short"/>
 					}
 					<span className="text-span">平方米</span>
 					{
 						if @state.temperatureChecked2 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea22'} type="text" className="weight short"/>	
+							<input onChange=@temperatureArea22Change value={@state.temperatureArea22} type="tel" className="weight short"/>	
 					}
 					<span className="text-span">立方米</span>
 				</div>
@@ -502,14 +604,14 @@ AddWarehouse = React.createClass {
 						if @state.temperatureChecked3 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea31'} type="text" className="weight short"/>
+							<input onChange=@temperatureArea31Change value={@state.temperatureArea31} type="tel" className="weight short"/>
 					}
 					<span className="text-span">平方米</span>
 					{
 						if @state.temperatureChecked3 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea32'} type="text" className="weight short"/>	
+							<input onChange=@temperatureArea32Change value={@state.temperatureArea32} type="tel" className="weight short"/>	
 					}
 					<span className="text-span">立方米</span>				</div>
 				<div className="g-storeArea">
@@ -520,14 +622,14 @@ AddWarehouse = React.createClass {
 						if @state.temperatureChecked4 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea41'} type="text" className="weight short"/>
+							<input onChange=@temperatureArea41Change value={@state.temperatureArea41} type="tel" className="weight short"/>
 					}
 					<span className="text-span">平方米</span>
 					{
 						if @state.temperatureChecked4 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea42'} type="text" className="weight short"/>	
+							<input onChange=@temperatureArea42Change value={@state.temperatureArea42} type="tel" className="weight short"/>	
 					}
 					<span className="text-span">立方米</span>
 				</div>
@@ -539,14 +641,14 @@ AddWarehouse = React.createClass {
 						if @state.temperatureChecked5 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea51'} type="text" className="weight short"/>
+							<input onChange=@temperatureArea51Change value={@state.temperatureArea51} type="tel" className="weight short"/>
 					}
 					<span className="text-span">平方米</span>
 					{
 						if @state.temperatureChecked5 is '0'
 							<input disabled='disabled' type="text" className="weight short"/>
 						else
-							<input valueLink={@linkState 'temperatureArea52'} type="text" className="weight short"/>	
+							<input onChange=@temperatureArea52Change value={@state.temperatureArea52} type="tel" className="weight short"/>	
 					}
 					<span className="text-span">立方米</span>
 				</div>
