@@ -138,11 +138,11 @@ public class AddBankNextActivity extends BaseCordovaActivity implements CordovaI
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == 100110 && resultCode == RESULT_OK) {
+        if (requestCode == 100110) {
             if (intent == null) return;
             String name = intent.getStringExtra("branchName");
             Log.i("info", "-------name:" + name);
-            
+            mWebView.getWebView().loadUrl("javascript:setBranchBank('" + name + "')");
         }
     }
 }

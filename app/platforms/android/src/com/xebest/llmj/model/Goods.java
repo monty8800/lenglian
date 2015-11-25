@@ -5,6 +5,17 @@ package com.xebest.llmj.model;
  */
 public class Goods {
 
+    private boolean isChecked = false;
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+
+    public boolean isChecked() {
+
+        return isChecked;
+    }
+
     String carno;
     String id;
     String category;

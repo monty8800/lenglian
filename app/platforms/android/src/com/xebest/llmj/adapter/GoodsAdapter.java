@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xebest.llmj.R;
@@ -61,6 +62,7 @@ public class GoodsAdapter extends BaseAdapter {
             holder.carCategory = (TextView) convertView.findViewById(R.id.carCategory);
             holder.carType = (TextView) convertView.findViewById(R.id.carType);
             holder.carVehicle = (TextView) convertView.findViewById(R.id.carVehicle);
+            holder.flag = (ImageView) convertView.findViewById(R.id.flag);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -74,6 +76,12 @@ public class GoodsAdapter extends BaseAdapter {
 
         holder.carVehicle.setText("车辆长度：" + Helper.getCarVehicle(info.getVehicle()));
 
+        if (info.isChecked()) {
+            holder.flag.setVisibility(View.VISIBLE);
+        } else {
+            holder.flag.setVisibility(View.GONE);
+        }
+
         return convertView;
     }
 
@@ -82,6 +90,7 @@ public class GoodsAdapter extends BaseAdapter {
         private TextView carCategory;
         private TextView carType;
         private TextView carVehicle;
+        private ImageView flag;
     }
 
 }

@@ -8,6 +8,17 @@ import java.util.List;
  */
 public class CarListInfo {
 
+    private boolean isChecked = false;
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+
+    public boolean isChecked() {
+
+        return isChecked;
+    }
+
     private int advance;
 
     private String arrivalEtime;

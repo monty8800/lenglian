@@ -74,6 +74,8 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
 
     private boolean isBidding = false;
 
+    GoodsAdapter adapter;
+
     /**
      * 活跃当前窗口
      * @param context
@@ -264,6 +266,7 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
                             public void run() {
                                 mListView = (XListView) view.findViewById(R.id.xlv);
                                 mListView.setPullRefreshEnable(false);
+                                mListView.setPullLoadEnable(false);
                                 mListView.setXListViewListener(new XListView.IXListViewListener() {
                                     @Override
                                     public void onRefresh() {
@@ -275,29 +278,40 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
 
                                     }
                                 });
-                                if (list.size() < 10) {
-                                    mListView.setPullLoadEnable(false);
-                                } else {
-                                    mListView.setPullLoadEnable(false);
-                                }
 
                                 // 货
-                                GoodsAdapter adapter = new GoodsAdapter(getActivity());
+                                adapter = new GoodsAdapter(getActivity());
                                 mListView.setAdapter(adapter);
                                 // 车
                                 adapter.addData(list);
                                 adapter.notifyDataSetChanged();
 
-                                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                view.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
                                     @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        String carId = list.get(position - 1).getId();
+                                    public void onClick(View v) {
+                                        mDialog.dismiss();
+                                    }
+                                });
+                                view.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        int temPos = getCheckedPosition(list);
+                                        if (temPos == -1) return;
+                                        String carId = list.get(temPos).getId();
                                         mDialog.dismiss();
                                         if (isBidding) {
                                             mWebView.getWebView().loadUrl("javascript:goBid('" + carId + "', '" + goodsId + "')");
                                         } else {
                                             new GoodsFindCarTask().execute(carId);
                                         }
+                                    }
+                                });
+
+                                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        setChecked(list, position - 1);
+                                        adapter.notifyDataSetChanged();
                                     }
                                 });
                             }
@@ -346,6 +360,27 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
             }
         }
 
+    }
+
+    public void setChecked(List<Goods> list, int position) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (position == i) {
+                list.get(i).setIsChecked(true);
+            } else {
+                list.get(i).setIsChecked(false);
+            }
+        }
+    }
+
+    public int getCheckedPosition(List<Goods> list) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (list.get(i).isChecked()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

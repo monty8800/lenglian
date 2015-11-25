@@ -3,19 +3,59 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/white">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="180dp"
-        android:layout_centerInParent="true">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <com.xebest.llmj.widget.XListView
             android:id="@+id/xlv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="180dp"
             android:divider="@android:color/transparent"
             android:cacheColorHint="@android:color/transparent"
             android:listSelector="@android:color/transparent"/>
 
-    </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray3"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="取消"
+                    android:textSize="18sp"
+                    android:textColor="@color/gray2"
+                    android:background="@color/white"
+                    android:id="@+id/btnCancel" />
+            </RelativeLayout>
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray3"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="确定"
+                    android:textColor="@color/gray2"
+                    android:textSize="18sp"
+                    android:background="@color/white"
+                    android:id="@+id/btnOk" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
