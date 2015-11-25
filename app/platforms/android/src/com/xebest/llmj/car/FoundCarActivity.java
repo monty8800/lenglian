@@ -271,6 +271,7 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
                         public void run() {
                             mListView = (XListView) view.findViewById(R.id.xlv);
                             mListView.setPullRefreshEnable(false);
+                            mListView.setPullLoadEnable(false);
                             mListView.setXListViewListener(new XListView.IXListViewListener() {
                                 @Override
                                 public void onRefresh() {
@@ -282,23 +283,34 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
 
                                 }
                             });
-                            if (list.size() < 10) {
-                                mListView.setPullLoadEnable(false);
-                            } else {
-                                mListView.setPullLoadEnable(false);
-                            }
                             carAdapter = new CarAdapter(getActivity());
                             mListView.setAdapter(carAdapter);
                             // 车
                             carAdapter.addData(list);
                             carAdapter.notifyDataSetChanged();
 
+                            view.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mDialog.dismiss();
+                                }
+                            });
+                            view.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    int temPos = getCheckedPosition(list);
+                                    if (temPos == -1) return;
+                                    String goodsId = carList.get(temPos).getId();
+                                    new CarFoundGoodsTask().execute(goodsId);
+                                    mDialog.dismiss();
+                                }
+                            });
+
                             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    String goodsId = carList.get(position - 1).getId();
-                                    new CarFoundGoodsTask().execute(goodsId);
-                                    mDialog.dismiss();
+                                    setChecked(list, position - 1);
+                                    carAdapter.notifyDataSetChanged();
                                 }
                             });
 
@@ -350,6 +362,27 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
             }
             Tools.dismissLoading();
         }
+    }
+
+    public void setChecked(List<CarListInfo> list, int position) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (position == i) {
+                list.get(i).setIsChecked(true);
+            } else {
+                list.get(i).setIsChecked(false);
+            }
+        }
+    }
+
+    public int getCheckedPosition(List<CarListInfo> list) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (list.get(i).isChecked()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

@@ -91,6 +91,11 @@
     [self.commandDelegate evalJs:js];
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"ADD_CAR_SUCCESS" object:nil];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

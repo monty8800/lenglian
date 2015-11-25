@@ -5,6 +5,17 @@ package com.xebest.llmj.model;
  */
 public class WareHouseInfo {
 
+    private boolean isChecked = false;
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+
+    public boolean isChecked() {
+
+        return isChecked;
+    }
+
     private String area;
     private String areaName;
     private String city;

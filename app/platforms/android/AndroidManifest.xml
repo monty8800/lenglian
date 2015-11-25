@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <manifest android:hardwareAccelerated="true" android:versionCode="10000" android:versionName="1.0.0" package="com.xebest.llmj" xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="22" />
+    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="22" />
     <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -96,5 +96,6 @@
         <activity android:name=".application.GuideActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".order.CarSourceDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".wallet.WithdrawBankCardListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.BranchBankListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

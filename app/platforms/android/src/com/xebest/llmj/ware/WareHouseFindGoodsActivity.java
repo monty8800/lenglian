@@ -263,6 +263,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
                         public void run() {
                             mListView = (XListView) view.findViewById(R.id.xlv);
                             mListView.setPullRefreshEnable(false);
+                            mListView.setPullLoadEnable(false);
                             mListView.setXListViewListener(new XListView.IXListViewListener() {
                                 @Override
                                 public void onRefresh() {
@@ -274,11 +275,24 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
 
                                 }
                             });
-                            if (list.size() < 10) {
-                                mListView.setPullLoadEnable(false);
-                            } else {
-                                mListView.setPullLoadEnable(false);
-                            }
+
+                            view.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mDialog.dismiss();
+                                }
+                            });
+                            view.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    int temPos = getCheckedPosition(list);
+                                    if (temPos == -1) return;
+                                    String warehouseId = carList.get(temPos).getMjWarehouseResourceId();
+                                    new CarFoundGoodsTask().execute(warehouseId);
+                                    mDialog.dismiss();
+                                }
+                            });
+
                             carAdapter = new WareHouseAdapter(getActivity());
                             mListView.setAdapter(carAdapter);
                             // 车
@@ -288,9 +302,12 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
                             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    String warehouseId = carList.get(position - 1).getMjWarehouseResourceId();
-                                    new CarFoundGoodsTask().execute(warehouseId);
-                                    mDialog.dismiss();
+//                                    String warehouseId = carList.get(position - 1).getMjWarehouseResourceId();
+//                                    new CarFoundGoodsTask().execute(warehouseId);
+//                                    mDialog.dismiss();
+
+                                    setChecked(list, position - 1);
+                                    carAdapter.notifyDataSetChanged();
                                 }
                             });
 
@@ -344,6 +361,27 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
             Tools.dismissLoading();
         }
 
+    }
+
+    public void setChecked(List<WareHouseInfo> list, int position) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (position == i) {
+                list.get(i).setIsChecked(true);
+            } else {
+                list.get(i).setIsChecked(false);
+            }
+        }
+    }
+
+    public int getCheckedPosition(List<WareHouseInfo> list) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (list.get(i).isChecked()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

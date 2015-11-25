@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xebest.llmj.R;
@@ -62,6 +63,7 @@ public class FoundStoreAdapter extends BaseAdapter {
             holder.weight = (TextView) convertView.findViewById(R.id.goods_weight);
             holder.startAddress = (TextView) convertView.findViewById(R.id.start_store_address);
             holder.endAddress = (TextView) convertView.findViewById(R.id.end_store_address);
+            holder.flag = (ImageView) convertView.findViewById(R.id.flag);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -93,6 +95,12 @@ public class FoundStoreAdapter extends BaseAdapter {
             holder.weight.setText("货物规格：" + info.getCube() + "方");
         }
 
+        if (info.isChecked()) {
+            holder.flag.setVisibility(View.VISIBLE);
+        } else {
+            holder.flag.setVisibility(View.GONE);
+        }
+
         return convertView;
     }
 
@@ -102,6 +110,7 @@ public class FoundStoreAdapter extends BaseAdapter {
         private TextView weight;
         private TextView startAddress;
         private TextView endAddress;
+        private ImageView flag;
     }
 
 }

@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		01D42DAFEB5C4DFFA0D0D827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0597205F9D5541F28FAC3AC4 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -31,6 +32,8 @@
 		4C006E031BB0370600381462 /* ResetPasswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E021BB0370600381462 /* ResetPasswdViewController.m */; };
 		4C006E061BB037BB00381462 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E051BB037BB00381462 /* LoginViewController.m */; };
 		4C006E091BB0383F00381462 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C006E081BB0383F00381462 /* RegisterViewController.m */; };
+		4C0A32251C02E83600FEAB9A /* db in Resources */ = {isa = PBXBuildFile; fileRef = 4C0A32241C02E83600FEAB9A /* db */; };
+		4C0A32291C02F15300FEAB9A /* SelectBranchBankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A32281C02F15300FEAB9A /* SelectBranchBankViewController.m */; };
 		4C134C281BB8EC4200490AF5 /* ModifyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C134C271BB8EC4200490AF5 /* ModifyAddressViewController.m */; };
 		4C3353EA1BBEB18E0020EB06 /* SelectWarehouseWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3353E91BBEB18E0020EB06 /* SelectWarehouseWidget.m */; };
 		4C3353ED1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3353EC1BBEB21F0020EB06 /* SelectWarehouseTableViewCell.m */; };
@@ -209,6 +212,9 @@
 		4C006E051BB037BB00381462 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = user/LoginViewController.m; sourceTree = "<group>"; };
 		4C006E071BB0383F00381462 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = user/RegisterViewController.h; sourceTree = "<group>"; };
 		4C006E081BB0383F00381462 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = user/RegisterViewController.m; sourceTree = "<group>"; };
+		4C0A32241C02E83600FEAB9A /* db */ = {isa = PBXFileReference; lastKnownFileType = folder; name = db; path = ../../db; sourceTree = "<group>"; };
+		4C0A32271C02F15300FEAB9A /* SelectBranchBankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectBranchBankViewController.h; path = wallet/SelectBranchBankViewController.h; sourceTree = "<group>"; };
+		4C0A32281C02F15300FEAB9A /* SelectBranchBankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectBranchBankViewController.m; path = wallet/SelectBranchBankViewController.m; sourceTree = "<group>"; };
 		4C134C261BB8EC4200490AF5 /* ModifyAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModifyAddressViewController.h; path = address/ModifyAddressViewController.h; sourceTree = "<group>"; };
 		4C134C271BB8EC4200490AF5 /* ModifyAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModifyAddressViewController.m; path = address/ModifyAddressViewController.m; sourceTree = "<group>"; };
 		4C3353E81BBEB18E0020EB06 /* SelectWarehouseWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectWarehouseWidget.h; path = map/SelectWarehouseWidget.h; sourceTree = "<group>"; };
@@ -669,6 +675,8 @@
 				5B3734001BC24C7C00807804 /* BankCardsListViewController.h */,
 				5B3734011BC24C7C00807804 /* BankCardsListViewController.m */,
 				4CA1345A1BFC6DAD006B8E10 /* WithdrawBankCardViewController.h */,
+				4C0A32271C02F15300FEAB9A /* SelectBranchBankViewController.h */,
+				4C0A32281C02F15300FEAB9A /* SelectBranchBankViewController.m */,
 				4CA1345B1BFC6DAD006B8E10 /* WithdrawBankCardViewController.m */,
 				4CA134571BFC6D80006B8E10 /* PayBankCardListViewController.h */,
 				4CA134581BFC6D80006B8E10 /* PayBankCardListViewController.m */,
@@ -916,6 +924,7 @@
 		4CDD99831BAFE4CA008B4AC6 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				4C0A32241C02E83600FEAB9A /* db */,
 				4C42E4D71BF9874F00374B1C /* mapapi.bundle */,
 				4CDD99841BAFE4EC008B4AC6 /* images.xcassets */,
 			);
@@ -1037,6 +1046,7 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				46784D3F004139CECED40842 /* Copy Pods Resources */,
 				4C59DE4D1B5E81290063D9CE /* ShellScript */,
+				DC49F8B7BE88860F1780B478 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1118,6 +1128,7 @@
 				3088BBBE154F3926009F9C59 /* Default-Landscape~ipad.png in Resources */,
 				3088BBBF154F3926009F9C59 /* Default-Portrait@2x~ipad.png in Resources */,
 				4CDD99851BAFE4EC008B4AC6 /* images.xcassets in Resources */,
+				4C0A32251C02E83600FEAB9A /* db in Resources */,
 				4C42E4D81BF9874F00374B1C /* mapapi.bundle in Resources */,
 				7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */,
 				3088BBC0154F3926009F9C59 /* Default-Portrait~ipad.png in Resources */,
@@ -1197,6 +1208,21 @@
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
 		};
+		DC49F8B7BE88860F1780B478 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1228,6 +1254,7 @@
 				5B1CBCF91BC36DD100D94095 /* AddBankCarVerifyViewController.m in Sources */,
 				4CD9A94E1BBD49340098C9B7 /* XeAnnotation.m in Sources */,
 				4C822F7C1BB1755A00112533 /* SelectTab.m in Sources */,
+				4C0A32291C02F15300FEAB9A /* SelectBranchBankViewController.m in Sources */,
 				4C822F6A1BB136C000112533 /* FollowListViewController.m in Sources */,
 				5B1C0B691BCA553300DA196C /* SearchGoodsDetailViewController.m in Sources */,
 				5B2F623D1BB3EBA10020AD28 /* MyWarehouseViewController.m in Sources */,
@@ -1334,7 +1361,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: xiao chen (4GQ54CCFW2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xiao chen (4GQ54CCFW2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1386,7 +1413,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "84275f2f-7ff1-467e-81af-1120bb1638f4";
+				PROVISIONING_PROFILE = "0b9cd531-f72f-4224-b27a-02cea1c91b3f";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1400,7 +1427,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: xiao chen (4GQ54CCFW2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xiao chen (4GQ54CCFW2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1445,7 +1472,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "84275f2f-7ff1-467e-81af-1120bb1638f4";
+				PROVISIONING_PROFILE = "0b9cd531-f72f-4224-b27a-02cea1c91b3f";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

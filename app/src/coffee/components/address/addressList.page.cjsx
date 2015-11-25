@@ -92,7 +92,7 @@ Address = React.createClass {
 							<p className="fr">
 								<span className="ll-font" onClick={@modifyAddress.bind this, item}>编辑</span>
 								<span className="ll-font" onClick={@delAddress.bind this, item, i}>删除</span>
-							</p>
+							</p>  
 						</li>
 					</ul>
 				</div>

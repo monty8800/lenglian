@@ -60,7 +60,8 @@ window.updateAddress = (flag)->
 
 # 更新装货时间
 window.updateDate = (startDate, endDate)->
-	console.log '--------', 
+	console.log '--------', startDate
+	console.log '--------', endDate
 	CarStore.emitChange ['updateDate', startDate, endDate]
 
 # 更新我的车辆列表  1 删除或编辑不要重新请求  2新增要重新请求

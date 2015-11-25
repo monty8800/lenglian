@@ -21,6 +21,7 @@ DBBankModel = DB.get 'transData'
 _bankCardInfo = new BankCardModel DBBankModel
 
 _bindType = DB.get 'bindCardType'
+# _bindType = 2
 
 AddBankCardNext = React.createClass {
 	mixins:[PureRenderMixin,LinkedStateMixin]
@@ -44,6 +45,11 @@ AddBankCardNext = React.createClass {
 				DB.put 'transData',_bankCardInfo.toJS()
 				Plugin.nav.push ['addBankCardVerify']
 
+	# 支行
+	branchCard: ->
+		return Plugin.toast.show '请选择银行类型' if @state.bankName is '请选择银行'
+		Plugin.nav.push ['branchCard', @state.bankName]
+
 	getInitialState: ->
 		{
 			bankName: _bankCardInfo.bankName or '请选择银行'
@@ -63,6 +69,7 @@ AddBankCardNext = React.createClass {
 
 		@setState {
 			bankName: bank?.bankName or '请选择银行'
+			bankBranchName: ''
 		}
 		_bankCardInfo = _bankCardInfo.merge {
 			bankName: bank?.bankName
@@ -71,6 +78,12 @@ AddBankCardNext = React.createClass {
 
 
 	componentDidMount: ->
+		setBranchBank = (branchBank)->
+			@setState {
+				bankBranchName: branchBank
+			}
+		window.setBranchBank = setBranchBank.bind this
+
 		WalletStore.addChangeListener @_onChange
 		WalletAction.getSupportBankList()
 
@@ -108,9 +121,9 @@ AddBankCardNext = React.createClass {
 				</div>
 				{
 					if _bindType is 2
-						<div>
+						<div onClick={@branchCard}>
 							<label htmlFor="packType"><span>开户行:</span></label>
-							<input valueLink={@linkState 'bankBranchName'} type="text" placeholder="请输入开户行" id="packType"/>
+							<input readOnly='readOnly' valueLink={@linkState 'bankBranchName'} type="text" placeholder="请选择开户行" id="packType"/>
 						</div>
 				}
 				{

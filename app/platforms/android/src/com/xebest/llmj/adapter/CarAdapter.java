@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xebest.llmj.R;
@@ -61,6 +62,7 @@ public class CarAdapter extends BaseAdapter {
             holder.startPoint = (TextView) convertView.findViewById(R.id.car_start_point);
             holder.priceType = (TextView) convertView.findViewById(R.id.car_type);
             holder.goodsDes = (TextView) convertView.findViewById(R.id.car_des);
+            holder.flag = (ImageView) convertView.findViewById(R.id.flag);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -89,6 +91,12 @@ public class CarAdapter extends BaseAdapter {
         }
         holder.goodsDes.setText(desc);
 
+        if (info.isChecked()) {
+            holder.flag.setVisibility(View.VISIBLE);
+        } else {
+            holder.flag.setVisibility(View.GONE);
+        }
+
         return convertView;
     }
 
@@ -97,6 +105,7 @@ public class CarAdapter extends BaseAdapter {
         private TextView startPoint;
         private TextView priceType;
         private TextView goodsDes;
+        private ImageView flag;
     }
 
 }

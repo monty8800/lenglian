@@ -106,6 +106,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     private XListView mListView;
     private CarAdapter carAdapter;
     private StoreAdapter storeAdapter;
+    private GoodsAdapter adapter;
 
     private int status = 1;
 
@@ -724,23 +725,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     public void run() {
                         mListView = (XListView) view.findViewById(R.id.xlv);
                         mListView.setPullRefreshEnable(false);
-//                        mListView.setXListViewListener((XListView.IXListViewListener) mainActivity);
-                        mListView.setXListViewListener(new IXListViewListener() {
-                            @Override
-                            public void onRefresh() {
+                        mListView.setPullLoadEnable(false);
 
-                            }
-
-                            @Override
-                            public void onLoadMore() {
-
-                            }
-                        });
-                        if (list.size() < 10) {
-                            mListView.setPullLoadEnable(false);
-                        } else {
-                            mListView.setPullLoadEnable(false);
-                        }
                         if (status == 1) {
                             // 货
                         } else if (status == 2) {
@@ -757,14 +743,41 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                             storeAdapter.notifyDataSetChanged();
                         }
 
-                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        view.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                String goodsId = carList.get(position - 1).getId();
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        });
+                        view.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                int temPos = getCheckedPosition2(list);
+                                if (temPos == -1) return;
+                                String goodsId = carList.get(temPos).getId();
                                 new CarFoundGoodsTask().execute(goodsId);
                                 carBottomView.setVisibility(View.GONE);
                                 storeBottomView.setVisibility(View.GONE);
                                 mDialog.dismiss();
+                            }
+                        });
+
+                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                                String goodsId = carList.get(position - 1).getId();
+//                                new CarFoundGoodsTask().execute(goodsId);
+//                                carBottomView.setVisibility(View.GONE);
+//                                storeBottomView.setVisibility(View.GONE);
+//                                mDialog.dismiss();
+
+                                setChecked2(list, position - 1);
+                                if (status == 2) {
+                                    carAdapter.notifyDataSetChanged();
+                                } else {
+                                    storeAdapter.notifyDataSetChanged();;
+                                }
+
                             }
                         });
                     }
@@ -920,6 +933,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                             public void run() {
                                 mListView = (XListView) view.findViewById(R.id.xlv);
                                 mListView.setPullRefreshEnable(false);
+                                mListView.setPullLoadEnable(false);
                                 mListView.setXListViewListener(new IXListViewListener() {
                                     @Override
                                     public void onRefresh() {
@@ -931,23 +945,26 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
 
                                     }
                                 });
-                                if (list.size() < 10) {
-                                    mListView.setPullLoadEnable(false);
-                                } else {
-                                    mListView.setPullLoadEnable(false);
-                                }
 
                                 // 货
-                                GoodsAdapter adapter = new GoodsAdapter(getActivity());
+                                adapter = new GoodsAdapter(getActivity());
                                 mListView.setAdapter(adapter);
                                 // 车
                                 adapter.addData(list);
                                 adapter.notifyDataSetChanged();
 
-                                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                view.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
                                     @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        String carId = list.get(position - 1).getId();
+                                    public void onClick(View v) {
+                                        mDialog.dismiss();
+                                    }
+                                });
+                                view.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        int temPos = getCheckedPosition(list);
+                                        if (temPos == -1) return;
+                                        String carId = list.get(temPos).getId();
                                         if (mPriceType.equals("1")) {
                                             new GoodsFindCarTask().execute(carId);
                                         } else if (mPriceType.equals("2")) {
@@ -957,6 +974,24 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                                         carBottomView.setVisibility(View.GONE);
                                         storeBottomView.setVisibility(View.GONE);
                                         mDialog.dismiss();
+                                    }
+                                });
+
+                                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                                        String carId = list.get(position - 1).getId();
+//                                        if (mPriceType.equals("1")) {
+//                                            new GoodsFindCarTask().execute(carId);
+//                                        } else if (mPriceType.equals("2")) {
+//                                            // 竞价列表
+//                                            BiddingActivity.actionView(getActivity(), goodsId, carId);
+//                                        }
+//                                        carBottomView.setVisibility(View.GONE);
+//                                        storeBottomView.setVisibility(View.GONE);
+//                                        mDialog.dismiss();
+                                        setChecked(list, position - 1);
+                                        adapter.notifyDataSetChanged();
                                     }
                                 });
                             }
@@ -1021,6 +1056,48 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
             }
         }
 
+    }
+
+    public void setChecked(List<Goods> list, int position) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (position == i) {
+                list.get(i).setIsChecked(true);
+            } else {
+                list.get(i).setIsChecked(false);
+            }
+        }
+    }
+
+    public int getCheckedPosition(List<Goods> list) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (list.get(i).isChecked()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void setChecked2(List<CarListInfo> list, int position) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (position == i) {
+                list.get(i).setIsChecked(true);
+            } else {
+                list.get(i).setIsChecked(false);
+            }
+        }
+    }
+
+    public int getCheckedPosition2(List<CarListInfo> list) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (list.get(i).isChecked()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

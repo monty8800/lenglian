@@ -8,6 +8,7 @@
 
 #import "AddBankCardNextViewController.h"
 #import "AddBankCarVerifyViewController.h"
+
 @interface AddBankCardNextViewController ()
 
 @end
@@ -39,7 +40,19 @@
             AddBankCarVerifyViewController *addBankCardVerifyVC = [AddBankCarVerifyViewController new];
             [self.navigationController pushViewController:addBankCardVerifyVC animated:YES];
         }
+        else if ([params[1] isEqualToString:@"branchCard"])
+        {
+            SelectBranchBankViewController *selectVC = [SelectBranchBankViewController new];
+            selectVC.delegate = self;
+            selectVC.bankName = params[2];
+            [self.navigationController pushViewController:selectVC animated:YES];
+        }
     }
+}
+
+-(void)setBranchBank:(NSString *)branchBank {
+    NSString *js = [NSString stringWithFormat:@"window.setBranchBank('%@')", branchBank];
+    [self.commandDelegate evalJs:js];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
