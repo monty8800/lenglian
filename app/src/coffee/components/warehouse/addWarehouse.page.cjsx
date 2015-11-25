@@ -435,7 +435,7 @@ AddWarehouse = React.createClass {
 		@setState {
 			temperatureArea41:eareValue
 		}
-	temperatureArea12Change :(e) ->
+	temperatureArea42Change :(e) ->
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
