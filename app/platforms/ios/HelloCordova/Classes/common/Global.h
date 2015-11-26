@@ -92,7 +92,7 @@
 
 #define CLIENT_TYPE @"2"  //客户端类型
 
-#if DEBUG
+#ifdef DEBUG
 #define UMENG_KEY @"564011b6e0f55ae18e005267"//DEBUG下的测试appkey
 #else
 #define UMENG_KEY @"56303ec167e58e51530059f4"  //友盟的key

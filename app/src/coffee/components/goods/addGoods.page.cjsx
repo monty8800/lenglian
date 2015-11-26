@@ -67,7 +67,11 @@ AddGoods = React.createClass {
 		Plugin.run [8, 'select:goods:photo']
 
 	_selectTime: (type)->
-		Plugin.run [6, 'select:time:' + type]
+		if type is 'arrive' and (not @state.installMinTime or not @state.installMaxTime)
+			Plugin.toast.show '请先选择装车时间'
+		else
+			Plugin.run [6, 'select:time:' + type]
+				
 
 	_selectContacts: (type)->
 		Plugin.run [4, 'select:contacts:' + type]

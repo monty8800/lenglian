@@ -1,7 +1,7 @@
 pod 'TAKUUID'
 pod "YwenKit"
 pod "YwenNetworkit"
-pod 'UMengAnalytics-NO-IDFA', '~> 3.5.17'
+pod 'UMengAnalytics-NO-IDFA','~>3.5.17'
 pod 'CocoaLumberjack', '2.0.0'
 pod 'SDWebImage', '~>3.6'
 pod 'FMDB'
