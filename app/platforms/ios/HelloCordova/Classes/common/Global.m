@@ -8,6 +8,7 @@
 
 #import "Global.h"
 #import "ZipArchive.h"
+//#import "UMOnlineConfig.h"
 @interface Global ()<UIScrollViewDelegate>
 {
     UIScrollView *guideScrollView;
@@ -47,7 +48,8 @@
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
 //配置在线参数
-    [MobClick updateOnlineConfig];
+    [MobClick updateOnlineConfig];//updateOnlineConfigWithAppkey:
+//    UMENG_KEY
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(UmengOnLine:) name:UMOnlineConfigDidFinishedNotification object:nil];
     
 

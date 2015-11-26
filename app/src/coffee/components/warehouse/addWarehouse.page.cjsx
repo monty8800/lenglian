@@ -376,8 +376,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea11:eareValue
 		}
@@ -385,8 +385,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea12:eareValue
 		}
@@ -394,8 +394,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea21:eareValue
 		}
@@ -403,8 +403,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea22:eareValue
 		}
@@ -412,8 +412,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea31:eareValue
 		}
@@ -421,8 +421,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea32:eareValue
 		}
@@ -430,8 +430,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea41:eareValue
 		}
@@ -439,8 +439,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea42:eareValue
 		}
@@ -448,8 +448,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea51:eareValue
 		}
@@ -457,8 +457,8 @@ AddWarehouse = React.createClass {
 		eareValue = e.target.value
 		if not @_onlyNum eareValue 
 			return;
-		if parseFloat(eareValue) - 999999 > 0
-			eareValue = 999999
+		if parseFloat(eareValue) - 99999 > 0
+			eareValue = 99999
 		@setState {
 			temperatureArea52:eareValue
 		}

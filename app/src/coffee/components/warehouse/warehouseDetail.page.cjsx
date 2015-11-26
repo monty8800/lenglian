@@ -320,7 +320,7 @@ WarehouseDetail = React.createClass {
 				else if parseInt(@state.warehouseDetail.status) is 2
 					<div className="m-detail-bottom">
 						<div className="g-pay-btn">
-							<a onClick={ @_deleteWarehouse } className="u-btn02">取消发布</a>
+							<a onClick={ @_deleteWarehouse } className="u-btn02">删除库源</a>
 						</div>
 					</div>
 				

@@ -88,6 +88,13 @@
 
 -(void)show:(NSString *)type {
     _type = type;
+    if ([type isEqualToString:@"install"]) {
+        _datePicker.minimumDate = [NSDate date];
+    }else if ([type isEqualToString:@"arrive"]){
+        if (_startDate) {
+            _datePicker.minimumDate = _startDate;
+        }
+    }
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     self.alpha = 0;
     _bgView.alpha = 1;
