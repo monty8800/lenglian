@@ -141,7 +141,14 @@ SearchWarehouse = React.createClass {
 
 		e.stopPropagation()
 
-
+	search: ->
+		newState = Object.create @state
+		newState.searchResult = []
+		newState.startNo = 0
+		_hasMore = true
+		@setState newState
+		@_doSearchWarehouse()
+		
 	render: ->
 		searchResultList = @state.searchResult.map (aResult, i)->
 			<div className="m-item01 m-item03" onClick={ @_resultItemClick.bind this,aResult } >
@@ -199,7 +206,9 @@ SearchWarehouse = React.createClass {
 				<div className="g-bgPic"></div>
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
 			</div>
-
+			<div onClick={@search} className="u-pay-btn">
+				<a href="#" className="btn">搜索</a>
+			</div>
 			<InfiniteScroll pageStart=0 loadMore={@_doSearchWarehouse} hasMore={_hasMore and not _isBusy} >
 				<CSSTransitionGroup transitionName="list">
 					{ searchResultList }

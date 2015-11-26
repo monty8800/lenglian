@@ -193,6 +193,11 @@ CarAction = {
 			actionType: Constants.actionType.CAR_RESOURCE_DEL
 			params: params
 		}
+
+	searchCar: ->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.SEARCH_CAR
+		}
 		
 }
 

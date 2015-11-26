@@ -219,7 +219,11 @@ FoundCar = React.createClass {
 		}
 
 	search: ->
-		
+		_skip = 0
+		_hasMore = true
+		@_loadMore()
+		# CarAction.searchCar()
+		# CarStore.emitChange ['do_search_car']
 
 	render: ->
 		carCells = @state.carList.map (cars, index)->

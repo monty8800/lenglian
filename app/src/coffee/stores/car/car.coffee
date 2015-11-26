@@ -488,6 +488,12 @@ invNotSt = (params)->
 		CarStore.emitChange ['inv2_need_all', _invoiceArray.length]
 	console.log '------------_invoiceArray:', _invoiceArray
 
+searchCar = ->
+	CarStore.emitChange ['do_search_car']
+	CarAction.closeCarHea()
+	CarAction.closeCarInvoince()
+	CarAction.closeCarLen()
+
 searchCarList = (params)->
 	console.log '-----asdfadsfsdafasasd:', params
 	Http.post Constants.api.found_car, params, (result) ->
@@ -582,5 +588,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.SEARCH_CAR then searchCarList(action.params)
 		when Constants.actionType.CAR_SOURCE_DETAIL then carSourceDetail(action.params)
 		when Constants.actionType.CAR_RESOURCE_DEL then delCarResource(action.params)
+		when Constants.actionType.SEARCH_CAR then searchCar()
 
 module.exports = CarStore

@@ -182,6 +182,8 @@ actionType = {
 	NEED_REGISTER_CODE: null
 
 	CAR_RESOURCE_DEL: null
+
+	SEARCH_CAR: null
 }
 
 								

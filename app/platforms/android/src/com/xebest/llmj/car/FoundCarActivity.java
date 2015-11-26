@@ -116,6 +116,7 @@ public class FoundCarActivity extends BaseCordovaActivity implements CordovaInte
                 mWebView.getWebView().loadUrl("javascript:searchMyCar()");
             }
         });
+        tvNear.setVisibility(View.GONE);
     }
 
     private int index = -1;

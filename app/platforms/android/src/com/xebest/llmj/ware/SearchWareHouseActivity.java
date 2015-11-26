@@ -91,6 +91,7 @@ public class SearchWareHouseActivity extends BaseCordovaActivity implements Cord
                 mWebView.getWebView().loadUrl("javascript:doSearchWarehouse()");
             }
         });
+        tvOk.setVisibility(View.GONE);
 
     }
 

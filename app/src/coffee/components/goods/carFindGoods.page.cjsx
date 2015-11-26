@@ -179,6 +179,13 @@ CarFindGoods = React.createClass {
 		console.log 'initState', initState
 		return initState
 
+	search: ->
+		# _search()
+		_skip = 0
+		_hasMore = true
+		_netBusy = false
+		@_requestData()
+
 	render: ->
 		console.log 'state', @state
 		goodsCells = @state.goodsList?.map (goods, i)->
@@ -200,6 +207,9 @@ CarFindGoods = React.createClass {
 			
 		</div>
 		<NoResult isShow={@state.isShow} />
+		<div onClick={@search} className="u-pay-btn">
+			<a href="#" className="btn">搜索</a>
+		</div>
 		<InfiniteScroll pageStart=0 loadMore={@_requestData} hasMore={_hasMore and not _netBusy}>
 		{ goodsCells }
 		</InfiniteScroll>

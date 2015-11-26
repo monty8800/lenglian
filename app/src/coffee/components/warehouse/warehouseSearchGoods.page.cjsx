@@ -153,6 +153,12 @@ WarehouseSearchGoods = React.createClass {
 			newState.showHasNone = newState.searchResult.length is 0
 			@setState newState
 
+	search: ->
+		newState = Object.create @state
+		newState.startNo = 0
+		_hasMore = true
+		@setState newState
+		@_doWarehouseSearchGoods()
 
 	render: ->
 		items = @state.searchResult.map (aResult,i) ->
@@ -248,6 +254,9 @@ WarehouseSearchGoods = React.createClass {
 			<div style={{display: if @state.showHasNone then 'block' else 'none'}} className="m-searchNoresult">
 				<div className="g-bgPic"></div>
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
+			</div>
+			<div onClick={@search} className="u-pay-btn">
+				<a href="#" className="btn">搜索</a>
 			</div>
 			<InfiniteScroll pageStart=0 loadMore={@_doWarehouseSearchGoods} hasMore={_hasMore and not _isBusy}>
 				<CSSTransitionGroup transitionName="list">

@@ -119,6 +119,7 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
                 mWebView.getWebView().loadUrl("javascript:doCarSearchGoods()");
             }
         });
+        addCar.setVisibility(View.GONE);
     }
 
     @Override
