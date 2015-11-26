@@ -415,19 +415,37 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
         super.onConfigurationChanged(config);
     }
 
+    String installStartTime = "";
+    String arriveStartTime = "";
     @Override
     public void callBack(int flag, String date) {
         if (flag == 0) {
         } else if (flag == 1) {
             startDate = date;
+            if (timeType.equals("install")) {
+                installStartTime = startDate;
+            } else if (timeType.equals("arrive")) {
+                arriveStartTime = startDate;
+            }
             selectBirthday = new SelectBirthday(ReleaseGoodsActivity.this, "结束时间");
             selectBirthday.showAtLocation(ReleaseGoodsActivity.this.findViewById(R.id.root),
                     Gravity.BOTTOM, 0, 0);
         } else if (flag == 2) {
             endDate = date;
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    if (!Tools.compareTime(startDate, endDate)) {
+                        Tools.showToast(ReleaseGoodsActivity.this, "结束时间要比开始时间晚");
+                        return;
+                    }
+                    if (timeType.equals("arrive")) {
+                        if (!Tools.compareTime(installStartTime, arriveStartTime)) {
+                            Tools.showToast(ReleaseGoodsActivity.this, "请您选择正确的到货时间(到货时间晚于装车时间)");
+                            return;
+                        }
+                    }
                     mWebView.getWebView().loadUrl("javascript:updateTime('" + startDate + "', '" +  endDate + "', '" + timeType + "')");
                 }
             });
@@ -484,5 +502,6 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
             isBusy = false;
         }
     }
+
 
 }

@@ -60,6 +60,7 @@ public class WareHouseAdapter extends BaseAdapter {
             holder.destination = (TextView) convertView.findViewById(R.id.destination);
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.flag = (ImageView) convertView.findViewById(R.id.flag);
+            holder.line = convertView.findViewById(R.id.line);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -74,6 +75,12 @@ public class WareHouseAdapter extends BaseAdapter {
             holder.flag.setVisibility(View.GONE);
         }
 
+        if (position + 1 == list.size()) {
+            holder.line.setVisibility(View.GONE);
+        } else {
+            holder.line.setVisibility(View.VISIBLE);
+        }
+
         return convertView;
     }
 
@@ -81,6 +88,7 @@ public class WareHouseAdapter extends BaseAdapter {
         private TextView destination;
         private TextView name;
         private ImageView flag;
+        private View line;
     }
 
 }

@@ -64,6 +64,7 @@ public class FoundStoreAdapter extends BaseAdapter {
             holder.startAddress = (TextView) convertView.findViewById(R.id.start_store_address);
             holder.endAddress = (TextView) convertView.findViewById(R.id.end_store_address);
             holder.flag = (ImageView) convertView.findViewById(R.id.flag);
+            holder.line = convertView.findViewById(R.id.line);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -101,6 +102,12 @@ public class FoundStoreAdapter extends BaseAdapter {
             holder.flag.setVisibility(View.GONE);
         }
 
+        if (position + 1 == list.size()) {
+            holder.line.setVisibility(View.GONE);
+        } else {
+            holder.line.setVisibility(View.VISIBLE);
+        }
+
         return convertView;
     }
 
@@ -111,6 +118,7 @@ public class FoundStoreAdapter extends BaseAdapter {
         private TextView startAddress;
         private TextView endAddress;
         private ImageView flag;
+        private View line;
     }
 
 }

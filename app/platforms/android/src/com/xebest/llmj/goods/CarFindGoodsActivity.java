@@ -267,17 +267,6 @@ public class CarFindGoodsActivity extends BaseCordovaActivity implements Cordova
                                 mListView = (XListView) view.findViewById(R.id.xlv);
                                 mListView.setPullRefreshEnable(false);
                                 mListView.setPullLoadEnable(false);
-                                mListView.setXListViewListener(new XListView.IXListViewListener() {
-                                    @Override
-                                    public void onRefresh() {
-
-                                    }
-
-                                    @Override
-                                    public void onLoadMore() {
-
-                                    }
-                                });
 
                                 // 货
                                 adapter = new GoodsAdapter(getActivity());

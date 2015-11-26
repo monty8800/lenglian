@@ -61,10 +61,33 @@ Detail = React.createClass {
 			}
 
 	_delCar: (id, status)->
-		Plugin.alert '确认删除吗?', '提示', (index)->
-			if index is 1
+		console.log '--------id:', id
+		console.log '--------status:', status
+
+		Plugin.alert '确定删除吗', '提示', (index)->
+			console.log index
+			if index is 1				
+				console.log 'del_address -- '
 				CarAction.delCar(id, status, _index)
 		, ['确定', '取消']
+
+		# Plugin.alert '确认删除吗?', '提示', (index)->
+		# 	if index is 1			
+		# 		console.log '--------_status:', _status
+		# 		console.log '--------status:', status
+		# 		CarAction.delCar(id, status, _index)
+		# 		# if parseInt _status is 1 
+		# 		# 	console.log '--------删除车辆:', _status
+		# 		# 	删除车辆
+		# 		# 	CarAction.delCar(id, status, _index)
+		# 		# else if parseInt _status is 2
+		# 		# 	console.log '--------删除车源:', _status
+		# 		# 	删除车源 TODO
+		# 		# 	CarAction.delCarResource {
+		# 		# 		userId: _user?.id
+		# 		# 		carId: id
+		# 		# 	}
+		# , ['确定', '取消']
 
 	_editorCarDone: ->
 		if not Validator.name @state.name
@@ -145,7 +168,7 @@ Detail = React.createClass {
 			<div className="u-pay-btn" style={{display: if @state.isDel is 2 then 'block' else 'none'}}>
 				<a href="###" onClick={@_editorCarDone} className="btn">提交</a>
 			</div>
-			<div className="m-detail-bottom" style={{display: if @state.isDel is 1 && @state.status is 1 then 'block' else 'none'}}>
+			<div className="m-detail-bottom" style={{display: if @state.isDel is 1 && @state.status is 1 or @state.status is 2 then 'block' else 'none'}}>
 				<div className="g-pay-btn">
 					<a href="###" className="u-btn02" onClick={@_delCar.bind this, detail.id, detail.status}>删除车辆</a>
 				</div>

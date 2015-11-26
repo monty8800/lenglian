@@ -36,6 +36,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -422,6 +424,31 @@ public class Tools {
             hex.append(Integer.toHexString(b & 0xFF));
         }
         return hex.toString().toLowerCase();
+    }
+
+
+    /**
+     * 比较两个时间的先后，结束时间晚返回true
+     * @param startDate 2015-01-01
+     * @param endTime 2015-01-01
+     */
+    public static boolean compareTime(String startDate, String endTime) {
+        //设定时间的模板
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //得到指定模范的时间
+        try {
+            Date d1 = sdf.parse(startDate);
+            Date d2 = sdf.parse(endTime);
+            //比较
+            if (Math.abs(d2.getTime()) - Math.abs(d1.getTime()) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

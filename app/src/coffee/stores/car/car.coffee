@@ -387,8 +387,14 @@ _notNeedInv = (type)->
 
 # 删除车辆
 _carDel = (carId, status, index)->
+	Plugin.toast.show status	
+	url = ""
+	if parseInt(status) is 1
+		url = Constants.api.detail_car
+	else if parseInt(status) is 2
+		url = Constants.api.del_car_resource
 	Plugin.loading.show '正在删除...'
-	Http.post Constants.api.detail_car, {
+	Http.post url, {
 		userId: _user?.id
 		carId: carId
 	}, (data)->				
@@ -515,6 +521,10 @@ carSourceDetail = (params)->
 		_carSourceDetail = Immutable.Map data
 		CarStore.emitChange 'car:source:detail:done'
 
+# 删除车源
+delCarResource = (params)->
+	console.log '------------params:', params
+
 
 CarStore = assign BaseStore, {
 
@@ -571,5 +581,6 @@ Dispatcher.register (action)->
 		when Constants.actionType.INVNOTST then invNotSt(action.params)
 		when Constants.actionType.SEARCH_CAR then searchCarList(action.params)
 		when Constants.actionType.CAR_SOURCE_DETAIL then carSourceDetail(action.params)
+		when Constants.actionType.CAR_RESOURCE_DEL then delCarResource(action.params)
 
 module.exports = CarStore

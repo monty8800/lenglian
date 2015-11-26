@@ -187,6 +187,13 @@ CarAction = {
 			actionType: Constants.actionType.CAR_SOURCE_DETAIL
 			params: params
 		}
+
+	delCarResource: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.CAR_RESOURCE_DEL
+			params: params
+		}
+		
 }
 
 module.exports = CarAction

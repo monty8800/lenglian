@@ -180,6 +180,7 @@ actionType = {
 
 	NEED_REGISTER_CODE: null
 
+	CAR_RESOURCE_DEL: null
 }
 
 								
@@ -407,6 +408,8 @@ api = {
 	charge_record: '/myWalletCtl/queryRechargeRecord.shtml'
 
 	present_record: '/myWalletCtl/queryPresentRecord.shtml'
+
+	del_car_resource: '/mjCarinfoCtl/delCarResource.shtml'
 
 }
 

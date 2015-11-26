@@ -38,7 +38,7 @@ transLicenseNo = (input)->
 	return /^[\da-zA-Z]{1,30}$/.test input
 
 tel = (input)->
-	return /^[\d\-]{6,11}$/.test input
+	return /^[\d\-\+]{6,20}$/.test input
 
 street = (input)->
 	return /^\S{1,20}$/.test input

@@ -63,6 +63,7 @@ public class GoodsAdapter extends BaseAdapter {
             holder.carType = (TextView) convertView.findViewById(R.id.carType);
             holder.carVehicle = (TextView) convertView.findViewById(R.id.carVehicle);
             holder.flag = (ImageView) convertView.findViewById(R.id.flag);
+            holder.line = convertView.findViewById(R.id.line);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -82,6 +83,12 @@ public class GoodsAdapter extends BaseAdapter {
             holder.flag.setVisibility(View.GONE);
         }
 
+        if (position + 1 == list.size()) {
+            holder.line.setVisibility(View.GONE);
+        } else {
+            holder.line.setVisibility(View.VISIBLE);
+        }
+
         return convertView;
     }
 
@@ -91,6 +98,7 @@ public class GoodsAdapter extends BaseAdapter {
         private TextView carType;
         private TextView carVehicle;
         private ImageView flag;
+        private View line;
     }
 
 }
