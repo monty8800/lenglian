@@ -394,9 +394,13 @@ AddGoods = React.createClass {
 							<label>
 								<input className="mui-checkbox ll-font" value="3" onChange={@_selectPayType} defaultChecked=true type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '预付款'}} />
 							</label>
-							<span lassName="rel-text">
-								{ if @state.price then @state.prePayProportion * 0.01 * @state.price + '元' else '0元'}
-							</span>
+							{
+								if @state.price
+									<span className="rel-text">
+										{ (@state.prePayProportion * 0.01 * @state.price).toFixed(2) + '元' }
+									</span>
+							}
+							
 							<select valueLink={@linkState 'prePayProportion'}  className="select rel-select">
 								<option value="100">占总额100%</option>
 								<option value="50">占总额50%</option>
