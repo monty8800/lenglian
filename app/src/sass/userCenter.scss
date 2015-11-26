@@ -42,6 +42,17 @@
                         overflow: hidden;
                     }
                 }
+                .no-login {
+                    width: 180/$ppr;
+                    height: 60/$ppr;
+                    background: #0a53be;
+                    font-size: 32/$ppr;
+                    text-align: center;
+                    color: #fff;
+                    line-height: 60/$ppr;
+                    border-radius: 5/$ppr;
+                    margin-top: 20/$ppr;
+                }
             }
         }
     }

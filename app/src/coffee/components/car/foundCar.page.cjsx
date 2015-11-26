@@ -218,6 +218,9 @@ FoundCar = React.createClass {
 			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
 		}
 
+	search: ->
+		
+
 	render: ->
 		carCells = @state.carList.map (cars, index)->
 			<CarItem car={cars} index={index} key={cars?.id} />
@@ -230,6 +233,9 @@ FoundCar = React.createClass {
 					}
 				</ul>			
 			</div>	
+			<div onClick={@search} className="u-pay-btn">
+				<a href="#" className="btn">搜索</a>
+			</div>
 			<NoResult isShow={@state.isShow} />
 			<InfiniteScroll pageStart=0 loadMore={@_loadMore} hasMore={_hasMore}>
 				{ carCells }

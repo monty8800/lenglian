@@ -77,6 +77,7 @@ Selection = React.createClass {
 				</div>
 			</div>
 		</li>
+
 }
 
 module.exports = Selection

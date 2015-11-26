@@ -103,6 +103,9 @@ Profile = React.createClass {
 	_pic404: ->
 		UserAction.clearAuthPic 'avatar'
 
+	login: ->
+		Plugin.nav.push ['login']
+
 	render: ->
 		user = this.props.user
 		console.log 'user is', user
@@ -112,10 +115,13 @@ Profile = React.createClass {
 					<dt className="fl" onClick={@_changeAvatar} >
 						<XeImage src={user.avatar} size='130x130' type='avatar' />
 					</dt>
-					<dd className="fl">
+					<dd className="fl"  style={{display: if user?.id is '' or user?.id is undefined or user?.id is null then 'none' else 'block'}}>
 						<p className="g-name">{if (user.carStatus is 1 or user.goodsStatus is 1 or user.warehouseStatus is 1) then user.company or user.name or user.mobile else user.mobile}</p>
 						<p>成交数：<span>{user.orderDoneCount}单</span></p>
 					</dd>
+					<dd onClick={@login} className="fl" style={{display: if user?.id is '' or user?.id is undefined or user?.id is null then 'block' else 'none'}}>
+						<div className="no-login">点击登录</div>
+					</dd>		
 				</dl> 
 			</div>
 			<AuthStatus user=@props.user />
