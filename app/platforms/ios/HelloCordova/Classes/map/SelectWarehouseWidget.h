@@ -18,10 +18,12 @@
 
 @interface SelectWarehouseWidget : UIView<UITableViewDataSource, UITableViewDelegate>
 {
+    UIView *_commonView;
     UITableView *_tabView;
     UIButton *_closeBtn;
+    UIButton *_sureBtn;
 }
-
+@property (nonatomic,assign) NSInteger selectedIndex;
 @property (strong, nonatomic) NSArray *dataList;
 @property (weak, nonatomic) id<SelectWarehouseDelegate> delegate;
 @property (strong, nonatomic) NSString *warehouseId;

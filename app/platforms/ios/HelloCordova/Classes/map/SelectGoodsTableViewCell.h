@@ -15,6 +15,8 @@
 @interface SelectGoodsTableViewCell : UITableViewCell
 {
     InfoView *_infoView;
+    UIImageView *_selectedImageView;
+
 }
 
 @property (strong, nonatomic) NSArray *infoList;

@@ -7,7 +7,7 @@
 //
 
 #import "SelectBranchBankViewController.h"
-#import "Global.h"
+
 
 @interface SelectBranchBankViewController ()
 

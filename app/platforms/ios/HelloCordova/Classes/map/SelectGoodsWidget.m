@@ -30,22 +30,49 @@
 
 -(void) createUI {
     self.backgroundColor = [UIColor WY_ColorWithHex:0x000000 alpha:0.3];
-    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.center.y - 110, SCREEN_WIDTH-40, 280) style:UITableViewStylePlain];
-    _tabView.center = self.center;
-    _tabView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
+    
+    _commonView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 260 + 44)];
+    [_commonView setCenter:self.center];
+    [self addSubview:_commonView];
+    
+    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 260) style:UITableViewStylePlain];
+//    _tabView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     _tabView.dataSource = self;
     _tabView.delegate = self;
     _tabView.separatorStyle = self.type == Cars?UITableViewCellSeparatorStyleNone:UITableViewCellSeparatorStyleSingleLine;
     _tabView.backgroundColor = [UIColor whiteColor];
     [_tabView registerClass:[SelectGoodsTableViewCell class] forCellReuseIdentifier:SELECT_GOODS_CELL];
-    [self addSubview:_tabView];
+    [_commonView addSubview:_tabView];
     
-    _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-33, self.center.y-117, 20, 20)];
+    UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(_tabView.frame.origin.x, _tabView.frame.origin.y + _tabView.frame.size.height, _tabView.frame.size.width, 44)];
+    [bottomView setBackgroundColor:[UIColor WY_ColorWithHex:0xececec]];
+    [_commonView addSubview:bottomView];
+    
+    _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_closeBtn setFrame:CGRectMake(0, 1, bottomView.frame.size.width/2 - 0.5, bottomView.frame.size.height - 1)];
+    [_closeBtn setBackgroundColor:[UIColor whiteColor]];
+    [_closeBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [_closeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_closeBtn addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:_closeBtn];
     
-    [_closeBtn WY_SetBgColor:0x1987c6 title:@"X" titleColor:0xffffff corn:10 fontSize:15];
-    _closeBtn.hitTestEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20);
-    [self addSubview:_closeBtn];
+    _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_sureBtn setBackgroundColor:[UIColor whiteColor]];
+    [_sureBtn setFrame:CGRectMake(bottomView.frame.size.width/2 + 0.5, 1, bottomView.frame.size.width/2 - 0.5, bottomView.frame.size.height - 1)];
+    [_sureBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [_sureBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_sureBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    [_sureBtn addTarget:self action:@selector(sureButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_sureBtn setEnabled:NO];
+    [bottomView addSubview:_sureBtn];
+    
+    
+//    _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-33, self.center.y-117, 20, 20)];
+//    [_closeBtn addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [_closeBtn WY_SetBgColor:0x1987c6 title:@"X" titleColor:0xffffff corn:10 fontSize:15];
+//    _closeBtn.hitTestEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20);
+//    [self addSubview:_closeBtn];
     
     //    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
     //    [self addGestureRecognizer:tapGes];
@@ -92,19 +119,43 @@
 
 -(void) showAnim {
     self.hidden = NO;
-    _closeBtn.alpha = 0;
-    _tabView.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:0 animations:^{
-        _tabView.frame = CGRectMake(20 , self.center.y - 110, SCREEN_WIDTH -40, 280);
+    _commonView.alpha = 0.1;
+    _commonView.transform = CGAffineTransformMakeScale(0.3, 0.3);
+    [UIView animateWithDuration:0.3 animations:^{
+        _commonView.alpha = 1.0;
+        _commonView.transform = CGAffineTransformMakeScale(1.2, 1.2);
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _closeBtn.alpha = 1;
+        [UIView animateWithDuration:0.2 animations:^{
+            _commonView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        } completion:^(BOOL finished) {
+            
         }];
     }];
     
     
 }
-
+- (void)sureButtonClick:(UIButton *)sureButton{
+    NSDictionary *dic = [_dataList[_selectedIndex] objectForKey:@"data"];
+    DDLogDebug(@"select %@", dic);
+    switch (self.type) {
+        case Cars:
+            if (self.delegate && [self.delegate respondsToSelector:@selector(selectGoods:car:)]) {
+                [self.delegate selectGoods:self.goodsId car:[dic objectForKey:@"id"]];
+            }
+            break;
+            
+        case Warehouses:
+            if (self.delegate && [self.delegate respondsToSelector:@selector(selectGoods:warehouse:)]) {
+                [self.delegate selectGoods:self.goodsId warehouse:[dic objectForKey:@"id"]];
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self hide];
+}
 //TODO:  这里有分页
 -(void) getWarehouses:(NSString *) userId {
     [Net post:MY_WAREHOUSE params:@{@"userId": userId, @"status": @"2", @"pageNow": @"1", @"pageSize": @"10"} cb:^(NSDictionary *responseDic) {
@@ -349,22 +400,10 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dic = [_dataList[indexPath.row] objectForKey:@"data"];
-    DDLogDebug(@"select %@", dic);
-    switch (self.type) {
-        case Cars:
-            [self.delegate selectGoods:self.goodsId car:[dic objectForKey:@"id"]];
-            break;
-            
-        case Warehouses:
-            [self.delegate selectGoods:self.goodsId warehouse:[dic objectForKey:@"id"]];
-            break;
-            
-        default:
-            break;
-    }
+    self.selectedIndex = indexPath.row;
     
-    [self hide];
 }
-
+-(void)setSelectedIndex:(NSInteger)selectedIndex{
+    [_sureBtn setEnabled:YES];
+}
 @end
