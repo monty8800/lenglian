@@ -92,6 +92,7 @@ public class WareHouseFindGoodsActivity extends BaseCordovaActivity implements C
                 mWebView.getWebView().loadUrl("javascript:doWarehouseSearchGoods()");
             }
         });
+        tvOk.setVisibility(View.GONE);
 
     }
 
