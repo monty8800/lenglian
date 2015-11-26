@@ -177,9 +177,9 @@ bindBankCard = (aBankCardModel,smsCode)->
 		}
 		WalletStore.emitChange "bindBankCarSucc"
 	,(data)->
-		Plugin.toast.err data.msg
+		# Plugin.toast.err data.msg
 		# bug 6039
-		# Plugin.toast.err '请您输入正确验证码'
+		Plugin.toast.err '请您输入正确验证码'
 	,true
 
 getBillList = (params)->
