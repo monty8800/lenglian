@@ -26,6 +26,7 @@ Plugin = require 'util/plugin'
 _selectedGoodsId = ''
 _isBusy = false
 _hasMore = true
+_startNo = 0
 
 selectionList = [
 	{
@@ -82,7 +83,6 @@ WarehouseSearchGoods = React.createClass {
 				when 5 then beginTimestamp = currentTimestamp - 14 * 24 * 60 * 60
 
 		WarehouseAction.warehouseSearchGoods {
-			startNo: @state.startNo
 			pageSize: @state.pageSize
 			goodsType: @state.goodsType
 			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
@@ -114,7 +114,6 @@ WarehouseSearchGoods = React.createClass {
 		initState = {
 			searchResult:[]
 			showHasNone:false
-			startNo: 0
 			pageSize: 10
 		}
 
@@ -140,7 +139,7 @@ WarehouseSearchGoods = React.createClass {
 			@setState newState
 		else if msg is 'do:warehouse:search:goods'
 			newState = Object.create @state
-			newState.startNo = 0
+			_startNo = 0
 			_hasMore = true
 			@setState newState
 			@_doWarehouseSearchGoods()
@@ -148,14 +147,14 @@ WarehouseSearchGoods = React.createClass {
 			_isBusy = false
 			newState = Object.create @state
 			newState.searchResult = WarehouseStore.getWarehouseSearchGoodsResult()
-			_hasMore = parseInt(newState.searchResult.length) - parseInt(@state.startNo) is parseInt(@state.pageSize)
-			newState.startNo = newState.searchResult.length
+			_hasMore = parseInt(newState.searchResult.length) - parseInt(_startNo) is parseInt(@state.pageSize)
+			_startNo = newState.searchResult.length
 			newState.showHasNone = newState.searchResult.length is 0
 			@setState newState
 
-	search: ->
+	_search: ->
 		newState = Object.create @state
-		newState.startNo = 0
+		_startNo = 0
 		_hasMore = true
 		@setState newState
 		@_doWarehouseSearchGoods()
@@ -255,8 +254,8 @@ WarehouseSearchGoods = React.createClass {
 				<div className="g-bgPic"></div>
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
 			</div>
-			<div onClick={@search} className="u-pay-btn">
-				<a href="#" className="btn">搜索</a>
+			<div onClick={@_search} className="u-pay-btn">
+				<a className="btn">搜索</a>
 			</div>
 			<InfiniteScroll pageStart=0 loadMore={@_doWarehouseSearchGoods} hasMore={_hasMore and not _isBusy}>
 				<CSSTransitionGroup transitionName="list">

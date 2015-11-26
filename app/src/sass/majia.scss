@@ -1499,11 +1499,23 @@
             //     white-space: nowrap;
             //     text-overflow: ellipsis;
             //     //overflow: hidden;
-            // }  
+            // }    
             &.rel-text {
                 float: right;
-                padding-right: 20/$ppr;
-            }           
+                padding-right: 30/$ppr;
+                position: relative;
+                &:after{
+                    content: "";
+                    width: 0;
+                    height: 0;
+                    border: 10/$ppr solid transparent;
+                    border-top: 10/$ppr solid #333;
+                    position: absolute;
+                    right: 5/$ppr;
+                    top: 50%;
+                    margin-top:-5/$ppr;
+                }
+            }          
         }  
         &.g-testCode{
             position: relative;

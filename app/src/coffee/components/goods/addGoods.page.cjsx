@@ -232,6 +232,7 @@ AddGoods = React.createClass {
 			reciverMobile: user.mobile #收货人电话
 
 			remark: '' #备注
+			prePayProportion:'100'	#预付款比例
 		}
 
 
@@ -250,6 +251,7 @@ AddGoods = React.createClass {
 		if Helper.isPriceFormat e.target.value,6
 			@setState {
 				price:e.target.value
+				prePay:(parseFloat e.target.value) * @state.prePayProportion * 0.01
 			}
 	_prePayChange :(e)->
 		if Helper.isPriceFormat e.target.value,6
@@ -392,7 +394,15 @@ AddGoods = React.createClass {
 							<label>
 								<input className="mui-checkbox ll-font" value="3" onChange={@_selectPayType} defaultChecked=true type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '预付款'}} />
 							</label>
-							<input onChange={@_prePayChange} value={@state.prePay} onBlur={@_prePayIpnutOnblur} type="text" placeholder="请输入预付款" className="price"/>元
+							<span lassName="rel-text">
+								{ if @state.price then @state.prePayProportion * 0.01 * @state.price + '元' else '0元'}
+							</span>
+							<select valueLink={@linkState 'prePayProportion'}  className="select rel-select">
+								<option value="100">占总额100%</option>
+								<option value="50">占总额50%</option>
+								<option value="30">占总额30%</option>
+								<option value="10">占总额10%</option>
+							</select>
 						</div>						
 					</dd>
 				</dl>
