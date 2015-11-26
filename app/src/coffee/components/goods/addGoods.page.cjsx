@@ -191,7 +191,7 @@ AddGoods = React.createClass {
 					arrivalStime: @state.arriveMinTime if @state.arriveMinTime
 					arrivalEtime: @state.arriveMaxTime if @state.arriveMaxTime
 					payType: @state.payType
-					advance: @state.prePay if @state.payType is 3
+					advance: @state.prePay * @state.prePayProportion * 0.01 if @state.payType is 3
 					coldStoreFlag: @state.refrigeration
 					contacts: @state.sender
 					phone: @state.senderMobile
