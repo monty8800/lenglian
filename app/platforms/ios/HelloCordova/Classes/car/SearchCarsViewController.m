@@ -39,17 +39,17 @@
 
 -(void) createUI {
     self.title = @"我要找车";
-    UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
-    [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
-    [addWarehouseButton setTitle:@"搜索" forState:UIControlStateNormal];
-    [addWarehouseButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
+//    UIButton *addWarehouseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [addWarehouseButton setFrame:CGRectMake(0, 0, 40, 44)];
+//    [addWarehouseButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+//    [addWarehouseButton setTitle:@"搜索" forState:UIControlStateNormal];
+//    [addWarehouseButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:addWarehouseButton];
 }
--(void)sureToSearch{
-    NSString *js = [NSString stringWithFormat:@"(function(){window.searchMyCar()})()"];
-    [self.commandDelegate evalJs: js];
-}
+//-(void)sureToSearch{
+//    NSString *js = [NSString stringWithFormat:@"(function(){window.searchMyCar()})()"];
+//    [self.commandDelegate evalJs: js];
+//}
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];

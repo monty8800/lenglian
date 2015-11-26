@@ -27,7 +27,6 @@ _selectedGoodsId = ''
 _isBusy = false
 _hasMore = true
 _startNo = 0
-
 selectionList = [
 	{
 		key: 'goodsType'
@@ -83,6 +82,7 @@ WarehouseSearchGoods = React.createClass {
 				when 5 then beginTimestamp = currentTimestamp - 14 * 24 * 60 * 60
 
 		WarehouseAction.warehouseSearchGoods {
+			startNo: _startNo
 			pageSize: @state.pageSize
 			goodsType: @state.goodsType
 			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 

@@ -32,18 +32,18 @@
 
 -(void) createUI {
     self.title = @"找仓库";
-    UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [searchButton setFrame:CGRectMake(0, 0, 40, 44)];
-    [searchButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
-    [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:searchButton];
+//    UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [searchButton setFrame:CGRectMake(0, 0, 40, 44)];
+//    [searchButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+//    [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
+//    [searchButton addTarget:self action:@selector(sureToSearch) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:searchButton];
 }
--(void)sureToSearch{
-    NSString *js = [NSString stringWithFormat:@"(function(){window.doSearchWarehouse()})()"];
-    [self.commandDelegate evalJs: js];
-    
-}
+//-(void)sureToSearch{
+//    NSString *js = [NSString stringWithFormat:@"(function(){window.doSearchWarehouse()})()"];
+//    [self.commandDelegate evalJs: js];
+//    
+//}
 
 -(void)commonCommand:(NSArray *)params {
     [super commonCommand:params];
