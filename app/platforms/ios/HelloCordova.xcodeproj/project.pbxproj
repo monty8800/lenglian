@@ -112,6 +112,7 @@
 		5B0C9A4D1BE2087D00110711 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C9A461BE2087D00110711 /* zip.c */; };
 		5B0C9A4E1BE2087D00110711 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C9A491BE2087D00110711 /* ZipArchive.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
+		5B1657851C06A81A005CE1D2 /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
 		5B1A51BB1BCF9E250031761B /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A51BA1BCF9E250031761B /* AgreementViewController.m */; };
 		5B1C0B691BCA553300DA196C /* SearchGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C0B681BCA553300DA196C /* SearchGoodsDetailViewController.m */; };
 		5B1CBCF61BC36D4D00D94095 /* AddBankCardNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CBCF51BC36D4D00D94095 /* AddBankCardNextViewController.m */; };
@@ -451,6 +452,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B1657851C06A81A005CE1D2 /* libCordova.a in Frameworks */,
 				4C42E4D61BF986F600374B1C /* BaiduMapAPI.framework in Frameworks */,
 				4C5992AA1BBCE7B200CA5039 /* AddressBook.framework in Frameworks */,
 				4C822F761BB153F800112533 /* Security.framework in Frameworks */,

@@ -35,8 +35,6 @@
     </dict>
     <key>NSLocationAlwaysUsageDescription</key>
     <string></string>
-    <key>NSMainNibFile</key>
-    <string></string>
     <key>NSMainNibFile~ipad</key>
     <string></string>
     <key>UIInterfaceOrientation</key>
