@@ -85,7 +85,6 @@ WarehouseSearchGoods = React.createClass {
 			startNo: _startNo
 			pageSize: @state.pageSize
 			goodsType: @state.goodsType
-			startNo: _startNo
 			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
 			beginTime: beginTimestamp
 			endTime: if parseInt(beginTimestamp) > 0 then currentTimestamp else ''
