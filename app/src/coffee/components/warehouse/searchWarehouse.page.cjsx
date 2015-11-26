@@ -60,13 +60,15 @@ selectionList = [
 	}
 ]
 
+_skip = 0
+
 SearchWarehouse = React.createClass {
 	_doSearchWarehouse: ->
 		# @state.pageSize
 		_isBusy = true
 		warehouseTypeArr = @state.wareHouseType
 		WarehouseAction.searchWarehouse {
-			startNo: @state.startNo
+			startNo: _skip
 			pageSize: @state.pageSize
 			cuvinType: @state.cuvinType
 			wareHouseType: @state.wareHouseType
@@ -103,17 +105,19 @@ SearchWarehouse = React.createClass {
 		if mark is 'searchWarehouseSucc'
 			_isBusy = false
 			newState = Object.create @state
-			newState.searchResult = WarehouseStore.getWarehouseSearchResult()
+			list = WarehouseStore.getWarehouseSearchResult()
+			newState.searchResult = list
+			_skip = list.length
 			_hasMore = parseInt(newState.searchResult.length) - parseInt(_currentCount) is 10
 			_currentCount = newState.searchResult.length
 			newState.showHasNone = newState.searchResult.length is 0
-			newState.startNo = newState.searchResult.length
+			newState.startNo = _skip
 			@setState newState
 
 		else if mark is 'do:search:warehouse'
 			newState = Object.create @state
 			newState.searchResult = []
-			newState.startNo = 0
+			newState.startNo = _skip
 			_hasMore = true
 			@setState newState
 			@_doSearchWarehouse()
@@ -142,9 +146,10 @@ SearchWarehouse = React.createClass {
 		e.stopPropagation()
 
 	search: ->
+		_skip = 0
 		newState = Object.create @state
 		newState.searchResult = []
-		newState.startNo = 0
+		newState.startNo = _skip
 		_hasMore = true
 		@setState newState
 		@_doSearchWarehouse()
