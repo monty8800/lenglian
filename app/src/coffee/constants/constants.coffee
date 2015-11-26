@@ -18,6 +18,7 @@ actionType = {
 	PAY_PWD: null
 	GET_WAREHOUSE:null
 	DELETE_WAREHOUSE:null
+	DELETE_WAREHOUSE_SOURCE:null
 	UPDATE_WAREHOUSE:null
 	WAREHOUSE_DETAIL:null
 	WAREHOUSE_SEARCH_DETAIL:null
@@ -285,6 +286,8 @@ api = {
 	GET_WAREHOUSE: '/mjWarehouseCtl/queryMjWarehouse.shtml'
 	#删除我的仓库
 	DELETE_WAREHOUSE:'/mjWarehouseCtl/deleteMjWarehouse.shtml'
+	# 删除库源  ->'源'
+	DELETE_WAREHOUSE_SOURCE:'mjWarehouseCtl/delMjWarehouseResource.shtml'
 	#修改我的仓库
 	UPDATE_WAREHOUSE:'/mjWarehouseCtl/updateMjWarehouse.shtml'
 	#我的仓库详情

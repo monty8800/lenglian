@@ -187,9 +187,14 @@ WarehouseDetail = React.createClass {
 		
 	_deleteWarehouse: ->
 		toDeleteWarehouseId = @state.warehouseDetail.id
+		status = @state.warehouseDetail.status
 		Plugin.alert '确定删除吗', '提示', (index)->
 			if index is 1
-				WarehouseAction.deleteWarehouse toDeleteWarehouseId
+				if parseInt(status) is 1 
+					WarehouseAction.deleteWarehouse toDeleteWarehouseId
+				else if parseInt(status) is 2
+					WarehouseAction.deleteWarehouseSource toDeleteWarehouseId
+				
 		, ['确定', '取消']
 
 	render :->
@@ -306,12 +311,19 @@ WarehouseDetail = React.createClass {
 				</p>		
 			</div>
 			{
-				if parseInt(@state.warehouseDetail.status) is 1
+				if parseInt(@state.warehouseDetail.status) is 1 
 					<div className="m-detail-bottom">
 						<div className="g-pay-btn">
 							<a onClick={ @_deleteWarehouse } className="u-btn02">删除仓库</a>
 						</div>
 					</div>
+				else if parseInt(@state.warehouseDetail.status) is 2
+					<div className="m-detail-bottom">
+						<div className="g-pay-btn">
+							<a onClick={ @_deleteWarehouse } className="u-btn02">取消发布</a>
+						</div>
+					</div>
+				
 			}
 		</div>
 }

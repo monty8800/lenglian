@@ -43,6 +43,11 @@ WarehouseAction = {
 			actionType:Constants.actionType.DELETE_WAREHOUSE
 			warehouseId:warehouseId
 		}
+	deleteWarehouseSource:(warehouseId)->
+		Dispatcher.dispatch {
+			actionType:Constants.actionType.DELETE_WAREHOUSE_SOURCE
+			warehouseId:warehouseId
+		}
 	releaseWarehouse:(warehouseId)->
 		Dispatcher.dispatch {
 			actionType:Constants.actionType.RELEASE_WAREHOUSE

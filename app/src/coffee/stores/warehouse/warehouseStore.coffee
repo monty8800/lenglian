@@ -248,6 +248,22 @@ deleteWarehouseRequest = (warehouseId)->
 		console.log '仓库删除失败'
 	,true
 
+deleteWarehouseSourceRequest = (warehouseId)->
+	user = UserStore.getUser()
+	Http.post Constants.api.DELETE_WAREHOUSE_SOURCE, {
+		userId:user.id
+		warehouseId:warehouseId
+	},(data)->
+		Plugin.loading.hide()
+		console.log '仓库删除成功'
+		DB.put 'shouldWarehouseListReload',1
+		Plugin.nav.pop()
+	,(data)->
+		Plugin.loading.hide()
+		Plugin.toast.err data.msg
+		console.log '仓库删除失败'
+	,true
+
 window.updateContact = (contactName,contactMobile,type)->
 	mark = {
 		mark:'getContectForAddWarehouse'
@@ -322,6 +338,7 @@ Dispatcher.register (action)->
 		when Constants.actionType.WAREHOUSE_SEARCH_GOODS then warehouseSearchGoods(action)
 		when Constants.actionType.WAREHOUSE_ADD then postAddWarehouse(action.params,action.fileUrl)
 		when Constants.actionType.DELETE_WAREHOUSE then deleteWarehouseRequest(action.warehouseId)
+		when Constants.actionType.DELETE_WAREHOUSE_SOURCE then deleteWarehouseSourceRequest(action.warehouseId)
 		when Constants.actionType.RELEASE_WAREHOUSE then releaseWarehouse(action.warehouseId)
 		when Constants.actionType.WAREHOUSE_SEARCH_DETAIL then getSearchWarehouseDetail(action.warehouseId,action.focusid)
 		when Constants.actionType.attention then handleFallow(action.focusid,action.focustype,action.type)
