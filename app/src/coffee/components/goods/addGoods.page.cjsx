@@ -151,6 +151,7 @@ AddGoods = React.createClass {
 		else if @state.remark?.length > 30
 			Plugin.toast.err '备注信息不能多于30个字符'
 		else
+			prePayValue = (@state.prePay * @state.prePayProportion * 0.01).toFixed(2)
 			files = []
 			files.push {
 					filed: 'imgurl'
@@ -191,7 +192,7 @@ AddGoods = React.createClass {
 					arrivalStime: @state.arriveMinTime if @state.arriveMinTime
 					arrivalEtime: @state.arriveMaxTime if @state.arriveMaxTime
 					payType: @state.payType
-					advance: @state.prePay * @state.prePayProportion * 0.01 if @state.payType is 3
+					advance: prePayValue if @state.payType is 3
 					coldStoreFlag: @state.refrigeration
 					contacts: @state.sender
 					phone: @state.senderMobile
@@ -400,13 +401,16 @@ AddGoods = React.createClass {
 										{ (@state.prePayProportion * 0.01 * @state.price).toFixed(2) + '元' }
 									</span>
 							}
+							{
+								if @state.price
+									<select valueLink={@linkState 'prePayProportion'}  className="select rel-select">
+										<option value="100">占总额100%</option>
+										<option value="50">占总额50%</option>
+										<option value="30">占总额30%</option>
+										<option value="10">占总额10%</option>
+									</select>
+							}
 							
-							<select valueLink={@linkState 'prePayProportion'}  className="select rel-select">
-								<option value="100">占总额100%</option>
-								<option value="50">占总额50%</option>
-								<option value="30">占总额30%</option>
-								<option value="10">占总额10%</option>
-							</select>
 						</div>						
 					</dd>
 				</dl>
