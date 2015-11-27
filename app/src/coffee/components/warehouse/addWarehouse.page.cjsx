@@ -62,8 +62,8 @@ AddWarehouse = React.createClass {
 			priceProperty:priceProperty
 			mainStreet:''
 			detailStreet:''
-			contactName:''
-			contactMobile:''
+			contactName:user.name or ''
+			contactMobile:user.mobile or ''
 			params:{
 				area:""						#区id
 				city:""						#市id

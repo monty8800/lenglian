@@ -186,14 +186,18 @@ actionType = {
 	SEARCH_CAR: null
 }
 
+# 测试
+imageServer = 'http://qa-pic.lenglianmajia.com/'
+# 正式 环境图片服务器路径
+# imageServer = 'http://pic.lenglianmajia.com/'
 								
 api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 	#服务器地址
-
-	
+# 测试
 	server: 'http://192.168.26.177:7080/llmj-app/'
+# 正式
 	# server: 'http://m.lenglianmajia.com/'
 
 	#注意！⚠️浏览器里请去gulpfile里面改接口地址，这里改不起作用
@@ -450,10 +454,6 @@ cache = {
 }
 
 carPicSize = '200x200'
-
-imageServer = 'http://qa-pic.lenglianmajia.com/'
-# 正式环境图片服务器路径
-# imageServer = 'http://pic.lenglianmajia.com/'
 
 module.exports = 
 	api: api

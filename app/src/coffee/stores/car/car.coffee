@@ -72,6 +72,17 @@ window.updateMyCarList = (params)->
 		CarAction.carList('1', '1')
 		CarStore.emitChange ['native_js_status']
 
+#新增车辆时调用通讯录更新联系人及联系方式
+window.updateContact = (contactName,contactMobile,type)->
+	mark = {
+		mark:'getContectForAddCar'
+		contactName:contactName
+		contactMobile:contactMobile
+		type:type 
+	}
+	CarStore.emitChange mark
+
+
 # 编辑车辆
 window.editorCar = ->
 	CarStore.emitChange ['editor_car']	

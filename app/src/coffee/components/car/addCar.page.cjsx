@@ -100,6 +100,17 @@ AddCar = React.createClass {
 	componentWillUnMount: ->
 		CarStore.removeChangeListener @resultCallBack
 
+	_driverNameChange :(e)->
+		@setState {
+			driver:e.target.value
+		}
+
+	_driverMobileChange :(e)->
+		@setState {
+			mobile:e.target.value
+		}
+	selectContacts :()->
+		Plugin.run [4,'getContectForAddCar']
 
 	resultCallBack: (result)->
 		if result is 'setAuthPic:done'
@@ -146,6 +157,11 @@ AddCar = React.createClass {
 				}				
 			console.log '********type:', type
 			console.log '********url:', url
+		else if result.mark is 'getContectForAddCar'
+			@setState {
+				driver:result.contactName
+				mobile:result.contactMobile
+			}
 
 	getInitialState: ->
 		user = UserStore.getUser()
@@ -155,7 +171,7 @@ AddCar = React.createClass {
 			user: user
 			carNo: '' # 车牌号
 			bulky: '' # 可载泡货
-			driver: '' # 随车司机
+			driver: user.name or '' # 随车司机
 			latitude: address.lati
 			longitude: address.longi
 			mobile: user.mobile or ''
@@ -279,13 +295,14 @@ AddCar = React.createClass {
 				</div>
 			</div>
 			<div className="m-releaseitem">
-				<div>
-					<label htmlFor="remark"><span>司机姓名</span> </label>
-					<input ref="driver" valueLink={@linkState 'driver'} type="text" placeholder="请输入司机姓名" id="remark"/>
+				<div className="ll-font">
+					<span>司机姓名</span>
+					<input className="input-weak" onChange={@_driverNameChange} type="text" value={@state.driver} placeholder="请输入或点击图标导入" />
+					<em onClick={@selectContacts.bind this,'sender'} className="u-personIcon ll-font"></em>
 				</div>
 				<div>
 					<span>联系手机</span>
-					<input ref="mobile" valueLink={@linkState 'mobile'}></input>
+					<input className="input-weak" onChange={@_driverMobileChange} type="tel" value={@state.mobile} type="tel" placeholder="请输入司机电话号码" />
 				</div>
 			</div>
 			<div className="u-green ll-font u-tip">
@@ -296,7 +313,7 @@ AddCar = React.createClass {
 			</div>
 			<div className="u-pay-btn">
 				<div className="u-pay-btn">
-					<a href="###" className="btn" onClick={@.handleSubmit}>新增车辆</a>
+					<a className="btn" onClick={@.handleSubmit}>新增车辆</a>
 				</div>
 			</div>
 		</div>
