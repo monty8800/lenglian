@@ -185,7 +185,7 @@ AddCar = React.createClass {
 			transLicensePic: ''
 		}
 
-	handleSubmit: ->
+	_handleSubmit: ->
 		if not Validator.carNum @state.carNo
 			Plugin.toast.err '请输入正确的车牌号'
 		else if @state.category is ''
@@ -297,8 +297,7 @@ AddCar = React.createClass {
 			<div className="m-releaseitem">
 				<div className="ll-font">
 					<span>司机姓名</span>
-					<input className="input-weak" onChange={@_driverNameChange} type="text" value={@state.driver} placeholder="请输入或点击图标导入" />
-					<em onClick={@selectContacts.bind this,'sender'} className="u-personIcon ll-font"></em>
+					<input className="input-weak" onChange={@_driverNameChange} type="text" value={@state.driver} placeholder="请输入司机姓名" />
 				</div>
 				<div>
 					<span>联系手机</span>
@@ -313,11 +312,24 @@ AddCar = React.createClass {
 			</div>
 			<div className="u-pay-btn">
 				<div className="u-pay-btn">
-					<a className="btn" onClick={@.handleSubmit}>新增车辆</a>
+					<a className="btn" onClick={@_handleSubmit}>新增车辆</a>
 				</div>
 			</div>
 		</div>
 }
 
 React.render <AddCar />, document.getElementById('content')
+
+# 新增车辆 填写联系人 加上可以从通讯录导入 
+# <div className="m-releaseitem">
+# 	<div className="ll-font">
+# 		<span>司机姓名</span>
+# 		<input className="input-weak" onChange={@_driverNameChange} type="text" value={@state.driver} placeholder="请输入司机姓名" />
+# 	</div>
+# 	<div>
+# 		<span>联系手机</span>
+# 		<input className="input-weak" onChange={@_driverMobileChange} type="tel" value={@state.mobile} type="tel" placeholder="请输入司机电话号码" />
+# 	</div>
+# </div>
+ # <em onClick={@selectContacts.bind this,'sender'} className="u-personIcon ll-font"></em>
 
