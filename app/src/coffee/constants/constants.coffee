@@ -194,7 +194,8 @@ imageServer = 'http://qa-pic.lenglianmajia.com/'
 api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
-	#服务器地址
+
+#服务器地址
 # 测试
 	server: 'http://192.168.26.177:7080/llmj-app/'
 # 正式
