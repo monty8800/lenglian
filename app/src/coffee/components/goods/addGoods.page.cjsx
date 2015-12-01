@@ -93,12 +93,12 @@ AddGoods = React.createClass {
 			newState.priceType = 1
 		@setState newState
 
-	_selectPriceType2: (e)->
-		console.log 'event', e
-		newState = Object.create @state
-		if e.target.checked
-			newState.priceType = 2
-		@setState newState
+	# _selectPriceType2: (e)->
+	# 	console.log 'event', e
+	# 	newState = Object.create @state
+	# 	if e.target.checked
+	# 		newState.priceType = 2
+	# 	@setState newState
 
 	_selectPayType: (e)->
 		console.log 'event', e
@@ -369,18 +369,7 @@ AddGoods = React.createClass {
 								else
 									<input disabled='disabled' type="number" placeholder="请输入一口价" className="price input-weak"/>
 							}元
-						</div>
-						<div>
-							<label>
-								<input className="mui-checkbox ll-font" onChange={@_selectPriceType2} value="2" type="radio" name="xe-checkbox01" dangerouslySetInnerHTML={{__html: '竞价'}} />
-							</label>
-							{
-								if parseInt(@state.priceType) is 2
-									<input type="text" onChange={@_priceChange} value={@state.price} onBlur={@_priceIpnutOnblur} placeholder="请输入基础价" className="price input-weak"/>
-								else
-									<input disabled='disabled' type="number" placeholder="请输入基础价" className="price input-weak"/>
-							}元
-						</div>					
+						</div>				
 					</dd>
 				</dl>
 			</div>	
@@ -468,3 +457,14 @@ AddGoods = React.createClass {
 
 React.render <AddGoods  />, document.getElementById('content')
 
+# <div>
+# 	<label>
+# 		<input className="mui-checkbox ll-font" onChange={@_selectPriceType2} value="2" type="radio" name="xe-checkbox01" dangerouslySetInnerHTML={{__html: '竞价'}} />
+# 	</label>
+# 	{
+# 		if parseInt(@state.priceType) is 2
+# 			<input type="text" onChange={@_priceChange} value={@state.price} onBlur={@_priceIpnutOnblur} placeholder="请输入基础价" className="price input-weak"/>
+# 		else
+# 			<input disabled='disabled' type="number" placeholder="请输入基础价" className="price input-weak"/>
+# 	}元
+# </div>	

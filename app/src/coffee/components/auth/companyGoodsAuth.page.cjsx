@@ -48,7 +48,7 @@ Auth = React.createClass {
 				street: @state.street
 				tel: @state.tel
 				businessLicenseNo: @state.businessLicenseNo
-				organizingCode: @state.organizingCode
+				# organizingCode: @state.organizingCode
 			}
 		else if msg is 'auth:done'
 			UserAction.updateUser {
@@ -60,7 +60,7 @@ Auth = React.createClass {
 				street: @state.street
 				tel: @state.tel
 				businessLicenseNo: @state.businessLicenseNo
-				organizingCode: @state.organizingCode
+				# organizingCode: @state.organizingCode
 			}
 		else if msg.msg is 'address:changed' and msg.type is 'area'
 			address = AddressStore.getAddress()
@@ -78,8 +78,8 @@ Auth = React.createClass {
 			Plugin.toast.err '详细地址范围1-20位'
 		else if not Validator.tel @state.tel
 			Plugin.toast.err '请输入正确的固定电话'
-		else if not Validator.organizingCode @state.organizingCode
-			Plugin.toast.err '请输入正确的组织资格代码'
+		# else if not Validator.organizingCode @state.organizingCode
+		# 	Plugin.toast.err '请输入正确的组织资格代码'
 		else if not Validator.businessLicenseNo @state.businessLicenseNo
 			Plugin.toast.err '请输入正确的营业执照'
 		else if not @state.user.businessLicense
@@ -95,7 +95,7 @@ Auth = React.createClass {
 				street: @state.street
 				phone: @state.tel
 				licenseno: @state.businessLicenseNo
-				certifies: @state.organizingCode
+				# certifies: @state.organizingCode
 				userId: @state.user.id
 			}, [
 				{
@@ -113,7 +113,7 @@ Auth = React.createClass {
 			street: user.street or ''
 			tel: user.tel or ''
 			businessLicenseNo: user.businessLicenseNo or ''
-			organizingCode: user.organizingCode or ''
+			# organizingCode: user.organizingCode or ''
 		}
 	render: ->
 		cells = [
@@ -163,15 +163,6 @@ Auth = React.createClass {
 						}
 				</li>
 				<li>
-					<h6 className="xert-h6 xert-h6-large02">组织机构代码证号码</h6>
-						{
-							if @state.user.organizingCode and @state.user.enterpriseGoodsStatus is 1 or @state.user.enterpriseGoodsStatus is 0
-								<input value=@state.user.organizingCode readOnly="readOnly" className="input-weak" type="text" placeholder="组织机构代码证号码"/>
-							else
-								<input valueLink={@linkState 'organizingCode'} className="input-weak" type="text" placeholder="组织机构代码证号码"/>
-						}
-				</li>
-				<li>
 					<h6 className="xert-h6 xert-h6-large03">营业执照号码</h6>
 						{
 							if @state.user.businessLicenseNo and @state.user.enterpriseGoodsStatus is 1 or @state.user.enterpriseGoodsStatus is 0
@@ -197,3 +188,13 @@ Auth = React.createClass {
 }
 
 React.render <Auth />, document.getElementById('content')
+
+# <li>
+# 	<h6 className="xert-h6 xert-h6-large02">组织机构代码证号码</h6>
+# 		{
+# 			if @state.user.organizingCode and @state.user.certification isnt 0
+# 				<input value=@state.user.organizingCode readOnly="readOnly" className="input-weak" type="text" placeholder="组织机构代码证号码"/>
+# 			else
+# 				<input valueLink={@linkState 'organizingCode'} className="input-weak" type="text" placeholder="组织机构代码证号码"/>
+# 		}
+# </li>

@@ -67,6 +67,8 @@
     //地图
     _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0,  tabHeight, SCREEN_WIDTH, self.view.bounds.size.height - tabHeight)];
     _mapView.delegate = self;
+    _mapView.showsUserLocation = YES;
+    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
     DDLogDebug(@"map level %f", _mapView.zoomLevel);
     [self.view addSubview:_mapView];
     
