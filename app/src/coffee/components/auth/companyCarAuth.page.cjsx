@@ -34,7 +34,7 @@ Auth = React.createClass {
 				companyName: @state.companyName
 				managerName: @state.managerName
 				businessLicenseNo: @state.businessLicenseNo
-				organizingCode: @state.organizingCode
+				# organizingCode: @state.organizingCode
 				transLicenseNo: @state.transLicenseNo
 			}
 		else if msg is 'auth:done'
@@ -45,7 +45,7 @@ Auth = React.createClass {
 				certification: 2
 				name: @state.managerName
 				businessLicenseNo: @state.businessLicenseNo
-				organizingCode: @state.organizingCode
+				# organizingCode: @state.organizingCode
 				transLicenseNo: @state.transLicenseNo
 			}
 
@@ -56,8 +56,8 @@ Auth = React.createClass {
 			Plugin.toast.err '请输入正确的姓名'
 		else if not Validator.businessLicenseNo @state.businessLicenseNo
 			Plugin.toast.err '请输入正确的营业执照'
-		else if not Validator.organizingCode @state.organizingCode
-			Plugin.toast.err '请输入正确的组织资格代码'
+		# else if not Validator.organizingCode @state.organizingCode
+			# Plugin.toast.err '请输入正确的组织资格代码'
 		else if not Validator.transLicenseNo @state.transLicenseNo
 			Plugin.toast.err '请输入正确的道路运输许可证'
 		else if not Validator.tel @state.tel
@@ -74,7 +74,7 @@ Auth = React.createClass {
 				type: Constants.authType.CAR
 				name: @state.companyName
 				licenseno: @state.businessLicenseNo
-				certifies: @state.organizingCode
+				# certifies: @state.organizingCode
 				permits: @state.transLicenseNo
 				principalName: @state.managerName
 				phone: @state.tel
@@ -101,7 +101,7 @@ Auth = React.createClass {
 			companyName: user.company or ''
 			managerName: user.name or ''
 			businessLicenseNo: user.businessLicenseNo or ''
-			organizingCode: user.organizingCode or ''
+			# organizingCode: user.organizingCode or ''
 			transLicenseNo: user.transLicenseNo or ''
 			tel: user.tel or ''
 		}
@@ -162,16 +162,6 @@ Auth = React.createClass {
 					
 				</li>
 				<li>
-					<h6 className="xert-h6 xert-h6-large01">组织资格代码证</h6>
-						{
-							if @state.user.organizingCode and @state.user.certification isnt 0
-								<input value=@state.user.organizingCode readOnly="readOnly" className="input-weak" type="text" placeholder="请输入组织资格代码证" />
-							else
-								<input valueLink={@linkState 'organizingCode'} className="input-weak" type="text" placeholder="请输入组织资格代码证" />
-						}
-					
-				</li>
-				<li>
 					<h6 className="xert-h6 xert-h6-large02">道路运输许可证号码</h6>
 						{
 							if @state.user.transLicenseNo and @state.user.certification isnt 0
@@ -207,3 +197,14 @@ Auth = React.createClass {
 }
 
 React.render <Auth />, document.getElementById('content')
+
+# <li>
+# 	<h6 className="xert-h6 xert-h6-large01">组织资格代码证</h6>
+# 		{
+# 			if @state.user.organizingCode and @state.user.certification isnt 0
+# 				<input value=@state.user.organizingCode readOnly="readOnly" className="input-weak" type="text" placeholder="请输入组织资格代码证" />
+# 			else
+# 				<input valueLink={@linkState 'organizingCode'} className="input-weak" type="text" placeholder="请输入组织资格代码证" />
+# 		}
+	
+# </li>
