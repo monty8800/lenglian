@@ -195,7 +195,6 @@ api = {
 	#TODO: api列表
 	hello: 'http://www.baidu.com'
 
-#服务器地址
 # 测试
 	server: 'http://192.168.26.177:7080/llmj-app/'
 # 正式
@@ -455,6 +454,11 @@ cache = {
 }
 
 carPicSize = '200x200'
+
+
+imageServer = 'http://qa-pic.lenglianmajia.com/'
+# 正式环境图片服务器路径
+# imageServer = 'http://pic.lenglianmajia.com/'
 
 module.exports = 
 	api: api
