@@ -86,7 +86,8 @@ Auth = React.createClass {
 				type: 'idCard'
 			}
 		].map (cell, i)->
-			<PicCell key={i} selectable={@state.user.warehouseStatus is 0} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
+			isOpt = @state.user?.personalWarehouseStatus isnt 1 and @state.user?.personalWarehouseStatus isnt 0
+			<PicCell key={i} selectable={isOpt} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
 		, this
 
 		<section>
@@ -95,7 +96,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6">真实姓名</h6>
 						{
-							if @state.user.name and @state.user.certification isnt 0
+							if @state.user.name and @state.user.personalWarehouseStatus is 1 or @state.user.personalWarehouseStatus is 0
 								<input  value=@state.user.name readOnly="readonly" className="input-weak" type="text" placeholder="请输入真实姓名"/>
 							else
 								<input  valueLink={@linkState 'name'} className="input-weak" type="text" placeholder="请输入真实姓名"/>
@@ -104,7 +105,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6">身份证号</h6>
 						{
-							if @state.user.idCardNo and @state.user.certification isnt 0
+							if @state.user.idCardNo and @state.user.personalWarehouseStatus is 1 or @state.user.personalWarehouseStatus is 0
 								<input readOnly="readonly" value=@state.user.idCardNo className="input-weak" type="text" placeholder="请输入身份证号"/>
 							else
 								<input valueLink={@linkState 'idNum'} className="input-weak" type="text" placeholder="请输入身份证号"/>
@@ -125,7 +126,7 @@ Auth = React.createClass {
 			{cells}
 		</div>
 		{
-			if @state.user.warehouseStatus in [0, 3]
+			if @state.user.personalWarehouseStatus isnt 1 and @state.user.personalWarehouseStatus isnt 0
 				<div className="u-certBtn-con">
 					<a onClick={@_auth} className="u-btn">提交认证</a>
 				</div>

@@ -124,7 +124,8 @@ Auth = React.createClass {
 				type: 'businessLicense'
 			}
 		].map (cell, i)->
-			<PicCell selectable={@state.user.warehouseStatus is 0} key={i} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
+			isOpt = @state.user?.enterpriseWarehouseStatus isnt 1 and @state.user?.enterpriseWarehouseStatus isnt 0
+			<PicCell selectable={isOpt} key={i} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
 		, this
 
 		<section>
@@ -133,7 +134,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6">公司名称</h6>
 						{
-							if @state.user.company and @state.user.certification isnt 0
+							if @state.user.company and @state.user.enterpriseWarehouseStatus is 1 or @state.user.enterpriseWarehouseStatus is 0
 								<input className="input-weak" readOnly="readOnly" value=@state.user.company type="text" placeholder="请输入公司名" />
 							else 
 								<input className="input-weak"  valueLink={@linkState 'companyName'} type="text" placeholder="请输入公司名" />
@@ -146,7 +147,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6">详细地址</h6>
 						{
-							if @state.user.address and @state.user.certification isnt 0
+							if @state.user.address and @state.user.enterpriseWarehouseStatus is 1 or @state.user.enterpriseWarehouseStatus is 0
 								<input value=@state.user.street readOnly="readOnly" className="input-weak" type="text" placeholder="请输入详细地址" />
 							else
 								<input valueLink={@linkState 'street'} className="input-weak" type="text" placeholder="请输入详细地址" />
@@ -155,7 +156,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6">公司电话</h6>
 						{
-							if @state.user.tel and @state.user.certification isnt 0
+							if @state.user.tel and @state.user.enterpriseWarehouseStatus is 1 or @state.user.enterpriseWarehouseStatus is 0
 								<input value=@state.user.tel readOnly="readOnly" className="input-weak" type="text" placeholder="请输入公司电话" />
 							else
 								<input valueLink={@linkState 'tel'} className="input-weak" type="text" placeholder="请输入公司电话" />
@@ -164,7 +165,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6 xert-h6-large02">组织机构代码证号码</h6>
 						{
-							if @state.user.organizingCode and @state.user.certification isnt 0
+							if @state.user.organizingCode and @state.user.enterpriseWarehouseStatus is 1 or @state.user.enterpriseWarehouseStatus is 0
 								<input value=@state.user.organizingCode readOnly="readOnly" className="input-weak" type="text" placeholder="组织机构代码证号码"/>
 							else
 								<input valueLink={@linkState 'organizingCode'} className="input-weak" type="text" placeholder="组织机构代码证号码"/>
@@ -173,7 +174,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6 xert-h6-large03">营业执照号码</h6>
 						{
-							if @state.user.businessLicenseNo and @state.user.certification isnt 0
+							if @state.user.businessLicenseNo and @state.user.enterpriseWarehouseStatus is 1 or @state.user.enterpriseWarehouseStatus is 0
 								<input value=@state.user.businessLicenseNo readOnly="readOnly" className="input-weak" type="text" placeholder="营业执照号码"/>
 							else
 								<input valueLink={@linkState 'businessLicenseNo'} className="input-weak" type="text" placeholder="营业执照号码"/>
@@ -185,7 +186,7 @@ Auth = React.createClass {
 			{cells}
 		</div>
 		{
-			if @state.user.warehouseStatus in [0, 3]
+			if @state.user.enterpriseWarehouseStatus isnt 1 and @state.user.enterpriseWarehouseStatus isnt 0
 				<div className="u-certBtn-con">
 					<a className="u-btn" onClick={@_auth}>提交认证</a>
 				</div>

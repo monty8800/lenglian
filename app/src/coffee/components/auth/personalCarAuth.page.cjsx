@@ -51,8 +51,8 @@ Auth = React.createClass {
 	_auth: ->
 		if not Validator.carNum @state.carNum
 			Plugin.toast.err '请输入正确的车牌号'
-		else if not Validator.vinNum @state.vinNum
-			Plugin.toast.err '请输入正确的车架号码'
+		# else if not Validator.vinNum @state.vinNum
+		# 	Plugin.toast.err '请输入正确的车架号码'
 		else if not Validator.name @state.name
 			Plugin.toast.err '请输入正确的姓名'
 		else if not Validator.idCard @state.idNum
@@ -122,7 +122,9 @@ Auth = React.createClass {
 				type: 'operationLicense'
 			}
 		].map (cell, i)->
-			<PicCell key={i} selectable={@state.user.carStatus is 0} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
+			console.log '---------------cddjd;fdjfad', @state.user.toJS()
+			isOpt = @state.user?.personalCarStatus isnt 1 and @state.user?.personalCarStatus isnt 0
+			<PicCell key={i} selectable={isOpt} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
 		, this
 
 		<section>
@@ -130,16 +132,18 @@ Auth = React.createClass {
 			<ul>
 				<li>
 					<h6 className="xert-h6">车牌号码</h6>
-					<input valueLink={@linkState 'carNum'} className="input-weak" type="text" placeholder="请输入车牌号码" />
-				</li>
-				<li>
-					<h6 className="xert-h6">车架号码</h6>
-					<input valueLink={@linkState 'vinNum'} className="input-weak" type="text" placeholder="请输入车架号码" />
+					{
+						if @state.user.carNo
+							<input readOnly="readOnly" value=@state.user.carNo className="input-weak" type="text" placeholder="请输入车牌号码" />
+						else
+							<input valueLink={@linkState 'carNum'} className="input-weak" type="text" placeholder="请输入车牌号码" />
+					}
+					
 				</li>
 				<li>
 					<h6 className="xert-h6">车主姓名</h6>
 						{
-							if @state.user.name and @state.user.certification isnt 0
+							if @state.user.name and @state.user.personalCarStatus is 1 or @state.user.personalCarStatus is 0
 								<input value=@state.user.name readOnly="readOnly" className="input-weak" type="text" placeholder="请输入车主姓名" />
 							else
 								<input valueLink={@linkState 'name'} className="input-weak" type="text" placeholder="请输入车主姓名" />
@@ -149,7 +153,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6 xert-h6-large01">车主身份证号码</h6>
 						{
-							if @state.user.idCardNo and @state.user.certification isnt 0
+							if @state.user.idCardNo and @state.user.personalCarStatus is 1 or @state.user.personalCarStatus is 0
 								<input value=@state.user.idCardNo readOnly="readOnly" className="input-weak" type="text" placeholder="请输入车主身份证" />
 							else
 								<input valueLink={@linkState 'idNum'} className="input-weak" type="text" placeholder="请输入车主身份证" />
@@ -162,7 +166,7 @@ Auth = React.createClass {
 			{cells}
 		</div>
 		{
-			if @state.user.carStatus in [0, 3]
+			if @state.user.personalCarStatus isnt 1 and @state.user.personalCarStatus isnt 0
 				<div className="u-certBtn-con">
 					<a className="u-btn" onClick={@_auth}>提交认证</a>
 				</div>

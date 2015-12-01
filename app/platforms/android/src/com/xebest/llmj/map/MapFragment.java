@@ -23,6 +23,8 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
@@ -83,6 +85,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     private View carBottomView;
 
     private View storeBottomView;
+
+    private ImageView currentPos;
 
     private ImageView goodsClose;
     private ImageView carClose;
@@ -164,6 +168,9 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
         goodsLine = view.findViewById(R.id.line_goods);
         carLine = view.findViewById(R.id.line_car);
         storeLine = view.findViewById(R.id.line_store);
+
+        currentPos = (ImageView) view.findViewById(R.id.currentPos);
+        currentPos.setOnClickListener(this);
 
         //获取地图控件引用
         mMapView = (MapView) view.findViewById(R.id.bmapView);
@@ -370,6 +377,15 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                 }
 
                 break;
+            case R.id.currentPos:
+                if (centerLat == null) return;
+                MapStatus mMapStatus = new MapStatus.Builder().target(centerLat).zoom(zoom).build();
+                if (mMapStatus == null) return;
+                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+                if (mMapStatusUpdate == null || mMapView.getMap() == null) return;
+                mMapView.getMap().setMapStatus(mMapStatusUpdate);
+                new NearTask().execute();
+                break;
         }
     }
 
@@ -378,6 +394,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
     private double rightLng = 0.00;
     private double rightLat = 0.00;
 
+    private LatLng centerLat = null;
+    private float zoom = 0;
     @Override
     public void onMapLoaded() {
 
@@ -385,6 +403,12 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
 
         new NearTask().execute();
 
+        MapStatus status = mMapView.getMap().getMapStatus();
+        LatLng lng =  status.target;
+        zoom = status.zoom;
+        centerLat = lng;
+        Log.i("info", "--------latitude--" + lng.latitude);
+        Log.i("info", "--------longitude--" + lng.longitude);
     }
 
     @Override
@@ -486,6 +510,8 @@ public class MapFragment extends Fragment implements View.OnClickListener, Baidu
                     marker.setTitle(i + "");
                 }
             }
+
+            currentPos.setVisibility(View.VISIBLE);
         }
 
     }

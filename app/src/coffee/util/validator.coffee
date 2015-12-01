@@ -10,8 +10,11 @@ payPasswd = (input)->
 smsCode = (input)->
 	return /^.{4,8}$/.test input	
 
+# idCard = (input)->
+# 	return /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test input
+
 idCard = (input)->
-	return /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test input
+	return /^(\d{18,18}|\d{15,15}|\d{17,17}x|\d{17,17}X)$/.test input	
 
 carNum = (input)->
 	return /^[\u4E00-\u9FA5][\da-zA-Z]{6}$/.test input
@@ -25,8 +28,10 @@ name = (input)->
 company = (input)->
 	return /^\S{1,50}$/.test input
 
+# businessLicenseNo = (input)->
+# 	return /^[\da-zA-Z]{15}$/.test input
 businessLicenseNo = (input)->
-	return /^[\da-zA-Z]{15}$/.test input
+	return /^([\da-zA-Z]{16,16}|[/da-zA-Z]{18,18})$/.test input
 
 # organizingCode = (input)->
 # 	return /^[\dA-Z]{9}$/.test input

@@ -126,7 +126,8 @@ Auth = React.createClass {
 				type: 'companyPic'
 			}
 		].map (cell, i)->
-			<PicCell selectable={@state.user.carStatus is 0} key={i} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
+			isOpt = @state.user?.enterpriseCarStatus isnt 1 and @state.user?.enterpriseCarStatus isnt 0
+			<PicCell selectable={isOpt} key={i} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
 		, this
 
 		<section>
@@ -135,7 +136,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6 xert-h6-large03">运输公司名称</h6>
 						{
-							if @state.user.company and @state.user.certification isnt 0
+							if @state.user.company and @state.user.enterpriseCarStatus is 1 or @state.user.enterpriseCarStatus is 0
 								<input value=@state.user.company readOnly="readOnly" className="input-weak" type="text" placeholder="请输入公司名称" />
 							else
 								<input valueLink={@linkState 'companyName'} className="input-weak" type="text" placeholder="请输入公司名称" />
@@ -145,7 +146,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6 xert-h6-large03">负责人的姓名</h6>
 						{
-							if @state.user.name and @state.user.certification isnt 0
+							if @state.user.name and @state.user.enterpriseCarStatus is 1 or @state.user.enterpriseCarStatus is 0
 								<input value=@state.user.name readOnly="readOnly" className="input-weak" type="text" placeholder="请输入负责人姓名" />
 							else
 								<input valueLink={@linkState 'managerName'} className="input-weak" type="text" placeholder="请输入负责人姓名" />
@@ -154,7 +155,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6 xert-h6-large03">营业执照号码</h6>
 						{
-							if @state.user.businessLicenseNo and @state.user.certification isnt 0
+							if @state.user.businessLicenseNo and @state.user.enterpriseCarStatus is 1 or @state.user.enterpriseCarStatus is 0
 								<input value=@state.businessLicenseNo readOnly="readOnly" className="input-weak" type="text" placeholder="营业执照号码" />
 							else
 								<input valueLink={@linkState 'businessLicenseNo'} className="input-weak" type="text" placeholder="营业执照号码" />
@@ -164,7 +165,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6 xert-h6-large01">组织资格代码证</h6>
 						{
-							if @state.user.organizingCode and @state.user.certification isnt 0
+							if @state.user.organizingCode and @state.user.enterpriseCarStatus is 1 or @state.user.enterpriseCarStatus is 0
 								<input value=@state.user.organizingCode readOnly="readOnly" className="input-weak" type="text" placeholder="请输入组织资格代码证" />
 							else
 								<input valueLink={@linkState 'organizingCode'} className="input-weak" type="text" placeholder="请输入组织资格代码证" />
@@ -174,7 +175,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6 xert-h6-large02">道路运输许可证号码</h6>
 						{
-							if @state.user.transLicenseNo and @state.user.certification isnt 0
+							if @state.user.transLicenseNo and @state.user.enterpriseCarStatus is 1 or @state.user.enterpriseCarStatus is 0
 								<input value=@state.user.transLicenseNo readOnly="readOnly" className="input-weak" type="text" placeholder="道路运输许可证号码" />
 							else
 								<input valueLink={@linkState 'transLicenseNo'} className="input-weak" type="text" placeholder="道路运输许可证号码" />
@@ -185,7 +186,7 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6">公司电话</h6>
 						{
-							if @state.user.tel and @state.user.certification isnt 0
+							if @state.user.tel and @state.user.enterpriseCarStatus is 1 or @state.user.enterpriseCarStatus is 0
 								<input value=@state.user.tel readOnly="readOnly" className="input-weak" type="text" placeholder="请输入公司电话" />
 							else
 								<input valueLink={@linkState 'tel'} className="input-weak" type="text" placeholder="请输入公司电话" />
@@ -197,7 +198,7 @@ Auth = React.createClass {
 			{cells}
 		</div>
 		{
-			if @state.user.carStatus in [0, 3]
+			if @state.user.enterpriseCarStatus isnt 1 and @state.user.enterpriseCarStatus isnt 0
 				<div className="u-certBtn-con">
 					<a className="u-btn" onClick={@_auth}>提交认证</a>
 				</div>

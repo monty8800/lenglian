@@ -11,6 +11,7 @@
         android:visibility="visible"/>
 
     <LinearLayout
+        android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@color/white"
@@ -442,5 +443,15 @@
             android:layout_marginTop="10dp"/>
 
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/currentPos"
+        android:layout_below="@+id/ll_top"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/map_current"/>
 
 </RelativeLayout>
