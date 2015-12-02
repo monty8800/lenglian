@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,6 +24,9 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.util.List;
+import java.util.Locale;
 
 /**
  * 编辑地址
@@ -39,6 +45,9 @@ public class ModifyAddress extends BaseCordovaActivity implements CordovaInterfa
     private boolean isOncreate = false;
 
     private static int who = -1;
+
+    private double latitude;
+    private double longitude;
 
     /**
      * 活跃当前窗口
@@ -64,15 +73,42 @@ public class ModifyAddress extends BaseCordovaActivity implements CordovaInterfa
 
     }
 
+    String city;
+    String detail;
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        if (flag.equalsIgnoreCase("location")) {
-            LocationActivity.actionView(this);
-        } else if (flag.equals("modify_success") || flag.equals("add_success")) {
-            AddressActivity.isUpdate = true;
-            finish();
+        Log.i("info", "----------msg:" + args.toString());
+        if (args.getString(0).equals("19")) {
+            city = args.getString(1);
+            detail = args.getString(2);
+            // 拿到经纬度，
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Geocoder gc = new Geocoder(ModifyAddress.this, Locale.CHINA);
+                    List<Address> list;
+                    try {
+                        list = gc.getFromLocationName(city, 1);
+                        Address address_temp = list.get(0);
+                        //计算经纬度
+                        latitude = address_temp.getLatitude();
+                        longitude = address_temp.getLongitude();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    mWebView.getWebView().loadUrl("javascript:doSubmit('" + latitude + "', '" + longitude + "')");
+                }
+            });
+        } else {
+            String flag = args.getString(1);
+            if (flag.equalsIgnoreCase("location")) {
+                LocationActivity.actionView(this);
+            } else if (flag.equals("modify_success") || flag.equals("add_success")) {
+                AddressActivity.isUpdate = true;
+                finish();
+            }
         }
     }
 
