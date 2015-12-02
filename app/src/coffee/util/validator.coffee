@@ -46,10 +46,10 @@ tel = (input)->
 	return /^[\d\-\+]{6,20}$/.test input
 
 street = (input)->
-	return /^\S{1,20}$/.test input
+	return /^.{1,20}$/.test input
 
 remark = (input)->
-	return /^\S{1,30}$/.test input
+	return /^.{1,30}$/.test input
 
 isEmpty = (input)->
 	return /^\S{1,30}$/.test input

@@ -39,6 +39,18 @@
     [self.commandDelegate evalJs:js];
 }
 
+-(void)commonCommand:(NSArray *)params {
+    [super commonCommand:params];
+    
+    if ([params[0] integerValue] == 19) {
+        [Global geo:params[1] address:params[2] cb:^(BMKGeoCodeResult *result) {
+            DDLogDebug(@"result--%f---%f", result.location.latitude, result.location.longitude);
+            NSString *js = [NSString stringWithFormat:@"(function(){window.doSubmit('%f', '%f')})()", result.location.latitude, result.location.longitude];
+            [self.commandDelegate evalJs:js];
+        }];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
