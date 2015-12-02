@@ -48,6 +48,25 @@
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg"] forBarMetrics: UIBarMetricsDefault];
     
+
+
+    
+    //地图
+    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0,  0, SCREEN_WIDTH, self.view.bounds.size.height - 0)];
+    _mapView.delegate = self;
+    _mapView.showsUserLocation = YES;
+    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
+    DDLogDebug(@"map level %f", _mapView.zoomLevel);
+    [self.view addSubview:_mapView];
+    
+    UIImageView *toCenter = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20 + 44, 29, 29)];
+    [toCenter setImage:[UIImage imageNamed:@"dingwei"]];
+    [self.view addSubview:toCenter];
+    [toCenter setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapToCenter)];
+    [toCenter addGestureRecognizer:tap];
+    
+    
     //选择tab
     CGFloat tabHeight = ceilf(45 * REALSCREEN_MULTIPBY);
     DDLogDebug(@"-----tab height %f", tabHeight);
@@ -58,22 +77,29 @@
     _tabIndex = 0;
     
     _annoList = [NSMutableArray new];
-
+    
     [self.view addSubview:_tab];
     
     _refresh = YES;
-
     
-    //地图
-    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0,  tabHeight, SCREEN_WIDTH, self.view.bounds.size.height - tabHeight)];
-    _mapView.delegate = self;
-    _mapView.showsUserLocation = YES;
-    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
-    DDLogDebug(@"map level %f", _mapView.zoomLevel);
-    [self.view addSubview:_mapView];
+    
     
 }
-
+-(void)tapToCenter{
+    CLLocationCoordinate2D globleLocation = [Global sharedInstance].userLocation.location.coordinate;
+    if (globleLocation.latitude > 0 && globleLocation.longitude > 0) {
+//        如果本地存有位置 先用设置这个位置为中心
+        [_mapView setCenterCoordinate:globleLocation animated:YES];
+        [Global getLocation:^(BMKUserLocation *location) {
+            
+        }];
+    }else{
+        [Global getLocation:^(BMKUserLocation *location) {
+            CLLocationCoordinate2D loc = location.location.coordinate;
+            [_mapView setCenterCoordinate:loc animated:YES];
+        }];
+    }
+}
 -(void)mapViewDidFinishLoading:(BMKMapView *)mapView {
     self.tabIndex = _tabIndex;
 }
