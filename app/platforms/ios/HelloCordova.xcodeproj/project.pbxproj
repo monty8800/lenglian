@@ -1045,7 +1045,6 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				46784D3F004139CECED40842 /* Copy Pods Resources */,
 				4C59DE4D1B5E81290063D9CE /* ShellScript */,
-				DC49F8B7BE88860F1780B478 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1066,7 +1065,7 @@
 				LastUpgradeCheck = 700;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 475MHG62GY;
+						DevelopmentTeam = DF7D3DZVHK;
 					};
 				};
 			};
@@ -1206,21 +1205,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
-		};
-		DC49F8B7BE88860F1780B478 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1416,7 +1400,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "84275f2f-7ff1-467e-81af-1120bb1638f4";
+				PROVISIONING_PROFILE = "0b9cd531-f72f-4224-b27a-02cea1c91b3f";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1479,7 +1463,7 @@
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS) $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xebest.llmj;
 				PRODUCT_NAME = HelloCordova;
-				PROVISIONING_PROFILE = "84275f2f-7ff1-467e-81af-1120bb1638f4";
+				PROVISIONING_PROFILE = "0b9cd531-f72f-4224-b27a-02cea1c91b3f";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
