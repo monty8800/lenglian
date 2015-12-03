@@ -22,8 +22,29 @@ _busy = false
 _count = 0
 
 Item = React.createClass {
+
+	orderDetail: ->
+		index = @props.index
+		return null if !@props.items.flag
+		if index is 1
+			console.log '-----------货'
+			DB.put 'transData', {orderNo: @props.items?.orderId}
+			Plugin.nav.push ['goodsOrderDetail']
+		else if index is 2
+			console.log '-----------车'
+			DB.put 'car_owner_order_detail', ['', @props.items?.orderId, @props.items?.goodsPersonUserId, '']
+			Plugin.nav.push ['carOwnerOrderDetail']
+		else if index is 3
+			console.log '-----------库'
+			params = {
+				orderNo: @props.items?.orderId,
+				userId: UserStore.getUser()?.id
+			}
+			DB.put 'transData', params
+			Plugin.nav.push ['warehouseOrderDetail']
+
 	render: ->
-		<div className="m-item02">
+		<div className="m-item02" onClick={@orderDetail}>
 			{ @props.items?.content }
 		</div>
 }
@@ -75,7 +96,7 @@ Message = React.createClass {
 	minxins: [PureRenderMixin]
 	render: ->
 		msgs = @state.msgList.map (item, index)->
-			<Item items={item} index={index} key={index} />
+			<Item items={item} index={_role} key={index} />
 		<div>
 			<div className="m-tab01">
 				<ul>

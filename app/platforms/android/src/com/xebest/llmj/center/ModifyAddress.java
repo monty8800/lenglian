@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -78,7 +78,6 @@ public class ModifyAddress extends BaseCordovaActivity implements CordovaInterfa
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        Log.i("info", "----------msg:" + args.toString());
         if (args.getString(0).equals("19")) {
             city = args.getString(1);
             detail = args.getString(2);
@@ -89,12 +88,12 @@ public class ModifyAddress extends BaseCordovaActivity implements CordovaInterfa
                     Geocoder gc = new Geocoder(ModifyAddress.this, Locale.CHINA);
                     List<Address> list;
                     try {
+                        if (TextUtils.isEmpty(city)) return;
                         list = gc.getFromLocationName(city, 1);
                         Address address_temp = list.get(0);
                         //计算经纬度
                         latitude = address_temp.getLatitude();
                         longitude = address_temp.getLongitude();
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
