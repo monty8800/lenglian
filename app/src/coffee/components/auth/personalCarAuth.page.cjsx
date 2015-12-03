@@ -156,7 +156,7 @@ Auth = React.createClass {
 							if @state.user.idCardNo and @state.user.personalCarStatus is 1 or @state.user.personalCarStatus is 0
 								<input value=@state.user.idCardNo readOnly="readOnly" className="input-weak" type="text" placeholder="请输入车主身份证" />
 							else
-								<input valueLink={@linkState 'idNum'} className="input-weak" type="text" placeholder="请输入车主身份证" />
+								<input valueLink={@linkState 'idNum'} maxLength="18" className="input-weak" type="text" placeholder="请输入车主身份证" />
 						}
 					
 				</li>

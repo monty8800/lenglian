@@ -158,7 +158,7 @@ Auth = React.createClass {
 							if @state.user.businessLicenseNo and @state.user.enterpriseCarStatus is 1 or @state.user.enterpriseCarStatus is 0
 								<input value=@state.businessLicenseNo readOnly="readOnly" className="input-weak" type="text" placeholder="营业执照号码" />
 							else
-								<input valueLink={@linkState 'businessLicenseNo'} className="input-weak" type="text" placeholder="营业执照号码" />
+								<input valueLink={@linkState 'businessLicenseNo'} maxLength="18" className="input-weak" type="text" placeholder="营业执照号码" />
 						}
 					
 				</li>
