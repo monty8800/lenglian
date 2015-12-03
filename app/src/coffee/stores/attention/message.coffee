@@ -26,6 +26,7 @@ getMsgList = (params)->
 				_msg = _msg.set 'createTime', msg.createTime
 				_msg = _msg.set 'orderId', msg.orderId
 				_msg = _msg.set 'flag', msg.flag
+				_msg = _msg.set 'orderCarId', msg.orderCarId
 				_msg = _msg.set 'goodsPersonUserId', msg.goodsPersonUserId
 				_messageList = _messageList.push _msg
 		MessageStore.emitChange()

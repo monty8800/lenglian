@@ -166,9 +166,9 @@ Auth = React.createClass {
 					<h6 className="xert-h6 xert-h6-large02">营业执照号码</h6>
 						{
 							if @state.user.businessLicenseNo and @state.user.enterpriseWarehouseStatus is 1 or @state.user.enterpriseWarehouseStatus is 0
-								<input value=@state.user.businessLicenseNo readOnly="readOnly" className="input-weak" type="text" placeholder="组织机构代码证号码"/>
+								<input value=@state.user.businessLicenseNo readOnly="readOnly" className="input-weak" type="text" placeholder="营业执照号码"/>
 							else
-								<input valueLink={@linkState 'businessLicenseNo'} maxLength="18" className="input-weak" type="text" placeholder="组织机构代码证号码"/>
+								<input valueLink={@linkState 'businessLicenseNo'} maxLength="18" className="input-weak" type="text" placeholder="营业执照号码"/>
 						}
 				</li>
 			</ul>

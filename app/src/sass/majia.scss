@@ -833,6 +833,19 @@
     }
 }
 
+.m-item02.m-item02-msg {
+    padding-right: 200/$ppr;
+    position: relative;
+    @include box-sizing(border-box);
+
+    .u-btn02 {
+        position: absolute;
+        right: 20/$ppr;
+        top:50%;
+        margin-top:-25/$ppr;
+    }
+}
+
 .m-bank{
     padding: 0 0 0 20/$ppr;
     margin-top:20/$ppr;
