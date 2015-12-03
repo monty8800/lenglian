@@ -6,6 +6,7 @@ Message = Immutable.Record {
 	goodsPersonUserId: ''
 	orderId: ''
 	flag: ''
+	orderCarId: ''
 
 }
 

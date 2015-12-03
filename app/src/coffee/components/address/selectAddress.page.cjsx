@@ -51,6 +51,7 @@ SelectAddress = React.createClass {
 		window.doSubmit = @_doSubmit.bind this
 
 	_doSubmit: (lati, longi)->
+		Plugin.toast.show lati
 		#根据上个界面放在transddata中的key，把数据放在value里传回去
 		data = {}
 		address = AddressStore.getAddress()

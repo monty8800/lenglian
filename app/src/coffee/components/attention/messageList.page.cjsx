@@ -9,6 +9,8 @@ MessageStore = require 'stores/attention/message'
 MessageAction = require 'actions/attention/message'
 Constants = require 'constants/constants'
 UserStore = require 'stores/user/user'
+DB = require 'util/storage'
+Plugin = require 'util/plugin'
 
 Immutable = require 'immutable'
 
@@ -32,20 +34,21 @@ Item = React.createClass {
 			Plugin.nav.push ['goodsOrderDetail']
 		else if index is 2
 			console.log '-----------车'
-			DB.put 'car_owner_order_detail', ['', @props.items?.orderId, @props.items?.goodsPersonUserId, '']
+			DB.put 'car_owner_order_detail', ['', @props.items?.orderId, @props.items?.goodsPersonUserId, @props.items?.orderCarId]
 			Plugin.nav.push ['carOwnerOrderDetail']
 		else if index is 3
 			console.log '-----------库'
 			params = {
 				orderNo: @props.items?.orderId,
-				userId: UserStore.getUser()?.id
+				goodsPersonUserId: @props.items?.goodsPersonUserId
 			}
 			DB.put 'transData', params
 			Plugin.nav.push ['warehouseOrderDetail']
 
 	render: ->
-		<div className="m-item02" onClick={@orderDetail}>
+		<div className="m-item02 m-item02-msg">
 			{ @props.items?.content }
+			<a href="###" onClick={@orderDetail} className="u-btn02">去查看</a>
 		</div>
 }
 

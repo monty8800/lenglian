@@ -97,13 +97,13 @@ Vehicle = React.createClass {
 			add = startAddress.start_address
 			console.log '-------startAdd:', startAddress
 			@setState {
-				startPoint: add.provinceName + add.cityName + add.areaName + add.street
-				fromProvince: add.provinceName
-				fromCity: add.cityName
-				fromArea: add.areaName
-				fromStreet: add.street
-				fromLng: add.longi
-				fromLat: add.lati
+				startPoint: add?.provinceName + add?.cityName + add?.areaName + add?.street
+				fromProvince: add?.provinceName
+				fromCity: add?.cityName
+				fromArea: add?.areaName
+				fromStreet: add?.street
+				fromLng: add?.longi
+				fromLat: add?.lati
 			}
 		else if result[0] is 'endAddress'
 			endAddress = DB.get 'transData'

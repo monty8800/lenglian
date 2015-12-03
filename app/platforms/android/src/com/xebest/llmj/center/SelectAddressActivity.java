@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -92,31 +93,32 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
+        Log.i("info", "---------threadName:" + Thread.currentThread());
         String flag = args.getString(0);
         if (flag.equals("2")) {
             finish();
         } else if (flag.equals("19")) {
             city = args.getString(1);
             detail = args.getString(2);
-            // 拿到经纬度，
-            this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Geocoder gc = new Geocoder(SelectAddressActivity.this, Locale.CHINA);
-                    List<Address> list;
-                    try {
-                        if (TextUtils.isEmpty(city)) return;
-                        list = gc.getFromLocationName(city, 1);
-                        Address address_temp = list.get(0);
-                        //计算经纬度
-                        latitude = address_temp.getLatitude();
-                        longitude = address_temp.getLongitude();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    mWebView.getWebView().loadUrl("javascript:doSubmit('" + latitude + "', '" + longitude + "')");
-                }
-            });
+            toJS();
+//            SelectAddressActivity.this.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Geocoder gc = new Geocoder(SelectAddressActivity.this, Locale.CHINA);
+//                    List<Address> list;
+//                    try {
+//                        if (TextUtils.isEmpty(city)) return;
+//                        list = gc.getFromLocationName(city, 1);
+//                        Address address_temp = list.get(0);
+//                        //计算经纬度
+//                        latitude = address_temp.getLatitude();
+//                        longitude = address_temp.getLongitude();
+//                        mWebView.getWebView().loadUrl("javascript:doSubmit('" + latitude + "', '" + longitude + "')");
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
         } else {
             String temp = args.getString(1);
             if (temp.equalsIgnoreCase("location")) {
@@ -126,6 +128,22 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
             }
         }
 
+    }
+
+    public void toJS() {
+        Geocoder gc = new Geocoder(SelectAddressActivity.this, Locale.CHINA);
+        List<Address> list;
+        try {
+            if (TextUtils.isEmpty(city)) return;
+            list = gc.getFromLocationName(city, 1);
+            Address address_temp = list.get(0);
+            //计算经纬度
+            latitude = address_temp.getLatitude();
+            longitude = address_temp.getLongitude();
+            mWebView.getWebView().loadUrl("javascript:doSubmit('" + latitude + "', '" + longitude + "')");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
