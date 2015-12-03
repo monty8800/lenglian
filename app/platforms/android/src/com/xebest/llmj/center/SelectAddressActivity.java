@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +26,9 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.List;
+import java.util.Locale;
+
 /**
  * 选择地址
  * Created by kaisun on 15/9/22.
@@ -38,6 +44,9 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
     private boolean isOnCreate = false;
 
     private TextView tvSure;
+
+    private double latitude;
+    private double longitude;
 
     /**
      * 活跃当前窗口
@@ -78,12 +87,36 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
         });
     }
 
+    String city;
+    String detail;
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
         String flag = args.getString(0);
         if (flag.equals("2")) {
             finish();
+        } else if (flag.equals("19")) {
+            city = args.getString(1);
+            detail = args.getString(2);
+            // 拿到经纬度，
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Geocoder gc = new Geocoder(SelectAddressActivity.this, Locale.CHINA);
+                    List<Address> list;
+                    try {
+                        if (TextUtils.isEmpty(city)) return;
+                        list = gc.getFromLocationName(city, 1);
+                        Address address_temp = list.get(0);
+                        //计算经纬度
+                        latitude = address_temp.getLatitude();
+                        longitude = address_temp.getLongitude();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    mWebView.getWebView().loadUrl("javascript:doSubmit('" + latitude + "', '" + longitude + "')");
+                }
+            });
         } else {
             String temp = args.getString(1);
             if (temp.equalsIgnoreCase("location")) {
