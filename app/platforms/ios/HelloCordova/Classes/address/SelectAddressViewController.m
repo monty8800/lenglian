@@ -56,6 +56,14 @@
             [self.navigationController pushViewController:addressVC animated:YES];
         }
     }
+    else if ([params[0] integerValue] == 19)
+    {
+        [Global geo:params[1] address:params[2] cb:^(BMKGeoCodeResult *result) {
+            DDLogDebug(@"result--%f---%f", result.location.latitude, result.location.longitude);
+            NSString *js = [NSString stringWithFormat:@"(function(){window.doSubmit('%f', '%f')})()", result.location.latitude, result.location.longitude];
+            [self.commandDelegate evalJs:js];
+        }];
+    }
 }
 
 -(void)select:(BMKAddressComponent *)address coor:(CLLocationCoordinate2D)coor {
