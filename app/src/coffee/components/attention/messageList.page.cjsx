@@ -48,7 +48,7 @@ Item = React.createClass {
 	render: ->
 		<div className="m-item02 m-item02-msg">
 			{ @props.items?.content }
-			<a href="###" onClick={@orderDetail} className="u-btn02">去查看</a>
+			<a style={{display: if @props.items.orderId is undefined or @props.items.orderId is null or @props.items.orderId is '' then 'none' else 'block' }} href="###" onClick={@orderDetail} className="u-btn02">去查看</a>
 		</div>
 }
 
