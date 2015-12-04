@@ -136,7 +136,8 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请填写装车时间'
 		else if not Validator.price @state.price
 			Plugin.toast.err '请输入正确的价格， 最多两位小数，最大不超过9999999.99'
-		else if @state.payType is 3 and not Validator.price @state.prePay 
+		else if @state.payType is 3 and not (Validator.price ((@state.prePay * @state.prePayProportion * 0.01).toFixed(2)))
+			alert @state.payType + ' ' + ((@state.prePay * @state.prePayProportion * 0.01).toFixed(2))
 			Plugin.toast.err '请输入正确的预付款， 最多两位小数，最大不超过9999999'
 		# else if @state.payType is 3 and parseFloat(@state.prePay) > parseFloat(@state.price)
 		# 	Plugin.toast.err '预付款金额不能大于'
