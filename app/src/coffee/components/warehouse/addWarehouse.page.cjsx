@@ -531,8 +531,8 @@ AddWarehouse = React.createClass {
 				</div>
 				<div>
 					<label for="packType"><span>仓库地址</span></label>
-					<input onClick={@_select} value={@state.mainStreet} readOnly="readOnly" type="text" placeholder="请选择地区" />
-					<em onClick={@selectAddress}>点击定位</em>
+					<input className="input-weak2" onClick={@_select} value={@state.mainStreet} readOnly="readOnly" type="text" placeholder="请选择地区" />
+					<em onClick={@selectAddress} className="g-adr-btn02">点击定位</em>
 				</div>
 				<div>
 					<label for="packType"><span>详细地址</span></label>

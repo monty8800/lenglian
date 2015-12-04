@@ -87,8 +87,8 @@ WarehouseSearchGoods = React.createClass {
 			pageSize: @state.pageSize
 			goodsType: @state.goodsType
 			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
-			beginTime: beginTimestamp
-			endTime: if parseInt(beginTimestamp) > 0 then currentTimestamp else ''
+			beginTime: beginTimestamp * 1000
+			endTime: if parseInt(beginTimestamp) > 0 then currentTimestamp * 1000 else ''
 		}
 
 	_resultItemClick:(aResult)->

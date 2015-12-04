@@ -1762,6 +1762,10 @@
         .input-weak {
             width: 400/$ppr;
         }
+        .input-weak2 {
+            width: 350/$ppr;
+            float: right;
+        }
     }
     .u-voice{
         &:after{
@@ -1869,6 +1873,15 @@ select.weight{
 
         }
     }
+}
+
+.g-adr-btn02 {
+    position: absolute;
+    right: 10/$ppr;
+    width: 140/$ppr;
+    line-height: 40/$ppr;
+    top: 50%;
+    margin-top: -20/$ppr;
 }
 
 .m-store{
