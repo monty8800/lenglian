@@ -1495,6 +1495,20 @@
                 margin-right: 50/$ppr;
             }
         }
+        .adr-add {
+            width: 290/$ppr;
+            display: inline-block;
+            &.add-de-color {
+                color: #acabab;
+            }
+        }
+        .adr-em {
+            position: absolute;
+            right: 20/$ppr;
+            top: 50%;
+            -webkit-transform:translate3d(0,-50%,0);
+            transform:translate3d(0,-50%,0);
+        }
         span{
             margin-right: 5/$ppr;
             &:first-child{
@@ -1762,6 +1776,10 @@
         .input-weak {
             width: 400/$ppr;
         }
+        .input-weak2 {
+            width: 350/$ppr;
+            float: right;
+        }
     }
     .u-voice{
         &:after{
@@ -1870,7 +1888,6 @@ select.weight{
         }
     }
 }
-
 
 
 .m-store{

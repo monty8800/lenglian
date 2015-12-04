@@ -127,8 +127,10 @@ Selector = React.createClass {
 		e.stopPropagation()
 
 	render: ->
-		<section onTouchMove={@_disableScroll} style={{display: if @state.show then 'block' else 'none'}}>
-		    <div className="chadr_box">
+		cls = if @state.show then 'viewport disable_scroll' else 'viewport'
+		window.document.getElementById('content').className = cls
+		<section  style={{display: if @state.show then 'block' else 'none'}}>
+		    <div onTouchMove={@_disableScroll} className="chadr_box">
 		        <div  className="chadr_topbar">
 		            <div onClick={@_back} className="ll-font arrow-left"></div>
 		            请选择城市
@@ -142,7 +144,7 @@ Selector = React.createClass {
 	            	</div>
 		        </div>
 		    </div>
-		    <div  className="addr_shelf"></div>
+		    <div onTouchMove={@_disableScroll} className="addr_shelf"></div>
 		</section>
 }
 

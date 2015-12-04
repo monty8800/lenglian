@@ -81,13 +81,14 @@ WarehouseSearchGoods = React.createClass {
 				when 4 then beginTimestamp = currentTimestamp - 7 * 24 * 60 * 60
 				when 5 then beginTimestamp = currentTimestamp - 14 * 24 * 60 * 60
 
+
 		WarehouseAction.warehouseSearchGoods {
 			startNo: _startNo
 			pageSize: @state.pageSize
 			goodsType: @state.goodsType
 			isInvoice: @state.isInvoice[0] if @state.isInvoice.length is 1 
-			beginTime: beginTimestamp
-			endTime: if parseInt(beginTimestamp) > 0 then currentTimestamp else ''
+			beginTime: beginTimestamp * 1000
+			endTime: if parseInt(beginTimestamp) > 0 then currentTimestamp * 1000 else ''
 		}
 
 	_resultItemClick:(aResult)->

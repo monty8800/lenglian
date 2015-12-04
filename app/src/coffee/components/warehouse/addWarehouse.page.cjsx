@@ -63,7 +63,7 @@ AddWarehouse = React.createClass {
 			temperatureArea52:''
 			addWarehouseImageUrl:''
 			priceProperty:priceProperty
-			mainStreet:''
+			mainStreet:'请选择地区'
 			detailStreet:''
 			contactName:user.name or ''
 			contactMobile:user.mobile or ''
@@ -111,7 +111,8 @@ AddWarehouse = React.createClass {
 			newState.mainStreet = mainStreet
 			newState.detailStreet = mark.streetName + mark.streetNumber
 			pa.street = newState.detailStreet
-			newState.params = pa
+			newState.params = pa				
+			
 			@setState newState
 		else if mark.mark is 'getContectForAddWarehouse'
 			newState = Object.create @state
@@ -135,6 +136,7 @@ AddWarehouse = React.createClass {
 				mainStreet = pa.province + pa.city + pa.area
 			newState.mainStreet = mainStreet
 			newState.params = pa
+
 			@setState newState
 			console.log 'new address---', address
 		else if mark.mark is 'addWarehouse_doSubmit'
@@ -531,8 +533,8 @@ AddWarehouse = React.createClass {
 				</div>
 				<div>
 					<label for="packType"><span>仓库地址</span></label>
-					<input onClick={@_select} value={@state.mainStreet} readOnly="readOnly" type="text" placeholder="请选择地区" />
-					<em onClick={@selectAddress}>点击定位</em>
+					<span className={ if @state.mainStreet is '请选择地区' then "adr-add add-de-color" else "adr-add"} onClick={@_select} >{ @state.mainStreet }</span>
+					<em onClick={@selectAddress} className="adr-em">点击定位</em>
 				</div>
 				<div>
 					<label for="packType"><span>详细地址</span></label>

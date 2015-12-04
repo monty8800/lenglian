@@ -120,7 +120,7 @@ SelectAddress = React.createClass {
 	render: ->
 		<section>
 		<div className="m-releasehead02">
-			<div  className="g-adr-item u-arrow-right g-adr-itemc ll-font">
+			<div className="g-adr-item u-arrow-right g-adr-itemc ll-font">
 				<span onClick={@_select}>{@state.address}</span>
 				<span onClick={@_locate} className="g-adr-btn02">点击定位</span>
 			</div>
