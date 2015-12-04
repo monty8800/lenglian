@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeOption;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
@@ -27,14 +30,11 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.List;
-import java.util.Locale;
-
 /**
  * 选择地址
  * Created by kaisun on 15/9/22.
  */
-public class SelectAddressActivity extends BaseCordovaActivity implements CordovaInterface {
+public class SelectAddressActivity extends BaseCordovaActivity implements CordovaInterface, OnGetGeoCoderResultListener {
 
     private XEWebView mWebView;
 
@@ -46,8 +46,7 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
 
     private TextView tvSure;
 
-    private double latitude;
-    private double longitude;
+    private GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
 
     /**
      * 活跃当前窗口
@@ -63,6 +62,10 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
         setContentView(R.layout.cwebview2);
         isOnCreate = true;
         initView();
+
+        // 初始化搜索模块，注册事件监听
+        mSearch = GeoCoder.newInstance();
+        mSearch.setOnGetGeoCodeResultListener(this);
 
     }
 
@@ -83,7 +86,7 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
             public void onClick(View v) {
                 ReleaseCarActivity.isSelectSure = true;
                 mWebView.getWebView().loadUrl("javascript:selectCurrent()");
-                finish();
+//                finish();
             }
         });
     }
@@ -93,56 +96,27 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        Log.i("info", "---------threadName:" + Thread.currentThread());
-        String flag = args.getString(0);
-        if (flag.equals("2")) {
-            finish();
-        } else if (flag.equals("19")) {
+        if (args.getString(0).equals("19")) {
             city = args.getString(1);
             detail = args.getString(2);
-            toJS();
-//            SelectAddressActivity.this.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Geocoder gc = new Geocoder(SelectAddressActivity.this, Locale.CHINA);
-//                    List<Address> list;
-//                    try {
-//                        if (TextUtils.isEmpty(city)) return;
-//                        list = gc.getFromLocationName(city, 1);
-//                        Address address_temp = list.get(0);
-//                        //计算经纬度
-//                        latitude = address_temp.getLatitude();
-//                        longitude = address_temp.getLongitude();
-//                        mWebView.getWebView().loadUrl("javascript:doSubmit('" + latitude + "', '" + longitude + "')");
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mSearch.geocode(new GeoCodeOption().city(city).address(detail));
+                }
+            });
         } else {
-            String temp = args.getString(1);
-            if (temp.equalsIgnoreCase("location")) {
-                LocationActivity.actionView(this);
-            } else if (temp.equalsIgnoreCase("toAddAddress")) {
-                ModifyAddress.actionView(SelectAddressActivity.this, 2);
+            String flag = args.getString(0);
+            if (flag.equals("2")) {
+                finish();
+            } else {
+                String temp = args.getString(1);
+                if (temp.equalsIgnoreCase("location")) {
+                    LocationActivity.actionView(this);
+                } else if (temp.equalsIgnoreCase("toAddAddress")) {
+                    ModifyAddress.actionView(SelectAddressActivity.this, 2);
+                }
             }
-        }
-
-    }
-
-    public void toJS() {
-        Geocoder gc = new Geocoder(SelectAddressActivity.this, Locale.CHINA);
-        List<Address> list;
-        try {
-            if (TextUtils.isEmpty(city)) return;
-            list = gc.getFromLocationName(city, 1);
-            Address address_temp = list.get(0);
-            //计算经纬度
-            latitude = address_temp.getLatitude();
-            longitude = address_temp.getLongitude();
-            mWebView.getWebView().loadUrl("javascript:doSubmit('" + latitude + "', '" + longitude + "')");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -211,5 +185,20 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.UUID + "';version='" + ((Application) getApplicationContext()).VERSIONCODE + "';client_type='2';})();");
         return super.onMessage(id, data);
     }
+
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult result) {
+        if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+            Toast.makeText(SelectAddressActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+//        String strInfo = String.format("纬度：%f 经度：%f",
+//                result.getLocation().latitude, result.getLocation().longitude);
+        mWebView.getWebView().loadUrl("javascript:doSubmit('" + result.getLocation().latitude + "', '" + result.getLocation().longitude + "')");
+    }
+
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {}
 
 }

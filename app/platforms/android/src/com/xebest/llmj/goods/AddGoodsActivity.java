@@ -93,6 +93,8 @@ public class AddGoodsActivity extends BaseCordovaActivity implements CordovaInte
         }
         isOnCreate = false;
 
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
+
         super.onResume();
     }
 

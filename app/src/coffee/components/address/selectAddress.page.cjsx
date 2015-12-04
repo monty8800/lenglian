@@ -37,11 +37,14 @@ SelectAddress = React.createClass {
 
 		selectCurrent = ->
 			address = AddressStore.getAddress()
-			if not address.lati
+			console.log '-------------address:', address.toJS()
+			# if not address.lati
+			if @state.address is '选择地区'
 				Plugin.toast.err '请选择城市'
 			else if not Validator.street @state.street
 				Plugin.toast.err '请填写正确的详细地址，最多20位'
 			else
+				console.log '-------------_addressFromSelector:', _addressFromSelector
 				if _addressFromSelector
 					Plugin.run [19, @state.cityName, @state.areaName + @state.street]
 				else
@@ -51,17 +54,22 @@ SelectAddress = React.createClass {
 		window.doSubmit = @_doSubmit.bind this
 
 	_doSubmit: (lati, longi)->
-		Plugin.toast.show lati
+		console.log 'trans____Data---lati-', lati
+		console.log 'trans____Data---longi-', longi
 		#根据上个界面放在transddata中的key，把数据放在value里传回去
 		data = {}
 		address = AddressStore.getAddress()
-		address.merge {
+		console.log 'trans____Data--address--', address.toJS()
+		address = address.merge {
 			lati: lati
 			longi: longi
 		} if lati and longi
 		address = address.set 'street', @state.street
+		console.log 'trans____Data--address2--', address.toJS()
+		console.log '-------transData', transData
 		data[transData] = address.toJS()
 		DB.put 'transData', data
+		DB.put 'transData3', data
 		console.log 'trans____Data----', data
 		Plugin.nav.pop()
 				

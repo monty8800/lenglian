@@ -220,6 +220,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
         }
 
         mWebView.getWebView().loadUrl("javascript:updateGoods()");
+        mWebView.getWebView().loadUrl("javascript:updateStore()");
 
         super.onResume();
     }

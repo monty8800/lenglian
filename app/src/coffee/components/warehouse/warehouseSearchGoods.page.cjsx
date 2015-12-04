@@ -250,12 +250,12 @@ WarehouseSearchGoods = React.createClass {
 					}
 				</ul>			
 			</div>
+			<div onClick={@_search} className="u-pay-btn">
+				<a className="btn">搜索</a>
+			</div>
 			<div style={{display: if @state.showHasNone then 'block' else 'none'}} className="m-searchNoresult">
 				<div className="g-bgPic"></div>
 				<p className="g-txt">很抱歉，没能找到您要的结果</p>
-			</div>
-			<div onClick={@_search} className="u-pay-btn">
-				<a className="btn">搜索</a>
 			</div>
 			<InfiniteScroll pageStart=0 loadMore={@_doWarehouseSearchGoods} hasMore={_hasMore and not _isBusy}>
 				<CSSTransitionGroup transitionName="list">

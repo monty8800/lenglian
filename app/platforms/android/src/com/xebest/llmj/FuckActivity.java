@@ -33,4 +33,3 @@ public class FuckActivity extends CordovaActivity {
     }
 
 }
-//gradle-path:  /Users/kaisun/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/bin
