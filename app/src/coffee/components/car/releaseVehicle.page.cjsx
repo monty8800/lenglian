@@ -93,9 +93,9 @@ Vehicle = React.createClass {
 			}
 		else if result[0] is 'startAddress'
 			console.log '-------startAddCallBack--'
-			startAddress = DB.get 'transData'
-			add = startAddress.start_address
+			startAddress = DB.get 'transData3'
 			console.log '-------startAdd:', startAddress
+			add = startAddress.start_address
 			@setState {
 				startPoint: add?.provinceName + add?.cityName + add?.areaName + add?.street
 				fromProvince: add?.provinceName
@@ -106,7 +106,7 @@ Vehicle = React.createClass {
 				fromLat: add?.lati
 			}
 		else if result[0] is 'endAddress'
-			endAddress = DB.get 'transData'
+			endAddress = DB.get 'transData3'
 			add = endAddress.end_address
 			console.log '-------endAdd:', endAddress
 			@setState {
