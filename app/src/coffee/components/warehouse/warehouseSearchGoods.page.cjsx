@@ -81,6 +81,7 @@ WarehouseSearchGoods = React.createClass {
 				when 4 then beginTimestamp = currentTimestamp - 7 * 24 * 60 * 60
 				when 5 then beginTimestamp = currentTimestamp - 14 * 24 * 60 * 60
 
+
 		WarehouseAction.warehouseSearchGoods {
 			startNo: _startNo
 			pageSize: @state.pageSize
