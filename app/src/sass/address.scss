@@ -1,12 +1,17 @@
 @import 'mixin';
 
+.disable_scroll {
+	height: 100%;
+	overflow: hidden;
+}
+
 // ---
 .chadr_box {
 	width: 640/$ppr;
 	height: 630/$ppr;
 	position: absolute;
 	left: 50%;
-	bottom: 0;
+	bottom: -20/$ppr;
 	z-index: 1000;
 	-webkit-transform:translate3d(-50%,0,0);
 	-webkit-transition:all .3s ease;
