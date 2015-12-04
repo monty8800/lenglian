@@ -6,6 +6,8 @@ React = require 'react/addons'
 XeImage = require 'components/common/xeImage'
 WarehouseStore = require 'stores/warehouse/warehouseStore'
 WarehouseAction = require 'actions/warehouse/warehouseAction'
+AddressAction = require 'actions/address/address'
+AddressStore = require 'stores/address/address'
 UserStore = require 'stores/user/user'
 WarehousePropertyModel = require 'model/warehouseProperty'
 PureRenderMixin = React.addons.PureRenderMixin
@@ -13,6 +15,7 @@ LinkedStateMixin = React.addons.LinkedStateMixin
 Plugin = require 'util/plugin'
 DB = require 'util/storage'
 assign = require 'object-assign'
+CitySelector = require 'components/address/citySelector'
 
 user = UserStore.getUser()
 
@@ -65,15 +68,15 @@ AddWarehouse = React.createClass {
 			contactName:user.name or ''
 			contactMobile:user.mobile or ''
 			params:{
-				area:""						#区id
-				city:""						#市id
+				area:""						#区
+				city:""						#市
 				contacts:user.name				#联系人
 				isinvoice:"2"				#1:开发票 2：不开发票
 				latitude:""					#纬度
 				longitude:""				#经度,116.361905,39.948242 北站 
 				name:""						#仓库名称
 				phone:user.mobile			#联系电话
-				province:""					#省id
+				province:""					#省
 				remark:""					#备注
 				street:""					#详细地址
 				userId:user.id 				#'5b3d93775a22449284aad35443c09fb6'	#user.id
@@ -82,6 +85,7 @@ AddWarehouse = React.createClass {
 		}
 	componentDidMount: ->
 		WarehouseStore.addChangeListener @_onChange
+		window.doSubmit = @_doSubmit.bind this
 
 	componentWillUnmount: ->
 		WarehouseStore.removeChangeListener @_onChange
@@ -117,6 +121,28 @@ AddWarehouse = React.createClass {
 			newState.params.phone = mark.contactMobile
 			@setState newState
 		# else if mark is "saveAddAWarehouse"
+		else if mark.msg is 'address:changed' and mark.type is 'area'
+			address = AddressStore.getAddress()
+			newState = Object.create @state
+			pa = newState.params;
+			pa.province = address.provinceName
+			pa.city = address.cityName
+			pa.area = address.areaName
+
+			if pa.city is pa.province
+				mainStreet = pa.province + pa.area
+			else
+				mainStreet = pa.province + pa.city + pa.area
+			newState.mainStreet = mainStreet
+			newState.params = pa
+			@setState newState
+			console.log 'new address---', address
+		else if mark.mark is 'addWarehouse_doSubmit'
+			params = @state.params
+			params.latitude = mark.lati
+			params.longitude = mark.longi
+			WarehouseAction.postAddWarehouse params, @state.addWarehouseImageUrl
+			console.log "__________" + mark
 
 	_hasSrting: (string)->
 		Letters = "1234567890."
@@ -135,93 +161,103 @@ AddWarehouse = React.createClass {
 		return true
 
 	_addNewWarehouse : ->
-			newState = Object.create @state
-			newState.params.warehouseProperty = []
-			if !@state.params.name
-				Plugin.toast.show '请输入仓库名'
+		newState = Object.create @state
+		newState.params.warehouseProperty = []
+		if !@state.params.name
+			Plugin.toast.show '请输入仓库名'
+			return
+		if @state.params.name.length > 15
+			Plugin.toast.show '仓库名称不能多于15个字符'
+			return
+		if !@state.mainStreet
+			Plugin.toast.show '请选择仓库地址'
+			return
+		if !@state.params.street
+			Plugin.toast.show '请输入仓库详细地址'
+			return
+
+		if @state.params.street.length > 30
+			Plugin.toast.show '仓库详细地址不能多于30个字符'
+			return
+
+#仓库类型
+		if @state.warehouseType1 is '0' and @state.warehouseType2 is '0'
+			Plugin.toast.show '请选择仓库类型'
+			return
+		else
+			if @state.warehouseType1 is '1'
+				aPropertyModel = addPropertyModel '1','平堆式','1','仓库类型','',''
+				newState.params.warehouseProperty.push aPropertyModel
+			if @state.warehouseType2 is '1'
+				aPropertyModel = addPropertyModel '2','货架式','1','仓库类型','',''
+				newState.params.warehouseProperty.push aPropertyModel
+
+		if !@state.priceValue
+			Plugin.toast.show '请输入价格'
+			return
+		else
+			priceStr = @state.priceValue
+			if @_hasSrting priceStr
+				# 有除了数字和小数点外的其他字符串
+				Plugin.toast.err '价格格式不正确'
 				return
-			if @state.params.name.length > 15
-				Plugin.toast.show '仓库名称不能多于15个字符'
+			if (priceStr.split '.').length > 2 or (priceStr.substr 0,1) is '.' or ((priceStr.substr 0,1) is '0' and (priceStr.substr 1,1) isnt '.')
+				Plugin.toast.err '价格格式不正确'
 				return
-			if !@state.params.latitude or !@state.params.latitude
-				Plugin.toast.show '请选择仓库地址'
-				return
-			if !@state.params.street
-				Plugin.toast.show '请输入仓库详细地址'
-				return
-			if @state.params.street.length > 30
-				Plugin.toast.show '仓库详细地址不能多于30个字符'
-				return
-			if !@state.priceValue
-				Plugin.toast.show '请输入价格'
-				return
-			else
-				# aPriceProperty = newState.priceProperty
-				# aPriceProperty = aPriceProperty.set 'value',e.target.value
-				# newState.priceProperty = aPriceProperty
-				
-				priceStr = @state.priceValue
-				if @_hasSrting priceStr
-					# 有除了数字和小数点外的其他字符串
-					Plugin.toast.err '价格格式不正确'
+			if (priceStr.indexOf '.') isnt -1
+				if (priceStr.indexOf '.')+ 3 < priceStr.length
+					Plugin.toast.err '价格只能保留两位小数'
 					return
-				if (priceStr.split '.').length > 2 or (priceStr.substr 0,1) is '.' or ((priceStr.substr 0,1) is '0' and (priceStr.substr 1,1) isnt '.')
-					Plugin.toast.err '价格格式不正确'
-					return
-				if (priceStr.indexOf '.') isnt -1
-					if (priceStr.indexOf '.')+ 3 < priceStr.length
-						Plugin.toast.err '价格只能保留两位小数'
-						return
-				newState.priceProperty = newState.priceProperty.set 'value',priceStr
-				newState.priceProperty = newState.priceProperty.set 'attributeName',@state.priceUnit
-				newState.params.warehouseProperty.push newState.priceProperty
-			if !@state.params.contacts
-				Plugin.toast.show '请输入联系人姓名'
-				return
-			if !@state.params.phone
-				Plugin.toast.show '请输入联系人电话'
-				return
-			
+			newState.priceProperty = newState.priceProperty.set 'value',priceStr
+			newState.priceProperty = newState.priceProperty.set 'attributeName',@state.priceUnit
+			newState.params.warehouseProperty.push newState.priceProperty
+		if !@state.params.contacts
+			Plugin.toast.show '请输入联系人姓名'
+			return
+		if !@state.params.phone
+			Plugin.toast.show '请输入联系人电话'
+			return
+		
 # 温度区域面积
-			if @state.temperatureChecked1 is '0' and @state.temperatureChecked2 is '0' and @state.temperatureChecked3 is '0' and @state.temperatureChecked4 is '0' and @state.temperatureChecked5 is '0'
-				 Plugin.toast.show '请填写仓库面积'
-				 return
-			else
-				if @state.temperatureChecked1 is '1'
-					if !@state.temperatureArea11 and !@state.temperatureArea12
-						Plugin.toast.show '常温面积未填写'
-						return
-					else
-						aPropertyModel = addPropertyModel '1','常温','3','仓库面积',@state.temperatureArea11,@state.temperatureArea12
-						newState.params.warehouseProperty.push aPropertyModel
-				if @state.temperatureChecked2 is '1'
-					if !@state.temperatureArea21 and !@state.temperatureArea22
-						Plugin.toast.show '冷藏面积未填写'
-						return
-					else
-						aPropertyModel = addPropertyModel '2','冷藏','3','仓库面积',@state.temperatureArea21,@state.temperatureArea22
-						newState.params.warehouseProperty.push aPropertyModel
-				if @state.temperatureChecked3 is '1'
-					if !@state.temperatureArea31 and !@state.temperatureArea32
-						Plugin.toast.show '冷冻面积未填写'
-						return
-					else
-						aPropertyModel = addPropertyModel '3','冷冻','3','仓库面积',@state.temperatureArea31,@state.temperatureArea32
-						newState.params.warehouseProperty.push aPropertyModel
-				if @state.temperatureChecked4 is '1'
-					if !@state.temperatureArea41 and !@state.temperatureArea42
-						Plugin.toast.show '急冻面积未填写'
-						return
-					else
-						aPropertyModel = addPropertyModel '4','急冻','3','仓库面积',@state.temperatureArea41,@state.temperatureArea42
-						newState.params.warehouseProperty.push aPropertyModel
-				if @state.temperatureChecked5 is '1'
-					if !@state.temperatureArea51 and !@state.temperatureArea52
-						Plugin.toast.show '深冷面积未填写'
-						return
-					else
-						aPropertyModel = addPropertyModel '5','深冷','3','仓库面积',@state.temperatureArea51,@state.temperatureArea52
-						newState.params.warehouseProperty.push aPropertyModel
+		if @state.temperatureChecked1 is '0' and @state.temperatureChecked2 is '0' and @state.temperatureChecked3 is '0' and @state.temperatureChecked4 is '0' and @state.temperatureChecked5 is '0'
+			 Plugin.toast.show '请填写仓库面积'
+			 return
+		else
+			if @state.temperatureChecked1 is '1'
+				if !@state.temperatureArea11 and !@state.temperatureArea12
+					Plugin.toast.show '常温面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '1','常温','3','仓库面积',@state.temperatureArea11,@state.temperatureArea12
+					newState.params.warehouseProperty.push aPropertyModel
+			if @state.temperatureChecked2 is '1'
+				if !@state.temperatureArea21 and !@state.temperatureArea22
+					Plugin.toast.show '冷藏面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '2','冷藏','3','仓库面积',@state.temperatureArea21,@state.temperatureArea22
+					newState.params.warehouseProperty.push aPropertyModel
+			if @state.temperatureChecked3 is '1'
+				if !@state.temperatureArea31 and !@state.temperatureArea32
+					Plugin.toast.show '冷冻面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '3','冷冻','3','仓库面积',@state.temperatureArea31,@state.temperatureArea32
+					newState.params.warehouseProperty.push aPropertyModel
+			if @state.temperatureChecked4 is '1'
+				if !@state.temperatureArea41 and !@state.temperatureArea42
+					Plugin.toast.show '急冻面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '4','急冻','3','仓库面积',@state.temperatureArea41,@state.temperatureArea42
+					newState.params.warehouseProperty.push aPropertyModel
+			if @state.temperatureChecked5 is '1'
+				if !@state.temperatureArea51 and !@state.temperatureArea52
+					Plugin.toast.show '深冷面积未填写'
+					return
+				else
+					aPropertyModel = addPropertyModel '5','深冷','3','仓库面积',@state.temperatureArea51,@state.temperatureArea52
+					newState.params.warehouseProperty.push aPropertyModel
 
 # 配套服务	
 			if @state.increaseServe1 is '1'
@@ -231,21 +267,10 @@ AddWarehouse = React.createClass {
 				aPropertyModel = addPropertyModel '2','提供装卸','2','配套服务','',''
 				newState.params.warehouseProperty.push aPropertyModel
 
-#仓库类型
-			if @state.warehouseType1 is '0' and @state.warehouseType2 is '0'
-				Plugin.toast.show '请选择仓库类型'
-				return
-			else
-				if @state.warehouseType1 is '1'
-					aPropertyModel = addPropertyModel '1','平堆式','1','仓库类型','',''
-					newState.params.warehouseProperty.push aPropertyModel
-				if @state.warehouseType2 is '1'
-					aPropertyModel = addPropertyModel '2','货架式','1','仓库类型','',''
-					newState.params.warehouseProperty.push aPropertyModel
-
 			@setState newState
+			# 在这里通知原生地理位置解析
+			Plugin.run [19,@state.params.city,@state.params.area + @state.params.street ]
 
-			WarehouseAction.postAddWarehouse @state.params, @state.addWarehouseImageUrl
 
 # 仓库名称
 	warehouseNameValueChange : (e)->
@@ -489,6 +514,14 @@ AddWarehouse = React.createClass {
 		newState.params.remark = e.target.value
 		@setState newState
 
+	_select: ->
+		console.log 'select city'
+		AddressAction.changeSelector 'show'
+
+	# _detailAddressFinish:->
+	# 	if @state.mainStreet
+	# 		plugin.run [19,'','']
+
 	render : -> 
 		<div>
 			<div className="m-releaseitem">
@@ -498,11 +531,12 @@ AddWarehouse = React.createClass {
 				</div>
 				<div>
 					<label for="packType"><span>仓库地址</span></label>
-					<input readOnly="true" value={ @state.mainStreet } onClick=@selectAddress type="text" className="input-weak" placeholder="请选择地址" />
+					<input onClick={@_select} value={@state.mainStreet} readOnly="readOnly" type="text" placeholder="请选择地区" />
+					<em onClick={@selectAddress}>点击定位</em>
 				</div>
 				<div>
 					<label for="packType"><span>详细地址</span></label>
-					<input type="text" value={ @state.detailStreet  } className="input-weak" placeholder="详细地址" onChange=@detailAddressValueChange />
+					<input type="text" value={ @state.detailStreet  } className="input-weak" placeholder="详细地址" onChange=@detailAddressValueChange onBlur={@_detailAddressFinish} />
 				</div>
 			</div>
 			<div className="m-releaseitem">
@@ -692,6 +726,7 @@ AddWarehouse = React.createClass {
 					<a onClick={@_addNewWarehouse} className="btn">新增仓库</a>
 				</div>
 			</div>
+			<CitySelector />
 		</div>
 }
 
