@@ -140,6 +140,8 @@ WarehouseOrderDetail = React.createClass {
 					title = '已评价'
 				else
 					title = '待评价'
+			when 5 
+				title = "已取消"
 
 		_payTypeText = Helper.payTypeMapper @state.orderDetail?.payType
 		if parseInt(@state.orderDetail?.payType) is 3 and @state.orderDetail?.advance
