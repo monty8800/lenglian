@@ -7,7 +7,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeOption;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
@@ -27,7 +34,7 @@ import org.json.JSONException;
  * 选择地址
  * Created by kaisun on 15/9/22.
  */
-public class SelectAddressActivity extends BaseCordovaActivity implements CordovaInterface {
+public class SelectAddressActivity extends BaseCordovaActivity implements CordovaInterface, OnGetGeoCoderResultListener {
 
     private XEWebView mWebView;
 
@@ -38,6 +45,8 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
     private boolean isOnCreate = false;
 
     private TextView tvSure;
+
+    private GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
 
     /**
      * 活跃当前窗口
@@ -53,6 +62,10 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
         setContentView(R.layout.cwebview2);
         isOnCreate = true;
         initView();
+
+        // 初始化搜索模块，注册事件监听
+        mSearch = GeoCoder.newInstance();
+        mSearch.setOnGetGeoCodeResultListener(this);
 
     }
 
@@ -73,26 +86,38 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
             public void onClick(View v) {
                 ReleaseCarActivity.isSelectSure = true;
                 mWebView.getWebView().loadUrl("javascript:selectCurrent()");
-                finish();
+//                finish();
             }
         });
     }
 
+    String city;
+    String detail;
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(0);
-        if (flag.equals("2")) {
-            finish();
+        if (args.getString(0).equals("19")) {
+            city = args.getString(1);
+            detail = args.getString(2);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mSearch.geocode(new GeoCodeOption().city(city).address(detail));
+                }
+            });
         } else {
-            String temp = args.getString(1);
-            if (temp.equalsIgnoreCase("location")) {
-                LocationActivity.actionView(this);
-            } else if (temp.equalsIgnoreCase("toAddAddress")) {
-                ModifyAddress.actionView(SelectAddressActivity.this, 2);
+            String flag = args.getString(0);
+            if (flag.equals("2")) {
+                finish();
+            } else {
+                String temp = args.getString(1);
+                if (temp.equalsIgnoreCase("location")) {
+                    LocationActivity.actionView(this);
+                } else if (temp.equalsIgnoreCase("toAddAddress")) {
+                    ModifyAddress.actionView(SelectAddressActivity.this, 2);
+                }
             }
         }
-
     }
 
     @Override
@@ -161,4 +186,21 @@ public class SelectAddressActivity extends BaseCordovaActivity implements Cordov
         return super.onMessage(id, data);
     }
 
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult result) {
+        if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+            Toast.makeText(SelectAddressActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+//        String strInfo = String.format("纬度：%f 经度：%f",
+//                result.getLocation().latitude, result.getLocation().longitude);
+        mWebView.getWebView().loadUrl("javascript:doSubmit('" + result.getLocation().latitude + "', '" + result.getLocation().longitude + "')");
+    }
+
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {}
+
 }
+
+

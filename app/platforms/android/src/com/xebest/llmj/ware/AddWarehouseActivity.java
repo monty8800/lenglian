@@ -22,6 +22,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeOption;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.umeng.analytics.MobclickAgent;
 import com.xebest.llmj.R;
 import com.xebest.llmj.adapter.CarAdapter;
@@ -56,7 +62,7 @@ import java.util.Map;
  * 新增仓库
  * Created by kaisun on 15/9/22.
  */
-public class AddWarehouseActivity extends BaseCordovaActivity implements CordovaInterface {
+public class AddWarehouseActivity extends BaseCordovaActivity implements CordovaInterface, OnGetGeoCoderResultListener {
 
     private XEWebView mWebView;
 
@@ -94,6 +100,8 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
 
     private boolean isBusy = false;
 
+    private GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
+
     /**
      * 活跃当前窗口
      * @param context
@@ -108,6 +116,9 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
         setContentView(R.layout.found_car);
         isOnCreate = true;
         initView();
+        // 初始化搜索模块，注册事件监听
+        mSearch = GeoCoder.newInstance();
+        mSearch.setOnGetGeoCodeResultListener(this);
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,59 +157,73 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
     Map<String, Object> content;
     Map<String, File> driving = null;
 
+    String city;
+    String detail;
     @Override
     public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
         super.jsCallNative(args, callbackContext);
-        String flag = args.getString(1);
-        Log.i("info", "---------" + args.toString());
-        if (flag.equalsIgnoreCase("addWarehouse")) {
-            // 新增仓库图片回显
-            resource = flag;
-            showWindow();
-        } else if (flag.equalsIgnoreCase("getContectForAddWarehouse")) {
-            type = flag;
-            ContactListActivity.actionView(this);
-        } else if (flag.equalsIgnoreCase("locationView")) {
-            LocationActivity.actionView(this);
-        } else if (args.getString(0).equals("7")) {
-            Log.i("info", "----------------source:" + args.toString());
-            url = args.getString(1);
-            Log.i("info", "--------------url:" + url);
-            JSONObject data = args.getJSONObject(2);
-            final JSONArray files = args.getJSONArray(3);
-            final String ttData = data.getString("data");
-            String sign = data.getString("sign");
-            JSONObject ttObj = new JSONObject(ttData);
-            final String client_type = data.getString("client_type");
-            final String version = data.getString("version");
-            final String uuid = data.getString("uuid");
-            Log.i("info", "--------------client_type:" + client_type);
-            Log.i("info", "--------------uuid:" + uuid);
-            Log.i("info", "--------------version:" + version);
-            JSONObject jb = files.getJSONObject(0);
-            Log.i("info", "--------------files:" + jb);
+        if (args.getString(0).equals("19")) {
+            city = args.getString(1);
+            detail = args.getString(2);
+            // 拿到经纬度，
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mSearch.geocode(new GeoCodeOption().city(city).address(detail));
+                }
+            });
+        } else {
+            String flag = args.getString(1);
+            Log.i("info", "---------" + args.toString());
+            if (flag.equalsIgnoreCase("addWarehouse")) {
+                // 新增仓库图片回显
+                resource = flag;
+                showWindow();
+            } else if (flag.equalsIgnoreCase("getContectForAddWarehouse")) {
+                type = flag;
+                ContactListActivity.actionView(this);
+            } else if (flag.equalsIgnoreCase("locationView")) {
+                LocationActivity.actionView(this);
+            } else if (args.getString(0).equals("7")) {
+                Log.i("info", "----------------source:" + args.toString());
+                url = args.getString(1);
+                Log.i("info", "--------------url:" + url);
+                JSONObject data = args.getJSONObject(2);
+                final JSONArray files = args.getJSONArray(3);
+                final String ttData = data.getString("data");
+                String sign = data.getString("sign");
+                JSONObject ttObj = new JSONObject(ttData);
+                final String client_type = data.getString("client_type");
+                final String version = data.getString("version");
+                final String uuid = data.getString("uuid");
+                Log.i("info", "--------------client_type:" + client_type);
+                Log.i("info", "--------------uuid:" + uuid);
+                Log.i("info", "--------------version:" + version);
+                JSONObject jb = files.getJSONObject(0);
+                Log.i("info", "--------------files:" + jb);
 
-            String a = jb.getString("filed");
-            Log.i("info", "--------------filed:" + a);
+                String a = jb.getString("filed");
+                Log.i("info", "--------------filed:" + a);
 
-            content = new HashMap<String, Object>();
-            content.put("client_type", client_type);
-            content.put("uuid", uuid);
-            content.put("version", version);
-            content.put("userId", Application.getInstance().userId);
-            content.put("data", ttData);
-            content.put("sign", sign);
+                content = new HashMap<String, Object>();
+                content.put("client_type", client_type);
+                content.put("uuid", uuid);
+                content.put("version", version);
+                content.put("userId", Application.getInstance().userId);
+                content.put("data", ttData);
+                content.put("sign", sign);
 
-            driving = new HashMap<String, File>();
-            String path = files.getJSONObject(0).getString("path");
-            if (!path.equals("") && path != null) {
-                driving.put("file", new File(files.getJSONObject(0).getString("path")));
+                driving = new HashMap<String, File>();
+                String path = files.getJSONObject(0).getString("path");
+                if (!path.equals("") && path != null) {
+                    driving.put("file", new File(files.getJSONObject(0).getString("path")));
+                }
+
+                Log.i("info", "--------------content:" + content);
+                Log.i("info", "--------------content:");
+                if (isBusy) return;
+                new RequestTask().execute();
             }
-
-            Log.i("info", "--------------content:" + content);
-            Log.i("info", "--------------content:");
-            if (isBusy) return;
-            new RequestTask().execute();
         }
     }
 
@@ -473,6 +498,23 @@ public class AddWarehouseActivity extends BaseCordovaActivity implements Cordova
             }
             isBusy = false;
         }
+    }
+
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult result) {
+        if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+            Toast.makeText(AddWarehouseActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+//        String strInfo = String.format("纬度：%f 经度：%f",
+//                result.getLocation().latitude, result.getLocation().longitude);
+        mWebView.getWebView().loadUrl("javascript:doSubmit('" + result.getLocation().latitude + "', '" + result.getLocation().longitude + "')");
+    }
+
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+
     }
 
 }

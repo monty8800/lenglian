@@ -65,6 +65,28 @@
         __block __weak LocationViewController *weakSelf = self;
         [weakSelf addAnno:location];
     }];
+    
+    UIImageView *toCenter = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 29, 29)];
+    [toCenter setImage:[UIImage imageNamed:@"dingwei"]];
+    [self.view addSubview:toCenter];
+    [toCenter setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapToCenter)];
+    [toCenter addGestureRecognizer:tap];
+}
+-(void)tapToCenter{
+    CLLocationCoordinate2D globleLocation = [Global sharedInstance].userLocation.location.coordinate;
+    if (globleLocation.latitude > 0 && globleLocation.longitude > 0) {
+        //        如果本地存有位置 先用设置这个位置为中心
+        [_mapView setCenterCoordinate:globleLocation animated:YES];
+        [Global getLocation:^(BMKUserLocation *location) {
+            
+        }];
+    }else{
+        [Global getLocation:^(BMKUserLocation *location) {
+            CLLocationCoordinate2D loc = location.location.coordinate;
+            [_mapView setCenterCoordinate:loc animated:YES];
+        }];
+    }
 }
 
 -(void) addAnno:(BMKUserLocation *) location {

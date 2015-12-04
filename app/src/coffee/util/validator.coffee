@@ -31,7 +31,7 @@ company = (input)->
 # businessLicenseNo = (input)->
 # 	return /^[\da-zA-Z]{15}$/.test input
 businessLicenseNo = (input)->
-	return /^([\da-zA-Z]{16,16}|[/da-zA-Z]{18,18})$/.test input
+	return /^([\da-zA-Z]{16}|[\da-zA-Z]{18})$/.test input
 
 # organizingCode = (input)->
 # 	return /^[\dA-Z]{9}$/.test input

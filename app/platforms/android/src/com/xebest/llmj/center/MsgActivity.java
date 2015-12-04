@@ -12,10 +12,18 @@ import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
 import com.xebest.llmj.common.BaseCordovaActivity;
+import com.xebest.llmj.order.CarOrderDetailActivity;
+import com.xebest.llmj.order.DoCommentActivity;
+import com.xebest.llmj.order.GoodsOrderDetailActivity;
+import com.xebest.llmj.order.OrderPayActivity;
+import com.xebest.llmj.order.WareHouseOrderDetail;
 import com.xebest.plugin.XEWebView;
 
+import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * 我的消息
@@ -44,6 +52,23 @@ public class MsgActivity extends BaseCordovaActivity implements CordovaInterface
 
         initView();
 
+    }
+
+    @Override
+    public void jsCallNative(JSONArray args, CallbackContext callbackContext) throws JSONException {
+        super.jsCallNative(args, callbackContext);
+        String flag = args.getString(1);
+        if (flag.equals("carOwnerOrderDetail")) {
+            CarOrderDetailActivity.actionView(getActivity());
+        } else if (flag.equals("doComment")) {
+            DoCommentActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("goodsOrderDetail")) {
+            GoodsOrderDetailActivity.actionView(getActivity());
+        } else if (flag.equalsIgnoreCase("orderPay")) {
+            OrderPayActivity.actionView(getActivity());
+        } else if (flag.equals("warehouseOrderDetail")) {
+            WareHouseOrderDetail.actionView(getActivity());
+        }
     }
 
     protected void initView() {

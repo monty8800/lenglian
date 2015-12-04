@@ -229,8 +229,8 @@ window.showAddWarehouseImage = (picUrl,type)->
 	param.type = type
 	WarehouseStore.emitChange param
 
-# window.addWarehouseBtnClick = ->
-# 	WarehouseStore.emitChange "saveAddAWarehouse"
+window.doSubmit = (lati, longi)->
+	WarehouseStore.emitChange {mark:"addWarehouse_doSubmit",lati:lati,longi:longi}
 	
 deleteWarehouseRequest = (warehouseId)->
 	user = UserStore.getUser()
