@@ -134,58 +134,85 @@
         &:last-child{
             border-bottom:0;
         }
-        &:before{
-            width: 32/$ppr;
-            height: 32/$ppr;
-            line-height: 32/$ppr;
-            text-align: left;
-            font-size: 32/$ppr;
-            content: "\e628";
+        span {
+            width: 50/$ppr;
+            height: 40/$ppr;
             position: absolute;
             left: 0;
-            top:50%;
-            margin-top: -16/$ppr;
-            color: #9da6aa;
-        }
-        &.u-icon-goods{
+            top: 50%;
+            margin-top: -20/$ppr;
+            background: #fff;
+            overflow: hidden;
             &:before{
-                content: "\e61a";
-            }            
+                width: 32/$ppr;
+                height: 32/$ppr;
+                line-height: 32/$ppr;
+                text-align: left;
+                font-size: 32/$ppr;
+                content: "\e628";
+                position: absolute;
+                left: 0;
+                top:50%;
+                margin-top: -16/$ppr;
+                color: #9da6aa;
+            }
+        }
+        
+        &.u-icon-goods{
+            span {
+                &:before{
+                    content: "\e61a";
+                }
+            }    
         }
         &.u-icon-car{
-            &:before{
-                content: "\e60e";
-            }            
+            span {
+                &:before{
+                    content: "\e60e";
+                }
+            }      
         }
         &.u-icon-store{
-            &:before{
-                content: "\e615";
-            }            
+            span {
+                &:before{
+                    content: "\e615";
+                }
+            }     
         }
         &.u-icon-money{
-            &:before{
-                content: "\e61c";
+            span {
+                &:before{
+                    content: "\e61c";
+                }
             }            
         }
         &.u-icon-adress{
-            &:before{
-                content: "\e606";
-            }            
+            span {
+                &:before{
+                    content: "\e606";
+                }
+            }          
         }
         &.u-icon-focus{
-            &:before{
-                content: "\e611";
-            }            
+            span {
+                &:before{
+                    content: "\e611";
+                }
+            }           
         }
         &.u-icon-judge{
-            &:before{
-                content: "\e61b";
-            }            
+            span {
+                &:before{
+                    content: "\e61b";
+                } 
+            }           
         }
         &.u-icon-more{
-            &:before{
-                content: "\e607";
-            }            
+            span {
+                &:before{
+                    content: "\e607";
+                }
+            }           
         }
     }
 }
@@ -199,7 +226,6 @@
     margin-top:20/$ppr;
     color: $text-color-333;
 }
-
 .m-tab02{
     width: 100%;
     height: 80/$ppr;
@@ -348,11 +374,12 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            line-height: 1.2;
         }
         .u-item-btn{
             position: absolute;
             right: 20/$ppr;
-            top:30/$ppr;
+            top:35/$ppr;
             text-align: right;
             a{
 //              width: 150/$ppr;
@@ -365,6 +392,7 @@
 //              border-radius: 5/$ppr;
                 font-size: 26/$ppr;
 //              margin-top:-10/$ppr;
+                line-height: 1.2;
             }
             span{
                 text-align: right;

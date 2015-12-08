@@ -833,19 +833,6 @@
     }
 }
 
-.m-item02.m-item02-msg {
-    padding-right: 200/$ppr;
-    position: relative;
-    @include box-sizing(border-box);
-
-    .u-btn02 {
-        position: absolute;
-        right: 20/$ppr;
-        top:50%;
-        margin-top:-25/$ppr;
-    }
-}
-
 .m-bank{
     padding: 0 0 0 20/$ppr;
     margin-top:20/$ppr;
@@ -1730,6 +1717,7 @@
         .u-label {
 //          width: 107/$ppr;
             margin:30/$ppr 40/$ppr 30/$ppr 0;
+            line-height: 1.2;
             word-wrap:break-word;
             word-break:break-all;
             display: inline-block;
@@ -1775,10 +1763,6 @@
         }
         .input-weak {
             width: 400/$ppr;
-        }
-        .input-weak2 {
-            width: 350/$ppr;
-            float: right;
         }
     }
     .u-voice{
@@ -1888,7 +1872,6 @@ select.weight{
         }
     }
 }
-
 
 .m-store{
     margin-top:20/$ppr;
@@ -2066,4 +2049,15 @@ select.weight{
         }
     }
 }
+.m-item02.m-item02-msg {
+    padding-right: 200/$ppr;
+    position: relative;
+    @include box-sizing(border-box);
 
+    .u-btn02 {
+        position: absolute;
+        right: 20/$ppr;
+        top:50%;
+        margin-top:-25/$ppr;
+    }
+}
