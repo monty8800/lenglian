@@ -27,75 +27,75 @@
         <meta-data android:name="UMENG_APPKEY" android:value="5601399667e58eaa030036a9" />
         <meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}" />
         <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="C8lVOIxyVIlwmIRgqumvV1VN" />
-        <activity android:name=".center.MsgActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.AddressActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.AttentionActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.MoreActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.LoginActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.RegisterActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.ResetPwdActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".car.CarDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.ModifyLoginPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.ModifyPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.BackPayPwd" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.ChangePwdActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".application.LocationActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.WalletActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".car.FoundCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:configChanges="orientation|keyboardHidden" android:name=".car.ReleaseCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".auth.AuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".auth.PersonalCarAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".auth.PersonalGoodsAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".auth.PersonalWareHouseAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".auth.CompanyGoodsAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".auth.CompanyWareHouseAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".auth.CompanyCarAuthActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".car.AddCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".car.MyCarActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".sort.ContactListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.SelectAddressActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".car.CarOwnerDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".ware.SearchWareHouseActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".goods.CarFindGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".ware.WareHouseFindGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".ware.ReleaseWarehouseActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".ware.AddWarehouseActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:launchMode="standard" android:name=".goods.ReleaseGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".goods.BiddingActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".goods.MyGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.BillListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.MyBankActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.AddBankActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.AddBankNextActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.AddBankVerifyActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.ChargeActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.ModifyAddress" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".order.CarOrderDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".goods.GoodsDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".ware.MyWarehouseActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".order.DoCommentActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".ware.WarehouseDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.MyCommentActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".goods.AddGoodsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".order.CarCancelOrderActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".goods.SearchGoodsDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".order.GoodsOrderDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".order.OrderCancelListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".ware.SearchWarehouseDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.AboutUsActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.AgreementActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".order.OrderPayActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".order.WareHouseOrderDetail" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".MainActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".center.PaySuccessActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.ChargeSuccessActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.WithDrawActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.WithDrawDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.ChargeRecordActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".ware.WarehouseOnwerDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".application.GuideActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".order.CarSourceDetailActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.WithdrawBankCardListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity android:name=".wallet.BranchBankListActivity" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.MsgActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AddressActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AttentionActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.MoreActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.LoginActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.RegisterActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ResetPwdActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.CarDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ModifyLoginPwd" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ModifyPayPwd" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.BackPayPwd" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ChangePwdActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".application.LocationActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.WalletActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.FoundCarActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:configChanges="orientation|keyboardHidden" android:name=".car.ReleaseCarActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".auth.AuthActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".auth.PersonalCarAuthActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".auth.PersonalGoodsAuthActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".auth.PersonalWareHouseAuthActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".auth.CompanyGoodsAuthActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".auth.CompanyWareHouseAuthActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".auth.CompanyCarAuthActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.AddCarActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.MyCarActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".sort.ContactListActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.SelectAddressActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".car.CarOwnerDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.SearchWareHouseActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.CarFindGoodsActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.WareHouseFindGoodsActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.ReleaseWarehouseActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.AddWarehouseActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:launchMode="standard" android:name=".goods.ReleaseGoodsActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.BiddingActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.MyGoodsActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.BillListActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.MyBankActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.AddBankActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.AddBankNextActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.AddBankVerifyActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.ChargeActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.ModifyAddress" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.CarOrderDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.GoodsDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.MyWarehouseActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.DoCommentActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.WarehouseDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.MyCommentActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.AddGoodsActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.CarCancelOrderActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".goods.SearchGoodsDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.GoodsOrderDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.OrderCancelListActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.SearchWarehouseDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AboutUsActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.AgreementActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.OrderPayActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.WareHouseOrderDetail" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".center.PaySuccessActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.ChargeSuccessActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.WithDrawActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.WithDrawDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.ChargeRecordActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ware.WarehouseOnwerDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".application.GuideActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".order.CarSourceDetailActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.WithdrawBankCardListActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".wallet.BranchBankListActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 </manifest>

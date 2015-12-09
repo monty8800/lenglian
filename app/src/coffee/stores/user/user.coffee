@@ -185,6 +185,13 @@ requestInfo = ->
 		_user = _user.set 'warehouseStatus', parseInt(data.warehouseStatus)
 		_user = _user.set 'warehouseCause', data.warehouseCause
 		_user = _user.set 'name', data.userName #个人名或者公司名，服务器合并到这个字段返回
+
+		# 公司认证地址信息
+		_user = _user.set 'warehouseAddress', data.warehouseAddress
+		_user = _user.set 'warehouseStreet', data.warehouseStreet
+		_user = _user.set 'goodsAddress', data.goodsAddress
+		_user = _user.set 'goodsStreet', data.goodsStreet
+
 		if _user.hasPayPwd is 0
 			_user = _user.set 'hasPayPwd', parseInt(data.isPayStatus) 
 		_user = _user.set 'balance', data.balance

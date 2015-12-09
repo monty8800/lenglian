@@ -218,6 +218,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 orderStatus(2);
                 break;
             case R.id.order_cancel:// 已取消订单
+                if (orderFragment == null) return;
                 orderFragment.cancelOrder();
                 break;
         }
@@ -254,6 +255,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case 1:
                 mOrderStatus = 1;
                 setViewState(2);
+                if (popupWindow == null) return;
                 popupWindow.dismiss();
                 orderFragment.reload();
                 break;

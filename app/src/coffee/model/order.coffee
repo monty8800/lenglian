@@ -155,6 +155,8 @@ Order = Immutable.Record {
 	goodsCubic: null
 	releaseTime: null
 	goodsRouteList: null
+	subState: null
+	paidAmount: null
 
 }
 

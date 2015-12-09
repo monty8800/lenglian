@@ -138,6 +138,8 @@ getCarOwnerOrderList = (status, currentPage)->
 				tempOrder = tempOrder.set 'goodsPersonName', order.goodsPersonName
 				tempOrder = tempOrder.set 'advance', order.advance
 				tempOrder = tempOrder.set 'payState', order.payState
+				tempOrder = tempOrder.set 'subState', order.subState
+				tempOrder = tempOrder.set 'paidAmount', order.paidAmount
 
 				_orderList = _orderList.push tempOrder
 		OrderStore.emitChange ['car']
@@ -402,6 +404,8 @@ carOwnerOrderDetail = (carPersonUserId, orderNo, goodsPersonUserId, orderCarId)-
 		_orderDetail = _orderDetail.set 'goodsRemark', temp.goodsRemark
 		_orderDetail = _orderDetail.set 'goodsFromStreet', temp.goodsFromStreet
 		_orderDetail = _orderDetail.set 'goodsToStreet', temp.goodsToStreet
+		_orderDetail = _orderDetail.set 'subState', temp.subState
+		_orderDetail = _orderDetail.set 'paidAmount', temp.paidAmount
 
 		OrderStore.emitChange ['car_owner_order_detail']		
 	, (data)->
@@ -569,6 +573,37 @@ warehouseCancleOrder = (params,index)->
 			del: params.orderNo
 		}
 
+postAlreadlyStatus = (params)->
+	console.log '---------params:', params
+	tempFlag = ''
+	if params.orderSubState is 2
+		tempFlag = '2'
+		Plugin.loading.show '正在发送...'
+	else 
+		tempFlag = '4'
+		Plugin.loading.show '正在卸货...'
+
+	Http.post Constants.api.alreadly_status, params, (data)->
+		# success
+		Plugin.loading.hide()
+		if params.orderSubState is 2
+			Plugin.toast.success '发送成功'
+		else 
+			Plugin.toast.success '卸货成功'		
+		DB.put 'transData', {
+			modify: params.orderNo
+			props: {
+				subState: tempFlag
+			}
+		}
+		if params.flag is 1
+			updateStore()
+		else if params.flag is 2
+			Plugin.nav.pop()
+	, (data)->
+		Plugin.toast.err data.msg
+		Plugin.loading.hide()
+
 OrderStore = assign BaseStore, {
 	getOrderList: ->
 		_orderList
@@ -610,6 +645,7 @@ Dispatcher.register (action) ->
 		when Constants.actionType.WAREHOUSE_CANCLE_ORDER then warehouseCancleOrder(action.params,action.index)
 		when Constants.actionType.ORDER_GOODS_CANCEL then cancelGoodsOrder(action.params)
 		when Constants.actionType.ORDER_GOODS_REPUB then repubGoodsOrder(action.params)
+		when Constants.actionType.ALREADLY_STATUS then postAlreadlyStatus(action.params)
 
 
 module.exports = OrderStore

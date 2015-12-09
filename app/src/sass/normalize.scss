@@ -821,6 +821,7 @@ p { margin: 0;}
     color: $text-color-666;
     position: relative;
     padding-left: 35/$ppr;
+    line-height:1.2;
     input[type=checkbox],input[type=radio] {
       width: 28/$ppr;
       height: 28/$ppr;
@@ -1082,12 +1083,12 @@ input[type=text],input[type=tel],input[type=password] {
 
 // 
 .g-tab01 {
-	&.g-tab01-act {
-		&:after {
-			-webkit-transform:rotate(90deg);
-			transform:rotate(90deg);
-		}
-	}
+  &.g-tab01-act {
+    &:after {
+      -webkit-transform:rotate(90deg);
+      transform:rotate(90deg);
+    }
+  }
 }
 .g-tab01-con {
   display: none;

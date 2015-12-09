@@ -63,5 +63,10 @@ User = Immutable.Record {
 	enterpriseWarehouseStatus: null
 	enterpriseWarehouseCause: null
 
+	warehouseAddress: null
+	warehouseStreet: null
+	goodsAddress: null
+	goodsStreet: null
+
 }
 module.exports = User

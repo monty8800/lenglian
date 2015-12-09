@@ -153,7 +153,7 @@ Menu = React.createClass {
 			console.log 'this', this
 			menu = item.toJS()
 			cls = "ll-font u-arrow-right " + menu.cls
-			<div className={cls} key={i}  onClick={@_goPage.bind this, menu.url}>{menu.title}</div>
+			<div className={cls} key={i} onClick={@_goPage.bind this, menu.url} ><span></span>  <i dangerouslySetInnerHTML={{__html: menu.title}}></i>  </div>
 		, this
 
 		<div className="m-userItem">

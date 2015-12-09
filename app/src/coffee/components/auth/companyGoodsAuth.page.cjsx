@@ -35,8 +35,11 @@ Auth = React.createClass {
 
 	_showSelector: ->
 		user = UserStore.getUser()
-		if not user.address or user.certification is 0
+		if not user.goodsAddress or user.enterpriseGoodsStatus is 2 or user.enterpriseGoodsStatus is '' or user.enterpriseGoodsStatus is 'null' or user.enterpriseGoodsStatus is undefined
+			# 写废了
 			AddressAction.changeSelector 'show'
+		# if not user.address or user.certification is 0
+			
 
 	_change: (msg)->
 		console.log 'event change ', msg
@@ -109,8 +112,8 @@ Auth = React.createClass {
 		{
 			user: user
 			companyName: user.company or ''
-			address: user.address or '点击进行选择'
-			street: user.street or ''
+			address: user.goodsAddress or '点击进行选择'
+			street: user.goodsStreet or ''
 			tel: user.tel or ''
 			businessLicenseNo: user.businessLicenseNo or ''
 			# organizingCode: user.organizingCode or ''
@@ -147,8 +150,8 @@ Auth = React.createClass {
 				<li>
 					<h6 className="xert-h6">详细地址</h6>
 						{
-							if @state.user.street and @state.user.enterpriseGoodsStatus is 1 or @state.user.enterpriseGoodsStatus is 0
-								<input value=@state.user.street readOnly="readOnly" className="input-weak" type="text" placeholder="请输入详细地址" />
+							if @state.user.goodsStreet and @state.user.enterpriseGoodsStatus is 1 or @state.user.enterpriseGoodsStatus is 0
+								<input value=@state.user.goodsStreet readOnly="readOnly" className="input-weak" type="text" placeholder="请输入详细地址" />
 							else
 								<input valueLink={@linkState 'street'} className="input-weak" type="text" placeholder="请输入详细地址" />
 						}

@@ -7,6 +7,7 @@ Helper = require 'util/helper'
 OrderAction = require 'actions/order/order'
 OrderStore = require 'stores/order/order'
 DB = require 'util/storage'
+UserStore = require 'stores/user/user'
 XeImage = require 'components/common/xeImage'
 Raty = require 'components/common/raty'
 avatar = require 'user-01'
@@ -17,6 +18,17 @@ CarItem = React.createClass {
 		{
 			isInit: false
 		}	
+
+	# 发送到货通知、卸货完毕
+	newPro: (orderNo, subState, e)->
+		OrderAction.postAlreadyStatus {
+			userId: UserStore.getUser().id
+			orderNo: orderNo
+			orderSubState: subState
+			version: '1.0'
+			flag: 1
+		}
+		e.stopPropagation()
 
 	# 接受
 	_receiver: (type, item, i, e)->
@@ -115,7 +127,15 @@ CarItem = React.createClass {
 									else
 										<span>货物运输中</span>
 								else if item?.orderState is '3'
-									<span>货物运输中</span>
+									# <span>货物运输中</span>
+									if item?.subState is '1'
+										<a href="###" className="u-btn02" onClick={@newPro.bind this, item?.orderNo, 2}>发送到货通知</a>
+									else if item?.subState is '2'
+										<span>已发送到货通知</span>
+									else if item?.subState is '3'
+										<a href="###" className="u-btn02" onClick={@newPro.bind this, item?.orderNo, 3}>卸货完毕</a>
+									else if item?.subState is '4'
+										<span>等待货主收货</span>
 								else if item?.orderState is '4'
 									if item?.mjRateflag is true
 										<span>已评价</span>

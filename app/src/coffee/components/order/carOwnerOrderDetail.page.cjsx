@@ -120,6 +120,28 @@ OrderDetail = React.createClass {
 				if index is 1
 					OrderAction.carOwnerCancelOrder carPersonUserId, orderNo, version, orderCarId, _index
 			, ['确定', '取消']
+		else if params is 3
+			Plugin.alert '确定卸货吗', '提示', (index)->
+				if index is 1
+					OrderAction.postAlreadyStatus {
+						userId: UserStore.getUser().id
+						orderNo: carPersonUserId
+						orderSubState: 3
+						version: '1.0'
+						flag: 2
+					}
+			, ['确定', '取消']
+		else if params is 4
+			Plugin.alert '确定发送吗', '提示', (index)->
+				if index is 1
+					OrderAction.postAlreadyStatus {
+						userId: UserStore.getUser().id
+						orderNo: carPersonUserId
+						orderSubState: 2
+						version: '1.0'
+						flag: 2
+					}
+			, ['确定', '取消']
 
 	render: ->
 		if @state.order?.orderState is '1'
@@ -135,7 +157,10 @@ OrderDetail = React.createClass {
 			else
 				title = '货物运输中'
 		else if @state.order?.orderState is '3'
-			title = '货物运输中'
+			if @state.order.subState is '2'
+				title = '已发送到货通知'
+			else if @state.order.subState is '4'
+				title = '等待货主收货'
 		else if @state.order?.orderState is '4'
 			if @state.mjRateflag is true
 				title = '已评价'
@@ -265,6 +290,16 @@ OrderDetail = React.createClass {
 						</p>
 				}
 			</div>	
+
+			<div className="m-detail-bottom" style={{display: if @state.order?.subState is '1' or @state.order?.subState is '3' then 'block' else 'none'}}>
+				<div className="g-pay-btn">
+					<a href="###" className="u-btn02" style={{display: if @state.order?.subState is '1' then 'block' else 'none' }} onClick={@operation.bind this, 4, @state.order.orderNo, @state.order.subState, @state.order.version}>发送到货通知</a>
+				</div>
+				<div className="g-cancle-btn">
+					<a href="###" className="u-btn02" style={{display: if @state.order?.subState is '3' then 'block' else 'none' }} onClick={@operation.bind this, 3, @state.order.orderNo, @state.order.subState, @state.order.version}>卸货完毕</a>
+				</div>
+			</div>
+
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' then 'block' else 'none'}}>
 				<div className="g-pay-btn">
 					<a href="###" className="u-btn02" style={{display: if @state.order?.orderType is 'GC' then 'block' else 'none' }} onClick={@operation.bind this, 1, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>确定</a>

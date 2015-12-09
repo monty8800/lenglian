@@ -174,6 +174,13 @@ OrderAction = {
 			actionType: Constants.actionType.CANCEL_CAR_ORDER_LIST
 			currentPage: pageNo
 		}
+
+	postAlreadyStatus: (params)->
+		Dispatcher.dispatch {
+			actionType: Constants.actionType.ALREADLY_STATUS
+			params: params
+		}
+				
 }
 
 module.exports = OrderAction

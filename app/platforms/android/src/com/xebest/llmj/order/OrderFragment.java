@@ -110,6 +110,7 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
 
     @Override
     public Object onMessage(String id, Object data) {
+        if (mWebView == null || mWebView.getWebView() == null) return null;
         mWebView.getWebView().loadUrl("javascript:(function(){uuid='" + Application.getInstance().UUID + "';version='" + Application.getInstance().VERSIONCODE + "';client_type='3';})();");
         mWebView.getWebView().loadUrl("javascript:comeFromFlag(" + mainActivity.mOrderStatus + ")");
         return null;
