@@ -20,6 +20,8 @@ Helper = require 'util/helper'
 
 UserStore = require 'stores/user/user'
 
+_payType = 1 	#支付方式 1货到付款， 2回单付款， 3预付款
+
 
 AddGoods = React.createClass {
 	mixins: [PureRenderMixin, LinkedStateMixin]
@@ -86,12 +88,12 @@ AddGoods = React.createClass {
 			newState.refrigeration = parseInt e.target.value
 			@setState newState
 
-	_selectPriceType1: (e)->
+	_selectPriceType: (e)->
 		console.log 'event', e
-		newState = Object.create @state
 		if e.target.checked
-			newState.priceType = 1
-		@setState newState
+			@setState {
+				priceType: e.target.value
+			}
 
 	# _selectPriceType2: (e)->
 	# 	console.log 'event', e
@@ -101,11 +103,9 @@ AddGoods = React.createClass {
 	# 	@setState newState
 
 	_selectPayType: (e)->
-		console.log 'event', e
+		console.log 'event', e.target.value
 		if e.target.checked
-			newState = @state
-			newState.payType = parseInt e.target.value
-			@setState newState
+			_payType = parseInt e.target.value
 
 	_selectInvoice: (e)->
 		console.log 'event', e
@@ -136,9 +136,9 @@ AddGoods = React.createClass {
 			Plugin.toast.err '请填写装车时间'
 		else if not Validator.price @state.price
 			Plugin.toast.err '请输入正确的价格， 最多两位小数，最大不超过9999999.99'
-		else if @state.payType is 3 and not (Validator.price ((@state.prePay * @state.prePayProportion * 0.01).toFixed(2)))
-			alert @state.payType + ' ' + ((@state.prePay * @state.prePayProportion * 0.01).toFixed(2))
-			Plugin.toast.err '请输入正确的预付款， 最多两位小数，最大不超过9999999'
+		# else if @state.payType is 3 and not (Validator.price ((@state.prePay * @state.prePayProportion * 0.01).toFixed(2)))
+			# alert @state.payType + ' ' + ((@state.prePay * @state.prePayProportion * 0.01).toFixed(2))
+			# Plugin.toast.err '请输入正确的预付款， 最多两位小数，最大不超过9999999'
 		# else if @state.payType is 3 and parseFloat(@state.prePay) > parseFloat(@state.price)
 		# 	Plugin.toast.err '预付款金额不能大于'
 		else if not (Validator.name @state.sender) or not @state.sender 
@@ -192,8 +192,8 @@ AddGoods = React.createClass {
 					installEtime: @state.installMaxTime
 					arrivalStime: @state.arriveMinTime if @state.arriveMinTime
 					arrivalEtime: @state.arriveMaxTime if @state.arriveMaxTime
-					payType: @state.payType
-					advance: prePayValue if @state.payType is 3
+					advance: prePayValue
+					payType: 3   #_payType
 					coldStoreFlag: @state.refrigeration
 					contacts: @state.sender
 					phone: @state.senderMobile
@@ -224,7 +224,6 @@ AddGoods = React.createClass {
 			refrigeration: 1 #需要冷库 1不需要，2需要，3目的地需要，4起始地需要
 			priceType: 1 #价格类型 1一口价， 2竞价
 			price: null
-			payType: 3 #支付方式 1货到付款， 2回单付款， 3预付款
 			prePay: null #预付款
 			invoice: 2 #是否需要发票 1需要 2不需要
 
@@ -362,7 +361,7 @@ AddGoods = React.createClass {
 						</div>
 						<div>
 							<label>
-								<input className="mui-checkbox ll-font" onChange={@_selectPriceType1} defaultChecked=true value="1" type="radio" name="xe-checkbox01" dangerouslySetInnerHTML={{__html: '一口价'}} />
+								<input className="mui-checkbox ll-font" onChange={@_selectPriceType} defaultChecked=true value="1" type="radio" name="xe-checkbox01" dangerouslySetInnerHTML={{__html: '一口价'}} />
 							</label>
 							{
 								if parseInt(@state.priceType) is 1
@@ -383,16 +382,37 @@ AddGoods = React.createClass {
 					<dd className="fl">
 						<div>
 							<label>
-								<input className="mui-checkbox ll-font" value="3" onChange={@_selectPayType} defaultChecked=true type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '预付款'}} />
+								<input className="mui-checkbox ll-font" value="1" onChange={@_selectPayType} defaultChecked=true type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '货到付款'}} />
 							</label>
 							{
-								if @state.price
+								if @state.price and _payType is 1
 									<span className="rel-text">
 										{ (@state.prePayProportion * 0.01 * @state.price).toFixed(2) + '元' }
 									</span>
 							}
 							{
-								if @state.price
+								if @state.price and _payType is 1
+									<select valueLink={@linkState 'prePayProportion'}  className="select rel-select">
+										<option value="100">占总额100%</option>
+										<option value="50">占总额50%</option>
+										<option value="30">占总额30%</option>
+										<option value="10">占总额10%</option>
+									</select>
+							}
+							
+						</div>
+						<div>
+							<label>
+								<input className="mui-checkbox ll-font" value="2" onChange={@_selectPayType}  type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '回单付款'}} />
+							</label>
+							{
+								if @state.price and _payType is 2
+									<span className="rel-text">
+										{ (@state.prePayProportion * 0.01 * @state.price).toFixed(2) + '元' }
+									</span>
+							}
+							{
+								if @state.price and _payType is 2
 									<select valueLink={@linkState 'prePayProportion'}  className="select rel-select">
 										<option value="100">占总额100%</option>
 										<option value="50">占总额50%</option>

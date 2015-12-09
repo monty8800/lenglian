@@ -301,12 +301,23 @@ OrderDetail = React.createClass {
 			</div>
 
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '1' then 'block' else 'none'}}>
-				<div className="g-pay-btn">
-					<a href="###" className="u-btn02" style={{display: if @state.order?.orderType is 'GC' then 'block' else 'none' }} onClick={@operation.bind this, 1, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>确定</a>
-				</div>
-				<div className="g-cancle-btn">
-					<a href="###" className="u-btn02 u-btn-cancel" style={{display: if @state.order?.priceType is '1' then 'block' else 'none' }} onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>取消</a>
-				</div>
+				{
+					if  @state.order?.orderType is 'GC'
+						<div className="g-pay-btn">
+							<a className="u-btn02" onClick={@operation.bind this, 1, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>接受</a>
+						</div>
+				}
+				{
+					if @state.order?.priceType is '1'
+						if @state.order?.orderType is 'GC'
+							<div className="g-cancle-btn">
+								<a className="u-btn02 u-btn-cancel" onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>取消</a>
+							</div>
+						else
+							<div className="g-pay-btn">
+								<a className="u-btn02 u-btn-cancel" onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>取消</a>
+							</div>
+				}
 			</div>
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '4' and @state.mjRateflag is false then 'block' else 'none'}}>
 				<div className="g-pay-btn">

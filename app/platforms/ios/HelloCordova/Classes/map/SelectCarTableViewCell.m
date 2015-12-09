@@ -19,7 +19,6 @@
     return self;
 }
 
-//TODO: 没有切图，对勾
 -(void) createUI {
     self.backgroundColor = [UIColor whiteColor];
     _fromToView = [[FromToView alloc] initWithFrame:CGRectMake(20, 12, SCREEN_WIDTH-80, 55)];
@@ -31,8 +30,9 @@
     _infoView.userInteractionEnabled = NO;
     [self.contentView addSubview:_infoView];
     
-    _selectedImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
+    _selectedImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 16, 13)];
     [_selectedImageView setCenter:CGPointMake(SCREEN_WIDTH-40 - 20, 130/2)];
+    [_selectedImageView setImage:[UIImage imageNamed:@"icon_selected"]];
     [_selectedImageView setHidden:YES];
     [self.contentView addSubview:_selectedImageView];
     

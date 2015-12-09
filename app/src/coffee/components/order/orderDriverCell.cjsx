@@ -23,8 +23,10 @@ OrderDriverCell = React.createClass {
 				else
 					@_orderDone()
 			when 3
-				@_orderDone()
-
+				if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
+					@_orderDone()
+				else
+					@_goPay()
 			when 4
 				@_goComment()
 
@@ -88,8 +90,16 @@ OrderDriverCell = React.createClass {
 						statusBtn = <a onClick={@_receiver} className="u-btn02">确认付款</a>
 				else
 					statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
-			when 3
-				statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
+			when 3	#已付款
+				if parseInt(@props.order?.payState) is 2
+					statusBtn = <span>支付处理中</span>
+				else
+					if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
+						# 全款支付了
+						statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
+					else
+						statusBtn = <a onClick={@_receiver} className="u-btn02">支付运费余款</a>
+						
 			when 4
 				if not @props.order?.mjRateflag
 					if @props.order?.orderType in ['GC', 'CG']
