@@ -144,6 +144,9 @@ OrderDetail = React.createClass {
 			, ['确定', '取消']
 
 	render: ->
+
+		unPaidAmount = parseFloat @state.order?.price - parseFloat @state.order?.paidAmount
+
 		if @state.order?.orderState is '1'
 			if @state.order?.orderType is 'CG'
 				title = '等待货主确认'
@@ -274,6 +277,14 @@ OrderDetail = React.createClass {
 					<span>支付方式:</span>
 					<span>{ _payTypeText }</span>
 				</p>
+				<p>
+					<span>已付金额:</span>
+					<span>{ @state.order?.paidAmount + '元' }</span>
+				</p>
+				<p>
+					<span>未付金额:</span>
+					<span>{ unPaidAmount + '元' }</span>
+				</p>				
 				<p>
 					<span>发票:</span>
 					<span>{Helper.isInvoinceMap @state.order?.isInvoice}</span>
