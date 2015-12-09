@@ -69,6 +69,8 @@ Order = Immutable.Record {
 	warehousePriceSquare: null
 	warehousePriceTorr: null
 	goodsSourceId: null
+	paidAmount: null	#已经支付的金额  可以理解为预付款金额
+	subState: null		#子状态 1:发送到货通知,2:支付运费余款,3:卸货完毕,4:确认收货
 
 
 	# 仓库订单

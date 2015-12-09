@@ -69,7 +69,7 @@ OrderDoc = React.createClass {
 			@setState newState
 
 	render: ->
-		console.log '___state', @state
+		console.log '__get_order_list_', @state
 		<div>
 			<div className="m-tab01">
 				<ul>

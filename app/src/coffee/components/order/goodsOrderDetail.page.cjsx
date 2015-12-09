@@ -61,8 +61,10 @@ GoodsOrderDetail = React.createClass {
 				else
 					@_orderDone()
 			when 3
-				@_orderDone()
-
+				if parseFloat(@state.detail?.get 'price') - parseFloat(@state.detail?.get 'paidAmount') < 0.01
+					@_orderDone()
+				else
+					@_goPay()
 			when 4
 				@_goComment()
 
@@ -218,7 +220,12 @@ GoodsOrderDetail = React.createClass {
 					_btnText = "订单完成"
 			when 3
 				_statusText = '已付款'
-				_btnText = '订单完成'
+				if parseFloat(@state.detail?.get 'price') - parseFloat(@state.detail?.get 'paidAmount') < 0.01
+					_btnText = '订单完成'
+				else
+					_btnText = '支付运费余款'
+									
+				
 			when 4
 				_statusText = '待评价'
 				if not @state.detail?.get 'mjRateflag'
@@ -332,11 +339,18 @@ GoodsOrderDetail = React.createClass {
 			</p>
 			<p>
 				<span>价格类型:</span>
-				<span>{(if parseInt(@state.detail?.get('priceType')) is 1 then '一口价' else '竞价') + @state.detail?.get('price') + '元'}</span>
+				<span>{(if parseInt(@state.detail?.get('priceType')) is 1 then '一口价' else '竞价') + parseFloat(@state.detail?.get('price')).toFixed(2) + '元'}</span>
 			</p>
 			<p>
 				<span>支付方式:</span>
 				<span>{_payTypeText}</span>
+			</p>
+			<p>
+				<span>已付款金额:</span>
+				<span>{ parseFloat(@state.detail?.get('paidAmount')).toFixed(2) + '元' }</span>
+			</p><p>
+				<span>未付款金额:</span>
+				<span>{ (parseFloat(@state.detail?.get('price')) - parseInt(@state.detail?.get('paidAmount'))).toFixed(2) + '元' }</span>
 			</p>
 			<p>
 				<span>发票:</span>
@@ -358,7 +372,7 @@ GoodsOrderDetail = React.createClass {
 			{
 				if orderState is 1
 					<div className={if acceptMode is 1 and parseInt(@state.detail?.get 'priceType') is 1 then "g-cancle-btn" else 'g-pay-btn'}>
-						<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消订单</a>
+						<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消</a>
 					</div>
 			}
 			{
