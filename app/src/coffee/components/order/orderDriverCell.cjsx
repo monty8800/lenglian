@@ -23,10 +23,13 @@ OrderDriverCell = React.createClass {
 				# else
 				# 	@_orderDone()
 			when 3
-				if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
+				if @props.order?.orderType in ['GW','WG']
 					@_orderDone()
 				else
-					@_goPay()
+					if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
+						@_orderDone()
+					else
+						@_goPay()
 			when 4
 				@_goComment()
 
@@ -90,15 +93,21 @@ OrderDriverCell = React.createClass {
 					statusBtn = <a onClick={@_receiver} className="u-btn02">确认付款</a>
 				# else
 				# 	statusBtn = <a onClick={@_receiver} className="u-btn02">确认收货</a>
+
 			when 3	#已付款
 				if parseInt(@props.order?.payState) is 2
 					statusBtn = <span>订单处理中</span>
 				else if parseInt(@props.order?.payState) is 1   #payState = 1 已支付
-					if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
-						# 已经全款支付
-						statusBtn = <a onClick={@_receiver} className="u-btn02">确认收货</a>
+					if @props.order?.orderType in ['GW','WG']
+						# 货库订单不变
+						statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
 					else
-						statusBtn = <a onClick={@_receiver} className="u-btn02 u-btn02-large">支付运费余款</a>
+						# 货车订单 可以支付运费余款
+						if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
+							# 已经全款支付
+							statusBtn = <a onClick={@_receiver} className="u-btn02">确认收货</a>
+						else
+							statusBtn = <a onClick={@_receiver} className="u-btn02 u-btn02-large">支付运费余款</a>
 			when 4
 				if not @props.order?.mjRateflag
 					statusBtn = <a onClick={@_receiver} className="u-btn02">发表评论</a>

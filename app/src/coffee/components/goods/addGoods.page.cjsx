@@ -384,48 +384,39 @@ AddGoods = React.createClass {
 							<label>
 								<input className="mui-checkbox ll-font" value="1" onChange={@_selectPayType} defaultChecked=true type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '货到付款'}} />
 							</label>
-							{
-								if @state.price and _payType is 1
-									<span className="rel-text">
-										{ (@state.prePayProportion * 0.01 * @state.price).toFixed(2) + '元' }
-									</span>
-							}
-							{
-								if @state.price and _payType is 1
-									<select valueLink={@linkState 'prePayProportion'}  className="select rel-select">
-										<option value="100">占总额100%</option>
-										<option value="50">占总额50%</option>
-										<option value="30">占总额30%</option>
-										<option value="10">占总额10%</option>
-									</select>
-							}
 							
 						</div>
 						<div>
 							<label>
 								<input className="mui-checkbox ll-font" value="2" onChange={@_selectPayType}  type="radio" name="xe-checkbox02" dangerouslySetInnerHTML={{__html: '回单付款'}} />
 							</label>
-							{
-								if @state.price and _payType is 2
-									<span className="rel-text">
-										{ (@state.prePayProportion * 0.01 * @state.price).toFixed(2) + '元' }
-									</span>
-							}
-							{
-								if @state.price and _payType is 2
-									<select valueLink={@linkState 'prePayProportion'}  className="select rel-select">
-										<option value="100">占总额100%</option>
-										<option value="50">占总额50%</option>
-										<option value="30">占总额30%</option>
-										<option value="10">占总额10%</option>
-									</select>
-							}
 							
 						</div>						
 					</dd>
 				</dl>
 			</div>	
 		</div>
+		<div className="m-releaseitem">
+			<div className="g-radio">
+				<span>预付金额</span>
+				{
+					if @state.price
+						<div className="radio-box">
+					
+							<span className="rel-text">
+								{ (@state.prePayProportion * 0.01 * @state.price).toFixed(2) + '元' }
+							</span>
+							<select valueLink={@linkState 'prePayProportion'}  className="select rel-select">
+								<option value="100">占总额100%</option>
+								<option value="50">占总额50%</option>
+								<option value="30">占总额30%</option>
+								<option value="10">占总额10%</option>
+							</select>
+						</div>
+				}
+			</div>
+		</div>
+
 		<div className="m-releaseitem">
 			<div className="g-radio">
 				<span>需要发票</span>

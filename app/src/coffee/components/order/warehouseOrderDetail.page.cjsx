@@ -129,7 +129,7 @@ WarehouseOrderDetail = React.createClass {
 					title = '等待您的同意'	
 			when 2
 				# if parseInt(@state.orderDetail?.payType) is 3  	
-					title = '等待货主付款'
+				title = '等待货主付款'
 				# else
 				# 	title = '货物存储中'
 			when 3
