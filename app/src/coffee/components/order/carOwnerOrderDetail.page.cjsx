@@ -273,7 +273,7 @@ OrderDetail = React.createClass {
 				</p>
 				<p>
 					<span>价格类型:</span>
-					<span>{Helper.priceTypeMapper @state.order?.priceType}{@state.order?.price}元</span>
+					<span>{Helper.priceTypeMapper @state.order?.priceType}{parseFloat(@state.order?.paidAmount).toFixed(2)}元</span>
 				</p>
 				<p>
 					<span>支付方式:</span>
@@ -281,11 +281,11 @@ OrderDetail = React.createClass {
 				</p>
 				<p>
 					<span>已付金额:</span>
-					<span>{ @state.order?.paidAmount + '元' }</span>
+					<span>{ parseFloat(@state.order?.paidAmount).toFixed(2) + '元' }</span>
 				</p>
 				<p>
 					<span>未付金额:</span>
-					<span>{ unPaidAmount + '元' }</span>
+					<span>{ unPaidAmount.toFixed(2) + '元' }</span>
 				</p>				
 				<p>
 					<span>发票:</span>
@@ -334,7 +334,7 @@ OrderDetail = React.createClass {
 			</div>
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '4' and @state.mjRateflag is false then 'block' else 'none'}}>
 				<div className="g-pay-btn">
-					<a href="###" className="u-btn02" onClick={@_comment.bind this, @state.order.goodsPersonUserId, @state.order.orderNo}>评价货主</a>
+					<a href="###" className="u-btn02" onClick={@_comment.bind this, @state.order.goodsPersonUserId, @state.order.orderNo}>发表评论</a>
 				</div>
 			</div>
 		</div>
