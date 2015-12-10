@@ -84,21 +84,21 @@ OrderDriverCell = React.createClass {
 						statusBtn = <span>等待仓库同意</span>
 			when 2  #待付款
 				# if parseInt(@props.order?.payType) is 3  #支付方式 1：货到付款 2：回单付款 3：预付款
-				if parseInt(@props.order?.payState) is 2
-					statusBtn = <span>支付处理中</span>
-				else if parseInt(@props.order?.payState) is 3
+				if parseInt(@props.order?.payState) is 2	#payState = 2 订单处理中
+					statusBtn = <span>订单处理中</span>
+				else if parseInt(@props.order?.payState) is 3  #payState = 3 未支付
 					statusBtn = <a onClick={@_receiver} className="u-btn02">确认付款</a>
 				# else
 				# 	statusBtn = <a onClick={@_receiver} className="u-btn02">确认收货</a>
 			when 3	#已付款
 				if parseInt(@props.order?.payState) is 2
-					statusBtn = <span>支付处理中</span>
-				else if parseInt(@props.order?.payState) is 3
+					statusBtn = <span>订单处理中</span>
+				else if parseInt(@props.order?.payState) is 1   #payState = 1 已支付
 					if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
 						# 已经全款支付
 						statusBtn = <a onClick={@_receiver} className="u-btn02">确认收货</a>
 					else
-						statusBtn = <a onClick={@_receiver} className="u-btn02">支付运费余款</a>
+						statusBtn = <a onClick={@_receiver} className="u-btn02 u-btn02-large">支付运费余款</a>
 			when 4
 				if not @props.order?.mjRateflag
 					statusBtn = <a onClick={@_receiver} className="u-btn02">发表评论</a>
