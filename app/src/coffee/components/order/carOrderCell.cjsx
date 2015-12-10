@@ -141,7 +141,7 @@ CarItem = React.createClass {
 									if item?.mjRateflag is true
 										<span>已评价</span>
 									else
-										<a href="###" onClick={@comment.bind this, item?.goodsPersonUserId, item?.orderNo, i} className="u-btn02">评价货主</a>
+										<a href="###" onClick={@comment.bind this, item?.goodsPersonUserId, item?.orderNo, i} className="u-btn02">发表评论</a>
 								else if item?.orderState is '5'
 									<span>订单已取消</span>
 							}
