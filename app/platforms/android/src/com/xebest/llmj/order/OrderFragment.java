@@ -2,6 +2,7 @@ package com.xebest.llmj.order;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -68,6 +69,9 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
     }
 
     public void reload() {
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("page", 0).edit();
+        editor.putInt("_page", mainActivity.mOrderStatus);
+        editor.commit();
         if (mWebView != null && mWebView.getWebView() != null) {
             mWebView.getWebView().loadUrl("javascript:comeFromFlag(" + mainActivity.mOrderStatus + ")");
         }
@@ -85,10 +89,12 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
         mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
 
-        if (mainActivity.isOrderPayClass) {
-            reload();
-            mainActivity.isOrderPayClass = false;
-        }
+//        if (mainActivity.isOrderPayClass) {
+//            SharedPreferences sp = getActivity().getSharedPreferences("page", 0);
+//            mainActivity.mOrderStatus = sp.getInt("_page", -1);
+//            reload();
+//            mainActivity.isOrderPayClass = false;
+//        }
 
     }
 
