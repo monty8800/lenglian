@@ -215,13 +215,6 @@ WarehouseOrderDetail = React.createClass {
 					<span>{ _payTypeText }</span>
 				</p>
 				<p>
-					<span>已付款金额:</span>
-					<span>{ parseFloat(@state.orderDetail.paidAmount).toFixed(2) + '元' }</span>
-				</p><p>
-					<span>未付款金额:</span>
-					<span>{ (parseFloat(@state.orderDetail.price) - parseFloat(@state.orderDetail.paidAmount)).toFixed(2) + '元' }</span>
-				</p>
-				<p>
 					<span>发票:</span>
 					<span>{ Helper.isInvoinceMap @state.orderDetail.isInvoice }</span>
 				</p>
