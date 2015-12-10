@@ -331,4 +331,5 @@ public class Application extends android.app.Application {
     public int getGoodsStatus() {
         return goodsStatus;
     }
+
 }
