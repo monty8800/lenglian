@@ -324,7 +324,7 @@ OrderDetail = React.createClass {
 				}
 				{
 					if @state.order?.priceType is '1'
-						if @state.order?.orderType is 'GC'
+						if @state.order?.orderType in ['GC','CG']
 							<div className="g-cancle-btn">
 								<a className="u-btn02 u-btn-cancel" onClick={@operation.bind this, 2, @state.order.carPersonUserId, @state.order.orderNo, @state.order.version, @state.order.orderCarId}>取消</a>
 							</div>
