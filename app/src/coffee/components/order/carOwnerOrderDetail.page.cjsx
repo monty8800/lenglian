@@ -175,8 +175,8 @@ OrderDetail = React.createClass {
 			title = '订单已取消'
 
 		_payTypeText = Helper.payTypeMapper @state.order?.payType
-		if parseInt(@state.order?.payType) is 3 and @state.order?.advance
-			_payTypeText = _payTypeText + @state.order?.advance + '元'
+		# if parseInt(@state.order?.payType) is 3 and @state.order?.advance
+		# 	_payTypeText = _payTypeText + @state.order?.advance + '元'
 
 		console.log '-----------goodsRouteList:', @state.order.goodsRouteList
 		routeList = []
@@ -306,10 +306,10 @@ OrderDetail = React.createClass {
 
 			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '3' and @state.order?.subState is '1' or @state.order?.subState is '3' then 'block' else 'none'}}>
 				<div className="g-pay-btn">
-					<a href="###" className="u-btn02" style={{display: if @state.order?.subState is '1' then 'block' else 'none' }} onClick={@operation.bind this, 4, @state.order.orderNo, @state.order.subState, @state.order.version}>发送到货通知</a>
+					<a href="###" className="u-btn02 u-btn02-large" style={{display: if @state.order?.subState is '1' then 'block' else 'none' }} onClick={@operation.bind this, 4, @state.order.orderNo, @state.order.subState, @state.order.version}>发送到货通知</a>
 				</div>
 				<div className="g-cancle-btn">
-					<a href="###" className="u-btn02" style={{display: if @state.order?.subState is '3' then 'block' else 'none' }} onClick={@operation.bind this, 3, @state.order.orderNo, @state.order.subState, @state.order.version}>卸货完毕</a>
+					<a href="###" className="u-btn02 u-btn02-large" style={{display: if @state.order?.subState is '3' then 'block' else 'none' }} onClick={@operation.bind this, 3, @state.order.orderNo, @state.order.subState, @state.order.version}>卸货完毕</a>
 				</div>
 			</div>
 
