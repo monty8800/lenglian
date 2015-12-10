@@ -84,6 +84,12 @@ public class OrderFragment extends XEFragment implements CordovaInterface {
         MobclickAgent.onPageStart("订单");
         mWebView.getWebView().loadUrl("javascript:updateStore()");
         super.onResume();
+
+        if (mainActivity.isOrderPayClass) {
+            reload();
+            mainActivity.isOrderPayClass = false;
+        }
+
     }
 
     @Override

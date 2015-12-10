@@ -131,7 +131,6 @@ Auth = React.createClass {
 					<a onClick={@_auth} className="u-btn">提交认证</a>
 				</div>
 		}
-
 		</section>
 }
 

@@ -155,17 +155,18 @@ OrderDetail = React.createClass {
 				title = '洽谈中'
 		else if @state.order?.orderState is '2'
 			# 1：货到付款（线下）2：回单付款（线下） 3：预付款（线上）
-			if @state.order?.payType is '3'
-				title = '等待货主付款'
-			else
-				title = '货物运输中'
+			# if @state.order?.payType is '3'
+			# 	title = '等待货主付款'
+			# else
+			# 	title = '货物运输中'
+			title = '等待货主付款'
 		else if @state.order?.orderState is '3'
-			if @state.order.subState is '2'
-				title = '已发送到货通知'
-			else if @state.order.subState is '4'
-				title = '等待货主收货'
-			else
-				title = '货物运输中'
+			# if @state.order.subState is '2'
+			# 	title = '已发送到货通知'
+			# else if @state.order.subState is '4'
+			# 	title = '等待货主收货'
+			# else
+			title = '货物运输中'
 		else if @state.order?.orderState is '4'
 			if @state.mjRateflag is true
 				title = '已评价'

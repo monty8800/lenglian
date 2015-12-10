@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
-import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
@@ -90,8 +89,9 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                finish();
-                MainActivity.actionView(OrderPayActivity.this, 2);
+                finish();
+                // 解决付款返回订单列表问题，不知道会不会影响其他流程
+//                MainActivity.actionView(OrderPayActivity.this, 2);
             }
         });
     }
