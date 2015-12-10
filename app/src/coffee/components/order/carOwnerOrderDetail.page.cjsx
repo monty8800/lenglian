@@ -149,7 +149,7 @@ OrderDetail = React.createClass {
 
 		if @state.order?.orderState is '1'
 			if @state.order?.orderType is 'CG'
-				title = '等待货主确认'
+				title = '等待货主同意'
 			else
 				# 2015-10-21 如果这块有问题，果断去掉这块逻辑
 				title = '洽谈中'

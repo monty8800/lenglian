@@ -116,7 +116,7 @@ CarItem = React.createClass {
 							{
 								if item?.orderState is '1'
 									if item?.orderType is 'CG'
-										<span>等待货主确认</span>
+										<span>等待货主同意</span>
 									else if item?.orderType is 'GC'
 										<a href="###" onClick={@_receiver.bind this, 1, item, i} className="u-btn02">接受</a>
 										#<a href="###" onClick={@_receiver.bind this, 2, item, i} className="u-btn02">取消</a>
