@@ -30,6 +30,8 @@ paths = window.location.href.split('/')
 _htmlPage = paths[paths.length-1]
 
 window.comeFromFlag = (page, status)->	
+	console.log '-----------------page:', page
+	console.log '-----------------status:', status
 	Auth.needLogin ->	
 		# 禁止多次相同请求
 		if _page is page 
@@ -44,6 +46,9 @@ browser_temp = (params)->
 
 # 订单列表
 getOrderList = (status, currentPage)->
+	console.log '-----------------status2:', status
+	console.log '-----------------currentPage:', currentPage
+	console.log '-----------------_page:', _page	
 	switch parseInt(_page)
 		when 0 then getGoodsOrderList(status, currentPage)
 		when 1 then getCarOwnerOrderList(status, currentPage)
