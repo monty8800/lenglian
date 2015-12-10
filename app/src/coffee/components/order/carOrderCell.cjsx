@@ -122,10 +122,11 @@ CarItem = React.createClass {
 										#<a href="###" onClick={@_receiver.bind this, 2, item, i} className="u-btn02">取消</a>
 								else if item?.orderState is '2'
 									# 1：货到付款（线下）2：回单付款（线下） 3：预付款（线上）
-									if item?.payType is '3'
-										<span>等待货主付款</span>				
-									else
-										<span>货物运输中</span>
+									# if item?.payType is '3'
+									# 	<span>等待货主付款</span>				
+									# else
+									# 	<span>货物运输中</span>
+									<span>等待货主付款</span>				
 								else if item?.orderState is '3'
 									# <span>货物运输中</span>
 									if item?.subState is '1'

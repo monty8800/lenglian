@@ -164,6 +164,8 @@ OrderDetail = React.createClass {
 				title = '已发送到货通知'
 			else if @state.order.subState is '4'
 				title = '等待货主收货'
+			else
+				title = '货物运输中'
 		else if @state.order?.orderState is '4'
 			if @state.mjRateflag is true
 				title = '已评价'
