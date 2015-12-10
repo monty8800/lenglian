@@ -454,6 +454,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
     }
 
     boolean success = false;
+    boolean isNetErro = false;
     String msg = "";
     public class RequestTask extends AsyncTask<String, Void, String> {
 
@@ -482,6 +483,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
                 e.printStackTrace();
                 success = false;
                 isBusy = false;
+                isNetErro = true;
             }
             return null;
         }
@@ -498,6 +500,10 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
                 finish();
 //                MainActivity.actionView(ReleaseGoodsActivity.this, 3);
             } else {
+                if (isNetErro) {
+                    msg = "请检查网络!";
+                }
+                isNetErro = false;
                 Tools.showErrorToast(ReleaseGoodsActivity.this, msg);
             }
 
