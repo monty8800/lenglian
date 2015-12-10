@@ -86,14 +86,14 @@ OrderDriverCell = React.createClass {
 				# if parseInt(@props.order?.payType) is 3  #支付方式 1：货到付款 2：回单付款 3：预付款
 				if parseInt(@props.order?.payState) is 2
 					statusBtn = <span>支付处理中</span>
-				else if parseInt(@props.order?.payState) is 1
+				else if parseInt(@props.order?.payState) is 3
 					statusBtn = <a onClick={@_receiver} className="u-btn02">确认付款</a>
 				# else
 				# 	statusBtn = <a onClick={@_receiver} className="u-btn02">确认收货</a>
 			when 3	#已付款
 				if parseInt(@props.order?.payState) is 2
 					statusBtn = <span>支付处理中</span>
-				else if parseInt(@props.order?.payState) is 1
+				else if parseInt(@props.order?.payState) is 3
 					if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
 						# 已经全款支付
 						statusBtn = <a onClick={@_receiver} className="u-btn02">确认收货</a>
