@@ -21,6 +21,7 @@ package com.xebest.llmj;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -100,7 +101,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static boolean isOrderPayClass = false;
 
     public static void actionView(Context context, int index) {
-        if (context.toString().contains("OrderPayActivity")) {
+        if (context.toString().contains("OrderPayActivity") || context.toString().contains("PaySuccessActivity")) {
             isOrderPayClass = true;
         }
         mCurrentItem = index;
@@ -251,26 +252,32 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void orderStatus(int status) {
         if (popupWindow == null) return;
+        SharedPreferences.Editor editor = getSharedPreferences("page", 0).edit();
         switch (status) {
             case 0:
                 mOrderStatus = 0;
+                editor.putInt("_page", mOrderStatus);
                 setViewState(2);
                 popupWindow.dismiss();
                 orderFragment.reload();
+
                 break;
             case 1:
                 mOrderStatus = 1;
+                editor.putInt("_page", mOrderStatus);
                 setViewState(2);
                 popupWindow.dismiss();
                 orderFragment.reload();
                 break;
             case 2:
                 mOrderStatus = 2;
+                editor.putInt("_page", mOrderStatus);
                 popupWindow.dismiss();
                 setViewState(2);
                 orderFragment.reload();
                 break;
         }
+        editor.commit();
     }
 
     protected void setViewState(int index) {

@@ -90,7 +90,7 @@ public class OrderPayActivity extends BaseCordovaActivity implements CordovaInte
             @Override
             public void onClick(View v) {
                 finish();
-                // 解决付款返回订单列表问题，不知道会不会影响其他流程
+//                 解决付款返回订单列表问题，不知道会不会影响其他流程
 //                MainActivity.actionView(OrderPayActivity.this, 2);
             }
         });

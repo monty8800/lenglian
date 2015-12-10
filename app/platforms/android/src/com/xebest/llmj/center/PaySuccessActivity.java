@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+import com.xebest.llmj.MainActivity;
 import com.xebest.llmj.R;
 import com.xebest.llmj.application.ApiUtils;
 import com.xebest.llmj.application.Application;
@@ -87,7 +88,8 @@ public class PaySuccessActivity extends BaseCordovaActivity implements CordovaIn
         String flag = args.getString(1);
         if (flag.equalsIgnoreCase("go:order:list")) {
 //            MainActivity.actionView(this, 2);
-            Application.getInstance().removeActivity();
+//            Application.getInstance().removeActivity();
+            MainActivity.actionView(PaySuccessActivity.this, 2);
         }
     }
 
