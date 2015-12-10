@@ -134,7 +134,7 @@ CarItem = React.createClass {
 									else if item?.subState is '2'
 										<span>已发送到货通知</span>
 									else if item?.subState is '3'
-										<a href="###" className="u-btn02 u-btn02-large" onClick={@newPro.bind this, item?.orderNo, 3, item?.version}>卸货完毕</a>
+										<a href="###" className="u-btn02 u-btn02-large" onClick={@newPro.bind this, item?.orderNo, 4, item?.version}>卸货完毕</a>
 									else if item?.subState is '4'
 										<span>等待货主收货</span>
 								else if item?.orderState is '4'

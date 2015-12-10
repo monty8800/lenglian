@@ -126,7 +126,7 @@ OrderDetail = React.createClass {
 					OrderAction.postAlreadyStatus {
 						userId: UserStore.getUser().id
 						orderNo: carPersonUserId
-						orderSubState: 3
+						orderSubState: 4
 						version: version
 						flag: 2
 					}
