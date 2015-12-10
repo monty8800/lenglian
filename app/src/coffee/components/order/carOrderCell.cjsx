@@ -20,12 +20,12 @@ CarItem = React.createClass {
 		}	
 
 	# 发送到货通知、卸货完毕
-	newPro: (orderNo, subState, e)->
+	newPro: (orderNo, subState, version, e)->
 		OrderAction.postAlreadyStatus {
 			userId: UserStore.getUser().id
 			orderNo: orderNo
 			orderSubState: subState
-			version: '1.0'
+			version: version
 			flag: 1
 		}
 		e.stopPropagation()
@@ -122,18 +122,19 @@ CarItem = React.createClass {
 										#<a href="###" onClick={@_receiver.bind this, 2, item, i} className="u-btn02">取消</a>
 								else if item?.orderState is '2'
 									# 1：货到付款（线下）2：回单付款（线下） 3：预付款（线上）
-									if item?.payType is '3'
-										<span>等待货主付款</span>				
-									else
-										<span>货物运输中</span>
+									# if item?.payType is '3'
+									# 	<span>等待货主付款</span>				
+									# else
+									# 	<span>货物运输中</span>
+									<span>等待货主付款</span>				
 								else if item?.orderState is '3'
 									# <span>货物运输中</span>
 									if item?.subState is '1'
-										<a href="###" className="u-btn02" onClick={@newPro.bind this, item?.orderNo, 2}>发送到货通知</a>
+										<a href="###" className="u-btn02 u-btn02-large" onClick={@newPro.bind this, item?.orderNo, 2, item?.version}>发送到货通知</a>
 									else if item?.subState is '2'
 										<span>已发送到货通知</span>
 									else if item?.subState is '3'
-										<a href="###" className="u-btn02" onClick={@newPro.bind this, item?.orderNo, 3}>卸货完毕</a>
+										<a href="###" className="u-btn02 u-btn02-large" onClick={@newPro.bind this, item?.orderNo, 3, item?.version}>卸货完毕</a>
 									else if item?.subState is '4'
 										<span>等待货主收货</span>
 								else if item?.orderState is '4'

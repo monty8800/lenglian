@@ -127,7 +127,7 @@ OrderDetail = React.createClass {
 						userId: UserStore.getUser().id
 						orderNo: carPersonUserId
 						orderSubState: 3
-						version: '1.0'
+						version: version
 						flag: 2
 					}
 			, ['确定', '取消']
@@ -138,12 +138,15 @@ OrderDetail = React.createClass {
 						userId: UserStore.getUser().id
 						orderNo: carPersonUserId
 						orderSubState: 2
-						version: '1.0'
+						version: version
 						flag: 2
 					}
 			, ['确定', '取消']
 
 	render: ->
+
+		unPaidAmount = parseFloat @state.order?.price - parseFloat @state.order?.paidAmount
+
 		if @state.order?.orderState is '1'
 			if @state.order?.orderType is 'CG'
 				title = '等待货主确认'
@@ -161,6 +164,8 @@ OrderDetail = React.createClass {
 				title = '已发送到货通知'
 			else if @state.order.subState is '4'
 				title = '等待货主收货'
+			else
+				title = '货物运输中'
 		else if @state.order?.orderState is '4'
 			if @state.mjRateflag is true
 				title = '已评价'
@@ -170,8 +175,8 @@ OrderDetail = React.createClass {
 			title = '订单已取消'
 
 		_payTypeText = Helper.payTypeMapper @state.order?.payType
-		if parseInt(@state.order?.payType) is 3 and @state.order?.advance
-			_payTypeText = _payTypeText + @state.order?.advance + '元'
+		# if parseInt(@state.order?.payType) is 3 and @state.order?.advance
+		# 	_payTypeText = _payTypeText + @state.order?.advance + '元'
 
 		console.log '-----------goodsRouteList:', @state.order.goodsRouteList
 		routeList = []
@@ -275,6 +280,14 @@ OrderDetail = React.createClass {
 					<span>{ _payTypeText }</span>
 				</p>
 				<p>
+					<span>已付金额:</span>
+					<span>{ @state.order?.paidAmount + '元' }</span>
+				</p>
+				<p>
+					<span>未付金额:</span>
+					<span>{ unPaidAmount + '元' }</span>
+				</p>				
+				<p>
 					<span>发票:</span>
 					<span>{Helper.isInvoinceMap @state.order?.isInvoice}</span>
 				</p>
@@ -291,12 +304,12 @@ OrderDetail = React.createClass {
 				}
 			</div>	
 
-			<div className="m-detail-bottom" style={{display: if @state.order?.subState is '1' or @state.order?.subState is '3' then 'block' else 'none'}}>
+			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '3' and @state.order?.subState is '1' or @state.order?.subState is '3' then 'block' else 'none'}}>
 				<div className="g-pay-btn">
-					<a href="###" className="u-btn02" style={{display: if @state.order?.subState is '1' then 'block' else 'none' }} onClick={@operation.bind this, 4, @state.order.orderNo, @state.order.subState, @state.order.version}>发送到货通知</a>
+					<a href="###" className="u-btn02 u-btn02-large" style={{display: if @state.order?.subState is '1' then 'block' else 'none' }} onClick={@operation.bind this, 4, @state.order.orderNo, @state.order.subState, @state.order.version}>发送到货通知</a>
 				</div>
 				<div className="g-cancle-btn">
-					<a href="###" className="u-btn02" style={{display: if @state.order?.subState is '3' then 'block' else 'none' }} onClick={@operation.bind this, 3, @state.order.orderNo, @state.order.subState, @state.order.version}>卸货完毕</a>
+					<a href="###" className="u-btn02 u-btn02-large" style={{display: if @state.order?.subState is '3' then 'block' else 'none' }} onClick={@operation.bind this, 3, @state.order.orderNo, @state.order.subState, @state.order.version}>卸货完毕</a>
 				</div>
 			</div>
 

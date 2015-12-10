@@ -245,6 +245,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     public void orderStatus(int status) {
+        if (popupWindow == null) return;
         switch (status) {
             case 0:
                 mOrderStatus = 0;
@@ -255,7 +256,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case 1:
                 mOrderStatus = 1;
                 setViewState(2);
-                if (popupWindow == null) return;
                 popupWindow.dismiss();
                 orderFragment.reload();
                 break;
