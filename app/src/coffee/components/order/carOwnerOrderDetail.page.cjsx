@@ -127,7 +127,7 @@ OrderDetail = React.createClass {
 						userId: UserStore.getUser().id
 						orderNo: carPersonUserId
 						orderSubState: 3
-						version: '1.0'
+						version: version
 						flag: 2
 					}
 			, ['确定', '取消']
@@ -138,7 +138,7 @@ OrderDetail = React.createClass {
 						userId: UserStore.getUser().id
 						orderNo: carPersonUserId
 						orderSubState: 2
-						version: '1.0'
+						version: version
 						flag: 2
 					}
 			, ['确定', '取消']
@@ -304,7 +304,7 @@ OrderDetail = React.createClass {
 				}
 			</div>	
 
-			<div className="m-detail-bottom" style={{display: if @state.order?.subState is '1' or @state.order?.subState is '3' then 'block' else 'none'}}>
+			<div className="m-detail-bottom" style={{display: if @state.order?.orderState is '3' and @state.order?.subState is '1' or @state.order?.subState is '3' then 'block' else 'none'}}>
 				<div className="g-pay-btn">
 					<a href="###" className="u-btn02" style={{display: if @state.order?.subState is '1' then 'block' else 'none' }} onClick={@operation.bind this, 4, @state.order.orderNo, @state.order.subState, @state.order.version}>发送到货通知</a>
 				</div>
