@@ -67,7 +67,7 @@ StoreCell = React.createClass {
 								switch parseInt(item?.orderState)
 									when 1
 										if parseInt(item?.warehouseSourceMode) is 1
-											<span>等待货主确认</span>
+											<span>等待货主同意</span>
 										else if parseInt(item?.warehouseSourceMode) is 2
 											<a onClick={@_receiver.bind this,1,item} className="u-btn02">接受</a>
 									when 2

@@ -10,7 +10,7 @@ CarOrder = Immutable.Record {
 	goodSsourceId: null # 货主userId
 	goodsPersonName: null # 货主名称
 	goodsPersonScore: null # 货主名称
-	goodsState: null # 订单状态为洽谈中。车主订单状态(1:等待货主确认, 2:车主是否接受货主的货,3:是否可以竞价)
+	goodsState: null # 订单状态为洽谈中。车主订单状态(1:等待货主同意, 2:车主是否接受货主的货,3:是否可以竞价)
 	goodsType: null # 货物类型
 	goodsWeight: 0 # 货物重量
 	orderNo: null # 订单号

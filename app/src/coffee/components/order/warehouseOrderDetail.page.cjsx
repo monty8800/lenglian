@@ -124,9 +124,9 @@ WarehouseOrderDetail = React.createClass {
 		switch parseInt(@state.orderDetail?.orderState)
 			when 1
 				if parseInt(@state.orderDetail?.warehouseSourceMode) is 1
-					title = '等待货主确认'
+					title = '等待货主同意'
 				else if parseInt(@state.orderDetail?.warehouseSourceMode) is 2
-					title = '等待您的确认'	
+					title = '等待您的同意'	
 			when 2
 				# if parseInt(@state.orderDetail?.payType) is 3  	
 					title = '等待货主付款'
@@ -219,7 +219,7 @@ WarehouseOrderDetail = React.createClass {
 					<span>{ parseFloat(@state.orderDetail.paidAmount).toFixed(2) + '元' }</span>
 				</p><p>
 					<span>未付款金额:</span>
-					<span>{ (parseFloat(@state.orderDetail.price) - parseInt(@state.orderDetail.paidAmount)).toFixed(2) + '元' }</span>
+					<span>{ (parseFloat(@state.orderDetail.price) - parseFloat(@state.orderDetail.paidAmount)).toFixed(2) + '元' }</span>
 				</p>
 				<p>
 					<span>发票:</span>

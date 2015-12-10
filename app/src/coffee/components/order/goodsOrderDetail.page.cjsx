@@ -223,14 +223,14 @@ GoodsOrderDetail = React.createClass {
 			# 		else
 			# 			statusBtn = <a onClick={@_receiver} className="u-btn02">确认付款</a>
 			# 	else
-			# 		statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
+			# 		statusBtn = <a onClick={@_receiver} className="u-btn02">确认收货</a>
 			# when 3	#已付款
 			# 	if parseInt(@props.order?.payState) is 2
 			# 		statusBtn = <span>支付处理中</span>
 			# 	else
 			# 		if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
 			# 			# 全款支付了
-			# 			statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
+			# 			statusBtn = <a onClick={@_receiver} className="u-btn02">确认收货</a>
 			# 		else
 			# 			statusBtn = <a onClick={@_receiver} className="u-btn02">支付运费余款</a>
 						
@@ -248,11 +248,11 @@ GoodsOrderDetail = React.createClass {
 				_statusText =  '洽谈中'
 				switch acceptMode
 					when 1
-						_statusText = "等待您的确认"
+						_statusText = "等待您的同意"
 					when 2
-						_statusText = "等待司机确认"
+						_statusText = "等待司机同意"
 					when 3
-						_statusText = "等待仓库确认"
+						_statusText = "等待仓库同意"
 				_btnText = '接受'
 			when 2
 				_statusText = '待付款'
@@ -261,21 +261,22 @@ GoodsOrderDetail = React.createClass {
 				_statusText = '订单处理中' if parseInt(@state.detail?.get 'payState') is 2
 				_btnText = '确认付款'
 				# else
-				# 	_btnText = "订单完成"
+				# 	_btnText = "确认收货"
 			when 3
 				_statusText = '已付款'
 				if parseFloat(@state.detail?.get 'price') - parseFloat(@state.detail?.get 'paidAmount') < 0.01
-					_btnText = '订单完成'
+					_btnText = '确认收货'
 				else
 					_btnText = '支付运费余款'
 				
 			when 4
 				_statusText = '待评价'
 				if not @state.detail?.get 'mjRateflag'
-					if @state.detail?.get('orderType') in ['GC', 'CG'] 
-						_btnText = '评价司机'
-					else
-						_btnText = '评价仓库'
+					_btnText = '发表评论'
+					# if @state.detail?.get('orderType') in ['GC', 'CG'] 
+					# 	_btnText = '评价司机'
+					# else
+					# 	_btnText = '评价仓库'
 				else
 					_btnText = '订单已评价'
 					_statusText = '订单已评价'
@@ -393,7 +394,7 @@ GoodsOrderDetail = React.createClass {
 				<span>{ parseFloat(@state.detail?.get('paidAmount')).toFixed(2) + '元' }</span>
 			</p><p>
 				<span>未付款金额:</span>
-				<span>{ (parseFloat(@state.detail?.get('price')) - parseInt(@state.detail?.get('paidAmount'))).toFixed(2) + '元' }</span>
+				<span>{ (parseFloat(@state.detail?.get('price')) - parseFloat(@state.detail?.get('paidAmount'))).toFixed(2) + '元' }</span>
 			</p>
 			<p>
 				<span>发票:</span>
