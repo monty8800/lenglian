@@ -28,7 +28,7 @@ public class SideBar extends View {
 	public void setTextView(TextView mTextDialog) {
 		this.mTextDialog = mTextDialog;
 	}
-	
+
 	public SideBar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}

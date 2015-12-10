@@ -97,7 +97,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public int flag = -1;
 
+    public static boolean isOrderPayClass = false;
+
     public static void actionView(Context context, int index) {
+        if (context.toString().contains("OrderPayActivity")) {
+            isOrderPayClass = true;
+        }
         mCurrentItem = index;
         context.startActivity(new Intent(context, MainActivity.class));
     }
@@ -337,6 +342,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     orderFragment = new OrderFragment();
                 }
                 f.replace(R.id.tabcontent, orderFragment);
+
+//                if (isOrderPayClass) {
+//                    orderFragment.reload();
+//                }
+//                isOrderPayClass = false;
 
                 break;
             case 3:

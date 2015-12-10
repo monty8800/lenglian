@@ -44,6 +44,8 @@ OrderPay = React.createClass {
 		PayStore.removeChangeListener @_callCB
 
 	_showPaySms: ->
+		if not Validator.payPasswd @state.payPasswd
+			return Plugin.toast.err '请输入正确的支付密码'
 		if @state.payMode is 1
 			@_doPay()
 		else
@@ -52,6 +54,7 @@ OrderPay = React.createClass {
 			}
 
 	_doPay: (smsCode)->
+		console.log '-------------@state.payPasswd:',@state.payPasswd
 		if not Validator.payPasswd @state.payPasswd
 			Plugin.toast.err '请输入正确的支付密码'
 		else if @state.payMode isnt 1 and not Validator.smsCode @state.smsCode

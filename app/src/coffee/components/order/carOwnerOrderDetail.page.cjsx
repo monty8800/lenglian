@@ -161,12 +161,12 @@ OrderDetail = React.createClass {
 			# 	title = '货物运输中'
 			title = '等待货主付款'
 		else if @state.order?.orderState is '3'
-			if @state.order.subState is '2'
-				title = '已发送到货通知'
-			else if @state.order.subState is '4'
-				title = '等待货主收货'
-			else
-				title = '货物运输中'
+			# if @state.order.subState is '2'
+			# 	title = '已发送到货通知'
+			# else if @state.order.subState is '4'
+			# 	title = '等待货主收货'
+			# else
+			title = '货物运输中'
 		else if @state.order?.orderState is '4'
 			if @state.mjRateflag is true
 				title = '已评价'
