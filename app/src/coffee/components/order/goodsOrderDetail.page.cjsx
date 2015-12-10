@@ -207,24 +207,67 @@ GoodsOrderDetail = React.createClass {
 		_btnText = null
 		orderState = parseInt(@state.detail?.get 'orderState')
 		acceptMode = parseInt(@state.detail?.get 'acceptMode')
+		# switch parseInt(@props.order?.orderState)
+		# 	when 1
+		# 		switch parseInt(@props.order?.acceptMode)
+		# 			when 1
+		# 				_statusText = "等待您的同意"
+		# 			when 2
+		# 				_statusText = "等待司机同意"
+		# 			when 3
+		# 				_statusText = "等待仓库同意"
+			# when 2  #待付款
+			# 	if parseInt(@props.order?.payType) is 3  #支付方式 1：货到付款 2：回单付款 3：预付款
+			# 		if parseInt(@props.order?.payState) is 2
+			# 			statusBtn = <span>支付处理中</span>
+			# 		else
+			# 			statusBtn = <a onClick={@_receiver} className="u-btn02">确认付款</a>
+			# 	else
+			# 		statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
+			# when 3	#已付款
+			# 	if parseInt(@props.order?.payState) is 2
+			# 		statusBtn = <span>支付处理中</span>
+			# 	else
+			# 		if parseFloat(@props.order.price) - parseFloat(@props.order.paidAmount) < 0.01
+			# 			# 全款支付了
+			# 			statusBtn = <a onClick={@_receiver} className="u-btn02">订单完成</a>
+			# 		else
+			# 			statusBtn = <a onClick={@_receiver} className="u-btn02">支付运费余款</a>
+						
+			# when 4
+			# 	if not @props.order?.mjRateflag
+			# 		if @props.order?.orderType in ['GC', 'CG']
+			# 			statusBtn = <a onClick={@_receiver} className="u-btn02">评价司机</a>
+			# 		else
+			# 			statusBtn = <a onClick={@_receiver} className="u-btn02">评价仓库</a>
+			# 	else
+			# 		statusBtn = <span>订单已评价</span>
+
 		switch orderState
 			when 1
 				_statusText =  '洽谈中'
+				switch acceptMode
+					when 1
+						_statusText = "等待您的确认"
+					when 2
+						_statusText = "等待司机确认"
+					when 3
+						_statusText = "等待仓库确认"
 				_btnText = '接受'
 			when 2
 				_statusText = '待付款'
-				if parseInt(@state.detail?.get 'payType') is 3
-					_statusText = '订单处理中' if parseInt(@state.detail?.get 'payState') is 2
-					_btnText = '确认付款'
-				else
-					_btnText = "订单完成"
+				# if parseInt(@state.detail?.get 'payType') is 3 
+					#支付方式 1：货到付款 2：回单付款 3：预付款
+				_statusText = '订单处理中' if parseInt(@state.detail?.get 'payState') is 2
+				_btnText = '确认付款'
+				# else
+				# 	_btnText = "订单完成"
 			when 3
 				_statusText = '已付款'
 				if parseFloat(@state.detail?.get 'price') - parseFloat(@state.detail?.get 'paidAmount') < 0.01
 					_btnText = '订单完成'
 				else
 					_btnText = '支付运费余款'
-									
 				
 			when 4
 				_statusText = '待评价'
@@ -240,9 +283,9 @@ GoodsOrderDetail = React.createClass {
 				_statusText = '已取消'
 				_btnText = '重新发布'
 
-		_payTypeText = Helper.payTypeMapper @state.detail?.get 'payType'
-		if parseInt(@state.detail?.get 'payType') is 3
-			_payTypeText = _payTypeText + (@state.detail?.get 'advance') + '元'
+		_payTypeText = Helper.payTypeMapper (@state.detail?.get 'payType')
+		# if (@state.detail?.get 'advance')
+		# 	_payTypeText = _payTypeText + parseFloat(@state.detail?.get 'advance').toFixed(2) + '元'
 
 
 		console.log 'state', @state

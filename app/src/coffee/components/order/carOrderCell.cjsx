@@ -162,7 +162,7 @@ CarItem = React.createClass {
 						<span>{Helper.priceTypeMapper item?.priceType}{if parseInt(item?.priceType) is 1 then item?.price + '元' else item?.bidPrice + '元'}</span>
 					</p>
 					<p>货物描述 : <span>{item?.goodsName}</span><span>{if item?.goodsWeight then item?.goodsWeight + '吨' else ''}</span><span>{if item?.goodsCubic then item?.goodsCubic + '方'}</span><span>{ if item?.goodsType then item?.goodsType }</span></p>
-					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}</span><span>{if parseInt(item.payType) is 3 then item.advance + '元' else ''}</span></p>
+					<p>支付方式 : <span>{Helper.payTypeMapper item?.payType}</span></p>
 				</div>
 			</div>
 		, this
@@ -174,4 +174,4 @@ CarItem = React.createClass {
 }
 
 module.exports = CarItem
-
+# <span>{if parseInt(item.payType) is 3 then item.advance + '元' else ''}</span>

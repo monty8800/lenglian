@@ -126,12 +126,12 @@ WarehouseOrderDetail = React.createClass {
 				if parseInt(@state.orderDetail?.warehouseSourceMode) is 1
 					title = '等待货主确认'
 				else if parseInt(@state.orderDetail?.warehouseSourceMode) is 2
-					title = ''	
+					title = '等待您的确认'	
 			when 2
-				if parseInt(@state.orderDetail?.payType) is 3  	
+				# if parseInt(@state.orderDetail?.payType) is 3  	
 					title = '等待货主付款'
-				else
-					title = '货物存储中'
+				# else
+				# 	title = '货物存储中'
 			when 3
 				title = '货物存储中'
 
@@ -144,8 +144,8 @@ WarehouseOrderDetail = React.createClass {
 				title = "已取消"
 
 		_payTypeText = Helper.payTypeMapper @state.orderDetail?.payType
-		if parseInt(@state.orderDetail?.payType) is 3 and @state.orderDetail?.advance
-			_payTypeText = _payTypeText + @state.orderDetail?.advance + '元'
+		# if @state.orderDetail?.advance  #parseInt(@state.orderDetail?.payType) is 3 and
+		# 	_payTypeText = _payTypeText + parseFloat(@state.orderDetail?.advance).toFixed(2) + '元'
 
 		bottomClassName = "m-detail-info m-nomargin"
 		if parseInt(@state.orderDetail?.orderState) is 1 or parseInt(@state.orderDetail?.orderState) is 4
@@ -213,6 +213,13 @@ WarehouseOrderDetail = React.createClass {
 				<p>
 					<span>支付方式:</span>
 					<span>{ _payTypeText }</span>
+				</p>
+				<p>
+					<span>已付款金额:</span>
+					<span>{ parseFloat(@state.orderDetail.paidAmount).toFixed(2) + '元' }</span>
+				</p><p>
+					<span>未付款金额:</span>
+					<span>{ (parseFloat(@state.orderDetail.price) - parseInt(@state.orderDetail.paidAmount)).toFixed(2) + '元' }</span>
 				</p>
 				<p>
 					<span>发票:</span>

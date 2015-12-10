@@ -27,9 +27,9 @@ carCategory = (status) ->
 payType = (type) ->
 	if type?
 		switch parseInt(type)
-			when 1 then '货到付款（线下）'
-			when 2 then '回单付款（线下）'
-			when 3 then '预付款（线上）'
+			when 1 then '货到付款'
+			when 2 then '回单付款'
+			when 3 then '预付款'
 	else
 		''
 
