@@ -481,6 +481,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
             } catch(Exception e) {
                 e.printStackTrace();
                 success = false;
+                isBusy = false;
             }
             return null;
         }
