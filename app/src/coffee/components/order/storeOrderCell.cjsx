@@ -71,10 +71,10 @@ StoreCell = React.createClass {
 										else if parseInt(item?.warehouseSourceMode) is 2
 											<a onClick={@_receiver.bind this,1,item} className="u-btn02">接受</a>
 									when 2
-										if item?.payType is '3'
+										# if item?.payType is '3'
 											<span>等待货主付款</span>
-										else
-											<span>货物存储中</span>
+										# else
+										# 	<span>货物存储中</span>
 									when 3
 										<span>货物存储中</span>
 									when 4

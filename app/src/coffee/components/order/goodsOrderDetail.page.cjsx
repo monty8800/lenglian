@@ -56,15 +56,15 @@ GoodsOrderDetail = React.createClass {
 			when 1
 				@_agree()
 			when 2
-				if parseInt(@state.detail?.get 'payType') is 3
-					@_goPay()
-				else
-					@_orderDone()
+				@_goPay()
 			when 3
-				if parseFloat(@state.detail?.get 'price') - parseFloat(@state.detail?.get 'paidAmount') < 0.01
+				if (@state.detail?.get 'orderType') in ['GW','WG']
 					@_orderDone()
 				else
-					@_goPay()
+					if parseFloat(@state.detail?.get 'price') - parseFloat(@state.detail?.get 'paidAmount') < 0.01
+						@_orderDone()
+					else
+						@_goPay()
 			when 4
 				@_goComment()
 
@@ -227,11 +227,15 @@ GoodsOrderDetail = React.createClass {
 				# else
 				# 	_btnText = "确认收货"
 			when 3
-				_statusText = '已付款'
-				if parseFloat(@state.detail?.get 'price') - parseFloat(@state.detail?.get 'paidAmount') < 0.01
-					_btnText = '确认收货'
+				if (@state.detail?.get 'orderType') in ['GW','WG']
+					_statusText = '已付款'
+					_btnText = '订单完成'
 				else
-					_btnText = '支付运费余款'
+					_statusText = '货物运输中'
+					if parseFloat(@state.detail?.get 'price') - parseFloat(@state.detail?.get 'paidAmount') < 0.01
+						_btnText = '确认收货'
+					else
+						_btnText = '支付运费余款'
 				
 			when 4
 				_statusText = '待评价'
