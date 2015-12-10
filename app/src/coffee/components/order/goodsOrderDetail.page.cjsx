@@ -392,7 +392,7 @@ GoodsOrderDetail = React.createClass {
 				if orderState isnt 5 and not (orderState is 1 and (acceptMode isnt 1 or parseInt(@state.detail?.get 'priceType') isnt 1)) and not (orderState is 4 and @state.detail?.get 'mjRateflag') and not (orderState is 2 and parseInt(@state.detail?.get 'payState') is 2) and not (orderState is 3 and parseInt(@state.detail?.get 'payState') is 2)
 
 					<div className="g-pay-btn">
-						<a onClick={@_confirm} className="u-btn02 u-btn02-large">{_btnText}</a>
+						<a onClick={@_confirm} className={ if _btnText?.length > 4 then "u-btn02 u-btn02-large" else "u-btn02" }>{_btnText}</a>
 					</div>
 			}
 
