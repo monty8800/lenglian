@@ -145,6 +145,7 @@ OrderDetail = React.createClass {
 
 	render: ->
 
+
 		unPaidAmount = parseFloat @state.order?.price - parseFloat @state.order?.paidAmount
 
 		if @state.order?.orderState is '1'
@@ -274,7 +275,7 @@ OrderDetail = React.createClass {
 				</p>
 				<p>
 					<span>价格类型:</span>
-					<span>{Helper.priceTypeMapper @state.order?.priceType}{parseFloat(@state.order?.paidAmount).toFixed(2)}元</span>
+					<span>{Helper.priceTypeMapper @state.order?.priceType}{parseFloat(@state.order?.price).toFixed(2)}元</span>
 				</p>
 				<p>
 					<span>支付方式:</span>

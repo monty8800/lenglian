@@ -84,7 +84,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
     private String startDate = "";
     private String endDate = "";
 
-    private boolean isBusy = false;
+//    private boolean isBusy = false;
 
     /**
      * 活跃当前窗口
@@ -198,7 +198,7 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
             content.put("sign", sign);
             content.put("data", ttData);
 
-            if (isBusy) return;
+//            if (isBusy) return;
             new RequestTask().execute();
         }
     }
@@ -454,13 +454,15 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
     }
 
     boolean success = false;
+    boolean isNetErro = false;
     String msg = "";
+
     public class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            isBusy = true;
+//            isBusy = true;
             Tools.createLoadingDialog(ReleaseGoodsActivity.this, "提交中...");
         }
 
@@ -481,6 +483,8 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
             } catch(Exception e) {
                 e.printStackTrace();
                 success = false;
+//                isBusy = false;
+                isNetErro = true;
             }
             return null;
         }
@@ -497,10 +501,14 @@ public class ReleaseGoodsActivity extends BaseCordovaActivity implements Cordova
                 finish();
 //                MainActivity.actionView(ReleaseGoodsActivity.this, 3);
             } else {
+                if (isNetErro) {
+                    msg = "请检查网络!";
+                }
+                isNetErro = false;
                 Tools.showErrorToast(ReleaseGoodsActivity.this, msg);
             }
 
-            isBusy = false;
+//            isBusy = false;
         }
     }
 
