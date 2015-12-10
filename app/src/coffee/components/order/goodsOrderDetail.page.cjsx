@@ -387,8 +387,10 @@ GoodsOrderDetail = React.createClass {
 						<a onClick={@_cancel} className="u-btn02 u-btn-cancel">取消</a>
 					</div>
 			}
+
 			{
-				if orderState isnt 5 and not (orderState is 1 and (acceptMode isnt 1 or parseInt(@state.detail?.get 'priceType') isnt 1)) and not (orderState is 4 and @state.detail?.get 'mjRateflag') and not (orderState is 2 and parseInt(@state.detail?.get 'payState') is 2)
+				if orderState isnt 5 and not (orderState is 1 and (acceptMode isnt 1 or parseInt(@state.detail?.get 'priceType') isnt 1)) and not (orderState is 4 and @state.detail?.get 'mjRateflag') and not (orderState is 2 and parseInt(@state.detail?.get 'payState') is 2) and not (orderState is 3 and parseInt(@state.detail?.get 'payState') is 2)
+
 					<div className="g-pay-btn">
 						<a onClick={@_confirm} className="u-btn02 u-btn02-large">{_btnText}</a>
 					</div>
