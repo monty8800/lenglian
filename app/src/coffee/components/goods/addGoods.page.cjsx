@@ -402,7 +402,6 @@ AddGoods = React.createClass {
 				{
 					if @state.price
 						<div className="radio-box">
-					
 							<span className="rel-text">
 								{ (@state.prePayProportion * 0.01 * @state.price).toFixed(2) + '元' }
 							</span>
