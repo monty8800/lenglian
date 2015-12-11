@@ -547,6 +547,7 @@ updateStore = ->
 			# when 1 then OrderStore.emitChange ['car_fresh']
 			when 1 then OrderStore.emitChange ['car']
 			when 2 then OrderStore.emitChange ['store']
+				
 	else
 		# 如果是详情页的话，收到消息直接更改状态
 		if transData?.props?.mjRateflag is true
