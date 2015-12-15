@@ -8,7 +8,9 @@ getFullPath = (image, size)->
 	paths = image.split('|')
 	if paths.length > 1
 		result = result + '/' +paths[1] + '/'
-	result += size.replace /^(\d+)x(\d+)$/, '/$1/$2/'
+	#用正则表达式测试接口返回的图片是否带有尺寸
+	if not /^.*\/\d+\/\d+\/.+$/.test paths[0]
+		result += size.replace /^(\d+)x(\d+)$/, '/$1/$2/'
 	result += paths[0]
 	return result
 
