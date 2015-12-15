@@ -8,7 +8,7 @@ Constants = require 'constants/constants'
 NoResult = require 'components/common/noResult'
 Plugin = require 'util/plugin'
 Helper = require 'util/helper'
-XeImage = require 'util/image'
+Image = require 'util/image'
 DB = require 'util/storage'
 ScreenMenu = require 'components/car/screen'
 CarStore = require 'stores/car/car'
@@ -116,6 +116,7 @@ CarItem = React.createClass {
 		e.stopPropagation()
 
 	render: ->
+		# console.log '*********', Image.getFullPath(@props.car?.drivePic, '130x130')
 		<div onClick={@_goPage.bind this, @props.car} className="m-item01 m-item03">
 			<div className="g-item-dirver">
 				<div className="g-dirver">								

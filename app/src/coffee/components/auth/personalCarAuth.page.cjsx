@@ -122,7 +122,7 @@ Auth = React.createClass {
 				type: 'operationLicense'
 			}
 		].map (cell, i)->
-			console.log '---------------cddjd;fdjfad', @state.user.toJS()
+			console.log '---------------url:', cell.url
 			isOpt = @state.user?.personalCarStatus isnt 1 and @state.user?.personalCarStatus isnt 0
 			<PicCell key={i} selectable={isOpt} type={cell.type} url={cell.url} name={cell.name} optional={cell.optional} />
 		, this
