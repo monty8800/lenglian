@@ -85,7 +85,9 @@ window.updateStore = updateStore
 
 window.setAuthPic = (picUrl, type)->
 	console.log 'set auth pic', type, picUrl
+	console.log '-------before----user:', _user.toJS()
 	_user = _user.set type, picUrl
+	console.log '-------after----user:', _user.toJS()
 	DB.put 'user', _user.toJS()
 	UserStore.emitChange 'setAuthPic:done'
 	UserStore.emitChange ['setAuthPicType', type, picUrl]
