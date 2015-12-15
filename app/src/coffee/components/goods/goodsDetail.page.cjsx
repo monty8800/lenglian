@@ -163,6 +163,10 @@ GoodsDetail = React.createClass {
 					<span>{ Helper.priceTypeMapper @state.goodsDetail.priceType }  { if  @state.goodsDetail.price then @state.goodsDetail.price + '元' else ''}</span>
 				</p>
 				<p>
+					<span>预付金额:</span>
+					<span>{ @state.goodsDetail.advance + "元"}</span>
+				</p>
+				<p>
 					<span>支付方式:</span>
 					<span>{ _payTypeText }</span>
 				</p>

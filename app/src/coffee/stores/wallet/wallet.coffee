@@ -256,6 +256,7 @@ chargeRecord = (params)->
 			wallet = wallet.set 'amount', charge.amount
 			wallet = wallet.set 'createTime', charge.createTime
 			wallet = wallet.set 'state', charge.state
+			wallet = wallet.set 'orderId', charge.orderId
 			_chargeRecordList = _chargeRecordList.push wallet
 		WalletStore.emitChange ['charge_record']
 
@@ -269,6 +270,7 @@ presentRecord = (params)->
 			wallet = wallet.set 'amount', charge.amount
 			wallet = wallet.set 'createTime', charge.createTime
 			wallet = wallet.set 'state', charge.state
+			wallet = wallet.set 'orderId', charge.orderId
 			_chargeRecordList = _chargeRecordList.push wallet
 		WalletStore.emitChange ['present_record']
 

@@ -24,7 +24,7 @@ _bindType = 1
 BankCardsList = React.createClass {
 	_addNewBankCard:->
 		if user.certification is 2 and _bindType is 1
-			return '认证企业不能添加快捷银行卡'
+			return Plugin.toast.err '认证企业不能添加快捷银行卡'
 		if user.personalGoodsStatus is 1 or user.personalCarStatus is 1 or user.personalWarehouseStatus is 1 or user.enterpriseGoodsStatus is 1 or user.enterpriseCarStatus is 1 or user.enterpriseWarehouseStatus
 			DB.put 'bindCardType', "#{_bindType}"
 			Plugin.nav.push ['addBankCard']

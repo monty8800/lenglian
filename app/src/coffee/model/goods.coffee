@@ -68,6 +68,8 @@ Goods = Immutable.Record {
 	userName: null #用户姓名
 	userScore: 0 #用户积分
 
+	advance: null
+
 
 }
 

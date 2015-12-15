@@ -21,7 +21,7 @@ PaySuccess = React.createClass {
 			</div>
 			<div className="g-paysuccess-item02">
 				<p>订单编号: <span>{transData.orderNo or ''}</span></p>
-				<p>在线支付: <i>&yen;<span>{transData.payAmount or ''}</span></i></p>
+				<p>在线支付: <i>&yen;<span>{transData.payAmount.toFixed(2) or ''}</span></i></p>
 			</div>
 			<div className="u-order-btn">
 				<a onClick={@_goOrderList}>查看订单列表</a>

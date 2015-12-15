@@ -75,6 +75,7 @@ Record = React.createClass {
 			WalletAction.presentRecord params
 
 	render: ->
+		# <p className="f30">{if _status is 1 then '充值' else '提现'}</p>
 		cells = @state.recordList.map (item, index) ->
 			<div className="m-moneyRecord" key={index}>
 				<div className="g-recordItem clearfix">

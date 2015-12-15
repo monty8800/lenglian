@@ -12,6 +12,7 @@ Wallet = Immutable.Record {
 	type: 0
 	userMobile: null
 	state: null
+	orderId: null
 
 }
 module.exports = Wallet

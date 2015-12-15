@@ -238,6 +238,7 @@ getGoodsDetail = (goodsId)->
 		_goodsDetail = _goodsDetail.set 'prePay',resource.advance
 		_goodsDetail = _goodsDetail.set 'refrigeration', resource.coldStoreFlag
 		_goodsDetail = _goodsDetail.set 'userId', resource.userId
+		_goodsDetail = _goodsDetail.set 'advance', resource.advance
 
 		GoodsStore.emitChange 'getGoodsDetailSucc'
 	,(data)->
