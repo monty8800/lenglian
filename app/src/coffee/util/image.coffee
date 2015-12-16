@@ -2,7 +2,7 @@ Constants = require 'constants/constants'
 
 getFullPath = (image, size)->
 	return null if not image
-	return image if /^(http:\/\/|file:\/\/|\/storage\/).*$/.test(image)
+	return image if /^(http:\/\/|file:\/\/|\/storage\/|\/var\/).*$/.test(image)
 	# return image if /^(http:\/\/|file:\/\/)?\/.*\/.*$/.test(image) 
 	result = Constants.imageServer
 	paths = image.split('|')
